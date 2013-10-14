@@ -1,0 +1,27 @@
+/* 
+    Document   : ie-warning
+    Created on : Oct 15, 2013, 1:06:33 AM
+    Author     : Nguyen Manh Hung
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+
+.ie-warning {
+    max-width: 500px;
+    padding: 20px;
+    margin: 100px auto 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+    -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+    box-shadow: 0 1px 2px rgba(0,0,0,.05);
+    color: red;
+}
+
+.container{
+    display: none !important;
+}
