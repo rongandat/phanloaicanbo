@@ -1,0 +1,17 @@
+<form class="form-signin" action="" method="post">
+    <div class="form-signin-heading">
+        <h2 class="form-signin-heading-text">ĐĂNG NHẬP</h2>
+    </div>
+    <div class="form-signin-content">
+        <?php
+        if ($this->messages && $this->messages['type'] == 'errormsg') {
+            echo '<div class="alert alert-error">' . $this->messages['text'] . '<a class="close" data-dismiss="alert" href="#">&times;</a></div>';
+        }
+        ?>        
+        <label><strong>Tên đăng nhập</strong></label>
+        <input type="text" name="username" class="input-block-level" placeholder="">
+        <label><strong>Mật khẩu</strong></label>
+        <input type="password" name="password" class="input-block-level" placeholder="">                
+        <button class="btn btn-primary" type="submit">Đăng Nhập</button>
+    </div>
+</form>

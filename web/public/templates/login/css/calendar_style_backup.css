@@ -1,0 +1,302 @@
+
+table.schedule{
+border-collapse:collapse;
+background-color:#fff;
+border:1px solid #999;
+}
+
+table.schedule td{
+border:1px solid #999;
+}
+
+td.today{
+background-color:#bfb;
+}
+
+span.today{
+font-weight:bold;
+}
+
+td.holiday,th.holiday{
+background-color:#fcc;
+}
+
+span.holiday{
+font-size:80%;
+}
+
+td.saturday,th.saturday{
+background-color:#cff;
+}
+
+td.sunday,th.sunday{
+background-color:#fcc;
+}
+
+td.weekday,th.weekday{
+background-color:#ffc;
+}
+
+td.headernavi{
+background-color:#eed;
+}
+
+td.hours{
+font-size:90%;
+}
+
+td.morning{
+background-color:#ffc;
+}
+
+td.afternoon{
+background-color:#fc9;
+}
+
+td.evening{
+background-color:#ccf;
+}
+
+td.now{
+background-color:#cfc;
+}
+
+td.eventcell{
+background-color:#fff;
+font-size:90%;
+vertical-align:top;
+}
+
+td.eventcell a{
+padding-top:4px;
+padding-left:4px;
+}
+
+td.facilitycell{
+vertical-align:top;
+padding:4px;
+background-color:#cfc;
+}
+
+td.facilitycell .facilitymemo{
+font-size:80%;
+}
+
+td.facilitycell .linkfacilitymonth{
+font-size:80%;
+margin-top:3px;
+margin-left:2px;
+}
+
+td.groupcell{
+vertical-align:top;
+padding:4px;
+background-color:#ffc;
+}
+
+td.groupcell .linkgroupmonth{
+font-size:80%;
+margin-top:3px;
+margin-left:2px;
+}
+
+td.usercell{
+vertical-align:top;
+padding:4px;
+}
+
+td.usercell .linkusermonth,td.usercell .linkwhere{
+font-size:80%;
+margin-top:3px;
+margin-left:2px;
+}
+
+tr.userrow{
+border-top:1px solid #999;
+}
+
+td.infocell{
+vertical-align:top;
+}
+
+td.infocell .event,td.infocell .bannerevent{
+font-size:90%;
+}
+
+span.bizevent{
+font-size:80%;
+}
+
+span.anniversary{
+font-size:80%;
+}
+
+span.conflict{
+color:#f00;
+}
+
+td.blank{
+background-color:#fff;
+text-align:center;
+}
+
+td.blank.under{
+background-color:#ddd;
+text-align:center;
+}
+
+td.bannerall{
+padding:4px;
+vertical-align:top;
+}
+
+td.banner1{
+font-size:80%;
+background-color:#cfc;
+border:1px solid #666;
+padding:1px;
+}
+
+td.banner2{
+font-size:80%;
+background-color:#cfc;
+border:1px solid #666;
+padding:1px;
+}
+
+table.schedule td.nobanner{
+border:0 solid #666;
+padding:1px;
+background-color:#f0fff0;
+}
+
+td.bannerrow{
+background-color:#dff;
+}
+
+td.hours{
+border:1px solid #999;
+}
+
+td.unit5{
+height:4px;
+}
+
+td.unit10{
+height:8px;
+}
+
+td.unit15{
+height:12px;
+}
+
+td.unit30{
+height:24px;
+}
+
+tr.tmscalerow td.unit5{
+height:8px;
+}
+
+tr.tmscalerow td.unit10{
+height:8px;
+}
+
+tr.tmscalerow td.unit15{
+height:8px;
+}
+
+tr.tmscalerow td.unit30{
+height:8px;
+}
+
+table.schedule tr.eventrow.firstrow td{
+border-top:1px solid #999;
+}
+
+table.schedule.userday td.blank{
+border-top:1px dashed #999;
+border-bottom:0;
+border-right:0;
+border-left:0;
+}
+
+table.schedule.userday .hours,table.schedule.groupday .hours{
+vertical-align:top;
+padding-top:4px;
+padding-left:4px;
+}
+
+table.schedule.userday .eventcell,table.schedule.groupday .eventcell{
+background-color:#ffc;
+border-right:1px solid #333;
+border-bottom:1px solid #333;
+}
+
+table.schedule.userday .eventcell{
+_border-left:0;
+_background-image:url(../image/border9991.gif);
+_background-repeat:repeat-y;
+}
+
+table.schedule.userday.header td.blank{
+border:1px solid #999;
+}
+
+table.schedule.userday.header td.blank.under{
+border:0;
+border-bottom:1px solid #999;
+}
+
+table.schedule.userday.header td.eventcell{
+border:1px solid #999;
+}
+
+table.schedule.userday.header td.hours{
+text-align:left;
+}
+
+
+
+
+
+
+
+
+
+
+
+	table.days {
+		font-family: Tahoma, Arial, Verdana, Helvetica, sans-serif;
+		font-size: 11px;
+	}
+	td.days {
+		border-top: 1px solid #dfdfdf;
+		border-bottom: 1px solid #dfdfdf;
+		border-left: 0px;
+		border-right: 0px;
+	}
+	
+	td.sunday {
+		border-top: 1px solid #dfdfdf;
+		border-bottom: 1px solid #dfdfdf;
+		border-left: 1px solid #dfdfdf;
+		border-right: 0px;
+	}
+	
+	td.saturday {
+		border-top: 1px solid #dfdfdf;
+		border-bottom: 1px solid #dfdfdf;
+		border-left: 0px;
+		border-right: 1px solid #dfdfdf;
+	}		
+	
+	td.date {
+		width: 100%;
+		padding: 0px;
+		border-top: 0px;
+		border-bottom: 0px;
+		border-left: 0px;
+		border-right: 0px;
+		font-size: 10px;
+	}	

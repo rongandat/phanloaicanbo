@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="vi">
+    <head>
+        <title>Cục Hải Quan Ha Tĩnh</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="utf-8">
+
+        <!--[if lte IE 7]>
+        <link href="<?php echo $this->baseUrl('/public/templates/plcb/css/ie-warning.css'); ?>" rel="stylesheet" media="screen">
+        <![endif]-->
+
+        <?php
+        $this->headLink()->appendStylesheet($this->baseUrl('/public/templates/plcb/css/style.css'))
+                ->appendStylesheet($this->baseUrl('/public/templates/plcb/css/bootstrap.min.css'));        
+        $this->headScript()->appendFile($this->baseUrl('/public/templates/plcb/js/jquery-1.10.2.min.js'), 'text/javascript')
+                ->appendFile($this->baseUrl('/public/templates/plcb/js/bootstrap.min.js'), 'text/javascript');
+        $this->headMeta()->appendHttpEquiv('Content-Type', 'text/html;charset=utf-8');
+        echo $this->headLink();
+        echo $this->headMeta();
+        echo $this->headScript();
+        echo $this->headTitle();
+        ?>
+    </head>
+    <body>
+        <!--[if lte IE 7]>
+            <div class="ie-warning">
+                <b>Cảnh báo !</b><br><br>
+                Bạn đang sử dụng trình duyệt quá cũ. Vì vậy các chức năng hoạt động có thể không chính xác.<br>
+                Bạn nên sử dụng trình duyệt <b>IE8+</b> hoặc <b>Chrome</b> hoặc <b>Firefox</b>.<br>
+                Hệ thống khuyến khích bạn bên sử dụng trình duyệt <b>Chrome</b> hoặc <b>Firefox</b><br><br>
+                Bạn có thể tải trình duyệt <b>Chrome</b> mới nhất <a href="https://www.google.com/intl/en/chrome/browser/">tại đây</a><br>
+                Bạn có thể tải trình duyệt <b>Firefox</b> mới nhất <a href="http://www.mozilla.org/vi/firefox/new/">tại đây</a><br>
+                Bạn có thể tải trình duyệt <b>IE</b> mới nhất <a href="http://windows.microsoft.com/vi-vn/internet-explorer/download-ie">tại đây</a>
+            </div>
+        <![endif]-->
+
+        <div class="container">
+            <!-- BOF main header -->
+            <div class="main-header">
+                <div class="main-header-content">
+                    <div class="main-header-left">
+                        <a href="#"><img src="<?php echo $this->baseUrl('/public/templates/plcb/img/logo_main.png'); ?>"></a>
+                    </div>
+                    <div class="main-header-right">
+                        Xin chào: Nguyễn Mạnh Hùng<br>
+                        Đăng nhập lần cuối: 16-10-2013 03:23:22<br>
+                        <a href="#">Đổi mật khẩu</a> - <a href="#">Thoát</a>                        
+                    </div>
+                </div>
+            </div>
+            <!-- EOF main header -->
+
+            <div class="main-menu">
+                <div class="navbar main-content-menu">   
+                    <ul class="nav">
+                        <li class="active"><a href="#">Trang chủ</a></li>
+                        <li><a href="#about">Hệ thống</a></li>
+                        <li><a href="#contact">Cá nhân</a></li>
+                        <li><a href="#about">Đơn vị</a></li>
+                        <li><a href="#contact">Tổ chức cán bộ</a></li>
+                        <li><a href="#about">Thống kê</a></li>
+                        <li><a href="#contact">In lương</a></li>
+                        <li><a href="#about">Danh sách</a></li>
+                    </ul>
+                </div>
+            </div>

@@ -1,0 +1,95 @@
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/dframework/!svn/ver/155/trunk/dframework/public/js/ckeditor
+END
+ckeditor_basic_source.js
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/dframework/!svn/ver/155/trunk/dframework/public/js/ckeditor/ckeditor_basic_source.js
+END
+ckeditor.js
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/dframework/!svn/ver/155/trunk/dframework/public/js/ckeditor/ckeditor.js
+END
+ckeditor.asp
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/dframework/!svn/ver/155/trunk/dframework/public/js/ckeditor/ckeditor.asp
+END
+contents.css
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/dframework/!svn/ver/155/trunk/dframework/public/js/ckeditor/contents.css
+END
+ckeditor_php4.php
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/dframework/!svn/ver/155/trunk/dframework/public/js/ckeditor/ckeditor_php4.php
+END
+ckeditor_php5.php
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/dframework/!svn/ver/155/trunk/dframework/public/js/ckeditor/ckeditor_php5.php
+END
+ckeditor.pack
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/dframework/!svn/ver/155/trunk/dframework/public/js/ckeditor/ckeditor.pack
+END
+ckeditor_source.js
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/dframework/!svn/ver/155/trunk/dframework/public/js/ckeditor/ckeditor_source.js
+END
+ckeditor_basic.js
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/dframework/!svn/ver/155/trunk/dframework/public/js/ckeditor/ckeditor_basic.js
+END
+config.js
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/dframework/!svn/ver/155/trunk/dframework/public/js/ckeditor/config.js
+END
+CHANGES.html
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/dframework/!svn/ver/155/trunk/dframework/public/js/ckeditor/CHANGES.html
+END
+LICENSE.html
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/dframework/!svn/ver/155/trunk/dframework/public/js/ckeditor/LICENSE.html
+END
+INSTALL.html
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/dframework/!svn/ver/155/trunk/dframework/public/js/ckeditor/INSTALL.html
+END
+.htaccess
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/dframework/!svn/ver/155/trunk/dframework/public/js/ckeditor/.htaccess
+END
+ckeditor.php
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/dframework/!svn/ver/155/trunk/dframework/public/js/ckeditor/ckeditor.php
+END

@@ -1,0 +1,1 @@
+<?phpclass Block_BlkHeader extends Zend_View_Helper_Abstract {    function blkHeader() {                $view = $this->view;        $arrParam = $view->arrParam;        require_once (BLOCK_PATH . '/BlkHeader/' . TEMPLATE_USED . '/default.php');    }}
