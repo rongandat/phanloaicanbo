@@ -61,6 +61,14 @@ class Login_IndexController extends Zend_Controller_Action {
                             ));
 
                     if ($data->status) {
+                        $logModel = new Login_Model_Logs();
+                        $ip = $this->get_client_ip();
+                        $data_log = array('user_id' => $data->user_id, 'login_ip' => $ip);
+                        $insertLog = $logModel->insertLog($data_log);
+                        $last_login_data = $logModel->getLastLogin($data->user_id);
+                        if ($last_login_data) {
+                            $data->last_loin_data = $last_login_data;
+                        }
                         $auth->getStorage()->write($data);
                         $redirector = new Zend_Controller_Action_Helper_Redirector ();
                         $redirector->gotoUrlAndExit(SITE_URL);
@@ -99,7 +107,16 @@ class Login_IndexController extends Zend_Controller_Action {
         $authAdapter = Zend_Auth::getInstance();
         $authAdapter->clearIdentity();
         $redirector = new Zend_Controller_Action_Helper_Redirector ();
-        $redirector->gotoUrlAndExit(SITE_URL.'/auth/login');
+        $redirector->gotoUrlAndExit(SITE_URL . '/auth/login');
+    }
+
+    protected function get_client_ip() {
+        $ipaddress = '';
+        if (isset($_SERVER['HTTP_X_FORWARDED_FOR']))
+            $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        else
+            $ipaddress = $_SERVER['REMOTE_ADDR'];
+        return $ipaddress;
     }
 
 }
