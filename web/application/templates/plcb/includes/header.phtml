@@ -11,7 +11,7 @@
 
         <?php
         $this->headLink()->appendStylesheet($this->baseUrl('/public/templates/plcb/css/style.css'))
-                ->appendStylesheet($this->baseUrl('/public/templates/plcb/css/bootstrap.min.css'));        
+                ->appendStylesheet($this->baseUrl('/public/templates/plcb/css/bootstrap.min.css'));
         $this->headScript()->appendFile($this->baseUrl('/public/templates/plcb/js/jquery-1.10.2.min.js'), 'text/javascript')
                 ->appendFile($this->baseUrl('/public/templates/plcb/js/bootstrap.min.js'), 'text/javascript');
         $this->headMeta()->appendHttpEquiv('Content-Type', 'text/html;charset=utf-8');
@@ -41,26 +41,11 @@
                     <div class="main-header-left">
                         <a href="#"><img src="<?php echo $this->baseUrl('/public/templates/plcb/img/logo_main.png'); ?>"></a>
                     </div>
-                    <div class="main-header-right">
-                        Xin chào: Nguyễn Mạnh Hùng<br>
-                        Đăng nhập lần cuối: 16-10-2013 03:23:22<br>
-                        <a href="#">Đổi mật khẩu</a> - <a href="#">Thoát</a>                        
-                    </div>
+                    <?php echo $this->blkTopInfo(); ?>                    
                 </div>
             </div>
             <!-- EOF main header -->
 
             <div class="main-menu">
-                <div class="navbar main-content-menu">   
-                    <ul class="nav">
-                        <li class="active"><a href="#">Trang chủ</a></li>
-                        <li><a href="#about">Hệ thống</a></li>
-                        <li><a href="#contact">Cá nhân</a></li>
-                        <li><a href="#about">Đơn vị</a></li>
-                        <li><a href="#contact">Tổ chức cán bộ</a></li>
-                        <li><a href="#about">Thống kê</a></li>
-                        <li><a href="#contact">In lương</a></li>
-                        <li><a href="#about">Danh sách</a></li>
-                    </ul>
-                </div>
+                <?php echo $this->blkTopMenu(); ?>  
             </div>

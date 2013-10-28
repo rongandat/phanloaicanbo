@@ -66,8 +66,8 @@ class Login_IndexController extends Zend_Controller_Action {
                         $data_log = array('user_id' => $data->user_id, 'login_ip' => $ip);
                         $insertLog = $logModel->insertLog($data_log);
                         $last_login_data = $logModel->getLastLogin($data->user_id);
-                        if ($last_login_data) {
-                            $data->last_loin_data = $last_login_data;
+                        if (sizeof($last_login_data)) {
+                            $data->last_login_data = $last_login_data[0];
                         }
                         $auth->getStorage()->write($data);
                         $redirector = new Zend_Controller_Action_Helper_Redirector ();
