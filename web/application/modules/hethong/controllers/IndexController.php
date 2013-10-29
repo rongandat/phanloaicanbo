@@ -13,7 +13,7 @@ class Hethong_IndexController extends Zend_Controller_Action {
     public function indexAction() {
 
         $layoutPath = APPLICATION_PATH . '/templates/' . TEMPLATE_USED;
-        $option = array('layout' => 'hethong/index',
+        $option = array('layout' => 'hethong/layout',
             'layoutPath' => $layoutPath);
 
         Zend_Layout::startMvc($option);
