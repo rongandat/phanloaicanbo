@@ -8,19 +8,22 @@
         <!--[if lte IE 7]>
         <link href="<?php echo $this->baseUrl('/public/templates/plcb/css/ie-warning.css'); ?>" rel="stylesheet" media="screen">
         <![endif]-->
-
+        <script type="text/javascript">
+            var site_url = '<?php echo SITE_URL; ?>';
+        </script>
         <?php
         $this->headLink()->appendStylesheet($this->baseUrl('/public/templates/plcb/css/style.css'))
                 ->appendStylesheet($this->baseUrl('/public/templates/plcb/css/bootstrap.min.css'));
         $this->headScript()->appendFile($this->baseUrl('/public/templates/plcb/js/jquery-1.10.2.min.js'), 'text/javascript')
-                ->appendFile($this->baseUrl('/public/templates/plcb/js/bootstrap.min.js'), 'text/javascript');
+                ->appendFile($this->baseUrl('/public/templates/plcb/js/bootstrap.min.js'), 'text/javascript')
+                ->appendFile($this->baseUrl('/public/js/global.js'), 'text/javascript');
         $this->headMeta()->appendHttpEquiv('Content-Type', 'text/html;charset=utf-8');
         echo $this->headLink();
         echo $this->headMeta();
         echo $this->headScript();
         echo $this->headTitle();
         ?>
-    </head>
+    </head>    
     <body>
         <!--[if lte IE 7]>
             <div class="ie-warning">

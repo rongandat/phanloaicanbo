@@ -11,15 +11,8 @@ class Hethong_IndexController extends Zend_Controller_Action {
     }
 
     public function indexAction() {
-
-        $layoutPath = APPLICATION_PATH . '/templates/' . TEMPLATE_USED;
-        $option = array('layout' => 'hethong/layout',
-            'layoutPath' => $layoutPath);
-
-        Zend_Layout::startMvc($option);
-        $translate = Zend_Registry::get('Zend_Translate');
-        $this->view->title = 'Hệ thống - '.$translate->_('TEXT_DEFAULT_TITLE');
-        $this->view->headTitle($this->view->title);
+        $redirector = new Zend_Controller_Action_Helper_Redirector();
+        $redirector->gotoUrlAndExit(SITE_URL . '/hethong/users');
     }
 
 }
