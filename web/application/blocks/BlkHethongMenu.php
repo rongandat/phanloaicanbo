@@ -6,7 +6,7 @@ class Block_BlkHethongMenu extends Zend_View_Helper_Abstract {
         $view = $this->view;
         $arrParam = $view->arrParam;
         $list_menu = array(
-            'users' => 'QL Đăng nhập',
+            'users' => 'QL Tài khoản',
             'groups' => 'QL Nhóm, quyền',
             'phongban' => 'QL Phòng ban',
             'holidays' => 'QL Ngày nghỉ lễ',

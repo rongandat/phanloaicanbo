@@ -15,14 +15,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     }
 
     public function _initLoadHelper() {
-        /*
-          Zend_Controller_Action_HelperBroker::addPath(
-          APPLICATION_PATH . '/modules/front/views/helpers');
 
-          Zend_Controller_Action_HelperBroker::addPath(
-          APPLICATION_PATH . '/modules/user/views/helpers');
+        Zend_Controller_Action_HelperBroker::addPath(
+                APPLICATION_PATH . '/modules/front/views/helpers');
 
-         */
+        Zend_Controller_Action_HelperBroker::addPath(
+                APPLICATION_PATH . '/modules/hethong/views/helpers');
     }
 
     protected function _initLoadRouter() {

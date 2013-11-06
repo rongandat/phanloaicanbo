@@ -1,58 +1,72 @@
 <div class="body_content float_right">
-    <h5>Thông báo mới</h5>               
+    <h5>Quản lý tài khoản</h5>               
 
-    <div class="main-content-box">                     
-        <table class="table table-bordered table-hover">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Tiêu đề</th>
-                    <th>Ngày</th>
-                    <th>Chức năng</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td><a>Thông báo về việc cập nhật hồ sơ</a></td>
-                    <td>29/12/2013</td>
-                    <td>
-                        <a class="btn btn-mini" href="#" title="Xem"><i class="icon-play"></i></a>
-                        <a class="btn btn-mini" href="#" title="Đánh dấu đã xem"><i class="icon-eye-open"></i></a>
-                        <a class="btn btn-mini" href="#" title="Xóa"><i class="icon-trash"></i></a>
-                    </td>
-                </tr>  
-                <tr>
-                    <td>2</td>
-                    <td><a>Thông báo về việc cập nhật hồ sơ</a></td>
-                    <td>29/12/2013</td>
-                    <td>
-                        <a class="btn btn-mini" href="#" title="Xem"><i class="icon-play"></i></a>
-                        <a class="btn btn-mini" href="#" title="Đánh dấu đã xem"><i class="icon-eye-open"></i></a>
-                        <a class="btn btn-mini" href="#" title="Xóa"><i class="icon-trash"></i></a>
-                    </td>
-                </tr>  
-                <tr>
-                    <td>3</td>
-                    <td><a>Thông báo về việc cập nhật hồ sơ</a></td>
-                    <td>29/12/2013</td>
-                    <td>
-                        <a class="btn btn-mini" href="#" title="Xem"><i class="icon-play"></i></a>
-                        <a class="btn btn-mini" href="#" title="Đánh dấu đã xem"><i class="icon-eye-open"></i></a>
-                        <a class="btn btn-mini" href="#" title="Xóa"><i class="icon-trash"></i></a>
-                    </td>
-                </tr>  
-                <tr>
-                    <td>4</td>
-                    <td><a>Thông báo về việc cập nhật hồ sơ</a></td>
-                    <td>29/12/2013</td>
-                    <td>
-                        <a class="btn btn-mini" href="#" title="Xem"><i class="icon-play"></i></a>
-                        <a class="btn btn-mini" href="#" title="Đánh dấu đã xem"><i class="icon-eye-open"></i></a>
-                        <a class="btn btn-mini" href="#" title="Xóa"><i class="icon-trash"></i></a>
-                    </td>
-                </tr>  
-            </tbody>
-        </table>
+    <div class="main-content-box">  
+        <form name="appForm" method="get" action="">
+            <div class="btn-toolbar">
+                <div class="btn-group">
+                    <button class="btn" onclick="OnSubmitForm('<?php echo $this->baseUrl('hethong/users/deleteitems'); ?>')"><i class="icon-trash"></i> Xóa chọn</button>
+                    <a class="btn" href="<?php echo $this->baseUrl('hethong/users/add'); ?>"><i class="icon-plus-sign"></i> Thêm tài khoản đăng nhập mới</a>
+                </div>
+            </div>
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th class="checkall_style"><input type="checkbox" name="checkbox" id="checkbox" onclick="checkedAll()"></th>
+                        <th>Tài khoản</th>
+                        <th>Nhân viên</th>
+                        <th>Nhóm</th>
+                        <th>Trạng thái</th>
+                        <th>Chức năng</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    foreach ($this->paginator as $item) {
+                        echo '<tr>
+                            <td class="checkall_style"><input type="checkbox" name="cid[]" id="cid" value="' . $item->user_id . '"></td>
+                            <td><a href="' . $this->baseUrl('hethong/users/edit/' . $item->user_id) . '">' . $item->username . '</a></td>
+                            <td><a href="#employeeModal" role="button" data-toggle="modal">' . $this->viewGetName($item->employee_id) . '</a></td>
+                            <td>' . $this->viewGetGroupName($item->group_id) . '</td>
+                            <td><a href="' . ($item->status ? $this->baseUrl('hethong/users/changestatus/' . $item->user_id . '/0') : $this->baseUrl('hethong/users/changestatus/' . $item->user_id . '/1')) . '"><div class="' . ($item->status ? 'icon_status_active' : 'icon_status_inactive') . '"></div></a></td>
+                            <td>
+                                <a class="btn btn-mini" href="' . $this->baseUrl('hethong/users/edit/' . $item->user_id) . '" title="Sửa"><i class="icon-edit"></i> Sửa</a>
+                                <a class="btn btn-mini" href="' . $this->baseUrl('hethong/users/delete/' . $item->user_id) . '" title="Xóa"><i class="icon-trash"></i> Xóa</a>
+                                <a class="btn btn-mini" href="' . $this->baseUrl('hethong/users/permissions/' . $item->user_id) . '" title="Phân quyền"><i class="icon-cog"></i> Phân Quyền</a>
+                            </td>
+                        </tr>';
+                    }
+                    ?>
+                </tbody>
+            </table>
+            <?php echo $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml'); ?>
+        </form>
     </div> 
+
+
+    <div id="employeeModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 id="myModalLabel">Thông tin nhân viên</h4>
+        </div>
+        <div class="modal-body" id="md_employee_info">
+            <div class="progress progress-striped active">
+                <div class="bar" style="width: 100%;">Loading...</div>
+            </div>
+            <dl class="dl-horizontal">
+                <dt>Description lists</dt>
+                <dd>A description list is perfect for defining terms.</dd>
+                <dt>Euismod</dt>
+                <dd>Vestibulum id ligula porta felis euismod semper eget lacinia odio sem nec elit.</dd>
+                <dd>Donec id elit non mi porta gravida at eget metus.</dd>
+                <dt>Malesuada porta</dt>
+                <dd>Etiam porta sem malesuada magna mollis euismod.</dd>
+                <dt>Felis euismod semper eget lacinia</dt>
+                <dd>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</dd>
+            </dl>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Đóng</button>
+        </div>
+    </div>
 </div>

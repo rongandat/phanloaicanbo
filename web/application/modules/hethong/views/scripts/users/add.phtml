@@ -1,0 +1,83 @@
+<div class="body_content float_right">
+    <h5>Thêm tài khoản đăng nhập mới</h5>               
+
+    <div class="main-content-box"> 
+        <?php if ($this->error_message) : ?>
+            <div class="alert alert-error">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <h5>Thông báo!</h5>
+                Thêm tài khoản mới không thành công vì:
+                <ol>
+                    <?php foreach ($this->error_message as $message): ?>
+                        <li><?php echo $message; ?></li>
+                    <?php endforeach; ?>
+                </ol>
+            </div> 
+        <?php endif; ?>  
+        <?php if ($this->success_message) : ?>
+            <div class="alert alert-success">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <h5>Thông báo!</h5>
+                <?php echo $this->success_message; ?>
+            </div>
+        <?php endif; ?>  
+        <form class="form-horizontal" method="post" action="">
+            <div class="control-group">
+                <label class="control-label" for="inputUsername">Tên tài khoản</label>
+                <div class="controls">
+                    <input type="text" name="username" id="inputUsername" placeholder="Tên đăng nhập" required="">
+                    <span class="help-block">Nhân viên dùng thông tin này để đăng nhập và hệ thống.</span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="inputPassword">Mật khẩu</label>
+                <div class="controls">
+                    <input type="password" name="password" id="inputPassword" placeholder="Mật khẩu" required="">
+                </div>
+            </div> 
+            <div class="control-group">
+                <label class="control-label" for="inputPassword">Nhân viên</label>
+                <div class="controls">
+                    <select>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select>
+                    <span class="help-block">Chọn nhân viên ứng với tên đăng nhập đang được tạo.</span>
+                </div>
+            </div> 
+            <div class="control-group">
+                <label class="control-label" for="inputPassword">Nhóm</label>
+                <div class="controls">
+                    <select>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select>
+                    <span class="help-block">Chọn nhóm để giới hạn quyền cho nhân viên.</span>
+                </div>
+            </div> 
+            <div class="control-group">
+                <label class="control-label" for="inputPassword">Trạng thái</label>
+                <div class="controls">
+                    <select>
+                        <option value="1">Sử dụng</option>
+                        <option value="0">Khóa</option>
+                    </select>
+                </div>
+            </div> 
+            <div class="control-group">
+                <div class="controls">
+                    <p>
+                        <button class="btn btn-small btn-primary" type="submit">Thêm mới</button>
+                        <a class="btn btn-small" type="button" href="<?php echo $this->baseUrl('hethong/users'); ?>">Quay lại</a>
+                    </p>
+                </div>
+            </div>
+        </form>
+    </div> 
+</div>
