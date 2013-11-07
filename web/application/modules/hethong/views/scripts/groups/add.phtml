@@ -1,0 +1,51 @@
+<div class="body_content float_right">
+    <h5>Thêm nhóm mới</h5>               
+
+    <div class="main-content-box"> 
+        <?php if ($this->error_message) : ?>
+            <div class="alert alert-error">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <h5>Thông báo!</h5>
+                Thêm nhóm mới không thành công vì:
+                <ol>
+                    <?php foreach ($this->error_message as $message): ?>
+                        <li><?php echo $message; ?></li>
+                    <?php endforeach; ?>
+                </ol>
+            </div> 
+        <?php endif; ?>  
+        <?php if ($this->success_message) : ?>
+            <div class="alert alert-success">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <h5>Thông báo!</h5>
+                <?php echo $this->success_message; ?>
+            </div>
+        <?php endif; ?>  
+        <form class="form-horizontal" method="post" action="">
+            <div class="control-group">
+                <label class="control-label" for="group_name">Tên nhóm</label>
+                <div class="controls">
+                    <?php echo $this->formText('group_name', NULL, array('required' => '')); ?>
+                </div>
+            </div>     
+
+            <div class="control-group">
+                <label class="control-label" for="group_status">Trạng thái</label>
+                <div class="controls">
+                    <?php
+                    $status_options = array(1 => 'Sử dụng', 0 => 'Khóa');
+                    echo $this->formSelect('group_status', null, null, $status_options);
+                    ?>                     
+                </div>
+            </div> 
+            <div class="control-group">
+                <div class="controls">
+                    <p>
+                        <button class="btn btn-small btn-primary" type="submit">Thêm mới</button>
+                        <a class="btn btn-small" type="button" href="<?php echo $this->baseUrl('hethong/groups/index/page/'. $this->arrParam['page']); ?>">Quay lại</a>
+                    </p>
+                </div>
+            </div>
+        </form>
+    </div> 
+</div>

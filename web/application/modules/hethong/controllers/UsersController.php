@@ -12,7 +12,6 @@ class Hethong_UsersController extends Zend_Controller_Action {
             $this->_arrParam['page'] = 1;
         }
         $this->_page = $this->_arrParam['page'];
-
         $this->view->arrParam = $this->_arrParam;
     }
 
@@ -91,12 +90,15 @@ class Hethong_UsersController extends Zend_Controller_Action {
             }
 
             if (!sizeof($error_message)) {
+                $current_time = new Zend_Db_Expr('NOW()');
                 $userModel->insert(array(
                     'employee_id' => $employee,
                     'group_id' => $group,
                     'username' => $username,
                     'password' => md5($password),
-                    'status' => $status
+                    'status' => $status,
+                    'date_added' => $current_time,
+                    'date_modified' => $current_time
                         )
                 );
                 $success_message = 'Đã thêm tài khoản mới thành công.';
@@ -172,11 +174,13 @@ class Hethong_UsersController extends Zend_Controller_Action {
             }
 
             if (!sizeof($error_message)) {
+                $current_time = new Zend_Db_Expr('NOW()');
                 $userModel->update(array(
                     'employee_id' => $employee,
                     'group_id' => $group,
                     'username' => $username,
-                    'status' => $status
+                    'status' => $status,
+                    'date_modified' => $current_time
                         ), 'user_id=' . $id
                 );
 
@@ -246,9 +250,9 @@ class Hethong_UsersController extends Zend_Controller_Action {
         } else {
             $type = 0;
         }
-
+        $current_time = new Zend_Db_Expr('NOW()');
         $userModel = new Front_Model_Users();
-        $userModel->update(array('status' => $type), 'user_id=' . $id);
+        $userModel->update(array('status' => $type, 'date_modified' => $current_time), 'user_id=' . $id);
         $this->_redirect('hethong/users/index/page/' . $this->_page);
     }
 

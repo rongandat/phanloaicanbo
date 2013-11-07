@@ -5,7 +5,7 @@
         <form name="appForm" method="post" action="">
             <div class="btn-toolbar">
                 <div class="btn-group">
-                    <button class="btn" onclick="OnSubmitForm('<?php echo $this->baseUrl('hethong/users/deleteitems'); ?>')"><i class="icon-trash"></i> Xóa chọn</button>
+                    <button class="btn" onclick="OnSubmitForm('<?php echo $this->baseUrl('hethong/users/deleteitems/page/' . $this->arrParam['page']); ?>')"><i class="icon-trash"></i> Xóa chọn</button>
                     <a class="btn" href="<?php echo $this->baseUrl('hethong/users/add/page/' . $this->arrParam['page']); ?>"><i class="icon-plus-sign"></i> Thêm tài khoản đăng nhập mới</a>
                 </div>
             </div>
@@ -25,13 +25,13 @@
                     foreach ($this->paginator as $item) {
                         echo '<tr>
                             <td class="checkall_style"><input type="checkbox" name="cid[]" id="cid" value="' . $item->user_id . '"></td>
-                            <td><a href="' . $this->baseUrl('hethong/users/edit/id/' . $item->user_id) . '">' . $item->username . '</a></td>
+                            <td><a href="' . $this->baseUrl('hethong/users/edit/id/' . $item->user_id . '/page/' . $this->arrParam['page']) . '">' . $item->username . '</a></td>
                             <td><a href="#employeeModal" role="button" data-toggle="modal">' . $this->viewGetName($item->employee_id) . '</a></td>
                             <td>' . $this->viewGetGroupName($item->group_id) . '</td>
                             <td><a href="' . ($item->status ? $this->baseUrl('hethong/users/changestatus/id/' . $item->user_id . '/status/0/page/' . $this->arrParam['page']) : $this->baseUrl('hethong/users/changestatus/id/' . $item->user_id . '/status/1/page/' . $this->arrParam['page'])) . '"><div class="' . ($item->status ? 'icon_status_active' : 'icon_status_inactive') . '"></div></a></td>
                             <td>
-                                <a class="btn btn-mini" href="' . $this->baseUrl('hethong/users/edit/id/' . $item->user_id) . '" title="Sửa"><i class="icon-edit"></i> Sửa</a>
-                                <a class="btn btn-mini" href="' . $this->baseUrl('hethong/users/delete/id/' . $item->user_id) . '" title="Xóa"><i class="icon-trash"></i> Xóa</a>                                
+                                <a class="btn btn-mini" href="' . $this->baseUrl('hethong/users/edit/id/' . $item->user_id . '/page/' . $this->arrParam['page']) . '" title="Sửa"><i class="icon-edit"></i> Sửa</a>
+                                <a class="btn btn-mini" href="' . $this->baseUrl('hethong/users/delete/id/' . $item->user_id . '/page/' . $this->arrParam['page']) . '" title="Xóa"><i class="icon-trash"></i> Xóa</a>                                
                             </td>
                         </tr>';
                     }

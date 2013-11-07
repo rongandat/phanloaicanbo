@@ -2,11 +2,11 @@
     <h5>Quản lý nhóm, phân quyền</h5>               
 
     <div class="main-content-box">  
-        <form name="appForm" method="get" action="">
+        <form name="appForm" method="post" action="">
             <div class="btn-toolbar">
                 <div class="btn-group">
-                    <button class="btn" onclick="OnSubmitForm('<?php echo $this->baseUrl('hethong/groups/deleteitems'); ?>')"><i class="icon-trash"></i> Xóa chọn</button>
-                    <a class="btn" href="<?php echo $this->baseUrl('hethong/groups/add');?>"><i class="icon-plus-sign"></i> Thêm nhóm mới</a>
+                    <button class="btn" onclick="OnSubmitForm('<?php echo $this->baseUrl('hethong/groups/deleteitems/page/'.$this->arrParam['page']); ?>')"><i class="icon-trash"></i> Xóa chọn</button>
+                    <a class="btn" href="<?php echo $this->baseUrl('hethong/groups/add/page/' . $this->arrParam['page']); ?>"><i class="icon-plus-sign"></i> Thêm nhóm mới</a>
                 </div>
             </div>
             <table class="table table-bordered table-hover">
@@ -23,12 +23,12 @@
                     foreach ($this->list_groups as $group) {
                         echo '<tr>
                             <td class="checkall_style"><input type="checkbox" name="cid[]" id="cid" value="' . $group->group_id . '"></td>
-                            <td><a href="' . $this->baseUrl('hethong/groups/edit/' . $group->group_id) . '">' . $group->group_name . '</a></td>
-                            <td class="status_style"><a href="' . ($group->group_status ? $this->baseUrl('hethong/groups/changestatus/' . $group->group_id . '/0') : $this->baseUrl('hethong/groups/changestatus/' . $group->group_id . '/1')) . '"><div class="' . ($group->group_status ? 'icon_status_active' : 'icon_status_inactive') . '"></div></a></td>
+                            <td><a href="' . $this->baseUrl('hethong/groups/edit/id/' . $group->group_id . '/page/' . $this->arrParam['page']) . '">' . $group->group_name . '</a></td>
+                            <td class="status_style"><a href="' . ($group->group_status ? $this->baseUrl('hethong/groups/changestatus/id/' . $group->group_id . '/status/0/page/' . $this->arrParam['page']) : $this->baseUrl('hethong/groups/changestatus/id/' . $group->group_id . '/status/1/page/' . $this->arrParam['page'])) . '"><div class="' . ($group->group_status ? 'icon_status_active' : 'icon_status_inactive') . '"></div></a></td>
                             <td class="function_style">
-                                <a class="btn btn-mini" href="' . $this->baseUrl('hethong/groups/edit/' . $group->group_id) . '" title="Sửa"><i class="icon-edit"></i> Sửa</a>
-                                <a class="btn btn-mini" href="' . $this->baseUrl('hethong/groups/delete/' . $group->group_id) . '" title="Xóa"><i class="icon-trash"></i> Xóa</a>
-                                <a class="btn btn-mini" href="' . $this->baseUrl('hethong/groups/permissions/' . $group->group_id) . '" title="Phân quyền"><i class="icon-cog"></i> Phân Quyền</a>
+                                <a class="btn btn-mini" href="' . $this->baseUrl('hethong/groups/edit/id/' . $group->group_id . '/page/' . $this->arrParam['page']) . '" title="Sửa"><i class="icon-edit"></i> Sửa</a>
+                                <a class="btn btn-mini" href="' . $this->baseUrl('hethong/groups/delete/id/' . $group->group_id . '/page/' . $this->arrParam['page']) . '" title="Xóa"><i class="icon-trash"></i> Xóa</a>
+                                <a class="btn btn-mini" href="' . $this->baseUrl('hethong/groups/permissions/id/' . $group->group_id . '/page/' . $this->arrParam['page']) . '" title="Phân quyền"><i class="icon-cog"></i> Phân Quyền</a>
                             </td>
                         </tr>';
                     }
