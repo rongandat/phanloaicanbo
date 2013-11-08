@@ -7,7 +7,7 @@ class Block_BlkHethongMenu extends Zend_View_Helper_Abstract {
         $arrParam = $view->arrParam;
         $list_menu = array(
             'users' => 'QL Tài khoản',
-            'groups' => 'QL Nhóm, quyền',
+            'groups' => 'QL Nhóm, Phân quyền',
             'phongban' => 'QL Phòng ban',
             'holidays' => 'QL Ngày nghỉ lễ',
             'tieuchi' => 'QL Tiêu chí đánh giá cán bộ',
@@ -16,8 +16,7 @@ class Block_BlkHethongMenu extends Zend_View_Helper_Abstract {
             'chungchi' => 'QL Chứng chỉ',
             'hocham' => 'QL Học hàm',
             'dantoc' => 'QL Dân tộc',
-            'tinh' => 'QL Tỉnh',
-            'huyen' => 'QL Huyện'
+            'tinh' => 'QL Tỉnh, Huyện'
         );
         $controller_name = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
         require_once (BLOCK_PATH . '/BlkHethongMenu/' . TEMPLATE_USED . '/default.php');

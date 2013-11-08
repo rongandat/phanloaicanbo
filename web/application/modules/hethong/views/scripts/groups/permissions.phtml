@@ -2,6 +2,10 @@
     <h5>Phân quyền</h5>               
 
     <div class="main-content-box"> 
+        <div class="alert alert-info">
+            Đang phân quyền cho nhóm <strong>Test</strong>
+        </div>
+
         <?php if ($this->error_message) : ?>
             <div class="alert alert-error">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -22,12 +26,42 @@
             </div>
         <?php endif; ?>  
         <form class="form-horizontal" method="post" action="">
-             
+            <label class="checkbox">
+                <input type="checkbox" name="check_all" id="checkbox" onclick="checkedAll()"> Chọn/bỏ chọn tất cả
+            </label>            
+            <?php foreach ($this->permissions as $permission): ?>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th colspan="4"><?php echo $permission['group']; ?></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <?php
+                        $i = 0;
+                        foreach ($permission['permissions'] as $permission_item):
+                            $i++;
+                            if ($i % 2 == 1 && $i == sizeof($permission['permissions'])) {
+                                $tr_content .= '<td style="width: 20px; max-width: 20px;"><input type="checkbox" name="cid[]" id="cid" value="' . $permission_item['id'] . '"></td><td style="width: 300px;">' . $permission_item['name'] . '</td><td style="width: 20px; max-width: 20px;"></td><td></td>';
+                            } else {
+                                $tr_content .= '<td style="width: 20px; max-width: 20px;"><input type="checkbox" name="cid[]" id="cid" value="' . $permission_item['id'] . '"></td><td style="width: 300px;">' . $permission_item['name'] . '</td>';
+                            }
+                            if (($i % 2 == 0) || ($i % 2 == 1 && $i == sizeof($permission['permissions']))) {
+                                echo '<tr>' . $tr_content . '</tr>';
+                                $tr_content = '';
+                            }
+                            ?>
+                        <?php endforeach; ?>                        
+                    </tbody>
+                </table>
+            <?php endforeach; ?>
+
             <div class="control-group">
                 <div class="controls">
                     <p>
                         <button class="btn btn-small btn-primary" type="submit">Cập nhật</button>
-                        <a class="btn btn-small" type="button" href="<?php echo $this->baseUrl('hethong/groups/index/page/'. $this->arrParam['page']); ?>">Quay lại</a>
+                        <a class="btn btn-small" type="button" href="<?php echo $this->baseUrl('hethong/groups/index/page/' . $this->arrParam['page']); ?>">Quay lại</a>
                     </p>
                 </div>
             </div>

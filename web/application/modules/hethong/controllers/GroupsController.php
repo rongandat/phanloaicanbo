@@ -13,6 +13,61 @@ class Hethong_GroupsController extends Zend_Controller_Action {
         }
         $this->_page = $this->_arrParam['page'];
         $this->view->arrParam = $this->_arrParam;
+
+        /*
+          $permissions = array(
+          array(
+          'group' => 'Hệ thống - Quản lý tài khoản',
+          'permissions' => array(
+          array('id' => 1, 'name' => 'Truy cập'),
+          array('id' => 2, 'name' => 'Thêm tài khoản mới'),
+          array('id' => 3, 'name' => 'Sửa thông tin tài khoản'),
+          array('id' => 4, 'name' => 'Xóa tài khoản')
+          )
+          ),
+          array(
+          'group' => 'Hệ thống - Quản lý nhóm, phân quyền',
+          'permissions' => array(
+          array('id' => 5, 'name' => 'Truy cập'),
+          array('id' => 6, 'name' => 'Thêm nhóm mới'),
+          array('id' => 7, 'name' => 'Sửa thông tin nhóm'),
+          array('id' => 8, 'name' => 'Xóa nhóm'),
+          array('id' => 10, 'name' => 'Phân quyền')
+          )
+          )
+          );
+         */
+        $this->view->permissions = array(
+            array(
+                'group' => 'Hệ thống',
+                'permissions' => array(
+                    array('id' => 1001, 'name' => 'Quản lý tài khoản'),
+                    array('id' => 1002, 'name' => 'Quản lý nhóm, phân quyền'),
+                    array('id' => 1003, 'name' => 'Quản lý phòng ban'),
+                    array('id' => 1004, 'name' => 'Quản lý ngày nghỉ lễ'),
+                    array('id' => 1005, 'name' => 'Quản lý tiêu chí đánh giá cán bộ'),
+                    array('id' => 1006, 'name' => 'Quản lý đánh giá kết quả công việc'),
+                    array('id' => 1007, 'name' => 'Quản lý bằng cấp'),
+                    array('id' => 1008, 'name' => 'Quản lý chứng chỉ'),
+                    array('id' => 1009, 'name' => 'Quản lý học hàm'),
+                    array('id' => 1010, 'name' => 'Quản lý dân tộc'),
+                    array('id' => 1011, 'name' => 'Quản lý tỉnh, huyện')
+                )
+            ),
+            array(
+                'group' => 'Cá nhân',
+                'permissions' => array(
+                    array('id' => 2001, 'name' => 'Thông báo'),
+                    array('id' => 2002, 'name' => 'Thông tin cá nhân'),
+                    array('id' => 2003, 'name' => 'Cập nhật thông tin'),
+                    array('id' => 2004, 'name' => 'Xin nghỉ phép'),
+                    array('id' => 2005, 'name' => 'Chấm công'),
+                    array('id' => 2006, 'name' => 'Khai báo thêm giờ'),
+                    array('id' => 2007, 'name' => 'Thống kê tháng'),
+                    array('id' => 2008, 'name' => 'Đánh giá phân loại')
+                )
+            )
+        );
     }
 
     public function indexAction() {
@@ -187,8 +242,8 @@ class Hethong_GroupsController extends Zend_Controller_Action {
         }
         $this->_redirect('hethong/groups/index/page/' . $this->_page);
     }
-    
-    function permissionsAction(){
+
+    function permissionsAction() {
         $layoutPath = APPLICATION_PATH . '/templates/' . TEMPLATE_USED;
         $option = array('layout' => 'hethong/layout',
             'layoutPath' => $layoutPath);
