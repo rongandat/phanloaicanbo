@@ -21,4 +21,16 @@ class IndexController extends Zend_Controller_Action {
         $this->view->title = $translate->_('TEXT_DEFAULT_TITLE');
         $this->view->headTitle($this->view->title);
     }
+    
+    public function permissionAction() {
+        
+        $layoutPath = APPLICATION_PATH . '/templates/' . TEMPLATE_USED;
+        $option = array('layout' => 'index',
+            'layoutPath' => $layoutPath);
+
+        Zend_Layout::startMvc($option);
+        $translate = Zend_Registry::get('Zend_Translate');
+        $this->view->title = $translate->_('TEXT_DEFAULT_TITLE');
+        $this->view->headTitle($this->view->title);
+    }
 }

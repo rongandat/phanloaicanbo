@@ -21,6 +21,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 
         Zend_Controller_Action_HelperBroker::addPath(
                 APPLICATION_PATH . '/modules/hethong/views/helpers');
+        
+        Zend_Controller_Action_HelperBroker::addPath(
+                APPLICATION_PATH . '/modules/front/controllers/helpers');
     }
 
     protected function _initLoadRouter() {

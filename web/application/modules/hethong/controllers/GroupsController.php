@@ -6,6 +6,18 @@ class Hethong_GroupsController extends Zend_Controller_Action {
     protected $_page = 1;
 
     public function init() {
+        
+        $auth = Zend_Auth::getInstance();
+        $identity = $auth->getIdentity();
+
+        //kiem tra permission
+        $check_permission = $this->_helper->global->checkPermission($identity->group_id, '2001');
+        if (!$check_permission) {
+            $this->_redirect('index/permission/');
+            exit();
+        }
+        
+        
         $this->_arrParam = $this->_request->getParams();
         $this->_arrParam['page'] = $this->_request->getParam('page', 1);
         if ($this->_arrParam['page'] == '' || $this->_arrParam['page'] <= 0) {
@@ -14,29 +26,6 @@ class Hethong_GroupsController extends Zend_Controller_Action {
         $this->_page = $this->_arrParam['page'];
         $this->view->arrParam = $this->_arrParam;
 
-        /*
-          $permissions = array(
-          array(
-          'group' => 'Hệ thống - Quản lý tài khoản',
-          'permissions' => array(
-          array('id' => 1, 'name' => 'Truy cập'),
-          array('id' => 2, 'name' => 'Thêm tài khoản mới'),
-          array('id' => 3, 'name' => 'Sửa thông tin tài khoản'),
-          array('id' => 4, 'name' => 'Xóa tài khoản')
-          )
-          ),
-          array(
-          'group' => 'Hệ thống - Quản lý nhóm, phân quyền',
-          'permissions' => array(
-          array('id' => 5, 'name' => 'Truy cập'),
-          array('id' => 6, 'name' => 'Thêm nhóm mới'),
-          array('id' => 7, 'name' => 'Sửa thông tin nhóm'),
-          array('id' => 8, 'name' => 'Xóa nhóm'),
-          array('id' => 10, 'name' => 'Phân quyền')
-          )
-          )
-          );
-         */
         $this->view->permissions = array(
             array(
                 'group' => 'Hệ thống',
@@ -236,9 +225,11 @@ class Hethong_GroupsController extends Zend_Controller_Action {
     function deleteitemsAction() {
         $this->_helper->layout()->disableLayout();
         $groupsModel = new Front_Model_Groups();
-        $item = $this->getRequest()->getPost('cid');
-        foreach ($item as $k => $v) {
-            $groupsModel->delete('group_id=' . $v);
+        if ($this->_request->isPost()) {
+            $item = $this->getRequest()->getPost('cid');
+            foreach ($item as $k => $v) {
+                $groupsModel->delete('group_id=' . $v);
+            }
         }
         $this->_redirect('hethong/groups/index/page/' . $this->_page);
     }
@@ -252,6 +243,29 @@ class Hethong_GroupsController extends Zend_Controller_Action {
         $translate = Zend_Registry::get('Zend_Translate');
         $this->view->title = 'Quản lý Nhóm, Quyền - ' . $translate->_('TEXT_DEFAULT_TITLE');
         $this->view->headTitle($this->view->title);
+
+        $id = $this->_getParam('id', 0);
+
+        $groupsModel = new Front_Model_Groups();
+        $group_info = $groupsModel->fetchRow('group_id=' . $id);
+        if (!$group_info) {
+            $error_message[] = 'Không tìm thấy thông tin của nhóm.';
+        }
+
+        if ($this->_request->isPost()) {
+            $item = $this->getRequest()->getPost('cid');
+            $permissions = '';
+            foreach ($item as $permission_id) {
+                $permissions .=$permission_id . ',';
+            }
+            $current_time = new Zend_Db_Expr('NOW()');
+            $groupsModel->update(array('group_permissions' => $permissions, 'group_date_modified' => $current_time), 'group_id=' . $id);
+            $group_info->group_permissions = $permissions;
+        }
+
+        $this->view->group_info = $group_info;
+        $this->view->success_message = $success_message;
+        $this->view->error_message = $error_message;
     }
 
 }
