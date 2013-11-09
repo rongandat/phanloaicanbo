@@ -1,20 +1,13 @@
 <?php
 
-class Front_Model_Groups extends Zend_Db_Table_Abstract {
+class Front_Model_Bangcap extends Zend_Db_Table_Abstract {
 
     /**
-     * Model GROUPS
+     * Model Bang Cap
      * @author Nguyen Manh Hung
      */
-    protected $_name = TABLE_GROUPS;
-    protected $_id = 'group_id';
-
-    public function checkPermission($group_id, $permission_id) {
-        $select = $this->select();
-        $select->where("group_permissions like '$permission_id%' or group_permissions like '%$permission_id%' or group_permissions like '%$permission_id'");
-        $select->where('group_id=' . $group_id);
-        return $this->fetchRow($select);
-    }
+    protected $_name = TABLE_BANGCAP;
+    protected $_id = 'bc_id';
 
     public function fetchData($filters = array(), $sortFeild = null, $limit = null, $page = 1) {
         $select = $this->select();
@@ -22,7 +15,7 @@ class Front_Model_Groups extends Zend_Db_Table_Abstract {
         if (count($filters) > 0) {
             foreach ($filters as $feild => $keyword) {
                 if ($feild == 'keyword') {
-                    $select->where('group_name like?', $keyword . '%')->orWhere('group_name like?', '%' . $keyword . '%')->orWhere('group_name like?', '%' . $keyword)->group('group_id');
+                    $select->where('bc_name like?', $keyword . '%')->orWhere('bc_name like?', '%' . $keyword . '%')->orWhere('bc_name like?', '%' . $keyword)->group('bc_id');
                 } else {
                     $select->where($feild . ' =?', $keyword);
                 }

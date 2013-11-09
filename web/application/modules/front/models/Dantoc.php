@@ -1,20 +1,13 @@
 <?php
 
-class Front_Model_Groups extends Zend_Db_Table_Abstract {
+class Front_Model_Dantoc extends Zend_Db_Table_Abstract {
 
     /**
-     * Model GROUPS
+     * Model Dan Toc
      * @author Nguyen Manh Hung
      */
-    protected $_name = TABLE_GROUPS;
-    protected $_id = 'group_id';
-
-    public function checkPermission($group_id, $permission_id) {
-        $select = $this->select();
-        $select->where("group_permissions like '$permission_id%' or group_permissions like '%$permission_id%' or group_permissions like '%$permission_id'");
-        $select->where('group_id=' . $group_id);
-        return $this->fetchRow($select);
-    }
+    protected $_name = TABLE_DANTOC;
+    protected $_id = 'dt_id';
 
     public function fetchData($filters = array(), $sortFeild = null, $limit = null, $page = 1) {
         $select = $this->select();
@@ -22,7 +15,7 @@ class Front_Model_Groups extends Zend_Db_Table_Abstract {
         if (count($filters) > 0) {
             foreach ($filters as $feild => $keyword) {
                 if ($feild == 'keyword') {
-                    $select->where('group_name like?', $keyword . '%')->orWhere('group_name like?', '%' . $keyword . '%')->orWhere('group_name like?', '%' . $keyword)->group('group_id');
+                    $select->where('dt_name like?', $keyword . '%')->orWhere('dt_name like?', '%' . $keyword . '%')->orWhere('dt_name like?', '%' . $keyword)->group('dt_id');
                 } else {
                     $select->where($feild . ' =?', $keyword);
                 }

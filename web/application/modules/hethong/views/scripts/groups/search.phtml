@@ -20,7 +20,6 @@
                     <tr>
                         <th class="checkall_style"><input type="checkbox" name="check_all" id="checkbox" onclick="checkedAll()"></th>
                         <th>Tên nhóm</th>
-                        <th class="order_style">Sắp xếp</th>
                         <th class="status_style">Trạng thái</th>
                         <th class="function_style">Chức năng</th>
                     </tr>
@@ -31,7 +30,6 @@
                         echo '<tr>
                             <td class="checkall_style"><input type="checkbox" name="cid[]" id="cid" value="' . $group->group_id . '"></td>
                             <td><a href="' . $this->baseUrl('hethong/groups/edit/id/' . $group->group_id . '/page/' . $this->arrParam['page']) . '">' . $group->group_name . '</a></td>
-                            <td class="order_style text-center">'.$group->group_order.'</td>
                             <td class="status_style"><a href="' . ($group->group_status ? $this->baseUrl('hethong/groups/changestatus/id/' . $group->group_id . '/status/0/page/' . $this->arrParam['page']) : $this->baseUrl('hethong/groups/changestatus/id/' . $group->group_id . '/status/1/page/' . $this->arrParam['page'])) . '"><div class="' . ($group->group_status ? 'icon_status_active' : 'icon_status_inactive') . '"></div></a></td>
                             <td class="function_style">
                                 <a class="btn btn-mini" href="' . $this->baseUrl('hethong/groups/edit/id/' . $group->group_id . '/page/' . $this->arrParam['page']) . '" title="Sửa"><i class="icon-edit"></i> Sửa</a>

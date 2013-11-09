@@ -21,7 +21,7 @@ defined('TEMPLATE_USED')
 
 //Khai bao so rows tren moi trang
 defined('NUM_PER_PAGE')
-                || define('NUM_PER_PAGE', 50);
+                || define('NUM_PER_PAGE', 20);
 
 //define upload path
 defined('UPLOAD_PATH')

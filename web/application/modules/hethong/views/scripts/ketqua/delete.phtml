@@ -1,0 +1,47 @@
+<div class="body_content float_right">
+    <h5>Xóa tên đánh giá kêt quả công việc</h5>               
+
+    <div class="main-content-box"> 
+        <?php if ($this->error_message) : ?>
+            <div class="alert alert-error">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <h5>Thông báo lỗi!</h5>                
+                <ol>
+                    <?php foreach ($this->error_message as $message): ?>
+                        <li><?php echo $message; ?></li>
+                    <?php endforeach; ?>
+                </ol>
+            </div> 
+        <?php endif; ?>          
+        <?php if ($this->dgkqcv_info) : ?>        
+            <form class="form-horizontal" method="post" action="">
+                <?php echo $this->formHidden('id', $this->dgkqcv_info->dgkqcv_id);?>
+                <div class="control-group">
+                    <div class="controls">
+                        <p>
+                            Bạn có chắc chắn muốn xóa tên đánh giá kêt quả công việc: <strong><?php echo $this->dgkqcv_info->dgkqcv_name;?></strong>
+                        </p>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <p>
+                            <button name="del" value="Yes" class="btn btn-small btn-primary" type="submit">Đồng ý xóa</button>
+                            <a class="btn btn-small" type="button" href="<?php echo $this->baseUrl('hethong/ketqua/index/page/' . $this->arrParam['page']); ?>">Quay lại</a>
+                        </p>
+                    </div>
+                </div>
+            </form>
+        <?php else : ?>
+            <form class="form-horizontal" method="post" action="">
+                <div class="control-group">
+                    <div class="controls">
+                        <p>
+                            <a class="btn btn-small" type="button" href="<?php echo $this->baseUrl('hethong/ketqua/index/page/' . $this->arrParam['page']); ?>">Quay lại</a>
+                        </p>
+                    </div>
+                </div>
+            </form>
+        <?php endif; ?>        
+    </div> 
+</div>

@@ -27,9 +27,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php
-                    foreach ($this->paginator as $item) {
-                        echo '<tr>
+<?php
+foreach ($this->paginator as $item) {
+    echo '<tr>
                             <td class="checkall_style"><input type="checkbox" name="cid[]" id="cid" value="' . $item->user_id . '"></td>
                             <td><a href="' . $this->baseUrl('hethong/users/edit/id/' . $item->user_id . '/page/' . $this->arrParam['page']) . '">' . $item->username . '</a></td>
                             <td><a href="#employeeModal" role="button" data-toggle="modal">' . $this->viewGetName($item->employee_id) . '</a></td>
@@ -40,11 +40,11 @@
                                 <a class="btn btn-mini" href="' . $this->baseUrl('hethong/users/delete/id/' . $item->user_id . '/page/' . $this->arrParam['page']) . '" title="Xóa"><i class="icon-trash"></i> Xóa</a>                                
                             </td>
                         </tr>';
-                    }
-                    ?>
+}
+?>
                 </tbody>
             </table>
-            <?php echo $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml'); ?>
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml'); ?>
         </form>
     </div> 
 

@@ -20,37 +20,38 @@
                 <?php echo $this->success_message; ?>
             </div>
         <?php endif; ?>  
-        <?php if ($this->group_info) : ?>        
+        <?php if ($this->dt_info) : ?>        
             <form class="form-horizontal" method="post" action="">
                 <div class="control-group">
-                    <label class="control-label" for="group_name">Tên nhóm</label>
+                    <label class="control-label" for="dt_name">Tên dân tộc</label>
                     <div class="controls">
-                        <?php echo $this->formText('group_name', $this->group_info->group_name, array('required' => '')); ?>
+                        <?php echo $this->formText('dt_name', $this->dt_info->dt_name, array('required' => '')); ?>
                         <span class="help-inline">(*)</span>
                     </div>
-                </div>                
+                </div> 
+
                 <div class="control-group">
-                    <label class="control-label" for="group_order">Vị trí</label>
+                    <label class="control-label" for="dt_order">Vị trí</label>
                     <div class="controls">
-                        <?php echo $this->formText('group_order', $this->group_info->group_order, array()); ?>
+                        <?php echo $this->formText('dt_order', $this->dt_info->dt_order, array()); ?>
                         <span class="help-block">Dùng để sắp xếp vị trí hiển thị khi dùng.</span>
-                    </div>
-                </div>                
+                    </div>                
+                </div>
+
                 <div class="control-group">
-                    <label class="control-label" for="group_status">Trạng thái</label>
+                    <label class="control-label" for="dt_status">Trạng thái</label>
                     <div class="controls">
                         <?php
                         $status_options = array(1 => 'Sử dụng', 0 => 'Khóa');
-                        echo $this->formSelect('group_status', $this->group_info->group_status, null, $status_options);
+                        echo $this->formSelect('dt_status', $this->dt_info->dt_status, null, $status_options);
                         ?>                     
                     </div>
-                </div> 
+                </div>
                 <div class="control-group">
                     <div class="controls">
                         <p>
                             <button class="btn btn-small btn-primary" type="submit">Cập nhật</button>
-                            <a class="btn btn-small btn-warning" type="button" href="<?php echo $this->baseUrl('hethong/groups/permissions/id/' . $this->group_info->group_id . '/page/' . $this->arrParam['page']); ?>">Phân quyền</a>
-                            <a class="btn btn-small" type="button" href="<?php echo $this->baseUrl('hethong/groups/index/page/' . $this->arrParam['page']); ?>">Quay lại</a>
+                            <a class="btn btn-small" type="button" href="<?php echo $this->baseUrl('hethong/dantoc/index/page/' . $this->arrParam['page']); ?>">Quay lại</a>
                         </p>
                     </div>
                 </div>
@@ -60,7 +61,7 @@
                 <div class="control-group">
                     <div class="controls">
                         <p>
-                            <a class="btn btn-small" type="button" href="<?php echo $this->baseUrl('hethong/groups/index/page/' . $this->arrParam['page']); ?>">Quay lại</a>
+                            <a class="btn btn-small" type="button" href="<?php echo $this->baseUrl('hethong/dantoc/index/page/' . $this->arrParam['page']); ?>">Quay lại</a>
                         </p>
                     </div>
                 </div>

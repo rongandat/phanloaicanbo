@@ -26,6 +26,7 @@
                 <label class="control-label" for="username">Tên tài khoản</label>
                 <div class="controls">
                     <?php echo $this->formText('username', NULL, array('required' => '')); ?>
+                    <span class="help-inline">(*)</span>
                     <span class="help-block">Nhân viên dùng thông tin này để đăng nhập và hệ thống.</span>
                 </div>
             </div>
@@ -33,6 +34,7 @@
                 <label class="control-label" for="password">Mật khẩu</label>
                 <div class="controls">
                     <?php echo $this->formPassword('password', NULL, array('required' => '')); ?>
+                    <span class="help-inline">(*)</span>
                     <span class="help-block">Mật khẩu phải bằng hoặc lớn hơn 6 ký tự.</span>
                 </div>
             </div> 

@@ -4,6 +4,8 @@ class Hethong_UsersController extends Zend_Controller_Action {
 
     protected $_arrParam;
     protected $_page = 1;
+    protected $_kw = '';
+    protected $_actionMain;
 
     public function init() {
         $auth = Zend_Auth::getInstance();
@@ -16,6 +18,7 @@ class Hethong_UsersController extends Zend_Controller_Action {
             exit();
         }
         $this->_arrParam = $this->_request->getParams();
+        $this->_kw = $this->_arrParam['kw'];
         $this->_arrParam['page'] = $this->_request->getParam('page', 1);
         if ($this->_arrParam['page'] == '' || $this->_arrParam['page'] <= 0) {
             $this->_arrParam['page'] = 1;
@@ -29,18 +32,38 @@ class Hethong_UsersController extends Zend_Controller_Action {
         $this->view->title = 'Quản lý tài khoản - ' . $translate->_('TEXT_DEFAULT_TITLE');
         $this->view->headTitle($this->view->title);
 
-
         $layoutPath = APPLICATION_PATH . '/templates/' . TEMPLATE_USED;
         $option = array('layout' => 'hethong/layout',
             'layoutPath' => $layoutPath);
 
         Zend_Layout::startMvc($option);
 
+        $usersModel = new Front_Model_Users();
+        $list_users = $usersModel->fetchData();
 
+        $paginator = Zend_Paginator::factory($list_users);
+        $paginator->setItemCountPerPage(NUM_PER_PAGE);
+        $paginator->setCurrentPageNumber($this->_page);
+        $this->view->page = $this->_page;
+        $this->view->paginator = $paginator;
+    }
 
+    public function searchAction() {
+        $translate = Zend_Registry::get('Zend_Translate');
+        $this->view->title = 'Quản lý tài khoản - ' . $translate->_('TEXT_DEFAULT_TITLE');
+        $this->view->headTitle($this->view->title);
 
-        $usersModel = new Front_Model_Users;
-        $list_users = $usersModel->fetchAll();
+        $layoutPath = APPLICATION_PATH . '/templates/' . TEMPLATE_USED;
+        $option = array('layout' => 'hethong/layout',
+            'layoutPath' => $layoutPath);
+        Zend_Layout::startMvc($option);
+        $usersModel = new Front_Model_Users();
+        if ($this->_kw)
+            $list_users = $usersModel->fetchData(array('keyword' => $this->_kw));
+        else {
+            $this->_redirect('hethong/users/');
+            $list_users = $usersModel->fetchData();
+        }
 
         $paginator = Zend_Paginator::factory($list_users);
         $paginator->setItemCountPerPage(NUM_PER_PAGE);

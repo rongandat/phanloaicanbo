@@ -4,9 +4,10 @@ class Hethong_GroupsController extends Zend_Controller_Action {
 
     protected $_arrParam;
     protected $_page = 1;
+    protected $_kw = '';
 
     public function init() {
-        
+
         $auth = Zend_Auth::getInstance();
         $identity = $auth->getIdentity();
 
@@ -16,9 +17,10 @@ class Hethong_GroupsController extends Zend_Controller_Action {
             $this->_redirect('index/permission/');
             exit();
         }
-        
-        
+
+
         $this->_arrParam = $this->_request->getParams();
+        $this->_kw = $this->_arrParam['kw'];
         $this->_arrParam['page'] = $this->_request->getParam('page', 1);
         if ($this->_arrParam['page'] == '' || $this->_arrParam['page'] <= 0) {
             $this->_arrParam['page'] = 1;
@@ -57,7 +59,7 @@ class Hethong_GroupsController extends Zend_Controller_Action {
                 )
             )
         );
-    }
+    }    
 
     public function indexAction() {
         $layoutPath = APPLICATION_PATH . '/templates/' . TEMPLATE_USED;
@@ -70,10 +72,30 @@ class Hethong_GroupsController extends Zend_Controller_Action {
         $this->view->headTitle($this->view->title);
 
         $groupsModel = new Front_Model_Groups();
-        $list_groups = $groupsModel->fetchAll();
+        $list_groups = $groupsModel->fetchData(array(), 'group_order ASC');
         $this->view->list_groups = $list_groups;
     }
 
+    public function searchAction() {
+        $layoutPath = APPLICATION_PATH . '/templates/' . TEMPLATE_USED;
+        $option = array('layout' => 'hethong/layout',
+            'layoutPath' => $layoutPath);
+        Zend_Layout::startMvc($option);
+
+        $translate = Zend_Registry::get('Zend_Translate');
+        $this->view->title = 'Quản lý Nhóm, Quyền - ' . $translate->_('TEXT_DEFAULT_TITLE');
+        $this->view->headTitle($this->view->title);
+
+        $groupsModel = new Front_Model_Groups();
+        if ($this->_kw)
+            $list_groups = $groupsModel->fetchData(array('keyword' => $this->_kw), 'group_order ASC');
+        else {
+            $this->_redirect('hethong/groups/');
+            $list_groups = $groupsModel->fetchData(array(), 'group_order ASC');
+        }
+        $this->view->list_groups = $list_groups;
+    }
+    
     public function addAction() {
 
         $layoutPath = APPLICATION_PATH . '/templates/' . TEMPLATE_USED;
@@ -91,9 +113,12 @@ class Hethong_GroupsController extends Zend_Controller_Action {
         if ($this->_request->isPost()) {
             $group_name = trim($this->_arrParam['group_name']);
             $group_status = $this->_arrParam['group_status'];
+            $group_order = $this->_arrParam['group_order'];
 
             $validator_length = new Zend_Validate_StringLength(array('min' => 4, 'max' => 255));
-
+            if (!is_numeric ($group_order)) {
+                $group_order = 0;
+            }
             //kiem tra dữ liệu
             if (!$validator_length->isValid($group_name)) {
                 $error_message[] = 'Tên nhóm phải bằng hoặc hơn 4 ký tự và nhỏ hơn hoặc bằng 255 ký tự.';
@@ -104,6 +129,7 @@ class Hethong_GroupsController extends Zend_Controller_Action {
                 $groupsModel->insert(array(
                     'group_name' => $group_name,
                     'group_status' => $group_status,
+                    'group_order' => $group_order,
                     'group_date_added' => $current_time,
                     'group_date_modified' => $current_time
                         )
@@ -140,9 +166,13 @@ class Hethong_GroupsController extends Zend_Controller_Action {
         if ($this->_request->isPost()) {
             $group_name = trim($this->_arrParam['group_name']);
             $group_status = $this->_arrParam['group_status'];
-
-            $validator_length = new Zend_Validate_StringLength(array('min' => 4, 'max' => 255));
-
+            $group_order = $this->_arrParam['group_order'];
+            
+            $validator_length = new Zend_Validate_StringLength(array('min' => 4, 'max' => 255));            
+            if (!is_numeric($group_order)) {
+                $group_order = 0;
+            }
+            
             //kiem tra dữ liệu
             if (!$validator_length->isValid($group_name)) {
                 $error_message[] = 'Tên nhóm phải bằng hoặc hơn 4 ký tự và nhỏ hơn hoặc bằng 255 ký tự.';
@@ -153,6 +183,7 @@ class Hethong_GroupsController extends Zend_Controller_Action {
                 $groupsModel->update(array(
                     'group_name' => $group_name,
                     'group_status' => $group_status,
+                    'group_order' => $group_order,
                     'group_date_modified' => $current_time
                         ), 'group_id=' . $id
                 );

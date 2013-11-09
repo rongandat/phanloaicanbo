@@ -1,0 +1,48 @@
+<div class="body_content float_right">
+    <h5>Quản lý bằng cấp</h5>               
+
+    <div class="main-content-box">  
+        <form name="appForm" method="post" action="">
+            <div class="btn-toolbar float_left">
+                <div class="btn-group">
+                    <button class="btn" onclick="OnSubmitForm('<?php echo $this->baseUrl('hethong/bangcap/deleteitems/page/' . $this->arrParam['page']); ?>')"><i class="icon-trash"></i> Xóa chọn</button>
+                    <a class="btn" href="<?php echo $this->baseUrl('hethong/bangcap/add/page/' . $this->arrParam['page']); ?>"><i class="icon-plus-sign"></i> Thêm mới</a>
+                </div>
+            </div>
+            <div class="btn-toolbar form-search float_right text-right">
+                <input type="text" name="skw" value="<?php echo $this->arrParam['kw']; ?>" placeholder="Tên bằng cấp" class="input-medium search-query" onkeypress="return removeEnterKeyPress(event);">
+                <button type="submit" class="btn" onclick="OnSubmitFormSearch('<?php echo $this->baseUrl('hethong/bangcap/search/kw/'); ?>')">Tìm kiếm</button>
+            </div>
+            <div class="clearfix">
+            </div>
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th class="checkall_style"><input type="checkbox" name="check_all" id="checkbox" onclick="checkedAll()"></th>
+                        <th>Tên bằng cấp</th>  
+                        <th class="order_style">Sắp xếp</th>
+                        <th class="status_style">Trạng thái</th>
+                        <th class="function_style">Chức năng</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    foreach ($this->paginator as $item) {
+                        echo '<tr>
+                            <td class="checkall_style"><input type="checkbox" name="cid[]" id="cid" value="' . $item->bc_id . '"></td>
+                            <td><a href="' . $this->baseUrl('hethong/bangcap/edit/id/' . $item->bc_id . '/page/' . $this->arrParam['page']) . '">' . $item->bc_name . '</a></td>                            
+                            <td class="order_style text-center">'.$item->bc_order.'</td>
+                            <td class="status_style"><a href="' . ($item->bc_status ? $this->baseUrl('hethong/bangcap/changestatus/id/' . $item->bc_id . '/status/0/page/' . $this->arrParam['page']) : $this->baseUrl('hethong/bangcap/changestatus/id/' . $item->bc_id . '/status/1/page/' . $this->arrParam['page'])) . '"><div class="' . ($item->bc_status ? 'icon_status_active' : 'icon_status_inactive') . '"></div></a></td>
+                            <td class="function_style">
+                                <a class="btn btn-mini" href="' . $this->baseUrl('hethong/bangcap/edit/id/' . $item->bc_id . '/page/' . $this->arrParam['page']) . '" title="Sửa"><i class="icon-edit"></i> Sửa</a>
+                                <a class="btn btn-mini" href="' . $this->baseUrl('hethong/bangcap/delete/id/' . $item->bc_id . '/page/' . $this->arrParam['page']) . '" title="Xóa"><i class="icon-trash"></i> Xóa</a>                                
+                            </td>
+                        </tr>';
+                    }
+                    ?>
+                </tbody>
+            </table>
+            <?php echo $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml'); ?>
+        </form>
+    </div> 
+</div>
