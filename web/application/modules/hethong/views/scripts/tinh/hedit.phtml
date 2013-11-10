@@ -1,0 +1,85 @@
+<div class="body_content float_right">
+    <h5>Cập nhật thông tin quận/huyện</h5>               
+
+    <div class="main-content-box"> 
+        <?php if ($this->error_message) : ?>
+            <div class="alert alert-error">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <h5>Thông báo lỗi!</h5>                
+                <ol>
+                    <?php foreach ($this->error_message as $message): ?>
+                        <li><?php echo $message; ?></li>
+                    <?php endforeach; ?>
+                </ol>
+            </div> 
+        <?php endif; ?>  
+        <?php if ($this->success_message) : ?>
+            <div class="alert alert-success">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <h5>Thông báo!</h5>
+                <?php echo $this->success_message; ?>
+            </div>
+        <?php endif; ?>  
+        <?php if ($this->huyen_info) : ?>        
+            <form class="form-horizontal" method="post" action="">
+                <div class="control-group">
+                    <label class="control-label" for="huyen_name">Tên quận/huyện</label>
+                    <div class="controls">
+                        <?php echo $this->formText('huyen_name', $this->huyen_info->huyen_name, array('required' => '')); ?>
+                        <span class="help-inline">(*)</span>
+                    </div>
+                </div> 
+
+                <div class="control-group">
+                    <label class="control-label" for="tinh">Trực thuộc</label>
+                    <div class="controls">
+                        <?php
+                        $tinh_options = array();
+                        foreach ($this->list_tinh as $tinh) {
+                            $tinh_options[$tinh->tinh_id] = $tinh->tinh_name;
+                        }
+                        echo $this->formSelect('tinh', $this->huyen_info->huyen_parent, null, $tinh_options);
+                        ?>                    
+                        <span class="help-block">Chọn tỉnh mà huyện này trực thuộc.</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="huyen_order">Vị trí</label>
+                    <div class="controls">
+                        <?php echo $this->formText('huyen_order', $this->huyen_info->huyen_order, array()); ?>
+                        <span class="help-block">Dùng để sắp xếp vị trí hiển thị khi dùng.</span>
+                    </div>                
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="tinh_status">Trạng thái</label>
+                    <div class="controls">
+                        <?php
+                        $status_options = array(1 => 'Sử dụng', 0 => 'Khóa');
+                        echo $this->formSelect('tinh_status', $this->huyen_info->huyen_status, null, $status_options);
+                        ?>                     
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <p>
+                            <button class="btn btn-small btn-primary" type="submit">Cập nhật</button>
+                            <a class="btn btn-small" type="button" href="<?php echo $this->baseUrl('hethong/tinh/huyen/parent/'.$this->parent.'/page/' . $this->arrParam['page']); ?>">Quay lại</a>
+                        </p>
+                    </div>
+                </div>
+            </form>
+        <?php else : ?>
+            <form class="form-horizontal" method="post" action="">
+                <div class="control-group">
+                    <div class="controls">
+                        <p>
+                            <a class="btn btn-small" type="button" href="<?php echo $this->baseUrl('hethong/tinh/huyen/parent/'.$this->parent.'/page/' . $this->arrParam['page']); ?>">Quay lại</a>
+                        </p>
+                    </div>
+                </div>
+            </form>
+        <?php endif; ?>        
+    </div> 
+</div>

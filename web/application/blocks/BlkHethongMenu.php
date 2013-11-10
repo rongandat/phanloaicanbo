@@ -9,6 +9,7 @@ class Block_BlkHethongMenu extends Zend_View_Helper_Abstract {
             'users' => 'QL Tài khoản',
             'groups' => 'QL Nhóm, Phân quyền',
             'phongban' => 'QL Phòng ban',
+            'chucvu' => 'QL Chức vụ',
             'holidays' => 'QL Ngày nghỉ lễ',
             'tieuchi' => 'QL Tiêu chí đánh giá cán bộ',
             'ketqua' => 'QL Đánh giá kết quả công việc',

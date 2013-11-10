@@ -1,0 +1,45 @@
+<div class="body_content float_right">
+    <h5>Danh sách quận/huyện của <?php echo $this->viewGetTinhName($this->parent);?></h5>               
+
+    <div class="main-content-box">  
+        <form name="appForm" method="post" action="">
+            <div class="btn-toolbar float_left">
+                <div class="btn-group">
+                    <a class="btn" href="<?php echo $this->baseUrl('hethong/tinh/'); ?>"><i class="icon-arrow-left"></i> Tỉnh/thành phố</a>
+                    <button class="btn" onclick="OnSubmitForm('<?php echo $this->baseUrl('hethong/tinh/hdeleteitems/parent/'.$this->parent.'/page/' . $this->arrParam['page']); ?>')"><i class="icon-trash"></i> Xóa chọn</button>
+                    <a class="btn" href="<?php echo $this->baseUrl('hethong/tinh/hadd/parent/'.$this->parent.'/page/' . $this->arrParam['page']); ?>"><i class="icon-plus-sign"></i> Thêm mới</a>
+                </div>
+            </div>  
+            <div class="clearfix">                
+            </div>
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th class="checkall_style"><input type="checkbox" name="check_all" id="checkbox" onclick="checkedAll()"></th>
+                        <th>Quận/Huyện</th>  
+                        <th class="order_style">Sắp xếp</th>
+                        <th class="status_style">Trạng thái</th>
+                        <th class="function_style">Chức năng</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    foreach ($this->paginator as $item) {
+                        echo '<tr>
+                            <td class="checkall_style"><input type="checkbox" name="cid[]" id="cid" value="' . $item->huyen_id . '"></td>
+                            <td><a href="' . $this->baseUrl('hethong/tinh/hedit/parent/'.$this->parent.'/id/' . $item->huyen_id . '/page/' . $this->arrParam['page']) . '">' . $item->huyen_name . '</a></td>                            
+                            <td class="order_style text-center">'.$item->huyen_order.'</td>
+                            <td class="status_style"><a href="' . ($item->huyen_status ? $this->baseUrl('hethong/tinh/hchangestatus/parent/'.$this->parent.'/id/' . $item->huyen_id . '/status/0/page/' . $this->arrParam['page']) : $this->baseUrl('hethong/tinh/hchangestatus/parent/'.$this->parent.'/id/' . $item->huyen_id . '/status/1/page/' . $this->arrParam['page'])) . '"><div class="' . ($item->huyen_status ? 'icon_status_active' : 'icon_status_inactive') . '"></div></a></td>
+                            <td class="function_style">
+                                <a class="btn btn-mini" href="' . $this->baseUrl('hethong/tinh/hedit/parent/'.$this->parent.'/id/' . $item->huyen_id . '/page/' . $this->arrParam['page']) . '" title="Sửa"><i class="icon-edit"></i> Sửa</a>
+                                <a class="btn btn-mini" href="' . $this->baseUrl('hethong/tinh/hdelete/parent/'.$this->parent.'/id/' . $item->huyen_id . '/page/' . $this->arrParam['page']) . '" title="Xóa"><i class="icon-trash"></i> Xóa</a> 
+                            </td>
+                        </tr>';
+                    }
+                    ?>
+                </tbody>
+            </table>
+            <?php echo $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml'); ?>
+        </form>
+    </div> 
+</div>
