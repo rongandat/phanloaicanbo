@@ -47,6 +47,32 @@ INSERT INTO `bang_cap` (`bc_id`,`bc_name`,`bc_order`,`bc_status`,`bc_date_added`
 
 
 --
+-- Definition of table `chuc_vu`
+--
+
+DROP TABLE IF EXISTS `chuc_vu`;
+CREATE TABLE `chuc_vu` (
+  `cv_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `cv_name` varchar(255) NOT NULL,
+  `cv_order` int(10) unsigned NOT NULL DEFAULT '0',
+  `cv_status` int(10) unsigned NOT NULL DEFAULT '1',
+  `cv_date_added` datetime DEFAULT NULL,
+  `cv_date_modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`cv_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `chuc_vu`
+--
+
+/*!40000 ALTER TABLE `chuc_vu` DISABLE KEYS */;
+INSERT INTO `chuc_vu` (`cv_id`,`cv_name`,`cv_order`,`cv_status`,`cv_date_added`,`cv_date_modified`) VALUES 
+ (4,'GiÃ¡m Ä‘á»‘c',1,1,'2013-11-10 21:38:30','2013-11-10 21:38:30'),
+ (6,'TrÆ°á»Ÿng Ä‘Æ¡n vá»‹',1,1,'2013-11-10 21:38:47','2013-11-10 21:38:47');
+/*!40000 ALTER TABLE `chuc_vu` ENABLE KEYS */;
+
+
+--
 -- Definition of table `chung_chi`
 --
 
@@ -59,7 +85,7 @@ CREATE TABLE `chung_chi` (
   `cc_date_added` datetime DEFAULT NULL,
   `cc_date_modified` datetime DEFAULT NULL,
   PRIMARY KEY (`cc_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `chung_chi`
@@ -82,7 +108,7 @@ CREATE TABLE `dan_toc` (
   `dt_date_added` datetime DEFAULT NULL,
   `dt_date_modified` datetime DEFAULT NULL,
   PRIMARY KEY (`dt_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `dan_toc`
@@ -107,7 +133,7 @@ CREATE TABLE `danh_gia_ket_qua_cong_viec` (
   `dgkqcv_date_added` datetime DEFAULT NULL,
   `dgkqcv_date_modified` datetime DEFAULT NULL,
   PRIMARY KEY (`dgkqcv_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `danh_gia_ket_qua_cong_viec`
@@ -202,6 +228,137 @@ INSERT INTO `hoc_ham` (`hh_id`,`hh_name`,`hh_order`,`hh_status`,`hh_date_added`,
 
 
 --
+-- Definition of table `holidays`
+--
+
+DROP TABLE IF EXISTS `holidays`;
+CREATE TABLE `holidays` (
+  `hld_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `hld_name` varchar(255) NOT NULL,
+  `hld_order` int(10) unsigned NOT NULL DEFAULT '0',
+  `hld_status` int(10) unsigned NOT NULL DEFAULT '1',
+  `hld_date_added` datetime DEFAULT NULL,
+  `hld_date_modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`hld_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `holidays`
+--
+
+/*!40000 ALTER TABLE `holidays` DISABLE KEYS */;
+INSERT INTO `holidays` (`hld_id`,`hld_name`,`hld_order`,`hld_status`,`hld_date_added`,`hld_date_modified`) VALUES 
+ (4,'Giáº£i phÃ³ng miá»n nam',1,0,'2013-11-10 17:11:04','2013-11-10 17:12:58'),
+ (5,'QUá»‘c táº¿ lao Ä‘á»™ng',2,1,'2013-11-10 17:11:13','2013-11-10 17:11:13'),
+ (6,'Quá»‘c khÃ¡nh',3,1,'2013-11-10 17:11:20','2013-11-10 17:11:20'),
+ (7,'Táº¿t dÆ°Æ¡ng lá»‹ch',4,1,'2013-11-10 17:11:30','2013-11-10 17:11:30');
+/*!40000 ALTER TABLE `holidays` ENABLE KEYS */;
+
+
+--
+-- Definition of table `huyen`
+--
+
+DROP TABLE IF EXISTS `huyen`;
+CREATE TABLE `huyen` (
+  `huyen_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `huyen_name` varchar(255) NOT NULL,
+  `huyen_parent` int(10) unsigned NOT NULL DEFAULT '0',
+  `huyen_order` int(10) unsigned NOT NULL DEFAULT '0',
+  `huyen_status` int(10) unsigned NOT NULL DEFAULT '1',
+  `huyen_date_added` datetime DEFAULT NULL,
+  `huyen_date_modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`huyen_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `huyen`
+--
+
+/*!40000 ALTER TABLE `huyen` DISABLE KEYS */;
+/*!40000 ALTER TABLE `huyen` ENABLE KEYS */;
+
+
+--
+-- Definition of table `phong_ban`
+--
+
+DROP TABLE IF EXISTS `phong_ban`;
+CREATE TABLE `phong_ban` (
+  `pb_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `pb_name` varchar(255) NOT NULL,
+  `pb_parent` int(10) unsigned NOT NULL DEFAULT '0',
+  `pb_order` int(10) unsigned NOT NULL DEFAULT '0',
+  `pb_status` int(10) unsigned NOT NULL DEFAULT '1',
+  `pb_date_added` datetime DEFAULT NULL,
+  `pb_date_modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`pb_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `phong_ban`
+--
+
+/*!40000 ALTER TABLE `phong_ban` DISABLE KEYS */;
+INSERT INTO `phong_ban` (`pb_id`,`pb_name`,`pb_parent`,`pb_order`,`pb_status`,`pb_date_added`,`pb_date_modified`) VALUES 
+ (9,'Phong ban 1',0,0,1,NULL,'2013-11-17 22:50:46'),
+ (11,'phong ban 3',0,0,1,NULL,NULL);
+/*!40000 ALTER TABLE `phong_ban` ENABLE KEYS */;
+
+
+--
+-- Definition of table `tieu_chi_danh_gia_can_bo`
+--
+
+DROP TABLE IF EXISTS `tieu_chi_danh_gia_can_bo`;
+CREATE TABLE `tieu_chi_danh_gia_can_bo` (
+  `tcdgcb_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `tcdgcb_name` varchar(255) NOT NULL,
+  `tcdgcb_order` int(10) unsigned NOT NULL DEFAULT '0',
+  `tcdgcb_status` int(10) unsigned NOT NULL DEFAULT '1',
+  `tcdgcb_date_added` datetime DEFAULT NULL,
+  `tcdgcb_date_modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`tcdgcb_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tieu_chi_danh_gia_can_bo`
+--
+
+/*!40000 ALTER TABLE `tieu_chi_danh_gia_can_bo` DISABLE KEYS */;
+INSERT INTO `tieu_chi_danh_gia_can_bo` (`tcdgcb_id`,`tcdgcb_name`,`tcdgcb_order`,`tcdgcb_status`,`tcdgcb_date_added`,`tcdgcb_date_modified`) VALUES 
+ (4,'Vi pháº¡m chÃ­nh sÃ¡ch, ká»· luáº­t',1,1,'2013-11-10 16:58:59','2013-11-10 16:58:59'),
+ (5,'Vi pháº¡m pháº©m cháº¥t chÃ­nh trá»‹',2,1,'2013-11-10 16:59:14','2013-11-10 16:59:14');
+/*!40000 ALTER TABLE `tieu_chi_danh_gia_can_bo` ENABLE KEYS */;
+
+
+--
+-- Definition of table `tinh`
+--
+
+DROP TABLE IF EXISTS `tinh`;
+CREATE TABLE `tinh` (
+  `tinh_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `tinh_name` varchar(255) NOT NULL,
+  `tinh_order` int(10) unsigned NOT NULL DEFAULT '0',
+  `tinh_status` int(10) unsigned NOT NULL DEFAULT '1',
+  `tinh_date_added` datetime DEFAULT NULL,
+  `tinh_date_modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`tinh_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tinh`
+--
+
+/*!40000 ALTER TABLE `tinh` DISABLE KEYS */;
+INSERT INTO `tinh` (`tinh_id`,`tinh_name`,`tinh_order`,`tinh_status`,`tinh_date_added`,`tinh_date_modified`) VALUES 
+ (4,'HÃ  Ná»™i',1,1,'2013-11-10 17:31:42','2013-11-10 17:31:42'),
+ (5,'Há»“ chÃ­ minh',2,1,'2013-11-10 17:31:51','2013-11-10 17:31:51');
+/*!40000 ALTER TABLE `tinh` ENABLE KEYS */;
+
+
+--
 -- Definition of table `users`
 --
 
@@ -240,7 +397,7 @@ CREATE TABLE `users_log` (
   `login_date` int(10) unsigned NOT NULL,
   `login_ip` varchar(45) NOT NULL,
   PRIMARY KEY (`log_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users_log`
@@ -287,7 +444,10 @@ INSERT INTO `users_log` (`log_id`,`user_id`,`login_date`,`login_ip`) VALUES
  (38,1,1383923793,'::1'),
  (39,1,1383981128,'::1'),
  (40,1,1383984720,'::1'),
- (41,1,1383985004,'::1');
+ (41,1,1383985004,'::1'),
+ (42,1,1384076618,'::1'),
+ (43,1,1384698698,'::1'),
+ (44,1,1384702833,'::1');
 /*!40000 ALTER TABLE `users_log` ENABLE KEYS */;
 
 
