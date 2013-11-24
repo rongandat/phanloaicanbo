@@ -1,0 +1,90 @@
+<div class="body_content float_right">
+    <h5>Thêm tài khoản đăng nhập mới</h5>               
+
+    <div class="main-content-box"> 
+        <?php if ($this->error_message) : ?>
+            <div class="alert alert-error">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <h5>Thông báo!</h5>
+                Thêm tài khoản mới không thành công vì:
+                <ol>
+                    <?php foreach ($this->error_message as $message): ?>
+                        <li><?php echo $message; ?></li>
+                    <?php endforeach; ?>
+                </ol>
+            </div> 
+        <?php endif; ?>  
+        <?php if ($this->success_message) : ?>
+            <div class="alert alert-success">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <h5>Thông báo!</h5>
+                <?php echo $this->success_message; ?>
+            </div>
+        <?php endif; ?>  
+        <form class="form-horizontal" method="post" action="">
+            <div class="control-group">
+                <label class="control-label" for="username">Tên tài khoản</label>
+                <div class="controls">
+                    <?php echo $this->formText('username', NULL, array('required' => '')); ?>
+                    <span class="help-inline">(*)</span>
+                    <span class="help-block">Nhân viên dùng thông tin này để đăng nhập và hệ thống.</span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="password">Mật khẩu</label>
+                <div class="controls">
+                    <?php echo $this->formPassword('password', NULL, array('required' => '')); ?>
+                    <span class="help-inline">(*)</span>
+                    <span class="help-block">Mật khẩu phải bằng hoặc lớn hơn 6 ký tự.</span>
+                </div>
+            </div> 
+            <div class="control-group">
+                <label class="control-label" for="employee">Nhân viên</label>
+                <div class="controls">
+                    <?php
+                    $employee_options = array();
+                    foreach ($this->list_employees as $employee) {
+                        $fullname = trim($employee->ho);
+                        if (trim($employee->ten_dem))
+                            $fullname .= ' ' . trim($employee->ten_dem);
+                        $fullname .= ' ' . trim($employee->ten);
+                        $employee_options[$employee->employee_id] = $fullname;
+                    }
+                    echo $this->formSelect('employee', null, null, $employee_options);
+                    ?>                    
+                    <span class="help-block">Chọn nhân viên ứng với tên đăng nhập đang được tạo.</span>
+                </div>
+            </div> 
+            <div class="control-group">
+                <label class="control-label" for="group">Nhóm</label>
+                <div class="controls">
+                    <?php
+                    $group_options = array();
+                    foreach ($this->list_groups as $group) {                        
+                        $group_options[$group->group_id] = $group->group_name;
+                    }
+                    echo $this->formSelect('group', null, null, $group_options);
+                    ?> 
+                    <span class="help-block">Chọn nhóm để giới hạn quyền cho nhân viên.</span>
+                </div>
+            </div> 
+            <div class="control-group">
+                <label class="control-label" for="status">Trạng thái</label>
+                <div class="controls">
+                    <?php
+                    $status_options = array(1=>'Sử dụng', 0=>'Khóa');                    
+                    echo $this->formSelect('status', null, null, $status_options);
+                    ?>                     
+                </div>
+            </div> 
+            <div class="control-group">
+                <div class="controls">
+                    <p>
+                        <button class="btn btn-small btn-primary" type="submit">Thêm mới</button>
+                        <a class="btn btn-small" type="button" href="<?php echo $this->baseUrl('hethong/users/index/page/'.$this->arrParam['page']); ?>">Quay lại</a>
+                    </p>
+                </div>
+            </div>
+        </form>
+    </div> 
+</div>

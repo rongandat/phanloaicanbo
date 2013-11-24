@@ -293,7 +293,7 @@ CREATE TABLE `phong_ban` (
   `pb_date_added` datetime DEFAULT NULL,
   `pb_date_modified` datetime DEFAULT NULL,
   PRIMARY KEY (`pb_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `phong_ban`
@@ -397,7 +397,7 @@ CREATE TABLE `users_log` (
   `login_date` int(10) unsigned NOT NULL,
   `login_ip` varchar(45) NOT NULL,
   PRIMARY KEY (`log_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users_log`
@@ -447,7 +447,10 @@ INSERT INTO `users_log` (`log_id`,`user_id`,`login_date`,`login_ip`) VALUES
  (41,1,1383985004,'::1'),
  (42,1,1384076618,'::1'),
  (43,1,1384698698,'::1'),
- (44,1,1384702833,'::1');
+ (44,1,1384702833,'::1'),
+ (45,1,1385276349,'::1'),
+ (46,1,1385277925,'::1'),
+ (47,1,1385281393,'::1');
 /*!40000 ALTER TABLE `users_log` ENABLE KEYS */;
 
 

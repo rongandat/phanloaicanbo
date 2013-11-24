@@ -1,0 +1,77 @@
+<div class="body_content float_right">
+    <h5>Quản lý tài khoản</h5>               
+
+    <div class="main-content-box">  
+        <form name="appForm" method="post" action="">
+            <div class="btn-toolbar float_left">
+                <div class="btn-group">
+                    <button class="btn" onclick="OnSubmitForm('<?php echo $this->baseUrl('hethong/users/deleteitems/page/' . $this->arrParam['page']); ?>')"><i class="icon-trash"></i> Xóa chọn</button>
+                    <a class="btn" href="<?php echo $this->baseUrl('hethong/users/add/page/' . $this->arrParam['page']); ?>"><i class="icon-plus-sign"></i> Thêm tài khoản mới</a>
+                </div>
+            </div>
+            <div class="btn-toolbar form-search float_right text-right">
+                <input type="text" name="skw" value="<?php echo $this->arrParam['kw']; ?>" placeholder="Tên tài khoản" class="input-medium search-query" onkeypress="return removeEnterKeyPress(event);">
+                <button type="submit" class="btn" onclick="OnSubmitFormSearch('<?php echo $this->baseUrl('hethong/users/search/kw/'); ?>')">Tìm kiếm</button>
+            </div>
+            <div class="clearfix">
+            </div>
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th class="checkall_style"><input type="checkbox" name="check_all" id="checkbox" onclick="checkedAll()"></th>
+                        <th>Tài khoản</th>
+                        <th>Nhân viên</th>
+                        <th>Nhóm</th>
+                        <th>Trạng thái</th>
+                        <th>Chức năng</th>
+                    </tr>
+                </thead>
+                <tbody>
+<?php
+foreach ($this->paginator as $item) {
+    echo '<tr>
+                            <td class="checkall_style"><input type="checkbox" name="cid[]" id="cid" value="' . $item->user_id . '"></td>
+                            <td><a href="' . $this->baseUrl('hethong/users/edit/id/' . $item->user_id . '/page/' . $this->arrParam['page']) . '">' . $item->username . '</a></td>
+                            <td><a href="#employeeModal" role="button" data-toggle="modal">' . $this->viewGetName($item->employee_id) . '</a></td>
+                            <td>' . $this->viewGetGroupName($item->group_id) . '</td>
+                            <td><a href="' . ($item->status ? $this->baseUrl('hethong/users/changestatus/id/' . $item->user_id . '/status/0/page/' . $this->arrParam['page']) : $this->baseUrl('hethong/users/changestatus/id/' . $item->user_id . '/status/1/page/' . $this->arrParam['page'])) . '"><div class="' . ($item->status ? 'icon_status_active' : 'icon_status_inactive') . '"></div></a></td>
+                            <td>
+                                <a class="btn btn-mini" href="' . $this->baseUrl('hethong/users/edit/id/' . $item->user_id . '/page/' . $this->arrParam['page']) . '" title="Sửa"><i class="icon-edit"></i> Sửa</a>
+                                <a class="btn btn-mini" href="' . $this->baseUrl('hethong/users/delete/id/' . $item->user_id . '/page/' . $this->arrParam['page']) . '" title="Xóa"><i class="icon-trash"></i> Xóa</a>                                
+                            </td>
+                        </tr>';
+}
+?>
+                </tbody>
+            </table>
+<?php echo $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml'); ?>
+        </form>
+    </div> 
+
+
+    <div id="employeeModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 id="myModalLabel">Thông tin nhân viên</h4>
+        </div>
+        <div class="modal-body" id="md_employee_info">
+            <div class="progress progress-striped active">
+                <div class="bar" style="width: 100%;">Loading...</div>
+            </div>
+            <dl class="dl-horizontal">
+                <dt>Description lists</dt>
+                <dd>A description list is perfect for defining terms.</dd>
+                <dt>Euismod</dt>
+                <dd>Vestibulum id ligula porta felis euismod semper eget lacinia odio sem nec elit.</dd>
+                <dd>Donec id elit non mi porta gravida at eget metus.</dd>
+                <dt>Malesuada porta</dt>
+                <dd>Etiam porta sem malesuada magna mollis euismod.</dd>
+                <dt>Felis euismod semper eget lacinia</dt>
+                <dd>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</dd>
+            </dl>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Đóng</button>
+        </div>
+    </div>
+</div>
