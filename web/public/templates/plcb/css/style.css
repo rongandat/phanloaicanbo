@@ -323,6 +323,9 @@ input, button, select, textarea {
     bottom: 270px;
 }
 
+.anh_the{
+    width: 100px;
+}
 /* Main Footer*/
 .main-footer{
     width: 100%;

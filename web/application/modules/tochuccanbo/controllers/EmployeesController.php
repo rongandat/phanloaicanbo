@@ -29,7 +29,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
 
     public function indexAction() {
         $translate = Zend_Registry::get('Zend_Translate');
-        $this->view->title = 'Quản lý tài khoản - ' . $translate->_('TEXT_DEFAULT_TITLE');
+        $this->view->title = 'Quản lý cán bộ - ' . $translate->_('TEXT_DEFAULT_TITLE');
         $this->view->headTitle($this->view->title);
 
         $layoutPath = APPLICATION_PATH . '/templates/' . TEMPLATE_USED;
@@ -50,11 +50,11 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
 
     public function searchAction() {
         $translate = Zend_Registry::get('Zend_Translate');
-        $this->view->title = 'Quản lý tài khoản - ' . $translate->_('TEXT_DEFAULT_TITLE');
+        $this->view->title = 'Quản lý cán bộ - ' . $translate->_('TEXT_DEFAULT_TITLE');
         $this->view->headTitle($this->view->title);
 
         $layoutPath = APPLICATION_PATH . '/templates/' . TEMPLATE_USED;
-        $option = array('layout' => 'hethong/layout',
+        $option = array('layout' => '1_column/layout',
             'layoutPath' => $layoutPath);
         Zend_Layout::startMvc($option);
         $usersModel = new Front_Model_Users();
@@ -75,19 +75,32 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
     public function addAction() {
 
         $layoutPath = APPLICATION_PATH . '/templates/' . TEMPLATE_USED;
-        $option = array('layout' => 'hethong/layout',
+        $option = array('layout' => '1_column/layout',
             'layoutPath' => $layoutPath);
 
         Zend_Layout::startMvc($option);
         $translate = Zend_Registry::get('Zend_Translate');
-        $this->view->title = 'Quản lý tài khoản - ' . $translate->_('TEXT_DEFAULT_TITLE');
+        $this->view->title = 'Quản lý cán bộ - ' . $translate->_('TEXT_DEFAULT_TITLE');
         $this->view->headTitle($this->view->title);
 
-        $userModel = new Front_Model_Users();
+        
         $employeesModel = new Front_Model_Employees();
-        $groupsModel = new Front_Model_Groups();
-        $list_employees = $employeesModel->fetchAll();
-        $list_groups = $groupsModel->fetchAll();
+        
+        $tinhModel = new Front_Model_Tinh();
+        $list_tinh = $tinhModel->fetchData(array('tinh_status' => 1));
+        
+        $huyenModel = new Front_Model_Huyen();
+        $list_huyen = $huyenModel->fetchData(array('huyen_status' => 1));
+        
+        $dantocModel = new Front_Model_Dantoc();
+        $list_dan_toc = $dantocModel->fetchData(array('dt_status' => 1));
+        
+        $chucvuModel = new Front_Model_Chucvu();
+        $list_chuc_vu = $chucvuModel->fetchData(array('cv_status' => 1));
+        
+        $phongbanModel = new Front_Model_Phongban();
+        $list_phong_ban = $phongbanModel->fetchData(array('pb_status' => 1));
+        
         $error_message = array();
         $success_message = '';
         if ($this->_request->isPost()) {
@@ -102,48 +115,32 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
 
             //kiem tra dữ liệu
             if (!$validator_length->isValid($username)) {
-                $error_message[] = 'Tên tài khoản phải bằng hoặc hơn 4 ký tự và nhỏ hơn hoặc bằng 12 ký tự.';
+                $error_message[] = 'Tên cán bộ phải bằng hoặc hơn 4 ký tự và nhỏ hơn hoặc bằng 12 ký tự.';
             }
 
             if (!$validator_username->isValid($username)) {
-                $error_message[] = 'Tên tài khoản không không được chứa khoảng trắng.';
+                $error_message[] = 'Tên cán bộ không không được chứa khoảng trắng.';
             }
 
             if (!$validator_length->isValid($password)) {
                 $error_message[] = 'Mật khẩu phải bằng hoặc hơn 4 ký tự và nhỏ hơn hoặc bằng 12 ký tự.';
             }
 
-            //check username đã tồn tại
-            $check_username = $userModel->fetchRow('username="' . $username . '"');
-            if ($check_username) {
-                $error_message[] = 'Tên đăng nhập <strong>' . $username . '</strong> đã tồn tại.';
-            }
-
-            //check employee
-            $check_employee = $userModel->fetchRow('employee_id=' . $employee);
-            if ($check_employee) {
-                $error_message[] = 'Nhân viên <strong>' . $this->view->viewGetName($employee) . '</strong> đã có tài khoản rồi.';
-            }
+            
 
             if (!sizeof($error_message)) {
                 $current_time = new Zend_Db_Expr('NOW()');
-                $userModel->insert(array(
-                    'employee_id' => $employee,
-                    'group_id' => $group,
-                    'username' => $username,
-                    'password' => md5($password),
-                    'status' => $status,
-                    'date_added' => $current_time,
-                    'date_modified' => $current_time
-                        )
-                );
-                $success_message = 'Đã thêm tài khoản mới thành công.';
+                
+                $success_message = 'Đã thêm cán bộ mới thành công.';
             }
         }
         $this->view->success_message = $success_message;
         $this->view->error_message = $error_message;
-        $this->view->list_groups = $list_groups;
-        $this->view->list_employees = $list_employees;
+        $this->view->list_tinh = $list_tinh;
+        $this->view->list_huyen = $list_huyen;
+        $this->view->list_dan_toc = $list_dan_toc;
+        $this->view->list_chuc_vu = $list_chuc_vu;
+        $this->view->list_phong_ban = $list_phong_ban;
     }
 
     public function editAction() {
@@ -154,7 +151,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
 
         Zend_Layout::startMvc($option);
         $translate = Zend_Registry::get('Zend_Translate');
-        $this->view->title = 'Quản lý tài khoản - ' . $translate->_('TEXT_DEFAULT_TITLE');
+        $this->view->title = 'Quản lý cán bộ - ' . $translate->_('TEXT_DEFAULT_TITLE');
         $this->view->headTitle($this->view->title);
 
         $id = $this->_getParam('id', 0);
@@ -169,7 +166,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
 
         $user_info = $userModel->fetchRow('user_id=' . $id);
         if (!$user_info) {
-            $error_message[] = 'Không tìm thấy thông tin của tài khoản.';
+            $error_message[] = 'Không tìm thấy thông tin của cán bộ.';
         }
 
         if ($this->_request->isPost()) {
@@ -184,11 +181,11 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
 
             //kiem tra dữ liệu
             if (!$validator_length->isValid($username)) {
-                $error_message[] = 'Tên tài khoản phải bằng hoặc hơn 4 ký tự và nhỏ hơn hoặc bằng 12 ký tự.';
+                $error_message[] = 'Tên cán bộ phải bằng hoặc hơn 4 ký tự và nhỏ hơn hoặc bằng 12 ký tự.';
             }
 
             if (!$validator_username->isValid($username)) {
-                $error_message[] = 'Tên tài khoản không không được chứa khoảng trắng.';
+                $error_message[] = 'Tên cán bộ không không được chứa khoảng trắng.';
             }
 
             if ($password) {
@@ -206,7 +203,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
             //check employee
             $check_employee = $userModel->fetchRow('employee_id=' . $employee . ' and employee_id !=' . $user_info->employee_id);
             if ($check_employee) {
-                $error_message[] = 'Nhân viên <strong>' . $this->view->viewGetName($employee) . '</strong> đã có tài khoản rồi.';
+                $error_message[] = 'Nhân viên <strong>' . $this->view->viewGetName($employee) . '</strong> đã có cán bộ rồi.';
             }
 
             if (!sizeof($error_message)) {
@@ -229,7 +226,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
                 $user_info->username = $username;
                 $user_info->status = $status;
 
-                $success_message = 'Đã cập nhật thông tin tài khoản thành công.';
+                $success_message = 'Đã cập nhật thông tin cán bộ thành công.';
             }
         }
 
@@ -249,7 +246,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
 
         Zend_Layout::startMvc($option);
         $translate = Zend_Registry::get('Zend_Translate');
-        $this->view->title = 'Quản lý tài khoản - ' . $translate->_('TEXT_DEFAULT_TITLE');
+        $this->view->title = 'Quản lý cán bộ - ' . $translate->_('TEXT_DEFAULT_TITLE');
         $this->view->headTitle($this->view->title);
 
         $id = $this->_getParam('id', 0);
@@ -260,7 +257,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
 
         $user_info = $userModel->fetchRow('user_id=' . $id);
         if (!$user_info) {
-            $error_message[] = 'Không tìm thấy thông tin của tài khoản.';
+            $error_message[] = 'Không tìm thấy thông tin của cán bộ.';
         }
 
         if ($this->_request->isPost()) {
