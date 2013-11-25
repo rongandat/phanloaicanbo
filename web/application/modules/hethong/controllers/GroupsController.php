@@ -12,7 +12,7 @@ class Hethong_GroupsController extends Zend_Controller_Action {
         $identity = $auth->getIdentity();
 
         //kiem tra permission
-        $check_permission = $this->_helper->global->checkPermission($identity->group_id, '2001');
+        $check_permission = $this->_helper->global->checkPermission($identity->group_id, '1002');
         if (!$check_permission) {
             $this->_redirect('index/permission/');
             exit();
@@ -42,7 +42,8 @@ class Hethong_GroupsController extends Zend_Controller_Action {
                     array('id' => 1008, 'name' => 'Quản lý chứng chỉ'),
                     array('id' => 1009, 'name' => 'Quản lý học hàm'),
                     array('id' => 1010, 'name' => 'Quản lý dân tộc'),
-                    array('id' => 1011, 'name' => 'Quản lý tỉnh, huyện')
+                    array('id' => 1011, 'name' => 'Quản lý tỉnh, huyện'),
+                    array('id' => 1012, 'name' => 'Quản lý chức vụ')
                 )
             ),
             array(
