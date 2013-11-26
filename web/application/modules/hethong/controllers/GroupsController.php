@@ -43,7 +43,8 @@ class Hethong_GroupsController extends Zend_Controller_Action {
                     array('id' => 1009, 'name' => 'Quản lý học hàm'),
                     array('id' => 1010, 'name' => 'Quản lý dân tộc'),
                     array('id' => 1011, 'name' => 'Quản lý tỉnh, huyện'),
-                    array('id' => 1012, 'name' => 'Quản lý chức vụ')
+                    array('id' => 1012, 'name' => 'Quản lý chức vụ'),
+                    array('id' => 1013, 'name' => 'Quản lý ngạch công chức')
                 )
             ),
             array(

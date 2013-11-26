@@ -13,12 +13,13 @@ $list_menu = array(
             'chungchi' => 'QL Chứng chỉ',
             'hocham' => 'QL Học hàm',
             'dantoc' => 'QL Dân tộc',
-            'tinh' => 'QL Tỉnh, Huyện'
+            'tinh' => 'QL Tỉnh, Huyện',
+            'ngachcongchuc' => 'QL Ngạch công chức'
     )),
     'canhan' => array('name' => 'Cá nhân', 'sub' => array()),
     'donvi' => array('name' => 'Đơn vị', 'sub' => array()),
     'tochuccanbo' => array('name' => 'Tổ chức cán bộ', 'sub' => array(
-        'employees' => 'QL Cán bộ'
+            'employees' => 'QL Cán bộ'
     )),
     'thongke' => array('name' => 'Thống kê', 'sub' => array()),
     'inluong' => array('name' => 'In lương', 'sub' => array()),

@@ -99,7 +99,11 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
         $list_chuc_vu = $chucvuModel->fetchData(array('cv_status' => 1));
         
         $phongbanModel = new Front_Model_Phongban();
-        $list_phong_ban = $phongbanModel->fetchData(array('pb_status' => 1));
+        $phong_ban = Array();
+        $list_phong_ban = $phongbanModel->fetchData(0, $phong_ban);
+        
+        $ngachcongchucModel = new Front_Model_NgachCongChuc();
+        $list_ngach_cong_chuc = $ngachcongchucModel->fetchData(array('ncc_status' => 1));
         
         $error_message = array();
         $success_message = '';
@@ -141,6 +145,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
         $this->view->list_dan_toc = $list_dan_toc;
         $this->view->list_chuc_vu = $list_chuc_vu;
         $this->view->list_phong_ban = $list_phong_ban;
+        $this->view->list_ngach_cong_chuc = $list_ngach_cong_chuc;
     }
 
     public function editAction() {

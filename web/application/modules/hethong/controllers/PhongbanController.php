@@ -37,7 +37,7 @@ class Hethong_PhongbanController extends Zend_Controller_Action {
         Zend_Layout::startMvc($option);
         $phongbanModel = new Front_Model_Phongban();        
         $phong_ban = Array();
-        $list_phongban = $phongbanModel->fetchData(0, $phong_ban); 
+        $list_phongban = $phongbanModel->fetchDataStatus(0, $phong_ban); 
         $this->view->paginator = $list_phongban;
     }
 

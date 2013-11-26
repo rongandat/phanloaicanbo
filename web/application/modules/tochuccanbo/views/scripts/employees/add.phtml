@@ -120,7 +120,7 @@
                 <label class="control-label" for="dia_chi_tinh">Tỉnh</label>
                 <div class="controls">
                     <?php
-                    $tinh_options = array();
+                    $tinh_options = array(0 => '');
                     foreach ($this->list_tinh as $tinh) {
                         $tinh_options[$tinh->tinh_id] = $tinh->tinh_name;
                     }
@@ -134,7 +134,7 @@
                 <label class="control-label" for="dia_chi_huyen">Huyện</label>
                 <div class="controls">
                     <?php
-                    $huyen_options = array();
+                    $huyen_options = array(0 => '');
                     foreach ($this->list_huyen as $huyen) {
                         $huyen_options[$huyen->huyen_id] = $huyen->huyen_name;
                     }
@@ -147,7 +147,7 @@
                 <label class="control-label" for="dan_toc">Dân tộc</label>
                 <div class="controls">
                     <?php
-                    $dan_toc_options = array();
+                    $dan_toc_options = array(0 => '');
                     foreach ($this->list_dan_toc as $dan_toc) {
                         $dan_toc_options[$dan_toc->dt_id] = $dan_toc->dt_name;
                     }
@@ -161,7 +161,7 @@
 
         <fieldset>
             <legend>
-                Thông tin nhân viên
+                Thông tin viên chức
             </legend>
             <div class="control-group">
                 <label class="control-label" for="so_cong_chuc">Số công chức</label>
@@ -174,7 +174,7 @@
                 <label class="control-label" for="chuc_vu">Chức vụ</label>
                 <div class="controls">
                     <?php
-                    $chuc_vu_options = array();
+                    $chuc_vu_options = array(0 => '');
                     foreach ($this->list_chuc_vu as $chuc_vu) {
                         $chuc_vu_options[$chuc_vu->cv_id] = $chuc_vu->cv_name;
                     }
@@ -187,14 +187,14 @@
                 <label class="control-label" for="phong_ban">Đơn vị</label>
                 <div class="controls">
                     <?php
-                    $phong_ban_options = array();
+                    $phong_ban_options = array(0 => '');
                     foreach ($this->list_phong_ban as $phong_ban) {
                         $phong_ban_options[$phong_ban->pb_id] = $phong_ban->pb_name;
                     }
                     echo $this->formSelect('phong_ban', null, array('class' => 'input-medium'), $phong_ban_options);
                     ?> 
                 </div>
-            </div> 
+            </div>              
 
             <div class="control-group">
                 <label class="control-label" for="phong_ban">Ngày tuyển dụng</label>
@@ -207,7 +207,28 @@
                     echo $this->formSelect('nam_tuyen_dung', null, array('class' => 'input-small'), $nam_options);
                     ?> 
                 </div>
-            </div> 
+            </div>
+
+            <div class="control-group">
+                <label class="control-label" for="ngach_cong_chuc">Ngạch công chức</label>
+                <div class="controls">
+                    <?php
+                    $ngach_cong_chuc_options = array(0 => '');
+                    foreach ($this->list_ngach_cong_chuc as $ngach_cong_chuc) {
+                        $ngach_cong_chuc_options[$ngach_cong_chuc->ncc_id] = $ngach_cong_chuc->ncc_name;
+                    }
+                    echo $this->formSelect('ngach_cong_chuc', null, array('class' => 'input-medium'), $ngach_cong_chuc_options);
+                    ?> 
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label" for="cong_viec">Công việc</label>
+                <div class="controls">
+
+                    <?php echo $this->formText('cong_viec', NULL, array('class' => 'input-xlarge')); ?> 
+                </div>
+            </div>
 
         </fieldset>
         <fieldset>
@@ -264,6 +285,11 @@
                     ?>                     
                 </div>
             </div>
+        </fieldset>
+        
+        <fieldset>
+            <legend>Thông tin học vấn</legend>
+            
         </fieldset>
 
         <div class="control-group">
