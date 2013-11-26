@@ -1,7 +1,7 @@
 -- MySQL Administrator dump 1.4
 --
 -- ------------------------------------------------------
--- Server version	5.5.27
+-- Server version	5.5.32
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -195,7 +195,7 @@ CREATE TABLE `groups` (
 
 /*!40000 ALTER TABLE `groups` DISABLE KEYS */;
 INSERT INTO `groups` (`group_id`,`group_name`,`group_status`,`group_order`,`group_permissions`,`group_date_modified`,`group_date_added`) VALUES 
- (1,'Nhom 1',1,1,'1001, 2001','2013-11-08 23:51:24',NULL),
+ (1,'Nhom 1',1,1,'1001,1002,1003,1004,1005,1006,1007,1008,1009,1010,1011,1012,2001,2002,2003,2004,2005,2006,2007,2008,','2013-11-25 15:43:49',NULL),
  (5,'Test cai nao edit',1,12,'1001','2013-11-09 17:19:45','2013-11-07 23:33:59'),
  (6,'NhÃ³m 3',1,2,NULL,'2013-11-09 16:41:59','2013-11-09 16:41:59'),
  (7,'dÃ¡dasd',1,0,NULL,'2013-11-09 17:11:56','2013-11-09 17:11:56');
@@ -277,6 +277,32 @@ CREATE TABLE `huyen` (
 
 /*!40000 ALTER TABLE `huyen` DISABLE KEYS */;
 /*!40000 ALTER TABLE `huyen` ENABLE KEYS */;
+
+
+--
+-- Definition of table `ngach_cong_chuc`
+--
+
+DROP TABLE IF EXISTS `ngach_cong_chuc`;
+CREATE TABLE `ngach_cong_chuc` (
+  `ncc_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `ncc_name` varchar(255) NOT NULL,
+  `ncc_order` int(10) unsigned NOT NULL DEFAULT '0',
+  `ncc_status` int(10) unsigned NOT NULL DEFAULT '1',
+  `ncc_date_added` datetime DEFAULT NULL,
+  `ncc_date_modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`ncc_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `ngach_cong_chuc`
+--
+
+/*!40000 ALTER TABLE `ngach_cong_chuc` DISABLE KEYS */;
+INSERT INTO `ngach_cong_chuc` (`ncc_id`,`ncc_name`,`ncc_order`,`ncc_status`,`ncc_date_added`,`ncc_date_modified`) VALUES 
+ (4,'Ngáº¡ch chuyÃªn viÃªn',1,1,'2013-11-26 15:07:50','2013-11-26 15:09:51'),
+ (5,'Ngáº¡ch káº¿ toÃ¡n viÃªn',2,1,'2013-11-26 15:07:58','2013-11-26 15:07:58');
+/*!40000 ALTER TABLE `ngach_cong_chuc` ENABLE KEYS */;
 
 
 --
@@ -382,7 +408,7 @@ CREATE TABLE `users` (
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`user_id`,`employee_id`,`group_id`,`username`,`password`,`status`,`date_added`,`date_modified`) VALUES 
  (1,1,1,'hungnm','37a9b57da9afc663e11b5da3e01c3da5','1','2013-11-07 22:58:52','2013-11-07 22:58:52'),
- (2,2,1,'bichatn','37a9b57da9afc663e11b5da3e01c3da5','0','2013-11-07 22:58:52','2013-11-07 22:58:52');
+ (2,2,1,'bichatn','37a9b57da9afc663e11b5da3e01c3da5','0','2013-11-07 22:58:52','2013-11-25 15:03:32');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 
@@ -397,7 +423,7 @@ CREATE TABLE `users_log` (
   `login_date` int(10) unsigned NOT NULL,
   `login_ip` varchar(45) NOT NULL,
   PRIMARY KEY (`log_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users_log`
@@ -450,7 +476,8 @@ INSERT INTO `users_log` (`log_id`,`user_id`,`login_date`,`login_ip`) VALUES
  (44,1,1384702833,'::1'),
  (45,1,1385276349,'::1'),
  (46,1,1385277925,'::1'),
- (47,1,1385281393,'::1');
+ (47,1,1385281393,'::1'),
+ (48,1,1385349748,'::1');
 /*!40000 ALTER TABLE `users_log` ENABLE KEYS */;
 
 
