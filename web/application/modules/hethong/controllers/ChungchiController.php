@@ -91,6 +91,7 @@ class Hethong_ChungchiController extends Zend_Controller_Action {
             $cc_name = trim($this->_arrParam['cc_name']);
             $cc_order = trim($this->_arrParam['cc_order']);
             $cc_status = $this->_arrParam['cc_status'];
+            $cc_type = $this->_arrParam['cc_type'];
 
             $validator_length = new Zend_Validate_StringLength(array('min' => 2, 'max' => 100));
             if (!is_numeric($cc_order)) {
@@ -106,6 +107,7 @@ class Hethong_ChungchiController extends Zend_Controller_Action {
                 $current_time = new Zend_Db_Expr('NOW()');
                 $chungchiModel->insert(array(
                     'cc_name' => $cc_name,
+                    'cc_type' => $cc_type,
                     'cc_status' => $cc_status,
                     'cc_order' => $cc_order,
                     'cc_date_added' => $current_time,
@@ -145,6 +147,7 @@ class Hethong_ChungchiController extends Zend_Controller_Action {
             $cc_name = trim($this->_arrParam['cc_name']);
             $cc_order = trim($this->_arrParam['cc_order']);
             $cc_status = $this->_arrParam['cc_status'];
+            $cc_type = $this->_arrParam['cc_type'];
 
             if (!is_numeric($cc_order)) {
                 $cc_order = 0;
@@ -161,6 +164,7 @@ class Hethong_ChungchiController extends Zend_Controller_Action {
                 $current_time = new Zend_Db_Expr('NOW()');
                 $chungchiModel->update(array(
                     'cc_name' => $cc_name,
+                    'cc_type' => $cc_type,
                     'cc_status' => $cc_status,
                     'cc_order' => $cc_order,
                     'cc_date_modified' => $current_time
@@ -170,6 +174,7 @@ class Hethong_ChungchiController extends Zend_Controller_Action {
                 $cc_info->cc_name = $cc_name;
                 $cc_info->cc_status = $cc_status;
                 $cc_info->cc_order = $cc_order;
+                $cc_info->cc_type = $cc_type;
 
                 $success_message = 'Đã cập nhật thông tin thành công.';
             }

@@ -80,18 +80,23 @@ DROP TABLE IF EXISTS `chung_chi`;
 CREATE TABLE `chung_chi` (
   `cc_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `cc_name` varchar(255) NOT NULL,
+  `cc_type` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '0: Loai khac, 1: Ngoai ngu, 2: tin hoc',
   `cc_order` int(10) unsigned NOT NULL DEFAULT '0',
   `cc_status` int(10) unsigned NOT NULL DEFAULT '1',
   `cc_date_added` datetime DEFAULT NULL,
   `cc_date_modified` datetime DEFAULT NULL,
   PRIMARY KEY (`cc_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `chung_chi`
 --
 
 /*!40000 ALTER TABLE `chung_chi` DISABLE KEYS */;
+INSERT INTO `chung_chi` (`cc_id`,`cc_name`,`cc_type`,`cc_order`,`cc_status`,`cc_date_added`,`cc_date_modified`) VALUES 
+ (1,'Tiáº¿ng Anh B1',1,0,1,'2013-11-27 11:14:35','2013-11-27 11:14:35'),
+ (2,'Tin há»c 1',2,2,1,'2013-11-27 11:15:04','2013-11-27 11:15:04'),
+ (3,'ABC',0,0,1,'2013-11-27 11:15:28','2013-11-27 11:15:28');
 /*!40000 ALTER TABLE `chung_chi` ENABLE KEYS */;
 
 
@@ -292,7 +297,7 @@ CREATE TABLE `ngach_cong_chuc` (
   `ncc_date_added` datetime DEFAULT NULL,
   `ncc_date_modified` datetime DEFAULT NULL,
   PRIMARY KEY (`ncc_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `ngach_cong_chuc`
@@ -423,7 +428,7 @@ CREATE TABLE `users_log` (
   `login_date` int(10) unsigned NOT NULL,
   `login_ip` varchar(45) NOT NULL,
   PRIMARY KEY (`log_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users_log`
@@ -477,7 +482,8 @@ INSERT INTO `users_log` (`log_id`,`user_id`,`login_date`,`login_ip`) VALUES
  (45,1,1385276349,'::1'),
  (46,1,1385277925,'::1'),
  (47,1,1385281393,'::1'),
- (48,1,1385349748,'::1');
+ (48,1,1385349748,'::1'),
+ (49,1,1385523456,'::1');
 /*!40000 ALTER TABLE `users_log` ENABLE KEYS */;
 
 

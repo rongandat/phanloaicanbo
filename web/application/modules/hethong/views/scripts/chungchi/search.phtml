@@ -20,6 +20,7 @@
                     <tr>
                         <th class="checkall_style"><input type="checkbox" name="check_all" id="checkbox" onclick="checkedAll()"></th>
                         <th>Tên chứng chỉ</th>  
+                        <th>Phân loại</th>  
                         <th class="order_style">Sắp xếp</th>
                         <th class="status_style">Trạng thái</th>
                         <th class="function_style">Chức năng</th>
@@ -28,10 +29,12 @@
                 <tbody>
                     <?php
                     foreach ($this->paginator as $item) {
+                        $type_name = array(0 => 'Loại khác', 1 => 'Ngoại ngữ', 2 => 'Tin học');
                         echo '<tr>
                             <td class="checkall_style"><input type="checkbox" name="cid[]" id="cid" value="' . $item->cc_id . '"></td>
                             <td><a href="' . $this->baseUrl('hethong/chungchi/edit/id/' . $item->cc_id . '/page/' . $this->arrParam['page']) . '">' . $item->cc_name . '</a></td>                            
-                            <td class="order_style text-center">'.$item->cc_order.'</td>
+                            <td class="order_style text-center">' . $type_name[$item->cc_type] . '</td>                            
+                            <td class="order_style text-center">' . $item->cc_order . '</td>
                             <td class="status_style"><a href="' . ($item->cc_status ? $this->baseUrl('hethong/chungchi/changestatus/id/' . $item->cc_id . '/status/0/page/' . $this->arrParam['page']) : $this->baseUrl('hethong/chungchi/changestatus/id/' . $item->cc_id . '/status/1/page/' . $this->arrParam['page'])) . '"><div class="' . ($item->cc_status ? 'icon_status_active' : 'icon_status_inactive') . '"></div></a></td>
                             <td class="function_style">
                                 <a class="btn btn-mini" href="' . $this->baseUrl('hethong/chungchi/edit/id/' . $item->cc_id . '/page/' . $this->arrParam['page']) . '" title="Sửa"><i class="icon-edit"></i> Sửa</a>

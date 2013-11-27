@@ -105,6 +105,15 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
         $ngachcongchucModel = new Front_Model_NgachCongChuc();
         $list_ngach_cong_chuc = $ngachcongchucModel->fetchData(array('ncc_status' => 1));
         
+        $hochamModel = new Front_Model_Hocham();
+        $list_hoc_ham = $hochamModel->fetchData(array('hh_status' => 1));
+        
+        $bangcapModel = new Front_Model_Bangcap();
+        $list_bang_cap = $bangcapModel->fetchData(array('bc_status' => 1));
+        
+        $chungchiModel = new Front_Model_Chungchi();
+        $list_chung_chi = $chungchiModel->fetchData(array('cc_status' => 1));
+        
         $error_message = array();
         $success_message = '';
         if ($this->_request->isPost()) {
@@ -146,6 +155,9 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
         $this->view->list_chuc_vu = $list_chuc_vu;
         $this->view->list_phong_ban = $list_phong_ban;
         $this->view->list_ngach_cong_chuc = $list_ngach_cong_chuc;
+        $this->view->list_hoc_ham = $list_hoc_ham;
+        $this->view->list_bang_cap = $list_bang_cap;
+        $this->view->list_chung_chi = $list_chung_chi;
     }
 
     public function editAction() {

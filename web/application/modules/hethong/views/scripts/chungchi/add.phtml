@@ -31,6 +31,16 @@
             </div> 
             
             <div class="control-group">
+                    <label class="control-label" for="cc_type">Loại chứng chỉ</label>
+                    <div class="controls">
+                        <?php
+                        $type_options = array(1 => 'Ngoại ngữ', 2 => 'Tin học', 0=> 'Loại khác');
+                        echo $this->formSelect('cc_type', null, null, $type_options);
+                        ?>                     
+                    </div>
+                </div>
+            
+            <div class="control-group">
                 <label class="control-label" for="cc_order">Vị trí</label>
                 <div class="controls">
                     <?php echo $this->formText('cc_order', NULL, array()); ?>

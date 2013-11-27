@@ -229,6 +229,14 @@
                     <?php echo $this->formText('cong_viec', NULL, array('class' => 'input-xlarge')); ?> 
                 </div>
             </div>
+            
+            <div class="control-group">
+                <label class="control-label" for="chuyen_mon">Chuyên môn</label>
+                <div class="controls">
+
+                    <?php echo $this->formText('chuyen_mon', NULL, array('class' => 'input-xlarge')); ?> 
+                </div>
+            </div>
 
         </fieldset>
         <fieldset>
@@ -289,6 +297,84 @@
         
         <fieldset>
             <legend>Thông tin học vấn</legend>
+            <div class="control-group">
+                <label class="control-label" for="van_hoa_pt">Văn hóa phổ thông</label>
+                <div class="controls">
+
+                    <?php echo $this->formText('van_hoa_pt', NULL, array('class' => 'input-xlarge')); ?> 
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <label class="control-label" for="hoc_ham">Học hàm cao nhất</label>
+                <div class="controls">
+                    <?php
+                    $hoc_ham_options = array(0 => '');
+                    foreach ($this->list_hoc_ham as $hoc_ham) {
+                        $hoc_ham_options[$hoc_ham->hh_id] = $hoc_ham->hh_name;
+                    }
+                    echo $this->formSelect('hoc_ham', null, array('class' => 'input-medium'), $hoc_ham_options);
+                    ?> 
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <label class="control-label" for="bang_cap">Bằng cấp cao nhất</label>
+                <div class="controls">
+                    <?php
+                    $bang_cap_options = array(0 => '');
+                    foreach ($this->list_bang_cap as $bang_cap) {
+                        $bang_cap_options[$bang_cap->bc_id] = $bang_cap->bc_name;
+                    }
+                    echo $this->formSelect('bang_cap', null, array('class' => 'input-medium'), $bang_cap_options);
+                    ?> 
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <label class="control-label" for="bang_cap">Ngoại ngữ</label>
+                <div class="controls">
+                    <?php
+                    $ngoai_ngu_options = array(0 => '');
+                    $tin_hoc_options = array(0 => '');
+                    $loai_khac_options = array(0 => '');
+                    foreach ($this->list_chung_chi as $chung_chi) {
+                        switch ($chung_chi->cc_type) {
+                            case 1:
+                                $ngoai_ngu_options[$chung_chi->cc_id] = $chung_chi->cc_name;
+                                break;
+                            case 2:
+                                $tin_hoc_options[$chung_chi->cc_id] = $chung_chi->cc_name;
+                                break;
+
+                            default:
+                                $loai_khac_options[$chung_chi->cc_id] = $chung_chi->cc_name;
+                                break;
+                        }                        
+                    }
+                    echo $this->formSelect('bang_cap', null, array('class' => 'input-medium'), $ngoai_ngu_options);
+                    ?> 
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <label class="control-label" for="tin_hoc">Tin học</label>
+                <div class="controls">
+                    <?php                    
+                    echo $this->formSelect('tin_hoc', null, array('class' => 'input-medium'), $tin_hoc_options);
+                    ?> 
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <label class="control-label" for="chung_chi_khac">Chứng chỉ khác</label>
+                <div class="controls">
+                    <?php
+                    
+                    echo $this->formSelect('chung_chi_khac', null, array('class' => 'input-medium'), $loai_khac_options);
+                    ?> 
+                </div>
+            </div>
             
         </fieldset>
 
