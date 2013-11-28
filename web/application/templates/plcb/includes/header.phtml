@@ -13,9 +13,11 @@
         </script>
         <?php
         $this->headLink()->appendStylesheet($this->baseUrl('/public/templates/plcb/css/style.css'))
-                ->appendStylesheet($this->baseUrl('/public/templates/plcb/css/bootstrap.min.css'));
+                ->appendStylesheet($this->baseUrl('/public/templates/plcb/css/bootstrap.min.css'))
+                ->appendStylesheet($this->baseUrl('/public/js/uploadify/uploadify.css'));
         $this->headScript()->appendFile($this->baseUrl('/public/templates/plcb/js/jquery-1.10.2.min.js'), 'text/javascript')
                 ->appendFile($this->baseUrl('/public/templates/plcb/js/bootstrap.min.js'), 'text/javascript')
+                ->appendFile($this->baseUrl('/public/js/uploadify/jquery.uploadify.min.js'), 'text/javascript')
                 ->appendFile($this->baseUrl('/public/js/global.js'), 'text/javascript');
         $this->headMeta()->appendHttpEquiv('Content-Type', 'text/html;charset=utf-8');
         echo $this->headLink();

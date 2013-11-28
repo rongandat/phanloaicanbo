@@ -229,7 +229,7 @@
                     <?php echo $this->formText('cong_viec', NULL, array('class' => 'input-xlarge')); ?> 
                 </div>
             </div>
-            
+
             <div class="control-group">
                 <label class="control-label" for="chuyen_mon">Chuyên môn</label>
                 <div class="controls">
@@ -294,7 +294,7 @@
                 </div>
             </div>
         </fieldset>
-        
+
         <fieldset>
             <legend>Thông tin học vấn</legend>
             <div class="control-group">
@@ -304,7 +304,7 @@
                     <?php echo $this->formText('van_hoa_pt', NULL, array('class' => 'input-xlarge')); ?> 
                 </div>
             </div>
-            
+
             <div class="control-group">
                 <label class="control-label" for="hoc_ham">Học hàm cao nhất</label>
                 <div class="controls">
@@ -317,7 +317,7 @@
                     ?> 
                 </div>
             </div>
-            
+
             <div class="control-group">
                 <label class="control-label" for="bang_cap">Bằng cấp cao nhất</label>
                 <div class="controls">
@@ -330,7 +330,7 @@
                     ?> 
                 </div>
             </div>
-            
+
             <div class="control-group">
                 <label class="control-label" for="bang_cap">Ngoại ngữ</label>
                 <div class="controls">
@@ -350,43 +350,57 @@
                             default:
                                 $loai_khac_options[$chung_chi->cc_id] = $chung_chi->cc_name;
                                 break;
-                        }                        
+                        }
                     }
                     echo $this->formSelect('bang_cap', null, array('class' => 'input-medium'), $ngoai_ngu_options);
                     ?> 
                 </div>
             </div>
-            
+
             <div class="control-group">
                 <label class="control-label" for="tin_hoc">Tin học</label>
                 <div class="controls">
-                    <?php                    
+                    <?php
                     echo $this->formSelect('tin_hoc', null, array('class' => 'input-medium'), $tin_hoc_options);
                     ?> 
                 </div>
             </div>
-            
+
             <div class="control-group">
                 <label class="control-label" for="chung_chi_khac">Chứng chỉ khác</label>
                 <div class="controls">
                     <?php
-                    
                     echo $this->formSelect('chung_chi_khac', null, array('class' => 'input-medium'), $loai_khac_options);
                     ?> 
                 </div>
             </div>
-            
+
+            <div class="control-group">
+                <label class="control-label" for="chung_chi_khac">Ảnh/Scan bằng</label>
+                <div class="controls">
+                    <div id="queue"></div>
+                    <input id="bang_scan_upload" name="bang_scan_upload" type="file" multiple="true"/>
+                    <table class="table" id="tbl_anh_bang_cap">
+                        <tbody id="tbd_anh_bang_cap">                            
+                        </tbody>
+                    </table>                    
+                </div>
+            </div>
+
         </fieldset>
 
-        <div class="control-group">
-            <label class="control-label" for="status">Trạng thái</label>
-            <div class="controls">
-                <?php
-                $status_options = array(1 => 'Sử dụng', 0 => 'Khóa');
-                echo $this->formSelect('status', null, null, $status_options);
-                ?>                     
-            </div>
-        </div> 
+        <fieldset>
+            <legend>Trạng thái</legend>
+            <div class="control-group">
+                <label class="control-label" for="status">Trạng thái</label>
+                <div class="controls">
+                    <?php
+                    $status_options = array(1 => 'Sử dụng', 0 => 'Khóa');
+                    echo $this->formSelect('status', null, null, $status_options);
+                    ?>                     
+                </div>
+            </div> 
+        </fieldset>
 
         <div class="control-group">
             <div class="controls">
@@ -398,3 +412,31 @@
         </div>
     </form>
 </div> 
+
+<script type="text/javascript">
+<?php $timestamp = time(); ?>
+    $(function() {
+        $('#bang_scan_upload').uploadify({
+            'formData'     : {
+                'timestamp' : '<?php echo $timestamp; ?>',
+                'token'     : '<?php echo md5('unique_salt' . $timestamp); ?>'
+            },
+            'checkExisting' : '<?php echo $this->baseUrl('public/uploads/check-exists.php'); ?>',
+            'swf'      : '<?php echo $this->baseUrl('public/js/uploadify/uploadify.swf'); ?>',
+            'uploader' : '<?php echo $this->baseUrl('public/uploads/uploadify.php'); ?>',
+            'fileTypeDesc' : 'Image Files',
+            'fileTypeExts' : '*.gif; *.jpg; *.png; *.jpeg',
+            'onUploadError' : function(file, errorCode, errorMsg, errorString) {
+                alert('Tải ảnh/scan bằng cấp thất bại. Xin hãy thử lại.');
+            },            
+            'onUploadSuccess' : function(file, data, response) {
+                data = $.parseJSON(data);
+                if(!data.success){
+                    alert('Upload không thành công.\n Xin hãy thử lại.');
+                }else{                    
+                    $('#tbd_anh_bang_cap').append("<tr><td><img src=\"<?php echo $this->baseUrl('public/uploads/'); ?>" + data.file_name + "\" class=\"img-polaroid anh_bang_cap\"></td> <td> <button class=\"btn btn-small btn btn-danger\" type=\"button\">Xóa</button></td></tr>");
+                }
+            }
+        });
+    });
+</script>

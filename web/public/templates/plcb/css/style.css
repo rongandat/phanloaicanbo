@@ -326,6 +326,11 @@ input, button, select, textarea {
 .anh_the{
     width: 100px;
 }
+
+.anh_bang_cap{
+    max-width: 500px;
+    max-height: 500px
+}
 /* Main Footer*/
 .main-footer{
     width: 100%;

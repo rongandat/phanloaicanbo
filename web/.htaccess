@@ -7,6 +7,7 @@ RewriteEngine On
 #RewriteCond %{HTTP_HOST} !^www\.
 #RewriteRule ^(.*)$ http://www.%{HTTP_HOST}/$1 [R=301,L]
 
+RewriteCond $1 !^(index\.php|uploads|public|robots\.txt)
 RewriteCond %{REQUEST_FILENAME} -s [OR]
 RewriteCond %{REQUEST_FILENAME} -l [OR]
 RewriteCond %{REQUEST_FILENAME} -d
