@@ -14,7 +14,7 @@ class Front_Model_Chungchi extends Zend_Db_Table_Abstract {
         //add cac filter vao truy van tim kiem
         if (count($filters) > 0) {
             foreach ($filters as $feild => $keyword) {
-                if ($feild == 'keyword') {
+                if ($feild === 'keyword') {
                     $select->where('cc_name like?', $keyword . '%')->orWhere('cc_name like?', '%' . $keyword . '%')->orWhere('cc_name like?', '%' . $keyword)->group('cc_id');
                 } else {
                     $select->where($feild . ' =?', $keyword);

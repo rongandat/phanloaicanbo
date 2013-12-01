@@ -1,8 +1,8 @@
 <?php
-$fullname = trim($employeeInfo->ho);
-if (trim($employeeInfo->ten_dem))
-    $fullname .= ' ' . trim($employeeInfo->ten_dem);
-$fullname .= ' ' . trim($employeeInfo->ten);
+$fullname = trim($employeeInfo->em_ho);
+if (trim($employeeInfo->em_ten_dem))
+    $fullname .= ' ' . trim($employeeInfo->em_ten_dem);
+$fullname .= ' ' . trim($employeeInfo->em_ten);
 
 $date_last_login = '00:00:0000 00:00:00';
 if ($identity->last_login_data) {

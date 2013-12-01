@@ -44,13 +44,13 @@
                         <?php
                         $employee_options = array();
                         foreach ($this->list_employees as $employee) {
-                            $fullname = trim($employee->ho);
-                            if (trim($employee->ten_dem))
-                                $fullname .= ' ' . trim($employee->ten_dem);
-                            $fullname .= ' ' . trim($employee->ten);
-                            $employee_options[$employee->employee_id] = $fullname;
+                            $fullname = trim($employee->em_ho);
+                            if (trim($employee->em_ten_dem))
+                                $fullname .= ' ' . trim($employee->em_ten_dem);
+                            $fullname .= ' ' . trim($employee->em_ten);
+                            $employee_options[$employee->em_id] = $fullname;
                         }
-                        echo $this->formSelect('employee', $this->user_info->employee_id, null, $employee_options);
+                        echo $this->formSelect('employee', $this->user_info->em_id, null, $employee_options);
                         ?>                    
                         <span class="help-block">Chọn nhân viên ứng với tên đăng nhập đang được tạo.</span>
                     </div>

@@ -16,7 +16,19 @@ $list_menu = array(
             'tinh' => 'QL Tỉnh, Huyện',
             'ngachcongchuc' => 'QL Ngạch công chức'
     )),
-    'canhan' => array('name' => 'Cá nhân', 'sub' => array()),
+    
+    'canhan' => array('name' => 'Cá nhân', 'sub' => array(
+        'thongbao' => 'Thông báo',
+        'canhan' => 'Thông tin cá nhân',
+        'capnhatthongtin' => 'Cập nhật thông tin',
+        'xinnghiphep' => 'Xin nghỉ phép',
+        'chamcong' => 'Chấm công',
+        'khaibaothemgio' => 'Khai báo thêm giờ',
+        'thongkethang' => 'Thống kê tháng',
+        'danhgiaphanloai' => 'Đánh giá phân loại',
+        'doimatkhau' => 'Đổi mật khẩu'
+    )),
+    
     'donvi' => array('name' => 'Đơn vị', 'sub' => array()),
     'tochuccanbo' => array('name' => 'Tổ chức cán bộ', 'sub' => array(
             'employees' => 'QL Cán bộ'

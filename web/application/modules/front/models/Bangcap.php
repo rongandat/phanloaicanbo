@@ -14,7 +14,7 @@ class Front_Model_Bangcap extends Zend_Db_Table_Abstract {
         //add cac filter vao truy van tim kiem
         if (count($filters) > 0) {
             foreach ($filters as $feild => $keyword) {
-                if ($feild == 'keyword') {
+                if ($feild === 'keyword') {
                     $select->where('bc_name like?', $keyword . '%')->orWhere('bc_name like?', '%' . $keyword . '%')->orWhere('bc_name like?', '%' . $keyword)->group('bc_id');
                 } else {
                     $select->where($feild . ' =?', $keyword);

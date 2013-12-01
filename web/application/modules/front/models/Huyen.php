@@ -14,7 +14,7 @@ class Front_Model_Huyen extends Zend_Db_Table_Abstract {
         //add cac filter vao truy van tim kiem
         if (count($filters) > 0) {
             foreach ($filters as $feild => $keyword) {
-                if ($feild == 'keyword') {
+                if ($feild === 'keyword') {
                     $select->where('huyen_name like?', $keyword . '%')->orWhere('huyen_name like?', '%' . $keyword . '%')->orWhere('huyen_name like?', '%' . $keyword)->group('huyen_id');
                 } else {
                     $select->where($feild . ' =?', $keyword);

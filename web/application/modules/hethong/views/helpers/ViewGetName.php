@@ -9,12 +9,12 @@ class Zend_View_Helper_ViewGetName extends Zend_Controller_Action_Helper_Abstrac
 
     public function viewGetName($id) {
         $employeeModel = new Front_Model_Employees();
-        $employee = $employeeModel->fetchRow('employee_id=' . $id);
+        $employee = $employeeModel->fetchRow('em_id=' . $id);
         if ($employee) {
-            $fullname = trim($employee->ho);
-            if (trim($employee->ten_dem))
-                $fullname .= ' ' . trim($employee->ten_dem);
-            $fullname .= ' ' . trim($employee->ten);
+            $fullname = trim($employee->em_ho);
+            if (trim($employee->em_ten_dem))
+                $fullname .= ' ' . trim($employee->em_ten_dem);
+            $fullname .= ' ' . trim($employee->em_ten);
             return $fullname;
         }
         return '';

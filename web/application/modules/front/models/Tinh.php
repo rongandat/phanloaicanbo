@@ -14,7 +14,7 @@ class Front_Model_Tinh extends Zend_Db_Table_Abstract {
         //add cac filter vao truy van tim kiem
         if (count($filters) > 0) {
             foreach ($filters as $feild => $keyword) {
-                if ($feild == 'keyword') {
+                if ($feild === 'keyword') {
                     $select->where('tinh_name like?', $keyword . '%')->orWhere('tinh_name like?', '%' . $keyword . '%')->orWhere('tinh_name like?', '%' . $keyword)->group('tinh_id');
                 } else {
                     $select->where($feild . ' =?', $keyword);

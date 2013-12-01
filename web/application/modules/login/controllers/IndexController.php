@@ -55,7 +55,7 @@ class Login_IndexController extends Zend_Controller_Action {
                     // luu tru gia tri can thiet cua user
                     $data = $authAdapter->getResultRowObject(array(
                         'user_id',
-                        'employee_id',
+                        'em_id',
                         'group_id',
                         'status'
                             ));

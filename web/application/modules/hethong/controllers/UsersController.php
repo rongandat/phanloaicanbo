@@ -120,7 +120,7 @@ class Hethong_UsersController extends Zend_Controller_Action {
             }
 
             //check employee
-            $check_employee = $userModel->fetchRow('employee_id=' . $employee);
+            $check_employee = $userModel->fetchRow('em_id=' . $employee);
             if ($check_employee) {
                 $error_message[] = 'Nhân viên <strong>' . $this->view->viewGetName($employee) . '</strong> đã có tài khoản rồi.';
             }
@@ -128,7 +128,7 @@ class Hethong_UsersController extends Zend_Controller_Action {
             if (!sizeof($error_message)) {
                 $current_time = new Zend_Db_Expr('NOW()');
                 $userModel->insert(array(
-                    'employee_id' => $employee,
+                    'em_id' => $employee,
                     'group_id' => $group,
                     'username' => $username,
                     'password' => md5($password),
@@ -204,7 +204,7 @@ class Hethong_UsersController extends Zend_Controller_Action {
             }
 
             //check employee
-            $check_employee = $userModel->fetchRow('employee_id=' . $employee . ' and employee_id !=' . $user_info->employee_id);
+            $check_employee = $userModel->fetchRow('em_id=' . $employee . ' and em_id !=' . $user_info->em_id);
             if ($check_employee) {
                 $error_message[] = 'Nhân viên <strong>' . $this->view->viewGetName($employee) . '</strong> đã có tài khoản rồi.';
             }
@@ -212,7 +212,7 @@ class Hethong_UsersController extends Zend_Controller_Action {
             if (!sizeof($error_message)) {
                 $current_time = new Zend_Db_Expr('NOW()');
                 $userModel->update(array(
-                    'employee_id' => $employee,
+                    'em_id' => $employee,
                     'group_id' => $group,
                     'username' => $username,
                     'status' => $status,
@@ -224,7 +224,7 @@ class Hethong_UsersController extends Zend_Controller_Action {
                     $userModel->update(array('password' => md5($password)), 'user_id=' . $id);
                 }
 
-                $user_info->employee_id = $employee;
+                $user_info->em_id = $employee;
                 $user_info->group_id = $group;
                 $user_info->username = $username;
                 $user_info->status = $status;

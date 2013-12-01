@@ -28,7 +28,7 @@ defined('UPLOAD_PATH')
     || define('UPLOAD_PATH', realpath(dirname(__FILE__) . '/public/uploads'));
 
 defined('UPLOADED_URL')
-    || define('UPLOADED_URL', SITE_URL.'/public/uploads/plcb_files');
+    || define('UPLOADED_URL', SITE_URL.'/public/uploads/');
 
 
 //------------KHAI BAO DUONG DAN THUC DEN CAC THU MUC --------------

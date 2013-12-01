@@ -21,7 +21,7 @@ class Front_Model_Groups extends Zend_Db_Table_Abstract {
         //add cac filter vao truy van tim kiem
         if (count($filters) > 0) {
             foreach ($filters as $feild => $keyword) {
-                if ($feild == 'keyword') {
+                if ($feild === 'keyword') {
                     $select->where('group_name like?', $keyword . '%')->orWhere('group_name like?', '%' . $keyword . '%')->orWhere('group_name like?', '%' . $keyword)->group('group_id');
                 } else {
                     $select->where($feild . ' =?', $keyword);
