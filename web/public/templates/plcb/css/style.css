@@ -329,7 +329,19 @@ input, button, select, textarea {
 
 .anh_bang_cap{
     max-width: 500px;
-    max-height: 500px
+    max-height: 500px;
+}
+
+.cap_nhat_anh_bang_cap{
+    max-width: 450px;
+    max-height: 500px;
+}
+
+.anh_bang_cap_slide{
+}
+
+.thong-tin-ca-nhan [class*="span"] {
+    line-height: 25px;
 }
 /* Main Footer*/
 .main-footer{

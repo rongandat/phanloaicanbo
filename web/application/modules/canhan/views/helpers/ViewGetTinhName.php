@@ -9,7 +9,7 @@ class Zend_View_Helper_ViewGetTinhName extends Zend_Controller_Action_Helper_Abs
 
     public function viewGetTinhName($id) {
         $tinhModel = new Front_Model_Tinh();
-        $tinh = $tinhModel->fetchRow('tinh_id=' . $id);
+        $tinh = $tinhModel->fetchRow('tinh_id=' . $id .' and tinh_status=1');
         if ($tinh) {            
             return $tinh->tinh_name;
         }

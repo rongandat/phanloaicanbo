@@ -1,6 +1,6 @@
 <?php
 
-class Canhan_CanhanController extends Zend_Controller_Action {
+class Canhan_ThongtinController extends Zend_Controller_Action {
 
     protected $_arrParam;
     protected $_page = 1;
@@ -31,12 +31,16 @@ class Canhan_CanhanController extends Zend_Controller_Action {
         $translate = Zend_Registry::get('Zend_Translate');
         $this->view->title = 'Quản lý tài khoản - ' . $translate->_('TEXT_DEFAULT_TITLE');
         $this->view->headTitle($this->view->title);
-
         $layoutPath = APPLICATION_PATH . '/templates/' . TEMPLATE_USED;
         $option = array('layout' => 'canhan/layout',
             'layoutPath' => $layoutPath);
-
         Zend_Layout::startMvc($option);
-        $this->view->page = $this->_page;
+
+        $auth = Zend_Auth::getInstance();
+        $identity = $auth->getIdentity();
+        $employeeModel = new Front_Model_Employees();
+        $employeeInfo = $employeeModel->fetchRow(array('em_id' => $identity->em_id));
+        $this->view->employee_info = $employeeInfo;
     }
+
 }

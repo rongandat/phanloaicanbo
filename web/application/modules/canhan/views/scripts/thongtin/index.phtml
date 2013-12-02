@@ -1,0 +1,164 @@
+<div class="body_content float_right">
+    <h5>Thông tin cá nhân</h5>               
+
+    <div class="main-content-box thong-tin-ca-nhan">  
+        <p class="lead">Thông tin cá nhân</p>
+        <div class="row">
+            <?php
+            $fullname = trim($this->employee_info->em_ho);
+            if (trim($this->employee_info->em_ten_dem))
+                $fullname .= ' ' . trim($this->employee_info->em_ten_dem);
+            $fullname .= ' ' . trim($this->employee_info->em_ten);
+            ?>
+            <div class="span4 float_left"><strong>Họ tên: </strong> <?php echo $fullname; ?></div>
+        </div>
+        <div class="row">
+            <div class="span6 float_left"><strong>Tên thường gọi: </strong> <?php echo $this->employee_info->em_ten_khac; ?></div>
+        </div>
+        <div class="row">
+            <div class="span6 float_left"><strong>Giới tính: </strong> <?php echo $this->employee_info->em_gioi_tinh ? 'Nam' : 'Nữ'; ?></div>
+        </div>
+        <div class="row">
+            <div class="span6 float_left"><strong>Ngày sinh: </strong> <?php echo date('d-m-Y', strtotime($this->employee_info->em_ngay_sinh)); ?></div>
+        </div>
+        <div class="row">
+            <div class="span6 float_left"><strong>Số chứng minh thư: </strong> <?php echo $this->employee_info->em_so_chung_minh_thu; ?></div>
+        </div>
+        <div class="row">
+            <div class="span4 float_left">
+                <strong>Ảnh thẻ: </strong>
+                <?php
+                if ($this->employee_info->em_anh_the) {
+                    echo '<img src="' . UPLOADED_URL . '/avatars/' . $this->employee_info->em_anh_the . '" class="img-polaroid anh_the">';
+                } else {
+                    echo '<img src="' . $this->baseUrl('anh_the.jpg') . '" class="img-polaroid anh_the">';
+                }
+                ?> 
+            </div>
+        </div>
+        <div class="row">
+            <div class="span6 float_left"><strong>Dân tộc: </strong> <?php echo $this->viewGetDanTocName($this->employee_info->em_dan_toc); ?></div>
+        </div>
+        <div class="row">            
+            <div class="span4 float_left"><strong>Số điện thoại: </strong> <?php echo $this->employee_info->em_home_phone; ?></div>
+            <div class="span4 float_left"><strong>Di động: </strong> <?php echo $this->employee_info->em_phone; ?></div>
+        </div>
+        <div class="row">            
+            <div class="span4 float_left"><strong>Nơi sinh: </strong> <?php echo $this->employee_info->em_noi_sinh; ?></div>
+            <div class="span4 float_left"><strong>Quê quán: </strong> <?php echo $this->employee_info->em_que_quan; ?></div>
+        </div>
+        <div class="row">            
+            <div class="span9 float_left"><strong>Địa chỉ: </strong> <?php echo $this->employee_info->em_dia_chi . ' - ' . $this->viewGetHuyenName($this->employee_info->em_dia_chi_huyen) . ' - ' . $this->viewGetTinhName($this->employee_info->em_dia_chi_tinh); ?></div>
+        </div>
+
+        <br/>
+        <p class="lead">Thông tin viên chức</p>
+        <div class="row">            
+            <div class="span4 float_left"><strong>Số công chức: </strong> <?php echo $this->employee_info->em_so_cong_chuc; ?></div>
+        </div>
+        <div class="row">            
+            <div class="span4 float_left"><strong>Phòng ban: </strong> <?php echo $this->viewGetPhongBanName($this->employee_info->em_phong_ban); ?></div>
+            <div class="span4 float_left"><strong>Chức vụ: </strong> <?php echo $this->viewGetChucVuName($this->employee_info->em_chuc_vu); ?></div>
+        </div>
+        <div class="row">            
+            <div class="span4 float_left"><strong>Ngày tuyển dụng: </strong> <?php echo date('d-m-Y', strtotime($this->employee_info->em_ngay_tuyen_dung)); ?></div>
+        </div>
+        <div class="row">            
+            <div class="span4 float_left"><strong>Ngạch công chức: </strong> <?php echo $this->viewGetNgachCongChucName($this->employee_info->em_ngach_cong_chuc); ?></div>
+        </div>
+        <div class="row">            
+            <div class="span4 float_left"><strong>Công việc: </strong> <?php echo $this->employee_info->em_cong_viec; ?></div>
+            <div class="span4 float_left"><strong>Chuyên môn: </strong> <?php echo $this->employee_info->em_chuyen_mon; ?></div>
+        </div>
+
+        <br/>
+        <p class="lead">Thông tin Đảng - Đoàn</p>
+        <?php
+        $dang_options = array(0 => '', 1 => 'Bí thư', 2 => 'Phó bí thư', 3 => 'Ủy viên', 4 => 'Đảng viên');
+        $doan_options = array(0 => '', 1 => 'Bí thư', 2 => 'Phó bí thư', 3 => 'Ủy viên', 4 => 'Đoàn viên');
+        $cong_doan_options = array(0 => '', 1 => 'Chủ tịch', 2 => 'Phó chủ tịch', 3 => 'Ủy viên', 4 => 'Công đoàn viên');
+        ?>
+        <div class="row">            
+            <div class="span4 float_left"><strong>Chức vụ đảng: </strong> <?php echo $dang_options[$this->employee_info->em_chuc_vu_dang]; ?></div>
+        </div>
+        <div class="row">            
+            <div class="span4 float_left"><strong>Ngày vào đảng: </strong> <?php echo $this->employee_info->em_chuc_vu_dang ? date('d-m-Y', strtotime($this->employee_info->em_ngay_vao_dang)) : ''; ?></div>
+        </div>
+        <div class="row">            
+            <div class="span4 float_left"><strong>Chức vụ đoàn: </strong> <?php echo $doan_options[$this->employee_info->em_chuc_vu_doan]; ?></div>
+        </div>
+        <div class="row">            
+            <div class="span4 float_left"><strong>Ngày vào đảng: </strong> <?php echo $this->employee_info->em_chuc_vu_doan ? date('d-m-Y', strtotime($this->employee_info->em_ngay_vao_doan)) : ''; ?></div>
+        </div>
+        <div class="row">            
+            <div class="span4 float_left"><strong>Chức vụ công đoàn: </strong> <?php echo $cong_doan_options[$this->employee_info->em_chuc_vu_cong_doan]; ?></div>
+        </div>
+
+        <br/>
+        <p class="lead">Thông tin học vấn</p>
+
+        <div class="row">            
+            <div class="span4 float_left"><strong>Văn hóa phổ thông: </strong> <?php echo $this->employee_info->em_van_hoa_pt; ?></div>
+        </div>
+
+        <div class="row">            
+            <div class="span4 float_left"><strong>Học hàm cao nhất: </strong> <?php echo $this->viewGetHocHamName($this->employee_info->em_hoc_ham); ?></div>
+        </div>       
+
+        <div class="row">            
+            <div class="span4 float_left"><strong>Bằng cấp cao nhất: </strong> <?php echo $this->viewGetBangCapName($this->employee_info->em_bang_cap); ?></div>
+        </div>  
+
+        <div class="row">            
+            <div class="span4 float_left"><strong>Ngoại ngữ: </strong> <?php echo $this->viewGetChungChiName($this->employee_info->em_ngoai_ngu); ?></div>
+        </div>  
+
+        <div class="row">            
+            <div class="span4 float_left"><strong>Tin học: </strong> <?php echo $this->viewGetChungChiName($this->employee_info->em_tin_hoc); ?></div>
+        </div>  
+
+        <div class="row">            
+            <div class="span4 float_left"><strong>Chứng chỉ khác: </strong> <?php echo $this->viewGetChungChiName($this->employee_info->em_chung_chi_khac); ?></div>
+        </div>  
+        <div class="row">            
+            <div class="span4 float_left"><strong>Ảnh scan bằng cấp: </strong></div>
+        </div>  
+        <div>   
+            <?php
+            $count_image = 0;
+            $ol_html = '';
+            $inner_html = '';
+            foreach (unserialize($this->employee_info->em_anh_bang_cap) as $anh_scan) {
+                if (!$count_image) {
+                    $ol_html.= '<li data-target="#myCarousel" data-slide-to="' . $count_image . '" class="active"></li>';
+                    $inner_html.= '<div class="item active"><img src="' . $this->baseUrl('public/uploads/') . $anh_scan . '" class="anh_bang_cap_slide"></div>';
+                } else {
+                    $ol_html.= '<li data-target="#myCarousel" data-slide-to="' . $count_image . '" class=""></li>';
+                    $inner_html.= '<div class="item"><img src="' . $this->baseUrl('public/uploads/') . $anh_scan . '" class="anh_bang_cap_slide"></div>';
+                }
+                $count_image++;
+            }
+            ?>
+            <div id="myCarousel" class="carousel slide">
+                <ol class="carousel-indicators">
+                    <?php echo $ol_html; ?>
+                </ol>
+                <div class="carousel-inner">
+                    <?php echo $inner_html; ?>
+                </div>
+                <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
+                <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>
+            </div>
+        </div>
+        
+        <div class="control-group">
+            <div class="controls">
+                <p>  
+                    <a href="<?php echo $this->baseUrl('canhan/capnhatthongtin'); ?>" class="btn btn-primary" data-loading-text="Cập nhật thông tin">Cập nhật thông tin</a>
+                </p>
+            </div>
+        </div>
+        
+    </div> 
+
+</div>

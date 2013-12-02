@@ -1,0 +1,8 @@
+<?php
+$list_huyen = array();
+foreach ($this->list_huyen as $huyen){
+    $list_huyen[] = array('id'=> $huyen->huyen_id, 'name' => $huyen->huyen_name);
+}
+
+echo json_encode($list_huyen);
+?>

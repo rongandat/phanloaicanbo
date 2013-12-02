@@ -1,7 +1,7 @@
 -- MySQL Administrator dump 1.4
 --
 -- ------------------------------------------------------
--- Server version	5.5.27
+-- Server version	5.5.32
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -207,7 +207,7 @@ CREATE TABLE `employees` (
 
 /*!40000 ALTER TABLE `employees` DISABLE KEYS */;
 INSERT INTO `employees` (`em_id`,`em_ten`,`em_ten_dem`,`em_ho`,`em_ngay_sinh`,`em_so_chung_minh_thu`,`em_ten_khac`,`em_anh_the`,`em_gioi_tinh`,`em_home_phone`,`em_phone`,`em_noi_sinh`,`em_que_quan`,`em_dia_chi`,`em_dia_chi_tinh`,`em_dia_chi_huyen`,`em_dan_toc`,`em_so_cong_chuc`,`em_chuc_vu`,`em_phong_ban`,`em_ngay_tuyen_dung`,`em_ngach_cong_chuc`,`em_cong_viec`,`em_chuyen_mon`,`em_chuc_vu_dang`,`em_ngay_vao_dang`,`em_chuc_vu_doan`,`em_ngay_vao_doan`,`em_chuc_vu_cong_doan`,`em_van_hoa_pt`,`em_hoc_ham`,`em_bang_cap`,`em_ngoai_ngu`,`em_tin_hoc`,`em_chung_chi_khac`,`em_anh_bang_cap`,`em_status`,`em_delete`,`em_date_added`,`em_date_modified`) VALUES 
- (1,'HÃ¹ng','Máº¡nh','Nguyá»…n','1986-10-07 00:00:07','131398081','Nobita','only_logo - co background.png',1,'','0985679742','Äoan HÃ¹ng','VÄ©nh PhÃº','ThÃ´n 12 -VÃ¢n Du',4,1,2,'HAV102',6,9,'2009-10-01 00:00:07',4,'Láº­p trÃ¬nh viÃªn','Láº­p trÃ¬nh web',3,'2010-04-19 00:00:07',2,'2012-03-19 00:00:07',1,'12/12',3,8,1,2,3,'a:4:{i:0;s:37:\"1829388043_1_blue.__large_preview.jpg\";i:1;s:17:\"1678618022_HQ.jpg\";i:2;s:18:\"1873276955_top.png\";i:3;s:24:\"321482784_Untitled-1.jpg\";}',1,0,'2013-12-01 22:20:10','2013-12-01 22:20:10'),
+ (1,'HÃ¹ng','Máº¡nh','Nguyá»…n','1986-10-07 00:00:07','131398081','Nobita','',1,'','0985679742','Äoan HÃ¹ng','VÄ©nh PhÃº','ThÃ´n 12 -VÃ¢n Du',4,1,2,'HAV102',6,9,'2009-10-01 00:00:07',4,'Láº­p trÃ¬nh viÃªn','Láº­p trÃ¬nh web',3,'2010-04-19 00:00:07',2,'2012-03-19 00:00:07',1,'12/12',3,8,1,2,3,'a:3:{i:0;s:23:\"1555153616_gai xinh.jpg\";i:1;s:37:\"765559047_game garena on facebook.png\";i:2;s:17:\"1935797311_Ve.png\";}',1,0,'2013-12-02 16:54:16','2013-12-02 16:54:16'),
  (2,'BÃ­ch','Ngá»c','Ã‚u','1986-11-02 00:00:07','13133123434','BÃ­ch','1385911581.png',0,'','09886838560','Báº£o Tháº¯ng','HoÃ ng LiÃªn SÆ¡n','XÃ³m 11',4,1,2,'HAV1023',6,11,'1981-06-16 00:00:07',5,'Káº¿ ToÃ¡n','Káº¿ toÃ¡n mÃ¡y',2,'2012-07-15 00:00:07',4,'2011-05-18 00:00:07',3,'12/12',3,8,1,2,3,'a:3:{i:0;s:28:\"1620194362_OneTV  - Logo.png\";i:1;s:17:\"987576096_top.png\";i:2;s:24:\"681729117_Untitled-1.jpg\";}',1,0,'2013-12-01 22:26:21','2013-12-01 22:26:21'),
  (3,'HÃ¹ng','Máº¡nh','Nguyá»…n',NULL,'131398081','Nobita','1385898380.jpg',0,'','0985679742','Doan Hung','Phu Tho','Doan Hung',4,1,2,'23443432',4,9,NULL,4,'Cong nghe thong tin','danh may',1,NULL,2,NULL,1,'12/12',3,8,1,2,3,'a:2:{i:0;s:27:\"413210694_OneTV  - Logo.png\";i:1;s:18:\"1122416878_top.png\";}',1,1,'2013-12-01 18:46:20','2013-12-01 18:46:20'),
  (4,'HÃ¹ng','Máº¡nh','Nguyá»…n','0000-00-00 00:00:00','131398081','Nobita',NULL,0,'','0985679742','Doan Hung','Phu Tho','Doan Hung',0,0,2,'23443432',4,9,'0000-00-00 00:00:00',4,'Cong nghe thong tin','danh may',1,'0000-00-00 00:00:00',2,'0000-00-00 00:00:00',1,'12/12',3,8,1,2,3,'a:2:{i:0;s:27:\"413210694_OneTV  - Logo.png\";i:1;s:18:\"1122416878_top.png\";}',1,1,'2013-12-01 18:46:46','2013-12-01 18:46:46'),
@@ -220,6 +220,58 @@ INSERT INTO `employees` (`em_id`,`em_ten`,`em_ten_dem`,`em_ho`,`em_ngay_sinh`,`e
  (11,'HÃ¹ng','Máº¡nh','Nguyá»…n','1907-05-03 00:00:07','131398081','Nobita',NULL,0,'','0985679742','Doan Hung','Phu Tho','Doan Hung',0,0,2,'23443432',4,9,'1905-01-03 00:00:07',4,'Cong nghe thong tin','danh may',1,'1918-06-01 00:00:08',2,'1916-12-01 00:00:08',1,'12/12',3,8,1,2,3,'a:2:{i:0;s:27:\"413210694_OneTV  - Logo.png\";i:1;s:18:\"1122416878_top.png\";}',1,1,'2013-12-01 18:53:15','2013-12-01 18:53:15'),
  (12,'HÃ¹ng NM','Máº¡nh','Nguyá»…n','1960-01-01 00:00:07','','HUNGNM','1385909187.jpg',1,'','','','','',4,3,0,'',0,0,'1970-01-01 00:00:07',0,'','',0,'1970-01-01 00:00:07',0,'1970-01-01 00:00:07',0,'',0,0,0,0,0,'a:6:{i:0;s:17:\"1485962866_HQ.jpg\";i:1;s:45:\"1685560482_introduction_garena_on_youtube.jpg\";i:2;s:31:\"1268631121_New Logo Video 1.png\";i:3;s:29:\"1137916836_New Logo Video.png\";i:4;s:28:\"1030329440_OneTV  - Logo.png\";i:5;s:18:\"1430823586_top.png\";}',1,1,'2013-12-01 21:46:37','2013-12-01 21:46:37');
 /*!40000 ALTER TABLE `employees` ENABLE KEYS */;
+
+
+--
+-- Definition of table `employees_edit`
+--
+
+DROP TABLE IF EXISTS `employees_edit`;
+CREATE TABLE `employees_edit` (
+  `eme_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `em_id` int(10) unsigned NOT NULL,
+  `eme_ten` varchar(45) NOT NULL,
+  `eme_ten_dem` varchar(45) DEFAULT NULL,
+  `eme_ho` varchar(45) NOT NULL,
+  `eme_ngay_sinh` datetime DEFAULT NULL,
+  `eme_so_chung_minh_thu` varchar(45) CHARACTER SET latin1 DEFAULT NULL,
+  `eme_ten_khac` varchar(100) DEFAULT NULL,
+  `eme_anh_the` varchar(255) DEFAULT NULL,
+  `eme_gioi_tinh` int(10) unsigned NOT NULL DEFAULT '1',
+  `eme_home_phone` varchar(45) DEFAULT NULL,
+  `eme_phone` varchar(45) DEFAULT NULL,
+  `eme_noi_sinh` varchar(255) DEFAULT NULL,
+  `eme_que_quan` varchar(255) DEFAULT NULL,
+  `eme_dia_chi` varchar(255) DEFAULT NULL,
+  `eme_dia_chi_tinh` int(10) unsigned NOT NULL DEFAULT '0',
+  `eme_dia_chi_huyen` int(10) unsigned NOT NULL DEFAULT '0',
+  `eme_dan_toc` int(10) unsigned NOT NULL DEFAULT '0',
+  `eme_chuc_vu_dang` int(10) unsigned NOT NULL DEFAULT '0',
+  `eme_ngay_vao_dang` datetime DEFAULT NULL,
+  `eme_chuc_vu_doan` int(10) unsigned NOT NULL DEFAULT '0',
+  `eme_ngay_vao_doan` datetime DEFAULT NULL,
+  `eme_chuc_vu_cong_doan` int(10) unsigned NOT NULL DEFAULT '0',
+  `eme_van_hoa_pt` varchar(100) DEFAULT NULL,
+  `eme_hoc_ham` int(10) unsigned NOT NULL DEFAULT '0',
+  `eme_bang_cap` int(10) unsigned NOT NULL DEFAULT '0',
+  `eme_ngoai_ngu` int(10) unsigned NOT NULL DEFAULT '0',
+  `eme_tin_hoc` int(10) unsigned NOT NULL DEFAULT '0',
+  `eme_chung_chi_khac` int(10) unsigned NOT NULL DEFAULT '0',
+  `eme_anh_bang_cap` text,
+  `eme_status` int(10) unsigned NOT NULL DEFAULT '0',
+  `eme_date_added` datetime DEFAULT NULL,
+  `eme_date_modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`eme_id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `employees_edit`
+--
+
+/*!40000 ALTER TABLE `employees_edit` DISABLE KEYS */;
+INSERT INTO `employees_edit` (`eme_id`,`em_id`,`eme_ten`,`eme_ten_dem`,`eme_ho`,`eme_ngay_sinh`,`eme_so_chung_minh_thu`,`eme_ten_khac`,`eme_anh_the`,`eme_gioi_tinh`,`eme_home_phone`,`eme_phone`,`eme_noi_sinh`,`eme_que_quan`,`eme_dia_chi`,`eme_dia_chi_tinh`,`eme_dia_chi_huyen`,`eme_dan_toc`,`eme_chuc_vu_dang`,`eme_ngay_vao_dang`,`eme_chuc_vu_doan`,`eme_ngay_vao_doan`,`eme_chuc_vu_cong_doan`,`eme_van_hoa_pt`,`eme_hoc_ham`,`eme_bang_cap`,`eme_ngoai_ngu`,`eme_tin_hoc`,`eme_chung_chi_khac`,`eme_anh_bang_cap`,`eme_status`,`eme_date_added`,`eme_date_modified`) VALUES 
+ (15,1,'HÃ¹ng','Máº¡nh','Nguyá»…n','1986-10-07 00:00:07','131398081','Nobita',NULL,1,'','0985679742','Äoan HÃ¹ng','VÄ©nh PhÃº','ThÃ´n 12 -VÃ¢n Du',4,1,2,3,'2010-04-19 00:00:07',2,'2012-03-19 00:00:07',1,'12/12',3,8,1,2,3,'a:3:{i:0;s:23:\"1555153616_gai xinh.jpg\";i:1;s:37:\"765559047_game garena on facebook.png\";i:2;s:17:\"1935797311_Ve.png\";}',0,'2013-12-02 17:07:12','2013-12-02 17:07:12');
+/*!40000 ALTER TABLE `employees_edit` ENABLE KEYS */;
 
 
 --
@@ -477,7 +529,7 @@ CREATE TABLE `users_log` (
   `login_date` int(10) unsigned NOT NULL,
   `login_ip` varchar(45) NOT NULL,
   PRIMARY KEY (`log_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users_log`
@@ -537,7 +589,10 @@ INSERT INTO `users_log` (`log_id`,`user_id`,`login_date`,`login_ip`) VALUES
  (51,1,1385797693,'::1'),
  (52,1,1385797861,'::1'),
  (53,1,1385891103,'::1'),
- (54,1,1385911369,'::1');
+ (54,1,1385911369,'::1'),
+ (55,1,1385962278,'::1'),
+ (56,1,1385972204,'::1'),
+ (57,1,1385974390,'::1');
 /*!40000 ALTER TABLE `users_log` ENABLE KEYS */;
 
 

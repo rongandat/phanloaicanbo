@@ -1,0 +1,398 @@
+<h5>Cập nhật thông tin cán bộ</h5>               
+<div class="main-content-box"> 
+    <?php if ($this->error_message) : ?>
+        <div class="alert alert-error">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h5>Thông báo!</h5>
+            Cập nhật không thành công vì:
+            <ol>
+                <?php foreach ($this->error_message as $message): ?>
+                    <li><?php echo $message; ?></li>
+                <?php endforeach; ?>
+            </ol>
+        </div> 
+    <?php endif; ?>  
+    <?php if ($this->success_message) : ?>
+        <div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h5>Thông báo!</h5>
+            <?php echo $this->success_message; ?>
+        </div>
+    <?php endif; ?>  
+    <?php if ($this->employee_info && trim($this->success_message) == '') : ?>       
+        <form class="form-horizontal" method="post" action="" enctype="multipart/form-data">
+            <fieldset>
+                <legend>Thông tin cá nhân</legend>
+                <div class="control-group">
+                    <label class="control-label" for="em_ho">Họ Tên</label>
+                    <div class="controls">
+                        <?php echo $this->formText('em_ho', $this->employee_info->eme_ho, array('required' => '', 'class' => 'input-small', 'placeholder' => 'Họ')); ?>                    
+                        <?php echo $this->formText('em_ten_dem', $this->employee_info->eme_ten_dem, array('class' => 'input-small', 'placeholder' => 'Tên đệm')); ?>                    
+                        <?php echo $this->formText('em_ten', $this->employee_info->eme_ten, array('required' => '', 'class' => 'input-small', 'placeholder' => 'Tên')); ?>  
+                        <span class="help-inline">(*)</span>
+                        <span class="help-block">Nhập đầy đủ Họ và Tên của cán bộ, Tên đệm có thể bỏ trống nếu không có.</span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="em_ten_khac">Tên thường gọi</label>
+                    <div class="controls">
+                        <?php echo $this->formText('em_ten_khac', $this->employee_info->eme_ten_khac, array('class' => 'input-medium', 'placeholder' => 'Tên thường gọi')); ?> 
+                        <span class="help-block">Tên gọi khác nếu có.</span>
+                    </div>
+                </div>    
+
+                <div class="control-group">
+                    <label class="control-label" for="em_so_chung_minh_thu">Số chứng minh thư</label>
+                    <div class="controls">
+                        <?php echo $this->formText('em_so_chung_minh_thu', $this->employee_info->eme_so_chung_minh_thu, array('class' => 'input-medium', 'placeholder' => 'Số chứng minh thư')); ?> 
+                    </div>
+                </div>            
+                <div class="control-group">
+                    <label class="control-label" for="em_anh_the">Ảnh thẻ</label>
+                    <div class="controls">
+                        <?php
+                        if ($this->employee_info->eme_anh_the) {
+                            echo '<img src="' . UPLOADED_URL . '/avatars/' . $this->employee_info->eme_anh_the . '" class="img-polaroid anh_the">';
+                        } else {
+                            echo '<img src="' . $this->baseUrl('anh_the.jpg') . '" class="img-polaroid anh_the">';
+                        }
+                        ?>                        
+                        <?php echo $this->formFile('em_anh_the'); ?>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="em_gioi_tinh">Giới tính</label>
+                    <div class="controls">
+                        <?php
+                        $gioi_tinh_options = array();
+                        $gioi_tinh_options[0] = 'Nữ';
+                        $gioi_tinh_options[1] = 'Nam';
+
+                        echo $this->formSelect('em_gioi_tinh', $this->employee_info->eme_gioi_tinh, null, $gioi_tinh_options);
+                        ?>                    
+                    </div>
+                </div> 
+                <div class="control-group">
+                    <label class="control-label" for="ngay_sinh">Ngày sinh</label>
+                    <div class="controls">
+                        <?php
+                        $ngay_options = array();
+                        for ($i = 1; $i <= 31; $i++) {
+                            $ngay_options[$i] = $i;
+                        }
+
+                        $thang_options = array();
+                        for ($i = 1; $i <= 12; $i++) {
+                            $thang_options[$i] = $i;
+                        }
+                        $nam_options = array();
+                        for ($i = 1900; $i <= date('Y'); $i++) {
+                            $nam_options[$i] = $i;
+                        }
+                        echo $this->formSelect('ngay_sinh', date('d', strtotime($this->employee_info->eme_ngay_sinh)), array('class' => 'input-small'), $ngay_options);
+                        echo '<span class="help-inline"> / </span>';
+                        echo $this->formSelect('thang_sinh', date('m', strtotime($this->employee_info->eme_ngay_sinh)), array('class' => 'input-small'), $thang_options);
+                        echo '<span class="help-inline"> / </span>';
+                        echo $this->formSelect('nam_sinh', date('Y', strtotime($this->employee_info->eme_ngay_sinh)), array('class' => 'input-small'), $nam_options);
+                        ?>                    
+                    </div>
+                </div> 
+
+                <div class="control-group">
+                    <label class="control-label" for="em_home_phone">Điện thoại</label>
+                    <div class="controls">
+                        <?php echo $this->formText('em_home_phone', $this->employee_info->eme_home_phone, array('class' => 'input-small', 'placeholder' => 'Điện thoại')); ?>                    
+                        <?php echo $this->formText('em_phone', $this->employee_info->eme_phone, array('placeholder' => 'Di động')); ?>                    
+                    </div>
+                </div> 
+                <div class="control-group">
+                    <label class="control-label" for="em_noi_sinh">Nơi sinh</label>
+                    <div class="controls">
+                        <?php echo $this->formText('em_noi_sinh', $this->employee_info->eme_noi_sinh, array('class' => 'input-xlarge')); ?>                    
+
+                    </div>
+                </div> 
+                <div class="control-group">
+                    <label class="control-label" for="em_que_quan">Quê quán</label>
+                    <div class="controls">
+                        <?php echo $this->formText('em_que_quan', $this->employee_info->eme_que_quan, array('class' => 'input-xlarge')); ?>                    
+
+                    </div>
+                </div> 
+                <div class="control-group">
+                    <label class="control-label" for="em_dia_chi">Địa chỉ</label>
+                    <div class="controls">
+                        <?php echo $this->formText('em_dia_chi', $this->employee_info->eme_dia_chi, array('class' => 'input-xlarge')); ?> 
+                    </div>
+                </div> 
+
+
+                <div class="control-group">
+                    <label class="control-label" for="em_dia_chi_tinh">Tỉnh</label>
+                    <div class="controls">
+                        <?php
+                        $tinh_options = array(0 => '');
+                        foreach ($this->list_tinh as $tinh) {
+                            $tinh_options[$tinh->tinh_id] = $tinh->tinh_name;
+                        }
+                        echo $this->formSelect('em_dia_chi_tinh', $this->employee_info->eme_dia_chi_tinh, array('class' => 'input-medium', 'onchange' => 'changeTinh()'), $tinh_options);
+                        ?>                    
+
+                    </div>
+                </div> 
+
+                <div class="control-group">
+                    <label class="control-label" for="em_dia_chi_huyen">Huyện</label>
+                    <div class="controls">
+                        <?php
+                        $huyen_options = array(0 => '');
+                        foreach ($this->list_huyen as $huyen) {
+                            $huyen_options[$huyen->huyen_id] = $huyen->huyen_name;
+                        }
+                        echo $this->formSelect('em_dia_chi_huyen', $this->employee_info->eme_dia_chi_huyen, array('class' => 'input-medium'), $huyen_options);
+                        ?> 
+                    </div>
+                </div> 
+
+                <div class="control-group">
+                    <label class="control-label" for="em_dan_toc">Dân tộc</label>
+                    <div class="controls">
+                        <?php
+                        $dan_toc_options = array(0 => '');
+                        foreach ($this->list_dan_toc as $dan_toc) {
+                            $dan_toc_options[$dan_toc->dt_id] = $dan_toc->dt_name;
+                        }
+                        echo $this->formSelect('em_dan_toc', $this->employee_info->eme_dan_toc, array('class' => 'input-medium'), $dan_toc_options);
+                        ?> 
+                    </div>
+                </div> 
+            </fieldset>
+
+            
+            <fieldset>
+                <legend>Thông tin Đảng - Đoàn</legend>
+                <div class="control-group">
+                    <label class="control-label" for="em_chuc_vu_dang">Chức vụ đảng</label>
+                    <div class="controls">
+                        <?php
+                        $dang_options = array(0 => '', 1 => 'Bí thư', 2 => 'Phó bí thư', 3 => 'Ủy viên', 4 => 'Đảng viên');
+                        echo $this->formSelect('em_chuc_vu_dang', $this->employee_info->eme_chuc_vu_dang, null, $dang_options);
+                        ?>                     
+                    </div>
+                </div> 
+                <div class="control-group">
+                    <label class="control-label" for="ngay_dang">Ngày vào đảng</label>
+                    <div class="controls">
+                        <?php
+                        echo $this->formSelect('ngay_dang', date('d', strtotime($this->employee_info->eme_ngay_vao_dang)), array('class' => 'input-small'), $ngay_options);
+                        echo '<span class="help-inline"> / </span>';
+                        echo $this->formSelect('thang_dang', date('m', strtotime($this->employee_info->eme_ngay_vao_dang)), array('class' => 'input-small'), $thang_options);
+                        echo '<span class="help-inline"> / </span>';
+                        echo $this->formSelect('nam_dang', date('Y', strtotime($this->employee_info->eme_ngay_vao_dang)), array('class' => 'input-small'), $nam_options);
+                        ?>                     
+                    </div>
+                </div> 
+
+                <div class="control-group">
+                    <label class="control-label" for="em_chuc_vu_doan">Chức vụ đoàn</label>
+                    <div class="controls">
+                        <?php
+                        $dang_options = array(0 => '', 1 => 'Bí thư', 2 => 'Phó bí thư', 3 => 'Ủy viên', 4 => 'Đảng viên');
+                        echo $this->formSelect('em_chuc_vu_doan', $this->employee_info->eme_chuc_vu_doan, null, $dang_options);
+                        ?>                     
+                    </div>
+                </div> 
+                <div class="control-group">
+                    <label class="control-label" for="ngay_doan">Ngày vào đoàn</label>
+                    <div class="controls">
+                        <?php
+                        echo $this->formSelect('ngay_doan', date('d', strtotime($this->employee_info->eme_ngay_vao_doan)), array('class' => 'input-small'), $ngay_options);
+                        echo '<span class="help-inline"> / </span>';
+                        echo $this->formSelect('thang_doan', date('m', strtotime($this->employee_info->eme_ngay_vao_doan)), array('class' => 'input-small'), $thang_options);
+                        echo '<span class="help-inline"> / </span>';
+                        echo $this->formSelect('nam_doan', date('Y', strtotime($this->employee_info->eme_ngay_vao_doan)), array('class' => 'input-small'), $nam_options);
+                        ?>                     
+                    </div>
+                </div> 
+                <div class="control-group">
+                    <label class="control-label" for="em_chuc_vu_cong_doan">Chức vụ công đoàn</label>
+                    <div class="controls">
+                        <?php
+                        $cong_doan_options = array(0 => '', 1 => 'Chủ tịch', 2 => 'Phó chủ tịch', 3 => 'Ủy viên', 4 => 'Công đoàn viên');
+                        echo $this->formSelect('em_chuc_vu_cong_doan', $this->employee_info->eme_chuc_vu_cong_doan, null, $cong_doan_options);
+                        ?>                     
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Thông tin học vấn</legend>
+                <div class="control-group">
+                    <label class="control-label" for="em_van_hoa_pt">Văn hóa phổ thông</label>
+                    <div class="controls">
+
+                        <?php echo $this->formText('em_van_hoa_pt', $this->employee_info->eme_van_hoa_pt, array('class' => 'input-xlarge')); ?> 
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="em_hoc_ham">Học hàm cao nhất</label>
+                    <div class="controls">
+                        <?php
+                        $hoc_ham_options = array(0 => '');
+                        foreach ($this->list_hoc_ham as $hoc_ham) {
+                            $hoc_ham_options[$hoc_ham->hh_id] = $hoc_ham->hh_name;
+                        }
+                        echo $this->formSelect('em_hoc_ham', $this->employee_info->eme_hoc_ham, array('class' => 'input-medium'), $hoc_ham_options);
+                        ?> 
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="em_bang_cap">Bằng cấp cao nhất</label>
+                    <div class="controls">
+                        <?php
+                        $bang_cap_options = array(0 => '');
+                        foreach ($this->list_bang_cap as $bang_cap) {
+                            $bang_cap_options[$bang_cap->bc_id] = $bang_cap->bc_name;
+                        }
+                        echo $this->formSelect('em_bang_cap', $this->employee_info->eme_bang_cap, array('class' => 'input-medium'), $bang_cap_options);
+                        ?> 
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="em_ngoai_ngu">Ngoại ngữ</label>
+                    <div class="controls">
+                        <?php
+                        $ngoai_ngu_options = array(0 => '');
+                        $tin_hoc_options = array(0 => '');
+                        $loai_khac_options = array(0 => '');
+                        foreach ($this->list_chung_chi as $chung_chi) {
+                            switch ($chung_chi->cc_type) {
+                                case 1:
+                                    $ngoai_ngu_options[$chung_chi->cc_id] = $chung_chi->cc_name;
+                                    break;
+                                case 2:
+                                    $tin_hoc_options[$chung_chi->cc_id] = $chung_chi->cc_name;
+                                    break;
+
+                                default:
+                                    $loai_khac_options[$chung_chi->cc_id] = $chung_chi->cc_name;
+                                    break;
+                            }
+                        }
+                        echo $this->formSelect('em_ngoai_ngu', $this->employee_info->eme_ngoai_ngu, array('class' => 'input-medium'), $ngoai_ngu_options);
+                        ?> 
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="em_tin_hoc">Tin học</label>
+                    <div class="controls">
+                        <?php
+                        echo $this->formSelect('em_tin_hoc', $this->employee_info->eme_tin_hoc, array('class' => 'input-medium'), $tin_hoc_options);
+                        ?> 
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="em_chung_chi_khac">Chứng chỉ khác</label>
+                    <div class="controls">
+                        <?php
+                        echo $this->formSelect('em_chung_chi_khac', $this->employee_info->eme_chung_chi_khac, array('class' => 'input-medium'), $loai_khac_options);
+                        ?> 
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="em_bang_scan_upload">Ảnh/Scan bằng</label>
+                    <div class="controls">
+                        <div id="queue"></div>
+                        <input id="bang_scan_upload" name="em_bang_scan_upload" type="file" multiple="true"/>
+                        <table class="table" id="tbl_anh_bang_cap">
+                            <tbody id="tbd_anh_bang_cap">
+                                <?php
+                                foreach (unserialize($this->employee_info->eme_anh_bang_cap) as $anh_scan) {
+                                    $random_id = mt_rand();
+                                    echo '<tr id="' . $random_id . '"><td><input type="hidden" name="anh_bang_cap[]" value="' . $anh_scan . '"/><img src="' . $this->baseUrl('public/uploads/') . $anh_scan . '" class="img-polaroid anh_bang_cap"></td> <td> <button class="btn btn-small btn btn-danger" type="button" onclick="deleteAnhScan(\'' . $random_id . '\')">Xóa</button></td></tr>';
+                                }
+                                ?>
+                            </tbody>
+                        </table>                    
+                    </div>
+                </div>
+
+            </fieldset>
+
+            <div class="control-group">
+                <div class="controls">
+                    <p>                    
+                        <button class="btn btn-small btn-primary" type="submit">Cập nhật</button>
+                        <a class="btn btn-small" type="button" href="<?php echo $this->baseUrl('tochuccanbo/capnhatthongtin/index/page/' . $this->arrParam['page']); ?>">Quay lại</a>
+                    </p>
+                </div>
+            </div>
+        </form>
+    <?php else : ?>
+        <form class="form-horizontal" method="post" action="">
+            <div class="control-group">
+                <div class="controls">
+                    <p>
+                        <a class="btn btn-small" type="button" href="<?php echo $this->baseUrl('tochuccanbo/capnhatthongtin/index/page/' . $this->arrParam['page']); ?>">Quay lại</a>
+                    </p>
+                </div>
+            </div>
+        </form>
+    <?php endif; ?>        
+</div> 
+
+<script type="text/javascript">
+<?php $timestamp = time(); ?>
+    $(function() {
+        $('#bang_scan_upload').uploadify({
+            'formData'     : {
+                'timestamp' : '<?php echo $timestamp; ?>',
+                'token'     : '<?php echo md5('unique_salt' . $timestamp); ?>'
+            },
+            'checkExisting' : '<?php echo $this->baseUrl('public/uploads/check-exists.php'); ?>',
+            'swf'      : '<?php echo $this->baseUrl('public/js/uploadify/uploadify.swf'); ?>',
+            'uploader' : '<?php echo $this->baseUrl('public/uploads/uploadify.php'); ?>',
+            'fileTypeDesc' : 'Image Files',
+            'fileTypeExts' : '*.gif; *.jpg; *.png; *.jpeg',
+            'onUploadError' : function(file, errorCode, errorMsg, errorString) {
+                alert('Tải ảnh/scan bằng cấp thất bại. Xin hãy thử lại.');
+            },            
+            'onUploadSuccess' : function(file, data, response) {
+                data = $.parseJSON(data);
+                if(!data.success){
+                    alert('Upload không thành công.\n Xin hãy thử lại.');
+                }else{   
+                    var unix = Math.round(+new Date()/1000);
+                    $('#tbd_anh_bang_cap').append("<tr id=\""+unix+"\"><td><input type=\"hidden\" name=\"anh_bang_cap[]\" value=\""+data.file_name+"\"/><img src=\"<?php echo $this->baseUrl('public/uploads/'); ?>" + data.file_name + "\" class=\"img-polaroid anh_bang_cap\"></td> <td> <button class=\"btn btn-small btn btn-danger\" type=\"button\" onclick=\"deleteAnhScan('"+unix+"')\">Xóa</button></td></tr>");
+                }
+            }
+        });
+    });    
+    
+    function changeTinh(){
+        var tinh_id = $('#em_dia_chi_tinh').val();
+        
+        var select = $('#em_dia_chi_huyen');
+        if(select.prop) {
+            var options = select.prop('options');
+        }
+        else {
+            var options = select.attr('options');
+        }
+        $('option', select).remove();
+
+
+        $.getJSON( site_url+'/tochuccanbo/capnhatthongtin/gethuyen/tid/'+tinh_id, function( data ) {            
+            $.each( data, function( key, val ) {
+                select.append('<option value="'+val.id+'">'+val.name+'</option>');
+            });
+        });
+    }
+</script>

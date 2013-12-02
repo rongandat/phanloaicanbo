@@ -1,6 +1,6 @@
 <?php
 
-class Canhan_CapnhatthongtinController extends Zend_Controller_Action {
+class Tochuccanbo_CapnhatthongtinController extends Zend_Controller_Action {
 
     protected $_arrParam;
     protected $_page = 1;
@@ -27,35 +27,52 @@ class Canhan_CapnhatthongtinController extends Zend_Controller_Action {
         $this->view->arrParam = $this->_arrParam;
     }
 
-    function gethuyenAction() {
-        $this->_helper->layout()->disableLayout();
-        $tinhID = $this->_getParam('tid', 0);
-        $huyenModel = new Front_Model_Huyen();
-        $list_huyen = $huyenModel->fetchData(array('huyen_parent' => $tinhID, 'huyen_status' > 1));
-        $this->view->list_huyen = $list_huyen;
-    }
-
     public function indexAction() {
         $translate = Zend_Registry::get('Zend_Translate');
-        $this->view->title = 'Quản lý tài khoản - ' . $translate->_('TEXT_DEFAULT_TITLE');
+        $this->view->title = 'Quản lý yêu cầu cập nhật thông tin - ' . $translate->_('TEXT_DEFAULT_TITLE');
         $this->view->headTitle($this->view->title);
 
         $layoutPath = APPLICATION_PATH . '/templates/' . TEMPLATE_USED;
-        $option = array('layout' => 'canhan/layout',
+        $option = array('layout' => '1_column/layout',
             'layoutPath' => $layoutPath);
+
         Zend_Layout::startMvc($option);
+
+        $employeesEditModel = new Front_Model_EmployeesEdit();
+        $list_employees = $employeesEditModel->fetchData(array(), 'eme_date_modified DESC');
+
+        $chucvuModel = new Front_Model_Chucvu();
+        $list_chuc_vu = $chucvuModel->fetchData(array('cv_status' => 1));
+
+        $phongbanModel = new Front_Model_Phongban();
+        $list_phong_ban = $phongbanModel->fetchAll();
+
+        $paginator = Zend_Paginator::factory($list_employees);
+        $paginator->setItemCountPerPage(NUM_PER_PAGE);
+        $paginator->setCurrentPageNumber($this->_page);
+        $this->view->page = $this->_page;
+        $this->view->paginator = $paginator;
+        $this->view->list_chuc_vu = $list_chuc_vu;
+        $this->view->list_phong_ban = $list_phong_ban;
+    }
+
+    public function chitietAction() {
+        $layoutPath = APPLICATION_PATH . '/templates/' . TEMPLATE_USED;
+        $option = array('layout' => '1_column/layout',
+            'layoutPath' => $layoutPath);
+
+        Zend_Layout::startMvc($option);
+        $translate = Zend_Registry::get('Zend_Translate');
+        $this->view->title = 'Quản lý cán bộ - ' . $translate->_('TEXT_DEFAULT_TITLE');
+        $this->view->headTitle($this->view->title);
 
         $employeesModel = new Front_Model_Employees();
         $employeesEditModel = new Front_Model_EmployeesEdit();
-
-        $auth = Zend_Auth::getInstance();
-        $identity = $auth->getIdentity();
-
+        
         $success_message = '';
 
-        $id = $identity->em_id;
-        $employee_info = $employeesModel->fetchRow('em_id=' . $id . ' and em_delete=0');
-
+        $id = $this->_getParam('id', 0);
+        $employee_info = $employeesEditModel->fetchRow('eme_id=' . $id);
         if (!$employee_info) {
             $error_message[] = 'Không tìm thấy thông tin.';
         }
@@ -64,7 +81,7 @@ class Canhan_CapnhatthongtinController extends Zend_Controller_Action {
         $list_tinh = $tinhModel->fetchData(array('tinh_status' => 1));
 
         $huyenModel = new Front_Model_Huyen();
-        $list_huyen = $huyenModel->fetchData(array('huyen_status' => 1, 'huyen_parent' => $employee_info->em_dia_chi_tinh));
+        $list_huyen = $huyenModel->fetchData(array('huyen_status' => 1, 'huyen_parent' => $employee_info->eme_dia_chi_tinh));
 
         $dantocModel = new Front_Model_Dantoc();
         $list_dan_toc = $dantocModel->fetchData(array('dt_status' => 1));
@@ -93,7 +110,7 @@ class Canhan_CapnhatthongtinController extends Zend_Controller_Action {
 
 
         if ($this->_request->isPost()) {
-            $data = array('em_id' => $id);
+            $data = array();
             if ($upload->isValid()) {
                 foreach ($files as $file => $info) {
                     if ($info['name'] != '') {
@@ -111,7 +128,7 @@ class Canhan_CapnhatthongtinController extends Zend_Controller_Action {
                         $upload->receive($file);
                     }
                 }
-                $data['eme_anh_the'] = $arrFileName['em_anh_the'];
+                $data['em_anh_the'] = $arrFileName['em_anh_the'];
             }
             //echo '<pre>';
             //Zend_Debug::dump($this->_arrParam);
@@ -170,44 +187,37 @@ class Canhan_CapnhatthongtinController extends Zend_Controller_Action {
                 $date_ngay_sinh = date_create($nam_sinh . '-' . $thang_sinh . '-' . $ngay_sinh);
                 $date_ngay_vao_dang = date_create($nam_dang . '-' . $thang_dang . '-' . $ngay_dang);
                 $date_ngay_vao_doan = date_create($nam_doan . '-' . $thang_doan . '-' . $ngay_doan);
-                $data['eme_ho'] = $em_ho;
-                $data['eme_ten_dem'] = $em_ten_dem;
-                $data['eme_ten'] = $em_ten;
-                $data['eme_ten_khac'] = $em_ten_khac;
-                $data['eme_so_chung_minh_thu'] = $em_so_chung_minh_thu;
-                $data['eme_gioi_tinh'] = $em_gioi_tinh;
-                $data['eme_home_phone'] = $em_home_phone;
-                $data['eme_phone'] = $em_phone;
-                $data['eme_noi_sinh'] = $em_noi_sinh;
-                $data['eme_que_quan'] = $em_que_quan;
-                $data['eme_dia_chi'] = $em_dia_chi;
-                $data['eme_dia_chi_tinh'] = $em_dia_chi_tinh;
-                $data['eme_dia_chi_huyen'] = $em_dia_chi_huyen;
-                $data['eme_dan_toc'] = $em_dan_toc;
-                $data['eme_chuc_vu_dang'] = $em_chuc_vu_dang;
-                $data['eme_chuc_vu_doan'] = $em_chuc_vu_doan;
-                $data['eme_chuc_vu_cong_doan'] = $em_chuc_vu_cong_doan;
-                $data['eme_van_hoa_pt'] = $em_van_hoa_pt;
-                $data['eme_hoc_ham'] = $em_hoc_ham;
-                $data['eme_bang_cap'] = $em_bang_cap;
-                $data['eme_ngoai_ngu'] = $em_ngoai_ngu;
-                $data['eme_tin_hoc'] = $em_tin_hoc;
-                $data['eme_chung_chi_khac'] = $em_chung_chi_khac;
-                $data['eme_anh_bang_cap'] = serialize($em_bang_scan_upload);                
-                $data['eme_ngay_sinh'] = date_format($date_ngay_sinh, "Y-m-d H:iP");
-                $data['eme_ngay_vao_dang'] = date_format($date_ngay_vao_dang, "Y-m-d H:iP");
-                $data['eme_ngay_vao_doan'] = date_format($date_ngay_vao_doan, "Y-m-d H:iP");
-                $data['eme_date_modified'] = $current_time;
-
-                $checkExit = $employeesEditModel->fetchRow('em_id=' . $id);
-                if ($checkExit) {
-                    $employeesEditModel->update($data, 'eme_id=' . $checkExit->eme_id);
-                } else {
-                    $data['eme_date_added'] = $current_time;
-                    $employeesEditModel->insert($data);
-                }
-
-                $success_message = 'Yêu cầu cập nhật thông tin thành công';
+                $data['em_ho'] = $em_ho;
+                $data['em_ten_dem'] = $em_ten_dem;
+                $data['em_ten'] = $em_ten;
+                $data['em_ten_khac'] = $em_ten_khac;
+                $data['em_so_chung_minh_thu'] = $em_so_chung_minh_thu;
+                $data['em_gioi_tinh'] = $em_gioi_tinh;
+                $data['em_home_phone'] = $em_home_phone;
+                $data['em_phone'] = $em_phone;
+                $data['em_noi_sinh'] = $em_noi_sinh;
+                $data['em_que_quan'] = $em_que_quan;
+                $data['em_dia_chi'] = $em_dia_chi;
+                $data['em_dia_chi_tinh'] = $em_dia_chi_tinh;
+                $data['em_dia_chi_huyen'] = $em_dia_chi_huyen;
+                $data['em_dan_toc'] = $em_dan_toc;
+                $data['em_chuc_vu_dang'] = $em_chuc_vu_dang;
+                $data['em_chuc_vu_doan'] = $em_chuc_vu_doan;
+                $data['em_chuc_vu_cong_doan'] = $em_chuc_vu_cong_doan;
+                $data['em_van_hoa_pt'] = $em_van_hoa_pt;
+                $data['em_hoc_ham'] = $em_hoc_ham;
+                $data['em_bang_cap'] = $em_bang_cap;
+                $data['em_ngoai_ngu'] = $em_ngoai_ngu;
+                $data['em_tin_hoc'] = $em_tin_hoc;
+                $data['em_chung_chi_khac'] = $em_chung_chi_khac;
+                $data['em_anh_bang_cap'] = serialize($em_bang_scan_upload);
+                $data['em_ngay_sinh'] = date_format($date_ngay_sinh, "Y-m-d H:iP");
+                $data['em_ngay_vao_dang'] = date_format($date_ngay_vao_dang, "Y-m-d H:iP");
+                $data['em_ngay_vao_doan'] = date_format($date_ngay_vao_doan, "Y-m-d H:iP");
+                $data['em_date_modified'] = $current_time;
+                $employeesModel->update($data, 'em_id=' . $employee_info->em_id);
+                $employeesEditModel->delete('eme_id=' . $employee_info->eme_id);
+                $success_message = 'Đã cập nhật thông tin thành công.';
             }
         }
         $this->view->employee_info = $employee_info;
@@ -220,4 +230,33 @@ class Canhan_CapnhatthongtinController extends Zend_Controller_Action {
         $this->view->list_bang_cap = $list_bang_cap;
         $this->view->list_chung_chi = $list_chung_chi;
     }
+
+    public function deleteAction() {
+        $this->_helper->layout()->disableLayout();
+        $id = $this->_getParam('id', 0);
+        $employeeEditModel = new Front_Model_EmployeesEdit();
+        $employeeEditModel->delete(array('eme_id' => $id));
+        $this->_redirect('tochuccanbo/capnhatthongtin/index/page/' . $this->_page);
+    }
+
+    function deleteitemsAction() {
+        $this->_helper->layout()->disableLayout();
+        $employeeEditModel = new Front_Model_EmployeesEdit();
+        if ($this->_request->isPost()) {
+            $item = $this->getRequest()->getPost('cid');
+            foreach ($item as $k => $v) {
+                $employeeEditModel->delete(array('eme_id' => $v));
+            }
+        }
+        $this->_redirect('tochuccanbo/capnhatthongtin/index/page/' . $this->_page);
+    }
+
+    function gethuyenAction() {
+        $this->_helper->layout()->disableLayout();
+        $tinhID = $this->_getParam('tid', 0);
+        $huyenModel = new Front_Model_Huyen();
+        $list_huyen = $huyenModel->fetchData(array('huyen_parent' => $tinhID, 'huyen_status' > 1));
+        $this->view->list_huyen = $list_huyen;
+    }
+
 }

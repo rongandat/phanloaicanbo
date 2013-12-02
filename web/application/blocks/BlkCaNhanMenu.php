@@ -7,7 +7,7 @@ class Block_BlkCaNhanMenu extends Zend_View_Helper_Abstract {
         $arrParam = $view->arrParam;
         $list_menu = array(
             'thongbao' => 'Thông báo',
-            'canhan' => 'Thông tin cá nhân',
+            'thongtin' => 'Thông tin cá nhân',
             'capnhatthongtin' => 'Cập nhật thông tin',
             'xinnghiphep' => 'Xin nghỉ phép',
             'chamcong' => 'Chấm công',
