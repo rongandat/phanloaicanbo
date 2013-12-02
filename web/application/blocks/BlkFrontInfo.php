@@ -1,6 +1,6 @@
 <?php
 
-class Block_BlkTopInfo extends Zend_View_Helper_Abstract {
+class Block_BlkFrontInfo extends Zend_View_Helper_Abstract {
 
     protected $_employee_info;
     protected $_identity;
@@ -12,10 +12,11 @@ class Block_BlkTopInfo extends Zend_View_Helper_Abstract {
         $this->_employee_info = $employeeInfo;
         $this->_identity = $identity;
     }
-
-    function blkTopInfo() {
+    
+    function blkFrontInfo(){
         $view = $this->view;
         $arrParam = $view->arrParam;
-        require_once (BLOCK_PATH . '/BlkTopInfo/' . TEMPLATE_USED . '/default.php');
-    }  
+        require_once (BLOCK_PATH . '/BlkFrontInfo/' . TEMPLATE_USED . '/default.php');
+    }
+
 }
