@@ -36,6 +36,7 @@ class Block_BlkTopMenu extends Zend_View_Helper_Abstract {
             )),
             'donvi' => array('name' => 'Đơn vị', 'sub' => array()),
             'tochuccanbo' => array('name' => 'Tổ chức cán bộ', 'sub' => array(
+                    'hesoluong' => 'QL Hệ số lương',
                     'employees' => 'QL Cán bộ',
                     'capnhatthongtin' => 'QL Yêu cầu cập nhật thông tin'
             )),

@@ -1,7 +1,7 @@
 -- MySQL Administrator dump 1.4
 --
 -- ------------------------------------------------------
--- Server version	5.5.27
+-- Server version	5.5.32
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -304,6 +304,34 @@ INSERT INTO `groups` (`group_id`,`group_name`,`group_status`,`group_order`,`grou
 
 
 --
+-- Definition of table `he_so`
+--
+
+DROP TABLE IF EXISTS `he_so`;
+CREATE TABLE `he_so` (
+  `hs_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `hs_luong_co_ban` float NOT NULL DEFAULT '0',
+  `hs_luong_hop_dong` float NOT NULL DEFAULT '0',
+  `hs_he_so_luong_thuc_tap` float NOT NULL DEFAULT '0',
+  `hs_date_modified` datetime DEFAULT NULL,
+  `hs_ngay_bat_dau` datetime NOT NULL,
+  PRIMARY KEY (`hs_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `he_so`
+--
+
+/*!40000 ALTER TABLE `he_so` DISABLE KEYS */;
+INSERT INTO `he_so` (`hs_id`,`hs_luong_co_ban`,`hs_luong_hop_dong`,`hs_he_so_luong_thuc_tap`,`hs_date_modified`,`hs_ngay_bat_dau`) VALUES 
+ (1,2000000,1500000,85,'2013-12-06 15:49:56','2002-01-01 00:00:00'),
+ (2,2000000,1500000,85,'2013-12-06 15:54:19','2011-01-01 00:00:00'),
+ (3,2000000,1500000,85,'2013-12-06 15:54:35','2012-01-01 00:00:00'),
+ (4,2000000,1500000,85,'2013-12-06 15:56:14','2012-05-01 00:00:00');
+/*!40000 ALTER TABLE `he_so` ENABLE KEYS */;
+
+
+--
 -- Definition of table `hoc_ham`
 --
 
@@ -439,31 +467,6 @@ INSERT INTO `phong_ban` (`pb_id`,`pb_name`,`pb_parent`,`pb_order`,`pb_status`,`p
 
 
 --
--- Definition of table `thong_bao`
---
-
-DROP TABLE IF EXISTS `thong_bao`;
-CREATE TABLE `thong_bao` (
-  `tb_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `tb_from` int(10) unsigned NOT NULL DEFAULT '0',
-  `tb_to` int(10) unsigned NOT NULL,
-  `tb_tieu_de` text,
-  `tb_noi_dung` text,
-  `tb_status` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '0: chua doc, 1: da doc',
-  `tb_date_added` datetime DEFAULT NULL,
-  `tb_date_modified` datetime DEFAULT NULL,
-  PRIMARY KEY (`tb_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `thong_bao`
---
-
-/*!40000 ALTER TABLE `thong_bao` DISABLE KEYS */;
-/*!40000 ALTER TABLE `thong_bao` ENABLE KEYS */;
-
-
---
 -- Definition of table `tieu_chi_danh_gia_can_bo`
 --
 
@@ -554,7 +557,7 @@ CREATE TABLE `users_log` (
   `login_date` int(10) unsigned NOT NULL,
   `login_ip` varchar(45) NOT NULL,
   PRIMARY KEY (`log_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users_log`
@@ -617,9 +620,7 @@ INSERT INTO `users_log` (`log_id`,`user_id`,`login_date`,`login_ip`) VALUES
  (54,1,1385911369,'::1'),
  (55,1,1385962278,'::1'),
  (56,1,1385972204,'::1'),
- (57,1,1385974390,'::1'),
- (58,1,1385991741,'::1'),
- (59,1,1385991741,'::1');
+ (57,1,1385974390,'::1');
 /*!40000 ALTER TABLE `users_log` ENABLE KEYS */;
 
 
