@@ -1,7 +1,7 @@
 -- MySQL Administrator dump 1.4
 --
 -- ------------------------------------------------------
--- Server version	5.5.32
+-- Server version	5.5.27
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -207,7 +207,7 @@ CREATE TABLE `employees` (
 
 /*!40000 ALTER TABLE `employees` DISABLE KEYS */;
 INSERT INTO `employees` (`em_id`,`em_ten`,`em_ten_dem`,`em_ho`,`em_ngay_sinh`,`em_so_chung_minh_thu`,`em_ten_khac`,`em_anh_the`,`em_gioi_tinh`,`em_home_phone`,`em_phone`,`em_noi_sinh`,`em_que_quan`,`em_dia_chi`,`em_dia_chi_tinh`,`em_dia_chi_huyen`,`em_dan_toc`,`em_so_cong_chuc`,`em_chuc_vu`,`em_phong_ban`,`em_ngay_tuyen_dung`,`em_ngach_cong_chuc`,`em_cong_viec`,`em_chuyen_mon`,`em_chuc_vu_dang`,`em_ngay_vao_dang`,`em_chuc_vu_doan`,`em_ngay_vao_doan`,`em_chuc_vu_cong_doan`,`em_van_hoa_pt`,`em_hoc_ham`,`em_bang_cap`,`em_ngoai_ngu`,`em_tin_hoc`,`em_chung_chi_khac`,`em_anh_bang_cap`,`em_status`,`em_delete`,`em_date_added`,`em_date_modified`) VALUES 
- (1,'HÃ¹ng','Máº¡nh','Nguyá»…n','1986-10-07 00:00:07','131398081','Nobita','',1,'','0985679742','Äoan HÃ¹ng','VÄ©nh PhÃº','ThÃ´n 12 -VÃ¢n Du',4,1,2,'HAV102',6,9,'2009-10-01 00:00:07',4,'Láº­p trÃ¬nh viÃªn','Láº­p trÃ¬nh web',3,'2010-04-19 00:00:07',2,'2012-03-19 00:00:07',1,'12/12',3,8,1,2,3,'a:3:{i:0;s:23:\"1555153616_gai xinh.jpg\";i:1;s:37:\"765559047_game garena on facebook.png\";i:2;s:17:\"1935797311_Ve.png\";}',1,0,'2013-12-02 16:54:16','2013-12-02 16:54:16'),
+ (1,'HÃ¹ng','Máº¡nh','Nguyá»…n','1986-10-07 00:00:07','131398081','Nobita','',1,'','0985679742','Äoan HÃ¹ng','VÄ©nh PhÃº','ThÃ´n 12 -VÃ¢n Du',4,1,2,'HAV102',4,11,'2009-10-01 00:00:07',4,'Ã©d','dsfsdf',3,'2010-04-19 00:00:07',2,'2012-03-19 00:00:07',1,'12/12',3,8,1,2,3,'a:3:{i:0;s:36:\"571272600_1_blue.__large_preview.jpg\";i:1;s:17:\"518928803_top.png\";i:2;s:25:\"1795367415_Untitled-1.jpg\";}',1,0,'2013-12-02 16:54:16','2013-12-07 17:01:34'),
  (2,'BÃ­ch','Ngá»c','Ã‚u','1986-11-02 00:00:07','13133123434','BÃ­ch','1385911581.png',0,'','09886838560','Báº£o Tháº¯ng','HoÃ ng LiÃªn SÆ¡n','XÃ³m 11',4,1,2,'HAV1023',6,11,'1981-06-16 00:00:07',5,'Káº¿ ToÃ¡n','Káº¿ toÃ¡n mÃ¡y',2,'2012-07-15 00:00:07',4,'2011-05-18 00:00:07',3,'12/12',3,8,1,2,3,'a:3:{i:0;s:28:\"1620194362_OneTV  - Logo.png\";i:1;s:17:\"987576096_top.png\";i:2;s:24:\"681729117_Untitled-1.jpg\";}',1,0,'2013-12-01 22:26:21','2013-12-01 22:26:21'),
  (3,'HÃ¹ng','Máº¡nh','Nguyá»…n',NULL,'131398081','Nobita','1385898380.jpg',0,'','0985679742','Doan Hung','Phu Tho','Doan Hung',4,1,2,'23443432',4,9,NULL,4,'Cong nghe thong tin','danh may',1,NULL,2,NULL,1,'12/12',3,8,1,2,3,'a:2:{i:0;s:27:\"413210694_OneTV  - Logo.png\";i:1;s:18:\"1122416878_top.png\";}',1,1,'2013-12-01 18:46:20','2013-12-01 18:46:20'),
  (4,'HÃ¹ng','Máº¡nh','Nguyá»…n','0000-00-00 00:00:00','131398081','Nobita',NULL,0,'','0985679742','Doan Hung','Phu Tho','Doan Hung',0,0,2,'23443432',4,9,'0000-00-00 00:00:00',4,'Cong nghe thong tin','danh may',1,'0000-00-00 00:00:00',2,'0000-00-00 00:00:00',1,'12/12',3,8,1,2,3,'a:2:{i:0;s:27:\"413210694_OneTV  - Logo.png\";i:1;s:18:\"1122416878_top.png\";}',1,1,'2013-12-01 18:46:46','2013-12-01 18:46:46'),
@@ -262,15 +262,13 @@ CREATE TABLE `employees_edit` (
   `eme_date_added` datetime DEFAULT NULL,
   `eme_date_modified` datetime DEFAULT NULL,
   PRIMARY KEY (`eme_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `employees_edit`
 --
 
 /*!40000 ALTER TABLE `employees_edit` DISABLE KEYS */;
-INSERT INTO `employees_edit` (`eme_id`,`em_id`,`eme_ten`,`eme_ten_dem`,`eme_ho`,`eme_ngay_sinh`,`eme_so_chung_minh_thu`,`eme_ten_khac`,`eme_anh_the`,`eme_gioi_tinh`,`eme_home_phone`,`eme_phone`,`eme_noi_sinh`,`eme_que_quan`,`eme_dia_chi`,`eme_dia_chi_tinh`,`eme_dia_chi_huyen`,`eme_dan_toc`,`eme_chuc_vu_dang`,`eme_ngay_vao_dang`,`eme_chuc_vu_doan`,`eme_ngay_vao_doan`,`eme_chuc_vu_cong_doan`,`eme_van_hoa_pt`,`eme_hoc_ham`,`eme_bang_cap`,`eme_ngoai_ngu`,`eme_tin_hoc`,`eme_chung_chi_khac`,`eme_anh_bang_cap`,`eme_status`,`eme_date_added`,`eme_date_modified`) VALUES 
- (15,1,'HÃ¹ng','Máº¡nh','Nguyá»…n','1986-10-07 00:00:07','131398081','Nobita',NULL,1,'','0985679742','Äoan HÃ¹ng','VÄ©nh PhÃº','ThÃ´n 12 -VÃ¢n Du',4,1,2,3,'2010-04-19 00:00:07',2,'2012-03-19 00:00:07',1,'12/12',3,8,1,2,3,'a:3:{i:0;s:23:\"1555153616_gai xinh.jpg\";i:1;s:37:\"765559047_game garena on facebook.png\";i:2;s:17:\"1935797311_Ve.png\";}',0,'2013-12-02 17:07:12','2013-12-02 17:07:12');
 /*!40000 ALTER TABLE `employees_edit` ENABLE KEYS */;
 
 
@@ -467,6 +465,31 @@ INSERT INTO `phong_ban` (`pb_id`,`pb_name`,`pb_parent`,`pb_order`,`pb_status`,`p
 
 
 --
+-- Definition of table `thong_bao`
+--
+
+DROP TABLE IF EXISTS `thong_bao`;
+CREATE TABLE `thong_bao` (
+  `tb_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `tb_from` int(10) unsigned NOT NULL DEFAULT '0',
+  `tb_to` int(10) unsigned NOT NULL,
+  `tb_tieu_de` text,
+  `tb_noi_dung` text,
+  `tb_status` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '0: chua doc, 1: da doc',
+  `tb_date_added` datetime DEFAULT NULL,
+  `tb_date_modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`tb_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `thong_bao`
+--
+
+/*!40000 ALTER TABLE `thong_bao` DISABLE KEYS */;
+/*!40000 ALTER TABLE `thong_bao` ENABLE KEYS */;
+
+
+--
 -- Definition of table `tieu_chi_danh_gia_can_bo`
 --
 
@@ -557,7 +580,7 @@ CREATE TABLE `users_log` (
   `login_date` int(10) unsigned NOT NULL,
   `login_ip` varchar(45) NOT NULL,
   PRIMARY KEY (`log_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users_log`
@@ -620,7 +643,11 @@ INSERT INTO `users_log` (`log_id`,`user_id`,`login_date`,`login_ip`) VALUES
  (54,1,1385911369,'::1'),
  (55,1,1385962278,'::1'),
  (56,1,1385972204,'::1'),
- (57,1,1385974390,'::1');
+ (57,1,1385974390,'::1'),
+ (58,1,1386402867,'::1'),
+ (59,1,1386402915,'::1'),
+ (60,1,1386410167,'::1'),
+ (61,1,1386418281,'::1');
 /*!40000 ALTER TABLE `users_log` ENABLE KEYS */;
 
 

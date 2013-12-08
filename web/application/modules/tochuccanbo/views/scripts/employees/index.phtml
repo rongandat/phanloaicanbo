@@ -47,8 +47,29 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
                             <td class="function_style">
                                 <a class="btn btn-mini" href="' . $this->baseUrl('tochuccanbo/employees/edit/id/' . $item->em_id . '/page/' . $this->arrParam['page']) . '" title="Sửa"><i class="icon-edit"></i> Sửa</a>
                                 <a class="btn btn-mini" href="' . $this->baseUrl('tochuccanbo/employees/delete/id/' . $item->em_id . '/page/' . $this->arrParam['page']) . '" title="Xóa"><i class="icon-trash"></i> Xóa</a>                                
-                                <a class="btn btn-mini" data-toggle="modal" href="#mdHeSoLuong" title="Hệ số lương"><i class="icon-list-alt"></i> Hệ số</a>                                
-                                <a class="btn btn-mini" data-toggle="modal" href="#mdLuanChuyen" title="Luân chuyển"><i class="icon-retweet"></i> Luân chuyển</a>                                
+                                <div class="dropdown float_left" style="padding-right: 6px;">
+                                    <a class="btn btn-mini" id="drop' . $item->em_id . '" role="button" data-toggle="dropdown" href="#"><i class="icon-th-list"></i> Chức năng <b class="caret"></b></a>                                    
+                                    <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop' . $item->em_id . '">
+                                        <li role="presentation">
+                                            <a role="menuitem" tabindex="-1" data-toggle="modal" href="#mdHeSoLuong" title="Hệ số lương"><i class="icon-list-alt"></i> Hệ số lương & phụ cấp</a>
+                                        </li>
+                                        <li role="presentation">
+                                            <a role="menuitem" tabindex="-1" data-toggle="modal" href="#mdLuanChuyen" title="Luân chuyển" onclick="loadFormLuanChuyen(' . $item->em_id . ')"><i class="icon-retweet"></i> Luân chuyển</a>
+                                        </li>                                        
+                                        <li role="presentation">
+                                            <a role="menuitem" tabindex="-1" data-toggle="modal" href="#" title="Khen thưởng"><i class="icon-star"></i> Khen thưởng</a>
+                                        </li>
+                                        <li role="presentation">
+                                            <a role="menuitem" tabindex="-1" data-toggle="modal" href="#" title="Kỷ luật"><i class="icon-exclamation-sign"></i> Kỷ luật</a>
+                                        </li>
+                                        <li role="presentation">
+                                            <a role="menuitem" tabindex="-1" data-toggle="modal" href="#" title="Thống kê"><i class="icon-tasks"></i> Thống kê</a>
+                                        </li>
+                                        <li role="presentation">
+                                            <a role="menuitem" tabindex="-1" data-toggle="modal" href="#" title="Gửi thông báo"><i class="icon-envelope"></i> Gửi thông báo</a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </td>
                         </tr>';
                 }
@@ -63,10 +84,10 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
 <div id="mdHeSoLuong" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="myModalLabel">Hệ số lương</h3>
+        <h3 id="myModalLabel">Hệ số lương & phụ cấp</h3>
     </div>
     <div class="modal-body">
-        
+
     </div>
     <div class="modal-footer">
         <button class="btn" data-dismiss="modal" aria-hidden="true">Đóng</button>
@@ -79,17 +100,142 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
         <h3 id="myModalLabel">Luân chuyển</h3>
     </div>
-    <div class="modal-body">
-        
+    <div class="modal-body" id="mdLuanChuyenBody">
+
     </div>
     <div class="modal-footer">
         <button class="btn" data-dismiss="modal" aria-hidden="true">Đóng</button>
-        <button class="btn btn-primary">Cập nhật</button>
+        <button class="btn btn-primary" id="btn_luan_chuyen" style="display: none;" onclick="postFormLuanChuyen()">Cập nhật</button>
     </div>
+</div>
+
+<div id="dv_form_luan_chuyen" style="display: none;">
+
+    <div class="alert alert-error" id="dv_cap_nhat_error" style="display: none;">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <h5>Thông báo!</h5>
+        Cập nhật không thành công!
+    </div>
+
+    <div class="alert alert-success" id="dv_cap_nhat_success" style="display: none;">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <h5>Thông báo!</h5>
+        Cập nhật thành công!
+    </div>
+
+
+    <form class="form-horizontal">
+        <input type="hidden" id="hd_cap_nhat_id" value=""/>
+        <div class="control-group">
+            <label class="control-label" for="em_chuc_vu">Chức vụ</label>
+            <div class="controls">
+                <?php
+                $chuc_vu_options = array(0 => '');
+                foreach ($this->list_chuc_vu as $chuc_vu) {
+                    $chuc_vu_options[$chuc_vu->cv_id] = $chuc_vu->cv_name;
+                }
+                echo $this->formSelect('em_chuc_vu', null, array('class' => 'input-medium'), $chuc_vu_options);
+                ?> 
+            </div>
+        </div> 
+
+        <div class="control-group">
+            <label class="control-label" for="em_phong_ban">Đơn vị</label>
+            <div class="controls">
+                <?php
+                $phong_ban_options = array(0 => '');
+                foreach ($this->list_phong_ban as $phong_ban) {
+                    $phong_ban_options[$phong_ban->pb_id] = $phong_ban->pb_name;
+                }
+                echo $this->formSelect('em_phong_ban', null, array('class' => 'input-medium'), $phong_ban_options);
+                ?> 
+            </div>
+        </div> 
+
+        <div class="control-group">
+            <label class="control-label" for="em_ngach_cong_chuc">Ngạch công chức</label>
+            <div class="controls">
+                <?php
+                $ngach_cong_chuc_options = array(0 => '');
+                foreach ($this->list_ngach_cong_chuc as $ngach_cong_chuc) {
+                    $ngach_cong_chuc_options[$ngach_cong_chuc->ncc_id] = $ngach_cong_chuc->ncc_name;
+                }
+                echo $this->formSelect('em_ngach_cong_chuc', null, array('class' => 'input-medium'), $ngach_cong_chuc_options);
+                ?> 
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="em_cong_viec">Công việc</label>
+            <div class="controls">
+
+                <?php echo $this->formText('em_cong_viec', null, array('class' => 'input-xlarge')); ?> 
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="em_chuyen_mon">Chuyên môn</label>
+            <div class="controls">
+
+                <?php echo $this->formText('em_chuyen_mon', null, array('class' => 'input-xlarge')); ?> 
+            </div>
+        </div>
+    </form>
 </div>
 
 <script type="text/javascript">
     function loadFormHeSo(em_id){
         
+    }
+    
+    function loadFormLuanChuyen(em_id){
+        $('#mdLuanChuyenBody').html('Đang tải dữ liệu...');
+        $.getJSON( site_url+'/tochuccanbo/employees/getdataluanchuyen/id/'+em_id, function( data ) {       
+            var form_html = $('#dv_form_luan_chuyen').html();
+            $('#mdLuanChuyenBody').html(form_html);
+            $('#mdLuanChuyenBody #hd_cap_nhat_id').val(em_id);
+            if(data.status){
+                $('#mdLuanChuyenBody #em_ngach_cong_chuc option[value='+data.ngach_cong_chuc.id+']').attr('selected','selected');
+                $('#mdLuanChuyenBody #em_phong_ban option[value='+data.phong_ban.id+']').attr('selected','selected');
+                $('#mdLuanChuyenBody #em_chuc_vu option[value='+data.chuc_vu.id+']').attr('selected','selected');
+                $('#mdLuanChuyenBody #em_cong_viec').val(data.cong_viec);
+                $('#mdLuanChuyenBody #em_chuyen_mon').val(data.chuyen_mon);
+            }            
+            $('#btn_luan_chuyen').show();
+        });
+    }
+    
+    
+    function postFormLuanChuyen(){   
+        $('#dv_cap_nhat_success').hide();
+        $('#dv_cap_nhat_error').hide();
+        var vl_id = $('#mdLuanChuyenBody #hd_cap_nhat_id').val();
+        var vl_ngach_cong_chuc = $('#mdLuanChuyenBody #em_ngach_cong_chuc').val();
+        var vl_phong_ban = $('#mdLuanChuyenBody #em_phong_ban').val();
+        var vl_chuc_vu = $('#mdLuanChuyenBody #em_chuc_vu').val();
+        var vl_cong_viec = $('#mdLuanChuyenBody #em_cong_viec').val();
+        var vl_chuyen_mon = $('#mdLuanChuyenBody #em_chuyen_mon').val();
+        
+        console.log(vl_ngach_cong_chuc);
+        console.log(vl_phong_ban);
+        console.log(vl_chuc_vu);
+        console.log(vl_cong_viec);
+        console.log(vl_chuyen_mon);
+        
+        $.post( site_url+'/tochuccanbo/employees/updatedataluanchuyen', {
+            em_id: vl_id, 
+            em_ngach_cong_chuc: vl_ngach_cong_chuc, 
+            em_phong_ban: vl_phong_ban, 
+            em_chuc_vu: vl_chuc_vu,
+            em_cong_viec: vl_cong_viec,
+            em_chuyen_mon: vl_chuyen_mon
+        }, function(data) {
+            data = $.parseJSON(data);
+            if(data.status){
+                $('#dv_cap_nhat_success').show();
+            }else{
+                $('#dv_cap_nhat_error').show();
+            }
+        });
     }
 </script>

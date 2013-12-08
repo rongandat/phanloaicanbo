@@ -40,13 +40,16 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
 
         $employeesModel = new Front_Model_Employees();
         $list_employees = $employeesModel->fetchData(array('em_delete' => 0));
-        
+
         $chucvuModel = new Front_Model_Chucvu();
-        $list_chuc_vu = $chucvuModel->fetchData(array('cv_status' => 1));        
-        
+        $list_chuc_vu = $chucvuModel->fetchData(array('cv_status' => 1));
+
         $phongbanModel = new Front_Model_Phongban();
         $list_phong_ban = $phongbanModel->fetchAll();
-        
+
+        $ngachcongchucModel = new Front_Model_NgachCongChuc();
+        $list_ngach_cong_chuc = $ngachcongchucModel->fetchData(array('ncc_status' => 1));
+
         $paginator = Zend_Paginator::factory($list_employees);
         $paginator->setItemCountPerPage(NUM_PER_PAGE);
         $paginator->setCurrentPageNumber($this->_page);
@@ -54,6 +57,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
         $this->view->paginator = $paginator;
         $this->view->list_chuc_vu = $list_chuc_vu;
         $this->view->list_phong_ban = $list_phong_ban;
+        $this->view->list_ngach_cong_chuc = $list_ngach_cong_chuc;
     }
 
     public function searchAction() {
@@ -295,14 +299,14 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
 
 
         $employeesModel = new Front_Model_Employees();
-        
+
         $success_message = '';
-        
+
         $id = $this->_getParam('id', 0);
-        if($this->_getParam('mess') == 'success') {
+        if ($this->_getParam('mess') == 'success') {
             $success_message = 'Đã thêm mới thành công.';
         }
-        
+
         $employee_info = $employeesModel->fetchRow('em_id=' . $id . ' and em_delete=0');
 
         if (!$employee_info) {
@@ -474,9 +478,8 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
                 $data['em_ngay_tuyen_dung'] = date_format($date_ngay_tuyen_dung, "Y-m-d H:iP");
                 $data['em_ngay_vao_dang'] = date_format($date_ngay_vao_dang, "Y-m-d H:iP");
                 $data['em_ngay_vao_doan'] = date_format($date_ngay_vao_doan, "Y-m-d H:iP");
-                $data['em_date_added'] = $current_time;
                 $data['em_date_modified'] = $current_time;
-                $employeesModel->update($data, 'em_id=' . $id);      
+                $employeesModel->update($data, 'em_id=' . $id);
                 $employee_info = $employeesModel->fetchRow('em_id=' . $id . ' and em_delete=0');
                 $success_message = 'Đã cập nhật thông tin thành công.';
             }
@@ -511,7 +514,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
         $employeeModel = new Front_Model_Employees();
         $error_message = array();
 
-        $employee_info = $employeeModel->fetchRow('em_id=' . $id.' and em_delete=0');
+        $employee_info = $employeeModel->fetchRow('em_id=' . $id . ' and em_delete=0');
         if (!$employee_info) {
             $error_message[] = 'Không tìm thấy thông tin của cán bộ.';
         }
@@ -520,7 +523,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
             $del = $this->getRequest()->getPost('del');
             if ($del == 'Yes') {
                 $id = $this->getRequest()->getPost('id');
-                $employeeModel->update(array('em_delete' => 1),'em_id=' . $id);
+                $employeeModel->update(array('em_delete' => 1), 'em_id=' . $id);
             }
             $this->_redirect('tochuccanbo/employees/index/page/' . $this->_page);
         }
@@ -550,7 +553,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
         if ($this->_request->isPost()) {
             $item = $this->getRequest()->getPost('cid');
             foreach ($item as $k => $v) {
-                $employeeModel->update(array('em_delete' => 1),'em_id=' . $v);                
+                $employeeModel->update(array('em_delete' => 1), 'em_id=' . $v);
             }
         }
         $this->_redirect('tochuccanbo/employees/index/page/' . $this->_page);
@@ -562,6 +565,37 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
         $huyenModel = new Front_Model_Huyen();
         $list_huyen = $huyenModel->fetchData(array('huyen_parent' => $tinhID, 'huyen_status' > 1));
         $this->view->list_huyen = $list_huyen;
+    }
+
+    function getdataluanchuyenAction() {
+        $this->_helper->layout()->disableLayout();
+        $emID = $this->_getParam('id', 0);
+        $emModel = new Front_Model_Employees();
+        $em_info = $emModel->fetchRow('em_id =' . $emID);
+        $this->view->employee_info = $em_info;
+    }
+
+    function updatedataluanchuyenAction() {
+        $this->_helper->layout()->disableLayout();
+        $employeesModel = new Front_Model_Employees();
+        if ($this->_request->isPost()) {
+            $data = array();
+            $em_id = $this->_arrParam['em_id'];
+            $em_chuc_vu = $this->_arrParam['em_chuc_vu'];
+            $em_phong_ban = $this->_arrParam['em_phong_ban'];
+            $em_ngach_cong_chuc = $this->_arrParam['em_ngach_cong_chuc'];
+            $em_cong_viec = trim($this->_arrParam['em_cong_viec']);
+            $em_chuyen_mon = trim($this->_arrParam['em_chuyen_mon']);
+            $current_time = new Zend_Db_Expr('NOW()');
+            $data['em_chuc_vu'] = $em_chuc_vu;
+            $data['em_phong_ban'] = $em_phong_ban;
+            $data['em_ngach_cong_chuc'] = $em_ngach_cong_chuc;
+            $data['em_cong_viec'] = $em_cong_viec;
+            $data['em_chuyen_mon'] = $em_chuyen_mon;
+            $data['em_date_modified'] = $current_time;
+            $success_message = $employeesModel->update($data, 'em_id=' . $em_id);
+            $this->view->success_message = $success_message;
+        }
     }
 
 }
