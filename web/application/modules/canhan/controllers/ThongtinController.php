@@ -39,7 +39,7 @@ class Canhan_ThongtinController extends Zend_Controller_Action {
         $auth = Zend_Auth::getInstance();
         $identity = $auth->getIdentity();
         $employeeModel = new Front_Model_Employees();
-        $employeeInfo = $employeeModel->fetchRow(array('em_id' => $identity->em_id));
+        $employeeInfo = $employeeModel->fetchRow('em_id=' . $identity->em_id);
         $this->view->employee_info = $employeeInfo;
     }
 
