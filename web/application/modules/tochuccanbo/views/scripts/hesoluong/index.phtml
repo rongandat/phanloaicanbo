@@ -61,7 +61,7 @@
                     $thang_options[$i] = $i;
                 }
                 $nam_options = array();
-                for ($i = 1900; $i <= date('Y'); $i++) {
+                for ($i = 2000; $i <= 2100; $i++) {
                     $nam_options[$i] = $i;
                 }
                 echo $this->formSelect('thang_ap_dung', ($this->he_so_luong ? date('d', strtotime($this->he_so_luong->hs_ngay_bat_dau)) : null), array('class' => 'input-small'), $thang_options);

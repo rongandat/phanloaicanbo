@@ -34,11 +34,22 @@ class Block_BlkTopMenu extends Zend_View_Helper_Abstract {
                     'danhgiaphanloai' => 'Đánh giá phân loại',
                     'doimatkhau' => 'Đổi mật khẩu'
             )),
-            'donvi' => array('name' => 'Đơn vị', 'sub' => array()),
+            'donvi' => array('name' => 'Đơn vị', 'sub' => array(
+                    'thanhvien' => 'Thành viên',
+                    'duyetnghiphep' => 'Duyệt nghỉ phép',
+                    'duyetthemgio' => 'Duyệt thêm giờ',
+                    'duyetphanloai' => 'Duyệt phân loại cán bộ',                    
+                    'thongbao' => 'Thông báo'
+            )),
             'tochuccanbo' => array('name' => 'Tổ chức cán bộ', 'sub' => array(
                     'hesoluong' => 'QL Hệ số lương',
                     'employees' => 'QL Cán bộ',
-                    'capnhatthongtin' => 'QL Yêu cầu cập nhật thông tin'
+                    'capnhatthongtin' => 'QL Yêu cầu cập nhật thông tin',
+                    'duyetphanloai' => 'Duyệt phân loại cán bộ',
+                    'duyetthemgio' => 'Duyệt thêm giờ',
+                    'yckhenthuong' => 'QL Yêu cầu khen thưởng',
+                    'yckyluat' => 'QL Yêu cầu kỷ luật/khiển trách',
+                    'thongbao' => 'Thông báo'
             )),
             'thongke' => array('name' => 'Thống kê', 'sub' => array()),
             'inluong' => array('name' => 'In lương', 'sub' => array()),
