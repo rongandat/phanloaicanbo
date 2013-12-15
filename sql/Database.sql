@@ -207,7 +207,7 @@ CREATE TABLE `employees` (
 
 /*!40000 ALTER TABLE `employees` DISABLE KEYS */;
 INSERT INTO `employees` (`em_id`,`em_ten`,`em_ten_dem`,`em_ho`,`em_ngay_sinh`,`em_so_chung_minh_thu`,`em_ten_khac`,`em_anh_the`,`em_gioi_tinh`,`em_home_phone`,`em_phone`,`em_noi_sinh`,`em_que_quan`,`em_dia_chi`,`em_dia_chi_tinh`,`em_dia_chi_huyen`,`em_dan_toc`,`em_so_cong_chuc`,`em_chuc_vu`,`em_phong_ban`,`em_ngay_tuyen_dung`,`em_ngach_cong_chuc`,`em_cong_viec`,`em_chuyen_mon`,`em_chuc_vu_dang`,`em_ngay_vao_dang`,`em_chuc_vu_doan`,`em_ngay_vao_doan`,`em_chuc_vu_cong_doan`,`em_van_hoa_pt`,`em_hoc_ham`,`em_bang_cap`,`em_ngoai_ngu`,`em_tin_hoc`,`em_chung_chi_khac`,`em_anh_bang_cap`,`em_status`,`em_delete`,`em_date_added`,`em_date_modified`) VALUES 
- (1,'HÃ¹ng','Máº¡nh','Nguyá»…n','1986-10-07 00:00:07','131398081','Nobita','',1,'','0985679742','Äoan HÃ¹ng','VÄ©nh PhÃº','ThÃ´n 12 -VÃ¢n Du',4,1,2,'HAV102',4,11,'2009-10-01 00:00:07',4,'Ã©d','dsfsdf',3,'2010-04-19 00:00:07',2,'2012-03-19 00:00:07',1,'12/12',3,8,1,2,3,'a:3:{i:0;s:36:\"571272600_1_blue.__large_preview.jpg\";i:1;s:17:\"518928803_top.png\";i:2;s:25:\"1795367415_Untitled-1.jpg\";}',1,0,'2013-12-02 16:54:16','2013-12-07 17:01:34'),
+ (1,'HÃ¹ng','Máº¡nh','Nguyá»…n','1986-10-07 00:00:07','131398081','Nobita','',1,'','0985679742','Äoan HÃ¹ng','VÄ©nh PhÃº','ThÃ´n 12 -VÃ¢n Du',4,1,2,'HAV102',6,9,'2009-10-01 00:00:07',5,'Ha ah ha','he he he',3,'2010-04-19 00:00:07',2,'2012-03-19 00:00:07',1,'12/12',3,8,1,2,3,'a:3:{i:0;s:36:\"571272600_1_blue.__large_preview.jpg\";i:1;s:17:\"518928803_top.png\";i:2;s:25:\"1795367415_Untitled-1.jpg\";}',1,0,'2013-12-02 16:54:16','2013-12-15 22:11:22'),
  (2,'BÃ­ch','Ngá»c','Ã‚u','1986-11-02 00:00:07','13133123434','BÃ­ch','1385911581.png',0,'','09886838560','Báº£o Tháº¯ng','HoÃ ng LiÃªn SÆ¡n','XÃ³m 11',4,1,2,'HAV1023',6,11,'1981-06-16 00:00:07',5,'Káº¿ ToÃ¡n','Káº¿ toÃ¡n mÃ¡y',2,'2012-07-15 00:00:07',4,'2011-05-18 00:00:07',3,'12/12',3,8,1,2,3,'a:3:{i:0;s:28:\"1620194362_OneTV  - Logo.png\";i:1;s:17:\"987576096_top.png\";i:2;s:24:\"681729117_Untitled-1.jpg\";}',1,0,'2013-12-01 22:26:21','2013-12-01 22:26:21'),
  (3,'HÃ¹ng','Máº¡nh','Nguyá»…n',NULL,'131398081','Nobita','1385898380.jpg',0,'','0985679742','Doan Hung','Phu Tho','Doan Hung',4,1,2,'23443432',4,9,NULL,4,'Cong nghe thong tin','danh may',1,NULL,2,NULL,1,'12/12',3,8,1,2,3,'a:2:{i:0;s:27:\"413210694_OneTV  - Logo.png\";i:1;s:18:\"1122416878_top.png\";}',1,1,'2013-12-01 18:46:20','2013-12-01 18:46:20'),
  (4,'HÃ¹ng','Máº¡nh','Nguyá»…n','0000-00-00 00:00:00','131398081','Nobita',NULL,0,'','0985679742','Doan Hung','Phu Tho','Doan Hung',0,0,2,'23443432',4,9,'0000-00-00 00:00:00',4,'Cong nghe thong tin','danh may',1,'0000-00-00 00:00:00',2,'0000-00-00 00:00:00',1,'12/12',3,8,1,2,3,'a:2:{i:0;s:27:\"413210694_OneTV  - Logo.png\";i:1;s:18:\"1122416878_top.png\";}',1,1,'2013-12-01 18:46:46','2013-12-01 18:46:46'),
@@ -412,6 +412,62 @@ INSERT INTO `huyen` (`huyen_id`,`huyen_name`,`huyen_parent`,`huyen_order`,`huyen
 
 
 --
+-- Definition of table `khen_thuong`
+--
+
+DROP TABLE IF EXISTS `khen_thuong`;
+CREATE TABLE `khen_thuong` (
+  `kt_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `kt_can_bo_to_chuc` int(10) unsigned NOT NULL,
+  `kt_em_id` int(10) unsigned NOT NULL,
+  `kt_date` datetime NOT NULL,
+  `kt_ly_do` text NOT NULL,
+  `kt_chi_tiet` text,
+  `kt_status` int(10) unsigned NOT NULL DEFAULT '1',
+  `kt_date_added` datetime NOT NULL,
+  `kt_date_modified` datetime NOT NULL,
+  PRIMARY KEY (`kt_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `khen_thuong`
+--
+
+/*!40000 ALTER TABLE `khen_thuong` DISABLE KEYS */;
+INSERT INTO `khen_thuong` (`kt_id`,`kt_can_bo_to_chuc`,`kt_em_id`,`kt_date`,`kt_ly_do`,`kt_chi_tiet`,`kt_status`,`kt_date_added`,`kt_date_modified`) VALUES 
+ (1,1,2,'2013-12-15 00:00:07','Lamf toot cong viec','<p>dsfds<strong> dsg</strong></p>\n<p>Goo man<em>fdggfdfdgf</em></p>',1,'2013-12-15 21:49:01','2013-12-15 21:49:01');
+/*!40000 ALTER TABLE `khen_thuong` ENABLE KEYS */;
+
+
+--
+-- Definition of table `ky_luat`
+--
+
+DROP TABLE IF EXISTS `ky_luat`;
+CREATE TABLE `ky_luat` (
+  `kl_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `kl_can_bo_to_chuc` int(10) unsigned NOT NULL,
+  `kl_em_id` int(10) unsigned NOT NULL,
+  `kl_date` datetime NOT NULL,
+  `kl_ly_do` text NOT NULL,
+  `kl_chi_tiet` text,
+  `kl_status` int(10) unsigned NOT NULL DEFAULT '1',
+  `kl_date_added` datetime NOT NULL,
+  `kl_date_modified` datetime NOT NULL,
+  PRIMARY KEY (`kl_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `ky_luat`
+--
+
+/*!40000 ALTER TABLE `ky_luat` DISABLE KEYS */;
+INSERT INTO `ky_luat` (`kl_id`,`kl_can_bo_to_chuc`,`kl_em_id`,`kl_date`,`kl_ly_do`,`kl_chi_tiet`,`kl_status`,`kl_date_added`,`kl_date_modified`) VALUES 
+ (1,1,2,'0000-00-00 00:00:00','Chua lam tot cong viev','<p>sadsad ]d</p>\n<p><strong>sadf</strong></p>\n<p>sd</p>\n<p>sdasd</p>',1,'2013-12-15 21:58:46','2013-12-15 21:58:46');
+/*!40000 ALTER TABLE `ky_luat` ENABLE KEYS */;
+
+
+--
 -- Definition of table `ngach_cong_chuc`
 --
 
@@ -479,13 +535,16 @@ CREATE TABLE `thong_bao` (
   `tb_date_added` datetime DEFAULT NULL,
   `tb_date_modified` datetime DEFAULT NULL,
   PRIMARY KEY (`tb_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `thong_bao`
 --
 
 /*!40000 ALTER TABLE `thong_bao` DISABLE KEYS */;
+INSERT INTO `thong_bao` (`tb_id`,`tb_from`,`tb_to`,`tb_tieu_de`,`tb_noi_dung`,`tb_status`,`tb_date_added`,`tb_date_modified`) VALUES 
+ (4,1,2,'Xin chao Ngoc Bich','<p>Anh la xep cua em. Anh rat thich em. Dong y yeu anh nhe</p>',0,'2013-12-15 16:27:19','2013-12-15 16:27:19'),
+ (5,0,1,'[LuÃ¢n chuyá»ƒn] Báº¡n Ä‘Ã£ Ä‘Æ°á»£c luÃ¢n chuyá»ƒn sang Ä‘Æ¡n vá»‹/cÃ´ng viá»‡c má»›i','Báº¡n vá»«a Ä‘Æ°á»£c luÃ¢n chuyá»ƒn sang Ä‘Æ¡n vá»‹/cÃ´ng viá»‡c má»›i.</br>\n                Chi tiáº¿t nhÆ° sau:</br>\n                Chá»©c vá»¥: TrÆ°á»Ÿng Ä‘Æ¡n vá»‹</br>\n                PhÃ²ng ban: Phong ban 1</br>\n                Ngáº¡ch cÃ´ng chá»©c: </br>\n                CÃ´ng viá»‡c: Ha ah ha</br>\n                ChuyÃªn mÃ´n: he he he</br>',0,'2013-12-15 22:11:22','2013-12-15 22:11:22');
 /*!40000 ALTER TABLE `thong_bao` ENABLE KEYS */;
 
 
@@ -580,7 +639,7 @@ CREATE TABLE `users_log` (
   `login_date` int(10) unsigned NOT NULL,
   `login_ip` varchar(45) NOT NULL,
   PRIMARY KEY (`log_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users_log`
@@ -647,7 +706,16 @@ INSERT INTO `users_log` (`log_id`,`user_id`,`login_date`,`login_ip`) VALUES
  (58,1,1386402867,'::1'),
  (59,1,1386402915,'::1'),
  (60,1,1386410167,'::1'),
- (61,1,1386418281,'::1');
+ (61,1,1386418281,'::1'),
+ (62,1,1386769946,'::1'),
+ (63,1,1386774233,'::1'),
+ (64,1,1387009367,'::1'),
+ (65,1,1387011751,'::1'),
+ (66,1,1387034973,'::1'),
+ (67,1,1387035657,'192.168.0.101'),
+ (68,1,1387035700,'192.168.0.101'),
+ (69,1,1387098330,'192.168.0.102'),
+ (70,1,1387118686,'192.168.0.102');
 /*!40000 ALTER TABLE `users_log` ENABLE KEYS */;
 
 

@@ -39,4 +39,29 @@ class Canhan_ThongbaoController extends Zend_Controller_Action {
         Zend_Layout::startMvc($option);
         $this->view->page = $this->_page;
     }
+
+    public function jqnewtbAction() {
+        $this->_helper->layout()->disableLayout();
+        $thongbao_model = new Front_Model_ThongBao();
+        if ($this->_request->isPost()) {
+            $data = array();
+            $em_id = $this->_arrParam['em_id'];
+            $tb_title = $this->_arrParam['tb_title'];
+            $tb_content = $this->_arrParam['tb_content'];
+            $current_time = new Zend_Db_Expr('NOW()');
+            $auth = Zend_Auth::getInstance();
+            $identity = $auth->getIdentity();
+            $from_id = $identity->em_id;
+            $data['tb_from']= $from_id;
+            $data['tb_to']= $em_id;
+            $data['tb_tieu_de']= $tb_title;
+            $data['tb_noi_dung']= $tb_content;
+            $data['tb_status']= 0;
+            $data['tb_date_added']= $current_time;
+            $data['tb_date_modified']= $current_time;
+            $success_message = $thongbao_model->insert($data);
+            $this->view->success_message = $success_message;
+        }
+    }
+
 }

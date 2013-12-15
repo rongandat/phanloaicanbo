@@ -594,6 +594,108 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
             $data['em_chuyen_mon'] = $em_chuyen_mon;
             $data['em_date_modified'] = $current_time;
             $success_message = $employeesModel->update($data, 'em_id=' . $em_id);
+            
+            $thongbao_model = new Front_Model_ThongBao();
+            $data = array();
+            $data['tb_from'] = 0;
+            $data['tb_to'] = $em_id;
+            $data['tb_tieu_de'] = '[Luân chuyển] Bạn đã được luân chuyển sang đơn vị/công việc mới';
+            $data['tb_noi_dung'] = 'Bạn vừa được luân chuyển sang đơn vị/công việc mới.</br>
+                Chi tiết như sau:</br>
+                Chức vụ: '.$this->view->viewGetChucVuName($em_chuc_vu).'</br>
+                Phòng ban: '.$this->view->viewGetPhongBanName($em_phong_ban).'</br>
+                Ngạch công chức: '.$this->view->viewGetNgachCongChucName($em_chuc_vu).'</br>
+                Công việc: '.$em_cong_viec.'</br>
+                Chuyên môn: '.$em_chuyen_mon.'</br>';
+            $data['tb_status'] = 0;
+            $data['tb_date_added'] = $current_time;
+            $data['tb_date_modified'] = $current_time;
+            $thongbao_model->insert($data);
+            
+            $this->view->success_message = $success_message;
+        }
+    }
+
+    function jqkhenthuongAction() {
+        $this->_helper->layout()->disableLayout();
+        $khenthuongModel = new Front_Model_KhenThuong();
+        if ($this->_request->isPost()) {
+            $data = array();
+            $auth = Zend_Auth::getInstance();
+            $identity = $auth->getIdentity();
+            $from_id = $identity->em_id;
+
+            $em_id = $this->_arrParam['em_id'];
+            $kt_date_day = $this->_arrParam['kt_date_day'];
+            $kt_date_month = $this->_arrParam['kt_date_month'];
+            $kt_date_year = $this->_arrParam['kt_date_year'];
+            $kt_ly_do = trim($this->_arrParam['kt_ly_do']);
+            $kt_chi_tiet = trim($this->_arrParam['kt_chi_tiet']);
+            $current_time = new Zend_Db_Expr('NOW()');
+            $date_khen_thuong = date_create($kt_date_year . '-' . $kt_date_month . '-' . $kt_date_day);
+
+            $data['kt_can_bo_to_chuc'] = $from_id;
+            $data['kt_em_id'] = $em_id;
+            $data['kt_date'] = date_format($date_khen_thuong, "Y-m-d H:iP");
+            $data['kt_ly_do'] = $kt_ly_do;
+            $data['kt_chi_tiet'] = $kt_chi_tiet;
+            $data['kt_date_added'] = $current_time;
+            $data['kt_date_modified'] = $current_time;
+            $success_message = $khenthuongModel->insert($data);
+
+            $thongbao_model = new Front_Model_ThongBao();
+            $data = array();
+            $data['tb_from'] = 0;
+            $data['tb_to'] = $em_id;
+            $data['tb_tieu_de'] = '[Khen Thuong] ' . $kt_ly_do;
+            $data['tb_noi_dung'] = $kt_chi_tiet;
+            $data['tb_status'] = 0;
+            $data['tb_date_added'] = $current_time;
+            $data['tb_date_modified'] = $current_time;
+            $thongbao_model->insert($data);
+
+            $this->view->success_message = $success_message;
+        }
+    }
+
+    function jqkyluatAction() {
+        $this->_helper->layout()->disableLayout();
+        $kyluatModel = new Front_Model_KyLuat();
+        if ($this->_request->isPost()) {
+            $data = array();
+            $auth = Zend_Auth::getInstance();
+            $identity = $auth->getIdentity();
+            $from_id = $identity->em_id;
+
+            $em_id = $this->_arrParam['em_id'];
+            $kl_date_day = $this->_arrParam['kl_date_day'];
+            $kl_date_month = $this->_arrParam['kl_date_month'];
+            $kl_date_year = $this->_arrParam['kl_date_year'];
+            $kl_ly_do = trim($this->_arrParam['kl_ly_do']);
+            $kl_chi_tiet = trim($this->_arrParam['kl_chi_tiet']);
+            $current_time = new Zend_Db_Expr('NOW()');
+            $date_ky_luat = date_create($kl_date_year . '-' . $kl_date_month . '-' . $kl_date_day);
+
+            $data['kl_can_bo_to_chuc'] = $from_id;
+            $data['kl_em_id'] = $em_id;
+            $data['kl_date'] = date_format($date_ky_luat, "Y-m-d H:iP");
+            $data['kl_ly_do'] = $kl_ly_do;
+            $data['kl_chi_tiet'] = $kl_chi_tiet;
+            $data['kl_date_added'] = $current_time;
+            $data['kl_date_modified'] = $current_time;
+            $success_message = $kyluatModel->insert($data);
+            
+            $thongbao_model = new Front_Model_ThongBao();
+            $data = array();
+            $data['tb_from'] = 0;
+            $data['tb_to'] = $em_id;
+            $data['tb_tieu_de'] = '[Kỷ luật/khiển trách] ' . $kl_ly_do;
+            $data['tb_noi_dung'] = $kl_chi_tiet;
+            $data['tb_status'] = 0;
+            $data['tb_date_added'] = $current_time;
+            $data['tb_date_modified'] = $current_time;
+            $thongbao_model->insert($data);
+            
             $this->view->success_message = $success_message;
         }
     }
