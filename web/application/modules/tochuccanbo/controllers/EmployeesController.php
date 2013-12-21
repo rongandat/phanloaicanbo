@@ -637,18 +637,19 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
             $data['kt_can_bo_to_chuc'] = $from_id;
             $data['kt_em_id'] = $em_id;
             $data['kt_date'] = date_format($date_khen_thuong, "Y-m-d H:iP");
-            $data['kt_ly_do'] = $kt_ly_do;
-            $data['kt_chi_tiet'] = $kt_chi_tiet;
+            $data['kt_ly_do'] = base64_decode($kt_ly_do);
+            $data['kt_chi_tiet'] = base64_decode($kt_chi_tiet);
             $data['kt_date_added'] = $current_time;
             $data['kt_date_modified'] = $current_time;
             $success_message = $khenthuongModel->insert($data);
 
             $thongbao_model = new Front_Model_ThongBao();
+            
             $data = array();
             $data['tb_from'] = 0;
             $data['tb_to'] = $em_id;
-            $data['tb_tieu_de'] = '[Khen Thuong] ' . $kt_ly_do;
-            $data['tb_noi_dung'] = $kt_chi_tiet;
+            $data['tb_tieu_de'] = '[Khen Thưởng] ' . base64_decode($kt_ly_do);
+            $data['tb_noi_dung'] = base64_decode($kt_chi_tiet);
             $data['tb_status'] = 0;
             $data['tb_date_added'] = $current_time;
             $data['tb_date_modified'] = $current_time;
@@ -679,8 +680,8 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
             $data['kl_can_bo_to_chuc'] = $from_id;
             $data['kl_em_id'] = $em_id;
             $data['kl_date'] = date_format($date_ky_luat, "Y-m-d H:iP");
-            $data['kl_ly_do'] = $kl_ly_do;
-            $data['kl_chi_tiet'] = $kl_chi_tiet;
+            $data['kl_ly_do'] = base64_decode($kl_ly_do);
+            $data['kl_chi_tiet'] = base64_decode($kl_chi_tiet);
             $data['kl_date_added'] = $current_time;
             $data['kl_date_modified'] = $current_time;
             $success_message = $kyluatModel->insert($data);
@@ -689,8 +690,8 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
             $data = array();
             $data['tb_from'] = 0;
             $data['tb_to'] = $em_id;
-            $data['tb_tieu_de'] = '[Kỷ luật/khiển trách] ' . $kl_ly_do;
-            $data['tb_noi_dung'] = $kl_chi_tiet;
+            $data['tb_tieu_de'] = '[Kỷ luật/khiển trách] ' . base64_decode($kl_ly_do);
+            $data['tb_noi_dung'] = base64_decode($kl_chi_tiet);
             $data['tb_status'] = 0;
             $data['tb_date_added'] = $current_time;
             $data['tb_date_modified'] = $current_time;

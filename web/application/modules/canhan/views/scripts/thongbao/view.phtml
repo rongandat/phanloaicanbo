@@ -1,0 +1,40 @@
+<div class="body_content float_right">
+    <h5>Thông báo</h5>               
+
+    <div class="main-content-box">  
+        <?php
+        if (!$this->thong_bao) {
+            echo 'Không tìm thấy nội dung.';
+        } else {
+            ?>
+
+            <address>
+                <strong><?php echo $this->thong_bao['tb_tieu_de']; ?></strong><br>
+                <?php
+                $name = 'Hệ thống';
+                $phong_ban = '';
+                if ($this->thong_bao['tb_from']) {
+                    $name = $this->thong_bao['em_ho'] . ' ' . $this->thong_bao['em_ten_dem'] . ' ' . $this->thong_bao['em_ten'];
+                    $phong_ban = 'Phòng: ' . $this->viewGetPhongBanName($this->thong_bao['em_phong_ban']) . '<br>';
+                }
+                ?>
+                Người gửi: <?php echo $name; ?><br>
+                <?php echo $phong_ban; ?>
+            </address>
+
+            <address>
+                <?php echo $this->thong_bao['tb_noi_dung']; ?>
+            </address>
+            <?php
+        }
+        ?>
+        <div class="control-group">
+            <div class="controls">
+                <p>                    
+                    <a class="btn btn-small" type="button" href="<?php echo $this->baseUrl('canhan/thongbao/index/page/' . $this->page); ?>">Quay lại</a>
+                    <a class="btn btn-small btn btn-danger" type="button" href="<?php echo $this->baseUrl('canhan/thongbao/delete/id/'.$this->thong_bao['tb_id'].'/page/' . $this->page); ?>">Quay lại</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

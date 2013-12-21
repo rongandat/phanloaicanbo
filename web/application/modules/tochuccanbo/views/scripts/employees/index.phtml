@@ -619,10 +619,9 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
             kl_date_day: kl_day, 
             kl_date_month: kl_month,
             kl_date_year: kl_year,
-            kl_ly_do: kl_title,
-            kl_chi_tiet: kl_content
+            kl_ly_do: $.base64('encode', kl_title),
+            kl_chi_tiet: $.base64('encode', kl_content)
         }, function(data) {
-            data = $.parseJSON(data);
             if(data.status){
                 $('#dv_ky_luat_success').show();
                 tinyMCE.get('kl_chi_tiet').setContent('');
@@ -630,7 +629,7 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
             }else{
                 $('#dv_ky_luat_error').show();
             }
-        });
+        }, 'json');
     }
     
     function loadFormKhenThuong(em_id, em_name){        
@@ -650,16 +649,16 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
         var kt_content = tinyMCE.get('kt_chi_tiet').getContent();
         var kt_day = $('#mdKhenThuongBody #kt_ngay_khen_thuong').val();
         var kt_month = $('#mdKhenThuongBody #kt_thang_khen_thuong').val();
-        var kt_year = $('#mdKhenThuongBody #kt_nam_khen_thuong').val();        
-        $.post( site_url+'/tochuccanbo/employees/jqkhenthuong', {
+        var kt_year = $('#mdKhenThuongBody #kt_nam_khen_thuong').val(); 
+        
+        $.post( site_url+'/tochuccanbo/employees/jqkhenthuong', { 
             em_id: em_id, 
             kt_date_day: kt_day, 
             kt_date_month: kt_month,
             kt_date_year: kt_year,
-            kt_ly_do: kt_title,
-            kt_chi_tiet: kt_content
-        }, function(data) {
-            data = $.parseJSON(data);
+            kt_ly_do: $.base64('encode', kt_title),
+            kt_chi_tiet: $.base64('encode', kt_content) 
+        }, function( data ) {
             if(data.status){
                 $('#dv_khen_thuong_success').show();
                 tinyMCE.get('kt_chi_tiet').setContent('');
@@ -667,7 +666,7 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
             }else{
                 $('#dv_khen_thuong_error').show();
             }
-        });
+        }, 'json');
     }
     
     function loadFormThongBao(em_id, em_name){        
@@ -687,10 +686,9 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
         var tb_content = tinyMCE.get('tb_noi_dung').getContent();
         $.post( site_url+'/canhan/thongbao/jqnewtb', {
             em_id: em_id, 
-            tb_title: tb_title, 
-            tb_content: tb_content
-        }, function(data) {
-            data = $.parseJSON(data);
+            tb_title: $.base64('encode', tb_title), 
+            tb_content: $.base64('encode', tb_content)
+        }, function(data) {            
             if(data.status){
                 $('#dv_thong_bao_success').show();
                 tinyMCE.get('tb_noi_dung').setContent('');
@@ -698,6 +696,6 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
             }else{
                 $('#dv_thong_bao_error').show();
             }
-        });
+        }, 'json');
     }
 </script>

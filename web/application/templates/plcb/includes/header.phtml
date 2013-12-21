@@ -19,6 +19,7 @@
                 ->appendFile($this->baseUrl('/public/templates/plcb/js/bootstrap.min.js'), 'text/javascript')
                 ->appendFile($this->baseUrl('/public/js/uploadify/jquery.uploadify.min.js'), 'text/javascript')
                 ->appendFile($this->baseUrl('/public/js/tinymce/tinymce.min.js'), 'text/javascript')
+                ->appendFile($this->baseUrl('/public/js/base64/jquery.base64.js'), 'text/javascript')
                 ->appendFile($this->baseUrl('/public/js/global.js'), 'text/javascript');
         $this->headMeta()->appendHttpEquiv('Content-Type', 'text/html;charset=utf-8');
         echo $this->headLink();

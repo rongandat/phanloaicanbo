@@ -2,7 +2,40 @@
     <h5>Thông báo</h5>               
 
     <div class="main-content-box">  
-        
-    </div> 
-    
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th class="checkall_style"><input type="checkbox" name="check_all" id="checkbox" onclick="checkedAll()"></th>
+                    <th>Tiêu đề</th>
+                    <th style="width: 100px;">Ngày</th>
+                    <th style="width: 100px;">Chức năng</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                if (!sizeof($this->list_thong_bao)) {
+                    echo '<tr><td colspan="4">Không có thông báo mới</td></tr>';
+                } else {
+                    $i = 0;
+                    foreach ($this->list_thong_bao as $thong_bao) {
+                        $i++;
+                        $class_row = '';
+                        if (!$thong_bao->tb_status) {
+                            $class_row = "not_yet_read";
+                        }
+                        echo '<tr id="row_' . $thong_bao->tb_id . '" class="' . $class_row . '">
+                            <td class="checkall_style"><input type="checkbox" name="cid[]" id="cid" value="' . $thong_bao->tb_id . '"></td>
+                            <td><a href="' . $this->baseUrl('canhan/thongbao/view/id/' . $thong_bao->tb_id) . '">' . $thong_bao->tb_tieu_de . '</a></td>
+                            <td>' . date('d-m-Y', strtotime($thong_bao->tb_date_added)) . '</td>
+                            <td>
+                                <a class="btn btn-mini" href="' . $this->baseUrl('canhan/thongbao/view/id/' . $thong_bao->tb_id.'/page/'.$this->page) . '" title="Xem"><i class="icon-play"></i></a>
+                                <a class="btn btn-mini" href="' . $this->baseUrl('canhan/thongbao/delete/id/' . $thong_bao->tb_id.'/page/'.$this->page) . '" title="Xóa"><i class="icon-trash"></i></a>
+                            </td>
+                        </tr>';
+                    }
+                }
+                ?>             
+            </tbody>
+        </table>
+    </div>
 </div>

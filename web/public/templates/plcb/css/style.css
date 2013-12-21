@@ -377,6 +377,10 @@ input, button, select, textarea {
     -o-transition: opacity .3s linear,top .3s ease-out;
     transition: opacity .3s linear,top .3s ease-out;
 }
+
+.not_yet_read{
+    font-weight: bold;
+}
 /* Main Footer*/
 .main-footer{
     width: 100%;
