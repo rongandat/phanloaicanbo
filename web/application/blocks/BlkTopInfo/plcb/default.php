@@ -1,3 +1,4 @@
+
 <?php
 $fullname = trim($this->_employee_info->em_ho);
 if (trim($this->_employee_info->em_ten_dem))
@@ -13,5 +14,5 @@ if ($identity->last_login_data) {
 <div class="main-header-right">
     Xin chào: <?php echo trim($fullname); ?><br>
     Đăng nhập lần cuối: <?php echo $date_last_login; ?><br>
-    <a href="<?php echo $view->baseUrl('employee/changepass')?>">Đổi mật khẩu</a> - <a href="<?php echo $view->baseUrl('auth/logout')?>">Thoát ra</a>                        
+    <a href="<?php echo $view->baseUrl('canhan/doimatkhau')?>">Đổi mật khẩu</a> - <a href="<?php echo $view->baseUrl('auth/logout')?>">Thoát ra</a>                        
 </div>

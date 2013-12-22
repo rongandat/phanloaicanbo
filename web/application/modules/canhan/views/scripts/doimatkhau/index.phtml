@@ -2,7 +2,62 @@
     <h5>Đổi mật khẩu</h5>               
 
     <div class="main-content-box">  
-        
+        <?php if ($this->error_message) : ?>
+            <div class="alert alert-error">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <h5>Thông báo!</h5>
+                Cập nhật không thành công vì:
+                <ol>
+                    <?php foreach ($this->error_message as $message): ?>
+                        <li><?php echo $message; ?></li>
+                    <?php endforeach; ?>
+                </ol>
+            </div> 
+        <?php endif; ?>  
+        <?php if ($this->success_message) : ?>
+            <div class="alert alert-success">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <h5>Thông báo!</h5>
+                <?php echo $this->success_message; ?>
+            </div>
+        <?php endif ?>
+
+        <form class="form-horizontal" method="post" action="" enctype="multipart/form-data">
+
+            <div class="control-group">
+                <label class="control-label" for="mat_khau_cu">Mật khẩu cũ</label>
+                <div class="controls">
+                    <?php echo $this->formPassword('mat_khau_cu', '', array('required' => '', 'class' => 'input-large', 'placeholder' => 'Mật khẩu cũ')); ?>  
+                    <span class="help-inline">(*)</span>
+                    <span class="help-block">Nhập mật khẩu hiện tại</span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="mat_khau_moi_1">Mật khẩu mới</label>
+                <div class="controls">
+                    <?php echo $this->formPassword('mat_khau_moi_1', '', array('required' => '', 'class' => 'input-large', 'placeholder' => 'Mật khẩu mới')); ?>  
+                    <span class="help-inline">(*)</span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="mat_khau_moi_2">Nhập lại mật khẩu</label>
+                <div class="controls">
+                    <?php echo $this->formPassword('mat_khau_moi_2', '', array('required' => '', 'class' => 'input-large', 'placeholder' => 'Xác nhận mật khẩu mới')); ?>  
+                    <span class="help-inline">(*)</span>
+                    <span class="help-block">Hãy nhập mật khẩu mới vào đây</span>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <div class="controls">
+                    <p>                    
+                        <button class="btn btn-small btn-primary" type="submit">Thay đổi mật khẩu</button>
+                        <a class="btn btn-small" type="button" href="<?php echo $this->baseUrl('canhan/thongtin'); ?>">Quay lại</a>
+                    </p>
+                </div>
+            </div>
+
+        </form>
     </div> 
-    
+
 </div>
