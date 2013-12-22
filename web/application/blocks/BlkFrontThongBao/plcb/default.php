@@ -25,7 +25,7 @@
                             <td>' . date('d-m-Y', strtotime($thong_bao->tb_date_added)) . '</td>
                             <td>
                                 <a class="btn btn-mini" href="' . $view->baseUrl('canhan/thongbao/view/id/' . $thong_bao->tb_id) . '" title="Xem"><i class="icon-play"></i></a>
-                                <a class="btn btn-mini" href="' . $this->baseUrl('canhan/thongbao/delete/id/' . $thong_bao->tb_id . '/page/1') . '" title="Xóa"><i class="icon-trash"></i></a>
+                                <a class="btn btn-mini" href="' . $view->baseUrl('canhan/thongbao/delete/id/' . $thong_bao->tb_id . '/page/1') . '" title="Xóa"><i class="icon-trash"></i></a>
                             </td>
                         </tr>';
                 }
