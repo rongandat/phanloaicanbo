@@ -535,7 +535,7 @@ CREATE TABLE `thong_bao` (
   `tb_date_added` datetime DEFAULT NULL,
   `tb_date_modified` datetime DEFAULT NULL,
   PRIMARY KEY (`tb_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `thong_bao`
@@ -636,7 +636,7 @@ CREATE TABLE `users_log` (
   `login_date` int(10) unsigned NOT NULL,
   `login_ip` varchar(45) NOT NULL,
   PRIMARY KEY (`log_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users_log`
@@ -714,8 +714,38 @@ INSERT INTO `users_log` (`log_id`,`user_id`,`login_date`,`login_ip`) VALUES
  (69,1,1387098330,'192.168.0.102'),
  (70,1,1387118686,'192.168.0.102'),
  (71,1,1387710738,'::1'),
- (72,1,1387724735,'::1');
+ (72,1,1387724735,'::1'),
+ (73,1,1387807947,'::1');
 /*!40000 ALTER TABLE `users_log` ENABLE KEYS */;
+
+
+--
+-- Definition of table `xin_nghi_phep`
+--
+
+DROP TABLE IF EXISTS `xin_nghi_phep`;
+CREATE TABLE `xin_nghi_phep` (
+  `xnp_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `xnp_em_id` int(10) unsigned NOT NULL,
+  `xnp_from_date` datetime NOT NULL,
+  `xnp_to_date` datetime NOT NULL,
+  `xnp_date_created` datetime NOT NULL,
+  `xnp_don_vi_status` float NOT NULL DEFAULT '-1',
+  `xnp_ptccb_status` float NOT NULL DEFAULT '-1',
+  `xnp_ly_do` text NOT NULL,
+  `xnp_chi_tiet` text,
+  PRIMARY KEY (`xnp_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `xin_nghi_phep`
+--
+
+/*!40000 ALTER TABLE `xin_nghi_phep` DISABLE KEYS */;
+INSERT INTO `xin_nghi_phep` (`xnp_id`,`xnp_em_id`,`xnp_from_date`,`xnp_to_date`,`xnp_date_created`,`xnp_don_vi_status`,`xnp_ptccb_status`,`xnp_ly_do`,`xnp_chi_tiet`) VALUES 
+ (1,1,'2013-02-03 22:29:07','2013-05-06 22:29:07','2013-12-23 22:29:05',0,-1,'fdsdf stt t werwr te','<p>sáº§ sdf e ew ewt</p>'),
+ (2,1,'2013-12-24 22:59:07','2013-12-31 22:59:07','2013-12-23 22:59:03',-1,-1,'Nghá»‰ á»‘m','<p>H&ocirc;m Ä‘áº¥y t&ocirc;i á»‘m láº¯m.</p>\r\n<p>N&ecirc;n t&ocirc;i xin nghá»‰ v&agrave;i h&ocirc;m</p>');
+/*!40000 ALTER TABLE `xin_nghi_phep` ENABLE KEYS */;
 
 
 
