@@ -171,9 +171,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
             $em_ten_khac = $this->_arrParam['em_ten_khac'];
             $em_so_chung_minh_thu = trim($this->_arrParam['em_so_chung_minh_thu']);
             $em_gioi_tinh = $this->_arrParam['em_gioi_tinh'];
-            $ngay_sinh = $this->_arrParam['ngay_sinh'];
-            $thang_sinh = $this->_arrParam['thang_sinh'];
-            $nam_sinh = $this->_arrParam['nam_sinh'];
+            $ngay_sinh = $this->_arrParam['ngay_sinh'];            
             $em_home_phone = $this->_arrParam['em_home_phone'];
             $em_phone = $this->_arrParam['em_phone'];
             $em_noi_sinh = trim($this->_arrParam['em_noi_sinh']);
@@ -185,20 +183,14 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
             $em_so_cong_chuc = trim($this->_arrParam['em_so_cong_chuc']);
             $em_chuc_vu = $this->_arrParam['em_chuc_vu'];
             $em_phong_ban = $this->_arrParam['em_phong_ban'];
-            $ngay_tuyen_dung = $this->_arrParam['ngay_tuyen_dung'];
-            $thang_tuyen_dung = $this->_arrParam['thang_tuyen_dung'];
-            $nam_tuyen_dung = $this->_arrParam['nam_tuyen_dung'];
+            $ngay_tuyen_dung = $this->_arrParam['ngay_tuyen_dung'];            
             $em_ngach_cong_chuc = $this->_arrParam['em_ngach_cong_chuc'];
             $em_cong_viec = trim($this->_arrParam['em_cong_viec']);
             $em_chuyen_mon = trim($this->_arrParam['em_chuyen_mon']);
             $em_chuc_vu_dang = $this->_arrParam['em_chuc_vu_dang'];
-            $ngay_dang = $this->_arrParam['ngay_dang'];
-            $thang_dang = $this->_arrParam['thang_dang'];
-            $nam_dang = $this->_arrParam['nam_dang'];
+            $ngay_dang = $this->_arrParam['ngay_dang'];            
             $em_chuc_vu_doan = $this->_arrParam['em_chuc_vu_doan'];
-            $ngay_doan = $this->_arrParam['ngay_doan'];
-            $thang_doan = $this->_arrParam['thang_doan'];
-            $nam_doan = $this->_arrParam['nam_doan'];
+            $ngay_doan = $this->_arrParam['ngay_doan'];            
             $em_chuc_vu_cong_doan = $this->_arrParam['em_chuc_vu_cong_doan'];
             $em_van_hoa_pt = trim($this->_arrParam['em_van_hoa_pt']);
             $em_hoc_ham = $this->_arrParam['em_hoc_ham'];
@@ -224,11 +216,11 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
 
 
             if (!sizeof($error_message)) {
-                $current_time = new Zend_Db_Expr('NOW()');
-                $date_ngay_sinh = date_create($nam_sinh . '-' . $thang_sinh . '-' . $ngay_sinh);
-                $date_ngay_tuyen_dung = date_create($nam_tuyen_dung . '-' . $thang_tuyen_dung . '-' . $ngay_tuyen_dung);
-                $date_ngay_vao_dang = date_create($nam_dang . '-' . $thang_dang . '-' . $ngay_dang);
-                $date_ngay_vao_doan = date_create($nam_doan . '-' . $thang_doan . '-' . $ngay_doan);
+                $current_time = new Zend_Db_Expr('NOW()');                
+                $date_ngay_sinh = DateTime::createFromFormat('d/m/yy', $ngay_sinh);
+                $date_ngay_tuyen_dung = DateTime::createFromFormat('d/m/yy', $ngay_tuyen_dung);
+                $date_ngay_vao_dang = DateTime::createFromFormat('d/m/yy', $ngay_dang);
+                $date_ngay_vao_doan = DateTime::createFromFormat('d/m/yy', $ngay_doan);                
                 $data['em_ho'] = $em_ho;
                 $data['em_ten_dem'] = $em_ten_dem;
                 $data['em_ten'] = $em_ten;
@@ -386,8 +378,6 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
             $em_so_chung_minh_thu = trim($this->_arrParam['em_so_chung_minh_thu']);
             $em_gioi_tinh = $this->_arrParam['em_gioi_tinh'];
             $ngay_sinh = $this->_arrParam['ngay_sinh'];
-            $thang_sinh = $this->_arrParam['thang_sinh'];
-            $nam_sinh = $this->_arrParam['nam_sinh'];
             $em_home_phone = $this->_arrParam['em_home_phone'];
             $em_phone = $this->_arrParam['em_phone'];
             $em_noi_sinh = trim($this->_arrParam['em_noi_sinh']);
@@ -400,19 +390,13 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
             $em_chuc_vu = $this->_arrParam['em_chuc_vu'];
             $em_phong_ban = $this->_arrParam['em_phong_ban'];
             $ngay_tuyen_dung = $this->_arrParam['ngay_tuyen_dung'];
-            $thang_tuyen_dung = $this->_arrParam['thang_tuyen_dung'];
-            $nam_tuyen_dung = $this->_arrParam['nam_tuyen_dung'];
             $em_ngach_cong_chuc = $this->_arrParam['em_ngach_cong_chuc'];
             $em_cong_viec = trim($this->_arrParam['em_cong_viec']);
             $em_chuyen_mon = trim($this->_arrParam['em_chuyen_mon']);
             $em_chuc_vu_dang = $this->_arrParam['em_chuc_vu_dang'];
             $ngay_dang = $this->_arrParam['ngay_dang'];
-            $thang_dang = $this->_arrParam['thang_dang'];
-            $nam_dang = $this->_arrParam['nam_dang'];
             $em_chuc_vu_doan = $this->_arrParam['em_chuc_vu_doan'];
             $ngay_doan = $this->_arrParam['ngay_doan'];
-            $thang_doan = $this->_arrParam['thang_doan'];
-            $nam_doan = $this->_arrParam['nam_doan'];
             $em_chuc_vu_cong_doan = $this->_arrParam['em_chuc_vu_cong_doan'];
             $em_van_hoa_pt = trim($this->_arrParam['em_van_hoa_pt']);
             $em_hoc_ham = $this->_arrParam['em_hoc_ham'];
@@ -439,10 +423,11 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
 
             if (!sizeof($error_message)) {
                 $current_time = new Zend_Db_Expr('NOW()');
-                $date_ngay_sinh = date_create($nam_sinh . '-' . $thang_sinh . '-' . $ngay_sinh);
-                $date_ngay_tuyen_dung = date_create($nam_tuyen_dung . '-' . $thang_tuyen_dung . '-' . $ngay_tuyen_dung);
-                $date_ngay_vao_dang = date_create($nam_dang . '-' . $thang_dang . '-' . $ngay_dang);
-                $date_ngay_vao_doan = date_create($nam_doan . '-' . $thang_doan . '-' . $ngay_doan);
+                $date_ngay_sinh = DateTime::createFromFormat('d/m/yy', $ngay_sinh);
+                $date_ngay_tuyen_dung = DateTime::createFromFormat('d/m/yy', $ngay_tuyen_dung);
+                $date_ngay_vao_dang = DateTime::createFromFormat('d/m/yy', $ngay_dang);
+                $date_ngay_vao_doan = DateTime::createFromFormat('d/m/yy', $ngay_doan); 
+                
                 $data['em_ho'] = $em_ho;
                 $data['em_ten_dem'] = $em_ten_dem;
                 $data['em_ten'] = $em_ten;

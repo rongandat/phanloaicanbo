@@ -75,27 +75,8 @@
                 </div> 
                 <div class="control-group">
                     <label class="control-label" for="ngay_sinh">Ngày sinh</label>
-                    <div class="controls">
-                        <?php
-                        $ngay_options = array();
-                        for ($i = 1; $i <= 31; $i++) {
-                            $ngay_options[$i] = $i;
-                        }
-
-                        $thang_options = array();
-                        for ($i = 1; $i <= 12; $i++) {
-                            $thang_options[$i] = $i;
-                        }
-                        $nam_options = array();
-                        for ($i = 1900; $i <= date('Y'); $i++) {
-                            $nam_options[$i] = $i;
-                        }
-                        echo $this->formSelect('ngay_sinh', date('d', strtotime($this->employee_info->eme_ngay_sinh)), array('class' => 'input-small'), $ngay_options);
-                        echo '<span class="help-inline"> / </span>';
-                        echo $this->formSelect('thang_sinh', date('m', strtotime($this->employee_info->eme_ngay_sinh)), array('class' => 'input-small'), $thang_options);
-                        echo '<span class="help-inline"> / </span>';
-                        echo $this->formSelect('nam_sinh', date('Y', strtotime($this->employee_info->eme_ngay_sinh)), array('class' => 'input-small'), $nam_options);
-                        ?>                    
+                    <div class="controls">                          
+                        <?php echo $this->formText('ngay_sinh', date('d/m/Y', strtotime($this->employee_info->eme_ngay_sinh)), array('class' => 'input-medium', 'placeholder' => 'Ngày sinh', 'readonly' => 'readonly')); ?> 
                     </div>
                 </div> 
 
@@ -183,14 +164,8 @@
                 </div> 
                 <div class="control-group">
                     <label class="control-label" for="ngay_dang">Ngày vào đảng</label>
-                    <div class="controls">
-                        <?php
-                        echo $this->formSelect('ngay_dang', date('d', strtotime($this->employee_info->eme_ngay_vao_dang)), array('class' => 'input-small'), $ngay_options);
-                        echo '<span class="help-inline"> / </span>';
-                        echo $this->formSelect('thang_dang', date('m', strtotime($this->employee_info->eme_ngay_vao_dang)), array('class' => 'input-small'), $thang_options);
-                        echo '<span class="help-inline"> / </span>';
-                        echo $this->formSelect('nam_dang', date('Y', strtotime($this->employee_info->eme_ngay_vao_dang)), array('class' => 'input-small'), $nam_options);
-                        ?>                     
+                    <div class="controls">                           
+                        <?php echo $this->formText('ngay_dang', date('d/m/Y', strtotime($this->employee_info->eme_ngay_vao_dang)), array('class' => 'input-medium', 'placeholder' => 'Ngày vào đảng', 'readonly' => 'readonly')); ?> 
                     </div>
                 </div> 
 
@@ -205,14 +180,8 @@
                 </div> 
                 <div class="control-group">
                     <label class="control-label" for="ngay_doan">Ngày vào đoàn</label>
-                    <div class="controls">
-                        <?php
-                        echo $this->formSelect('ngay_doan', date('d', strtotime($this->employee_info->eme_ngay_vao_doan)), array('class' => 'input-small'), $ngay_options);
-                        echo '<span class="help-inline"> / </span>';
-                        echo $this->formSelect('thang_doan', date('m', strtotime($this->employee_info->eme_ngay_vao_doan)), array('class' => 'input-small'), $thang_options);
-                        echo '<span class="help-inline"> / </span>';
-                        echo $this->formSelect('nam_doan', date('Y', strtotime($this->employee_info->eme_ngay_vao_doan)), array('class' => 'input-small'), $nam_options);
-                        ?>                     
+                    <div class="controls">                        
+                        <?php echo $this->formText('ngay_doan', date('d/m/Y', strtotime($this->employee_info->eme_ngay_vao_doan)), array('class' => 'input-medium', 'placeholder' => 'Ngày vào đoàn', 'readonly' => 'readonly')); ?> 
                     </div>
                 </div> 
                 <div class="control-group">
@@ -374,6 +343,27 @@
                 }
             }
         });
+        $( "#ngay_sinh" ).datepicker({
+            changeMonth: true,
+            changeYear: true,
+            defaultDate: "+1w",
+            numberOfMonths: 1,
+            dateFormat: 'd/m/yy'
+        });
+        $( "#ngay_dang" ).datepicker({
+            changeMonth: true,
+            changeYear: true,
+            defaultDate: "+1w",
+            numberOfMonths: 1,
+            dateFormat: 'd/m/yy'
+        });
+        $( "#ngay_doan" ).datepicker({
+            changeMonth: true,
+            changeYear: true,
+            defaultDate: "+1w",
+            numberOfMonths: 1,
+            dateFormat: 'd/m/yy'
+        });   
     });    
     
     function changeTinh(){

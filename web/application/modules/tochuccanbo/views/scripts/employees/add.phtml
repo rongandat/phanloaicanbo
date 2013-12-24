@@ -70,26 +70,7 @@
             <div class="control-group">
                 <label class="control-label" for="ngay_sinh">Ngày sinh</label>
                 <div class="controls">
-                    <?php
-                    $ngay_options = array();
-                    for ($i = 1; $i <= 31; $i++) {
-                        $ngay_options[$i] = $i;
-                    }
-
-                    $thang_options = array();
-                    for ($i = 1; $i <= 12; $i++) {
-                        $thang_options[$i] = $i;
-                    }
-                    $nam_options = array();
-                    for ($i = 1900; $i <= date('Y'); $i++) {
-                        $nam_options[$i] = $i;
-                    }
-                    echo $this->formSelect('ngay_sinh', $this->arrParam['ngay_sinh'], array('class' => 'input-small'), $ngay_options);
-                    echo '<span class="help-inline"> / </span>';
-                    echo $this->formSelect('thang_sinh', $this->arrParam['thang_sinh'], array('class' => 'input-small'), $thang_options);
-                    echo '<span class="help-inline"> / </span>';
-                    echo $this->formSelect('nam_sinh', $this->arrParam['nam_sinh'], array('class' => 'input-small'), $nam_options);
-                    ?>                    
+                    <?php echo $this->formText('ngay_sinh', $this->arrParam['ngay_sinh'], array('class' => 'input-medium', 'placeholder' => 'Ngày sinh', 'readonly' => 'readonly')); ?>                    
                 </div>
             </div> 
 
@@ -205,13 +186,8 @@
             <div class="control-group">
                 <label class="control-label" for="ngay_tuyen_dung">Ngày tuyển dụng</label>
                 <div class="controls">
-                    <?php
-                    echo $this->formSelect('ngay_tuyen_dung', $this->arrParam['ngay_tuyen_dung'], array('class' => 'input-small'), $ngay_options);
-                    echo '<span class="help-inline"> / </span>';
-                    echo $this->formSelect('thang_tuyen_dung', $this->arrParam['thang_tuyen_dung'], array('class' => 'input-small'), $thang_options);
-                    echo '<span class="help-inline"> / </span>';
-                    echo $this->formSelect('nam_tuyen_dung', $this->arrParam['nam_tuyen_dung'], array('class' => 'input-small'), $nam_options);
-                    ?> 
+                    <?php echo $this->formText('ngay_tuyen_dung', $this->arrParam['ngay_tuyen_dung'], array('class' => 'input-medium', 'placeholder' => 'Ngày tuyển dụng', 'readonly' => 'readonly')); ?> 
+                    
                 </div>
             </div>
 
@@ -258,14 +234,8 @@
             </div> 
             <div class="control-group">
                 <label class="control-label" for="ngay_dang">Ngày vào đảng</label>
-                <div class="controls">
-                    <?php
-                    echo $this->formSelect('ngay_dang', $this->arrParam['ngay_dang'], array('class' => 'input-small'), $ngay_options);
-                    echo '<span class="help-inline"> / </span>';
-                    echo $this->formSelect('thang_dang', $this->arrParam['thang_dang'], array('class' => 'input-small'), $thang_options);
-                    echo '<span class="help-inline"> / </span>';
-                    echo $this->formSelect('nam_dang', $this->arrParam['nam_dang'], array('class' => 'input-small'), $nam_options);
-                    ?>                     
+                <div class="controls">                    
+                    <?php echo $this->formText('ngay_dang', $this->arrParam['ngay_dang'], array('class' => 'input-medium', 'placeholder' => 'Ngày vào đảng', 'readonly' => 'readonly')); ?>                    
                 </div>
             </div> 
 
@@ -281,14 +251,8 @@
             <div class="control-group">
                 <label class="control-label" for="ngay_doan">Ngày vào đoàn</label>
                 <div class="controls">
-                    <?php
-                    echo $this->formSelect('ngay_doan', $this->arrParam['ngay_doan'], array('class' => 'input-small'), $ngay_options);
-                    echo '<span class="help-inline"> / </span>';
-                    echo $this->formSelect('thang_doan', $this->arrParam['thang_doan'], array('class' => 'input-small'), $thang_options);
-                    echo '<span class="help-inline"> / </span>';
-                    echo $this->formSelect('nam_doan', $this->arrParam['nam_doan'], array('class' => 'input-small'), $nam_options);
-                    ?>                     
-                </div>
+                    <?php echo $this->formText('ngay_doan', $this->arrParam['ngay_doan'], array('class' => 'input-medium', 'placeholder' => 'Ngày vào đoàn', 'readonly' => 'readonly')); ?>                    
+                 </div>
             </div> 
             <div class="control-group">
                 <label class="control-label" for="em_chuc_vu_cong_doan">Chức vụ công đoàn</label>
@@ -450,6 +414,34 @@
                     $('#tbd_anh_bang_cap').append("<tr id=\""+unix+"\"><td><input type=\"hidden\" name=\"anh_bang_cap[]\" value=\""+data.file_name+"\"/><img src=\"<?php echo $this->baseUrl('public/uploads/'); ?>" + data.file_name + "\" class=\"img-polaroid anh_bang_cap\"></td> <td> <button class=\"btn btn-small btn btn-danger\" type=\"button\" onclick=\"deleteAnhScan('"+unix+"')\">Xóa</button></td></tr>");
                 }
             }
+        });
+        $( "#ngay_sinh" ).datepicker({
+            changeMonth: true,
+            changeYear: true,
+            defaultDate: "+1w",
+            numberOfMonths: 1,
+            dateFormat: 'd/m/yy'
+        });
+        $( "#ngay_dang" ).datepicker({
+            changeMonth: true,
+            changeYear: true,
+            defaultDate: "+1w",
+            numberOfMonths: 1,
+            dateFormat: 'd/m/yy'
+        });
+        $( "#ngay_doan" ).datepicker({
+            changeMonth: true,
+            changeYear: true,
+            defaultDate: "+1w",
+            numberOfMonths: 1,
+            dateFormat: 'd/m/yy'
+        });
+        $( "#ngay_tuyen_dung" ).datepicker({
+            changeMonth: true,
+            changeYear: true,
+            defaultDate: "+1w",
+            numberOfMonths: 1,
+            dateFormat: 'd/m/yy'
         });
     });    
     
