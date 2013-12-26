@@ -1,7 +1,7 @@
 -- MySQL Administrator dump 1.4
 --
 -- ------------------------------------------------------
--- Server version	5.5.27
+-- Server version	5.5.32
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -199,7 +199,7 @@ CREATE TABLE `employees` (
   `em_date_added` datetime DEFAULT NULL,
   `em_date_modified` datetime DEFAULT NULL,
   PRIMARY KEY (`em_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `employees`
@@ -207,7 +207,7 @@ CREATE TABLE `employees` (
 
 /*!40000 ALTER TABLE `employees` DISABLE KEYS */;
 INSERT INTO `employees` (`em_id`,`em_ten`,`em_ten_dem`,`em_ho`,`em_ngay_sinh`,`em_so_chung_minh_thu`,`em_ten_khac`,`em_anh_the`,`em_gioi_tinh`,`em_home_phone`,`em_phone`,`em_noi_sinh`,`em_que_quan`,`em_dia_chi`,`em_dia_chi_tinh`,`em_dia_chi_huyen`,`em_dan_toc`,`em_so_cong_chuc`,`em_chuc_vu`,`em_phong_ban`,`em_ngay_tuyen_dung`,`em_ngach_cong_chuc`,`em_cong_viec`,`em_chuyen_mon`,`em_chuc_vu_dang`,`em_ngay_vao_dang`,`em_chuc_vu_doan`,`em_ngay_vao_doan`,`em_chuc_vu_cong_doan`,`em_van_hoa_pt`,`em_hoc_ham`,`em_bang_cap`,`em_ngoai_ngu`,`em_tin_hoc`,`em_chung_chi_khac`,`em_anh_bang_cap`,`em_status`,`em_delete`,`em_date_added`,`em_date_modified`) VALUES 
- (1,'HÃ¹ng','Máº¡nh','Nguyá»…n','1986-10-07 00:00:07','131398081','Nobita','',1,'','0985679742','Äoan HÃ¹ng','VÄ©nh PhÃº','ThÃ´n 12 -VÃ¢n Du',4,1,2,'HAV102',6,9,'2009-10-01 00:00:07',5,'Ha ah ha','he he he',3,'2010-04-19 00:00:07',2,'2012-03-19 00:00:07',1,'12/12',3,8,1,2,3,'a:3:{i:0;s:36:\"571272600_1_blue.__large_preview.jpg\";i:1;s:17:\"518928803_top.png\";i:2;s:25:\"1795367415_Untitled-1.jpg\";}',1,0,'2013-12-02 16:54:16','2013-12-15 22:11:22'),
+ (1,'HÃ¹ng','Máº¡nh','Nguyá»…n','1986-10-08 17:12:07','131398081','Nobita','',1,'','0985679742','Äoan HÃ¹ng','VÄ©nh PhÃº','ThÃ´n 12 -VÃ¢n Du',4,1,2,'HAV102',6,9,'2009-10-01 00:00:07',5,'Ha ah ha','he he he',3,'2010-04-20 17:12:07',2,'2012-03-28 17:12:07',1,'12/12',3,8,1,2,3,'a:3:{i:0;s:36:\"571272600_1_blue.__large_preview.jpg\";i:1;s:17:\"518928803_top.png\";i:2;s:25:\"1795367415_Untitled-1.jpg\";}',1,0,'2013-12-02 16:54:16','2013-12-24 17:12:29'),
  (2,'BÃ­ch','Ngá»c','Ã‚u','1986-11-02 00:00:07','13133123434','BÃ­ch','1385911581.png',0,'','09886838560','Báº£o Tháº¯ng','HoÃ ng LiÃªn SÆ¡n','XÃ³m 11',4,1,2,'HAV1023',6,11,'1981-06-16 00:00:07',5,'Káº¿ ToÃ¡n','Káº¿ toÃ¡n mÃ¡y',2,'2012-07-15 00:00:07',4,'2011-05-18 00:00:07',3,'12/12',3,8,1,2,3,'a:3:{i:0;s:28:\"1620194362_OneTV  - Logo.png\";i:1;s:17:\"987576096_top.png\";i:2;s:24:\"681729117_Untitled-1.jpg\";}',1,0,'2013-12-01 22:26:21','2013-12-01 22:26:21'),
  (3,'HÃ¹ng','Máº¡nh','Nguyá»…n',NULL,'131398081','Nobita','1385898380.jpg',0,'','0985679742','Doan Hung','Phu Tho','Doan Hung',4,1,2,'23443432',4,9,NULL,4,'Cong nghe thong tin','danh may',1,NULL,2,NULL,1,'12/12',3,8,1,2,3,'a:2:{i:0;s:27:\"413210694_OneTV  - Logo.png\";i:1;s:18:\"1122416878_top.png\";}',1,1,'2013-12-01 18:46:20','2013-12-01 18:46:20'),
  (4,'HÃ¹ng','Máº¡nh','Nguyá»…n','0000-00-00 00:00:00','131398081','Nobita',NULL,0,'','0985679742','Doan Hung','Phu Tho','Doan Hung',0,0,2,'23443432',4,9,'0000-00-00 00:00:00',4,'Cong nghe thong tin','danh may',1,'0000-00-00 00:00:00',2,'0000-00-00 00:00:00',1,'12/12',3,8,1,2,3,'a:2:{i:0;s:27:\"413210694_OneTV  - Logo.png\";i:1;s:18:\"1122416878_top.png\";}',1,1,'2013-12-01 18:46:46','2013-12-01 18:46:46'),
@@ -218,7 +218,8 @@ INSERT INTO `employees` (`em_id`,`em_ten`,`em_ten_dem`,`em_ho`,`em_ngay_sinh`,`e
  (9,'HÃ¹ng','Máº¡nh','Nguyá»…n','1907-05-03 00:00:07','131398081','Nobita',NULL,0,'','0985679742','Doan Hung','Phu Tho','Doan Hung',0,0,2,'23443432',4,9,'1905-01-03 00:00:07',4,'Cong nghe thong tin','danh may',1,'1918-06-01 00:00:08',2,'1916-12-01 00:00:08',1,'12/12',3,8,1,2,3,'a:2:{i:0;s:27:\"413210694_OneTV  - Logo.png\";i:1;s:18:\"1122416878_top.png\";}',1,1,'2013-12-01 18:50:28','2013-12-01 18:50:28'),
  (10,'HÃ¹ng','Máº¡nh','Nguyá»…n','1907-05-03 00:00:07','131398081','Nobita',NULL,0,'','0985679742','Doan Hung','Phu Tho','Doan Hung',0,0,2,'23443432',4,9,'1905-01-03 00:00:07',4,'Cong nghe thong tin','danh may',1,'1918-06-01 00:00:08',2,'1916-12-01 00:00:08',1,'12/12',3,8,1,2,3,'a:2:{i:0;s:27:\"413210694_OneTV  - Logo.png\";i:1;s:18:\"1122416878_top.png\";}',1,1,'2013-12-01 18:52:43','2013-12-01 18:52:43'),
  (11,'HÃ¹ng','Máº¡nh','Nguyá»…n','1907-05-03 00:00:07','131398081','Nobita',NULL,0,'','0985679742','Doan Hung','Phu Tho','Doan Hung',0,0,2,'23443432',4,9,'1905-01-03 00:00:07',4,'Cong nghe thong tin','danh may',1,'1918-06-01 00:00:08',2,'1916-12-01 00:00:08',1,'12/12',3,8,1,2,3,'a:2:{i:0;s:27:\"413210694_OneTV  - Logo.png\";i:1;s:18:\"1122416878_top.png\";}',1,1,'2013-12-01 18:53:15','2013-12-01 18:53:15'),
- (12,'HÃ¹ng NM','Máº¡nh','Nguyá»…n','1960-01-01 00:00:07','','HUNGNM','1385909187.jpg',1,'','','','','',4,3,0,'',0,0,'1970-01-01 00:00:07',0,'','',0,'1970-01-01 00:00:07',0,'1970-01-01 00:00:07',0,'',0,0,0,0,0,'a:6:{i:0;s:17:\"1485962866_HQ.jpg\";i:1;s:45:\"1685560482_introduction_garena_on_youtube.jpg\";i:2;s:31:\"1268631121_New Logo Video 1.png\";i:3;s:29:\"1137916836_New Logo Video.png\";i:4;s:28:\"1030329440_OneTV  - Logo.png\";i:5;s:18:\"1430823586_top.png\";}',1,1,'2013-12-01 21:46:37','2013-12-01 21:46:37');
+ (12,'HÃ¹ng NM','Máº¡nh','Nguyá»…n','1960-01-01 00:00:07','','HUNGNM','1385909187.jpg',1,'','','','','',4,3,0,'',0,0,'1970-01-01 00:00:07',0,'','',0,'1970-01-01 00:00:07',0,'1970-01-01 00:00:07',0,'',0,0,0,0,0,'a:6:{i:0;s:17:\"1485962866_HQ.jpg\";i:1;s:45:\"1685560482_introduction_garena_on_youtube.jpg\";i:2;s:31:\"1268631121_New Logo Video 1.png\";i:3;s:29:\"1137916836_New Logo Video.png\";i:4;s:28:\"1030329440_OneTV  - Logo.png\";i:5;s:18:\"1430823586_top.png\";}',1,1,'2013-12-01 21:46:37','2013-12-01 21:46:37'),
+ (13,'Äá»“ng','NghÄ©a','ÄÃ o','2013-09-01 17:37:07','3454543534543','Äá»“ng',NULL,1,'5345345','534534534','5345345','534534','5345345',5,2,2,'34534534',4,9,'2013-12-01 17:37:07',5,'5345345','5345345',2,'2013-12-31 17:37:07',2,'2013-12-28 17:37:07',3,'5443',3,8,1,2,3,'a:3:{i:0;s:22:\"1242417760_anh_the.jpg\";i:1;s:37:\"947727117_game garena on facebook.png\";i:2;s:24:\"34040717_legend team.jpg\";}',1,0,'2013-12-24 17:36:41','2013-12-24 17:37:44');
 /*!40000 ALTER TABLE `employees` ENABLE KEYS */;
 
 
@@ -465,6 +466,33 @@ CREATE TABLE `ky_luat` (
 INSERT INTO `ky_luat` (`kl_id`,`kl_can_bo_to_chuc`,`kl_em_id`,`kl_date`,`kl_ly_do`,`kl_chi_tiet`,`kl_status`,`kl_date_added`,`kl_date_modified`) VALUES 
  (1,1,2,'0000-00-00 00:00:00','Chua lam tot cong viev','<p>sadsad ]d</p>\n<p><strong>sadf</strong></p>\n<p>sd</p>\n<p>sdasd</p>',1,'2013-12-15 21:58:46','2013-12-15 21:58:46');
 /*!40000 ALTER TABLE `ky_luat` ENABLE KEYS */;
+
+
+--
+-- Definition of table `lam_them_gio`
+--
+
+DROP TABLE IF EXISTS `lam_them_gio`;
+CREATE TABLE `lam_them_gio` (
+  `ltg_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `ltg_ngay` datetime NOT NULL,
+  `ltg_chi_tiet` text NOT NULL,
+  `ltg_gio_bat_dau` int(10) unsigned NOT NULL,
+  `ltg_phut_bat_dau` int(10) unsigned NOT NULL,
+  `ltg_gio_ket_thuc` int(10) unsigned NOT NULL,
+  `ltg_phut_ket_thuc` int(10) unsigned NOT NULL,
+  `ltg_date_added` datetime NOT NULL,
+  `ltg_don_vi_status` float NOT NULL DEFAULT '-1',
+  `ltg_tccb_status` float NOT NULL DEFAULT '-1',
+  PRIMARY KEY (`ltg_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `lam_them_gio`
+--
+
+/*!40000 ALTER TABLE `lam_them_gio` DISABLE KEYS */;
+/*!40000 ALTER TABLE `lam_them_gio` ENABLE KEYS */;
 
 
 --
