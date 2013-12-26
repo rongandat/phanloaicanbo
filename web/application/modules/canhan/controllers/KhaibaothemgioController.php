@@ -29,7 +29,20 @@ class Canhan_KhaibaothemgioController extends Zend_Controller_Action {
 
     public function indexAction() {
         $translate = Zend_Registry::get('Zend_Translate');
-        $this->view->title = 'Quản lý tài khoản - ' . $translate->_('TEXT_DEFAULT_TITLE');
+        $this->view->title = 'Quản lý làm thêm giờ - ' . $translate->_('TEXT_DEFAULT_TITLE');
+        $this->view->headTitle($this->view->title);
+
+        $layoutPath = APPLICATION_PATH . '/templates/' . TEMPLATE_USED;
+        $option = array('layout' => 'canhan/layout',
+            'layoutPath' => $layoutPath);
+
+        Zend_Layout::startMvc($option);
+        $this->view->page = $this->_page;
+    }
+    
+    public function addAction(){
+        $translate = Zend_Registry::get('Zend_Translate');
+        $this->view->title = 'Quản lý làm thêm giờ - ' . $translate->_('TEXT_DEFAULT_TITLE');
         $this->view->headTitle($this->view->title);
 
         $layoutPath = APPLICATION_PATH . '/templates/' . TEMPLATE_USED;
