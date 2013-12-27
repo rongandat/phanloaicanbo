@@ -475,6 +475,7 @@ INSERT INTO `ky_luat` (`kl_id`,`kl_can_bo_to_chuc`,`kl_em_id`,`kl_date`,`kl_ly_d
 DROP TABLE IF EXISTS `lam_them_gio`;
 CREATE TABLE `lam_them_gio` (
   `ltg_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `ltg_em_id` int(10) unsigned NOT NULL,
   `ltg_ngay` datetime NOT NULL,
   `ltg_chi_tiet` text NOT NULL,
   `ltg_gio_bat_dau` int(10) unsigned NOT NULL,
@@ -485,13 +486,15 @@ CREATE TABLE `lam_them_gio` (
   `ltg_don_vi_status` float NOT NULL DEFAULT '-1',
   `ltg_tccb_status` float NOT NULL DEFAULT '-1',
   PRIMARY KEY (`ltg_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `lam_them_gio`
 --
 
 /*!40000 ALTER TABLE `lam_them_gio` DISABLE KEYS */;
+INSERT INTO `lam_them_gio` (`ltg_id`,`ltg_em_id`,`ltg_ngay`,`ltg_chi_tiet`,`ltg_gio_bat_dau`,`ltg_phut_bat_dau`,`ltg_gio_ket_thuc`,`ltg_phut_ket_thuc`,`ltg_date_added`,`ltg_don_vi_status`,`ltg_tccb_status`) VALUES 
+ (6,1,'2014-01-31 15:39:07','<p>h&acirc;hahaha</p>',1,10,18,19,'2013-12-27 11:53:32',-1,-1);
 /*!40000 ALTER TABLE `lam_them_gio` ENABLE KEYS */;
 
 

@@ -25,7 +25,7 @@
             <div class="control-group">
                 <label class="control-label" for="ltg_date">Ngày</label>
                 <div class="controls">
-                    <?php echo $this->formText('ltg_date', null, array('class' => 'input-large', 'placeholder' => '', 'readonly' => 'readonly')); ?>                  
+                    <?php echo $this->formText('ltg_date', $this->arrParam['ltg_date'], array('class' => 'input-large', 'placeholder' => '', 'readonly' => 'readonly')); ?>                  
                     <span class="help-block">Chọn ngày làm thêm giờ</span>
                 </div>            
             </div>
@@ -45,13 +45,13 @@
                     <div class="input-prepend input-append">
                         <span class="add-on">giờ</span>
                         <?php
-                        echo $this->formSelect('ltg_gio_bat_dau', null, array('class' => 'input-small'), $gio_options);
+                        echo $this->formSelect('ltg_gio_bat_dau', $this->arrParam['ltg_gio_bat_dau'], array('class' => 'input-small'), $gio_options);
                         ?>                        
                     </div>
                     <div class="input-prepend input-append">
                         <span class="add-on">phút</span>
                         <?php
-                        echo $this->formSelect('ltg_phut_bat_dau', null, array('class' => 'input-small'), $phut_options);
+                        echo $this->formSelect('ltg_phut_bat_dau', $this->arrParam['ltg_phut_bat_dau'], array('class' => 'input-small'), $phut_options);
                         ?>                        
                     </div>              
 
@@ -63,13 +63,13 @@
                     <div class="input-prepend input-append">
                         <span class="add-on">giờ</span>
                         <?php
-                        echo $this->formSelect('ltg_gio_ket_thuc', null, array('class' => 'input-small'), $gio_options);
+                        echo $this->formSelect('ltg_gio_ket_thuc', $this->arrParam['ltg_gio_ket_thuc'], array('class' => 'input-small'), $gio_options);
                         ?>                        
                     </div>
                     <div class="input-prepend input-append">
                         <span class="add-on">phút</span>
                         <?php
-                        echo $this->formSelect('ltg_phut_ket_thuc', null, array('class' => 'input-small'), $phut_options);
+                        echo $this->formSelect('ltg_phut_ket_thuc', $this->arrParam['ltg_phut_ket_thuc'], array('class' => 'input-small'), $phut_options);
                         ?>                        
                     </div>              
 
@@ -79,7 +79,7 @@
             <div class="control-group">
                 <label class="control-label" for="ltg_chi_tiet">Chi tiết</label>
                 <div class="controls">
-                    <?php echo $this->formTextarea('ltg_chi_tiet', null, array('class' => 'input-xlarge', 'rows' => 10)); ?>                   
+                    <?php echo $this->formTextarea('ltg_chi_tiet', $this->arrParam['ltg_chi_tiet'], array('class' => 'input-xlarge', 'rows' => 10)); ?>                   
                 </div>            
             </div>
 
@@ -87,7 +87,7 @@
                 <div class="controls">
                     <p>
                         <button class="btn btn-small btn-primary" type="submit">Đồng ý</button>
-                        <a class="btn btn-small" type="button" href="<?php echo $this->baseUrl('canhan/xinnghiphep/index/page/' . $this->arrParam['page']); ?>">Quay lại</a>
+                        <a class="btn btn-small" type="button" href="<?php echo $this->baseUrl('canhan/khaibaothemgio/index/page/' . $this->arrParam['page']); ?>">Quay lại</a>
                     </p>
                 </div>
             </div>

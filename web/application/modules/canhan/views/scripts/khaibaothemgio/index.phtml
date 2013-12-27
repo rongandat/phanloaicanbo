@@ -1,10 +1,10 @@
 <div class="body_content float_right">
-    <h5>Quản lý làm thêm giờ thêm giờ</h5>               
+    <h5>Quản lý làm thêm giờ</h5>               
 
     <div class="main-content-box">  
         <div class="btn-toolbar float_left">
             <div class="btn-group">
-                <a class="btn" href="<?php echo $this->baseUrl('canhan/khaibaothemgio/add/page/' . $this->arrParam['page']); ?>"><i class="icon-plus-sign"></i> Xin nghỉ phép</a>
+                <a class="btn" href="<?php echo $this->baseUrl('canhan/khaibaothemgio/add/page/' . $this->arrParam['page']); ?>"><i class="icon-plus-sign"></i> Khai báo mới</a>
             </div>            
         </div>
 
@@ -12,56 +12,78 @@
             <thead>
                 <tr>
                     <th>Ngày</th>
-                    <th style="width: 130px;">Bắt đầu</th>
-                    <th style="width: 130px;">Kết thúc</th>
-                    <th style="width: 130px;">Trạng thái</th>
+                    <th style="width: 70px;">Bắt đầu</th>
+                    <th style="width: 70px;">Kết thúc</th>
+                    <th style="width: 100px;">Trạng thái</th>
+                    <th style="width: 200px;">Chức năng</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
-                if (!sizeof($this->list_nghi_phep)) {
+                if (!sizeof($this->list_lam_them_gio)) {
                     echo '<tr><td colspan="5">Không có dữ liệu thêm giờ nào.</td></tr>';
                 } else {
-                    foreach ($this->list_nghi_phep as $nghi_phep) {
+                    foreach ($this->list_lam_them_gio as $lam_them_gio) {
                         $trang_thai_icon = 'Chờ duyệt';
                         $don_vi_icon = 'Chờ duyệt';
-                        if ($nghi_phep->xnp_ptccb_status == 0) {
+                        $flag_add_edit = true;
+                        if ($lam_them_gio->ltg_tccb_status == 0) {
                             $trang_thai_icon = 'Không duyệt';
+                            $flag_add_edit = false;
                         }
-                        if ($nghi_phep->xnp_don_vi_status == 0) {
+                        if ($lam_them_gio->ltg_don_vi_status == 0) {
                             $don_vi_icon = 'Không duyệt';
+                            $flag_add_edit = false;
                         }
-                        if ($nghi_phep->xnp_ptccb_status == 1) {
+                        if ($lam_them_gio->ltg_tccb_status == 1) {
                             $trang_thai_icon = 'Được duyệt';
+                            $flag_add_edit = false;
                         }
-                        if ($nghi_phep->xnp_don_vi_status == 1) {
+                        if ($lam_them_gio->ltg_don_vi_status == 1) {
                             $don_vi_icon = 'Được duyệt';
+                            $flag_add_edit = false;
                         }
-                        echo '<tr>                            
-                            <td>' . date('d-m-Y', strtotime($nghi_phep->xnp_from_date)) . '</td>
-                            <td>' . date('d-m-Y', strtotime($nghi_phep->xnp_to_date)) . '</td>
-                            <td>
-                            <a href="#mdXNP_' . $nghi_phep->xnp_id . '" role="button" data-toggle="modal">' . $nghi_phep->xnp_ly_do . '</a>                                
-                                <div id="mdXNP_' . $nghi_phep->xnp_id . '" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        echo '<tr id="row_id_' . $lam_them_gio->ltg_id . '">                            
+                            <td>' . date('d-m-Y', strtotime($lam_them_gio->ltg_ngay)) . '</td>
+                            <td>' . $lam_them_gio->ltg_gio_bat_dau . ':' . ($lam_them_gio->ltg_phut_bat_dau < 10 ? '0' . $lam_them_gio->ltg_phut_bat_dau : $lam_them_gio->ltg_phut_bat_dau) . '</td>                           
+                            <td>' . $lam_them_gio->ltg_gio_ket_thuc . ':' . ($lam_them_gio->ltg_phut_ket_thuc < 10 ? '0' . $lam_them_gio->ltg_phut_ket_thuc : $lam_them_gio->ltg_phut_ket_thuc) . '</td>                           
+                            <td>' . $trang_thai_icon . '</td>
+                            <td>' .
+                        ($flag_add_edit ? '
+                                <a class="btn btn-mini" href="' . $this->baseUrl('canhan/khaibaothemgio/edit/id/' . $lam_them_gio->ltg_id . '/page/' . $this->arrParam['page']) . '" title="Sửa"><i class="icon-edit"></i> Sửa</a>
+                                <a class="btn btn-mini" role="button" data-toggle="modal" href="#mdLTGDelete_' . $lam_them_gio->ltg_id . '" title="Xóa"><i class="icon-trash"></i> Xóa</a>
+                                    <div id="mdLTGDelete_' . $lam_them_gio->ltg_id . '" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <div class="modal-header">
+                                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                          <h3 id="myModalLabel">Xác nhận</h3>
+                                        </div>
+                                        <div class="modal-body">
+                                          <p>Bạn có chắc chắn muốn xóa</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                          <button class="btn" data-dismiss="modal" aria-hidden="true">Không xóa</button>
+                                          <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true" onclick="delete_ltg(' . $lam_them_gio->ltg_id . ')">Xóa</button>
+                                        </div>
+                                      </div>
+                                ' : '') . '
+                                <a class="btn btn-mini" role="button" data-toggle="modal" href="#mdLTG_' . $lam_them_gio->ltg_id . '" title="Chi tiết"><i class="icon-list-alt"></i> Chi tiết</a>
+                                <div id="mdLTG_' . $lam_them_gio->ltg_id . '" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                   <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                                     <h3 id="myModalLabel">Chi tiết</h3>
                                   </div>
-                                  <div class="modal-body">
+                                  <div class="modal-body">                                        
                                         <div class="row">
-                                            <div class="span4 float_left"><strong>Lý do: </strong> ' . $nghi_phep->xnp_ly_do . '</div>
+                                            <div class="span4 float_left"><strong>Ngày: </strong> ' . date('d-m-Y', strtotime($lam_them_gio->ltg_ngay)) . '</div>
+                                        </div>                                        
+                                        <div class="row">
+                                            <div class="span4 float_left"><strong>Giờ bắt đầu: </strong> ' . $lam_them_gio->ltg_gio_bat_dau . ':' . ($lam_them_gio->ltg_phut_bat_dau < 10 ? '0' . $lam_them_gio->ltg_phut_bat_dau : $lam_them_gio->ltg_phut_bat_dau) . '</div>
                                         </div>
                                         <div class="row">
-                                            <div class="span4 float_left"><strong>Chi tiết: </strong> ' . $nghi_phep->xnp_chi_tiet . '</div>
+                                            <div class="span4 float_left"><strong>Giờ kết thúc: </strong> ' . $lam_them_gio->ltg_gio_ket_thuc . ':' . ($lam_them_gio->ltg_phut_ket_thuc < 10 ? '0' . $lam_them_gio->ltg_phut_ket_thuc : $lam_them_gio->ltg_phut_ket_thuc) . '</div>
                                         </div>
                                         <div class="row">
-                                            <div class="span4 float_left"><strong>Ngày bắt đầu: </strong> ' . date('d-m-Y', strtotime($nghi_phep->xnp_from_date)) . '</div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="span4 float_left"><strong>Ngày kết thúc: </strong> ' . date('d-m-Y', strtotime($nghi_phep->xnp_to_date)) . '</div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="span4 float_left"><strong>Ngày nộp đơn: </strong> ' . date('d-m-Y', strtotime($nghi_phep->xnp_date_created)) . '</div>
+                                            <div class="span4 float_left"><strong>Ngày khai báo: </strong> ' . date('d-m-Y', strtotime($lam_them_gio->ltg_date_added)) . '</div>
                                         </div>
                                         <div class="row">
                                             <div class="span4 float_left"><strong>Đơn vị: </strong> ' . $don_vi_icon . '</div>
@@ -69,14 +91,15 @@
                                         <div class="row">
                                             <div class="span4 float_left"><strong>Phòng tổ chức: </strong> ' . $trang_thai_icon . '</div>
                                         </div>
+                                        <div class="row">
+                                            <div class="span4 float_left"><strong>Chi tiết: </strong> ' . $lam_them_gio->ltg_chi_tiet . '</div>
+                                        </div>
                                   </div>
                                   <div class="modal-footer">
                                     <button class="btn" data-dismiss="modal" aria-hidden="true">Đóng</button>
                                   </div>
                                 </div>
-
                             </td>
-                            <td>' . $trang_thai_icon . '</td>
                         </tr>';
                     }
                 }
@@ -84,5 +107,12 @@
             </tbody>
         </table>
     </div>
-
 </div>
+
+<script>
+    function delete_ltg(id){
+        $.post( site_url+"/canhan/khaibaothemgio/delete/", { ltg_id: id},function( data ) {
+            $('#row_id_'+id).remove();
+        }, 'json');
+    }
+</script>
