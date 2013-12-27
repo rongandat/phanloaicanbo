@@ -111,12 +111,25 @@ class Canhan_ThongbaoController extends Zend_Controller_Action {
         $this->view->error_message = $error_message;
     }
 
+    public function jqdeleteAction() {
+        $this->_helper->layout()->disableLayout();
+        $auth = Zend_Auth::getInstance();
+        $identity = $auth->getIdentity();
+        $em_id = $identity->em_id;
+        $thongbaoModel = new Front_Model_ThongBao();
+        if ($this->_request->isPost()) {
+            $tb_id = $this->_getParam('tb_id', 0);
+            $success_message = $thongbaoModel->delete('tb_id = ' . $tb_id . ' and tb_to=' . $em_id);
+            $this->view->success_message = $success_message;
+        }
+    }
+
     function deleteitemsAction() {
         $this->_helper->layout()->disableLayout();
         $auth = Zend_Auth::getInstance();
         $identity = $auth->getIdentity();
         $em_id = $identity->em_id;
-        
+
         $thongbaoModel = new Front_Model_ThongBao();
         if ($this->_request->isPost()) {
             $item = $this->getRequest()->getPost('cid');
@@ -126,7 +139,7 @@ class Canhan_ThongbaoController extends Zend_Controller_Action {
         }
         $this->_redirect('canhan/thongbao/index/page/' . $this->_page);
     }
-    
+
     public function jqnewtbAction() {
         $this->_helper->layout()->disableLayout();
         $thongbao_model = new Front_Model_ThongBao();

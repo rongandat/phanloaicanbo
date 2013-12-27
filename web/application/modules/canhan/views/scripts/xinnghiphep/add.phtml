@@ -25,27 +25,27 @@
             <div class="control-group">
                 <label class="control-label" for="xnp_ly_do">Lý do</label>
                 <div class="controls">
-                    <?php echo $this->formText('xnp_ly_do', null, array('class' => 'input-xxlarge', 'placeholder' => '')); ?>                   
+                    <?php echo $this->formText('xnp_ly_do', $this->arrParam['xnp_ly_do'], array('class' => 'input-xxlarge', 'placeholder' => '')); ?>                   
 
                 </div>            
             </div>
             <div class="control-group">
                 <label class="control-label" for="xnp_chi_tiet">Chi tiết</label>
                 <div class="controls">
-                    <?php echo $this->formTextarea('xnp_chi_tiet', null, array('class' => 'input-xlarge', 'rows' => 10)); ?>                   
+                    <?php echo $this->formTextarea('xnp_chi_tiet', $this->arrParam['xnp_chi_tiet'], array('class' => 'input-xlarge', 'rows' => 10)); ?>                   
                 </div>            
             </div>
             <div class="control-group">
                 <label class="control-label" for="xnp_from_date">Từ ngày</label>
                 <div class="controls">
-                    <?php echo $this->formText('xnp_from_date', null, array('class' => 'input-large', 'placeholder' => '', 'readonly' => 'readonly')); ?>                  
+                    <?php echo $this->formText('xnp_from_date', $this->arrParam['xnp_from_date'], array('class' => 'input-large', 'placeholder' => '', 'readonly' => 'readonly')); ?>                  
                     <span class="help-block">Chọn ngày bắt đầu nghỉ phép</span>
                 </div>            
             </div>
             <div class="control-group">
                 <label class="control-label" for="xnp_to_date">Đến hết ngày</label>
                 <div class="controls">
-                    <?php echo $this->formText('xnp_to_date', null, array('class' => 'input-large', 'placeholder' => '', 'readonly' => 'readonly')); ?>                  
+                    <?php echo $this->formText('xnp_to_date', $this->arrParam['xnp_to_date'], array('class' => 'input-large', 'placeholder' => '', 'readonly' => 'readonly')); ?>                  
                     <span class="help-block">nếu nghỉ 1 ngày thì chọn ngày kết thúc bằng ngày bắt đầu.</span>
                 </div>            
             </div>

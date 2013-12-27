@@ -179,7 +179,7 @@ class Canhan_KhaibaothemgioController extends Zend_Controller_Action {
             $identity = $auth->getIdentity();
             $em_id = $identity->em_id;
             $ltg_id = $this->_arrParam['ltg_id'];
-            $ltg_info = $ltgmodel->fetchRow(array('ltg_id' => $ltg_id, 'ltg_em_id' => $em_id, 'ltg_don_vi_status' => '-1', 'ltg_tccb_status' => '-1'));
+            $ltg_info = $ltgmodel->fetchRow($ltgmodel->select()->where('ltg_id = ?', $ltg_id)->where('ltg_em_id=?', $em_id)->where('ltg_don_vi_status=?', '-1')->where('ltg_tccb_status=?', '-1'));
             if ($ltg_info) {
                 $success_message = $ltgmodel->delete(array('ltg_id' => $ltg_id));
                 $this->view->success_message = $success_message;

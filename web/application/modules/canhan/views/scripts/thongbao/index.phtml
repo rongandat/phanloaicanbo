@@ -8,7 +8,7 @@
                     <button class="btn" onclick="OnSubmitForm('<?php echo $this->baseUrl('canhan/thongbao/deleteitems/page/' . $this->arrParam['page']); ?>')"><i class="icon-trash"></i> Xóa chọn</button>
                 </div>
             </div>
-            
+
             <table class="table table-bordered table-hover">
                 <thead>
                     <tr>
@@ -36,7 +36,20 @@
                             <td>' . date('d-m-Y', strtotime($thong_bao->tb_date_added)) . '</td>
                             <td>
                                 <a class="btn btn-mini" href="' . $this->baseUrl('canhan/thongbao/view/id/' . $thong_bao->tb_id . '/page/' . $this->page) . '" title="Xem"><i class="icon-play"></i></a>
-                                <a class="btn btn-mini" href="' . $this->baseUrl('canhan/thongbao/delete/id/' . $thong_bao->tb_id . '/page/' . $this->page) . '" title="Xóa"><i class="icon-trash"></i></a>
+                                <a class="btn btn-mini" role="button" data-toggle="modal" href="#mdTBDelete_' . $thong_bao->tb_id . '" title="Xóa"><i class="icon-trash"></i></a>
+                                    <div id="mdTBDelete_' . $thong_bao->tb_id . '" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-header">
+                                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                      <h3 id="myModalLabel">Xác nhận</h3>
+                                    </div>
+                                    <div class="modal-body">
+                                      <p>Bạn có chắc chắn muốn xóa</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button class="btn" data-dismiss="modal" aria-hidden="true">Không xóa</button>
+                                      <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true" onclick="delete_thong_bao(' . $thong_bao->tb_id . ')">Xóa</button>
+                                    </div>
+                                  </div>
                             </td>
                         </tr>';
                         }
@@ -47,3 +60,13 @@
         </form>
     </div>
 </div>
+
+<script>
+    function delete_thong_bao(id){
+        $.post( site_url+"/canhan/thongbao/jqdelete/", { tb_id: id},function( data ) {
+            if(data.status){
+                $('#row_'+id).remove();
+            }            
+        }, 'json');
+    }
+</script>

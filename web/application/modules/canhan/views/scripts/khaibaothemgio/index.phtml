@@ -112,7 +112,9 @@
 <script>
     function delete_ltg(id){
         $.post( site_url+"/canhan/khaibaothemgio/delete/", { ltg_id: id},function( data ) {
-            $('#row_id_'+id).remove();
+            if(data.status){
+                $('#row_id_'+id).remove();
+            }
         }, 'json');
     }
 </script>

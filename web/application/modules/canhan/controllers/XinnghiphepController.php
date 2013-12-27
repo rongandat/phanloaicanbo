@@ -64,7 +64,7 @@ class Canhan_XinnghiphepController extends Zend_Controller_Action {
         $auth = Zend_Auth::getInstance();
         $identity = $auth->getIdentity();
         $em_id = $identity->em_id;
-        
+
         $error_message = array();
         $success_message = '';
         $xinnghiphepModel = new Front_Model_XinNghiPhep();
@@ -105,6 +105,82 @@ class Canhan_XinnghiphepController extends Zend_Controller_Action {
         }
         $this->view->success_message = $success_message;
         $this->view->error_message = $error_message;
+    }
+
+    public function editAction() {
+        $translate = Zend_Registry::get('Zend_Translate');
+        $this->view->title = 'Quản lý đơn nghỉ phép - ' . $translate->_('TEXT_DEFAULT_TITLE');
+        $this->view->headTitle($this->view->title);
+
+        $layoutPath = APPLICATION_PATH . '/templates/' . TEMPLATE_USED;
+        $option = array('layout' => 'canhan/layout',
+            'layoutPath' => $layoutPath);
+        Zend_Layout::startMvc($option);
+
+        $auth = Zend_Auth::getInstance();
+        $identity = $auth->getIdentity();
+        $em_id = $identity->em_id;
+        $xnp_id = $this->_getParam('id', 0);
+        $error_message = array();
+        $success_message = '';
+        $xinnghiphepModel = new Front_Model_XinNghiPhep();
+        $xnp_info = $xinnghiphepModel->fetchRow($xinnghiphepModel->select()->where('xnp_id = ?', $xnp_id)->where('xnp_em_id=?', $em_id)->where('xnp_don_vi_status=?', '-1')->where('xnp_ptccb_status=?', '-1'));
+        if ($xnp_info) {
+            if ($this->_request->isPost()) {
+                $ly_do = trim($this->_arrParam['xnp_ly_do']);
+                $chi_tiet = trim($this->_arrParam['xnp_chi_tiet']);
+                $ngay_bat_dau = $this->_arrParam['xnp_from_date'];
+                $ngay_ket_thuc = $this->_arrParam['xnp_to_date'];
+
+                $validator_length = new Zend_Validate_StringLength(array('min' => 10, 'max' => 255));
+                if (!$validator_length->isValid($ly_do)) {
+                    $error_message[] = 'Lý do phải lớn hơn 10 ký tự.';
+                }
+
+                if (!$ngay_bat_dau) {
+                    $error_message[] = 'Ngày bắt đầu không được để trống.';
+                }
+
+                if (!$ngay_ket_thuc) {
+                    $error_message[] = 'Ngày kết thúc không được để trống.';
+                }
+
+                if (!sizeof($error_message)) {
+                    $current_time = new Zend_Db_Expr('NOW()');
+                    $ngay_bat_dau = DateTime::createFromFormat('d/m/yy', $ngay_bat_dau);
+                    $ngay_ket_thuc = DateTime::createFromFormat('d/m/yy', $ngay_ket_thuc);
+                    $xinnghiphepModel->update(array(
+                        'xnp_ly_do' => $ly_do,
+                        'xnp_chi_tiet' => $chi_tiet,
+                        'xnp_from_date' => date_format($ngay_bat_dau, "Y-m-d H:iP"),
+                        'xnp_to_date' => date_format($ngay_ket_thuc, "Y-m-d H:iP"),
+                        'xnp_date_created' => $current_time
+                            ), 'xnp_id = ' . $xnp_id
+                    );
+                    $xnp_info = $xinnghiphepModel->fetchRow($xinnghiphepModel->select()->where('xnp_id = ?', $xnp_id));
+                    $success_message = 'Đã sửa đơn nghỉ phép thành công.';
+                }
+            }
+        }
+        $this->view->xnp_info = $xnp_info;
+        $this->view->success_message = $success_message;
+        $this->view->error_message = $error_message;
+    }
+
+    function deleteAction() {
+        $this->_helper->layout()->disableLayout();
+        $xinnghiphepModel = new Front_Model_XinNghiPhep();
+        if ($this->_request->isPost()) {
+            $auth = Zend_Auth::getInstance();
+            $identity = $auth->getIdentity();
+            $em_id = $identity->em_id;
+            $xnp_id = $this->_arrParam['xnp_id'];
+            $xnp_info = $xinnghiphepModel->fetchRow($xinnghiphepModel->select()->where('xnp_id = ?', $xnp_id)->where('xnp_em_id=?', $em_id)->where('xnp_don_vi_status=?', '-1')->where('xnp_ptccb_status=?', '-1'));
+            if ($xnp_info) {
+                $success_message = $xinnghiphepModel->delete(array('xnp_id' => $xnp_id));
+                $this->view->success_message = $success_message;
+            }
+        }
     }
 
 }

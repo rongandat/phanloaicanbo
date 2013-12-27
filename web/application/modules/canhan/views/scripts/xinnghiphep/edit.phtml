@@ -1,0 +1,106 @@
+<div class="body_content float_right">
+    <h5>Xin nghỉ phép</h5>               
+
+    <div class="main-content-box">  
+        <?php if ($this->error_message) : ?>
+            <div class="alert alert-error">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <h5>Thông báo!</h5>
+                Thêm mới không thành công vì:
+                <ol>
+                    <?php foreach ($this->error_message as $message): ?>
+                        <li><?php echo $message; ?></li>
+                    <?php endforeach; ?>
+                </ol>
+            </div> 
+        <?php endif; ?>  
+        <?php if ($this->success_message) : ?>
+            <div class="alert alert-success">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <h5>Thông báo!</h5>
+                <?php echo $this->success_message; ?>
+            </div>
+        <?php endif; ?> 
+        <?php if ($this->xnp_info) { ?>
+            <form class="form-horizontal" method="post" action="">
+                <div class="control-group">
+                    <label class="control-label" for="xnp_ly_do">Lý do</label>
+                    <div class="controls">
+                        <?php echo $this->formText('xnp_ly_do', $this->xnp_info->xnp_ly_do, array('class' => 'input-xxlarge', 'placeholder' => '')); ?>                   
+
+                    </div>            
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="xnp_chi_tiet">Chi tiết</label>
+                    <div class="controls">
+                        <?php echo $this->formTextarea('xnp_chi_tiet', $this->xnp_info->xnp_chi_tiet, array('class' => 'input-xlarge', 'rows' => 10)); ?>                   
+                    </div>            
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="xnp_from_date">Từ ngày</label>
+                    <div class="controls">
+                        <?php echo $this->formText('xnp_from_date', date('d/m/Y', strtotime($this->xnp_info->xnp_from_date)), array('class' => 'input-large', 'placeholder' => '', 'readonly' => 'readonly')); ?>                  
+                        <span class="help-block">Chọn ngày bắt đầu nghỉ phép</span>
+                    </div>            
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="xnp_to_date">Đến hết ngày</label>
+                    <div class="controls">
+                        <?php echo $this->formText('xnp_to_date', date('d/m/Y', strtotime($this->xnp_info->xnp_to_date)), array('class' => 'input-large', 'placeholder' => '', 'readonly' => 'readonly')); ?>                  
+                        <span class="help-block">nếu nghỉ 1 ngày thì chọn ngày kết thúc bằng ngày bắt đầu.</span>
+                    </div>            
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <p>
+                            <button class="btn btn-small btn-primary" type="submit">Đồng ý</button>
+                            <a class="btn btn-small" type="button" href="<?php echo $this->baseUrl('canhan/xinnghiphep/index/page/' . $this->arrParam['page']); ?>">Quay lại</a>
+                        </p>
+                    </div>
+                </div>
+            </form>
+        <?php } else {
+            ?>
+            <form class="form-horizontal" method="post" action="">
+                <div class="alert alert-error">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <h5>Thông báo!</h5>
+                    Không có quyền sửa đơn xin nghỉ phép này.
+                </div> 
+                <div class="control-group">
+                    <div class="controls">
+                        <p>                            
+                            <a class="btn btn-small" type="button" href="<?php echo $this->baseUrl('canhan/xinnghiphep/index/page/' . $this->arrParam['page']); ?>">Quay lại</a>
+                        </p>
+                    </div>
+                </div>
+            </form>
+        <?php }
+        ?>
+    </div>
+</div>
+
+<script>
+    $(function() {
+        $( "#xnp_from_date" ).datepicker({
+            changeMonth: true,
+            changeYear: true,
+            defaultDate: "+1w",
+            numberOfMonths: 1,
+            onClose: function( selectedDate ) {
+                $( "#xnp_to_date" ).datepicker( "option", "minDate", selectedDate );
+            },
+            dateFormat: 'd/m/yy'
+        });
+        $( "#xnp_to_date" ).datepicker({
+            changeMonth: true,
+            changeYear: true,
+            defaultDate: "+1w",
+            numberOfMonths: 1,
+            onClose: function( selectedDate ) {
+                $( "#xnp_from_date" ).datepicker( "option", "maxDate", selectedDate );
+            },
+            dateFormat: 'd/m/yy'
+        });
+    });
+</script>

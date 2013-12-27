@@ -15,6 +15,7 @@
                     <th style="width: 100px;">Kết thúc</th>
                     <th>Lý do</th>
                     <th style="width: 100px;">Trạng thái</th>
+                    <th style="width: 200px;">Chức năng</th>
                 </tr>
             </thead>
             <tbody>
@@ -25,19 +26,24 @@
                     foreach ($this->list_nghi_phep as $nghi_phep) {
                         $trang_thai_icon = 'Chờ duyệt';
                         $don_vi_icon = 'Chờ duyệt';
+                        $flag_add_edit = true;
                         if ($nghi_phep->xnp_ptccb_status == 0) {
                             $trang_thai_icon = 'Không duyệt';
+                            $flag_add_edit = false;
                         }
                         if ($nghi_phep->xnp_don_vi_status == 0) {
                             $don_vi_icon = 'Không duyệt';
+                            $flag_add_edit = false;
                         }
                         if ($nghi_phep->xnp_ptccb_status == 1) {
                             $trang_thai_icon = 'Được duyệt';
+                            $flag_add_edit = false;
                         }
                         if ($nghi_phep->xnp_don_vi_status == 1) {
                             $don_vi_icon = 'Được duyệt';
+                            $flag_add_edit = false;
                         }
-                        echo '<tr>                            
+                        echo '<tr id="row_id_' . $nghi_phep->xnp_id . '">                            
                             <td>' . date('d-m-Y', strtotime($nghi_phep->xnp_from_date)) . '</td>
                             <td>' . date('d-m-Y', strtotime($nghi_phep->xnp_to_date)) . '</td>
                             <td>
@@ -74,9 +80,28 @@
                                     <button class="btn" data-dismiss="modal" aria-hidden="true">Đóng</button>
                                   </div>
                                 </div>
-
                             </td>
                             <td>' . $trang_thai_icon . '</td>
+                            <td>' .
+                        ($flag_add_edit ? '
+                                <a class="btn btn-mini" href="' . $this->baseUrl('canhan/xinnghiphep/edit/id/' . $nghi_phep->xnp_id . '/page/' . $this->arrParam['page']) . '" title="Sửa"><i class="icon-edit"></i> Sửa</a>
+                                <a class="btn btn-mini" role="button" data-toggle="modal" href="#mdXNPDelete_' . $nghi_phep->xnp_id . '" title="Xóa"><i class="icon-trash"></i> Xóa</a>
+                                    <div id="mdXNPDelete_' . $nghi_phep->xnp_id . '" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <div class="modal-header">
+                                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                          <h3 id="myModalLabel">Xác nhận</h3>
+                                        </div>
+                                        <div class="modal-body">
+                                          <p>Bạn có chắc chắn muốn xóa</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                          <button class="btn" data-dismiss="modal" aria-hidden="true">Không xóa</button>
+                                          <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true" onclick="delete_xnp(' . $nghi_phep->xnp_id . ')">Xóa</button>
+                                        </div>
+                                      </div>
+                                ' : '') . '
+                                <a class="btn btn-mini" role="button" data-toggle="modal" href="#mdXNP_' . $nghi_phep->xnp_id . '" title="Chi tiết"><i class="icon-list-alt"></i> Chi tiết</a>
+                            </td>
                         </tr>';
                     }
                 }
@@ -86,3 +111,13 @@
     </div>
 
 </div>
+
+<script>
+    function delete_xnp(id){
+        $.post( site_url+"/canhan/xinnghiphep/delete/", { xnp_id: id},function( data ) {
+            if(data.status){
+                $('#row_id_'+id).remove();
+            }
+        }, 'json');
+    }
+</script>
