@@ -29,7 +29,7 @@ class Canhan_ChamcongController extends Zend_Controller_Action {
 
     public function indexAction() {
         $translate = Zend_Registry::get('Zend_Translate');
-        $this->view->title = 'Quản lý tài khoản - ' . $translate->_('TEXT_DEFAULT_TITLE');
+        $this->view->title = 'Chấm công - ' . $translate->_('TEXT_DEFAULT_TITLE');
         $this->view->headTitle($this->view->title);
 
         $layoutPath = APPLICATION_PATH . '/templates/' . TEMPLATE_USED;
@@ -37,6 +37,6 @@ class Canhan_ChamcongController extends Zend_Controller_Action {
             'layoutPath' => $layoutPath);
 
         Zend_Layout::startMvc($option);
-        $this->view->page = $this->_page;
     }
+
 }
