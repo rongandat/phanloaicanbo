@@ -33,10 +33,14 @@ class Canhan_ChamcongController extends Zend_Controller_Action {
         $this->view->headTitle($this->view->title);
 
         $layoutPath = APPLICATION_PATH . '/templates/' . TEMPLATE_USED;
-        $option = array('layout' => 'canhan/layout',
+        $option = array('layout' => '1_column/layout',
             'layoutPath' => $layoutPath);
-
         Zend_Layout::startMvc($option);
+        
+        $holidaysModel = new Front_Model_Holidays();
+        $list_holidays = $holidaysModel->fetchData(array(), 'hld_order ASC');
+        
+        $this->view->list_holidays = $list_holidays;
     }
 
 }

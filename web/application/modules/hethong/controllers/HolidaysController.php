@@ -39,7 +39,7 @@ class Hethong_HolidaysController extends Zend_Controller_Action {
         Zend_Layout::startMvc($option);
 
         $holidaysModel = new Front_Model_Holidays();
-        $list_holidays = $holidaysModel->fetchData(array(), 'hld_order ASC');
+        $list_holidays = $holidaysModel->fetchData(array('hld_status' => 1), 'hld_order ASC');
 
         $paginator = Zend_Paginator::factory($list_holidays);
         $paginator->setItemCountPerPage(NUM_PER_PAGE);
