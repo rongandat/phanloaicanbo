@@ -37,10 +37,26 @@ class Canhan_ChamcongController extends Zend_Controller_Action {
             'layoutPath' => $layoutPath);
         Zend_Layout::startMvc($option);
         
+        $date = time();
+        $thang = $this->_getParam('thang', date('m', $date));
+        $nam = $this->_getParam('nam', date('Y', $date));
+        
+        $auth = Zend_Auth::getInstance();
+        $identity = $auth->getIdentity();
+        $em_id = $identity->em_id;
+        
         $holidaysModel = new Front_Model_Holidays();
         $list_holidays = $holidaysModel->fetchData(array(), 'hld_order ASC');
-        
+        $xinnghiphepModel = new Front_Model_XinNghiPhep();
+        $list_nghi_phep = $xinnghiphepModel->fetchByDate($em_id, "$nam-$thang-01 00:00:00", "$nam-$thang-31 23:59:59");
+                
+        $chamcongModel = new Front_Model_ChamCong();
+        $cham_cong = $chamcongModel->fetchOneData(array('c_em_id'=>$em_id, 'c_thang'=> $thang, 'c_nam' =>$nam));
+        $this->view->thang = $thang;
+        $this->view->nam = $nam;
+        $this->view->cham_cong = $cham_cong;
         $this->view->list_holidays = $list_holidays;
+        $this->view->list_nghi_phep = $list_nghi_phep;
     }
 
 }
