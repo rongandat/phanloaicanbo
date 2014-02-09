@@ -23,7 +23,8 @@ class Block_BlkTopMenu extends Zend_View_Helper_Abstract {
                     'tinh' => 'QL Tỉnh, Huyện',
                     'ngachcongchuc' => 'QL Ngạch công chức',
                     'chucvudoan' => 'QL Chức vụ đoàn',
-                    'chucvudang' => 'QL Chức vụ đảng'
+                    'chucvudang' => 'QL Chức vụ đảng',
+                    'chucvucongdoan' => 'QL Chức vụ công đoàn'
             )),
             'canhan' => array('name' => 'Cá nhân', 'sub' => array(
                     'thongbao' => 'Thông báo',

@@ -150,14 +150,17 @@
                 </div> 
             </fieldset>
 
-            
+
             <fieldset>
                 <legend>Thông tin Đảng - Đoàn</legend>
                 <div class="control-group">
                     <label class="control-label" for="em_chuc_vu_dang">Chức vụ đảng</label>
                     <div class="controls">
                         <?php
-                        $dang_options = array(0 => '', 1 => 'Bí thư', 2 => 'Phó bí thư', 3 => 'Ủy viên', 4 => 'Đảng viên');
+                        $dang_options = array(0 => '');
+                        foreach ($this->list_chuc_vu_dang as $dang) {
+                            $dang_options[$dang->cvdang_id] = $dang->cvdang_name;
+                        }
                         echo $this->formSelect('em_chuc_vu_dang', $this->employee_info->eme_chuc_vu_dang, null, $dang_options);
                         ?>                     
                     </div>
@@ -173,8 +176,11 @@
                     <label class="control-label" for="em_chuc_vu_doan">Chức vụ đoàn</label>
                     <div class="controls">
                         <?php
-                        $dang_options = array(0 => '', 1 => 'Bí thư', 2 => 'Phó bí thư', 3 => 'Ủy viên', 4 => 'Đảng viên');
-                        echo $this->formSelect('em_chuc_vu_doan', $this->employee_info->eme_chuc_vu_doan, null, $dang_options);
+                        $doan_options = array(0 => '');
+                        foreach ($this->list_chuc_vu_doan as $doan) {
+                            $doan_options[$doan->cvdoan_id] = $doan->cvdoan_name;
+                        }
+                        echo $this->formSelect('em_chuc_vu_doan', $this->employee_info->eme_chuc_vu_doan, null, $doan_options);
                         ?>                     
                     </div>
                 </div> 
@@ -188,7 +194,10 @@
                     <label class="control-label" for="em_chuc_vu_cong_doan">Chức vụ công đoàn</label>
                     <div class="controls">
                         <?php
-                        $cong_doan_options = array(0 => '', 1 => 'Chủ tịch', 2 => 'Phó chủ tịch', 3 => 'Ủy viên', 4 => 'Công đoàn viên');
+                        $cong_doan_options = array(0 => '');
+                        foreach ($this->list_chuc_vu_cong_doan as $cdoan) {
+                            $cong_doan_options[$cdoan->cvcdoan_id] = $cdoan->cvcdoan_name;
+                        }
                         echo $this->formSelect('em_chuc_vu_cong_doan', $this->employee_info->eme_chuc_vu_cong_doan, null, $cong_doan_options);
                         ?>                     
                     </div>

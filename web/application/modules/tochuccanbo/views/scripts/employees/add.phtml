@@ -40,7 +40,7 @@
                     <span class="help-block">Tên gọi khác nếu có.</span>
                 </div>
             </div>    
-            
+
             <div class="control-group">
                 <label class="control-label" for="em_so_chung_minh_thu">Số chứng minh thư</label>
                 <div class="controls">
@@ -187,7 +187,7 @@
                 <label class="control-label" for="ngay_tuyen_dung">Ngày tuyển dụng</label>
                 <div class="controls">
                     <?php echo $this->formText('ngay_tuyen_dung', $this->arrParam['ngay_tuyen_dung'], array('class' => 'input-medium', 'placeholder' => 'Ngày tuyển dụng', 'readonly' => 'readonly')); ?> 
-                    
+
                 </div>
             </div>
 
@@ -227,7 +227,10 @@
                 <label class="control-label" for="em_chuc_vu_dang">Chức vụ đảng</label>
                 <div class="controls">
                     <?php
-                    $dang_options = array(0 => '', 1 => 'Bí thư', 2 => 'Phó bí thư', 3 => 'Ủy viên', 4 => 'Đảng viên');
+                    $dang_options = array(0 => '');
+                    foreach ($this->list_chuc_vu_dang as $dang) {
+                        $dang_options[$dang->cvdang_id] = $dang->cvdang_name;
+                    }
                     echo $this->formSelect('em_chuc_vu_dang', $this->arrParam['em_chuc_vu_dang'], null, $dang_options);
                     ?>                     
                 </div>
@@ -243,7 +246,10 @@
                 <label class="control-label" for="em_chuc_vu_doan">Chức vụ đoàn</label>
                 <div class="controls">
                     <?php
-                    $doan_options = array(0 => '', 1 => 'Bí thư', 2 => 'Phó bí thư', 3 => 'Ủy viên', 4 => 'Đoàn viên');
+                    $doan_options = array(0 => '');
+                    foreach ($this->list_chuc_vu_doan as $doan) {
+                        $doan_options[$doan->cvdoan_id] = $doan->cvdoan_name;
+                    }
                     echo $this->formSelect('em_chuc_vu_doan', $this->arrParam['em_chuc_vu_doan'], null, $doan_options);
                     ?>                     
                 </div>
@@ -252,13 +258,16 @@
                 <label class="control-label" for="ngay_doan">Ngày vào đoàn</label>
                 <div class="controls">
                     <?php echo $this->formText('ngay_doan', $this->arrParam['ngay_doan'], array('class' => 'input-medium', 'placeholder' => 'Ngày vào đoàn', 'readonly' => 'readonly')); ?>                    
-                 </div>
+                </div>
             </div> 
             <div class="control-group">
                 <label class="control-label" for="em_chuc_vu_cong_doan">Chức vụ công đoàn</label>
                 <div class="controls">
                     <?php
-                    $cong_doan_options = array(0 => '', 1 => 'Chủ tịch', 2 => 'Phó chủ tịch', 3 => 'Ủy viên', 4 => 'Công đoàn viên');
+                    $cong_doan_options = array(0 => '');
+                    foreach ($this->list_chuc_vu_cong_doan as $cdoan) {
+                        $cong_doan_options[$cdoan->cvcdoan_id] = $cdoan->cvcdoan_name;
+                    }
                     echo $this->formSelect('em_chuc_vu_cong_doan', $this->arrParam['em_chuc_vu_cong_doan'], null, $cong_doan_options);
                     ?>                     
                 </div>
@@ -420,28 +429,40 @@
             changeYear: true,
             defaultDate: "+1w",
             numberOfMonths: 1,
-            dateFormat: 'd/m/yy'
+            dateFormat: 'd/m/yy',
+            showOn: "button",
+            buttonImage: site_url+"/date-picker-icon.png",
+            buttonImageOnly: true
         });
         $( "#ngay_dang" ).datepicker({
             changeMonth: true,
             changeYear: true,
             defaultDate: "+1w",
             numberOfMonths: 1,
-            dateFormat: 'd/m/yy'
+            dateFormat: 'd/m/yy',
+            showOn: "button",
+            buttonImage: site_url+"/date-picker-icon.png",
+            buttonImageOnly: true
         });
         $( "#ngay_doan" ).datepicker({
             changeMonth: true,
             changeYear: true,
             defaultDate: "+1w",
             numberOfMonths: 1,
-            dateFormat: 'd/m/yy'
+            dateFormat: 'd/m/yy',
+            showOn: "button",
+            buttonImage: site_url+"/date-picker-icon.png",
+            buttonImageOnly: true
         });
         $( "#ngay_tuyen_dung" ).datepicker({
             changeMonth: true,
             changeYear: true,
             defaultDate: "+1w",
             numberOfMonths: 1,
-            dateFormat: 'd/m/yy'
+            dateFormat: 'd/m/yy',
+            showOn: "button",
+            buttonImage: site_url+"/date-picker-icon.png",
+            buttonImageOnly: true
         });
     });    
     

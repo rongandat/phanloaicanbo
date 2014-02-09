@@ -73,25 +73,21 @@
 
         <br/>
         <p class="lead">Thông tin Đảng - Đoàn</p>
-        <?php
-        $dang_options = array(0 => '', 1 => 'Bí thư', 2 => 'Phó bí thư', 3 => 'Ủy viên', 4 => 'Đảng viên');
-        $doan_options = array(0 => '', 1 => 'Bí thư', 2 => 'Phó bí thư', 3 => 'Ủy viên', 4 => 'Đoàn viên');
-        $cong_doan_options = array(0 => '', 1 => 'Chủ tịch', 2 => 'Phó chủ tịch', 3 => 'Ủy viên', 4 => 'Công đoàn viên');
-        ?>
+        
         <div class="row">            
-            <div class="span4 float_left"><strong>Chức vụ đảng: </strong> <?php echo $dang_options[$this->employee_info->em_chuc_vu_dang]; ?></div>
+            <div class="span4 float_left"><strong>Chức vụ đảng: </strong> <?php echo $this->viewGetChucVuDangName($this->employee_info->em_chuc_vu_dang); ?></div>
         </div>
         <div class="row">            
             <div class="span4 float_left"><strong>Ngày vào đảng: </strong> <?php echo $this->employee_info->em_chuc_vu_dang ? date('d-m-Y', strtotime($this->employee_info->em_ngay_vao_dang)) : ''; ?></div>
         </div>
         <div class="row">            
-            <div class="span4 float_left"><strong>Chức vụ đoàn: </strong> <?php echo $doan_options[$this->employee_info->em_chuc_vu_doan]; ?></div>
+            <div class="span4 float_left"><strong>Chức vụ đoàn: </strong> <?php echo $this->viewGetChucVuDoanName($this->employee_info->em_chuc_vu_doan); ?></div>
         </div>
         <div class="row">            
             <div class="span4 float_left"><strong>Ngày vào đảng: </strong> <?php echo $this->employee_info->em_chuc_vu_doan ? date('d-m-Y', strtotime($this->employee_info->em_ngay_vao_doan)) : ''; ?></div>
         </div>
         <div class="row">            
-            <div class="span4 float_left"><strong>Chức vụ công đoàn: </strong> <?php echo $cong_doan_options[$this->employee_info->em_chuc_vu_cong_doan]; ?></div>
+            <div class="span4 float_left"><strong>Chức vụ công đoàn: </strong> <?php echo $this->viewGetChucVuCongDoanName($this->employee_info->em_chuc_vu_cong_doan); ?></div>
         </div>
 
         <br/>

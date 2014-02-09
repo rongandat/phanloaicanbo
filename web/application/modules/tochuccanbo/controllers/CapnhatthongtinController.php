@@ -94,6 +94,15 @@ class Tochuccanbo_CapnhatthongtinController extends Zend_Controller_Action {
 
         $chungchiModel = new Front_Model_Chungchi();
         $list_chung_chi = $chungchiModel->fetchData(array('cc_status' => 1));
+        
+        $chucvudoanModel = new Front_Model_ChucVuDoan();
+        $list_chuc_vu_doan = $chucvudoanModel->fetchData(array('cvdoan_status' => 1));
+        
+        $chucvudangModel = new Front_Model_ChucVuDang();
+        $list_chuc_vu_dang = $chucvudangModel->fetchData(array('cvdang_status' => 1));
+        
+        $chucvucongdoanModel = new Front_Model_ChucVuCongDoan();
+        $list_chuc_vu_cong_doan = $chucvucongdoanModel->fetchData(array('cvcdoan_status' => 1));
 
         $error_message = array();
 
@@ -221,6 +230,9 @@ class Tochuccanbo_CapnhatthongtinController extends Zend_Controller_Action {
         $this->view->list_hoc_ham = $list_hoc_ham;
         $this->view->list_bang_cap = $list_bang_cap;
         $this->view->list_chung_chi = $list_chung_chi;
+        $this->view->list_chuc_vu_doan = $list_chuc_vu_doan;
+        $this->view->list_chuc_vu_dang = $list_chuc_vu_dang;
+        $this->view->list_chuc_vu_cong_doan = $list_chuc_vu_cong_doan;
     }
 
     public function deleteAction() {
