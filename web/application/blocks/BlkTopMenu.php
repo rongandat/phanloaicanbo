@@ -21,7 +21,9 @@ class Block_BlkTopMenu extends Zend_View_Helper_Abstract {
                     'hocham' => 'QL Học hàm',
                     'dantoc' => 'QL Dân tộc',
                     'tinh' => 'QL Tỉnh, Huyện',
-                    'ngachcongchuc' => 'QL Ngạch công chức'
+                    'ngachcongchuc' => 'QL Ngạch công chức',
+                    'chucvudoan' => 'QL Chức vụ đoàn',
+                    'chucvudang' => 'QL Chức vụ đảng'
             )),
             'canhan' => array('name' => 'Cá nhân', 'sub' => array(
                     'thongbao' => 'Thông báo',

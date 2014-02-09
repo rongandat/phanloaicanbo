@@ -18,7 +18,9 @@ class Block_BlkHethongMenu extends Zend_View_Helper_Abstract {
             'hocham' => 'QL Học hàm',
             'dantoc' => 'QL Dân tộc',
             'tinh' => 'QL Tỉnh, Huyện',
-            'ngachcongchuc' => 'QL Ngạch công chức'
+            'ngachcongchuc' => 'QL Ngạch công chức',
+            'chucvudoan' => 'QL Chức vụ đoàn',
+            'chucvudang' => 'QL Chức vụ đảng'
         );
         $controller_name = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
         require_once (BLOCK_PATH . '/BlkHethongMenu/' . TEMPLATE_USED . '/default.php');

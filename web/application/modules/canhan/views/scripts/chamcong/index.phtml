@@ -1,6 +1,26 @@
 <h5>Chấm công</h5>               
 
 <div class="main-content-box">
+    <?php if ($this->error_message) : ?>
+        <div class="alert alert-error">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h5>Thông báo!</h5>
+            Cập nhật không thành công vì:
+            <ol>
+                <?php foreach ($this->error_message as $message): ?>
+                    <li><?php echo $message; ?></li>
+                <?php endforeach; ?>
+            </ol>
+        </div> 
+    <?php endif; ?>  
+    <?php if ($this->success_message) : ?>
+        <div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h5>Thông báo!</h5>
+            <?php echo $this->success_message; ?>
+        </div>
+    <?php endif; ?> 
+
     <form class="form-horizontal" method="post" action="" enctype="multipart/form-data">
         <div class="control-group">
             <label class="control-label">Tháng</label>
@@ -10,15 +30,15 @@
                     <button class="btn" type="button" id="btn_chon_thang">Chọn tháng!</button>
                 </div>
                 <?php
-                if($this->cham_cong && ($this->cham_cong->c_don_vi_status ||$this->cham_cong->c_ptccb_status)){
+                if ($this->cham_cong && ($this->cham_cong->c_don_vi_status != '-1' || $this->cham_cong->c_ptccb_status != '-1')) {
                     echo '<span class="help-block">Tháng này đã được phê duyệt.</span>';
                 }
                 ?>
-                
+
             </div>
         </div>
         <?php
-        $holiday_options = array('-2' => 'Nghỉ phép', '-1' => 'Nghỉ không phép', '0' => 'Đi làm');
+        $holiday_options = array('' => '', '-2' => 'Nghỉ phép', '-1' => 'Nghỉ không phép', '0' => 'Đi làm');
         foreach ($this->list_holidays as $holiday) {
             $holiday_options["$holiday->hld_id"] = $holiday->hld_name;
         }
@@ -99,9 +119,13 @@
                     break;
             }
             $ngay_hom_nay = $year . '-' . $month . '-' . $day_num;
+            $du_lieu_da_chon = null;
+            if ($this->cham_cong) {
+                eval('$du_lieu_da_chon = $this->cham_cong->c_ngay_' . $day_num . ';');
+            }
             $text_show = "<td class='$class_name'>
                 <div class='row-fluid'>$day_num</div>
-                <div class='row-fluid'>" . $this->formSelect('cham_cong[' . $day_num . ']', null, array('style' => 'width:110px; padding: 4px 2px !important;'), $holiday_options) . "</div>
+                <div class='row-fluid'>" . $this->formSelect('cham_cong[' . $day_num . ']', $du_lieu_da_chon, array('style' => 'width:110px; padding: 4px 2px !important;'), $holiday_options) . "</div>
             </td>";
             ;
             foreach ($this->list_nghi_phep as $item) {
@@ -110,7 +134,7 @@
                 if (strtotime($ngay_hom_nay) >= strtotime($ngay_so_sanh_1) && strtotime($ngay_hom_nay) <= strtotime($ngay_so_sanh_2)) {
                     $text_show = "<td class='$class_name'>
                         <div class='row-fluid'>$day_num</div>
-                        <div class='row-fluid'>".$item->xnp_ly_do."</div>
+                        <div class='row-fluid'>" . $item->xnp_ly_do . "</div>
                     </td>";
                     break;
                 }
