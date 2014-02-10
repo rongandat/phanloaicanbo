@@ -1,8 +1,129 @@
 <div class="body_content float_right">
-    <h5>Đánh gia phân loại</h5>               
+    <h5>Tự đánh giá phân loại</h5>               
 
     <div class="main-content-box">  
-        
+        <?php if ($this->error_message) : ?>
+            <div class="alert alert-error">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <h5>Thông báo!</h5>
+                Cập nhật không thành công vì:
+                <ol>
+                    <?php foreach ($this->error_message as $message): ?>
+                        <li><?php echo $message; ?></li>
+                    <?php endforeach; ?>
+                </ol>
+            </div> 
+        <?php endif; ?>  
+        <?php if ($this->success_message) : ?>
+            <div class="alert alert-success">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <h5>Thông báo!</h5>
+                <?php echo $this->success_message; ?>
+            </div>
+        <?php endif; ?> 
+
+        <form class="form-horizontal" method="post" action="" enctype="multipart/form-data">
+            <div class="control-group">
+                <label class="control-label">Tháng</label>
+                <div class="controls">
+                    <div class="input-append">
+                        <input class="span2" value="<?php echo $this->thang . '/' . $this->nam; ?>" id="txt_thang_nam" type="text" readonly="true"/>
+                        <button class="btn" type="button" id="btn_chon_thang">Chọn tháng!</button>
+                    </div>
+                    <?php
+                    if ($this->danh_gia && ($this->danh_gia->d_don_vi_status != '-1' || $this->danh_gia->d_ptccb_status != '-1')) {
+                        echo '<span class="help-block">Tháng này đã được phê duyệt.</span>';
+                    }
+                    ?>
+
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label" for="d_cong_viec">Công việc trong tháng</label>
+                <div class="controls">
+                    <span class="help-block">(Chỉ ghi những công việc chính)</span>
+                    <?php echo $this->formTextarea('d_cong_viec', $this->arrParam['d_cong_viec'], array('class' => 'input-xlarge', 'rows' => 5)); ?>                   
+                </div>            
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="d_kq_cong_viec">Kết quả công việc</label>
+                <div class="controls">
+                    <?php
+                    echo $this->formSelect('d_kq_cong_viec', $this->arrParam['d_kq_cong_viec'], array('class' => 'input-small'), array());
+                    ?>
+                </div>            
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="d_ngay_nghi">Số ngày nghỉ</label>
+                <div class="controls">
+                    <?php
+                    echo $this->formSelect('d_ngay_nghi', $this->arrParam['d_ngay_nghi'], array('class' => 'input-small'), array());
+                    ?>
+                </div>            
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="d_ly_do">Lý do nghỉ</label>
+                <div class="controls">
+                    <?php echo $this->formTextarea('d_ly_do', $this->arrParam['d_ly_do'], array('class' => 'input-xlarge', 'rows' => 5)); ?>                   
+                </div>            
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="d_y_thuc">Ý thức trách nhiệm</label>
+                <div class="controls">
+                    <span class="help-block">(trong công tác xây dựng đơn vị)</span>
+                    <?php echo $this->formTextarea('d_y_thuc', $this->arrParam['d_y_thuc'], array('class' => 'input-xlarge', 'rows' => 5)); ?>                   
+                </div>            
+            </div>
+            
+            <div class="control-group">
+                <label class="control-label" for="d_khuyet_diem">Khuyết điểm</label>
+                <div class="controls">
+                    <?php echo $this->formTextarea('d_khuyet_diem', $this->arrParam['d_khuyet_diem'], array('class' => 'input-xlarge', 'rows' => 5)); ?>                   
+                </div>            
+            </div>
+            
+            <div class="control-group">
+                <label class="control-label" for="d_tieu_chi">Tiêu chí đánh giá</label>
+                <div class="controls">
+                    
+                </div>            
+            </div>
+            
+            <div class="control-group">
+                <label class="control-label" for="d_ghi_chu">Ghi chú bổ sung</label>
+                <div class="controls">
+                    <?php echo $this->formTextarea('d_ghi_chu', $this->arrParam['d_ghi_chu'], array('class' => 'input-xlarge', 'rows' => 5)); ?>                   
+                </div>            
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="d_phan_loai">Tự phân loại</label>
+                <div class="controls">
+                    <?php
+                    echo $this->formSelect('d_phan_loai', $this->arrParam['d_phan_loai'], array('class' => 'input-small'), array());
+                    ?>
+                </div>            
+            </div>
+        </form>
     </div> 
-    
 </div>
+
+<script>
+    var currentYear = <?php echo $this->nam; ?>;    
+    var options = {
+        pattern: 'mm/yyyy', // Default is 'mm/yyyy' and separator char is not mandatory 
+        startYear: 2013,
+        selectedYear: currentYear,
+        monthNames: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12']
+    };
+
+    $('#txt_thang_nam').monthpicker(options);
+
+    $('#txt_thang_nam').monthpicker().bind('monthpicker-click-month', function (e, month, year) { 
+        window.location = site_url+'/canhan/danhgiaphanloai/index/thang/'+month+'/nam/'+year;
+    });
+
+    $('#btn_chon_thang').bind('click', function () {
+        $('#txt_thang_nam').monthpicker('show');
+    });
+</script>

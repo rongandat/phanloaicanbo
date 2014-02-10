@@ -29,7 +29,7 @@ class Canhan_DanhgiaphanloaiController extends Zend_Controller_Action {
 
     public function indexAction() {
         $translate = Zend_Registry::get('Zend_Translate');
-        $this->view->title = 'Quản lý tài khoản - ' . $translate->_('TEXT_DEFAULT_TITLE');
+        $this->view->title = 'Tự đánh giá phân loại - ' . $translate->_('TEXT_DEFAULT_TITLE');
         $this->view->headTitle($this->view->title);
 
         $layoutPath = APPLICATION_PATH . '/templates/' . TEMPLATE_USED;
@@ -38,5 +38,22 @@ class Canhan_DanhgiaphanloaiController extends Zend_Controller_Action {
 
         Zend_Layout::startMvc($option);
         $this->view->page = $this->_page;
+
+        $date = time();
+        $thang = $this->_getParam('thang', date('m', $date));
+        $nam = $this->_getParam('nam', date('Y', $date));
+
+        $auth = Zend_Auth::getInstance();
+        $identity = $auth->getIdentity();
+        $em_id = $identity->em_id;
+
+        $error_message = array();
+        $success_message = '';
+        
+        $this->view->success_message = $success_message;
+        $this->view->error_message = $error_message;
+        $this->view->thang = $thang;
+        $this->view->nam = $nam;
     }
+
 }

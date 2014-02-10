@@ -1,7 +1,7 @@
 -- MySQL Administrator dump 1.4
 --
 -- ------------------------------------------------------
--- Server version	5.5.32
+-- Server version	5.5.27
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -47,6 +47,64 @@ INSERT INTO `bang_cap` (`bc_id`,`bc_name`,`bc_order`,`bc_status`,`bc_date_added`
 
 
 --
+-- Definition of table `cham_cong`
+--
+
+DROP TABLE IF EXISTS `cham_cong`;
+CREATE TABLE `cham_cong` (
+  `c_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `c_em_id` int(10) unsigned NOT NULL,
+  `c_thang` int(10) unsigned NOT NULL,
+  `c_nam` int(10) unsigned NOT NULL,
+  `c_ngay_1` varchar(45) DEFAULT NULL,
+  `c_ngay_2` varchar(45) DEFAULT NULL,
+  `c_ngay_3` varchar(45) DEFAULT NULL,
+  `c_ngay_4` varchar(45) DEFAULT NULL,
+  `c_ngay_5` varchar(45) DEFAULT NULL,
+  `c_ngay_6` varchar(45) DEFAULT NULL,
+  `c_ngay_7` varchar(45) DEFAULT NULL,
+  `c_ngay_8` varchar(45) DEFAULT NULL,
+  `c_ngay_9` varchar(45) DEFAULT NULL,
+  `c_ngay_10` varchar(45) DEFAULT NULL,
+  `c_ngay_11` varchar(45) DEFAULT NULL,
+  `c_ngay_12` varchar(45) DEFAULT NULL,
+  `c_ngay_13` varchar(45) DEFAULT NULL,
+  `c_ngay_14` varchar(45) DEFAULT NULL,
+  `c_ngay_15` varchar(45) DEFAULT NULL,
+  `c_ngay_16` varchar(45) DEFAULT NULL,
+  `c_ngay_17` varchar(45) DEFAULT NULL,
+  `c_ngay_18` varchar(45) DEFAULT NULL,
+  `c_ngay_19` varchar(45) DEFAULT NULL,
+  `c_ngay_20` varchar(45) DEFAULT NULL,
+  `c_ngay_21` varchar(45) DEFAULT NULL,
+  `c_ngay_22` varchar(45) DEFAULT NULL,
+  `c_ngay_23` varchar(45) DEFAULT NULL,
+  `c_ngay_24` varchar(45) DEFAULT NULL,
+  `c_ngay_25` varchar(45) DEFAULT NULL,
+  `c_ngay_26` varchar(45) DEFAULT NULL,
+  `c_ngay_27` varchar(45) DEFAULT NULL,
+  `c_ngay_28` varchar(45) DEFAULT NULL,
+  `c_ngay_29` varchar(45) DEFAULT NULL,
+  `c_ngay_30` varchar(45) DEFAULT NULL,
+  `c_ngay_31` varchar(45) DEFAULT NULL,
+  `c_don_vi_status` double NOT NULL DEFAULT '-1',
+  `c_ptccb_status` double NOT NULL DEFAULT '-1',
+  `c_date_created` datetime DEFAULT NULL,
+  `c_date_modifyed` datetime DEFAULT NULL,
+  PRIMARY KEY (`c_id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `cham_cong`
+--
+
+/*!40000 ALTER TABLE `cham_cong` DISABLE KEYS */;
+INSERT INTO `cham_cong` (`c_id`,`c_em_id`,`c_thang`,`c_nam`,`c_ngay_1`,`c_ngay_2`,`c_ngay_3`,`c_ngay_4`,`c_ngay_5`,`c_ngay_6`,`c_ngay_7`,`c_ngay_8`,`c_ngay_9`,`c_ngay_10`,`c_ngay_11`,`c_ngay_12`,`c_ngay_13`,`c_ngay_14`,`c_ngay_15`,`c_ngay_16`,`c_ngay_17`,`c_ngay_18`,`c_ngay_19`,`c_ngay_20`,`c_ngay_21`,`c_ngay_22`,`c_ngay_23`,`c_ngay_24`,`c_ngay_25`,`c_ngay_26`,`c_ngay_27`,`c_ngay_28`,`c_ngay_29`,`c_ngay_30`,`c_ngay_31`,`c_don_vi_status`,`c_ptccb_status`,`c_date_created`,`c_date_modifyed`) VALUES 
+ (2,1,2,2014,'9','','','','','','','9','8','0','0','0','0','0','9','8','0','0','0','0','0','9','8','0','','','','4','','','',-1,-1,'2014-02-08 23:08:39','2014-02-08 23:18:29');
+/*!40000 ALTER TABLE `cham_cong` ENABLE KEYS */;
+
+
+--
 -- Definition of table `chuc_vu`
 --
 
@@ -70,6 +128,85 @@ INSERT INTO `chuc_vu` (`cv_id`,`cv_name`,`cv_order`,`cv_status`,`cv_date_added`,
  (4,'GiÃ¡m Ä‘á»‘c',1,1,'2013-11-10 21:38:30','2013-11-10 21:38:30'),
  (6,'TrÆ°á»Ÿng Ä‘Æ¡n vá»‹',1,1,'2013-11-10 21:38:47','2013-11-10 21:38:47');
 /*!40000 ALTER TABLE `chuc_vu` ENABLE KEYS */;
+
+
+--
+-- Definition of table `chuc_vu_cong_doan`
+--
+
+DROP TABLE IF EXISTS `chuc_vu_cong_doan`;
+CREATE TABLE `chuc_vu_cong_doan` (
+  `cvcdoan_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `cvcdoan_name` varchar(255) NOT NULL,
+  `cvcdoan_order` int(10) unsigned NOT NULL DEFAULT '0',
+  `cvcdoan_status` int(10) unsigned NOT NULL DEFAULT '1',
+  `cvcdoan_date_added` datetime DEFAULT NULL,
+  `cvcdoan_date_modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`cvcdoan_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `chuc_vu_cong_doan`
+--
+
+/*!40000 ALTER TABLE `chuc_vu_cong_doan` DISABLE KEYS */;
+INSERT INTO `chuc_vu_cong_doan` (`cvcdoan_id`,`cvcdoan_name`,`cvcdoan_order`,`cvcdoan_status`,`cvcdoan_date_added`,`cvcdoan_date_modified`) VALUES 
+ (14,'Chá»©c vá»¥ 1',1,1,'2014-02-09 11:33:34','2014-02-09 11:33:34'),
+ (15,'Chá»© vá»¥ 2',2,1,'2014-02-09 11:33:42','2014-02-09 11:33:42');
+/*!40000 ALTER TABLE `chuc_vu_cong_doan` ENABLE KEYS */;
+
+
+--
+-- Definition of table `chuc_vu_dang`
+--
+
+DROP TABLE IF EXISTS `chuc_vu_dang`;
+CREATE TABLE `chuc_vu_dang` (
+  `cvdang_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `cvdang_name` varchar(255) NOT NULL,
+  `cvdang_order` int(10) unsigned NOT NULL DEFAULT '0',
+  `cvdang_status` int(10) unsigned NOT NULL DEFAULT '1',
+  `cvdang_date_added` datetime DEFAULT NULL,
+  `cvdang_date_modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`cvdang_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `chuc_vu_dang`
+--
+
+/*!40000 ALTER TABLE `chuc_vu_dang` DISABLE KEYS */;
+INSERT INTO `chuc_vu_dang` (`cvdang_id`,`cvdang_name`,`cvdang_order`,`cvdang_status`,`cvdang_date_added`,`cvdang_date_modified`) VALUES 
+ (9,'BÃ­ thÆ°',0,1,'2014-02-09 10:57:40','2014-02-09 10:57:40'),
+ (10,'PhÃ³ bÃ­ thÆ°',1,1,'2014-02-09 10:58:01','2014-02-09 10:58:01');
+/*!40000 ALTER TABLE `chuc_vu_dang` ENABLE KEYS */;
+
+
+--
+-- Definition of table `chuc_vu_doan`
+--
+
+DROP TABLE IF EXISTS `chuc_vu_doan`;
+CREATE TABLE `chuc_vu_doan` (
+  `cvdoan_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `cvdoan_name` varchar(255) NOT NULL,
+  `cvdoan_order` int(10) unsigned NOT NULL DEFAULT '0',
+  `cvdoan_status` int(10) unsigned NOT NULL DEFAULT '1',
+  `cvdoan_date_added` datetime DEFAULT NULL,
+  `cvdoan_date_modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`cvdoan_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `chuc_vu_doan`
+--
+
+/*!40000 ALTER TABLE `chuc_vu_doan` DISABLE KEYS */;
+INSERT INTO `chuc_vu_doan` (`cvdoan_id`,`cvdoan_name`,`cvdoan_order`,`cvdoan_status`,`cvdoan_date_added`,`cvdoan_date_modified`) VALUES 
+ (9,'BÃ­ thÆ°',0,1,'2014-02-09 10:49:12','2014-02-09 10:49:46'),
+ (12,'PhÃ³ bÃ­ thÆ°',1,1,'2014-02-09 10:50:51','2014-02-09 10:50:51'),
+ (13,'ÄoÃ n viÃªn',2,1,'2014-02-09 10:50:58','2014-02-09 10:50:58');
+/*!40000 ALTER TABLE `chuc_vu_doan` ENABLE KEYS */;
 
 
 --
@@ -207,7 +344,7 @@ CREATE TABLE `employees` (
 
 /*!40000 ALTER TABLE `employees` DISABLE KEYS */;
 INSERT INTO `employees` (`em_id`,`em_ten`,`em_ten_dem`,`em_ho`,`em_ngay_sinh`,`em_so_chung_minh_thu`,`em_ten_khac`,`em_anh_the`,`em_gioi_tinh`,`em_home_phone`,`em_phone`,`em_noi_sinh`,`em_que_quan`,`em_dia_chi`,`em_dia_chi_tinh`,`em_dia_chi_huyen`,`em_dan_toc`,`em_so_cong_chuc`,`em_chuc_vu`,`em_phong_ban`,`em_ngay_tuyen_dung`,`em_ngach_cong_chuc`,`em_cong_viec`,`em_chuyen_mon`,`em_chuc_vu_dang`,`em_ngay_vao_dang`,`em_chuc_vu_doan`,`em_ngay_vao_doan`,`em_chuc_vu_cong_doan`,`em_van_hoa_pt`,`em_hoc_ham`,`em_bang_cap`,`em_ngoai_ngu`,`em_tin_hoc`,`em_chung_chi_khac`,`em_anh_bang_cap`,`em_status`,`em_delete`,`em_date_added`,`em_date_modified`) VALUES 
- (1,'HÃ¹ng','Máº¡nh','Nguyá»…n','1986-10-08 17:12:07','131398081','Nobita','',1,'','0985679742','Äoan HÃ¹ng','VÄ©nh PhÃº','ThÃ´n 12 -VÃ¢n Du',4,1,2,'HAV102',6,9,'2009-10-01 00:00:07',5,'Ha ah ha','he he he',3,'2010-04-20 17:12:07',2,'2012-03-28 17:12:07',1,'12/12',3,8,1,2,3,'a:3:{i:0;s:36:\"571272600_1_blue.__large_preview.jpg\";i:1;s:17:\"518928803_top.png\";i:2;s:25:\"1795367415_Untitled-1.jpg\";}',1,0,'2013-12-02 16:54:16','2013-12-24 17:12:29'),
+ (1,'HÃ¹ng','Máº¡nh','Nguyá»…n','1986-10-08 12:32:07','131398081','Nobita','',1,'','0985679742','Äoan HÃ¹ng','VÄ©nh PhÃº','ThÃ´n 12 -VÃ¢n Du',4,1,2,'HAV102',6,9,'2009-10-01 11:48:07',5,'Ha ah ha','he he he',9,'2010-04-30 12:32:07',12,'2012-03-20 12:32:07',14,'12/12',3,8,1,2,3,'a:3:{i:0;s:36:\"571272600_1_blue.__large_preview.jpg\";i:1;s:17:\"518928803_top.png\";i:2;s:25:\"1795367415_Untitled-1.jpg\";}',1,0,'2013-12-02 16:54:16','2014-02-09 12:32:08'),
  (2,'BÃ­ch','Ngá»c','Ã‚u','1986-11-02 00:00:07','13133123434','BÃ­ch','1385911581.png',0,'','09886838560','Báº£o Tháº¯ng','HoÃ ng LiÃªn SÆ¡n','XÃ³m 11',4,1,2,'HAV1023',6,11,'1981-06-16 00:00:07',5,'Káº¿ ToÃ¡n','Káº¿ toÃ¡n mÃ¡y',2,'2012-07-15 00:00:07',4,'2011-05-18 00:00:07',3,'12/12',3,8,1,2,3,'a:3:{i:0;s:28:\"1620194362_OneTV  - Logo.png\";i:1;s:17:\"987576096_top.png\";i:2;s:24:\"681729117_Untitled-1.jpg\";}',1,0,'2013-12-01 22:26:21','2013-12-01 22:26:21'),
  (3,'HÃ¹ng','Máº¡nh','Nguyá»…n',NULL,'131398081','Nobita','1385898380.jpg',0,'','0985679742','Doan Hung','Phu Tho','Doan Hung',4,1,2,'23443432',4,9,NULL,4,'Cong nghe thong tin','danh may',1,NULL,2,NULL,1,'12/12',3,8,1,2,3,'a:2:{i:0;s:27:\"413210694_OneTV  - Logo.png\";i:1;s:18:\"1122416878_top.png\";}',1,1,'2013-12-01 18:46:20','2013-12-01 18:46:20'),
  (4,'HÃ¹ng','Máº¡nh','Nguyá»…n','0000-00-00 00:00:00','131398081','Nobita',NULL,0,'','0985679742','Doan Hung','Phu Tho','Doan Hung',0,0,2,'23443432',4,9,'0000-00-00 00:00:00',4,'Cong nghe thong tin','danh may',1,'0000-00-00 00:00:00',2,'0000-00-00 00:00:00',1,'12/12',3,8,1,2,3,'a:2:{i:0;s:27:\"413210694_OneTV  - Logo.png\";i:1;s:18:\"1122416878_top.png\";}',1,1,'2013-12-01 18:46:46','2013-12-01 18:46:46'),
@@ -368,7 +505,7 @@ CREATE TABLE `holidays` (
   `hld_date_added` datetime DEFAULT NULL,
   `hld_date_modified` datetime DEFAULT NULL,
   PRIMARY KEY (`hld_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `holidays`
@@ -379,7 +516,9 @@ INSERT INTO `holidays` (`hld_id`,`hld_name`,`hld_order`,`hld_status`,`hld_date_a
  (4,'Giáº£i phÃ³ng miá»n nam',1,0,'2013-11-10 17:11:04','2013-11-10 17:12:58'),
  (5,'QUá»‘c táº¿ lao Ä‘á»™ng',2,1,'2013-11-10 17:11:13','2013-11-10 17:11:13'),
  (6,'Quá»‘c khÃ¡nh',3,1,'2013-11-10 17:11:20','2013-11-10 17:11:20'),
- (7,'Táº¿t dÆ°Æ¡ng lá»‹ch',4,1,'2013-11-10 17:11:30','2013-11-10 17:11:30');
+ (7,'Táº¿t dÆ°Æ¡ng lá»‹ch',4,1,'2013-11-10 17:11:30','2013-11-10 17:11:30'),
+ (8,'Nghá»‰ chá»§ nháº­t',0,1,'2014-02-08 22:21:29','2014-02-08 22:21:29'),
+ (9,'Nghá»‰ thá»© 7',1,1,'2014-02-08 22:21:38','2014-02-08 22:21:38');
 /*!40000 ALTER TABLE `holidays` ENABLE KEYS */;
 
 
@@ -566,13 +705,15 @@ CREATE TABLE `thong_bao` (
   `tb_date_added` datetime DEFAULT NULL,
   `tb_date_modified` datetime DEFAULT NULL,
   PRIMARY KEY (`tb_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `thong_bao`
 --
 
 /*!40000 ALTER TABLE `thong_bao` DISABLE KEYS */;
+INSERT INTO `thong_bao` (`tb_id`,`tb_from`,`tb_to`,`tb_tieu_de`,`tb_noi_dung`,`tb_status`,`tb_date_added`,`tb_date_modified`) VALUES 
+ (2,1,1,'Xin chao','<p>fdsffdsf sdfsd tf</p>',1,'2013-12-27 21:26:34','2013-12-27 21:26:34');
 /*!40000 ALTER TABLE `thong_bao` ENABLE KEYS */;
 
 
@@ -667,7 +808,7 @@ CREATE TABLE `users_log` (
   `login_date` int(10) unsigned NOT NULL,
   `login_ip` varchar(45) NOT NULL,
   PRIMARY KEY (`log_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users_log`
@@ -746,7 +887,11 @@ INSERT INTO `users_log` (`log_id`,`user_id`,`login_date`,`login_ip`) VALUES
  (70,1,1387118686,'192.168.0.102'),
  (71,1,1387710738,'::1'),
  (72,1,1387724735,'::1'),
- (73,1,1387807947,'::1');
+ (73,1,1387807947,'::1'),
+ (74,1,1388152776,'::1'),
+ (75,1,1391834944,'::1'),
+ (76,1,1391860341,'::1'),
+ (77,1,1391916262,'::1');
 /*!40000 ALTER TABLE `users_log` ENABLE KEYS */;
 
 
@@ -766,7 +911,7 @@ CREATE TABLE `xin_nghi_phep` (
   `xnp_ly_do` text NOT NULL,
   `xnp_chi_tiet` text,
   PRIMARY KEY (`xnp_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `xin_nghi_phep`
@@ -774,8 +919,7 @@ CREATE TABLE `xin_nghi_phep` (
 
 /*!40000 ALTER TABLE `xin_nghi_phep` DISABLE KEYS */;
 INSERT INTO `xin_nghi_phep` (`xnp_id`,`xnp_em_id`,`xnp_from_date`,`xnp_to_date`,`xnp_date_created`,`xnp_don_vi_status`,`xnp_ptccb_status`,`xnp_ly_do`,`xnp_chi_tiet`) VALUES 
- (1,1,'2013-02-03 22:29:07','2013-05-06 22:29:07','2013-12-23 22:29:05',0,-1,'fdsdf stt t werwr te','<p>sáº§ sdf e ew ewt</p>'),
- (2,1,'2013-12-24 22:59:07','2013-12-31 22:59:07','2013-12-23 22:59:03',-1,-1,'Nghá»‰ á»‘m','<p>H&ocirc;m Ä‘áº¥y t&ocirc;i á»‘m láº¯m.</p>\r\n<p>N&ecirc;n t&ocirc;i xin nghá»‰ v&agrave;i h&ocirc;m</p>');
+ (3,1,'2014-02-02 21:42:07','2014-02-07 21:42:07','2013-12-27 21:42:29',1,1,'Nghi om','<p>ah ang nay naoRet qua nen muon xin nghi</p>');
 /*!40000 ALTER TABLE `xin_nghi_phep` ENABLE KEYS */;
 
 

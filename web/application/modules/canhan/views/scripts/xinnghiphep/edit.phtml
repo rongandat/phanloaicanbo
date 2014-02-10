@@ -90,7 +90,10 @@
             onClose: function( selectedDate ) {
                 $( "#xnp_to_date" ).datepicker( "option", "minDate", selectedDate );
             },
-            dateFormat: 'd/m/yy'
+            dateFormat: 'd/m/yy',
+            showOn: "button",
+            buttonImage: site_url+"/date-picker-icon.png",
+            buttonImageOnly: true
         });
         $( "#xnp_to_date" ).datepicker({
             changeMonth: true,
@@ -100,7 +103,10 @@
             onClose: function( selectedDate ) {
                 $( "#xnp_from_date" ).datepicker( "option", "maxDate", selectedDate );
             },
-            dateFormat: 'd/m/yy'
+            dateFormat: 'd/m/yy',
+            showOn: "button",
+            buttonImage: site_url+"/date-picker-icon.png",
+            buttonImageOnly: true
         });
     });
 </script>
