@@ -32,4 +32,13 @@ class Front_Model_KyLuat extends Zend_Db_Table_Abstract {
         return $this->fetchAll($select);
     }
 
+    public function fetchByDate($em_id,$from_date, $to_date, $status=1){
+        $select = $this->select();
+        $select->where('kl_em_id =?', $em_id);
+        $select->where('kl_date >=?', $from_date);
+        $select->where('kl_date <=?', $to_date);
+        $select->where('kl_status =?', $status); 
+        return $this->fetchAll($select);
+    }
+    
 }

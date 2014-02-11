@@ -32,4 +32,12 @@ class Front_Model_KhenThuong extends Zend_Db_Table_Abstract {
         return $this->fetchAll($select);
     }
 
+    public function fetchByDate($em_id,$from_date, $to_date, $status=1){
+        $select = $this->select();
+        $select->where('kt_em_id =?', $em_id);
+        $select->where('kt_date >=?', $from_date);
+        $select->where('kt_date <=?', $to_date);
+        $select->where('kt_status =?', $status); 
+        return $this->fetchAll($select);
+    }
 }
