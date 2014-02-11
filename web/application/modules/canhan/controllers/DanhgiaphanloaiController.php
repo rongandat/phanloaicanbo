@@ -46,14 +46,96 @@ class Canhan_DanhgiaphanloaiController extends Zend_Controller_Action {
         $auth = Zend_Auth::getInstance();
         $identity = $auth->getIdentity();
         $em_id = $identity->em_id;
-
+        
+        $danhgiaModel = new Front_Model_DanhGia();
+        $danh_gia = $danhgiaModel->fetchOneData(array('dg_em_id' => $em_id, 'dg_thang' => $thang, 'dg_nam' => $nam));
+        
+        $tieuchiModel = new Front_Model_TieuChiDanhGiaCB();
+        $list_tieuchi = $tieuchiModel->fetchData(array('tcdgcb_status' => 1), 'tcdgcb_order ASC');
+        
+        $ketquaModel = new Front_Model_DanhGiaKetQuaCV();
+        $list_ketqua = $ketquaModel->fetchData(array('dgkqcv_status' => 1), 'dgkqcv_order ASC');
+        
         $error_message = array();
         $success_message = '';
         
+        if ($this->_request->isPost()) {            
+            $cong_viec = $this->_arrParam['d_cong_viec'];
+            $kq_cong_viec = $this->_arrParam['d_kq_cong_viec'];
+            $ngay_nghi = $this->_arrParam['d_ngay_nghi'];
+            $ly_do_nghi = $this->_arrParam['d_ly_do'];
+            $y_thuc_tn = $this->_arrParam['d_y_thuc'];
+            $khuyet_diem = $this->_arrParam['d_khuyet_diem'];
+            $tc_danh_gia = serialize($this->_arrParam['d_tieu_chi']);
+            $ghi_chu = $this->_arrParam['d_ghi_chu'];
+            $phan_loai = $this->_arrParam['d_phan_loai'];
+            $current_time = new Zend_Db_Expr('NOW()');
+            if ($danh_gia && ($danh_gia->dg_don_vi_status != '-1' || $danh_gia->dg_ptccb_status != '-1')) {
+                $error_message[] = 'Đánh giá phân loại đã được duyệt nên không thể thay đổi.';
+            }
+            
+            if(!$cong_viec){
+                $error_message[] = 'Công việc trong tháng không được để trống';
+            }
+            if (!sizeof($error_message)) {
+                if ($danh_gia) {
+                    $danhgiaModel->update(array(
+                        'dg_cong_viec' => $cong_viec,
+                        'dg_ket_qua_cong_viec' => $kq_cong_viec,
+                        'dg_so_ngay_nghi' => $ngay_nghi,
+                        'dg_ly_do_nghi' => $ly_do_nghi,
+                        'dg_y_thuc_xay_dung' => $y_thuc_tn,
+                        'dg_khuyet_diem' => $khuyet_diem,
+                        'dg_tc_danh_gia' => $tc_danh_gia,
+                        'dg_ghi_chu' => $ghi_chu,
+                        'dg_phan_loai' => $phan_loai,
+                        'dg_date_modifyed' => $current_time
+                            ), 'dg_id=' . $danh_gia->dg_id
+                    );
+                }else{
+                    $danhgiaModel->insert(array(
+                        'dg_em_id' => $em_id,
+                        'dg_thang' => $thang,
+                        'dg_nam' => $nam,
+                        'dg_cong_viec' => $cong_viec,
+                        'dg_ket_qua_cong_viec' => $kq_cong_viec,
+                        'dg_so_ngay_nghi' => $ngay_nghi,
+                        'dg_ly_do_nghi' => $ly_do_nghi,
+                        'dg_y_thuc_xay_dung' => $y_thuc_tn,
+                        'dg_khuyet_diem' => $khuyet_diem,
+                        'dg_tc_danh_gia' => $tc_danh_gia,
+                        'dg_ghi_chu' => $ghi_chu,
+                        'dg_phan_loai' => $phan_loai,
+                        'dg_date_modifyed' => $current_time,
+                        'dg_date_created' => $current_time
+                            )
+                    );
+                }
+            }
+            $success_message = 'Đã cập nhật thành công.';
+                $danh_gia = $danhgiaModel->fetchOneData(array('dg_em_id' => $em_id, 'dg_thang' => $thang, 'dg_nam' => $nam));
+        }
+                
+        if($danh_gia){
+            $this->_arrParam['d_cong_viec'] = $danh_gia->dg_cong_viec;
+            $this->_arrParam['d_kq_cong_viec'] = $danh_gia->dg_ket_qua_cong_viec;
+            $this->_arrParam['d_ngay_nghi'] = $danh_gia->dg_so_ngay_nghi;
+            $this->_arrParam['d_ly_do'] = $danh_gia->dg_ly_do_nghi;
+            $this->_arrParam['d_y_thuc'] = $danh_gia->dg_y_thuc_xay_dung;
+            $this->_arrParam['d_khuyet_diem'] = $danh_gia->dg_khuyet_diem;
+            $this->_arrParam['d_tieu_chi'] = unserialize($danh_gia->dg_tc_danh_gia);
+            $this->_arrParam['d_ghi_chu'] = $danh_gia->dg_ghi_chu;
+            $this->_arrParam['d_phan_loai'] = $danh_gia->dg_phan_loai;
+        }
+        
+        $this->view->tieu_chi = $list_tieuchi;
+        $this->view->ket_qua = $list_ketqua;
         $this->view->success_message = $success_message;
         $this->view->error_message = $error_message;
         $this->view->thang = $thang;
         $this->view->nam = $nam;
+        $this->view->danh_gia = $danh_gia;
+        $this->view->arrParam = $this->_arrParam;
     }
 
 }

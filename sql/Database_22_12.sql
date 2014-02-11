@@ -1,7 +1,7 @@
 -- MySQL Administrator dump 1.4
 --
 -- ------------------------------------------------------
--- Server version	5.5.27
+-- Server version	5.6.14
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -260,6 +260,42 @@ CREATE TABLE `dan_toc` (
 INSERT INTO `dan_toc` (`dt_id`,`dt_name`,`dt_status`,`dt_order`,`dt_date_added`,`dt_date_modified`) VALUES 
  (2,'TÃ y',1,0,'2013-11-09 17:09:09','2013-11-09 17:27:53');
 /*!40000 ALTER TABLE `dan_toc` ENABLE KEYS */;
+
+
+--
+-- Definition of table `danh_gia`
+--
+
+DROP TABLE IF EXISTS `danh_gia`;
+CREATE TABLE `danh_gia` (
+  `dg_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `dg_em_id` int(10) unsigned NOT NULL,
+  `dg_thang` int(10) unsigned NOT NULL,
+  `dg_nam` int(10) unsigned NOT NULL,
+  `dg_cong_viec` text NOT NULL,
+  `dg_ket_qua_cong_viec` int(10) unsigned NOT NULL,
+  `dg_so_ngay_nghi` float DEFAULT '0',
+  `dg_ly_do_nghi` text,
+  `dg_y_thuc_xay_dung` text,
+  `dg_khuyet_diem` text,
+  `dg_tc_danh_gia` text,
+  `dg_ghi_chu` text,
+  `dg_phan_loai` varchar(45) DEFAULT NULL,
+  `dg_don_vi_status` double NOT NULL DEFAULT '-1',
+  `dg_ptccb_status` double NOT NULL DEFAULT '-1',
+  `dg_date_created` datetime DEFAULT NULL,
+  `dg_date_modifyed` datetime DEFAULT NULL,
+  PRIMARY KEY (`dg_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `danh_gia`
+--
+
+/*!40000 ALTER TABLE `danh_gia` DISABLE KEYS */;
+INSERT INTO `danh_gia` (`dg_id`,`dg_em_id`,`dg_thang`,`dg_nam`,`dg_cong_viec`,`dg_ket_qua_cong_viec`,`dg_so_ngay_nghi`,`dg_ly_do_nghi`,`dg_y_thuc_xay_dung`,`dg_khuyet_diem`,`dg_tc_danh_gia`,`dg_ghi_chu`,`dg_phan_loai`,`dg_don_vi_status`,`dg_ptccb_status`,`dg_date_created`,`dg_date_modifyed`) VALUES 
+ (1,1,2,2014,'<p>C&ocirc;ng viá»‡c 1,</p>\r\n<p>c&ocirc;ng viá»‡c 2</p>',9,0,'<p>á»m</p>','<p>tá»‘t</p>','<p>kh&ocirc;ng c&oacute;</p>','a:2:{i:4;s:1:\"0\";i:5;s:1:\"2\";}','<p>te te</p>','A',-1,-1,'2014-02-11 19:54:22','2014-02-11 20:06:19');
+/*!40000 ALTER TABLE `danh_gia` ENABLE KEYS */;
 
 
 --

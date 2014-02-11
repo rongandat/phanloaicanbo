@@ -31,7 +31,7 @@
                         <button class="btn" type="button" id="btn_chon_thang">Chọn tháng!</button>
                     </div>
                     <?php
-                    if ($this->danh_gia && ($this->danh_gia->d_don_vi_status != '-1' || $this->danh_gia->d_ptccb_status != '-1')) {
+                    if ($this->danh_gia && ($this->danh_gia->dg_don_vi_status != '-1' || $this->danh_gia->dg_ptccb_status != '-1')) {
                         echo '<span class="help-block">Tháng này đã được phê duyệt.</span>';
                     }
                     ?>
@@ -50,15 +50,19 @@
                 <label class="control-label" for="d_kq_cong_viec">Kết quả công việc</label>
                 <div class="controls">
                     <?php
-                    echo $this->formSelect('d_kq_cong_viec', $this->arrParam['d_kq_cong_viec'], array('class' => 'input-small'), array());
-                    ?>
+                    $kq_options = array();
+                    foreach ($this->ket_qua as $ket_qua) {
+                        $kq_options[$ket_qua->dgkqcv_id] = $ket_qua->dgkqcv_name;
+                    }
+                    echo $this->formSelect('d_kq_cong_viec', $this->arrParam['d_kq_cong_viec'], array('class' => 'input-xlarge'), $kq_options);
+                    ?>                     
                 </div>            
             </div>
             <div class="control-group">
                 <label class="control-label" for="d_ngay_nghi">Số ngày nghỉ</label>
                 <div class="controls">
                     <?php
-                    echo $this->formSelect('d_ngay_nghi', $this->arrParam['d_ngay_nghi'], array('class' => 'input-small'), array());
+                    echo $this->formText('d_ngay_nghi', 0, array("required" => '', 'class' => 'input-small'));
                     ?>
                 </div>            
             </div>
@@ -75,21 +79,35 @@
                     <?php echo $this->formTextarea('d_y_thuc', $this->arrParam['d_y_thuc'], array('class' => 'input-xlarge', 'rows' => 5)); ?>                   
                 </div>            
             </div>
-            
+
             <div class="control-group">
                 <label class="control-label" for="d_khuyet_diem">Khuyết điểm</label>
                 <div class="controls">
                     <?php echo $this->formTextarea('d_khuyet_diem', $this->arrParam['d_khuyet_diem'], array('class' => 'input-xlarge', 'rows' => 5)); ?>                   
                 </div>            
             </div>
-            
+
             <div class="control-group">
                 <label class="control-label" for="d_tieu_chi">Tiêu chí đánh giá</label>
                 <div class="controls">
-                    
+                    <div class="row">
+                        <?php
+                        foreach ($this->tieu_chi as $tieu_chi) {
+                            echo '<div class="span6 show-grid" style="margin-bottom: 5px;">                            
+                                    <div class="input-append">
+                                    ' . $this->formText('d_tieu_chi[' . $tieu_chi->tcdgcb_id . ']', (isset($this->arrParam['d_tieu_chi'][$tieu_chi->tcdgcb_id]) ? $this->arrParam['d_tieu_chi'][$tieu_chi->tcdgcb_id] : '0'), array("required" => '', 'class' => 'input-mini')) . '
+                                    <span class="add-on">Lần</span>
+                                  </div>
+                                  ' . $tieu_chi->tcdgcb_name . '  
+                            </div>';
+                        }
+                        ?>
+
+
+                    </div>
                 </div>            
             </div>
-            
+
             <div class="control-group">
                 <label class="control-label" for="d_ghi_chu">Ghi chú bổ sung</label>
                 <div class="controls">
@@ -100,10 +118,20 @@
                 <label class="control-label" for="d_phan_loai">Tự phân loại</label>
                 <div class="controls">
                     <?php
-                    echo $this->formSelect('d_phan_loai', $this->arrParam['d_phan_loai'], array('class' => 'input-small'), array());
+                    $tu_phan_loai_options = array('A' => 'A', 'B' => 'B', 'C' => 'C', 'D' => 'D');
+                    echo $this->formSelect('d_phan_loai', $this->arrParam['d_phan_loai'], array('class' => 'input-small'), $tu_phan_loai_options);
                     ?>
                 </div>            
             </div>
+            <div class="control-group">
+                <div class="controls">
+                    <p>                    
+                        <button class="btn btn-small btn-primary" type="submit">Cập nhật</button>
+                        <a class="btn btn-small" type="button" href="<?php echo $this->baseUrl(''); ?>">Quay lại</a>
+                    </p>
+                </div>
+            </div>
+
         </form>
     </div> 
 </div>
