@@ -41,6 +41,7 @@ class Block_BlkTopMenu extends Zend_View_Helper_Abstract {
                     'thanhvien' => 'Thành viên',
                     'duyetnghiphep' => 'Duyệt nghỉ phép',
                     'duyetthemgio' => 'Duyệt thêm giờ',
+                    'duyetchamcong' => 'Duyệt chấm công',
                     'duyetphanloai' => 'Duyệt phân loại cán bộ'
             )),
             'tochuccanbo' => array('name' => 'Tổ chức cán bộ', 'sub' => array(
