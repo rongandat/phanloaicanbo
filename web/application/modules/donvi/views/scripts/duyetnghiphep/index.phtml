@@ -32,20 +32,18 @@
                         $don_vi_icon = 'Chờ duyệt';
                         $flag_add_edit = true;
                         if ($nghi_phep->xnp_ptccb_status == 0) {
-                            $trang_thai_icon = 'Không duyệt';
+                            $trang_thai_icon = 'Không duyệt';   
                             $flag_add_edit = false;
                         }
                         if ($nghi_phep->xnp_don_vi_status == 0) {
-                            $don_vi_icon = 'Không duyệt';
-                            $flag_add_edit = false;
+                            $don_vi_icon = 'Không duyệt';                            
                         }
                         if ($nghi_phep->xnp_ptccb_status == 1) {
                             $trang_thai_icon = 'Đã duyệt';
                             $flag_add_edit = false;
                         }
                         if ($nghi_phep->xnp_don_vi_status == 1) {
-                            $don_vi_icon = 'Đã duyệt';
-                            $flag_add_edit = false;
+                            $don_vi_icon = 'Đã duyệt';                            
                         }
                         
                         ?>
@@ -54,7 +52,7 @@
                             <td><?php echo date('d-m-Y', strtotime($nghi_phep->em_ngay_sinh)); ?></td>
                             <td><?php echo date('d-m-Y', strtotime($nghi_phep->xnp_from_date)); ?></td>
                             <td><?php echo date('d-m-Y', strtotime($nghi_phep->xnp_to_date)); ?></td>
-                            <td><?php echo $don_vi_icon;?></td>
+                            <td><span><?php echo $don_vi_icon;?></span> <i class="icon-ok-sign"></i> <i class="icon-remove-sign"></i></td>
                             <td>
                                 <a class="btn btn-mini" role="button" data-toggle="modal" href="#mdXNP_<?php echo $nghi_phep->xnp_id;?>" title="Sửa"><i class="icon-list-alt"></i> Chi tiết</a>
                                 <div id="mdXNP_<?php echo $nghi_phep->xnp_id;?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
