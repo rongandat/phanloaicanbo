@@ -36,5 +36,30 @@ class Donvi_ThanhvienController extends Zend_Controller_Action {
         $option = array('layout' => 'donvi/layout',
             'layoutPath' => $layoutPath);
         Zend_Layout::startMvc($option);
+
+        $auth = Zend_Auth::getInstance();
+        $identity = $auth->getIdentity();
+        $em_id = $identity->em_id;
+
+        $emModel = new Front_Model_Employees();
+        $phongbanModel = new Front_Model_Phongban();
+        $my_info = $emModel->fetchRow('em_id=' . $em_id . ' and em_status=1');
+
+        $phong_ban_id = $list_phongban = $phong_ban = Array();
+        if ($my_info) {     
+            $phong_ban_id[] = $my_info->em_phong_ban;
+            $list_phongban = $phongbanModel->fetchDataStatus($my_info->em_phong_ban, $phong_ban);
+        }
+        
+        if(sizeof($list_phongban)){
+            foreach ($list_phongban as $phong_ban_info) {
+                $phong_ban_id[] = $phong_ban_info->pb_parent;
+            }
+        }
+        
+        $phong_ban_id = implode(',', $phong_ban_id);
+        $list_nhan_vien = $emModel->fetchAll("em_phong_ban in ('$phong_ban_id') and em_status=1");
+        $this->view->list_nhan_vien = $list_nhan_vien;
     }
+
 }
