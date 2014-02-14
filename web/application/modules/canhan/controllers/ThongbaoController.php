@@ -152,14 +152,19 @@ class Canhan_ThongbaoController extends Zend_Controller_Action {
             $auth = Zend_Auth::getInstance();
             $identity = $auth->getIdentity();
             $from_id = $identity->em_id;
-            $data['tb_from'] = $from_id;
-            $data['tb_to'] = $em_id;
-            $data['tb_tieu_de'] = base64_decode($tb_title);
-            $data['tb_noi_dung'] = base64_decode($tb_content);
-            $data['tb_status'] = 0;
-            $data['tb_date_added'] = $current_time;
-            $data['tb_date_modified'] = $current_time;
-            $success_message = $thongbao_model->insert($data);
+            $list_to = explode(',', $em_id);
+            foreach ($list_to as $to_id) {
+                if ($to_id) {
+                    $data['tb_from'] = $from_id;
+                    $data['tb_to'] = $to_id;
+                    $data['tb_tieu_de'] = base64_decode($tb_title);
+                    $data['tb_noi_dung'] = base64_decode($tb_content);
+                    $data['tb_status'] = 0;
+                    $data['tb_date_added'] = $current_time;
+                    $data['tb_date_modified'] = $current_time;
+                    $success_message = $thongbao_model->insert($data);
+                }
+            }
             $this->view->success_message = $success_message;
         }
     }

@@ -127,7 +127,7 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
     </div>
     <div class="modal-footer">
         <button class="btn" data-dismiss="modal" aria-hidden="true">Đóng</button>
-        <button class="btn btn-primary" onclick="postFormThongBao();">Cập nhật</button>
+        <button class="btn btn-primary" onclick="postFormThongBao();" id="btn_gui_thong_bao">Gửi thông báo</button>
     </div>
 </div>
 
@@ -613,23 +613,27 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
         var kl_content = tinyMCE.get('kl_chi_tiet').getContent();
         var kl_day = $('#mdKyLuatBody #kl_ngay_khen_thuong').val();
         var kl_month = $('#mdKyLuatBody #kl_thang_khen_thuong').val();
-        var kl_year = $('#mdKyLuatBody #kl_nam_khen_thuong').val();        
-        $.post( site_url+'/tochuccanbo/employees/jqkyluat', {
-            em_id: em_id, 
-            kl_date_day: kl_day, 
-            kl_date_month: kl_month,
-            kl_date_year: kl_year,
-            kl_ly_do: $.base64('encode', kl_title),
-            kl_chi_tiet: $.base64('encode', kl_content)
-        }, function(data) {
-            if(data.status){
-                $('#dv_ky_luat_success').show();
-                tinyMCE.get('kl_chi_tiet').setContent('');
-                $('#mdKyLuatBody #kl_ly_do').val('');
-            }else{
-                $('#dv_ky_luat_error').show();
-            }
-        }, 'json');
+        var kl_year = $('#mdKyLuatBody #kl_nam_khen_thuong').val();   
+        if(kl_title !='' && kl_content!=''){
+            $.post( site_url+'/tochuccanbo/employees/jqkyluat', {
+                em_id: em_id, 
+                kl_date_day: kl_day, 
+                kl_date_month: kl_month,
+                kl_date_year: kl_year,
+                kl_ly_do: $.base64('encode', kl_title),
+                kl_chi_tiet: $.base64('encode', kl_content)
+            }, function(data) {
+                if(data.status){
+                    $('#dv_ky_luat_success').show();
+                    tinyMCE.get('kl_chi_tiet').setContent('');
+                    $('#mdKyLuatBody #kl_ly_do').val('');
+                }else{
+                    $('#dv_ky_luat_error').show();
+                }
+            }, 'json');
+        }else{
+            alert('Bạn phải nhập đầy đủ lý do và nội dung kỷ luật!');
+        }
     }
     
     function loadFormKhenThuong(em_id, em_name){        
@@ -651,22 +655,26 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
         var kt_month = $('#mdKhenThuongBody #kt_thang_khen_thuong').val();
         var kt_year = $('#mdKhenThuongBody #kt_nam_khen_thuong').val(); 
         
-        $.post( site_url+'/tochuccanbo/employees/jqkhenthuong', { 
-            em_id: em_id, 
-            kt_date_day: kt_day, 
-            kt_date_month: kt_month,
-            kt_date_year: kt_year,
-            kt_ly_do: $.base64('encode', kt_title),
-            kt_chi_tiet: $.base64('encode', kt_content) 
-        }, function( data ) {
-            if(data.status){
-                $('#dv_khen_thuong_success').show();
-                tinyMCE.get('kt_chi_tiet').setContent('');
-                $('#mdKhenThuongBody #kt_ly_do').val('');
-            }else{
-                $('#dv_khen_thuong_error').show();
-            }
-        }, 'json');
+        if(kt_title !='' && kt_content!=''){
+            $.post( site_url+'/tochuccanbo/employees/jqkhenthuong', { 
+                em_id: em_id, 
+                kt_date_day: kt_day, 
+                kt_date_month: kt_month,
+                kt_date_year: kt_year,
+                kt_ly_do: $.base64('encode', kt_title),
+                kt_chi_tiet: $.base64('encode', kt_content) 
+            }, function( data ) {
+                if(data.status){
+                    $('#dv_khen_thuong_success').show();
+                    tinyMCE.get('kt_chi_tiet').setContent('');
+                    $('#mdKhenThuongBody #kt_ly_do').val('');
+                }else{
+                    $('#dv_khen_thuong_error').show();
+                }
+            }, 'json');
+        }else{
+            alert('Bạn phải nhập đầy đủ lý do và nội dung khen thưởng!');
+        }
     }
     
     function loadFormThongBao(em_id, em_name){        
@@ -684,18 +692,24 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
         var em_id = $('#mdThongBaoBody #tb_cap_nhat_id').val();
         var tb_title = $('#mdThongBaoBody #tb_tieu_de').val();
         var tb_content = tinyMCE.get('tb_noi_dung').getContent();
-        $.post( site_url+'/canhan/thongbao/jqnewtb', {
-            em_id: em_id, 
-            tb_title: $.base64('encode', tb_title), 
-            tb_content: $.base64('encode', tb_content)
-        }, function(data) {            
-            if(data.status){
-                $('#dv_thong_bao_success').show();
-                tinyMCE.get('tb_noi_dung').setContent('');
-                $('#mdThongBaoBody #tb_tieu_de').val('');
-            }else{
-                $('#dv_thong_bao_error').show();
-            }
-        }, 'json');
+        if(tb_title !='' && tb_content!=''){
+            $("#btn_gui_thong_bao").attr("disabled", "disabled");
+            $.post( site_url+'/canhan/thongbao/jqnewtb', {
+                em_id: em_id, 
+                tb_title: $.base64('encode', tb_title), 
+                tb_content: $.base64('encode', tb_content)
+            }, function(data) {   
+                $("#btn_gui_thong_bao").removeAttr("disabled");
+                if(data.status){
+                    $('#dv_thong_bao_success').show();
+                    tinyMCE.get('tb_noi_dung').setContent('');
+                    $('#mdThongBaoBody #tb_tieu_de').val('');
+                }else{
+                    $('#dv_thong_bao_error').show();
+                }
+            }, 'json');
+        }else{
+            alert('Bạn phải nhập đầy đủ tiêu đề và nội dung!');
+        }         
     }
 </script>

@@ -31,13 +31,16 @@ class Front_Model_XinNghiPhep extends Zend_Db_Table_Abstract {
         }
         return $this->fetchAll($select);
     }
-    
-    public function fetchByDate($em_id,$from_date, $to_date, $status=1){
-        $select = $this->select();
-        $select->where('xnp_em_id =?', $em_id);
-        $select->where('xnp_from_date >=?', $from_date);
-        $select->where('xnp_from_date <=?', $to_date);
-        $select->where('xnp_ptccb_status =?', $status);        
+
+    public function fetchByDate($em_id, $from_date, $to_date, $status = 1) {
+        $select = $this->select(Zend_Db_Table::SELECT_WITH_FROM_PART);
+        $select->setIntegrityCheck(false)
+                ->joinInner(TABLE_EMPLOYEES, TABLE_EMPLOYEES . '.em_id = ' . $this->_name . '.xnp_em_id', array('em_ten','em_ten_dem','em_ho', 'em_ngay_sinh'));
+
+        $select->where($this->_name.'.xnp_em_id in (?)', $em_id);
+        $select->where($this->_name.'.xnp_from_date >=?', $from_date);
+        $select->where($this->_name.'.xnp_from_date <=?', $to_date);
+        $select->where($this->_name.'.xnp_ptccb_status =?', $status);
         return $this->fetchAll($select);
     }
 
