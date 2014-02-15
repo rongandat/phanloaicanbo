@@ -74,5 +74,31 @@ class Donvi_DuyetnghiphepController extends Zend_Controller_Action {
         $this->view->thang = $thang;
         $this->view->nam = $nam;
     }
+    
+    public function jqupdatestatusAction() {
+        $this->_helper->layout()->disableLayout();
+        $new_status = 'Đã duyệt';
+        $process_status = 0;
+        if ($this->_request->isPost()) {
+            $xnp_id = $this->_arrParam['xnp_id'];
+            $xnp_status = $this->_arrParam['xnp_status'];
+            if($xnp_status>1){
+                $xnp_status=1;
+            }
+            if($xnp_status<0){
+                $xnp_status = -1;
+            }
+            $process_status = 1;
+            $xnpModel = new Front_Model_XinNghiPhep();
+            $process_status = $xnpModel->update(array('xnp_don_vi_status' => $xnp_status), "xnp_id=$xnp_id and xnp_ptccb_status<0");
+            if($process_status){
+                if(!$xnp_status){
+                    $new_status = 'Không duyệt';
+                }
+            }
+        }
+        $this->view->new_status = $new_status;
+        $this->view->process_status = $process_status;
+    }
 
 }

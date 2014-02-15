@@ -423,3 +423,23 @@ input, button, select, textarea {
     line-height: 25px;
     font-size: 12px;
 }
+
+div.success_ui { background: url(../img/bg_success_message.png) no-repeat 10px 10px }
+div.error_ui { background: url(../img/bg_error_message.png) no-repeat 10px 10px }
+div.success_ui h1, div.error_ui h1 {
+    color: white; padding: 10px 5px 0px 75px; text-align: left
+}
+
+div.success_ui h2, div.error_ui h2 {
+    color: white; padding: 0px 5px 10px 75px; text-align: left
+}
+
+div.success_ui h1, div.error_ui h1{
+    font-size: 14px;
+    line-height: 20px;
+}
+
+div.success_ui h2, div.error_ui h2{
+    font-size: 12px;
+    line-height: 20px;
+}

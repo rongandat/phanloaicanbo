@@ -18,10 +18,9 @@
                 <thead>
                     <tr>  
                         <th>Họ tên</th>
-                        <th style="width: 90px;">Ngày sinh</th>
                         <th style="width: 90px;">Bắt đầu</th>
                         <th style="width: 90px;">Kết thúc</th>
-                        <th style="width: 110px;">Đơn vị</th>
+                        <th style="width: 140px;">Đơn vị</th>
                         <th style="width: 90px;">Chức năng</th>
                     </tr>
                 </thead>
@@ -32,30 +31,28 @@
                         $don_vi_icon = 'Chờ duyệt';
                         $flag_add_edit = true;
                         if ($nghi_phep->xnp_ptccb_status == 0) {
-                            $trang_thai_icon = 'Không duyệt';   
+                            $trang_thai_icon = 'Không duyệt';
                             $flag_add_edit = false;
                         }
                         if ($nghi_phep->xnp_don_vi_status == 0) {
-                            $don_vi_icon = 'Không duyệt';                            
+                            $don_vi_icon = 'Không duyệt';
                         }
                         if ($nghi_phep->xnp_ptccb_status == 1) {
                             $trang_thai_icon = 'Đã duyệt';
                             $flag_add_edit = false;
                         }
                         if ($nghi_phep->xnp_don_vi_status == 1) {
-                            $don_vi_icon = 'Đã duyệt';                            
+                            $don_vi_icon = 'Đã duyệt';
                         }
-                        
                         ?>
                         <tr>
                             <td id="name_<?php echo $nghi_phep->xnp_em_id; ?>"><?php echo $nghi_phep->em_ho . ' ' . $nghi_phep->em_ten_dem . ' ' . $nghi_phep->em_ten; ?></td>
-                            <td><?php echo date('d-m-Y', strtotime($nghi_phep->em_ngay_sinh)); ?></td>
                             <td><?php echo date('d-m-Y', strtotime($nghi_phep->xnp_from_date)); ?></td>
                             <td><?php echo date('d-m-Y', strtotime($nghi_phep->xnp_to_date)); ?></td>
-                            <td><span><?php echo $don_vi_icon;?></span> <i class="icon-ok-sign"></i> <i class="icon-remove-sign"></i></td>
+                            <td><span id="sp_xnp_<?php echo $nghi_phep->xnp_id;?>"><?php echo $don_vi_icon; ?></span> <?php echo ($flag_add_edit ? '<i class="icon-ok-sign" onclick="update_status('.$nghi_phep->xnp_id.',1)"></i> <i class="icon-remove-sign" onclick="update_status('.$nghi_phep->xnp_id.',0)"></i>' : ''); ?></td>
                             <td>
-                                <a class="btn btn-mini" role="button" data-toggle="modal" href="#mdXNP_<?php echo $nghi_phep->xnp_id;?>" title="Sửa"><i class="icon-list-alt"></i> Chi tiết</a>
-                                <div id="mdXNP_<?php echo $nghi_phep->xnp_id;?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <a class="btn btn-mini" role="button" data-toggle="modal" href="#mdXNP_<?php echo $nghi_phep->xnp_id; ?>" title="Sửa"><i class="icon-list-alt"></i> Chi tiết</a>
+                                <div id="mdXNP_<?php echo $nghi_phep->xnp_id; ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                                         <h3 id="myModalLabel">Chi tiết</h3>
@@ -65,22 +62,22 @@
                                             <div class="span4 float_left"><strong>Lý do: </strong> <?php echo $nghi_phep->xnp_ly_do; ?></div>
                                         </div>
                                         <div class="row">
-                                            <div class="span4 float_left"><strong>Chi tiết: </strong> <?php echo $nghi_phep->xnp_chi_tiet ; ?></div>
+                                            <div class="span4 float_left"><strong>Chi tiết: </strong> <?php echo $nghi_phep->xnp_chi_tiet; ?></div>
                                         </div>
                                         <div class="row">
-                                            <div class="span4 float_left"><strong>Ngày bắt đầu: </strong> <?php echo date('d-m-Y', strtotime($nghi_phep->xnp_from_date)) ; ?></div>
+                                            <div class="span4 float_left"><strong>Ngày bắt đầu: </strong> <?php echo date('d-m-Y', strtotime($nghi_phep->xnp_from_date)); ?></div>
                                         </div>
                                         <div class="row">
-                                            <div class="span4 float_left"><strong>Ngày kết thúc: </strong> <?php echo date('d-m-Y', strtotime($nghi_phep->xnp_to_date)) ; ?></div>
+                                            <div class="span4 float_left"><strong>Ngày kết thúc: </strong> <?php echo date('d-m-Y', strtotime($nghi_phep->xnp_to_date)); ?></div>
                                         </div>
                                         <div class="row">
-                                            <div class="span4 float_left"><strong>Ngày nộp đơn: </strong> <?php echo date('d-m-Y', strtotime($nghi_phep->xnp_date_created)) ; ?></div>
+                                            <div class="span4 float_left"><strong>Ngày nộp đơn: </strong> <?php echo date('d-m-Y', strtotime($nghi_phep->xnp_date_created)); ?></div>
                                         </div>
                                         <div class="row">
-                                            <div class="span4 float_left"><strong>Đơn vị: </strong> <?php echo $don_vi_icon ; ?></div>
+                                            <div class="span4 float_left" id="dv_xnp_<?php echo $nghi_phep->xnp_id;?>"><strong>Đơn vị: </strong> <?php echo $don_vi_icon; ?></div>
                                         </div>
                                         <div class="row">
-                                            <div class="span4 float_left"><strong>Phòng tổ chức: </strong> <?php echo $trang_thai_icon ; ?></div>
+                                            <div class="span4 float_left"><strong>Phòng tổ chức: </strong> <?php echo $trang_thai_icon; ?></div>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -118,4 +115,33 @@
     $('#btn_chon_thang').bind('click', function () {
         $('#txt_thang_nam').monthpicker('show');
     });
+    
+    function update_status(id_xnp, new_status){
+        $.blockUI({
+            message: '<h3>Đang thực hiện</h3>',
+            css: {                         
+                border: 'none', 
+                padding: '15px', 
+                backgroundColor: '#000', 
+                '-webkit-border-radius': '10px', 
+                '-moz-border-radius': '10px', 
+                opacity: .5, 
+                color: '#fff' 
+            }
+        }); 
+        
+        $.post( site_url+'/donvi/duyetnghiphep/jqupdatestatus', {
+            xnp_id: id_xnp, 
+            xnp_status: new_status
+        }, function(data) {    
+            if(data.status){                
+                $.success_ui('Thông báo!', 'Duyệt đơn thành công!', 4000);
+                $('#sp_xnp_'+id_xnp).html(data.new_status);
+                $('#dv_xnp_'+id_xnp).html('<strong>Đơn vị: </strong> '+data.new_status);
+            }else{
+                $.error_ui('Thông báo', 'Không thể thực hiện được!', 4000); 
+            }
+        }, 'json');
+            
+    }
 </script>

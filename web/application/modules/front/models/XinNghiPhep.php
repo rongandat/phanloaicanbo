@@ -32,15 +32,16 @@ class Front_Model_XinNghiPhep extends Zend_Db_Table_Abstract {
         return $this->fetchAll($select);
     }
 
-    public function fetchByDate($em_id, $from_date, $to_date, $status = 1) {
+    public function fetchByDate($em_id, $from_date, $to_date, $status = 1, $fetch_status = 0) {
         $select = $this->select(Zend_Db_Table::SELECT_WITH_FROM_PART);
         $select->setIntegrityCheck(false)
-                ->joinInner(TABLE_EMPLOYEES, TABLE_EMPLOYEES . '.em_id = ' . $this->_name . '.xnp_em_id', array('em_ten','em_ten_dem','em_ho', 'em_ngay_sinh'));
+                ->joinInner(TABLE_EMPLOYEES, TABLE_EMPLOYEES . '.em_id = ' . $this->_name . '.xnp_em_id', array('em_ten', 'em_ten_dem', 'em_ho', 'em_ngay_sinh'));
 
-        $select->where($this->_name.'.xnp_em_id in (?)', $em_id);
-        $select->where($this->_name.'.xnp_from_date >=?', $from_date);
-        $select->where($this->_name.'.xnp_from_date <=?', $to_date);
-        $select->where($this->_name.'.xnp_ptccb_status =?', $status);
+        $select->where($this->_name . '.xnp_em_id in (?)', $em_id);
+        $select->where($this->_name . '.xnp_from_date >=?', $from_date);
+        $select->where($this->_name . '.xnp_from_date <=?', $to_date);
+        if($fetch_status)
+            $select->where($this->_name . '.xnp_ptccb_status =?', $status);
         return $this->fetchAll($select);
     }
 
