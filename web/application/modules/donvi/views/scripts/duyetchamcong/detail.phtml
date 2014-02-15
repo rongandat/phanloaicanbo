@@ -1,0 +1,127 @@
+<h5>Thống kê tháng</h5>               
+
+<div class="main-content-box">  
+    <form class="form-horizontal" method="post" action="" enctype="multipart/form-data">        
+        <?php
+        $holiday_options = array('' => '', '-2' => 'Nghỉ phép', '-1' => 'Nghỉ không phép', '0' => 'Đi làm');
+        foreach ($this->list_holidays as $holiday) {
+            $holiday_options["$holiday->hld_id"] = $holiday->hld_name;
+        }
+
+
+//This gets today's date
+        $date = time();
+
+//This puts the day, month, and year in seperate variables
+        $day = date('d', $date);
+        $month = $this->thang;
+        $year = $this->nam;
+
+//Here we generate the first day of the month
+        $first_day = mktime(0, 0, 0, $month, 1, $year);
+
+//This gets us the month name
+        $title = date('m', $first_day);
+
+//Here we find out what day of the week the first day of the month falls on
+        $day_of_week = date('D', $first_day);
+
+//Once we know what day of the week it falls on, we know how many blank days occure before it. If the first day of the week is a Sunday then it would be zero
+        switch ($day_of_week) {
+            case "Sun": $blank = 0;
+                break;
+            case "Mon": $blank = 1;
+                break;
+            case "Tue": $blank = 2;
+                break;
+            case "Wed": $blank = 3;
+                break;
+            case "Thu": $blank = 4;
+                break;
+            case "Fri": $blank = 5;
+                break;
+            case "Sat": $blank = 6;
+                break;
+        }
+
+//We then determine how many days are in the current month
+        $days_in_month = cal_days_in_month(0, $month, $year);
+//Here we start building the table heads
+        
+        echo "<table class='table table-bordered' id='tb_cham_cong'>";
+        echo "<tr><th colspan=7>Chấm công</th></tr>";
+        echo "<tr>
+            <td width='102' class='error'>Chủ nhật</td>
+            <td width='102'>Thứ 2</td>
+            <td width='102'>Thứ 3</td>
+            <td width='102'>Thứ 4</td>
+            <td width='102'>Thứ 5</td>
+            <td width='102'>Thứ 6</td>
+            <td width='102' class='warning'>Thứ 7</td></tr>";
+
+//This counts the days in the week, up to 7
+        $day_count = 1;
+
+        echo "<tr>";
+//first we take care of those blank days
+        while ($blank > 0) {
+            echo "<td></td>";
+            $blank = $blank - 1;
+            $day_count++;
+        }
+
+//sets the first day of the month to 1
+        $day_num = 1;
+
+//count up the days, untill we've done all of them in the month
+        while ($day_num <= $days_in_month) {
+            $class_name = '';
+            switch ($day_count) {
+                case 1:
+                    $class_name = 'error';
+                    break;
+                case 7:
+                    $class_name = 'warning';
+                    break;
+            }
+            $ngay_hom_nay = $year . '-' . $month . '-' . $day_num;
+            $du_lieu_da_chon = null;
+            if ($this->cham_cong) {
+                eval('$du_lieu_da_chon = $this->cham_cong->c_ngay_' . $day_num . ';');
+            }
+            $text_show = "<td class='$class_name'>
+                <div class='row-fluid'>$day_num</div>
+                <div class='row-fluid'>$holiday_options[$du_lieu_da_chon]</div>
+            </td>";
+            ;
+            foreach ($this->list_nghi_phep as $item) {
+                $ngay_so_sanh_1 = date('y-m-d', strtotime($item->xnp_from_date));
+                $ngay_so_sanh_2 = date('y-m-d', strtotime($item->xnp_to_date));
+                if (strtotime($ngay_hom_nay) >= strtotime($ngay_so_sanh_1) && strtotime($ngay_hom_nay) <= strtotime($ngay_so_sanh_2)) {
+                    $text_show = "<td class='$class_name'>
+                        <div class='row-fluid'>$day_num</div>
+                        <div class='row-fluid'>" . $item->xnp_ly_do . "</div>
+                    </td>";
+                    break;
+                }
+            }
+            echo $text_show;
+            $day_num++;
+            $day_count++;
+
+//Make sure we start a new row every week
+            if ($day_count > 7) {
+                echo "</tr><tr>";
+                $day_count = 1;
+            }
+        }
+//Finaly we finish out the table with some blank details if needed
+        while ($day_count > 1 && $day_count <= 7) {
+            echo "<td> </td>";
+            $day_count++;
+        }
+
+        echo "</tr></table>";
+        ?>
+    </form>
+</div> 

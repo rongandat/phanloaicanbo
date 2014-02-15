@@ -1,0 +1,51 @@
+<div class="body_content float_right">
+    <h5>Duyệt phân loại</h5>               
+
+    <div class="main-content-box">  
+        <form name="appForm" method="post" action="">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>    
+                        <th class="checkall_style"><input type="checkbox" name="check_all" id="checkbox" onclick="checkedAll()"></th>
+                        <th>Họ tên</th>
+                        <th style="width: 100px;">Tên khác</th>
+                        <th style="width: 100px;">Ngày sinh</th>
+                        <th style="width: 70px;">Giới tính</th>
+                        <th style="width: 150px;">Chức năng</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    foreach ($this->list_nhan_vien as $nhan_vien) {
+                        ?>
+                        <tr>
+                            <td class="checkall_style"><input type="checkbox" name="cid[]" id="cid" value="<?php echo $nhan_vien->em_id; ?>"></td>
+                            <td id="name_<?php echo $nhan_vien->em_id; ?>"><?php echo $nhan_vien->em_ho . ' ' . $nhan_vien->em_ten_dem . ' ' . $nhan_vien->em_ten; ?></td>
+                            <td><?php echo $nhan_vien->em_ten_khac; ?></td>
+                            <td><?php echo date('d-m-Y', strtotime($nhan_vien->em_ngay_sinh)); ?></td>
+                            <td><?php echo ($nhan_vien->em_gioi_tinh ? 'Nam' : 'Nữ'); ?></td>
+                            <td>
+                                <div class="dropdown float_left" style="padding-right: 6px;">
+                                    <a class="btn btn-mini" id="drop_<?php echo $nhan_vien->em_id; ?>" role="button" data-toggle="dropdown" href="#"><i class="icon-th-list"></i> Chức năng <b class="caret"></b></a>                                    
+                                    <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop_<?php echo $nhan_vien->em_id; ?>">
+                                        <li role="presentation">
+                                            <a role="menuitem" tabindex="-1" data-toggle="modal" href="#mdThongBao" title="Gửi tin nhắn" onclick="loadFormThongBao('<?php echo $nhan_vien->em_id; ?>', '<?php echo $nhan_vien->em_ho . ' ' . $nhan_vien->em_ten_dem . ' ' . $nhan_vien->em_ten; ?>')"><i class="icon-envelope"></i> Gửi thông báo</a>
+                                        </li>
+                                        <li role="presentation">
+                                            <a role="menuitem" tabindex="-1" data-toggle="modal" href="#mdLuanChuyen" title="Luân chuyển"><i class="icon-calendar"></i> Duyệt chấm công</a>
+                                        </li>
+                                        <li role="presentation">
+                                            <a role="menuitem" tabindex="-1" href="#" title="In Lương"><i class="icon-font"></i> Duyệt phân loại</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                        <?php
+                    }
+                    ?>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>

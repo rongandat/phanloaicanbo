@@ -443,3 +443,7 @@ div.success_ui h2, div.error_ui h2{
     font-size: 12px;
     line-height: 20px;
 }
+
+.ta_left{
+    text-align: left !important;
+}

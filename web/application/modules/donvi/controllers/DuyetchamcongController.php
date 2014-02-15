@@ -1,6 +1,6 @@
 <?php
 
-class Donvi_DuyetnghiphepController extends Zend_Controller_Action {
+class Donvi_DuyetchamcongController extends Zend_Controller_Action {
 
     protected $_arrParam;
     protected $_page = 1;
@@ -29,25 +29,24 @@ class Donvi_DuyetnghiphepController extends Zend_Controller_Action {
 
     public function indexAction() {
         $translate = Zend_Registry::get('Zend_Translate');
-        $this->view->title = 'Duyệt đơn xin nghỉ phép - ' . $translate->_('TEXT_DEFAULT_TITLE');
+        $this->view->title = 'Danh sách thành viên - ' . $translate->_('TEXT_DEFAULT_TITLE');
         $this->view->headTitle($this->view->title);
 
         $layoutPath = APPLICATION_PATH . '/templates/' . TEMPLATE_USED;
-        $option = array('layout' => 'donvi/layout',
+        $option = array('layout' => '1_column/layout',
             'layoutPath' => $layoutPath);
         Zend_Layout::startMvc($option);
-
-        $auth = Zend_Auth::getInstance();
-        $identity = $auth->getIdentity();
-        $em_id = $identity->em_id;
 
         $date = time();
         $thang = $this->_getParam('thang', date('m', $date));
         $nam = $this->_getParam('nam', date('Y', $date));
 
+        $auth = Zend_Auth::getInstance();
+        $identity = $auth->getIdentity();
+        $em_id = $identity->em_id;
+
         $emModel = new Front_Model_Employees();
         $phongbanModel = new Front_Model_Phongban();
-        $xnpModel = new Front_Model_XinNghiPhep();
         $my_info = $emModel->fetchRow('em_id=' . $em_id . ' and em_status=1');
 
         $phong_ban_id = $list_phongban = $phong_ban = Array();
@@ -64,41 +63,39 @@ class Donvi_DuyetnghiphepController extends Zend_Controller_Action {
 
         $phong_ban_id = implode(',', $phong_ban_id);
         $list_nhan_vien = $emModel->fetchAll("em_phong_ban in ($phong_ban_id) and em_status=1");
-        $list_nhan_vien_id = array();
-        foreach ($list_nhan_vien as $nhan_vien) {
-            $list_nhan_vien_id[] = $nhan_vien->em_id;
-        }
-        
-        $list_nghi_phep = $xnpModel->fetchByDate($list_nhan_vien_id, "$nam-$thang-01 00:00:00", "$nam-$thang-31 23:59:59");
-        $this->view->list_nghi_phep = $list_nghi_phep;
+        $this->view->list_nhan_vien = $list_nhan_vien;
         $this->view->thang = $thang;
         $this->view->nam = $nam;
     }
-    
-    public function jqupdatestatusAction() {
-        $this->_helper->layout()->disableLayout();
-        $new_status = 'Đã duyệt';
-        $process_status = 0;
-        if ($this->_request->isPost()) {
-            $xnp_id = $this->_arrParam['xnp_id'];
-            $xnp_status = $this->_arrParam['xnp_status'];
-            if($xnp_status>1){
-                $xnp_status=1;
-            }
-            if($xnp_status<0){
-                $xnp_status = -1;
-            }
-            $process_status = 1;
-            $xnpModel = new Front_Model_XinNghiPhep();
-            $process_status = $xnpModel->update(array('xnp_don_vi_status' => $xnp_status), "xnp_id=$xnp_id and xnp_ptccb_status<0");
-            if($process_status){
-                if(!$xnp_status){
-                    $new_status = 'Không duyệt';
-                }
-            }
-        }
-        $this->view->new_status = $new_status;
-        $this->view->process_status = $process_status;
+
+    public function detailAction() {
+        $translate = Zend_Registry::get('Zend_Translate');
+        $this->view->title = 'Danh sách thành viên - ' . $translate->_('TEXT_DEFAULT_TITLE');
+        $this->view->headTitle($this->view->title);
+
+        $layoutPath = APPLICATION_PATH . '/templates/' . TEMPLATE_USED;
+        $option = array('layout' => '1_column/layout',
+            'layoutPath' => $layoutPath);
+        Zend_Layout::startMvc($option);
+
+        $date = time();
+        $thang = $this->_getParam('thang', date('m', $date));
+        $nam = $this->_getParam('nam', date('Y', $date));
+        $em_id = $this->_getParam('em', 0);
+
+        $holidaysModel = new Front_Model_Holidays();
+        $list_holidays = $holidaysModel->fetchData(array(), 'hld_order ASC');
+        $xinnghiphepModel = new Front_Model_XinNghiPhep();
+        $list_nghi_phep = $xinnghiphepModel->fetchByDate($em_id, "$nam-$thang-01 00:00:00", "$nam-$thang-31 23:59:59");
+
+        $chamcongModel = new Front_Model_ChamCong();
+        $cham_cong = $chamcongModel->fetchOneData(array('c_em_id' => $em_id, 'c_thang' => $thang, 'c_nam' => $nam));
+
+        $this->view->cham_cong = $cham_cong;
+        $this->view->thang = $thang;
+        $this->view->nam = $nam;
+        $this->view->list_holidays = $list_holidays;
+        $this->view->list_nghi_phep = $list_nghi_phep;
     }
 
 }

@@ -1,6 +1,6 @@
 <?php
 
-class Donvi_DuyetnghiphepController extends Zend_Controller_Action {
+class Donvi_DuyetthemgioController extends Zend_Controller_Action {
 
     protected $_arrParam;
     protected $_page = 1;
@@ -29,7 +29,7 @@ class Donvi_DuyetnghiphepController extends Zend_Controller_Action {
 
     public function indexAction() {
         $translate = Zend_Registry::get('Zend_Translate');
-        $this->view->title = 'Duyệt đơn xin nghỉ phép - ' . $translate->_('TEXT_DEFAULT_TITLE');
+        $this->view->title = 'Duyệt khai báo làm thêm giờ - ' . $translate->_('TEXT_DEFAULT_TITLE');
         $this->view->headTitle($this->view->title);
 
         $layoutPath = APPLICATION_PATH . '/templates/' . TEMPLATE_USED;
@@ -47,7 +47,7 @@ class Donvi_DuyetnghiphepController extends Zend_Controller_Action {
 
         $emModel = new Front_Model_Employees();
         $phongbanModel = new Front_Model_Phongban();
-        $xnpModel = new Front_Model_XinNghiPhep();
+        $ltgModel = new Front_Model_LamThemGio();
         $my_info = $emModel->fetchRow('em_id=' . $em_id . ' and em_status=1');
 
         $phong_ban_id = $list_phongban = $phong_ban = Array();
@@ -69,8 +69,8 @@ class Donvi_DuyetnghiphepController extends Zend_Controller_Action {
             $list_nhan_vien_id[] = $nhan_vien->em_id;
         }
         
-        $list_nghi_phep = $xnpModel->fetchByDate($list_nhan_vien_id, "$nam-$thang-01 00:00:00", "$nam-$thang-31 23:59:59");
-        $this->view->list_nghi_phep = $list_nghi_phep;
+        $list_lam_them_gio = $ltgModel->fetchByDate($list_nhan_vien_id, "$nam-$thang-01 00:00:00", "$nam-$thang-31 23:59:59");
+        $this->view->lam_them_gio = $list_lam_them_gio;
         $this->view->thang = $thang;
         $this->view->nam = $nam;
     }
@@ -80,19 +80,19 @@ class Donvi_DuyetnghiphepController extends Zend_Controller_Action {
         $new_status = 'Đã duyệt';
         $process_status = 0;
         if ($this->_request->isPost()) {
-            $xnp_id = $this->_arrParam['xnp_id'];
-            $xnp_status = $this->_arrParam['xnp_status'];
-            if($xnp_status>1){
-                $xnp_status=1;
+            $item_id = $this->_arrParam['item_id'];
+            $item_status = $this->_arrParam['item_status'];
+            if($item_status>1){
+                $item_status=1;
             }
-            if($xnp_status<0){
-                $xnp_status = -1;
+            if($item_status<0){
+                $item_status = -1;
             }
             $process_status = 1;
-            $xnpModel = new Front_Model_XinNghiPhep();
-            $process_status = $xnpModel->update(array('xnp_don_vi_status' => $xnp_status), "xnp_id=$xnp_id and xnp_ptccb_status<0");
+            $ltgModel = new Front_Model_LamThemGio();
+            $process_status = $ltgModel->update(array('ltg_don_vi_status' => $item_status), "ltg_id=$item_id and ltg_tccb_status<0");
             if($process_status){
-                if(!$xnp_status){
+                if(!$item_status){
                     $new_status = 'Không duyệt';
                 }
             }

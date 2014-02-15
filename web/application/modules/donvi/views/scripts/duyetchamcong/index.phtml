@@ -1,0 +1,80 @@
+<h5>Duyệt chấm công</h5>               
+
+<div class="main-content-box">  
+    <form name="appForm" class="form-horizontal" method="post" action="">
+        <div class="control-group">
+            <label class="control-label">Nhân viên</label>
+            <div class="controls">
+                <?php
+                $list_nv = array('' => 'Chọn nhân viên');
+                foreach ($this->list_nhan_vien as $nhan_vien) {
+                    $list_nv[$nhan_vien->em_id] = $nhan_vien->em_ho . ' ' . $nhan_vien->em_ten_dem . ' ' . $nhan_vien->em_ten;
+                }
+                echo $this->formSelect('sl_chon_nv', null, array('onchange' => 'get_detail()'), $list_nv);
+                ?>
+
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">Tháng</label>
+            <div class="controls">
+                <div class="input-append">
+                    <input class="span2" value="<?php echo $this->thang . '/' . $this->nam; ?>" id="txt_thang_nam" type="text" readonly="true"/>
+                    <button class="btn" type="button" id="btn_chon_thang">Chọn tháng!</button>
+                </div>
+
+            </div>
+        </div>
+        <div id="dv_detail">
+        </div>
+    </form>
+</div>
+
+<script>
+    var currentYear = <?php echo $this->nam; ?>;    
+    var options = {
+        pattern: 'mm/yyyy', // Default is 'mm/yyyy' and separator char is not mandatory 
+        startYear: 2013,
+        selectedYear: currentYear,
+        monthNames: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12']
+    };
+
+    $('#txt_thang_nam').monthpicker(options);
+
+    $('#txt_thang_nam').monthpicker().bind('monthpicker-click-month', function (e, month, year) { 
+        get_detail();
+    });
+
+    $('#btn_chon_thang').bind('click', function () {
+        $('#txt_thang_nam').monthpicker('show');
+    });
+    
+    function get_detail(){
+        $.blockUI({
+            message: '<h3>Đang thực hiện</h3>',
+            css: {                         
+                border: 'none', 
+                padding: '15px', 
+                backgroundColor: '#000', 
+                '-webkit-border-radius': '10px', 
+                '-moz-border-radius': '10px', 
+                opacity: .5, 
+                color: '#fff' 
+            }
+        }); 
+        
+        var em_id = $('#sl_chon_nv').val();
+        var c_date = $('#txt_thang_nam').val();
+        var date_array = c_date.split("/");
+        var d = new Date(),
+        c_m = d.getMonth(),
+        c_y = d.getFullYear();
+        if(date_array.length==2 && $.isNumeric(date_array[0]) && $.isNumeric(date_array[1])){
+            c_m = date_array[0];
+            c_y = date_array[1];
+        }
+        $('#dv_detail').load(site_url+'/donvi/duyetchamcong/detail/thang/'+c_m+'/nam/'+c_y+'/em/'+em_id+' #tb_cham_cong', function(){
+            setTimeout($.unblockUI, 1000); 
+        });
+    }
+</script>
