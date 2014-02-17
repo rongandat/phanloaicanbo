@@ -70,7 +70,7 @@ class Canhan_DanhgiaphanloaiController extends Zend_Controller_Action {
             $ghi_chu = $this->_arrParam['d_ghi_chu'];
             $phan_loai = $this->_arrParam['d_phan_loai'];
             $current_time = new Zend_Db_Expr('NOW()');
-            if ($danh_gia && ($danh_gia->dg_don_vi_status != '-1' || $danh_gia->dg_ptccb_status != '-1')) {
+            if ($danh_gia && ($danh_gia->dg_don_vi_status != '' || $danh_gia->dg_ptccb_status != '')) {
                 $error_message[] = 'Đánh giá phân loại đã được duyệt nên không thể thay đổi.';
             }
             

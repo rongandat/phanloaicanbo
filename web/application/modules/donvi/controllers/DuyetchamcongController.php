@@ -97,5 +97,23 @@ class Donvi_DuyetchamcongController extends Zend_Controller_Action {
         $this->view->list_holidays = $list_holidays;
         $this->view->list_nghi_phep = $list_nghi_phep;
     }
+    
+    public function jqupdatestatusAction() {
+        $this->_helper->layout()->disableLayout();        
+        $process_status = 0;
+        if ($this->_request->isPost()) {
+            $c_id = $this->_arrParam['c_id'];
+            $c_status = $this->_arrParam['c_status'];
+            if($c_status>1){
+                $c_status=1;
+            }
+            if($c_status<0){
+                $c_status = -1;
+            }
+            $chaqmcongModel = new Front_Model_ChamCong();
+            $process_status = $chaqmcongModel->update(array('c_don_vi_status' => $c_status), "c_id=$c_id and c_ptccb_status<0");
+        }
+        $this->view->process_status = $process_status;
+    }
 
 }

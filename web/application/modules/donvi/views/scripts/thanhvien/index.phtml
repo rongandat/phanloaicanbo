@@ -39,10 +39,10 @@
                                             <a role="menuitem" tabindex="-1" data-toggle="modal" href="#mdThongBao" title="Gửi tin nhắn" onclick="loadFormThongBao('<?php echo $nhan_vien->em_id; ?>', '<?php echo $nhan_vien->em_ho . ' ' . $nhan_vien->em_ten_dem . ' ' . $nhan_vien->em_ten; ?>')"><i class="icon-envelope"></i> Gửi thông báo</a>
                                         </li>
                                         <li role="presentation">
-                                            <a role="menuitem" tabindex="-1" data-toggle="modal" href="#mdLuanChuyen" title="Luân chuyển"><i class="icon-calendar"></i> Duyệt chấm công</a>
+                                            <a role="menuitem" tabindex="-1" href="<?php echo $this->baseUrl('donvi/duyetchamcong'); ?>" title="Duyệt chấm công"><i class="icon-calendar"></i> Duyệt chấm công</a>
                                         </li>
                                         <li role="presentation">
-                                            <a role="menuitem" tabindex="-1" href="#" title="In Lương"><i class="icon-font"></i> Duyệt phân loại</a>
+                                            <a role="menuitem" tabindex="-1" href="<?php echo $this->baseUrl('donvi/duyetphanloai'); ?>" title="Duyệt phân loại cán bộ"><i class="icon-font"></i> Duyệt phân loại</a>
                                         </li>
                                     </ul>
                                 </div>

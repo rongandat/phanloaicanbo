@@ -1,7 +1,7 @@
 -- MySQL Administrator dump 1.4
 --
 -- ------------------------------------------------------
--- Server version	5.6.14
+-- Server version	5.5.27
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -100,7 +100,7 @@ CREATE TABLE `cham_cong` (
 
 /*!40000 ALTER TABLE `cham_cong` DISABLE KEYS */;
 INSERT INTO `cham_cong` (`c_id`,`c_em_id`,`c_thang`,`c_nam`,`c_ngay_1`,`c_ngay_2`,`c_ngay_3`,`c_ngay_4`,`c_ngay_5`,`c_ngay_6`,`c_ngay_7`,`c_ngay_8`,`c_ngay_9`,`c_ngay_10`,`c_ngay_11`,`c_ngay_12`,`c_ngay_13`,`c_ngay_14`,`c_ngay_15`,`c_ngay_16`,`c_ngay_17`,`c_ngay_18`,`c_ngay_19`,`c_ngay_20`,`c_ngay_21`,`c_ngay_22`,`c_ngay_23`,`c_ngay_24`,`c_ngay_25`,`c_ngay_26`,`c_ngay_27`,`c_ngay_28`,`c_ngay_29`,`c_ngay_30`,`c_ngay_31`,`c_don_vi_status`,`c_ptccb_status`,`c_date_created`,`c_date_modifyed`) VALUES 
- (2,1,2,2014,'9','','','','','','','9','8','0','0','0','0','0','9','8','0','0','0','0','0','9','8','0','','','','4','','','',-1,-1,'2014-02-08 23:08:39','2014-02-08 23:18:29');
+ (2,1,2,2014,'9','','','','','','','9','8','0','0','0','0','0','9','8','0','0','0','0','0','9','8','0','','','','4','','','',0,-1,'2014-02-08 23:08:39','2014-02-08 23:18:29');
 /*!40000 ALTER TABLE `cham_cong` ENABLE KEYS */;
 
 
@@ -281,8 +281,8 @@ CREATE TABLE `danh_gia` (
   `dg_tc_danh_gia` text,
   `dg_ghi_chu` text,
   `dg_phan_loai` varchar(45) DEFAULT NULL,
-  `dg_don_vi_status` double NOT NULL DEFAULT '-1',
-  `dg_ptccb_status` double NOT NULL DEFAULT '-1',
+  `dg_don_vi_status` varchar(1) DEFAULT NULL,
+  `dg_ptccb_status` varchar(1) DEFAULT NULL,
   `dg_date_created` datetime DEFAULT NULL,
   `dg_date_modifyed` datetime DEFAULT NULL,
   PRIMARY KEY (`dg_id`)
@@ -294,7 +294,7 @@ CREATE TABLE `danh_gia` (
 
 /*!40000 ALTER TABLE `danh_gia` DISABLE KEYS */;
 INSERT INTO `danh_gia` (`dg_id`,`dg_em_id`,`dg_thang`,`dg_nam`,`dg_cong_viec`,`dg_ket_qua_cong_viec`,`dg_so_ngay_nghi`,`dg_ly_do_nghi`,`dg_y_thuc_xay_dung`,`dg_khuyet_diem`,`dg_tc_danh_gia`,`dg_ghi_chu`,`dg_phan_loai`,`dg_don_vi_status`,`dg_ptccb_status`,`dg_date_created`,`dg_date_modifyed`) VALUES 
- (1,1,2,2014,'<p>C&ocirc;ng viá»‡c 1,</p>\r\n<p>c&ocirc;ng viá»‡c 2</p>',9,0,'<p>á»m</p>','<p>tá»‘t</p>','<p>kh&ocirc;ng c&oacute;</p>','a:2:{i:4;s:1:\"0\";i:5;s:1:\"2\";}','<p>te te</p>','A',-1,-1,'2014-02-11 19:54:22','2014-02-11 20:06:19');
+ (1,1,2,2014,'<p>C&ocirc;ng viá»‡c 1,</p>\r\n<p>c&ocirc;ng viá»‡c 2</p>',9,0,'<p>á»m</p>','<p>tá»‘t</p>','<p>kh&ocirc;ng c&oacute;</p>','a:2:{i:4;s:1:\"0\";i:5;s:1:\"2\";}','<p>te te</p>','A','D','','2014-02-11 19:54:22','2014-02-16 13:42:46');
 /*!40000 ALTER TABLE `danh_gia` ENABLE KEYS */;
 
 
@@ -382,16 +382,6 @@ CREATE TABLE `employees` (
 INSERT INTO `employees` (`em_id`,`em_ten`,`em_ten_dem`,`em_ho`,`em_ngay_sinh`,`em_so_chung_minh_thu`,`em_ten_khac`,`em_anh_the`,`em_gioi_tinh`,`em_home_phone`,`em_phone`,`em_noi_sinh`,`em_que_quan`,`em_dia_chi`,`em_dia_chi_tinh`,`em_dia_chi_huyen`,`em_dan_toc`,`em_so_cong_chuc`,`em_chuc_vu`,`em_phong_ban`,`em_ngay_tuyen_dung`,`em_ngach_cong_chuc`,`em_cong_viec`,`em_chuyen_mon`,`em_chuc_vu_dang`,`em_ngay_vao_dang`,`em_chuc_vu_doan`,`em_ngay_vao_doan`,`em_chuc_vu_cong_doan`,`em_van_hoa_pt`,`em_hoc_ham`,`em_bang_cap`,`em_ngoai_ngu`,`em_tin_hoc`,`em_chung_chi_khac`,`em_anh_bang_cap`,`em_status`,`em_delete`,`em_date_added`,`em_date_modified`) VALUES 
  (1,'HÃ¹ng','Máº¡nh','Nguyá»…n','1986-10-08 12:32:07','131398081','Nobita','',1,'','0985679742','Äoan HÃ¹ng','VÄ©nh PhÃº','ThÃ´n 12 -VÃ¢n Du',4,1,2,'HAV102',6,9,'2009-10-01 11:48:07',5,'Ha ah ha','he he he',9,'2010-04-30 12:32:07',12,'2012-03-20 12:32:07',14,'12/12',3,8,1,2,3,'a:3:{i:0;s:36:\"571272600_1_blue.__large_preview.jpg\";i:1;s:17:\"518928803_top.png\";i:2;s:25:\"1795367415_Untitled-1.jpg\";}',1,0,'2013-12-02 16:54:16','2014-02-09 12:32:08'),
  (2,'BÃ­ch','Ngá»c','Ã‚u','1986-11-02 00:00:07','13133123434','BÃ­ch','1385911581.png',0,'','09886838560','Báº£o Tháº¯ng','HoÃ ng LiÃªn SÆ¡n','XÃ³m 11',4,1,2,'HAV1023',6,11,'1981-06-16 00:00:07',5,'Káº¿ ToÃ¡n','Káº¿ toÃ¡n mÃ¡y',2,'2012-07-15 00:00:07',4,'2011-05-18 00:00:07',3,'12/12',3,8,1,2,3,'a:3:{i:0;s:28:\"1620194362_OneTV  - Logo.png\";i:1;s:17:\"987576096_top.png\";i:2;s:24:\"681729117_Untitled-1.jpg\";}',1,0,'2013-12-01 22:26:21','2013-12-01 22:26:21'),
- (3,'HÃ¹ng','Máº¡nh','Nguyá»…n',NULL,'131398081','Nobita','1385898380.jpg',0,'','0985679742','Doan Hung','Phu Tho','Doan Hung',4,1,2,'23443432',4,9,NULL,4,'Cong nghe thong tin','danh may',1,NULL,2,NULL,1,'12/12',3,8,1,2,3,'a:2:{i:0;s:27:\"413210694_OneTV  - Logo.png\";i:1;s:18:\"1122416878_top.png\";}',1,1,'2013-12-01 18:46:20','2013-12-01 18:46:20'),
- (4,'HÃ¹ng','Máº¡nh','Nguyá»…n','0000-00-00 00:00:00','131398081','Nobita',NULL,0,'','0985679742','Doan Hung','Phu Tho','Doan Hung',0,0,2,'23443432',4,9,'0000-00-00 00:00:00',4,'Cong nghe thong tin','danh may',1,'0000-00-00 00:00:00',2,'0000-00-00 00:00:00',1,'12/12',3,8,1,2,3,'a:2:{i:0;s:27:\"413210694_OneTV  - Logo.png\";i:1;s:18:\"1122416878_top.png\";}',1,1,'2013-12-01 18:46:46','2013-12-01 18:46:46'),
- (5,'HÃ¹ng','Máº¡nh','Nguyá»…n','2013-12-01 18:47:01','131398081','Nobita',NULL,0,'','0985679742','Doan Hung','Phu Tho','Doan Hung',0,0,2,'23443432',4,9,'1900-01-03 00:00:07',4,'Cong nghe thong tin','danh may',1,'1900-01-01 00:00:07',2,'1900-01-01 00:00:07',1,'12/12',3,8,1,2,3,'a:2:{i:0;s:27:\"413210694_OneTV  - Logo.png\";i:1;s:18:\"1122416878_top.png\";}',1,1,'2013-12-01 18:47:27','2013-12-01 18:47:27'),
- (6,'HÃ¹ng','Máº¡nh','Nguyá»…n','2013-12-01 18:47:05','131398081','Nobita',NULL,0,'','0985679742','Doan Hung','Phu Tho','Doan Hung',0,0,2,'23443432',4,9,'1900-01-03 00:00:07',4,'Cong nghe thong tin','danh may',1,'1900-01-01 00:00:07',2,'1900-01-01 00:00:07',1,'12/12',3,8,1,2,3,'a:2:{i:0;s:27:\"413210694_OneTV  - Logo.png\";i:1;s:18:\"1122416878_top.png\";}',1,1,'2013-12-01 18:47:51','2013-12-01 18:47:51'),
- (7,'HÃ¹ng','Máº¡nh','Nguyá»…n','2013-12-01 18:48:05','131398081','Nobita',NULL,0,'','0985679742','Doan Hung','Phu Tho','Doan Hung',0,0,2,'23443432',4,9,'1900-01-03 00:00:07',4,'Cong nghe thong tin','danh may',1,'1900-01-01 00:00:07',2,'1900-01-01 00:00:07',1,'12/12',3,8,1,2,3,'a:2:{i:0;s:27:\"413210694_OneTV  - Logo.png\";i:1;s:18:\"1122416878_top.png\";}',1,1,'2013-12-01 18:48:15','2013-12-01 18:48:15'),
- (8,'HÃ¹ng','Máº¡nh','Nguyá»…n','2013-12-01 18:49:05','131398081','Nobita',NULL,0,'','0985679742','Doan Hung','Phu Tho','Doan Hung',0,0,2,'23443432',4,9,'1905-01-03 00:00:07',4,'Cong nghe thong tin','danh may',1,'1918-06-01 00:00:08',2,'1916-12-01 00:00:08',1,'12/12',3,8,1,2,3,'a:2:{i:0;s:27:\"413210694_OneTV  - Logo.png\";i:1;s:18:\"1122416878_top.png\";}',1,1,'2013-12-01 18:49:11','2013-12-01 18:49:11'),
- (9,'HÃ¹ng','Máº¡nh','Nguyá»…n','1907-05-03 00:00:07','131398081','Nobita',NULL,0,'','0985679742','Doan Hung','Phu Tho','Doan Hung',0,0,2,'23443432',4,9,'1905-01-03 00:00:07',4,'Cong nghe thong tin','danh may',1,'1918-06-01 00:00:08',2,'1916-12-01 00:00:08',1,'12/12',3,8,1,2,3,'a:2:{i:0;s:27:\"413210694_OneTV  - Logo.png\";i:1;s:18:\"1122416878_top.png\";}',1,1,'2013-12-01 18:50:28','2013-12-01 18:50:28'),
- (10,'HÃ¹ng','Máº¡nh','Nguyá»…n','1907-05-03 00:00:07','131398081','Nobita',NULL,0,'','0985679742','Doan Hung','Phu Tho','Doan Hung',0,0,2,'23443432',4,9,'1905-01-03 00:00:07',4,'Cong nghe thong tin','danh may',1,'1918-06-01 00:00:08',2,'1916-12-01 00:00:08',1,'12/12',3,8,1,2,3,'a:2:{i:0;s:27:\"413210694_OneTV  - Logo.png\";i:1;s:18:\"1122416878_top.png\";}',1,1,'2013-12-01 18:52:43','2013-12-01 18:52:43'),
- (11,'HÃ¹ng','Máº¡nh','Nguyá»…n','1907-05-03 00:00:07','131398081','Nobita',NULL,0,'','0985679742','Doan Hung','Phu Tho','Doan Hung',0,0,2,'23443432',4,9,'1905-01-03 00:00:07',4,'Cong nghe thong tin','danh may',1,'1918-06-01 00:00:08',2,'1916-12-01 00:00:08',1,'12/12',3,8,1,2,3,'a:2:{i:0;s:27:\"413210694_OneTV  - Logo.png\";i:1;s:18:\"1122416878_top.png\";}',1,1,'2013-12-01 18:53:15','2013-12-01 18:53:15'),
- (12,'HÃ¹ng NM','Máº¡nh','Nguyá»…n','1960-01-01 00:00:07','','HUNGNM','1385909187.jpg',1,'','','','','',4,3,0,'',0,0,'1970-01-01 00:00:07',0,'','',0,'1970-01-01 00:00:07',0,'1970-01-01 00:00:07',0,'',0,0,0,0,0,'a:6:{i:0;s:17:\"1485962866_HQ.jpg\";i:1;s:45:\"1685560482_introduction_garena_on_youtube.jpg\";i:2;s:31:\"1268631121_New Logo Video 1.png\";i:3;s:29:\"1137916836_New Logo Video.png\";i:4;s:28:\"1030329440_OneTV  - Logo.png\";i:5;s:18:\"1430823586_top.png\";}',1,1,'2013-12-01 21:46:37','2013-12-01 21:46:37'),
  (13,'Äá»“ng','NghÄ©a','ÄÃ o','2013-09-01 17:37:07','3454543534543','Äá»“ng',NULL,1,'5345345','534534534','5345345','534534','5345345',5,2,2,'34534534',4,9,'2013-12-01 17:37:07',5,'5345345','5345345',2,'2013-12-31 17:37:07',2,'2013-12-28 17:37:07',3,'5443',3,8,1,2,3,'a:3:{i:0;s:22:\"1242417760_anh_the.jpg\";i:1;s:37:\"947727117_game garena on facebook.png\";i:2;s:24:\"34040717_legend team.jpg\";}',1,0,'2013-12-24 17:36:41','2013-12-24 17:37:44');
 /*!40000 ALTER TABLE `employees` ENABLE KEYS */;
 
@@ -611,7 +601,7 @@ CREATE TABLE `khen_thuong` (
 
 /*!40000 ALTER TABLE `khen_thuong` DISABLE KEYS */;
 INSERT INTO `khen_thuong` (`kt_id`,`kt_can_bo_to_chuc`,`kt_em_id`,`kt_date`,`kt_ly_do`,`kt_chi_tiet`,`kt_status`,`kt_date_added`,`kt_date_modified`) VALUES 
- (1,1,2,'2013-12-15 00:00:07','Lamf toot cong viec','<p>dsfds<strong> dsg</strong></p>\n<p>Goo man<em>fdggfdfdgf</em></p>',1,'2013-12-15 21:49:01','2013-12-15 21:49:01');
+ (1,1,1,'2014-02-15 00:00:07','Lamf toot cong viec','<p>dsfds<strong> dsg</strong></p>\n<p>Goo man<em>fdggfdfdgf</em></p>',1,'2013-12-15 21:49:01','2013-12-15 21:49:01');
 /*!40000 ALTER TABLE `khen_thuong` ENABLE KEYS */;
 
 
@@ -639,7 +629,7 @@ CREATE TABLE `ky_luat` (
 
 /*!40000 ALTER TABLE `ky_luat` DISABLE KEYS */;
 INSERT INTO `ky_luat` (`kl_id`,`kl_can_bo_to_chuc`,`kl_em_id`,`kl_date`,`kl_ly_do`,`kl_chi_tiet`,`kl_status`,`kl_date_added`,`kl_date_modified`) VALUES 
- (1,1,2,'0000-00-00 00:00:00','Chua lam tot cong viev','<p>sadsad ]d</p>\n<p><strong>sadf</strong></p>\n<p>sd</p>\n<p>sdasd</p>',1,'2013-12-15 21:58:46','2013-12-15 21:58:46');
+ (1,1,1,'2014-02-11 00:00:00','Chua lam tot cong viev','<p>sadsad ]d</p>\n<p><strong>sadf</strong></p>\n<p>sd</p>\n<p>sdasd</p>',1,'2013-12-15 21:58:46','2013-12-15 21:58:46');
 /*!40000 ALTER TABLE `ky_luat` ENABLE KEYS */;
 
 
@@ -669,7 +659,7 @@ CREATE TABLE `lam_them_gio` (
 
 /*!40000 ALTER TABLE `lam_them_gio` DISABLE KEYS */;
 INSERT INTO `lam_them_gio` (`ltg_id`,`ltg_em_id`,`ltg_ngay`,`ltg_chi_tiet`,`ltg_gio_bat_dau`,`ltg_phut_bat_dau`,`ltg_gio_ket_thuc`,`ltg_phut_ket_thuc`,`ltg_date_added`,`ltg_don_vi_status`,`ltg_tccb_status`) VALUES 
- (6,1,'2014-01-31 15:39:07','<p>h&acirc;hahaha</p>',1,10,18,19,'2013-12-27 11:53:32',-1,-1);
+ (6,1,'2014-02-12 15:39:07','<p>h&acirc;hahaha</p>',1,10,18,19,'2013-12-27 11:53:32',1,-1);
 /*!40000 ALTER TABLE `lam_them_gio` ENABLE KEYS */;
 
 
@@ -713,7 +703,7 @@ CREATE TABLE `phong_ban` (
   `pb_date_added` datetime DEFAULT NULL,
   `pb_date_modified` datetime DEFAULT NULL,
   PRIMARY KEY (`pb_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `phong_ban`
@@ -722,7 +712,8 @@ CREATE TABLE `phong_ban` (
 /*!40000 ALTER TABLE `phong_ban` DISABLE KEYS */;
 INSERT INTO `phong_ban` (`pb_id`,`pb_name`,`pb_parent`,`pb_order`,`pb_status`,`pb_date_added`,`pb_date_modified`) VALUES 
  (9,'Phong ban 1',0,0,1,NULL,'2013-11-17 22:50:46'),
- (11,'phong ban 3',0,0,1,NULL,NULL);
+ (11,'phong ban 3',0,0,1,NULL,NULL),
+ (12,'PhÃ²ng ban 3 -1',11,0,1,'2014-02-13 22:16:03','2014-02-13 22:16:03');
 /*!40000 ALTER TABLE `phong_ban` ENABLE KEYS */;
 
 
@@ -741,7 +732,7 @@ CREATE TABLE `thong_bao` (
   `tb_date_added` datetime DEFAULT NULL,
   `tb_date_modified` datetime DEFAULT NULL,
   PRIMARY KEY (`tb_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `thong_bao`
@@ -749,7 +740,13 @@ CREATE TABLE `thong_bao` (
 
 /*!40000 ALTER TABLE `thong_bao` DISABLE KEYS */;
 INSERT INTO `thong_bao` (`tb_id`,`tb_from`,`tb_to`,`tb_tieu_de`,`tb_noi_dung`,`tb_status`,`tb_date_added`,`tb_date_modified`) VALUES 
- (2,1,1,'Xin chao','<p>fdsffdsf sdfsd tf</p>',1,'2013-12-27 21:26:34','2013-12-27 21:26:34');
+ (5,1,1,'Hung gui','<p>Nhandc chua</p>',0,'2014-02-14 22:40:44','2014-02-14 22:40:44'),
+ (6,1,13,'Hung gui','<p>Nhandc chua</p>',0,'2014-02-14 22:40:44','2014-02-14 22:40:44'),
+ (7,1,0,'Hung gui','<p>Nhandc chua</p>',0,'2014-02-14 22:40:44','2014-02-14 22:40:44'),
+ (9,1,0,'','',0,'2014-02-14 22:44:16','2014-02-14 22:44:16'),
+ (10,1,1,'sdf','<p>fd</p>',0,'2014-02-14 22:46:09','2014-02-14 22:46:09'),
+ (11,1,0,'sdf','<p>fd</p>',0,'2014-02-14 22:46:09','2014-02-14 22:46:09'),
+ (12,1,1,'Thang nay chua nhap day du','<p>Yeu cau dong chi nhap thong tin day du</p>',1,'2014-02-16 11:21:46','2014-02-16 11:21:46');
 /*!40000 ALTER TABLE `thong_bao` ENABLE KEYS */;
 
 
@@ -844,7 +841,7 @@ CREATE TABLE `users_log` (
   `login_date` int(10) unsigned NOT NULL,
   `login_ip` varchar(45) NOT NULL,
   PRIMARY KEY (`log_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=87 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users_log`
@@ -927,7 +924,16 @@ INSERT INTO `users_log` (`log_id`,`user_id`,`login_date`,`login_ip`) VALUES
  (74,1,1388152776,'::1'),
  (75,1,1391834944,'::1'),
  (76,1,1391860341,'::1'),
- (77,1,1391916262,'::1');
+ (77,1,1391916262,'::1'),
+ (78,1,1392132268,'::1'),
+ (79,1,1392303347,'::1'),
+ (80,1,1392390001,'::1'),
+ (81,1,1392396823,'::1'),
+ (82,1,1392469836,'::1'),
+ (83,1,1392523107,'::1'),
+ (84,1,1392538322,'::1'),
+ (85,1,1392559734,'::1'),
+ (86,1,1392560278,'::1');
 /*!40000 ALTER TABLE `users_log` ENABLE KEYS */;
 
 
@@ -955,7 +961,7 @@ CREATE TABLE `xin_nghi_phep` (
 
 /*!40000 ALTER TABLE `xin_nghi_phep` DISABLE KEYS */;
 INSERT INTO `xin_nghi_phep` (`xnp_id`,`xnp_em_id`,`xnp_from_date`,`xnp_to_date`,`xnp_date_created`,`xnp_don_vi_status`,`xnp_ptccb_status`,`xnp_ly_do`,`xnp_chi_tiet`) VALUES 
- (3,1,'2014-02-02 21:42:07','2014-02-07 21:42:07','2013-12-27 21:42:29',1,1,'Nghi om','<p>ah ang nay naoRet qua nen muon xin nghi</p>');
+ (3,1,'2014-02-02 21:42:07','2014-02-07 21:42:07','2013-12-27 21:42:29',0,-1,'Nghi om','<p>ah ang nay naoRet qua nen muon xin nghi</p>');
 /*!40000 ALTER TABLE `xin_nghi_phep` ENABLE KEYS */;
 
 

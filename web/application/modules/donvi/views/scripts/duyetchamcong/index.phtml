@@ -30,6 +30,53 @@
     </form>
 </div>
 
+<div id="mdThongBao" class="modal_xlager hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Thông Báo</h3>
+    </div>
+    <div class="modal-body" id="mdThongBaoBody">
+        <div class="alert alert-error" id="dv_thong_bao_error" style="display: none;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h5>Thông báo!</h5>
+            Cập nhật không thành công!
+        </div>
+
+        <div class="alert alert-success" id="dv_thong_bao_success" style="display: none;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h5>Thông báo!</h5>
+            Cập nhật thành công!
+        </div>
+
+        <form class="form-horizontal">
+            <input type="hidden" id="tb_cap_nhat_id" value=""/>
+
+            <div class="control-group">
+                <label class="control-label" for="tb_can_bo">Người nhận</label>
+                <div class="controls" id="tb_can_bo">
+
+                </div>            
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="tb_tieu_de">Tiêu đề</label>
+                <div class="controls">
+                    <?php echo $this->formText('tb_tieu_de', null, array('class' => 'input-xxlarge', 'placeholder' => '')); ?>                   
+                </div>            
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="tb_noi_dung">Nội dung</label>
+                <div class="controls">
+                    <?php echo $this->formTextarea('tb_noi_dung', null, array('class' => 'input-xlarge', 'rows' => 5)); ?>                   
+                </div>            
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Đóng</button>
+        <button class="btn btn-primary" onclick="postFormThongBao();" id="btn_gui_thong_bao">Gửi thông báo</button>
+    </div>
+</div>
+
 <script>
     var currentYear = <?php echo $this->nam; ?>;    
     var options = {
@@ -51,7 +98,7 @@
     
     function get_detail(){
         $.blockUI({
-            message: '<h3>Đang thực hiện</h3>',
+            message: '<h3>Đang lấy dữ liệu</h3>',
             css: {                         
                 border: 'none', 
                 padding: '15px', 
@@ -73,8 +120,72 @@
             c_m = date_array[0];
             c_y = date_array[1];
         }
-        $('#dv_detail').load(site_url+'/donvi/duyetchamcong/detail/thang/'+c_m+'/nam/'+c_y+'/em/'+em_id+' #tb_cham_cong', function(){
+        $('#dv_detail').load(site_url+'/donvi/duyetchamcong/detail/thang/'+c_m+'/nam/'+c_y+'/em/'+em_id+' #dv_cham_cong_chi_tiet', function(){
             setTimeout($.unblockUI, 1000); 
         });
+    }
+    
+    function loadFormThongBao(){ 
+        var em_id = $('#sl_chon_nv').val();
+        var em_name = $('#sl_chon_nv').val();
+        $('#mdThongBaoBody #tb_cap_nhat_id').val(em_id);
+        $('#mdThongBaoBody #tb_can_bo').html('<strong>'+em_name+'</strong>');
+        tinyMCE.get('tb_noi_dung').setContent('');
+        $('#mdThongBaoBody #tb_tieu_de').val('');
+        $('#dv_thong_bao_success').hide();
+        $('#dv_thong_bao_error').hide();
+    }
+    
+    function postFormThongBao(){                
+        $('#dv_thong_bao_success').hide();
+        $('#dv_thong_bao_error').hide();
+        var em_id = $('#mdThongBaoBody #tb_cap_nhat_id').val();
+        var tb_title = $('#mdThongBaoBody #tb_tieu_de').val();
+        var tb_content = tinyMCE.get('tb_noi_dung').getContent();
+        if(tb_title !='' && tb_content!=''){
+            $("#btn_gui_thong_bao").attr("disabled", "disabled");
+            $.post( site_url+'/canhan/thongbao/jqnewtb', {
+                em_id: em_id, 
+                tb_title: $.base64('encode', tb_title), 
+                tb_content: $.base64('encode', tb_content)
+            }, function(data) {    
+                $("#btn_gui_thong_bao").removeAttr("disabled");
+                if(data.status){
+                    $('#dv_thong_bao_success').show();
+                    tinyMCE.get('tb_noi_dung').setContent('');
+                    $('#mdThongBaoBody #tb_tieu_de').val('');
+                }else{
+                    $('#dv_thong_bao_error').show();
+                }
+            }, 'json');
+        }else{
+            alert('Bạn phải nhập đầy đủ tiêu đề và nội dung!');
+        }        
+    }
+    
+    function on_update_status(cc_id){
+        $.blockUI({
+            message: '<h3>Đang thực hiện</h3>',
+            css: {                         
+                border: 'none', 
+                padding: '15px', 
+                backgroundColor: '#000', 
+                '-webkit-border-radius': '10px', 
+                '-moz-border-radius': '10px', 
+                opacity: .5, 
+                color: '#fff' 
+            }
+        });
+        var st = $('#sl_don_vi_status').val();
+        $.post( site_url+'/donvi/duyetchamcong/jqupdatestatus', {
+            c_id: cc_id, 
+            c_status: st
+        }, function(data) {    
+            if(data.status){                
+                $.success_ui('Thông báo!', 'Thực hiện thành công!', 4000);                
+            }else{
+                $.error_ui('Thông báo', 'Không thể thực hiện được!', 4000); 
+            }
+        }, 'json');
     }
 </script>
