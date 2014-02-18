@@ -640,7 +640,12 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
             $kt_date_year = $this->_arrParam['kt_date_year'];
             $kt_ly_do = trim($this->_arrParam['kt_ly_do']);
             $kt_chi_tiet = trim($this->_arrParam['kt_chi_tiet']);
+            $kt_money = trim($this->_arrParam['kt_money']);
             $current_time = new Zend_Db_Expr('NOW()');
+            
+            if(!is_numeric($kt_money)){
+                $kt_money = 0;
+            }
             $date_khen_thuong = date_create($kt_date_year . '-' . $kt_date_month . '-' . $kt_date_day);
 
             $data['kt_can_bo_to_chuc'] = $from_id;
@@ -648,6 +653,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
             $data['kt_date'] = date_format($date_khen_thuong, "Y-m-d H:iP");
             $data['kt_ly_do'] = base64_decode($kt_ly_do);
             $data['kt_chi_tiet'] = base64_decode($kt_chi_tiet);
+            $data['kt_money'] = $kt_money;
             $data['kt_date_added'] = $current_time;
             $data['kt_date_modified'] = $current_time;
             $success_message = $khenthuongModel->insert($data);
@@ -682,12 +688,16 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
             $kl_date_month = $this->_arrParam['kl_date_month'];
             $kl_date_year = $this->_arrParam['kl_date_year'];
             $kl_ly_do = trim($this->_arrParam['kl_ly_do']);
+            $kl_money = trim($this->_arrParam['kl_money']);
             $kl_chi_tiet = trim($this->_arrParam['kl_chi_tiet']);
             $current_time = new Zend_Db_Expr('NOW()');
             $date_ky_luat = date_create($kl_date_year . '-' . $kl_date_month . '-' . $kl_date_day);
-
+            if(!is_numeric($kl_money)){
+                $kl_money = 0;
+            }
             $data['kl_can_bo_to_chuc'] = $from_id;
             $data['kl_em_id'] = $em_id;
+            $data['kl_money'] = $kl_money;
             $data['kl_date'] = date_format($date_ky_luat, "Y-m-d H:iP");
             $data['kl_ly_do'] = base64_decode($kl_ly_do);
             $data['kl_chi_tiet'] = base64_decode($kl_chi_tiet);

@@ -42,7 +42,7 @@ class Canhan_ThongbaoController extends Zend_Controller_Action {
         $em_id = $identity->em_id;
 
         $thongbaoModel = new Front_Model_ThongBao();
-        $list_thong_bao = $thongbaoModel->fetchData(array('tb_to' => $em_id), 'tb_date_added ASC');
+        $list_thong_bao = $thongbaoModel->fetchData(array('tb_to' => $em_id), 'tb_date_added DESC');
         $paginator = Zend_Paginator::factory($list_thong_bao);
         $paginator->setItemCountPerPage(NUM_PER_PAGE);
         $paginator->setCurrentPageNumber($this->_page);

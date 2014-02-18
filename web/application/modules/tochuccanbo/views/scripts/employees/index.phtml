@@ -197,6 +197,16 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
                     <?php echo $this->formTextarea('kt_chi_tiet', null, array('class' => 'input-xlarge', 'rows' => 5)); ?>                   
                 </div>            
             </div>
+            <div class="control-group">
+                <label class="control-label" for="kt_money">Tiền thưởng</label>
+                <div class="controls">
+                    <div class="input-prepend input-append">    
+                        <?php echo $this->formText('kt_money', 0, array('class' => 'input-medium', 'placeholder' => '')); ?>                    
+                        <span class="add-on">VND</span>
+                    </div>
+
+                </div>            
+            </div>
         </form>
     </div>
     <div class="modal-footer">
@@ -268,6 +278,16 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
                 <label class="control-label" for="kl_chi_tiet">Chi tiết</label>
                 <div class="controls">
                     <?php echo $this->formTextarea('kl_chi_tiet', null, array('class' => 'input-xlarge', 'rows' => 5)); ?>                   
+                </div>            
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="kl_money">Tiền phạt</label>
+                <div class="controls">
+                    <div class="input-prepend input-append">    
+                        <?php echo $this->formText('kl_money', 0, array('class' => 'input-medium', 'placeholder' => '')); ?>                    
+                        <span class="add-on">VND</span>
+                    </div>
+
                 </div>            
             </div>
         </form>
@@ -601,6 +621,7 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
         $('#mdKyLuatBody #kl_can_bo').html('<strong>'+em_name+'</strong>');
         tinyMCE.get('kl_chi_tiet').setContent('');
         $('#mdKyLuatBody #kl_ly_do').val('');
+        $('#mdKyLuatBody #kl_money').val('0');
         $('#dv_ky_luat_success').hide();
         $('#dv_ky_luat_error').hide();
     }
@@ -614,12 +635,14 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
         var kl_day = $('#mdKyLuatBody #kl_ngay_khen_thuong').val();
         var kl_month = $('#mdKyLuatBody #kl_thang_khen_thuong').val();
         var kl_year = $('#mdKyLuatBody #kl_nam_khen_thuong').val();   
+        var kl_money = $('#mdKyLuatBody #kl_money').val();   
         if(kl_title !='' && kl_content!=''){
             $.post( site_url+'/tochuccanbo/employees/jqkyluat', {
                 em_id: em_id, 
                 kl_date_day: kl_day, 
                 kl_date_month: kl_month,
                 kl_date_year: kl_year,
+                kl_money: kl_money,
                 kl_ly_do: $.base64('encode', kl_title),
                 kl_chi_tiet: $.base64('encode', kl_content)
             }, function(data) {
@@ -641,6 +664,7 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
         $('#mdKhenThuongBody #kt_can_bo').html('<strong>'+em_name+'</strong>');
         tinyMCE.get('kt_chi_tiet').setContent('');
         $('#mdKhenThuongBody #kt_ly_do').val('');
+        $('#mdKhenThuongBody #kt_money').val('0');
         $('#dv_khen_thuong_success').hide();
         $('#dv_khen_thuong_error').hide();
     }
@@ -654,6 +678,7 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
         var kt_day = $('#mdKhenThuongBody #kt_ngay_khen_thuong').val();
         var kt_month = $('#mdKhenThuongBody #kt_thang_khen_thuong').val();
         var kt_year = $('#mdKhenThuongBody #kt_nam_khen_thuong').val(); 
+        var kt_money = $('#mdKhenThuongBody #kt_money').val(); 
         
         if(kt_title !='' && kt_content!=''){
             $.post( site_url+'/tochuccanbo/employees/jqkhenthuong', { 
@@ -661,6 +686,7 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
                 kt_date_day: kt_day, 
                 kt_date_month: kt_month,
                 kt_date_year: kt_year,
+                kt_money: kt_money,
                 kt_ly_do: $.base64('encode', kt_title),
                 kt_chi_tiet: $.base64('encode', kt_content) 
             }, function( data ) {

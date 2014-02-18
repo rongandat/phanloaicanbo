@@ -62,4 +62,101 @@ class Donvi_ThanhvienController extends Zend_Controller_Action {
         $this->view->list_nhan_vien = $list_nhan_vien;
     }
 
+    function jqkhenthuongAction() {
+        $this->_helper->layout()->disableLayout();
+        $khenthuongModel = new Front_Model_KhenThuong();
+        if ($this->_request->isPost()) {
+            $data = array();
+            $auth = Zend_Auth::getInstance();
+            $identity = $auth->getIdentity();
+            $from_id = $identity->em_id;
+
+            $em_id = $this->_arrParam['em_id'];
+            $kt_date_day = $this->_arrParam['kt_date_day'];
+            $kt_date_month = $this->_arrParam['kt_date_month'];
+            $kt_date_year = $this->_arrParam['kt_date_year'];
+            $kt_ly_do = trim($this->_arrParam['kt_ly_do']);
+            $kt_chi_tiet = trim($this->_arrParam['kt_chi_tiet']);
+            $kt_money = trim($this->_arrParam['kt_money']);
+            $current_time = new Zend_Db_Expr('NOW()');
+            
+            if(!is_numeric($kt_money)){
+                $kt_money = 0;
+            }
+            $date_khen_thuong = date_create($kt_date_year . '-' . $kt_date_month . '-' . $kt_date_day);
+
+            $data['kt_don_vi'] = $from_id;
+            $data['kt_can_bo_to_chuc'] = 0;
+            $data['kt_em_id'] = $em_id;
+            $data['kt_date'] = date_format($date_khen_thuong, "Y-m-d H:iP");
+            $data['kt_ly_do'] = base64_decode($kt_ly_do);
+            $data['kt_chi_tiet'] = base64_decode($kt_chi_tiet);
+            $data['kt_money'] = $kt_money;
+            $data['kt_date_added'] = $current_time;
+            $data['kt_date_modified'] = $current_time;
+            $success_message = $khenthuongModel->insert($data);
+
+            $thongbao_model = new Front_Model_ThongBao();
+            
+            $data = array();
+            $data['tb_from'] = 0;
+            $data['tb_to'] = $em_id;
+            $data['tb_tieu_de'] = '[Khen Thưởng] ' . base64_decode($kt_ly_do);
+            $data['tb_noi_dung'] = base64_decode($kt_chi_tiet);
+            $data['tb_status'] = 0;
+            $data['tb_date_added'] = $current_time;
+            $data['tb_date_modified'] = $current_time;
+            $thongbao_model->insert($data);
+
+            $this->view->success_message = $success_message;
+        }
+    }
+
+    function jqkyluatAction() {
+        $this->_helper->layout()->disableLayout();
+        $kyluatModel = new Front_Model_KyLuat();
+        if ($this->_request->isPost()) {
+            $data = array();
+            $auth = Zend_Auth::getInstance();
+            $identity = $auth->getIdentity();
+            $from_id = $identity->em_id;
+
+            $em_id = $this->_arrParam['em_id'];
+            $kl_date_day = $this->_arrParam['kl_date_day'];
+            $kl_date_month = $this->_arrParam['kl_date_month'];
+            $kl_date_year = $this->_arrParam['kl_date_year'];
+            $kl_ly_do = trim($this->_arrParam['kl_ly_do']);
+            $kl_money = trim($this->_arrParam['kl_money']);
+            $kl_chi_tiet = trim($this->_arrParam['kl_chi_tiet']);
+            $current_time = new Zend_Db_Expr('NOW()');
+            $date_ky_luat = date_create($kl_date_year . '-' . $kl_date_month . '-' . $kl_date_day);
+            if(!is_numeric($kl_money)){
+                $kl_money = 0;
+            }
+            $data['kl_don_vi'] = $from_id;
+            $data['kl_can_bo_to_chuc'] = 0;
+            $data['kl_em_id'] = $em_id;
+            $data['kl_money'] = $kl_money;
+            $data['kl_date'] = date_format($date_ky_luat, "Y-m-d H:iP");
+            $data['kl_ly_do'] = base64_decode($kl_ly_do);
+            $data['kl_chi_tiet'] = base64_decode($kl_chi_tiet);
+            $data['kl_date_added'] = $current_time;
+            $data['kl_date_modified'] = $current_time;
+            $success_message = $kyluatModel->insert($data);
+            
+            $thongbao_model = new Front_Model_ThongBao();
+            $data = array();
+            $data['tb_from'] = 0;
+            $data['tb_to'] = $em_id;
+            $data['tb_tieu_de'] = '[Kỷ luật/khiển trách] ' . base64_decode($kl_ly_do);
+            $data['tb_noi_dung'] = base64_decode($kl_chi_tiet);
+            $data['tb_status'] = 0;
+            $data['tb_date_added'] = $current_time;
+            $data['tb_date_modified'] = $current_time;
+            $thongbao_model->insert($data);
+            
+            $this->view->success_message = $success_message;
+        }
+    }
+    
 }

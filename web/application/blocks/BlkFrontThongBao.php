@@ -15,7 +15,7 @@ class Block_BlkFrontThongBao extends Zend_View_Helper_Abstract {
         $view = $this->view;
         $arrParam = $view->arrParam;
         $thongbaoModel = new Front_Model_ThongBao();
-        $list_thong_bao = $thongbaoModel->fetchData(array('tb_to' => $this->_identity->em_id, 'tb_status' => 0), 'tb_date_added ASC');;
+        $list_thong_bao = $thongbaoModel->fetchData(array('tb_to' => $this->_identity->em_id, 'tb_status' => 0), 'tb_date_added DESC');;
         require_once (BLOCK_PATH . '/BlkFrontThongBao/' . TEMPLATE_USED . '/default.php');
     }
 
