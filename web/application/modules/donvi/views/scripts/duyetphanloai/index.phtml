@@ -232,8 +232,8 @@ foreach ($this->ket_qua as $ket_qua) {
             $("#btn_gui_thong_bao").attr("disabled", "disabled");
             $.post( site_url+'/canhan/thongbao/jqnewtb', {
                 em_id: em_id, 
-                tb_title: $.base64('encode', tb_title), 
-                tb_content: $.base64('encode', tb_content)
+                tb_title: tb_title, 
+                tb_content: tb_content
             }, function(data) {    
                 $("#btn_gui_thong_bao").removeAttr("disabled");
                 if(data.status){

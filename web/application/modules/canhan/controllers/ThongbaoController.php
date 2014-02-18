@@ -157,8 +157,8 @@ class Canhan_ThongbaoController extends Zend_Controller_Action {
                 if ($to_id) {
                     $data['tb_from'] = $from_id;
                     $data['tb_to'] = $to_id;
-                    $data['tb_tieu_de'] = base64_decode($tb_title);
-                    $data['tb_noi_dung'] = base64_decode($tb_content);
+                    $data['tb_tieu_de'] = $tb_title;
+                    $data['tb_noi_dung'] = $tb_content;
                     $data['tb_status'] = 0;
                     $data['tb_date_added'] = $current_time;
                     $data['tb_date_modified'] = $current_time;
