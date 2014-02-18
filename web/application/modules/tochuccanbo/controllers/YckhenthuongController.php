@@ -1,6 +1,6 @@
 <?php
 
-class Donvi_ThanhvienController extends Zend_Controller_Action {
+class Tochuccanbo_YckhenthuongController extends Zend_Controller_Action {
 
     protected $_arrParam;
     protected $_page = 1;
@@ -29,11 +29,11 @@ class Donvi_ThanhvienController extends Zend_Controller_Action {
 
     public function indexAction() {
         $translate = Zend_Registry::get('Zend_Translate');
-        $this->view->title = 'Danh sách thành viên - ' . $translate->_('TEXT_DEFAULT_TITLE');
+        $this->view->title = 'Duyệt đề xuất khen thưởng - ' . $translate->_('TEXT_DEFAULT_TITLE');
         $this->view->headTitle($this->view->title);
 
         $layoutPath = APPLICATION_PATH . '/templates/' . TEMPLATE_USED;
-        $option = array('layout' => 'donvi/layout',
+        $option = array('layout' => '1_column/layout',
             'layoutPath' => $layoutPath);
         Zend_Layout::startMvc($option);
 
@@ -41,25 +41,41 @@ class Donvi_ThanhvienController extends Zend_Controller_Action {
         $identity = $auth->getIdentity();
         $em_id = $identity->em_id;
 
-        $emModel = new Front_Model_Employees();
-        $phongbanModel = new Front_Model_Phongban();
-        $my_info = $emModel->fetchRow('em_id=' . $em_id . ' and em_status=1');
+        $date = time();
+        $thang = $this->_getParam('thang', date('m', $date));
+        $nam = $this->_getParam('nam', date('Y', $date));
 
-        $phong_ban_id = $list_phongban = $phong_ban = Array();
-        if ($my_info) {
-            $phong_ban_id[] = $my_info->em_phong_ban;
-            $list_phongban = $phongbanModel->fetchDataStatus($my_info->em_phong_ban, $phong_ban);
-        }
+        $khenthuongModel = new Front_Model_KhenThuong();
+        $list_khen_thuong = $khenthuongModel->fetchByDatePTCCB("$nam-$thang-01 00:00:00", "$nam-$thang-31 23:59:59");
+        $this->view->list_khen_thuong = $list_khen_thuong;
+        $this->view->thang = $thang;
+        $this->view->nam = $nam;
+    }
 
-        if (sizeof($list_phongban)) {
-            foreach ($list_phongban as $phong_ban_info) {
-                $phong_ban_id[] = $phong_ban_info->pb_parent;
+    public function jqupdatestatusAction() {
+        $this->_helper->layout()->disableLayout();
+        $new_status = 'Đã duyệt';
+        $process_status = 0;
+        if ($this->_request->isPost()) {
+            $xnp_id = $this->_arrParam['xnp_id'];
+            $xnp_status = $this->_arrParam['xnp_status'];
+            if ($xnp_status > 1) {
+                $xnp_status = 1;
+            }
+            if ($xnp_status < 0) {
+                $xnp_status = -1;
+            }
+            $process_status = 1;
+            $xnpModel = new Front_Model_XinNghiPhep();
+            $process_status = $xnpModel->update(array('xnp_don_vi_status' => $xnp_status), "xnp_id=$xnp_id and xnp_ptccb_status<0");
+            if ($process_status) {
+                if (!$xnp_status) {
+                    $new_status = 'Không duyệt';
+                }
             }
         }
-
-        $phong_ban_id = implode(',', $phong_ban_id);
-        $list_nhan_vien = $emModel->fetchAll("em_phong_ban in ($phong_ban_id) and em_status=1");
-        $this->view->list_nhan_vien = $list_nhan_vien;
+        $this->view->new_status = $new_status;
+        $this->view->process_status = $process_status;
     }
 
     function jqkhenthuongAction() {
@@ -71,7 +87,7 @@ class Donvi_ThanhvienController extends Zend_Controller_Action {
             $identity = $auth->getIdentity();
             $from_id = $identity->em_id;
 
-            $em_id = $this->_arrParam['em_id'];
+            $kt_id = $this->_arrParam['kt_id'];
             $kt_date_day = $this->_arrParam['kt_date_day'];
             $kt_date_month = $this->_arrParam['kt_date_month'];
             $kt_date_year = $this->_arrParam['kt_date_year'];
@@ -84,30 +100,29 @@ class Donvi_ThanhvienController extends Zend_Controller_Action {
                 $kt_money = 0;
             }
             $date_khen_thuong = date_create($kt_date_year . '-' . $kt_date_month . '-' . $kt_date_day);
-
-            $data['kt_don_vi'] = $from_id;
-            $data['kt_can_bo_to_chuc'] = 0;
-            $data['kt_status'] = 0;
-            $data['kt_em_id'] = $em_id;
+            $data['kt_can_bo_to_chuc'] = $from_id;
+            $data['kt_status'] = 1;
+            $data['kt_ptccb_viewed'] = 1;
             $data['kt_date'] = date_format($date_khen_thuong, "Y-m-d H:iP");
             $data['kt_ly_do'] = $kt_ly_do;
             $data['kt_chi_tiet'] = $kt_chi_tiet;
             $data['kt_money'] = $kt_money;
-            $data['kt_date_added'] = $current_time;
             $data['kt_date_modified'] = $current_time;
-            $success_message = $khenthuongModel->insert($data);
+            $success_message = $khenthuongModel->update($data, "kt_id=$kt_id");
+            if ($success_message) {
+                $thongbao_model = new Front_Model_ThongBao();
+                $row_content = $khenthuongModel->fetchRow(array('kt_id' => $kt_id));
+                $data = array();
+                $data['tb_from'] = 0;
+                $data['tb_to'] = $row_content->kt_em_id;
+                $data['tb_tieu_de'] = '[Khen Thưởng] ' . $kt_ly_do;
+                $data['tb_noi_dung'] = $kt_chi_tiet;
+                $data['tb_status'] = 0;
+                $data['tb_date_added'] = $current_time;
+                $data['tb_date_modified'] = $current_time;
+                $thongbao_model->insert($data);
+            }
 
-            /* $thongbao_model = new Front_Model_ThongBao();
-
-              $data = array();
-              $data['tb_from'] = 0;
-              $data['tb_to'] = $em_id;
-              $data['tb_tieu_de'] = '[Khen Thưởng] ' . $kt_ly_do;
-              $data['tb_noi_dung'] = $kt_chi_tiet;
-              $data['tb_status'] = 0;
-              $data['tb_date_added'] = $current_time;
-              $data['tb_date_modified'] = $current_time;
-              $thongbao_model->insert($data); */
 
             $this->view->success_message = $success_message;
         }
@@ -160,6 +175,45 @@ class Donvi_ThanhvienController extends Zend_Controller_Action {
 
             $this->view->success_message = $success_message;
         }
+    }
+
+    public function jqktupdatestatusAction() {
+        $this->_helper->layout()->disableLayout();
+        $process_status = 0;
+        if ($this->_request->isPost()) {
+            $auth = Zend_Auth::getInstance();
+            $identity = $auth->getIdentity();
+            $from_id = $identity->em_id;
+
+            $kt_id = $this->_arrParam['kt_id'];
+            $kt_status = $this->_arrParam['kt_status'];
+            if ($kt_status > 1) {
+                $kt_status = 1;
+            }
+            if ($kt_status < 0) {
+                $kt_status = 0;
+            }
+            $process_status = 1;
+            $current_time = new Zend_Db_Expr('NOW()');
+            $khenthuongModel = new Front_Model_KhenThuong();
+            $process_status = $khenthuongModel->update(array('kl_can_bo_to_chuc' => $from_id, 'kt_status' => $kt_status, 'kl_date_modified' => $current_time), "kt_id=$kt_id");
+            if ($process_status) {
+                if ($kt_status) {
+                    $thongbao_model = new Front_Model_ThongBao();
+                    $row_content = $khenthuongModel->fetchRow(array('kt_id' => $kt_id));
+                    $data = array();
+                    $data['tb_from'] = 0;
+                    $data['tb_to'] = $row_content->kt_em_id;
+                    $data['tb_tieu_de'] = '[Khen Thưởng] ' . $row_content->kt_ly_do;
+                    $data['tb_noi_dung'] = $row_content->kt_chi_tiet;
+                    $data['tb_status'] = 0;
+                    $data['tb_date_added'] = $current_time;
+                    $data['tb_date_modified'] = $current_time;
+                    $thongbao_model->insert($data);
+                }
+            }
+        }
+        $this->view->process_status = $process_status;
     }
 
 }
