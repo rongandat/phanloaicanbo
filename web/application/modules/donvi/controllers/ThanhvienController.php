@@ -134,6 +134,7 @@ class Donvi_ThanhvienController extends Zend_Controller_Action {
             if (!is_numeric($kl_money)) {
                 $kl_money = 0;
             }
+            
             $data['kl_don_vi'] = $from_id;
             $data['kl_can_bo_to_chuc'] = 0;
             $data['kl_status'] = 0;

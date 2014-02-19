@@ -294,9 +294,9 @@
         var em_id = $('#mdKyLuatBody #kl_cap_nhat_id').val();
         var kl_title = $('#mdKyLuatBody #kl_ly_do').val();
         var kl_content = tinyMCE.get('kl_chi_tiet').getContent();
-        var kl_day = $('#mdKyLuatBody #kl_ngay_khen_thuong').val();
-        var kl_month = $('#mdKyLuatBody #kl_thang_khen_thuong').val();
-        var kl_year = $('#mdKyLuatBody #kl_nam_khen_thuong').val();   
+        var kl_day = $('#mdKyLuatBody #kl_ngay_ky_luat').val();
+        var kl_month = $('#mdKyLuatBody #kl_thang_ky_luat').val();
+        var kl_year = $('#mdKyLuatBody #kl_nam_ky_luat').val();   
         var kl_money = $('#mdKyLuatBody #kl_money').val();   
         if(kl_title !='' && kl_content!=''){
             $.post( site_url+'/donvi/thanhvien/jqkyluat', {
