@@ -1,6 +1,6 @@
 <?php
 
-class Donvi_DuyetphanloaiController extends Zend_Controller_Action {
+class Tochuccanbo_DuyetphanloaiController extends Zend_Controller_Action {
 
     protected $_arrParam;
     protected $_page = 1;
@@ -33,7 +33,7 @@ class Donvi_DuyetphanloaiController extends Zend_Controller_Action {
         $this->view->headTitle($this->view->title);
 
         $layoutPath = APPLICATION_PATH . '/templates/' . TEMPLATE_USED;
-        $option = array('layout' => 'donvi/layout',
+        $option = array('layout' => '1_column/layout',
             'layoutPath' => $layoutPath);
         Zend_Layout::startMvc($option);
 
@@ -47,23 +47,30 @@ class Donvi_DuyetphanloaiController extends Zend_Controller_Action {
 
         $emModel = new Front_Model_Employees();
         $phongbanModel = new Front_Model_Phongban();
-        $my_info = $emModel->fetchRow('em_id=' . $em_id . ' and em_status=1');
 
-        $phong_ban_id = $list_phongban = $phong_ban = Array();
-        if ($my_info) {
-            $phong_ban_id[] = $my_info->em_phong_ban;
-            $list_phongban = $phongbanModel->fetchDataStatus($my_info->em_phong_ban, $phong_ban);
+        $list_phong_ban = $phongbanModel->fetchAll();
+
+        $pb_selected = $this->_getParam('phongban', 0);
+
+        $phong_ban = Array();
+        $list_phong_ban_option = $phongbanModel->fetchData(0, $phong_ban);
+
+        $phong_ban_choosed = Array();
+        $phongbanModel->fetchData($pb_selected, $phong_ban_choosed);
+
+        $pb_ids = array($pb_selected);
+        foreach ($phong_ban_choosed as $pb) {
+            $pb_ids[] = $pb->pb_id;
         }
 
-        if (sizeof($list_phongban)) {
-            foreach ($list_phongban as $phong_ban_info) {
-                $phong_ban_id[] = $phong_ban_info->pb_parent;
-            }
+        if(!$pb_selected){
+            //$list_employees = $emModel->fetchData(array('em_delete' => 0));
+            $list_employees = array();
+        }else{
+            $select = $emModel->select()->where('em_delete=?', 0)->where('em_phong_ban in (?)', $pb_ids);
+            $list_employees = $emModel->fetchAll($select);
         }
-
-        $phong_ban_id = implode(',', $phong_ban_id);
-        $list_nhan_vien = $emModel->fetchAll("em_phong_ban in ($phong_ban_id) and em_status=1");
-
+        
         $tieuchiModel = new Front_Model_TieuChiDanhGiaCB();
         $list_tieuchi = $tieuchiModel->fetchData(array('tcdgcb_status' => 1), 'tcdgcb_order ASC');
 
@@ -73,7 +80,10 @@ class Donvi_DuyetphanloaiController extends Zend_Controller_Action {
         $this->view->ket_qua = $list_ketqua;
         $this->view->thang = $thang;
         $this->view->nam = $nam;
-        $this->view->list_nhan_vien = $list_nhan_vien;
+        $this->view->list_nhan_vien = $list_employees;
+        $this->view->list_phong_ban = $list_phong_ban;
+        $this->view->list_phong_ban_option = $list_phong_ban_option;
+        $this->view->pb_id = $pb_selected;
     }
     
     public function jqupdatestatusAction() {
@@ -81,10 +91,19 @@ class Donvi_DuyetphanloaiController extends Zend_Controller_Action {
         $process_status = 0;
         $new_status = '';
         if ($this->_request->isPost()) {
-            $c_id = $this->_arrParam['dg_id'];
+            $em_id = $this->_arrParam['em_id'];
+            $dg_thang = (int) $this->_arrParam['d_thang'];
+            $dg_nam = (int) $this->_arrParam['dg_nam'];
             $c_status = strtoupper(trim($this->_arrParam['dg_status']));            
             $danhgiaModel = new Front_Model_DanhGia();
-            $process_status = $danhgiaModel->update(array('dg_don_vi_status' => $c_status), "dg_id=$c_id and dg_ptccb_status=''");
+            $find_row = $danhgiaModel->fetchRow("dg_em_id=$em_id and dg_thang=$dg_thang and dg_nam=$dg_nam");
+            if($find_row){
+                $process_status = $danhgiaModel->update(array('dg_ptccb_status' => $c_status), "dg_id=$find_row->dg_id");
+            }else{
+                $current_time = new Zend_Db_Expr('NOW()');
+                $process_status = $danhgiaModel->insert(array('dg_em_id' => $em_id,'dg_thang'=>$dg_thang, 'dg_nam' => $dg_nam, 'dg_cong_viec' => '', 'dg_ket_qua_cong_viec' => 0,'dg_ptccb_status' => $c_status, 'dg_date_created' => $current_time, 'dg_date_modifyed' => $current_time));
+            }
+            
             if($process_status){
                 $new_status = $c_status;
             }

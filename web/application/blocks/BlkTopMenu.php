@@ -45,16 +45,19 @@ class Block_BlkTopMenu extends Zend_View_Helper_Abstract {
                     'duyetphanloai' => 'Duyệt phân loại cán bộ'
             )),
             'tochuccanbo' => array('name' => 'Tổ chức cán bộ', 'sub' => array(
-                    'hesoluong' => 'QL Hệ số lương',
                     'employees' => 'QL Cán bộ',
                     'capnhatthongtin' => 'QL Yêu cầu cập nhật thông tin',
                     'duyetphanloai' => 'Duyệt phân loại cán bộ',
+                    'duyetnghiphep' => 'Duyệt nghỉ phép',
                     'duyetthemgio' => 'Duyệt thêm giờ',
+                    'duyetchamcong' => 'Duyệt chấm công',
                     'yckhenthuong' => 'QL Yêu cầu khen thưởng',
-                    'yckyluat' => 'QL Yêu cầu kỷ luật/khiển trách'
+                    'yckyluat' => 'QL Yêu cầu kỷ luật/khiển trách',
+                    'thongke' => 'Thống kê',
+                    'hesoluong' => 'QL Hệ số lương',
+                    'tinhluong' => 'Tính lương',
+                    'inluong' => 'In lương'
             )),
-            'thongke' => array('name' => 'Thống kê', 'sub' => array()),
-            'inluong' => array('name' => 'In lương', 'sub' => array()),
             'danhsach' => array('name' => 'Danh sách', 'sub' => array())
         );
 

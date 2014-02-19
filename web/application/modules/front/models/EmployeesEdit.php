@@ -32,4 +32,14 @@ class Front_Model_EmployeesEdit extends Zend_Db_Table_Abstract {
         return $this->fetchAll($select);
     }
 
+    public function fetchByPhongBan($list_phong_ban) {
+        $select = $this->select(Zend_Db_Table::SELECT_WITH_FROM_PART);
+        $select->setIntegrityCheck(false)
+                ->joinInner(TABLE_EMPLOYEES, TABLE_EMPLOYEES . '.em_id = ' . $this->_name . '.em_id', array('em_ten', 'em_ten_dem', 'em_ho', 'em_ngay_sinh'));
+
+        $select->where(TABLE_EMPLOYEES . '.em_phong_ban in (?)', $list_phong_ban);
+        $select->order($this->_name.'.eme_date_modified DESC');
+        return $this->fetchAll($select);
+    }
+    
 }

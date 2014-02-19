@@ -5,6 +5,10 @@ $list_phong_ban = array();
 foreach ($this->list_phong_ban as $phong_ban) {
     $list_phong_ban[$phong_ban->pb_id] = $phong_ban->pb_name;
 }
+$list_phong_ban_options = array('0'=>'Tất cả');
+foreach ($this->list_phong_ban_option as $phong_ban) {
+    $list_phong_ban_options[$phong_ban->pb_id] = $phong_ban->pb_name;
+}
 
 $list_chuc_vu = array();
 foreach ($this->list_chuc_vu as $chuc_vu) {
@@ -16,10 +20,14 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
         <div class="btn-toolbar float_left">
             <div class="btn-group">
                 <button class="btn" onclick="OnSubmitForm('<?php echo $this->baseUrl('tochuccanbo/employees/deleteitems/page/' . $this->arrParam['page']); ?>')"><i class="icon-trash"></i> Xóa chọn</button>
-                <a class="btn" href="<?php echo $this->baseUrl('tochuccanbo/employees/search/'); ?>"><i class="icon-search"></i> Tìm kiếm</a>
                 <a class="btn" href="<?php echo $this->baseUrl('tochuccanbo/employees/add/page/' . $this->arrParam['page']); ?>"><i class="icon-plus-sign"></i> Thêm mới</a>
             </div>
-        </div>        
+        </div>
+        <div class="btn-toolbar form-search float_right text-right">
+            <?php
+            echo $this->formSelect('sl_phong_ban', $this->pb_id, array('onchange'=>'on_choose_phong_ban()'), $list_phong_ban_options);
+            ?> 
+        </div>
         <div class="clearfix">
         </div>
         <table class="table table-bordered table-hover">
@@ -564,6 +572,11 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
 </div>
 
 <script type="text/javascript">
+    function on_choose_phong_ban(){
+        var phong_ban = $('#sl_phong_ban').val();
+        window.location = site_url+'/tochuccanbo/employees/index/phongban/'+phong_ban;
+    }
+    
     function loadFormHeSo(em_id){
         var form_html = $('#dv_form_he_so').html();
         $('#mdHeSoBody').html(form_html);

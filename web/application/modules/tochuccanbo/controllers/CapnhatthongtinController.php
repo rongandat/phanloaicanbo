@@ -39,13 +39,31 @@ class Tochuccanbo_CapnhatthongtinController extends Zend_Controller_Action {
         Zend_Layout::startMvc($option);
 
         $employeesEditModel = new Front_Model_EmployeesEdit();
-        $list_employees = $employeesEditModel->fetchData(array(), 'eme_date_modified DESC');
 
         $chucvuModel = new Front_Model_Chucvu();
         $list_chuc_vu = $chucvuModel->fetchData(array('cv_status' => 1));
 
         $phongbanModel = new Front_Model_Phongban();
         $list_phong_ban = $phongbanModel->fetchAll();
+
+        $pb_selected = $this->_getParam('phongban', 0);
+
+        $phong_ban = Array();
+        $list_phong_ban_option = $phongbanModel->fetchData(0, $phong_ban);
+
+        $phong_ban_choosed = Array();
+        $phongbanModel->fetchData($pb_selected, $phong_ban_choosed);
+
+        $pb_ids = array($pb_selected);
+        foreach ($phong_ban_choosed as $pb) {
+            $pb_ids[] = $pb->pb_id;
+        }
+
+        if (!$pb_selected)
+            $list_employees = $employeesEditModel->fetchData(array(), 'eme_date_modified DESC');
+        else {
+            $list_employees = $employeesEditModel->fetchByPhongBan($pb_ids);
+        }
 
         $paginator = Zend_Paginator::factory($list_employees);
         $paginator->setItemCountPerPage(NUM_PER_PAGE);
@@ -54,6 +72,8 @@ class Tochuccanbo_CapnhatthongtinController extends Zend_Controller_Action {
         $this->view->paginator = $paginator;
         $this->view->list_chuc_vu = $list_chuc_vu;
         $this->view->list_phong_ban = $list_phong_ban;
+        $this->view->list_phong_ban_option = $list_phong_ban_option;
+        $this->view->pb_id = $pb_selected;
     }
 
     public function chitietAction() {
@@ -68,7 +88,7 @@ class Tochuccanbo_CapnhatthongtinController extends Zend_Controller_Action {
 
         $employeesModel = new Front_Model_Employees();
         $employeesEditModel = new Front_Model_EmployeesEdit();
-        
+
         $success_message = '';
 
         $id = $this->_getParam('id', 0);
@@ -94,13 +114,13 @@ class Tochuccanbo_CapnhatthongtinController extends Zend_Controller_Action {
 
         $chungchiModel = new Front_Model_Chungchi();
         $list_chung_chi = $chungchiModel->fetchData(array('cc_status' => 1));
-        
+
         $chucvudoanModel = new Front_Model_ChucVuDoan();
         $list_chuc_vu_doan = $chucvudoanModel->fetchData(array('cvdoan_status' => 1));
-        
+
         $chucvudangModel = new Front_Model_ChucVuDang();
         $list_chuc_vu_dang = $chucvudangModel->fetchData(array('cvdang_status' => 1));
-        
+
         $chucvucongdoanModel = new Front_Model_ChucVuCongDoan();
         $list_chuc_vu_cong_doan = $chucvucongdoanModel->fetchData(array('cvcdoan_status' => 1));
 
@@ -148,7 +168,7 @@ class Tochuccanbo_CapnhatthongtinController extends Zend_Controller_Action {
             $em_ten_khac = $this->_arrParam['em_ten_khac'];
             $em_so_chung_minh_thu = trim($this->_arrParam['em_so_chung_minh_thu']);
             $em_gioi_tinh = $this->_arrParam['em_gioi_tinh'];
-            $ngay_sinh = $this->_arrParam['ngay_sinh'];            
+            $ngay_sinh = $this->_arrParam['ngay_sinh'];
             $em_home_phone = $this->_arrParam['em_home_phone'];
             $em_phone = $this->_arrParam['em_phone'];
             $em_noi_sinh = trim($this->_arrParam['em_noi_sinh']);
@@ -158,9 +178,9 @@ class Tochuccanbo_CapnhatthongtinController extends Zend_Controller_Action {
             $em_dia_chi_huyen = $this->_arrParam['em_dia_chi_huyen'];
             $em_dan_toc = $this->_arrParam['em_dan_toc'];
             $em_chuc_vu_dang = $this->_arrParam['em_chuc_vu_dang'];
-            $ngay_dang = $this->_arrParam['ngay_dang'];            
+            $ngay_dang = $this->_arrParam['ngay_dang'];
             $em_chuc_vu_doan = $this->_arrParam['em_chuc_vu_doan'];
-            $ngay_doan = $this->_arrParam['ngay_doan'];            
+            $ngay_doan = $this->_arrParam['ngay_doan'];
             $em_chuc_vu_cong_doan = $this->_arrParam['em_chuc_vu_cong_doan'];
             $em_van_hoa_pt = trim($this->_arrParam['em_van_hoa_pt']);
             $em_hoc_ham = $this->_arrParam['em_hoc_ham'];
@@ -170,7 +190,7 @@ class Tochuccanbo_CapnhatthongtinController extends Zend_Controller_Action {
             $em_chung_chi_khac = $this->_arrParam['em_chung_chi_khac'];
             $em_bang_scan_upload = $this->_arrParam['anh_bang_cap'];
             $em_status = $this->_arrParam['em_status'];
-            
+
             $validator_length = new Zend_Validate_StringLength(array('min' => 2, 'max' => 255));
 
             //kiem tra dữ liệu
@@ -187,7 +207,7 @@ class Tochuccanbo_CapnhatthongtinController extends Zend_Controller_Action {
                 $current_time = new Zend_Db_Expr('NOW()');
                 $date_ngay_sinh = DateTime::createFromFormat('d/m/yy', $ngay_sinh);
                 $date_ngay_vao_dang = DateTime::createFromFormat('d/m/yy', $ngay_dang);
-                $date_ngay_vao_doan = DateTime::createFromFormat('d/m/yy', $ngay_doan);                
+                $date_ngay_vao_doan = DateTime::createFromFormat('d/m/yy', $ngay_doan);
                 $data['em_ho'] = $em_ho;
                 $data['em_ten_dem'] = $em_ten_dem;
                 $data['em_ten'] = $em_ten;

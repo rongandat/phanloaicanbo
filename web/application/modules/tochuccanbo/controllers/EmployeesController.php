@@ -38,25 +38,43 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
 
         Zend_Layout::startMvc($option);
 
-        $employeesModel = new Front_Model_Employees();
-        $list_employees = $employeesModel->fetchData(array('em_delete' => 0));
+        $pb_selected = $this->_getParam('phongban', 0);
 
         $chucvuModel = new Front_Model_Chucvu();
         $list_chuc_vu = $chucvuModel->fetchData(array('cv_status' => 1));
-
-        $phongbanModel = new Front_Model_Phongban();
-        $list_phong_ban = $phongbanModel->fetchAll();
-
         $ngachcongchucModel = new Front_Model_NgachCongChuc();
         $list_ngach_cong_chuc = $ngachcongchucModel->fetchData(array('ncc_status' => 1));
+        
+        $phongbanModel = new Front_Model_Phongban();
+        $list_phong_ban = $phongbanModel->fetchAll();
+        
+        $phong_ban = Array();
+        $list_phong_ban_option = $phongbanModel->fetchData(0, $phong_ban);
 
+        $phong_ban_choosed = Array();
+        $phongbanModel->fetchData($pb_selected, $phong_ban_choosed);
+
+        $pb_ids = array($pb_selected);
+        foreach ($phong_ban_choosed as $pb) {
+            $pb_ids[] = $pb->pb_id;
+        }
+
+        $employeesModel = new Front_Model_Employees();
+        if (!$pb_selected) {
+            $list_employees = $employeesModel->fetchData(array('em_delete' => 0));
+        }else{
+            $select = $employeesModel->select()->where('em_delete=?', 0)->where('em_phong_ban in (?)', $pb_ids);            
+            $list_employees = $employeesModel->fetchAll($select);
+        }
         $paginator = Zend_Paginator::factory($list_employees);
         $paginator->setItemCountPerPage(NUM_PER_PAGE);
         $paginator->setCurrentPageNumber($this->_page);
         $this->view->page = $this->_page;
+        $this->view->pb_id = $pb_selected;
         $this->view->paginator = $paginator;
         $this->view->list_chuc_vu = $list_chuc_vu;
         $this->view->list_phong_ban = $list_phong_ban;
+        $this->view->list_phong_ban_option = $list_phong_ban_option;
         $this->view->list_ngach_cong_chuc = $list_ngach_cong_chuc;
     }
 
@@ -125,13 +143,13 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
 
         $chungchiModel = new Front_Model_Chungchi();
         $list_chung_chi = $chungchiModel->fetchData(array('cc_status' => 1));
-        
+
         $chucvudoanModel = new Front_Model_ChucVuDoan();
         $list_chuc_vu_doan = $chucvudoanModel->fetchData(array('cvdoan_status' => 1));
-        
+
         $chucvudangModel = new Front_Model_ChucVuDang();
         $list_chuc_vu_dang = $chucvudangModel->fetchData(array('cvdang_status' => 1));
-        
+
         $chucvucongdoanModel = new Front_Model_ChucVuCongDoan();
         $list_chuc_vu_cong_doan = $chucvucongdoanModel->fetchData(array('cvcdoan_status' => 1));
 
@@ -180,7 +198,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
             $em_ten_khac = $this->_arrParam['em_ten_khac'];
             $em_so_chung_minh_thu = trim($this->_arrParam['em_so_chung_minh_thu']);
             $em_gioi_tinh = $this->_arrParam['em_gioi_tinh'];
-            $ngay_sinh = $this->_arrParam['ngay_sinh'];            
+            $ngay_sinh = $this->_arrParam['ngay_sinh'];
             $em_home_phone = $this->_arrParam['em_home_phone'];
             $em_phone = $this->_arrParam['em_phone'];
             $em_noi_sinh = trim($this->_arrParam['em_noi_sinh']);
@@ -192,14 +210,14 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
             $em_so_cong_chuc = trim($this->_arrParam['em_so_cong_chuc']);
             $em_chuc_vu = $this->_arrParam['em_chuc_vu'];
             $em_phong_ban = $this->_arrParam['em_phong_ban'];
-            $ngay_tuyen_dung = $this->_arrParam['ngay_tuyen_dung'];            
+            $ngay_tuyen_dung = $this->_arrParam['ngay_tuyen_dung'];
             $em_ngach_cong_chuc = $this->_arrParam['em_ngach_cong_chuc'];
             $em_cong_viec = trim($this->_arrParam['em_cong_viec']);
             $em_chuyen_mon = trim($this->_arrParam['em_chuyen_mon']);
             $em_chuc_vu_dang = $this->_arrParam['em_chuc_vu_dang'];
-            $ngay_dang = $this->_arrParam['ngay_dang'];            
+            $ngay_dang = $this->_arrParam['ngay_dang'];
             $em_chuc_vu_doan = $this->_arrParam['em_chuc_vu_doan'];
-            $ngay_doan = $this->_arrParam['ngay_doan'];            
+            $ngay_doan = $this->_arrParam['ngay_doan'];
             $em_chuc_vu_cong_doan = $this->_arrParam['em_chuc_vu_cong_doan'];
             $em_van_hoa_pt = trim($this->_arrParam['em_van_hoa_pt']);
             $em_hoc_ham = $this->_arrParam['em_hoc_ham'];
@@ -225,11 +243,11 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
 
 
             if (!sizeof($error_message)) {
-                $current_time = new Zend_Db_Expr('NOW()');                
+                $current_time = new Zend_Db_Expr('NOW()');
                 $date_ngay_sinh = DateTime::createFromFormat('d/m/yy', $ngay_sinh);
                 $date_ngay_tuyen_dung = DateTime::createFromFormat('d/m/yy', $ngay_tuyen_dung);
                 $date_ngay_vao_dang = DateTime::createFromFormat('d/m/yy', $ngay_dang);
-                $date_ngay_vao_doan = DateTime::createFromFormat('d/m/yy', $ngay_doan);                
+                $date_ngay_vao_doan = DateTime::createFromFormat('d/m/yy', $ngay_doan);
                 $data['em_ho'] = $em_ho;
                 $data['em_ten_dem'] = $em_ten_dem;
                 $data['em_ten'] = $em_ten;
@@ -347,13 +365,13 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
 
         $chucvudoanModel = new Front_Model_ChucVuDoan();
         $list_chuc_vu_doan = $chucvudoanModel->fetchData(array('cvdoan_status' => 1));
-        
+
         $chucvudangModel = new Front_Model_ChucVuDang();
         $list_chuc_vu_dang = $chucvudangModel->fetchData(array('cvdang_status' => 1));
-        
+
         $chucvucongdoanModel = new Front_Model_ChucVuCongDoan();
         $list_chuc_vu_cong_doan = $chucvucongdoanModel->fetchData(array('cvcdoan_status' => 1));
-        
+
         $error_message = array();
 
         $min = 10;
@@ -447,8 +465,8 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
                 $date_ngay_sinh = DateTime::createFromFormat('d/m/yy', $ngay_sinh);
                 $date_ngay_tuyen_dung = DateTime::createFromFormat('d/m/yy', $ngay_tuyen_dung);
                 $date_ngay_vao_dang = DateTime::createFromFormat('d/m/yy', $ngay_dang);
-                $date_ngay_vao_doan = DateTime::createFromFormat('d/m/yy', $ngay_doan); 
-                
+                $date_ngay_vao_doan = DateTime::createFromFormat('d/m/yy', $ngay_doan);
+
                 $data['em_ho'] = $em_ho;
                 $data['em_ten_dem'] = $em_ten_dem;
                 $data['em_ten'] = $em_ten;
@@ -603,7 +621,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
             $data['em_chuyen_mon'] = $em_chuyen_mon;
             $data['em_date_modified'] = $current_time;
             $success_message = $employeesModel->update($data, 'em_id=' . $em_id);
-            
+
             $thongbao_model = new Front_Model_ThongBao();
             $data = array();
             $data['tb_from'] = 0;
@@ -611,16 +629,16 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
             $data['tb_tieu_de'] = '[Luân chuyển] Bạn đã được luân chuyển sang đơn vị/công việc mới';
             $data['tb_noi_dung'] = 'Bạn vừa được luân chuyển sang đơn vị/công việc mới.</br>
                 Chi tiết như sau:</br>
-                Chức vụ: '.$this->view->viewGetChucVuName($em_chuc_vu).'</br>
-                Phòng ban: '.$this->view->viewGetPhongBanName($em_phong_ban).'</br>
-                Ngạch công chức: '.$this->view->viewGetNgachCongChucName($em_chuc_vu).'</br>
-                Công việc: '.$em_cong_viec.'</br>
-                Chuyên môn: '.$em_chuyen_mon.'</br>';
+                Chức vụ: ' . $this->view->viewGetChucVuName($em_chuc_vu) . '</br>
+                Phòng ban: ' . $this->view->viewGetPhongBanName($em_phong_ban) . '</br>
+                Ngạch công chức: ' . $this->view->viewGetNgachCongChucName($em_chuc_vu) . '</br>
+                Công việc: ' . $em_cong_viec . '</br>
+                Chuyên môn: ' . $em_chuyen_mon . '</br>';
             $data['tb_status'] = 0;
             $data['tb_date_added'] = $current_time;
             $data['tb_date_modified'] = $current_time;
             $thongbao_model->insert($data);
-            
+
             $this->view->success_message = $success_message;
         }
     }
@@ -642,8 +660,8 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
             $kt_chi_tiet = trim($this->_arrParam['kt_chi_tiet']);
             $kt_money = trim($this->_arrParam['kt_money']);
             $current_time = new Zend_Db_Expr('NOW()');
-            
-            if(!is_numeric($kt_money)){
+
+            if (!is_numeric($kt_money)) {
                 $kt_money = 0;
             }
             $date_khen_thuong = date_create($kt_date_year . '-' . $kt_date_month . '-' . $kt_date_day);
@@ -659,7 +677,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
             $success_message = $khenthuongModel->insert($data);
 
             $thongbao_model = new Front_Model_ThongBao();
-            
+
             $data = array();
             $data['tb_from'] = 0;
             $data['tb_to'] = $em_id;
@@ -692,7 +710,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
             $kl_chi_tiet = trim($this->_arrParam['kl_chi_tiet']);
             $current_time = new Zend_Db_Expr('NOW()');
             $date_ky_luat = date_create($kl_date_year . '-' . $kl_date_month . '-' . $kl_date_day);
-            if(!is_numeric($kl_money)){
+            if (!is_numeric($kl_money)) {
                 $kl_money = 0;
             }
             $data['kl_can_bo_to_chuc'] = $from_id;
@@ -704,7 +722,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
             $data['kl_date_added'] = $current_time;
             $data['kl_date_modified'] = $current_time;
             $success_message = $kyluatModel->insert($data);
-            
+
             $thongbao_model = new Front_Model_ThongBao();
             $data = array();
             $data['tb_from'] = 0;
@@ -715,7 +733,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
             $data['tb_date_added'] = $current_time;
             $data['tb_date_modified'] = $current_time;
             $thongbao_model->insert($data);
-            
+
             $this->view->success_message = $success_message;
         }
     }

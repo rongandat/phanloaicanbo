@@ -1,0 +1,313 @@
+<?php
+$kq_options = array();
+foreach ($this->ket_qua as $ket_qua) {
+    $kq_options[$ket_qua->dgkqcv_id] = $ket_qua->dgkqcv_name;
+}
+
+$list_phong_ban = array();
+foreach ($this->list_phong_ban as $phong_ban) {
+    $list_phong_ban[$phong_ban->pb_id] = $phong_ban->pb_name;
+}
+
+$list_phong_ban_options = array('0' => 'Tất cả');
+foreach ($this->list_phong_ban_option as $phong_ban) {
+    $list_phong_ban_options[$phong_ban->pb_id] = $phong_ban->pb_name;
+}
+?>
+
+<h5>Duyệt phân loại</h5>               
+
+<div class="main-content-box">  
+    <form name="appForm" class="form-horizontal" method="post" action="">
+        <div class="control-group">
+            <label class="control-label">Phòng ban</label>
+            <div class="controls">
+                <?php
+                echo $this->formSelect('sl_phong_ban', $this->pb_id, array('onchange' => 'on_choose_phong_ban()'), $list_phong_ban_options);
+                ?>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">Tháng</label>
+            <div class="controls">
+                <div class="input-append">
+                    <input class="span2" value="<?php echo $this->thang . '/' . $this->nam; ?>" id="txt_thang_nam" type="text" readonly="true"/>
+                    <button class="btn" type="button" id="btn_chon_thang">Chọn tháng!</button>
+                </div>
+
+            </div>
+        </div>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>    
+                    <th class="checkall_style"><input type="checkbox" name="check_all" id="checkbox" onclick="checkedAll()"></th>
+                    <th>Họ tên</th>
+                    <th style="width: 120px;">Phòng ban</th>
+                    <th style="width: 80px;">Cá nhân</th>
+                    <th style="width: 80px;">Đơn vị</th>
+                    <th style="width: 120px;">Phòng tổ chức</th>
+                    <th style="width: 120px;">Chức năng</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                foreach ($this->list_nhan_vien as $nhan_vien) {
+                    $phan_loai = $this->viewGetPhanLoai($nhan_vien->em_id, (int) $this->thang, (int) $this->nam);
+                    $rd_id = rand(1000000, 9999999);
+                    ?>
+                    <tr>
+                        <td class="checkall_style"><input type="checkbox" name="cid[]" id="cid" value="<?php echo $nhan_vien->em_id; ?>"></td>
+                        <td id="name_<?php echo $nhan_vien->em_id; ?>"><?php echo $nhan_vien->em_ho . ' ' . $nhan_vien->em_ten_dem . ' ' . $nhan_vien->em_ten; ?></td>
+                        <td><?php echo $list_phong_ban[$nhan_vien->em_phong_ban]; ?></td>
+                        <td><?php echo ($phan_loai ? $phan_loai->dg_phan_loai : '-'); ?></td>
+                        <td>
+                            <?php
+                            echo ($phan_loai ? $phan_loai->dg_don_vi_status : '-');
+                            ?>                                
+                        </td>
+                        <td>
+                            <?php echo ($phan_loai ? '<span id="sp_dg_' . $nhan_vien->em_id . '">' . $phan_loai->dg_ptccb_status . '</span>' : '<span id="sp_dg_' . $nhan_vien->em_id . '">-</span>'); ?>
+                            
+                            <div class="dropdown float_right" style="padding-right: 6px;">
+                                <a class="btn btn-mini" id="drop_pl_<?php echo $nhan_vien->em_id; ?>" role="button" data-toggle="dropdown" href="#"><i class="icon-refresh"></i> <b class="caret"></b></a>                                    
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="drop_pl_<?php echo $nhan_vien->em_id; ?>">
+                                    <li role="presentation">
+                                        <a role="menuitem" tabindex="-1" onclick="on_update_status(<?php echo $nhan_vien->em_id; ?>, <?php echo $this->thang; ?>, <?php echo $this->nam; ?>,'A')">A</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a role="menuitem" tabindex="-1" onclick="on_update_status(<?php echo $nhan_vien->em_id; ?>, <?php echo $this->thang; ?>, <?php echo $this->nam; ?>,'B')">B</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a role="menuitem" tabindex="-1" onclick="on_update_status(<?php echo $nhan_vien->em_id; ?>, <?php echo $this->thang; ?>, <?php echo $this->nam; ?>,'C')">C</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a role="menuitem" tabindex="-1" onclick="on_update_status(<?php echo $nhan_vien->em_id; ?>, <?php echo $this->thang; ?>, <?php echo $this->nam; ?>,'D')">D</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="dropdown float_left" style="padding-right: 6px;">
+                                <a class="btn btn-mini" id="drop_<?php echo $nhan_vien->em_id; ?>" role="button" data-toggle="dropdown" href="#"><i class="icon-th-list"></i> Chức năng <b class="caret"></b></a>                                    
+                                <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop_<?php echo $nhan_vien->em_id; ?>">
+                                    <li role="presentation">
+                                        <a role="menuitem" tabindex="-1" data-toggle="modal" href="#mdPL_<?php echo ($phan_loai ? $phan_loai->dg_id : $rd_id); ?>" title="Xem chi tiết"><i class="icon-calendar"></i> Xem chi tiết</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a role="menuitem" tabindex="-1" data-toggle="modal" href="#mdThongBao" title="Gửi tin nhắn" onclick="loadFormThongBao('<?php echo $nhan_vien->em_id; ?>', '<?php echo $nhan_vien->em_ho . ' ' . $nhan_vien->em_ten_dem . ' ' . $nhan_vien->em_ten; ?>')"><i class="icon-envelope"></i> Gửi thông báo</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div id="mdPL_<?php echo ($phan_loai ? $phan_loai->dg_id : $rd_id); ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                    <h3 id="myModalLabel">Chi tiết</h3>
+                                </div>
+                                <div class="modal-body">
+                                    <?php if ($phan_loai) { ?>
+                                        <div class="row">
+                                            <div class="span4 float_left"><strong>Nhân viên: </strong> <?php echo $nhan_vien->em_ho . ' ' . $nhan_vien->em_ten_dem . ' ' . $nhan_vien->em_ten; ?></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="span4 float_left"><strong>Công việc trong tháng: </strong> <?php echo $phan_loai->dg_cong_viec; ?></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="span4 float_left"><strong>Kết quả công việc: </strong> <?php echo $kq_options[$phan_loai->dg_ket_qua_cong_viec]; ?></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="span4 float_left"><strong>Số ngày nghỉ: </strong> <?php echo $phan_loai->dg_so_ngay_nghi; ?></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="span4 float_left"><strong>Lý do: </strong> <?php echo $phan_loai->dg_ly_do_nghi; ?></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="span4 float_left"><strong>Ý thức trách nhiệm: </strong> <?php echo $phan_loai->dg_y_thuc_xay_dung; ?></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="span4 float_left"><strong>Khuyết điểm: </strong> <?php echo $phan_loai->dg_khuyet_diem; ?></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="span4 float_left">
+                                                <strong>Vi phạm: </strong> 
+                                                <div class="row">
+                                                    <?php
+                                                    $vi_pham = unserialize($phan_loai->dg_tc_danh_gia);
+                                                    foreach ($this->tieu_chi as $tieu_chi) {
+                                                        echo '<div class="span6 show-grid" style="margin-bottom: 5px;"> ' . $tieu_chi->tcdgcb_name . ': ' . $vi_pham[$tieu_chi->tcdgcb_id] . ' lần</div>';
+                                                    }
+                                                    ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="span4 float_left"><strong>Ghi chú: </strong> <?php echo $phan_loai->dg_ghi_chu; ?></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="span4 float_left"><strong>Tự đánh giá: </strong> <?php echo $phan_loai->dg_phan_loai; ?></div>
+                                        </div>
+                                        <?php
+                                    } else {
+                                        echo '<div class="row">Chưa có dữ liệu!</div>';
+                                    }
+                                    ?>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn" data-dismiss="modal" aria-hidden="true">Đóng</button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <?php
+                }
+                ?>
+            </tbody>
+        </table>
+    </form>
+</div>
+
+<div id="mdThongBao" class="modal_xlager hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Thông Báo</h3>
+    </div>
+    <div class="modal-body" id="mdThongBaoBody">
+        <div class="alert alert-error" id="dv_thong_bao_error" style="display: none;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h5>Thông báo!</h5>
+            Cập nhật không thành công!
+        </div>
+
+        <div class="alert alert-success" id="dv_thong_bao_success" style="display: none;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h5>Thông báo!</h5>
+            Cập nhật thành công!
+        </div>
+
+        <form class="form-horizontal">
+            <input type="hidden" id="tb_cap_nhat_id" value=""/>
+
+            <div class="control-group">
+                <label class="control-label" for="tb_can_bo">Người nhận</label>
+                <div class="controls" id="tb_can_bo">
+
+                </div>            
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="tb_tieu_de">Tiêu đề</label>
+                <div class="controls">
+                    <?php echo $this->formText('tb_tieu_de', null, array('class' => 'input-xxlarge', 'placeholder' => '')); ?>                   
+                </div>            
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="tb_noi_dung">Nội dung</label>
+                <div class="controls">
+                    <?php echo $this->formTextarea('tb_noi_dung', null, array('class' => 'input-xlarge', 'rows' => 5)); ?>                   
+                </div>            
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Đóng</button>
+        <button class="btn btn-primary" onclick="postFormThongBao();" id="btn_gui_thong_bao">Gửi thông báo</button>
+    </div>
+</div>
+
+<script>
+    var currentYear = <?php echo $this->nam; ?>;    
+    var options = {
+        pattern: 'mm/yyyy', // Default is 'mm/yyyy' and separator char is not mandatory 
+        startYear: 2013,
+        selectedYear: currentYear,
+        monthNames: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12']
+    };
+
+    var phong_ban = $('#sl_phong_ban').val();
+
+    $('#txt_thang_nam').monthpicker(options);
+
+    $('#txt_thang_nam').monthpicker().bind('monthpicker-click-month', function (e, month, year) { 
+        window.location = site_url+'/tochuccanbo/duyetphanloai/index/thang/'+month+'/nam/'+year+'/phongban/'+phong_ban;
+    });
+
+    $('#btn_chon_thang').bind('click', function () {
+        $('#txt_thang_nam').monthpicker('show');
+    });
+    
+    function on_choose_phong_ban(){
+        var phong_ban = $('#sl_phong_ban').val();
+        var c_date = $('#txt_thang_nam').val();
+        var date_array = c_date.split("/");
+        var d = new Date(),
+        c_m = d.getMonth(),
+        c_y = d.getFullYear();
+        if(date_array.length==2 && $.isNumeric(date_array[0]) && $.isNumeric(date_array[1])){
+            c_m = date_array[0];
+            c_y = date_array[1];
+        }        
+        window.location = site_url+'/tochuccanbo/duyetphanloai/index/thang/'+c_m+'/nam/'+c_y+'/phongban/'+phong_ban;
+    }
+    
+    function loadFormThongBao(em_id, em_name){ 
+        $('#mdThongBaoBody #tb_cap_nhat_id').val(em_id);
+        $('#mdThongBaoBody #tb_can_bo').html('<strong>'+em_name+'</strong>');
+        tinyMCE.get('tb_noi_dung').setContent('');
+        $('#mdThongBaoBody #tb_tieu_de').val('');
+        $('#dv_thong_bao_success').hide();
+        $('#dv_thong_bao_error').hide();
+    }
+    
+    function postFormThongBao(){                
+        $('#dv_thong_bao_success').hide();
+        $('#dv_thong_bao_error').hide();
+        var em_id = $('#mdThongBaoBody #tb_cap_nhat_id').val();
+        var tb_title = $('#mdThongBaoBody #tb_tieu_de').val();
+        var tb_content = tinyMCE.get('tb_noi_dung').getContent();
+        if(tb_title !='' && tb_content!=''){
+            $("#btn_gui_thong_bao").attr("disabled", "disabled");
+            $.post( site_url+'/canhan/thongbao/jqnewtb', {
+                em_id: em_id, 
+                tb_title: tb_title, 
+                tb_content: tb_content
+            }, function(data) {    
+                $("#btn_gui_thong_bao").removeAttr("disabled");
+                if(data.status){
+                    $('#dv_thong_bao_success').show();
+                    tinyMCE.get('tb_noi_dung').setContent('');
+                    $('#mdThongBaoBody #tb_tieu_de').val('');
+                }else{
+                    $('#dv_thong_bao_error').show();
+                }
+            }, 'json');
+        }else{
+            alert('Bạn phải nhập đầy đủ tiêu đề và nội dung!');
+        }        
+    }
+    
+    function on_update_status(em_id, thang, nam, new_status){
+        $.blockUI({
+            message: '<h3>Đang thực hiện</h3>',
+            css: {                         
+                border: 'none', 
+                padding: '15px', 
+                backgroundColor: '#000', 
+                '-webkit-border-radius': '10px', 
+                '-moz-border-radius': '10px', 
+                opacity: .5, 
+                color: '#fff' 
+            }
+        });
+        $.post( site_url+'/tochuccanbo/duyetphanloai/jqupdatestatus', {
+            em_id: em_id, 
+            d_thang: thang, 
+            dg_nam: nam, 
+            dg_status: new_status
+        }, function(data) {    
+            if(data.status){      
+                $('#sp_dg_'+em_id).html(data.new_status);
+                $.success_ui('Thông báo!', 'Thực hiện thành công!', 4000);                
+            }else{
+                $.error_ui('Thông báo', 'Không thể thực hiện được!', 4000); 
+            }
+        }, 'json');
+    }
+</script>
