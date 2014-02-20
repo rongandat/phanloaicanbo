@@ -64,12 +64,12 @@ class Tochuccanbo_DuyetnghiphepController extends Zend_Controller_Action {
             $pb_ids[] = $pb->pb_id;
         }
 
-        if(!$pb_selected){
-            $list_nghi_phep = $xnpModel->fetchByPhongBan($pb_ids, "$nam-$thang-01 00:00:00", "$nam-$thang-31 23:59:59");
-        }else{
+        if (!$pb_selected) {
             $list_nghi_phep = $xnpModel->fetchByPhongBan(array(), "$nam-$thang-01 00:00:00", "$nam-$thang-31 23:59:59");
+        } else {
+            $list_nghi_phep = $xnpModel->fetchByPhongBan($pb_ids, "$nam-$thang-01 00:00:00", "$nam-$thang-31 23:59:59");
         }
-        
+
         $this->view->list_nghi_phep = $list_nghi_phep;
         $this->view->thang = $thang;
         $this->view->nam = $nam;
@@ -92,12 +92,28 @@ class Tochuccanbo_DuyetnghiphepController extends Zend_Controller_Action {
                 $xnp_status = -1;
             }
             $process_status = 1;
+            $current_time = new Zend_Db_Expr('NOW()');
             $xnpModel = new Front_Model_XinNghiPhep();
-            $process_status = $xnpModel->update(array('xnp_don_vi_status' => $xnp_status), "xnp_id=$xnp_id and xnp_ptccb_status<0");
+            $process_status = $xnpModel->update(array('xnp_ptccb_status' => $xnp_status), "xnp_id=$xnp_id");
             if ($process_status) {
+                $thongbao_model = new Front_Model_ThongBao();
+                $row_content = $xnpModel->fetchRow(array('xnp_id' => $xnp_id));
+                $data = array();
+                $data['tb_from'] = 0;
+                $data['tb_to'] = $row_content->xnp_em_id;
+                $data['tb_tieu_de'] = '[Xin nghỉ phép] Đơn xin nghỉ phép đã được duyệt.';
+                $data['tb_noi_dung'] = 'Đơn nghỉ phép của bạn đã được duyệt.<br> Lịch nghỉ của bạn bắt đầu từ ' . date('d-m-Y', strtotime($row_content->xnp_from_date)) . ' đến ngày ' . date('d-m-Y', strtotime($row_content->xnp_to_date));
+                $data['tb_status'] = 0;
+                $data['tb_date_added'] = $current_time;
+                $data['tb_date_modified'] = $current_time;
+
                 if (!$xnp_status) {
                     $new_status = 'Không duyệt';
+                    $data['tb_tieu_de'] = '[Xin nghỉ phép] Đơn xin nghỉ phép đã không được chấp nhận.';
+                    $data['tb_noi_dung'] = 'Đơn nghỉ phép của bạn đã không được chấp nhậ';
                 }
+
+                $thongbao_model->insert($data);
             }
         }
         $this->view->new_status = $new_status;
