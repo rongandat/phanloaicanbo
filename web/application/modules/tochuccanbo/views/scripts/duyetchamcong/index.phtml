@@ -157,8 +157,9 @@ foreach ($this->list_phong_ban_option as $phong_ban) {
     }
     
     function loadFormThongBao(){ 
-        var em_id = $('#sl_chon_nv').val();
-        var em_name = $('#sl_chon_nv').val();
+        var em_id = $("#sl_chon_nv option:selected").val();
+        var em_name = $("#sl_chon_nv option:selected").text();
+
         $('#mdThongBaoBody #tb_cap_nhat_id').val(em_id);
         $('#mdThongBaoBody #tb_can_bo').html('<strong>'+em_name+'</strong>');
         tinyMCE.get('tb_noi_dung').setContent('');
@@ -207,8 +208,8 @@ foreach ($this->list_phong_ban_option as $phong_ban) {
                 color: '#fff' 
             }
         });
-        var st = $('#sl_don_vi_status').val();
-        $.post( site_url+'/donvi/duyetchamcong/jqupdatestatus', {
+        var st = $('#sl_ptccb_status').val();
+        $.post( site_url+'/tochuccanbo/duyetchamcong/jqupdatestatus', {
             c_id: cc_id, 
             c_status: st
         }, function(data) {    

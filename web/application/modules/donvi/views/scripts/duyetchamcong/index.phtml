@@ -126,8 +126,8 @@
     }
     
     function loadFormThongBao(){ 
-        var em_id = $('#sl_chon_nv').val();
-        var em_name = $('#sl_chon_nv').val();
+        var em_id = $("#sl_chon_nv option:selected").val();
+        var em_name = $("#sl_chon_nv option:selected").text();
         $('#mdThongBaoBody #tb_cap_nhat_id').val(em_id);
         $('#mdThongBaoBody #tb_can_bo').html('<strong>'+em_name+'</strong>');
         tinyMCE.get('tb_noi_dung').setContent('');

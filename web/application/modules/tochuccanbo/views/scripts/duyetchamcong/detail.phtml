@@ -3,17 +3,15 @@
 $trang_thai_icon = 'Chờ duyệt';
 $flag_add_edit = false;
 
-if ($this->cham_cong){
+if ($this->cham_cong) {
     $flag_add_edit = true;
 }
-if ($this->cham_cong && $this->cham_cong->c_ptccb_status == 0) {
+if ($this->cham_cong && $this->cham_cong->c_don_vi_status == 0) {
     $trang_thai_icon = 'Không duyệt';
-    $flag_add_edit = false;
 }
 
-if ($this->cham_cong && $this->cham_cong->c_ptccb_status == 1) {
+if ($this->cham_cong && $this->cham_cong->c_don_vi_status == 1) {
     $trang_thai_icon = 'Đã duyệt';
-    $flag_add_edit = false;
 }
 ?>
 <div class="main-content-box">  
@@ -144,22 +142,25 @@ if ($this->cham_cong && $this->cham_cong->c_ptccb_status == 1) {
             <div class="control-group">
                 <label class="control-label">Đơn vị</label>
                 <div class="controls">
-                    <?php
-                    $status_options = array('-1' => 'Chưa duyệt', '0' => 'Không duyệt', '1' => 'Duyệt');
-                    echo $this->formSelect('sl_don_vi_status', null, null, $status_options);
-                    ?>
+                    <label class="control-label ta_left" style="padding-left: 15px;"><?php echo $trang_thai_icon; ?></label>                
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label">Phòng tổ chức</label>
-                <label class="control-label ta_left" style="padding-left: 15px;"><?php echo $trang_thai_icon;?></label>                
+                <div class="controls">
+                    <?php
+                    $status_options = array('-1' => 'Chưa duyệt', '1' => 'Duyệt');
+                    echo $this->formSelect('sl_ptccb_status', ($this->cham_cong ? $this->cham_cong->c_ptccb_status : null), null, $status_options);
+                    ?>
+                </div>
             </div>
 
             <div class="control-group">
                 <div class="controls">
                     <p>   
                         <?php
-                        if($flag_add_edit) echo '<button class="btn btn-small btn-primary" type="button" onclick="on_update_status('.$this->cham_cong->c_id.')">Cập nhật</button>';
+                        if ($flag_add_edit)
+                            echo '<button class="btn btn-small btn-primary" type="button" onclick="on_update_status(' . $this->cham_cong->c_id . ')">Cập nhật</button>';
                         ?>                        
                         <a class="btn btn-small" data-toggle="modal" href="#mdThongBao" onclick="loadFormThongBao()">Gửi thông báo</a>
                         <a class="btn btn-small" type="button" href="<?php echo $this->baseUrl('donvi/thanhvien'); ?>">Quay lại</a>

@@ -145,8 +145,11 @@ if ($this->cham_cong && $this->cham_cong->c_ptccb_status == 1) {
                 <label class="control-label">Đơn vị</label>
                 <div class="controls">
                     <?php
-                    $status_options = array('-1' => 'Chưa duyệt', '0' => 'Không duyệt', '1' => 'Duyệt');
-                    echo $this->formSelect('sl_don_vi_status', null, null, $status_options);
+                    $status_options = array('-1' => 'Chưa duyệt', '1' => 'Duyệt');
+                    if($flag_add_edit)
+                        echo $this->formSelect('sl_don_vi_status', null, null, $status_options);
+                    else
+                        echo $this->formSelect('sl_don_vi_status', null, array('disable' => 'true'), $status_options);
                     ?>
                 </div>
             </div>

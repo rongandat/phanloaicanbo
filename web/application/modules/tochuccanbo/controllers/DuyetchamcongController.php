@@ -117,7 +117,7 @@ class Tochuccanbo_DuyetchamcongController extends Zend_Controller_Action {
                 $c_status = -1;
             }
             $chaqmcongModel = new Front_Model_ChamCong();
-            $process_status = $chaqmcongModel->update(array('c_don_vi_status' => $c_status), "c_id=$c_id and c_ptccb_status<0");
+            $process_status = $chaqmcongModel->update(array('c_ptccb_status' => $c_status), "c_id=$c_id");
         }
         $this->view->process_status = $process_status;
     }
