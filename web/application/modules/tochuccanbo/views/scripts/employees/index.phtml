@@ -71,7 +71,7 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
                                             <a role="menuitem" tabindex="-1" data-toggle="modal" href="#mdKyLuat" title="Kỷ luật" onclick="loadFormKyLuat(' . $item->em_id . ', \'' . $item->em_ho . ' ' . $item->em_ten_dem . ' ' . $item->em_ten . '\')"><i class="icon-exclamation-sign"></i> Kỷ luật</a>
                                         </li>
                                         <li role="presentation">
-                                            <a role="menuitem" tabindex="-1" data-toggle="modal" href="#" title="Thống kê"><i class="icon-tasks"></i> Thống kê</a>
+                                            <a role="menuitem" tabindex="-1" href="'.$this->baseUrl('tochuccanbo/employees/thongke/id/' . $item->em_id . '/page/' . $this->arrParam['page']).'" title="Thống kê"><i class="icon-tasks"></i> Thống kê</a>
                                         </li>
                                         <li role="presentation">
                                             <a role="menuitem" tabindex="-1" data-toggle="modal" href="#mdThongBao" title="Gửi thông báo" onclick="loadFormThongBao(' . $item->em_id . ', \'' . $item->em_ho . ' ' . $item->em_ten_dem . ' ' . $item->em_ten . '\')"><i class="icon-envelope"></i> Gửi thông báo</a>

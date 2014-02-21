@@ -102,8 +102,51 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
         $this->view->paginator = $paginator;
     }
 
-    public function addAction() {
+    public function thongkeAction(){
+        $layoutPath = APPLICATION_PATH . '/templates/' . TEMPLATE_USED;
+        $option = array('layout' => '1_column/layout',
+            'layoutPath' => $layoutPath);
 
+        Zend_Layout::startMvc($option);
+        $translate = Zend_Registry::get('Zend_Translate');
+        $this->view->title = 'Quản lý cán bộ - ' . $translate->_('TEXT_DEFAULT_TITLE');
+        $this->view->headTitle($this->view->title);
+        
+        $date = time();
+        $thang = $this->_getParam('thang', date('m', $date));
+        $nam = $this->_getParam('nam', date('Y', $date));
+        $em_id = $this->_getParam('id', 0);
+        
+        $holidaysModel = new Front_Model_Holidays();
+        $list_holidays = $holidaysModel->fetchData(array(), 'hld_order ASC');
+        $xinnghiphepModel = new Front_Model_XinNghiPhep();
+        $list_nghi_phep = $xinnghiphepModel->fetchByDate($em_id, "$nam-$thang-01 00:00:00", "$nam-$thang-31 23:59:59");
+
+        $chamcongModel = new Front_Model_ChamCong();
+        $cham_cong = $chamcongModel->fetchOneData(array('c_em_id' => $em_id, 'c_thang' => $thang, 'c_nam' => $nam));
+
+        $khenthuongModel = new Front_Model_KhenThuong();
+        $khen_thuong = $khenthuongModel->fetchByDate($em_id, "$nam-$thang-01 00:00:00", "$nam-$thang-31 23:59:59");
+
+        $kyluatModel = new Front_Model_KyLuat();
+        $ky_luat = $kyluatModel->fetchByDate($em_id, "$nam-$thang-01 00:00:00", "$nam-$thang-31 23:59:59");
+
+        $ltgModel = new Front_Model_LamThemGio();
+        $list_lam_them_gio = $ltgModel->fetchData(array('ltg_em_id' => $em_id), 'ltg_date_added ASC');
+        
+        $this->view->cham_cong = $cham_cong;
+        $this->view->thang = $thang;
+        $this->view->nam = $nam;
+        $this->view->list_holidays = $list_holidays;
+        $this->view->list_nghi_phep = $list_nghi_phep;
+        $this->view->khen_thuong = $khen_thuong;
+        $this->view->ky_luat = $ky_luat;
+        $this->view->em_id = $em_id;
+        $this->view->list_lam_them_gio = $list_lam_them_gio;
+        $this->view->page = $this->_page;
+    }
+    
+    public function addAction() {
         $layoutPath = APPLICATION_PATH . '/templates/' . TEMPLATE_USED;
         $option = array('layout' => '1_column/layout',
             'layoutPath' => $layoutPath);

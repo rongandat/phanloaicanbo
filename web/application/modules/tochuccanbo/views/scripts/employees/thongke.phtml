@@ -207,11 +207,64 @@
                 ?>                
             </tbody>
         </table>
+
+        <h5>Làm thêm giờ</h5>  
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th style="width: 15px;">#</th>
+                    <th style="width: 70px;">Ngày</th>
+                    <th style="width: 70px;">Bắt đầu</th>
+                    <th style="width: 70px;">Kết thúc</th>
+                    <th>Chi tiết</th>
+                    <th style="width: 100px;">Đơn vị</th>
+                    <th style="width: 120px;">Phòng tổ chức</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                if (sizeof($this->list_lam_them_gio)) {
+                    $i = 0;
+                    foreach ($this->list_lam_them_gio as $lam_them_gio) {
+                        $i++;
+                        $trang_thai_icon = 'Chờ duyệt';
+                        $don_vi_icon = 'Chờ duyệt';
+                        if ($lam_them_gio->ltg_tccb_status == 0) {
+                            $trang_thai_icon = 'Không duyệt';
+                        }
+                        if ($lam_them_gio->ltg_don_vi_status == 0) {
+                            $don_vi_icon = 'Không duyệt';
+                        }
+                        if ($lam_them_gio->ltg_tccb_status == 1) {
+                            $trang_thai_icon = 'Được duyệt';
+                        }
+                        if ($lam_them_gio->ltg_don_vi_status == 1) {
+                            $don_vi_icon = 'Được duyệt';
+                        }
+                        ?>
+                    <td><?php echo $i; ?></td>
+                    <td><?php echo date('d-m', strtotime($lam_them_gio->ltg_ngay)); ?></td>
+                    <td><?php echo $lam_them_gio->ltg_gio_bat_dau . ':' . $lam_them_gio->ltg_phut_bat_dau; ?></td>
+                    <td><?php echo $lam_them_gio->ltg_gio_ket_thuc . ':' . $lam_them_gio->ltg_phut_ket_thuc; ?></td>
+                    <td><?php echo $lam_them_gio->ltg_chi_tiet; ?></td>
+                    <td><?php echo $don_vi_icon;?></td>
+                    <td><?php echo $trang_thai_icon;?></td>
+                    <?php
+                }
+            } else {
+                echo '<tr><td colspan="6">Không có dữ liệu nào!</td></tr>';
+            }
+            ?>                
+            </tbody>
+        </table>
     </form>
 </div> 
 
 <script>
     var currentYear = <?php echo $this->nam; ?>;    
+    var currentEm = <?php echo $this->em_id; ?>;    
+    var currentPage = <?php echo $this->page; ?>;    
     var options = {
         pattern: 'mm/yyyy', // Default is 'mm/yyyy' and separator char is not mandatory 
         startYear: 2013,
@@ -222,7 +275,7 @@
     $('#txt_thang_nam').monthpicker(options);
 
     $('#txt_thang_nam').monthpicker().bind('monthpicker-click-month', function (e, month, year) { 
-        window.location = site_url+'/canhan/chamcong/index/thang/'+month+'/nam/'+year;
+        window.location = site_url+'/tochuccanbo/employees/thongke/id/'+currentEm+'/thang/'+month+'/nam/'+year+'/page/'+currentPage;
     });
 
     $('#btn_chon_thang').bind('click', function () {
