@@ -1,6 +1,6 @@
 <?php
 
-class Donvi_DuyetchamcongController extends Zend_Controller_Action {
+class Tochuccanbo_DuyetchamcongController extends Zend_Controller_Action {
 
     protected $_arrParam;
     protected $_page = 1;
@@ -47,17 +47,20 @@ class Donvi_DuyetchamcongController extends Zend_Controller_Action {
 
         $emModel = new Front_Model_Employees();
         $phongbanModel = new Front_Model_Phongban();
-        $my_info = $emModel->fetchRow('em_id=' . $em_id . ' and em_status=1');
 
+        $pb_selected = $this->_getParam('phongban', 0);
+        $nv_selected = $this->_getParam('nhanvien', 0);
         $phong_ban_id = $list_phongban = $phong_ban = Array();
-        if ($my_info) {
-            $phong_ban_id[] = $my_info->em_phong_ban;
-            $list_phongban = $phongbanModel->fetchDataStatus($my_info->em_phong_ban, $phong_ban);
-        }
 
+        $phong_ban_id[] = $pb_selected;
+        $list_phongban = $phongbanModel->fetchDataStatus($pb_selected, $phong_ban);
+
+        $phong_ban_options = Array();
+        $list_phong_ban_option = $phongbanModel->fetchData(0, $phong_ban_options);
+        
         if (sizeof($list_phongban)) {
             foreach ($list_phongban as $phong_ban_info) {
-                $phong_ban_id[] = $phong_ban_info->pb_parent;
+                $phong_ban_id[] = $phong_ban_info->pb_id;
             }
         }
 
@@ -66,11 +69,14 @@ class Donvi_DuyetchamcongController extends Zend_Controller_Action {
         $this->view->list_nhan_vien = $list_nhan_vien;
         $this->view->thang = $thang;
         $this->view->nam = $nam;
+        $this->view->pb_id = $pb_selected;
+        $this->view->nv_id = $nv_selected;
+        $this->view->list_phong_ban_option = $list_phong_ban_option;
     }
 
     public function detailAction() {
         $translate = Zend_Registry::get('Zend_Translate');
-        $this->view->title = 'Danh sách thành viên - ' . $translate->_('TEXT_DEFAULT_TITLE');
+        $this->view->title = 'Duyệt chấm công - ' . $translate->_('TEXT_DEFAULT_TITLE');
         $this->view->headTitle($this->view->title);
 
         $layoutPath = APPLICATION_PATH . '/templates/' . TEMPLATE_USED;
@@ -97,17 +103,17 @@ class Donvi_DuyetchamcongController extends Zend_Controller_Action {
         $this->view->list_holidays = $list_holidays;
         $this->view->list_nghi_phep = $list_nghi_phep;
     }
-    
+
     public function jqupdatestatusAction() {
-        $this->_helper->layout()->disableLayout();        
+        $this->_helper->layout()->disableLayout();
         $process_status = 0;
         if ($this->_request->isPost()) {
             $c_id = $this->_arrParam['c_id'];
             $c_status = $this->_arrParam['c_status'];
-            if($c_status>1){
-                $c_status=1;
+            if ($c_status > 1) {
+                $c_status = 1;
             }
-            if($c_status<0){
+            if ($c_status < 0) {
                 $c_status = -1;
             }
             $chaqmcongModel = new Front_Model_ChamCong();

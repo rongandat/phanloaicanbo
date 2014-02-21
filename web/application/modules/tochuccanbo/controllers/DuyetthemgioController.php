@@ -1,6 +1,6 @@
 <?php
 
-class Tochuccanbo_DuyetnghiphepController extends Zend_Controller_Action {
+class Tochuccanbo_DuyetthemgioController extends Zend_Controller_Action {
 
     protected $_arrParam;
     protected $_page = 1;
@@ -29,7 +29,7 @@ class Tochuccanbo_DuyetnghiphepController extends Zend_Controller_Action {
 
     public function indexAction() {
         $translate = Zend_Registry::get('Zend_Translate');
-        $this->view->title = 'Duyệt đơn xin nghỉ phép - ' . $translate->_('TEXT_DEFAULT_TITLE');
+        $this->view->title = 'Duyệt khai báo làm thêm giờ - ' . $translate->_('TEXT_DEFAULT_TITLE');
         $this->view->headTitle($this->view->title);
 
         $layoutPath = APPLICATION_PATH . '/templates/' . TEMPLATE_USED;
@@ -37,17 +37,13 @@ class Tochuccanbo_DuyetnghiphepController extends Zend_Controller_Action {
             'layoutPath' => $layoutPath);
         Zend_Layout::startMvc($option);
 
-        $auth = Zend_Auth::getInstance();
-        $identity = $auth->getIdentity();
-        $em_id = $identity->em_id;
-
         $date = time();
         $thang = $this->_getParam('thang', date('m', $date));
         $nam = $this->_getParam('nam', date('Y', $date));
 
         $emModel = new Front_Model_Employees();
         $phongbanModel = new Front_Model_Phongban();
-        $xnpModel = new Front_Model_XinNghiPhep();
+        $ltgModel = new Front_Model_LamThemGio();
 
         $list_phong_ban = $phongbanModel->fetchAll();
 
@@ -63,14 +59,13 @@ class Tochuccanbo_DuyetnghiphepController extends Zend_Controller_Action {
         foreach ($phong_ban_choosed as $pb) {
             $pb_ids[] = $pb->pb_id;
         }
-
         if (!$pb_selected) {
-            $list_nghi_phep = $xnpModel->fetchByPhongBan(array(), "$nam-$thang-01 00:00:00", "$nam-$thang-31 23:59:59");
+            $list_lam_them_gio = $ltgModel->fetchByPhongBan(array(), "$nam-$thang-01 00:00:00", "$nam-$thang-31 23:59:59");
         } else {
-            $list_nghi_phep = $xnpModel->fetchByPhongBan($pb_ids, "$nam-$thang-01 00:00:00", "$nam-$thang-31 23:59:59");
+            $list_lam_them_gio = $ltgModel->fetchByPhongBan($pb_ids, "$nam-$thang-01 00:00:00", "$nam-$thang-31 23:59:59");
         }
 
-        $this->view->list_nghi_phep = $list_nghi_phep;
+        $this->view->lam_them_gio = $list_lam_them_gio;
         $this->view->thang = $thang;
         $this->view->nam = $nam;
         $this->view->list_phong_ban = $list_phong_ban;
@@ -83,36 +78,35 @@ class Tochuccanbo_DuyetnghiphepController extends Zend_Controller_Action {
         $new_status = 'Đã duyệt';
         $process_status = 0;
         if ($this->_request->isPost()) {
-            $xnp_id = $this->_arrParam['xnp_id'];
-            $xnp_status = $this->_arrParam['xnp_status'];
-            if ($xnp_status > 1) {
-                $xnp_status = 1;
+            $item_id = $this->_arrParam['item_id'];
+            $item_status = $this->_arrParam['item_status'];
+            if ($item_status > 1) {
+                $item_status = 1;
             }
-            if ($xnp_status < 0) {
-                $xnp_status = -1;
+            if ($item_status < 0) {
+                $item_status = -1;
             }
             $process_status = 1;
             $current_time = new Zend_Db_Expr('NOW()');
-            $xnpModel = new Front_Model_XinNghiPhep();
-            $process_status = $xnpModel->update(array('xnp_ptccb_status' => $xnp_status), "xnp_id=$xnp_id");
+            $ltgModel = new Front_Model_LamThemGio();
+            $process_status = $ltgModel->update(array('ltg_tccb_status' => $item_status), "ltg_id=$item_id");
             if ($process_status) {
                 $thongbao_model = new Front_Model_ThongBao();
-                $row_content = $xnpModel->fetchRow(array('xnp_id' => $xnp_id));
+                $row_content = $ltgModel->fetchRow(array('ltg_id' => $item_id));
                 $data = array();
                 $data['tb_from'] = 0;
-                $data['tb_to'] = $row_content->xnp_em_id;
-                $data['tb_tieu_de'] = '[Xin nghỉ phép] Đơn xin nghỉ phép đã được duyệt.';
-                $data['tb_noi_dung'] = 'Đơn nghỉ phép của bạn đã được duyệt.<br> Lịch nghỉ của bạn bắt đầu từ ' . date('d-m-Y', strtotime($row_content->xnp_from_date)) . ' đến ngày ' . date('d-m-Y', strtotime($row_content->xnp_to_date));
+                $data['tb_to'] = $row_content->ltg_em_id;
+                $data['tb_tieu_de'] = '[Làm thêm giờ] Khai báo làm thêm giờ đã được duyệt.';
+                $data['tb_noi_dung'] = 'Khai báo làm thêm giờ của bạn đã được duyệt.<br> Ngày: ' . date('d-m-Y', strtotime($row_content->ltg_ngay)) . '<br> Giờ bắt đầu: ' . $row_content->ltg_gio_bat_dau . ':' . $row_content->ltg_phut_bat_dau . ' <br> Giờ kết thúc: ' . $row_content->ltg_gio_ket_thuc . ':' . $row_content->ltg_phut_ket_thuc;
                 $data['tb_status'] = 0;
                 $data['tb_date_added'] = $current_time;
                 $data['tb_date_modified'] = $current_time;
 
-                if (!$xnp_status) {
+                if (!$item_status) {
+                    $data['tb_tieu_de'] = '[Làm thêm giờ] Khai báo làm thêm giờ đã không được chấp nhận.';
+                    $data['tb_noi_dung'] = 'Khai báo làm thêm giờ của bạn đã không được duyệt.<br> Ngày: ' . date('d-m-Y', strtotime($row_content->ltg_ngay)) . '<br> Giờ bắt đầu: ' . $row_content->ltg_gio_bat_dau . ':' . $row_content->ltg_phut_bat_dau . ' <br> Giờ kết thúc: ' . $row_content->ltg_gio_ket_thuc . ':' . $row_content->ltg_phut_ket_thuc;
                     $new_status = 'Không duyệt';
-                    $data['tb_tieu_de'] = '[Xin nghỉ phép] Đơn xin nghỉ phép đã không được chấp nhận.';
-                    $data['tb_noi_dung'] = 'Đơn nghỉ phép của bạn đã không được chấp nhận.<br> Bạn không được phép nghỉ từ ' . date('d-m-Y', strtotime($row_content->xnp_from_date)) . ' đến ngày ' . date('d-m-Y', strtotime($row_content->xnp_to_date));
                 }
-
                 $thongbao_model->insert($data);
             }
         }

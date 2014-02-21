@@ -46,4 +46,17 @@ class Front_Model_LamThemGio extends Zend_Db_Table_Abstract {
         return $this->fetchAll($select);
     }
 
+    public function fetchByPhongBan($list_phong_ban, $from_date, $to_date) {
+        $select = $this->select(Zend_Db_Table::SELECT_WITH_FROM_PART);
+        $select->setIntegrityCheck(false)
+                ->joinInner(TABLE_EMPLOYEES, TABLE_EMPLOYEES . '.em_id = ' . $this->_name . '.ltg_em_id', array('em_ten', 'em_ten_dem', 'em_ho', 'em_ngay_sinh', 'em_phong_ban'));
+        if (sizeof($list_phong_ban)) {
+            $select->where(TABLE_EMPLOYEES . '.em_phong_ban in (?)', $list_phong_ban);
+        }
+
+        $select->where($this->_name . '.ltg_ngay >=?', $from_date);
+        $select->where($this->_name . '.ltg_ngay <=?', $to_date);
+        $select->order($this->_name . '.ltg_date_added DESC');
+        return $this->fetchAll($select);
+    }
 }

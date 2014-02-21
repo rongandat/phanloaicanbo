@@ -1,0 +1,188 @@
+<?php
+$list_phong_ban = array();
+foreach ($this->list_phong_ban as $phong_ban) {
+    $list_phong_ban[$phong_ban->pb_id] = $phong_ban->pb_name;
+}
+
+$list_phong_ban_options = array('0' => 'Tất cả');
+foreach ($this->list_phong_ban_option as $phong_ban) {
+    $list_phong_ban_options[$phong_ban->pb_id] = $phong_ban->pb_name;
+}
+?>
+<h5>Duyệt khai báo làm thêm giờ</h5>               
+
+<div class="main-content-box">  
+    <form name="appForm" class="form-horizontal" method="post" action="">
+        <div class="control-group">
+            <label class="control-label">Phòng ban</label>
+            <div class="controls">
+                <?php
+                echo $this->formSelect('sl_phong_ban', $this->pb_id, array('onchange' => 'on_choose_phong_ban()'), $list_phong_ban_options);
+                ?>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">Tháng</label>
+            <div class="controls">
+                <div class="input-append">
+                    <input class="span2" value="<?php echo $this->thang . '/' . $this->nam; ?>" id="txt_thang_nam" type="text" readonly="true"/>
+                    <button class="btn" type="button" id="btn_chon_thang">Chọn tháng!</button>
+                </div>
+
+            </div>
+        </div>
+
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>  
+                    <th>Họ tên</th>
+                    <th style="width: 120px;">Phòng ban</th>
+                    <th style="width: 50px;">Ngày</th>
+                    <th style="width: 70px;">Bắt đầu</th>
+                    <th style="width: 70px;">Kết thúc</th>
+                    <th style="width: 80px;">Đơn vị</th>
+                    <th style="width: 140px;">Phòng tổ chức</th>
+                    <th style="width: 90px;">Chức năng</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                foreach ($this->lam_them_gio as $item) {
+                    $trang_thai_icon = 'Chờ duyệt';
+                    $don_vi_icon = 'Chờ duyệt';
+                    if ($item->ltg_tccb_status == 0) {
+                        $trang_thai_icon = 'Không duyệt';
+                    }
+                    if ($item->ltg_don_vi_status == 0) {
+                        $don_vi_icon = 'Không duyệt';
+                    }
+                    if ($item->ltg_tccb_status == 1) {
+                        $trang_thai_icon = 'Đã duyệt';
+                    }
+                    if ($item->ltg_don_vi_status == 1) {
+                        $don_vi_icon = 'Đã duyệt';
+                    }
+                    ?>
+                    <tr>
+                        <td id="name_<?php echo $item->ltg_em_id; ?>"><?php echo $item->em_ho . ' ' . $item->em_ten_dem . ' ' . $item->em_ten; ?></td>
+                        <td><?php echo $list_phong_ban[$item->em_phong_ban]; ?></td>
+                        <td><?php echo date('d-m', strtotime($item->ltg_ngay)); ?></td>
+                        <td><?php echo $item->ltg_gio_bat_dau . ':' . $item->ltg_phut_bat_dau; ?></td>
+                        <td><?php echo $item->ltg_gio_ket_thuc . ':' . $item->ltg_phut_ket_thuc; ?></td>
+                        <td><?php echo $don_vi_icon; ?></td>
+                        <td><span id="sp_xnp_<?php echo $item->ltg_id; ?>"><?php echo $trang_thai_icon; ?></span> <i class="icon-ok-sign" onclick="update_status(<?php echo $item->ltg_id; ?>,1)"></i> <i class="icon-remove-sign" onclick="update_status(<?php echo $item->ltg_id; ?>,0)"></i></td>
+                        <td>
+                            <a class="btn btn-mini" role="button" data-toggle="modal" href="#mdXNP_<?php echo $item->ltg_id; ?>" title="Sửa"><i class="icon-list-alt"></i> Chi tiết</a>
+                            <div id="mdXNP_<?php echo $item->ltg_id; ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                    <h3 id="myModalLabel">Chi tiết</h3>
+                                </div>
+                                <div class="modal-body">                                        
+                                    <div class="row">
+                                        <div class="span4 float_left"><strong>Nhân viên: </strong> <?php echo $item->em_ho . ' ' . $item->em_ten_dem . ' ' . $item->em_ten; ?></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="span4 float_left"><strong>Ngày sinh: </strong> <?php echo date('d-m-Y', strtotime($item->em_ngay_sinh)); ?></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="span4 float_left"><strong>Chi tiết: </strong> <?php echo $item->ltg_chi_tiet; ?></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="span4 float_left"><strong>Ngày : </strong> <?php echo date('d-m-Y', strtotime($item->ltg_ngay)); ?></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="span4 float_left"><strong>Giờ bắt đầu: </strong> <?php echo $item->ltg_gio_bat_dau . ':' . $item->ltg_phut_bat_dau; ?></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="span4 float_left"><strong>Giờ kết thúc: </strong> <?php echo $item->ltg_gio_ket_thuc . ':' . $item->ltg_phut_ket_thuc; ?></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="span4 float_left"><strong>Ngày khai báo: </strong> <?php echo date('d-m-Y', strtotime($item->ltg_date_added)); ?></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="span4 float_left"><strong>Đơn vị: </strong> <?php echo $don_vi_icon; ?></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="span4 float_left" id="dv_xnp_<?php echo $item->ltg_id; ?>"><strong>Phòng tổ chức: </strong> <?php echo $trang_thai_icon; ?></div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn" data-dismiss="modal" aria-hidden="true">Đóng</button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <?php
+                }
+                ?>
+            </tbody>
+        </table>
+    </form>
+</div>
+
+
+
+<script>
+    var currentYear = <?php echo $this->nam; ?>;    
+    var options = {
+        pattern: 'mm/yyyy', // Default is 'mm/yyyy' and separator char is not mandatory 
+        startYear: 2013,
+        selectedYear: currentYear,
+        monthNames: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12']
+    };
+
+    var phong_ban = $('#sl_phong_ban').val();
+    $('#txt_thang_nam').monthpicker(options);
+
+    $('#txt_thang_nam').monthpicker().bind('monthpicker-click-month', function (e, month, year) { 
+        window.location = site_url+'/tochuccanbo/duyetthemgio/index/thang/'+month+'/nam/'+year+'/phongban/'+phong_ban;
+    });
+
+    $('#btn_chon_thang').bind('click', function () {
+        $('#txt_thang_nam').monthpicker('show');
+    });
+    
+    function on_choose_phong_ban(){
+        var phong_ban = $('#sl_phong_ban').val();
+        var c_date = $('#txt_thang_nam').val();
+        var date_array = c_date.split("/");
+        var d = new Date(),
+        c_m = d.getMonth(),
+        c_y = d.getFullYear();
+        if(date_array.length==2 && $.isNumeric(date_array[0]) && $.isNumeric(date_array[1])){
+            c_m = date_array[0];
+            c_y = date_array[1];
+        }        
+        window.location = site_url+'/tochuccanbo/duyetthemgio/index/thang/'+c_m+'/nam/'+c_y+'/phongban/'+phong_ban;
+    }
+    
+    function update_status(id_item, new_status){
+        $.blockUI({
+            message: '<h3>Đang thực hiện</h3>',
+            css: {                         
+                border: 'none', 
+                padding: '15px', 
+                backgroundColor: '#000', 
+                '-webkit-border-radius': '10px', 
+                '-moz-border-radius': '10px', 
+                opacity: .5, 
+                color: '#fff' 
+            }
+        }); 
+        
+        $.post( site_url+'/tochuccanbo/duyetthemgio/jqupdatestatus', {
+            item_id: id_item, 
+            item_status: new_status
+        }, function(data) {    
+            if(data.status){                
+                $.success_ui('Thông báo!', 'Duyệt thành công!', 4000);
+                $('#sp_xnp_'+id_item).html(data.new_status);
+                $('#dv_xnp_'+id_item).html('<strong>Phòng tổ chức: </strong> '+data.new_status);
+            }else{
+                $.error_ui('Thông báo', 'Không thể thực hiện được!', 4000); 
+            }
+        }, 'json');
+            
+    }
+</script>
