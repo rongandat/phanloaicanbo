@@ -1,0 +1,272 @@
+<h5>Tính lương</h5>               
+
+<div class="main-content-box">
+    <?php
+    if ($this->em_info && $this->he_so && $this->he_so_cb):
+        $luong_toi_thieu = $this->he_so_cb->hs_luong_co_ban;
+        if ($this->he_so->eh_loai_luong)
+            $luong_toi_thieu = $this->he_so_cb->hs_luong_hop_dong;
+
+        $luong_thu_viec = 0;
+        if ($this->he_so->eh_giai_doan)
+            $luong_thu_viec = $this->he_so_cb->hs_he_so_luong_thuc_tap;
+        $bhxh = ($this->he_so_cb->hs_bhxh > 0 ? $this->he_so_cb->hs_bhxh : 0);
+        $bhyt = ($this->he_so_cb->hs_bhyt > 0 ? $this->he_so_cb->hs_bhyt : 0);
+        $luong_toi_thieu_sau_bh = (int) ($luong_toi_thieu * (100 - ($bhxh + $bhyt)) / 100);
+        $pc_cong_viec = (int) ($luong_toi_thieu * (100 - ($bhxh + $bhyt)) / 100);
+        $pc_trach_nhiem = $luong_toi_thieu;
+        $pc_khu_vuc = (int) ($luong_toi_thieu * (100 - $bhyt) / 100);
+        $pc_tnvk = (int) ($luong_toi_thieu * (100 - ($bhxh + $bhyt)) / 100);
+        $pc_cong_vu = $luong_toi_thieu;
+        $pc_khac = $luong_toi_thieu;
+        $pc_tham_nien = (int) ($luong_toi_thieu * (100 - ($bhxh + $bhyt)) / 100);
+        $pc_kiem_nhiem = $luong_toi_thieu;
+        $pc_uu_dai_nghe = $luong_toi_thieu;
+
+        $he_so_luong = $this->he_so->eh_he_so;
+        if ($this->he_so->eh_giai_doan)
+            $he_so_luong = number_format ($this->he_so->eh_he_so*(100-$luong_thu_viec)/100, 2);
+        $thanh_tien_hsl = $luong_toi_thieu_sau_bh*$he_so_luong;
+        
+        $hs_pc_cong_viec = $this->he_so->eh_pc_cong_viec;
+        //if ($this->he_so->eh_giai_doan)
+            //$hs_pc_cong_viec = number_format ($this->he_so->eh_pc_cong_viec*(100-$luong_thu_viec)/100, 2);
+        $thanh_tien_pc_cong_viec = $hs_pc_cong_viec*$pc_cong_viec;
+        
+        $hs_pc_trach_nhiem = $this->he_so->eh_pc_trach_nhiem;
+        //if ($this->he_so->eh_giai_doan)
+            //$hs_pc_trach_nhiem = number_format ($this->he_so->eh_pc_trach_nhiem*(100-$luong_thu_viec)/100, 2);
+        $thanh_tien_pc_trach_nhiem = $hs_pc_trach_nhiem*$pc_trach_nhiem;
+        
+        $hs_pc_khu_vuc= $this->he_so->eh_pc_kv;
+        //if ($this->he_so->eh_giai_doan)
+            //$hs_pc_khu_vuc = number_format ($this->he_so->eh_pc_kv*(100-$luong_thu_viec)/100, 2);
+        $thanh_tien_pc_khu_vuc = $hs_pc_khu_vuc*$pc_khu_vuc;
+        
+        $hs_pc_tnvk_phan_tram= $this->he_so->eh_pc_tnvk_phan_tram;
+        $hs_pc_tnvk= $he_so_luong*$hs_pc_tnvk_phan_tram/100;
+        //if ($this->he_so->eh_giai_doan)
+            //$hs_pc_tnvk = number_format ($hs_pc_tnvk*(100-$luong_thu_viec)/100, 2);
+        $thanh_tien_pc_tham_nien_vuot_khung = $hs_pc_tnvk*$pc_tnvk;
+        
+        $tham_nien= $this->he_so->eh_tham_niem;
+        $hs_pc_tham_nien= floor((($he_so_luong+$hs_pc_cong_viec+$hs_pc_trach_nhiem+$hs_pc_khu_vuc)*$tham_nien/100)*100)/100;        
+        $thanh_tien_pc_tham_nien = $hs_pc_tham_nien*$pc_tham_nien;
+        
+        $uu_dai_nghe= $this->he_so->eh_pc_udn_phan_tram;
+        $hs_pc_uu_dai_nghe= floor((($he_so_luong+$hs_pc_cong_viec+$hs_pc_tnvk)*$uu_dai_nghe/100)*100)/100;        
+        $thanh_tien_pc_uu_dai_nghe = $hs_pc_uu_dai_nghe*$pc_uu_dai_nghe;
+        
+        $cong_vu= $this->he_so->eh_pc_cong_vu_phan_tram;
+        $hs_pc_cong_vu= floor((($he_so_luong+$hs_pc_cong_viec+$hs_pc_tnvk)*$cong_vu/100)*100)/100;        
+        $thanh_tien_pc_cong_vu = $hs_pc_cong_vu*$pc_cong_vu;
+        
+        $kiem_nhiem = $this->he_so->eh_pc_kiem_nhiem;
+        $hs_pc_kiem_nhiem = floor((($he_so_luong+$hs_pc_cong_viec+$hs_pc_tnvk)*$kiem_nhiem/100)*100)/100;  
+        $thanh_tien_pc_kiem_nhiem = $hs_pc_kiem_nhiem*$pc_kiem_nhiem;
+        
+        $hs_pc_khac = $this->he_so->eh_pc_khac;  
+        $thanh_tien_pc_khac = $hs_pc_khac*$pc_khac;
+        $tong_1 = (int) ($thanh_tien_hsl + $thanh_tien_pc_cong_viec + $thanh_tien_pc_trach_nhiem + $thanh_tien_pc_khu_vuc + $thanh_tien_pc_tham_nien_vuot_khung + $thanh_tien_pc_tham_nien + $thanh_tien_pc_uu_dai_nghe + $thanh_tien_pc_cong_vu + $thanh_tien_pc_kiem_nhiem);
+        
+        $hs_tang_them = $he_so_luong + $hs_pc_cong_viec + $hs_pc_trach_nhiem + $hs_pc_khu_vuc + $hs_pc_tnvk + $hs_pc_tham_nien + $hs_pc_uu_dai_nghe + $hs_pc_cong_vu + $hs_pc_kiem_nhiem + $hs_pc_khac;
+        $ti_le_tang_them = ($hs_tang_them - $hs_pc_kiem_nhiem)*$luong_toi_thieu*0.5;
+        $tong_2 =  (int)$tong_1 + $ti_le_tang_them;
+        ?>
+        <form name="appForm" class="form-horizontal" method="post" action="">
+            <div class="control-group">
+                <label class="control-label">Tháng</label>
+                <div class="controls">
+                    <div class="input-append">
+                        <input class="span2" value="<?php echo $this->thang . '/' . $this->nam; ?>" id="txt_thang_nam" type="text" readonly="true"/>
+                        <button class="btn" type="button" id="btn_chon_thang">Chọn tháng!</button>
+                    </div>
+
+                </div>
+            </div> 
+
+            <fieldset>
+                <legend>Thông tin cá nhân</legend>  
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Họ tên</th>
+                            <th style="width: 100px;">Giới tính</th>
+                            <th style="width: 100px;">Ngày sinh</th>                        
+                            <th style="width: 200px;">Phòng ban</th>
+                            <th style="width: 200px;">Chức vụ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <?php echo $this->em_info->em_ho . ' ' . $this->em_info->em_ten_dem . ' ' . $this->em_info->em_ten; ?>
+                            </td>
+                            <td>
+                                <?php echo ($this->em_info->em_gioi_tinh ? 'Nam' : 'Nữ') ?>
+                            </td>
+                            <td>
+                                <?php echo date('d-m-Y', strtotime($this->em_info->em_ngay_sinh)); ?>
+                            </td>
+                            <td>
+                                <?php echo $this->viewGetPhongBanName($this->em_info->em_phong_ban); ?>
+                            </td>
+                            <td>
+                                <?php echo $this->viewGetChucVuName($this->em_info->em_chuc_vu); ?>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>          
+            </fieldset>
+
+            <fieldset>
+                <legend>Thông số lương cơ bản của nhân viên</legend>
+
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th><?php echo ($this->he_so->eh_loai_luong ? 'Lương tối thiểu hợp đồng' : 'Lương tối thiểu'); ?></th>
+                            <?php echo ($this->he_so->eh_giai_doan ? '<th style="width: 100px;">Thử việc</th>' : ''); ?>
+                            <th style="width: 130px;">Bảo hiểm xã hội</th>
+                            <th style="width: 130px;">Bảo hiểm y tế</th>
+                            <th style="width: 250px;">Đã trừ BHXH + BHYT</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <?php echo number_format($luong_toi_thieu, 0, '.', ','); ?>
+                            </td>
+                            <?php echo ($this->he_so->eh_giai_doan ? '<th>' . $luong_thu_viec . '%</th>' : ''); ?>
+                            <td>
+                                <?php echo $bhxh; ?>%
+                            </td>
+                            <td>
+                                <?php echo $bhyt; ?>%
+                            </td>
+                            <td>
+                                Lương tối thiểu: <?php echo number_format($luong_toi_thieu_sau_bh, 0, '.', ','); ?> <br>
+                                PC công việc: <?php echo number_format($pc_cong_viec, 0, '.', ','); ?><br>
+                                PC trách nhiệm: <?php echo number_format($pc_trach_nhiem, 0, '.', ','); ?><br>
+                                PC khu vực: <?php echo number_format($pc_khu_vuc, 0, '.', ','); ?><br>
+                                PC TNVK: <?php echo number_format($pc_tnvk, 0, '.', ','); ?> <br>
+                                PC công vụ: <?php echo number_format($pc_cong_vu, 0, '.', ','); ?><br>
+                                PC khác: <?php echo number_format($pc_khac, 0, '.', ','); ?><br>
+                                PC thâm niên: <?php echo number_format($pc_tham_nien, 0, '.', ','); ?><br>
+                                PC kiêm nhiệm: <?php echo number_format($pc_kiem_nhiem, 0, '.', ','); ?><br>
+                                PC ưu đãi nghề: <?php echo number_format($pc_uu_dai_nghe, 0, '.', ','); ?><br>  
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </fieldset>
+            <fieldset>
+                <legend>Bảng tính lương</legend>
+                <table class="table table-bordered table-hover">
+                    <tr>
+                        <th style=" width: 350px;">Tên</th>
+                        <th colspan="2">Hệ số</th>
+                        <th style="width: 250px;">Thành tiền</th>
+                    </tr>
+                    <tbody>
+                        <tr>
+                            <td>Hệ số lương</td>
+                            <td colspan="2"><?php echo $he_so_luong;?></td>
+                            <td><?php echo number_format($thanh_tien_hsl, 0, '.', ','); ?></td>
+                        </tr>
+                        <tr>
+                            <td>Phụ cấp công việc</td>
+                            <td colspan="2"><?php echo $hs_pc_cong_viec;?></td>
+                            <td><?php echo number_format($thanh_tien_pc_cong_viec, 0, '.', ','); ?></td>
+                        </tr>
+                        <tr>
+                            <td>Phụ cấp trách nhiệm</td>
+                            <td colspan="2"><?php echo $hs_pc_trach_nhiem;?></td>
+                            <td><?php echo number_format($thanh_tien_pc_trach_nhiem, 0, '.', ','); ?></td>
+                        </tr>
+                        <tr>
+                            <td>Phụ cấp khu vực</td>
+                            <td colspan="2"><?php echo $hs_pc_khu_vuc;?></td>
+                            <td><?php echo number_format($thanh_tien_pc_khu_vuc, 0, '.', ','); ?></td>
+                        </tr>
+                        <tr>
+                            <td>Phụ cấp thâm niên vượt khung</td>
+                            <td style="width: 150px;"><?php echo $hs_pc_tnvk_phan_tram;?>%</td>
+                            <td><?php echo $hs_pc_tnvk;?></td>
+                            <td><?php echo number_format($thanh_tien_pc_tham_nien_vuot_khung, 0, '.', ',');?></td>
+                        </tr>
+                        <tr>
+                            <td>Phụ cấp thâm niên</td>
+                            <td style="width: 150px;"><?php echo $tham_nien;?> Năm</td>
+                            <td><?php echo $hs_pc_tham_nien;?></td>
+                            <td><?php echo number_format($thanh_tien_pc_tham_nien, 0, '.', ',');?></td>
+                        </tr>
+                        <tr>
+                            <td>Phụ cấp ưu đãi nghề</td>
+                            <td style="width: 150px;"><?php echo $uu_dai_nghe;?>%</td>
+                            <td><?php echo $hs_pc_uu_dai_nghe;?></td>
+                            <td><?php echo number_format($thanh_tien_pc_uu_dai_nghe, 0, '.', ',');?></td>
+                        </tr>
+                        <tr>
+                            <td>Phụ cấp công vụ</td>
+                            <td style="width: 150px;"><?php echo $cong_vu;?>%</td>
+                            <td><?php echo $hs_pc_cong_vu;?></td>
+                            <td><?php echo number_format($thanh_tien_pc_cong_vu, 0, '.', ',');?></td>
+                        </tr>
+                        <tr>
+                            <td>Phụ cấp kiêm nhiệm</td>
+                            <td colspan="2"><?php echo $hs_pc_kiem_nhiem;?></td>
+                            <td><?php echo number_format($thanh_tien_pc_kiem_nhiem, 0, '.', ','); ?></td>
+                        </tr>
+                        <tr>
+                            <td>Phụ cấp khác</td>
+                            <td colspan="2"><?php echo $hs_pc_khac;?></td>
+                            <td><?php echo number_format($thanh_tien_pc_khac, 0, '.', ','); ?></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">Tổng cộng (I)</td>
+                            <td><?php echo number_format($tong_1, 0, '.', ',');?></td>
+                        </tr>
+                        <tr>
+                            <td>Tỷ lệ tăng thêm</td>
+                            <td colspan="2"><?php echo $hs_tang_them;?></td>
+                            <td><?php echo number_format($ti_le_tang_them, 0, '.', ','); ?></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"><strong>Tổng cộng (II)</strong></td>
+                            <td><strong><?php echo number_format($tong_2, 0, '.', ',');?></strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </fieldset>
+        </form>
+    <?php elseif (!$this->em_info): ?>
+        Không tìm thấy thông tin nhân viên.
+    <?php elseif (!$this->he_so): ?>
+        Xin hãy cập nhật thông tin hệ số lương và phụ cấp của nhân viên này!
+    <?php elseif ($this->he_so_cb): ?>
+        Xin hãy nhập thông tin lương cơ bản của hệ thống.
+    <?php endif; ?>
+</div>
+
+
+<script>
+    var currentYear = <?php echo $this->nam; ?>;    
+    var currentEm = <?php echo $this->nv_id; ?>;    
+    var options = {
+        pattern: 'mm/yyyy', // Default is 'mm/yyyy' and separator char is not mandatory 
+        startYear: 2013,
+        selectedYear: currentYear,
+        monthNames: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12']
+    };
+
+    $('#txt_thang_nam').monthpicker(options);
+
+    $('#txt_thang_nam').monthpicker().bind('monthpicker-click-month', function (e, month, year) { 
+        window.location = site_url+'/tochuccanbo/tinhluong/index/thang/'+month+'/nam/'+year+'/id/'+currentEm;
+    });
+
+    $('#btn_chon_thang').bind('click', function () {
+        $('#txt_thang_nam').monthpicker('show');
+    });
+</script>

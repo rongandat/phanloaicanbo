@@ -22,12 +22,13 @@
     <form class="form-horizontal" method="post" action="" enctype="multipart/form-data">
 
         <div class="control-group">
-            <label class="control-label" for="hs_luong_co_ban">Lương cơ bản</label>
+            <label class="control-label" for="hs_luong_co_ban">Lương biên chế</label>
             <div class="controls">
                 <div class="input-prepend input-append">    
                     <?php echo $this->formText('hs_luong_co_ban', ($this->he_so_luong ? $this->he_so_luong->hs_luong_co_ban : null), array('class' => 'input-medium', 'placeholder' => '0')); ?> 
                     <span class="add-on">VND</span>
                 </div>
+                <span class="help-block">Mức lương cơ bản dành cho nhân viên biên chế.</span>
             </div>
         </div>
 
@@ -38,17 +39,35 @@
                     <?php echo $this->formText('hs_luong_hop_dong', ($this->he_so_luong ? $this->he_so_luong->hs_luong_hop_dong : null), array('class' => 'input-medium', 'placeholder' => '0')); ?> 
                     <span class="add-on">VND</span>
                 </div>
+                <span class="help-block">Mức lương cơ bản dành cho nhân viên hợp đồng.</span>
             </div>
         </div>
 
         <div class="control-group">
-            <label class="control-label" for="hs_he_so_luong_thuc_tap">Lương thực tập</label>
+            <label class="control-label" for="hs_he_so_luong_thuc_tap">Lương thử việc</label>
             <div class="controls">
                 <div class="input-prepend input-append">    
                     <?php echo $this->formText('hs_he_so_luong_thuc_tap', ($this->he_so_luong ? $this->he_so_luong->hs_he_so_luong_thuc_tap : null), array('class' => 'input-medium', 'placeholder' => '0')); ?> 
                     <span class="add-on">%</span>                    
                 </div>
-                <span class="help-block">Lương thực tập tính theo phần trăm lương cơ bản.</span>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="hs_bhxh">Bảo hiểm xã hội</label>
+            <div class="controls">
+                <div class="input-prepend input-append">    
+                    <?php echo $this->formText('hs_bhxh', ($this->he_so_luong ? $this->he_so_luong->hs_bhxh : null), array('class' => 'input-medium', 'placeholder' => '0')); ?> 
+                    <span class="add-on">%</span>                    
+                </div>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="hs_bhyt">Bảo hiểm y tế</label>
+            <div class="controls">
+                <div class="input-prepend input-append">    
+                    <?php echo $this->formText('hs_bhyt', ($this->he_so_luong ? $this->he_so_luong->hs_bhyt : null), array('class' => 'input-medium', 'placeholder' => '0')); ?> 
+                    <span class="add-on">%</span>                    
+                </div>
             </div>
         </div>
 
@@ -95,9 +114,9 @@
             <thead>
                 <tr>
                     <th>Ngày áp dụng</th>
-                    <th>Cơ bản</th>
+                    <th>Biên chế</th>
                     <th>Hợp đồng</th>
-                    <th>Thực tập</th>
+                    <th>Thử việc</th>
                 </tr>
             </thead>
             <tbody>

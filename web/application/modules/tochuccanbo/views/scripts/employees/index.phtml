@@ -5,7 +5,7 @@ $list_phong_ban = array();
 foreach ($this->list_phong_ban as $phong_ban) {
     $list_phong_ban[$phong_ban->pb_id] = $phong_ban->pb_name;
 }
-$list_phong_ban_options = array('0'=>'Tất cả');
+$list_phong_ban_options = array('0' => 'Tất cả');
 foreach ($this->list_phong_ban_option as $phong_ban) {
     $list_phong_ban_options[$phong_ban->pb_id] = $phong_ban->pb_name;
 }
@@ -25,7 +25,7 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
         </div>
         <div class="btn-toolbar form-search float_right text-right">
             <?php
-            echo $this->formSelect('sl_phong_ban', $this->pb_id, array('onchange'=>'on_choose_phong_ban()'), $list_phong_ban_options);
+            echo $this->formSelect('sl_phong_ban', $this->pb_id, array('onchange' => 'on_choose_phong_ban()'), $list_phong_ban_options);
             ?> 
         </div>
         <div class="clearfix">
@@ -71,10 +71,13 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
                                             <a role="menuitem" tabindex="-1" data-toggle="modal" href="#mdKyLuat" title="Kỷ luật" onclick="loadFormKyLuat(' . $item->em_id . ', \'' . $item->em_ho . ' ' . $item->em_ten_dem . ' ' . $item->em_ten . '\')"><i class="icon-exclamation-sign"></i> Kỷ luật</a>
                                         </li>
                                         <li role="presentation">
-                                            <a role="menuitem" tabindex="-1" href="'.$this->baseUrl('tochuccanbo/employees/thongke/id/' . $item->em_id . '/page/' . $this->arrParam['page']).'" title="Thống kê"><i class="icon-tasks"></i> Thống kê</a>
+                                            <a role="menuitem" tabindex="-1" href="' . $this->baseUrl('tochuccanbo/employees/thongke/id/' . $item->em_id . '/page/' . $this->arrParam['page']) . '" title="Thống kê"><i class="icon-tasks"></i> Thống kê</a>
                                         </li>
                                         <li role="presentation">
                                             <a role="menuitem" tabindex="-1" data-toggle="modal" href="#mdThongBao" title="Gửi thông báo" onclick="loadFormThongBao(' . $item->em_id . ', \'' . $item->em_ho . ' ' . $item->em_ten_dem . ' ' . $item->em_ten . '\')"><i class="icon-envelope"></i> Gửi thông báo</a>
+                                        </li>
+                                        <li role="presentation">
+                                            <a role="menuitem" tabindex="-1" href="' . $this->baseUrl('tochuccanbo/tinhluong/index/id/' . $item->em_id) . '" title="Tính lương"><i class="icon-folder-close"></i> Tính lương</a>
                                         </li>
                                         <li role="presentation">
                                             <a role="menuitem" tabindex="-1" href="#" title="In Lương"><i class="icon-calendar"></i> In Lương</a>
@@ -316,7 +319,7 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
     </div>
     <div class="modal-footer">
         <button class="btn" data-dismiss="modal" aria-hidden="true">Đóng</button>
-        <button class="btn btn-primary">Cập nhật</button>
+        <button class="btn btn-primary" onclick="update_he_so_nhan_vien()">Cập nhật</button>
     </div>
 </div>
 
@@ -408,169 +411,6 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
     </form>
 </div>
 
-<div id="dv_form_he_so" style="display: none;">
-    <div class="alert alert-error" id="dv_he_so_error" style="display: none;">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <h5>Thông báo!</h5>
-        Cập nhật không thành công!
-    </div>
-
-    <div class="alert alert-success" id="dv_he_so_success" style="display: none;">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <h5>Thông báo!</h5>
-        Cập nhật thành công!
-    </div>
-
-    <form class="form-horizontal">
-        <input type="hidden" id="hd_cap_nhat_id" value=""/>
-
-        <div class="control-group">
-            <label class="control-label" for="em_tinh_luong">Tính lương</label>
-            <div class="controls">
-                <?php
-                $loai_luong_options = array(1 => 'Cán bộ công chức', 2 => 'Thực tập', 3 => 'Hợp đồng');
-                echo $this->formSelect('em_tinh_luong', null, array('class' => 'input-large'), $loai_luong_options);
-                ?> 
-            </div>
-        </div>       
-
-        <div class="control-group">
-            <label class="control-label" for="em_he_so_luong">Hệ số lương</label>
-            <div class="controls">
-                <?php echo $this->formText('em_he_so_luong', null, array('class' => 'input-medium', 'placeholder' => '')); ?>                   
-            </div>            
-        </div> 
-
-        <div class="control-group">
-            <label class="control-label" for="em_pc_cong_viec">Phụ cấp công việc</label>
-            <div class="controls">
-                <?php echo $this->formText('em_pc_cong_viec', null, array('class' => 'input-medium', 'placeholder' => '')); ?>                   
-            </div>            
-        </div> 
-
-        <div class="control-group">
-            <label class="control-label" for="em_pc_trach_nhiem">Phụ cấp trách nhiệm</label>
-            <div class="controls">
-                <?php echo $this->formText('em_pc_trach_nhiem', null, array('class' => 'input-medium', 'placeholder' => '')); ?>                   
-            </div>            
-        </div> 
-
-        <div class="control-group">
-            <label class="control-label" for="em_pc_tnvk_phan_tram">Phụ cấp TNVK (%)</label>
-            <div class="controls">
-                <div class="input-prepend input-append">    
-                    <?php echo $this->formText('em_pc_tnvk_phan_tram', null, array('class' => 'input-medium', 'placeholder' => '')); ?>                   
-                    <span class="add-on">%</span>                    
-                </div>                
-            </div>            
-        </div> 
-        <div class="control-group">
-            <label class="control-label" for="em_pc_tnvk_he_so">Phụ cấp TNVK (Hệ số)</label>
-            <div class="controls">
-                <?php echo $this->formText('em_pc_tnvk_he_so', null, array('class' => 'input-medium', 'placeholder' => '')); ?>                   
-            </div>            
-        </div> 
-        <div class="control-group">
-            <label class="control-label" for="em_pc_tn_phan_tram">Thâm niên</label>
-            <div class="controls">
-                <div class="input-prepend input-append">    
-                    <?php echo $this->formText('em_pc_tn_phan_tram', null, array('class' => 'input-medium', 'placeholder' => '')); ?>                   
-                    <span class="add-on">Năm</span>                    
-                </div> 
-            </div>            
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="em_pc_tn_he_so">Phụ cấp thâm niên (hệ số)</label>
-            <div class="controls">
-                <?php echo $this->formText('em_pc_tn_he_so', null, array('class' => 'input-medium', 'placeholder' => '')); ?>                   
-            </div>            
-        </div>
-
-        <div class="control-group">
-            <label class="control-label" for="em_pc_udn_phan_tram">Phụ cấp ƯĐN (%)</label>
-            <div class="controls">
-                <div class="input-prepend input-append">    
-                    <?php echo $this->formText('em_pc_udn_phan_tram', null, array('class' => 'input-medium', 'placeholder' => '')); ?>                   
-                    <span class="add-on">%</span>                    
-                </div> 
-            </div>            
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="em_pc_udn_he_so">Phụ cấp ƯĐN (hệ số)</label>
-            <div class="controls">
-                <?php echo $this->formText('em_pc_udn_he_so', null, array('class' => 'input-medium', 'placeholder' => '')); ?>                   
-            </div>            
-        </div>
-
-        <div class="control-group">
-            <label class="control-label" for="em_pc_cv_phan_tram">Phụ cấp công vụ (%)</label>
-            <div class="controls">
-                <div class="input-prepend input-append">    
-                    <?php echo $this->formText('em_pc_cv_phan_tram', null, array('class' => 'input-medium', 'placeholder' => '')); ?>                   
-                    <span class="add-on">%</span>                    
-                </div> 
-            </div>            
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="em_pc_cv_he_so">Phụ cấp công vụ (hệ số)</label>
-            <div class="controls">
-                <?php echo $this->formText('em_pc_cv_he_so', null, array('class' => 'input-medium', 'placeholder' => '')); ?>                   
-            </div>            
-        </div>
-
-        <div class="control-group">
-            <label class="control-label" for="em_pc_kiem_nhiem">Phụ cấp kiêm nhiệm</label>
-            <div class="controls">
-                <?php echo $this->formText('em_pc_kiem_nhiem', null, array('class' => 'input-medium', 'placeholder' => '')); ?>                   
-            </div>            
-        </div>
-
-        <div class="control-group">
-            <label class="control-label" for="em_pc_khac">Phụ cấp khác</label>
-            <div class="controls">
-                <?php echo $this->formText('em_pc_khac', null, array('class' => 'input-medium', 'placeholder' => '')); ?>                   
-            </div>            
-        </div>
-
-        <div class="control-group">
-            <label class="control-label" for="em_thang_ap_dung">Áp dụng</label>
-            <div class="controls">
-                <?php
-                $thang_options = array();
-                for ($i = 1; $i <= 12; $i++) {
-                    $thang_options[$i] = $i;
-                }
-                $nam_options = array();
-                for ($i = 2000; $i <= 2100; $i++) {
-                    $nam_options[$i] = $i;
-                }
-                echo $this->formSelect('em_thang_ap_dung', null, array('class' => 'input-small'), $thang_options);
-                echo '<span class="help-inline"> / </span>';
-                echo $this->formSelect('em_nam_ap_dung', null, array('class' => 'input-small'), $nam_options);
-                ?>    
-                <span class="help-block">Thời điểm bắt đầu áp dụng hệ số lương này.</span>
-            </div>
-        </div>
-
-        <div class="control-group">
-            <label class="control-label" for="em_thang_dieu_chinh">Hạn điều chỉnh</label>
-            <div class="controls">
-                <?php
-                $nam_dieu_chinh_options = array();
-                for ($i = 2000; $i <= 2100; $i++) {
-                    $nam_dieu_chinh_options[$i] = $i;
-                }
-                echo $this->formSelect('em_thang_dieu_chinh', null, array('class' => 'input-small'), $thang_options);
-                echo '<span class="help-inline"> / </span>';
-                echo $this->formSelect('em_nam_dieu_chinh', null, array('class' => 'input-small'), $nam_dieu_chinh_options);
-                ?>    
-                <span class="help-block">Thời điểm điều chỉnh lần tiếp theo.</span>
-            </div>
-        </div>
-
-    </form>    
-</div>
-
 <script type="text/javascript">
     function on_choose_phong_ban(){
         var phong_ban = $('#sl_phong_ban').val();
@@ -578,9 +418,16 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
     }
     
     function loadFormHeSo(em_id){
-        var form_html = $('#dv_form_he_so').html();
-        $('#mdHeSoBody').html(form_html);
-        $('#mdHeSoBody #hd_cap_nhat_id').val(em_id);
+        $('#mdHeSoBody').html('Đang lấy dữ liệu, vui lòng chờ trong giây lát....');
+        $('#mdHeSoBody').load(site_url+'/tochuccanbo/employees/heso/id/'+em_id, function(){            
+        });
+    }
+    
+    function update_he_so_nhan_vien(){  
+        var em_id = $('#pc_cap_nhat_em_id').val();
+        $.post( site_url+'/tochuccanbo/employees/heso/id/'+em_id, $('#frm_update_heso').serialize(), function(data) {
+            $('#mdHeSoBody').html(data);
+        });       
     }
     
     function loadFormLuanChuyen(em_id){

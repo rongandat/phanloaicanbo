@@ -44,10 +44,10 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
         $list_chuc_vu = $chucvuModel->fetchData(array('cv_status' => 1));
         $ngachcongchucModel = new Front_Model_NgachCongChuc();
         $list_ngach_cong_chuc = $ngachcongchucModel->fetchData(array('ncc_status' => 1));
-        
+
         $phongbanModel = new Front_Model_Phongban();
         $list_phong_ban = $phongbanModel->fetchAll();
-        
+
         $phong_ban = Array();
         $list_phong_ban_option = $phongbanModel->fetchData(0, $phong_ban);
 
@@ -62,8 +62,8 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
         $employeesModel = new Front_Model_Employees();
         if (!$pb_selected) {
             $list_employees = $employeesModel->fetchData(array('em_delete' => 0));
-        }else{
-            $select = $employeesModel->select()->where('em_delete=?', 0)->where('em_phong_ban in (?)', $pb_ids);            
+        } else {
+            $select = $employeesModel->select()->where('em_delete=?', 0)->where('em_phong_ban in (?)', $pb_ids);
             $list_employees = $employeesModel->fetchAll($select);
         }
         $paginator = Zend_Paginator::factory($list_employees);
@@ -102,7 +102,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
         $this->view->paginator = $paginator;
     }
 
-    public function thongkeAction(){
+    public function thongkeAction() {
         $layoutPath = APPLICATION_PATH . '/templates/' . TEMPLATE_USED;
         $option = array('layout' => '1_column/layout',
             'layoutPath' => $layoutPath);
@@ -111,12 +111,12 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
         $translate = Zend_Registry::get('Zend_Translate');
         $this->view->title = 'Quản lý cán bộ - ' . $translate->_('TEXT_DEFAULT_TITLE');
         $this->view->headTitle($this->view->title);
-        
+
         $date = time();
         $thang = $this->_getParam('thang', date('m', $date));
         $nam = $this->_getParam('nam', date('Y', $date));
         $em_id = $this->_getParam('id', 0);
-        
+
         $holidaysModel = new Front_Model_Holidays();
         $list_holidays = $holidaysModel->fetchData(array(), 'hld_order ASC');
         $xinnghiphepModel = new Front_Model_XinNghiPhep();
@@ -133,7 +133,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
 
         $ltgModel = new Front_Model_LamThemGio();
         $list_lam_them_gio = $ltgModel->fetchData(array('ltg_em_id' => $em_id), 'ltg_date_added ASC');
-        
+
         $this->view->cham_cong = $cham_cong;
         $this->view->thang = $thang;
         $this->view->nam = $nam;
@@ -145,7 +145,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
         $this->view->list_lam_them_gio = $list_lam_them_gio;
         $this->view->page = $this->_page;
     }
-    
+
     public function addAction() {
         $layoutPath = APPLICATION_PATH . '/templates/' . TEMPLATE_USED;
         $option = array('layout' => '1_column/layout',
@@ -602,7 +602,104 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
         $this->view->error_message = $error_message;
     }
 
-    function changestatusAction() {
+    public function hesoAction() {
+        $this->_helper->layout()->disableLayout();
+        $em_id = $this->_getParam('id', 0);
+        $hesoModel = new Front_Model_EmployeesHeso();
+        $he_so = $hesoModel->fetchRow("eh_em_id=$em_id");
+        $error_message = array();
+        $success_message = '';
+        if ($this->_request->isPost()) {
+            $update_em_id = $this->_request->getParam('pc_cap_nhat_em_id', 0);
+            $eh_loai_luong = $this->_request->getParam('eh_loai_luong', 0);
+            $eh_giai_doan = $this->_request->getParam('eh_giai_doan', 0);
+            $eh_he_so = $this->_request->getParam('eh_he_so', 0);
+            $eh_pc_cong_viec = $this->_request->getParam('eh_pc_cong_viec', 0);
+            $eh_pc_trach_nhiem = $this->_request->getParam('eh_pc_trach_nhiem', 0);
+            $eh_pc_kv = $this->_request->getParam('eh_pc_kv', 0);
+            $eh_pc_tnvk_phan_tram = $this->_request->getParam('eh_pc_tnvk_phan_tram', 0);
+            $eh_tham_niem = $this->_request->getParam('eh_tham_niem', 0);
+            $eh_pc_udn_phan_tram = $this->_request->getParam('eh_pc_udn_phan_tram', 0);
+            $eh_pc_cong_vu_phan_tram = $this->_request->getParam('eh_pc_cong_vu_phan_tram', 0);
+            $eh_pc_kiem_nhiem = $this->_request->getParam('eh_pc_kiem_nhiem', 0);
+            $eh_pc_khac = $this->_request->getParam('eh_pc_khac', 0);
+            $eh_thang_dieu_chinh = $this->_request->getParam('eh_thang_dieu_chinh', 0);
+            $eh_nam_dieu_chinh = $this->_request->getParam('eh_nam_dieu_chinh', 0);
+
+            if (!is_numeric($eh_he_so)) {
+                $error_message = array('Hệ số phải có dạng số.');
+            }
+            if (!is_numeric($eh_pc_cong_viec)) {
+                $error_message = array('Phụ cấp công việc phải có dạng số.');
+            }
+            if (!is_numeric($eh_pc_trach_nhiem)) {
+                $error_message = array('Phụ cấp trách nhiệm phải có dạng số.');
+            }
+            if (!is_numeric($eh_pc_kv)) {
+                $error_message = array('Phụ cấp khu vực phải có dạng số.');
+            }
+            if (!is_numeric($eh_pc_tnvk_phan_tram)) {
+                $error_message = array('Phụ cấp thâm niên vượt khung phải có dạng số.');
+            }
+
+            if (!is_numeric($eh_tham_niem)) {
+                $error_message = array('Thâm niên phải có dạng số.');
+            }
+            if (!is_numeric($eh_pc_udn_phan_tram)) {
+                $error_message = array('Phụ cấp ưu đãi nghề (%) phải có dạng số.');
+            }
+
+            if (!is_numeric($eh_pc_cong_vu_phan_tram)) {
+                $error_message = array('Phụ cấp công vụ (%) phải có dạng số.');
+            }
+
+            if (!is_numeric($eh_pc_kiem_nhiem)) {
+                $error_message = array('Phụ cấp kiêm nhiệm phải có dạng số.');
+            }
+            if (!is_numeric($eh_pc_khac)) {
+                $error_message = array('Phụ cấp khác phải có dạng số.');
+            }
+
+            if (!sizeof($error_message)) {
+                if ($em_id != $update_em_id) {
+                    $error_message = array('Có lỗi xảy ra, xin hãy tắt form này và mở lại.');
+                } else {
+                    $current_time = new Zend_Db_Expr('NOW()');
+                    $date_dieu_chinh = date_create($eh_nam_dieu_chinh . '-' . $eh_thang_dieu_chinh . '-1');
+                    $data = array(
+                        'eh_loai_luong' => $eh_loai_luong,
+                        'eh_giai_doan' => $eh_giai_doan,
+                        'eh_he_so' => $eh_he_so,
+                        'eh_pc_cong_viec' => $eh_pc_cong_viec,
+                        'eh_pc_trach_nhiem' => $eh_pc_trach_nhiem,
+                        'eh_pc_tnvk_phan_tram' => $eh_pc_tnvk_phan_tram,
+                        'eh_tham_niem' => $eh_tham_niem,
+                        'eh_pc_udn_phan_tram' => $eh_pc_udn_phan_tram,
+                        'eh_pc_cong_vu_phan_tram' => $eh_pc_cong_vu_phan_tram,
+                        'eh_pc_kiem_nhiem' => $eh_pc_kiem_nhiem,
+                        'eh_pc_khac' => $eh_pc_khac,
+                        'eh_date_modified' => $current_time,
+                        'eh_han_dieu_chinh' => date_format($date_dieu_chinh, "Y-m-d H:iP")
+                    );
+                    if (!$he_so) {
+                        $data['eh_em_id'] = $update_em_id;
+                        $data['eh_date_added'] = $current_time;
+                        $hesoModel->insert($data);
+                    } else {
+                        $hesoModel->update($data, "eh_em_id=$update_em_id");
+                    }
+                    $he_so = $hesoModel->fetchRow("eh_em_id=$em_id");
+                    $success_message = 'Đã cập nhật thông tin thành công.';
+                }
+            } 
+        }
+        $this->view->error_message = $error_message;
+        $this->view->success_message = $success_message;
+        $this->view->he_so = $he_so;
+        $this->view->em_id = $em_id;
+    }
+
+    public function changestatusAction() {
         $this->_helper->layout()->disableLayout();
         $type = $this->_request->getParam('status', 1);
         $id = $this->_request->getParam('id', 0);
@@ -617,7 +714,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
         $this->_redirect('tochuccanbo/employees/index/page/' . $this->_page);
     }
 
-    function deleteitemsAction() {
+    public function deleteitemsAction() {
         $this->_helper->layout()->disableLayout();
         $employeeModel = new Front_Model_Employees();
         if ($this->_request->isPost()) {
@@ -629,7 +726,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
         $this->_redirect('tochuccanbo/employees/index/page/' . $this->_page);
     }
 
-    function gethuyenAction() {
+    public function gethuyenAction() {
         $this->_helper->layout()->disableLayout();
         $tinhID = $this->_getParam('tid', 0);
         $huyenModel = new Front_Model_Huyen();
@@ -637,7 +734,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
         $this->view->list_huyen = $list_huyen;
     }
 
-    function getdataluanchuyenAction() {
+    public function getdataluanchuyenAction() {
         $this->_helper->layout()->disableLayout();
         $emID = $this->_getParam('id', 0);
         $emModel = new Front_Model_Employees();
@@ -645,7 +742,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
         $this->view->employee_info = $em_info;
     }
 
-    function updatedataluanchuyenAction() {
+    public function updatedataluanchuyenAction() {
         $this->_helper->layout()->disableLayout();
         $employeesModel = new Front_Model_Employees();
         if ($this->_request->isPost()) {
@@ -686,7 +783,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
         }
     }
 
-    function jqkhenthuongAction() {
+    public function jqkhenthuongAction() {
         $this->_helper->layout()->disableLayout();
         $khenthuongModel = new Front_Model_KhenThuong();
         if ($this->_request->isPost()) {
@@ -735,7 +832,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
         }
     }
 
-    function jqkyluatAction() {
+    public function jqkyluatAction() {
         $this->_helper->layout()->disableLayout();
         $kyluatModel = new Front_Model_KyLuat();
         if ($this->_request->isPost()) {
