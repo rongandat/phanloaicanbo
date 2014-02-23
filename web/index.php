@@ -7,7 +7,7 @@ set_include_path(implode(PATH_SEPARATOR, array(
             realpath(APPLICATION_PATH . '/../library'),
             get_include_path(),
         )));
-
+require_once('./mpdf/mpdf.php');
 //Goi lop Zend Application
 require_once 'Zend/Application.php';
 $environment = APPLICATION_ENV;

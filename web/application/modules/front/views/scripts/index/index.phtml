@@ -8,11 +8,11 @@ echo $this->blkFrontThongBao();
 
 <div class="main-content-box">                     
     <p>
-        <button class="btn btn-small" type="button"><i class="icon-list-alt"></i> Thông báo</button>
-        <button class="btn btn-small" type="button"><i class="icon-hand-up"></i> Chấm công</button>
-        <button class="btn btn-small" type="button"><i class="icon-time"></i> Khai báo làm ngoài giờ</button>
-        <button class="btn btn-small" type="button"><i class="icon-flag"></i> Xin nghỉ phép</button>
-        <button class="btn btn-small" type="button"><i class="icon-hand-up"></i> Thống kê</button>
-        <button class="btn btn-small" type="button"><i class="icon-hand-up"></i> Tự đánh giá</button>
+        <a class="btn btn-small" href="<?php echo $this->baseUrl('canhan/thongbao');?>"><i class="icon-list-alt"></i> Thông báo</a>
+        <a class="btn btn-small" href="<?php echo $this->baseUrl('canhan/chamcong');?>"><i class="icon-hand-up"></i> Chấm công</a>
+        <a class="btn btn-small" href="<?php echo $this->baseUrl('canhan/khaibaothemgio');?>"><i class="icon-time"></i> Khai báo làm ngoài giờ</a>
+        <a class="btn btn-small" href="<?php echo $this->baseUrl('canhan/xinnghiphep');?>"><i class="icon-flag"></i> Xin nghỉ phép</a>
+        <a class="btn btn-small" href="<?php echo $this->baseUrl('canhan/thongkethang');?>"><i class="icon-hand-up"></i> Thống kê</a>
+        <a class="btn btn-small" href="<?php echo $this->baseUrl('canhan/danhgiaphanloai');?>"><i class="icon-hand-up"></i> Tự đánh giá</a>
     </p>
 </div>

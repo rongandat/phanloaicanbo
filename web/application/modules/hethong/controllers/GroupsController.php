@@ -44,7 +44,10 @@ class Hethong_GroupsController extends Zend_Controller_Action {
                     array('id' => 1010, 'name' => 'Quản lý dân tộc'),
                     array('id' => 1011, 'name' => 'Quản lý tỉnh, huyện'),
                     array('id' => 1012, 'name' => 'Quản lý chức vụ'),
-                    array('id' => 1013, 'name' => 'Quản lý ngạch công chức')
+                    array('id' => 1013, 'name' => 'Quản lý ngạch công chức'),
+                    array('id' => 1014, 'name' => 'Quản lý chức chức vụ đoàn'),
+                    array('id' => 1015, 'name' => 'Quản lý chức vụ đảng'),
+                    array('id' => 1016, 'name' => 'Quản lý chức vụ công đoàn'),
                 )
             ),
             array(
@@ -58,6 +61,44 @@ class Hethong_GroupsController extends Zend_Controller_Action {
                     array('id' => 2006, 'name' => 'Khai báo thêm giờ'),
                     array('id' => 2007, 'name' => 'Thống kê tháng'),
                     array('id' => 2008, 'name' => 'Đánh giá phân loại')
+                )
+            ),
+            array(
+                'group' => 'Đơn vị',
+                'permissions' => array(
+                    array('id' => 3001, 'name' => 'Quản lý thành viên'),
+                    array('id' => 3002, 'name' => 'Duyệt nghỉ phép'),
+                    array('id' => 3003, 'name' => 'Duyệt thêm giờ'),
+                    array('id' => 3004, 'name' => 'Duyệt chấm công'),
+                    array('id' => 3005, 'name' => 'Duyệt phân loại cán bộ')
+                )
+            ),
+            array(
+                'group' => 'Quản lý cán bộ',
+                'permissions' => array(
+                    array('id' => 4001, 'name' => 'Quản lý cán bộ'),
+                    array('id' => 4002, 'name' => 'Quản lý yêu cầu cập nhật thông tin'),
+                    array('id' => 4003, 'name' => 'Duyệt phân loại cán bộ'),
+                    array('id' => 4004, 'name' => 'Duyệt nghỉ phép'),
+                    array('id' => 4005, 'name' => 'Duyệt thêm giờ'),
+                    array('id' => 4006, 'name' => 'Duyệt chấm công'),
+                    array('id' => 4007, 'name' => 'Quản lý yêu cầu khen thưởng'),
+                    array('id' => 4008, 'name' => 'Quản lý yêu cầu kỷ luật/khiển trách'),
+                    array('id' => 4009, 'name' => 'Quản lý hệ số lương'),
+                    array('id' => 4010, 'name' => 'Tính lương'),
+                    array('id' => 4011, 'name' => 'In lương')
+                )
+            ),
+            array(
+                'group' => 'Xem danh sách',
+                'permissions' => array(
+                    array('id' => 5001, 'name' => 'Lọc danh sách theo phòng ban'),
+                    array('id' => 5002, 'name' => 'Lọc danh sách theo chức vụ'),
+                    array('id' => 5003, 'name' => 'Lọc danh sách theo bằng cấp'),
+                    array('id' => 5004, 'name' => 'Lọc danh sách theo học hàm'),
+                    array('id' => 5005, 'name' => 'Lọc danh sách theo tỉnh/huyện'),
+                    array('id' => 5006, 'name' => 'Lọc danh sách theo dân tộc'),
+                    array('id' => 5007, 'name' => 'Lọc danh sách theo nghạch công chức')
                 )
             )
         );
