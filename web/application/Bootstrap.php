@@ -30,6 +30,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         
         Zend_Controller_Action_HelperBroker::addPath(
                 APPLICATION_PATH . '/modules/front/controllers/helpers');
+        
+        Zend_Controller_Action_HelperBroker::addPath(
+                APPLICATION_PATH . '/modules/danhsach/controllers/helpers');
     }
 
     protected function _initLoadRouter() {

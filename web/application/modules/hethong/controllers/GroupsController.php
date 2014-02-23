@@ -98,7 +98,8 @@ class Hethong_GroupsController extends Zend_Controller_Action {
                     array('id' => 5004, 'name' => 'Lọc danh sách theo học hàm'),
                     array('id' => 5005, 'name' => 'Lọc danh sách theo tỉnh/huyện'),
                     array('id' => 5006, 'name' => 'Lọc danh sách theo dân tộc'),
-                    array('id' => 5007, 'name' => 'Lọc danh sách theo nghạch công chức')
+                    array('id' => 5007, 'name' => 'Lọc danh sách theo ngạch công chức'),
+                    array('id' => 5008, 'name' => 'Lọc danh sách theo chứng chỉ')
                 )
             )
         );

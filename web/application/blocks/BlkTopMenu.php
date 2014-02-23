@@ -5,6 +5,9 @@ class Block_BlkTopMenu extends Zend_View_Helper_Abstract {
     function blkTopMenu() {
         $view = $this->view;
         $arrParam = $view->arrParam;
+        $auth = Zend_Auth::getInstance();
+        $identity = $auth->getIdentity();
+
         $module_name = Zend_Controller_Front::getInstance()->getRequest()->getModuleName();
         $list_menu = array(
             'front' => array('name' => 'Trang chủ', 'sub' => array()),
@@ -55,7 +58,16 @@ class Block_BlkTopMenu extends Zend_View_Helper_Abstract {
                     'yckyluat' => 'QL Yêu cầu kỷ luật/khiển trách',
                     'hesoluong' => 'QL Hệ số lương'
             )),
-            'danhsach' => array('name' => 'Danh sách', 'sub' => array())
+            'danhsach' => array('name' => 'Danh sách', 'sub' => array(
+                    'phongban' => 'Lọc theo phòng ban',
+                    'chucvu' => 'Lọc theo chức vụ',
+                    'bangcap' => 'Lọc theo bằng cấp',
+                    'hocham' => 'Lọc theo học hàm',
+                    'tinhhuyen' => 'Lọc theo tỉnh',
+                    'dantoc' => 'Lọc theo dân tộc',
+                    'ngachcongchuc' => 'Lọc theo ngạch công chức',
+                    'chungchi' => 'Lọc theo chứng chỉ'
+            ))
         );
 
         require_once (BLOCK_PATH . '/BlkTopMenu/' . TEMPLATE_USED . '/default.php');

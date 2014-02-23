@@ -1,0 +1,55 @@
+<?php
+$filter_options = array('0' => 'Tất cả');
+foreach ($this->filter as $filter) {
+    $filter_options[$filter->hh_id] = $filter->hh_name;
+}
+?>
+<div class="body_content float_right">
+    <h5>Lọc danh sách theo học hàm</h5>               
+
+    <div class="main-content-box">  
+        <form name="appForm" method="post" action="">
+            <div class="btn-toolbar float_left">
+                <?php
+                echo $this->formSelect('sl_filter', $this->filter_selected, array('onchange' => 'on_choose_filter()'), $filter_options);
+                ?>
+            </div>
+
+            <div class="clearfix">
+            </div>
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Họ tên</th>  
+                        <th style="width: 70px">Giới tính</th>
+                        <th style="width: 90px">Ngày sinh</th>
+                        <th style="width: 170px">Phòng ban</th>
+                        <th style="width: 120px">Chức vụ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    foreach ($this->paginator as $item) {
+                        echo '<tr>
+                            <td>' . $item->em_ho . ' ' . $item->em_ten_dem . ' ' . $item->em_ten . '</td>                           
+                            <td>' . ($item->em_gioi_tinh?'Nam':'Nữ') . '</td>                           
+                            <td>' . date('d-m-Y',$item->em_ngay_sinh) . '</td>                           
+                            <td>' . $this->viewGetPhongBanName($item->em_phong_ban) . '</td>                           
+                            <td>' . $this->viewGetChucVuName($item->em_chuc_vu) . '</td>                           
+                            
+                        </tr>';
+                    }
+                    ?>
+                </tbody>
+            </table>
+            <?php echo $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml'); ?>
+        </form>
+    </div> 
+</div>
+
+<script>
+    function on_choose_filter(){
+        var filter_val = $('#sl_filter').val();            
+        window.location = site_url+'/danhsach/hocham/index/id/'+filter_val;
+    }
+</script>

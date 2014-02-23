@@ -1,0 +1,16 @@
+<?php
+echo $this->render('includes/header.phtml');
+?>
+<!-- BOF main content -->
+<div class="main-content">
+    <div class="sidebar float_left">
+        <?php echo $this->blkDanhSachMenu();?>
+    </div>
+    <div class="body_content float_right">
+        <?php echo $this->layout()->content; ?>	
+    </div>
+</div>
+<!-- EOF main content -->
+<?php
+echo $this->render('includes/footer.phtml');
+?>
