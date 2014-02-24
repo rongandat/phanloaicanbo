@@ -41,6 +41,15 @@ class Front_Model_KyLuat extends Zend_Db_Table_Abstract {
         return $this->fetchAll($select);
     }
     
+    public function fetchAllByDate($from_date, $to_date) {
+        $select = $this->select(Zend_Db_Table::SELECT_WITH_FROM_PART);
+        $select->setIntegrityCheck(false)
+                ->joinInner(TABLE_EMPLOYEES, TABLE_EMPLOYEES . '.em_id = ' . $this->_name . '.kl_em_id', array('em_ten', 'em_ten_dem', 'em_ho', 'em_ngay_sinh', 'em_phong_ban'));
+        $select->where('kl_date >=?', $from_date);
+        $select->where('kl_date <=?', $to_date);
+        return $this->fetchAll($select);
+    }
+    
     public function fetchByDatePTCCB($from_date, $to_date) {
         $select = $this->select(Zend_Db_Table::SELECT_WITH_FROM_PART);
         $select->setIntegrityCheck(false)

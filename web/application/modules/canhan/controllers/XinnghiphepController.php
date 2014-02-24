@@ -89,14 +89,19 @@ class Canhan_XinnghiphepController extends Zend_Controller_Action {
 
             if (!sizeof($error_message)) {
                 $current_time = new Zend_Db_Expr('NOW()');
-                $ngay_bat_dau = DateTime::createFromFormat('d/m/yy', $ngay_bat_dau);
-                $ngay_ket_thuc = DateTime::createFromFormat('d/m/yy', $ngay_ket_thuc);
+
+                $ngay_bat_dau = str_replace('/', '-', $ngay_bat_dau);
+                $ngay_bat_dau = date('Y-m-d', strtotime($ngay_bat_dau));
+
+                $ngay_ket_thuc = str_replace('/', '-', $ngay_ket_thuc);
+                $ngay_ket_thuc = date('Y-m-d', strtotime($ngay_ket_thuc));
+
                 $xinnghiphepModel->insert(array(
                     'xnp_em_id' => $em_id,
                     'xnp_ly_do' => $ly_do,
                     'xnp_chi_tiet' => $chi_tiet,
-                    'xnp_from_date' => date_format($ngay_bat_dau, "Y-m-d H:iP"),
-                    'xnp_to_date' => date_format($ngay_ket_thuc, "Y-m-d H:iP"),
+                    'xnp_from_date' => $ngay_bat_dau,
+                    'xnp_to_date' => $ngay_ket_thuc,
                     'xnp_date_created' => $current_time
                         )
                 );
@@ -147,13 +152,18 @@ class Canhan_XinnghiphepController extends Zend_Controller_Action {
 
                 if (!sizeof($error_message)) {
                     $current_time = new Zend_Db_Expr('NOW()');
-                    $ngay_bat_dau = DateTime::createFromFormat('d/m/yy', $ngay_bat_dau);
-                    $ngay_ket_thuc = DateTime::createFromFormat('d/m/yy', $ngay_ket_thuc);
+
+                    $ngay_bat_dau = str_replace('/', '-', $ngay_bat_dau);
+                    $ngay_bat_dau = date('Y-m-d', strtotime($ngay_bat_dau));
+
+                    $ngay_ket_thuc = str_replace('/', '-', $ngay_ket_thuc);
+                    $ngay_ket_thuc = date('Y-m-d', strtotime($ngay_ket_thuc));
+
                     $xinnghiphepModel->update(array(
                         'xnp_ly_do' => $ly_do,
                         'xnp_chi_tiet' => $chi_tiet,
-                        'xnp_from_date' => date_format($ngay_bat_dau, "Y-m-d H:iP"),
-                        'xnp_to_date' => date_format($ngay_ket_thuc, "Y-m-d H:iP"),
+                        'xnp_from_date' => $ngay_bat_dau,
+                        'xnp_to_date' => $ngay_ket_thuc,
                         'xnp_date_created' => $current_time
                             ), 'xnp_id = ' . $xnp_id
                     );

@@ -90,11 +90,12 @@ class Canhan_KhaibaothemgioController extends Zend_Controller_Action {
 
             if (!sizeof($error_message)) {
                 $current_time = new Zend_Db_Expr('NOW()');
-                $ngay_them_gio = DateTime::createFromFormat('d/m/yy', $ltg_date);
+                $ltg_date = str_replace('/', '-', $ltg_date);
+                $ltg_date = date('Y-m-d', strtotime($ltg_date));
                 $ltgModel->insert(array(
                     'ltg_em_id' => $em_id,
                     'ltg_chi_tiet' => $ltg_chi_tiet,
-                    'ltg_ngay' => date_format($ngay_them_gio, "Y-m-d H:iP"),
+                    'ltg_ngay' => $ltg_date,
                     'ltg_gio_bat_dau' => $ltg_gio_bat_dau,
                     'ltg_phut_bat_dau' => $ltg_phut_bat_dau,
                     'ltg_gio_ket_thuc' => $ltg_gio_ket_thuc,
@@ -150,11 +151,13 @@ class Canhan_KhaibaothemgioController extends Zend_Controller_Action {
                 }
 
                 if (!sizeof($error_message)) {
-                    $ngay_them_gio = DateTime::createFromFormat('d/m/yy', $ltg_date);
+
+                    $ltg_date = str_replace('/', '-', $ltg_date);
+                    $ltg_date = date('Y-m-d', strtotime($ltg_date));
                     $ltgModel->update(array(
                         'ltg_em_id' => $em_id,
                         'ltg_chi_tiet' => $ltg_chi_tiet,
-                        'ltg_ngay' => date_format($ngay_them_gio, "Y-m-d H:iP"),
+                        'ltg_ngay' => $ltg_date,
                         'ltg_gio_bat_dau' => $ltg_gio_bat_dau,
                         'ltg_phut_bat_dau' => $ltg_phut_bat_dau,
                         'ltg_gio_ket_thuc' => $ltg_gio_ket_thuc,

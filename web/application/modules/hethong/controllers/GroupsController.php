@@ -86,7 +86,9 @@ class Hethong_GroupsController extends Zend_Controller_Action {
                     array('id' => 4008, 'name' => 'Quản lý yêu cầu kỷ luật/khiển trách'),
                     array('id' => 4009, 'name' => 'Quản lý hệ số lương'),
                     array('id' => 4010, 'name' => 'Tính lương'),
-                    array('id' => 4011, 'name' => 'In lương')
+                    array('id' => 4011, 'name' => 'In lương'),
+                    array('id' => 4012, 'name' => 'Quản lý khen thưởng'),
+                    array('id' => 4013, 'name' => 'Quản lý kỷ luật/khiển trách')
                 )
             ),
             array(

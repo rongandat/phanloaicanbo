@@ -287,10 +287,19 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
 
             if (!sizeof($error_message)) {
                 $current_time = new Zend_Db_Expr('NOW()');
-                $date_ngay_sinh = DateTime::createFromFormat('d/m/yy', $ngay_sinh);
-                $date_ngay_tuyen_dung = DateTime::createFromFormat('d/m/yy', $ngay_tuyen_dung);
-                $date_ngay_vao_dang = DateTime::createFromFormat('d/m/yy', $ngay_dang);
-                $date_ngay_vao_doan = DateTime::createFromFormat('d/m/yy', $ngay_doan);
+                $ngay_sinh = str_replace('/', '-', $ngay_sinh); 
+                $ngay_sinh = date('Y-m-d', strtotime($ngay_sinh));
+                
+                $ngay_tuyen_dung = str_replace('/', '-', $ngay_tuyen_dung); 
+                $ngay_tuyen_dung = date('Y-m-d', strtotime($ngay_tuyen_dung));
+                
+                $ngay_dang = str_replace('/', '-', $ngay_dang); 
+                $ngay_dang = date('Y-m-d', strtotime($ngay_dang));
+                
+                $ngay_doan = str_replace('/', '-', $ngay_doan); 
+                $ngay_doan = date('Y-m-d', strtotime($ngay_doan));
+                
+                
                 $data['em_ho'] = $em_ho;
                 $data['em_ten_dem'] = $em_ten_dem;
                 $data['em_ten'] = $em_ten;
@@ -322,10 +331,10 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
                 $data['em_chung_chi_khac'] = $em_chung_chi_khac;
                 $data['em_anh_bang_cap'] = serialize($em_bang_scan_upload);
                 $data['em_status'] = $em_status;
-                $data['em_ngay_sinh'] = date_format($date_ngay_sinh, "Y-m-d H:iP");
-                $data['em_ngay_tuyen_dung'] = date_format($date_ngay_tuyen_dung, "Y-m-d H:iP");
-                $data['em_ngay_vao_dang'] = date_format($date_ngay_vao_dang, "Y-m-d H:iP");
-                $data['em_ngay_vao_doan'] = date_format($date_ngay_vao_doan, "Y-m-d H:iP");
+                $data['em_ngay_sinh'] = $ngay_sinh;
+                $data['em_ngay_tuyen_dung'] = $ngay_tuyen_dung;
+                $data['em_ngay_vao_dang'] = $ngay_dang;
+                $data['em_ngay_vao_doan'] = $ngay_doan;
                 $data['em_date_added'] = $current_time;
                 $data['em_date_modified'] = $current_time;
                 $employeesModel->insert($data);
@@ -505,10 +514,15 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
 
             if (!sizeof($error_message)) {
                 $current_time = new Zend_Db_Expr('NOW()');
-                $date_ngay_sinh = DateTime::createFromFormat('d/m/yy', $ngay_sinh);
-                $date_ngay_tuyen_dung = DateTime::createFromFormat('d/m/yy', $ngay_tuyen_dung);
-                $date_ngay_vao_dang = DateTime::createFromFormat('d/m/yy', $ngay_dang);
-                $date_ngay_vao_doan = DateTime::createFromFormat('d/m/yy', $ngay_doan);
+                
+                $ngay_sinh = str_replace('/', '-', $ngay_sinh); 
+                $ngay_sinh = date('Y-m-d', strtotime($ngay_sinh));
+                $ngay_tuyen_dung = str_replace('/', '-', $ngay_tuyen_dung); 
+                $ngay_tuyen_dung = date('Y-m-d', strtotime($ngay_tuyen_dung));
+                $ngay_dang = str_replace('/', '-', $ngay_dang); 
+                $ngay_dang = date('Y-m-d', strtotime($ngay_dang));
+                $ngay_doan = str_replace('/', '-', $ngay_doan); 
+                $ngay_doan = date('Y-m-d', strtotime($ngay_doan));                
 
                 $data['em_ho'] = $em_ho;
                 $data['em_ten_dem'] = $em_ten_dem;
@@ -541,10 +555,10 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
                 $data['em_chung_chi_khac'] = $em_chung_chi_khac;
                 $data['em_anh_bang_cap'] = serialize($em_bang_scan_upload);
                 $data['em_status'] = $em_status;
-                $data['em_ngay_sinh'] = date_format($date_ngay_sinh, "Y-m-d H:iP");
-                $data['em_ngay_tuyen_dung'] = date_format($date_ngay_tuyen_dung, "Y-m-d H:iP");
-                $data['em_ngay_vao_dang'] = date_format($date_ngay_vao_dang, "Y-m-d H:iP");
-                $data['em_ngay_vao_doan'] = date_format($date_ngay_vao_doan, "Y-m-d H:iP");
+                $data['em_ngay_sinh'] = $ngay_sinh;
+                $data['em_ngay_tuyen_dung'] = $ngay_tuyen_dung;
+                $data['em_ngay_vao_dang'] = $ngay_dang;
+                $data['em_ngay_vao_doan'] = $ngay_doan;
                 $data['em_date_modified'] = $current_time;
                 $employeesModel->update($data, 'em_id=' . $id);
                 $employee_info = $employeesModel->fetchRow('em_id=' . $id . ' and em_delete=0');
@@ -691,7 +705,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
                     $he_so = $hesoModel->fetchRow("eh_em_id=$em_id");
                     $success_message = 'Đã cập nhật thông tin thành công.';
                 }
-            } 
+            }
         }
         $this->view->error_message = $error_message;
         $this->view->success_message = $success_message;
@@ -808,6 +822,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
 
             $data['kt_can_bo_to_chuc'] = $from_id;
             $data['kt_em_id'] = $em_id;
+            $data['kt_ptccb_viewed'] = 1;
             $data['kt_date'] = date_format($date_khen_thuong, "Y-m-d H:iP");
             $data['kt_ly_do'] = $kt_ly_do;
             $data['kt_chi_tiet'] = $kt_chi_tiet;
@@ -855,6 +870,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
             }
             $data['kl_can_bo_to_chuc'] = $from_id;
             $data['kl_em_id'] = $em_id;
+            $data['kl_ptccb_viewed'] = 1;
             $data['kl_money'] = $kl_money;
             $data['kl_date'] = date_format($date_ky_luat, "Y-m-d H:iP");
             $data['kl_ly_do'] = $kl_ly_do;

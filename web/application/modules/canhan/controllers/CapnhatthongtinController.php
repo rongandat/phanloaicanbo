@@ -168,9 +168,16 @@ class Canhan_CapnhatthongtinController extends Zend_Controller_Action {
 
             if (!sizeof($error_message)) {
                 $current_time = new Zend_Db_Expr('NOW()');
-                $date_ngay_sinh = DateTime::createFromFormat('d/m/yy', $ngay_sinh);
-                $date_ngay_vao_dang = DateTime::createFromFormat('d/m/yy', $ngay_dang);
-                $date_ngay_vao_doan = DateTime::createFromFormat('d/m/yy', $ngay_doan);
+                
+                $ngay_sinh = str_replace('/', '-', $ngay_sinh); 
+                $ngay_sinh = date('Y-m-d', strtotime($ngay_sinh));
+                
+                $ngay_dang = str_replace('/', '-', $ngay_dang); 
+                $ngay_dang = date('Y-m-d', strtotime($ngay_dang));
+                
+                $ngay_doan = str_replace('/', '-', $ngay_doan); 
+                $ngay_doan = date('Y-m-d', strtotime($ngay_doan));
+                
                 $data['eme_ho'] = $em_ho;
                 $data['eme_ten_dem'] = $em_ten_dem;
                 $data['eme_ten'] = $em_ten;
@@ -195,9 +202,9 @@ class Canhan_CapnhatthongtinController extends Zend_Controller_Action {
                 $data['eme_tin_hoc'] = $em_tin_hoc;
                 $data['eme_chung_chi_khac'] = $em_chung_chi_khac;
                 $data['eme_anh_bang_cap'] = serialize($em_bang_scan_upload);                
-                $data['eme_ngay_sinh'] = date_format($date_ngay_sinh, "Y-m-d H:iP");
-                $data['eme_ngay_vao_dang'] = date_format($date_ngay_vao_dang, "Y-m-d H:iP");
-                $data['eme_ngay_vao_doan'] = date_format($date_ngay_vao_doan, "Y-m-d H:iP");
+                $data['eme_ngay_sinh'] = $ngay_sinh;
+                $data['eme_ngay_vao_dang'] = $ngay_dang;
+                $data['eme_ngay_vao_doan'] = $ngay_doan;
                 $data['eme_date_modified'] = $current_time;
 
                 $checkExit = $employeesEditModel->fetchRow('em_id=' . $id);
