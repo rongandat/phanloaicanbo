@@ -122,7 +122,7 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
         $phongbanModel = new Front_Model_Phongban();
         $pb_selected = $this->_getParam('phongban', 0);
         $phong_ban_id = $list_phongban_selected = $phong_ban = Array();
-
+        $phong_ban_selected_info = $phongbanModel->fetchRow("pb_id=$pb_selected");
         $phong_ban_id[] = $pb_selected;
         $list_phongban_selected = $phongbanModel->fetchDataStatus($pb_selected, $phong_ban);
 
@@ -433,7 +433,12 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
                 }
             }
             if ($k) {
-                $file_name = 'Bang_luong_' . $thang . '-' . $nam . '.pdf';
+                if ($pb_selected && $phong_ban_selected_info) {
+                    $file_name = 'Bang_luong_' . str_replace(' ', '_', $this->loc_tieng_viet($phong_ban_selected_info->pb_name)) . '_' . $thang . '-' . $nam . '.pdf';
+                } else {
+                    $file_name = 'Bang_luong_' . $thang . '-' . $nam . '.pdf';
+                }
+
                 $mpdf->Output($file_name, 'D');
                 die();
             } else {
