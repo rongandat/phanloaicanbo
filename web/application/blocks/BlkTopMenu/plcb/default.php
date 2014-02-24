@@ -11,6 +11,9 @@
                 if ($menu_key == 'canhan') {
                     echo '<li><a href="' . $view->baseUrl('tochuccanbo/inluong/index/id/' . $identity->em_id) . '">Xem bảng lương</a></li>';
                 }
+                if ($menu_key == 'tochuccanbo') {
+                    echo '<li><a href="' . $view->baseUrl('tochuccanbo/inluong/intheophong/') . '">In bảng lương theo phòng</a></li>';
+                }
                 echo '</ul>                    
             </li>';
             } else {
