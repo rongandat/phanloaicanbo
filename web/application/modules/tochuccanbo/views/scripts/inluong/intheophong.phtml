@@ -64,7 +64,8 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
         <div class="control-group">
             <div class="controls">
                 <p>
-                    <a class="btn btn-small btn-primary" target="_blank" href="<?php echo$this->baseUrl('tochuccanbo/inluong/downtheophong/phongban/' . $this->pb_id . '/thang/' . $this->thang . '/nam/' . $this->nam); ?>"><i class="icon-download-alt"></i> Xuất bảng lương</a>
+                    <a class="btn btn-small btn-primary" target="_blank" href="<?php echo$this->baseUrl('tochuccanbo/inluong/downtheophong/phongban/' . $this->pb_id . '/thang/' . $this->thang . '/nam/' . $this->nam); ?>"><i class="icon-download-alt"></i> Xuất ra file PDF</a>
+                    <a class="btn btn-small btn-primary" target="_blank" href="<?php echo$this->baseUrl('tochuccanbo/inluong/exeltheophong/phongban/' . $this->pb_id . '/thang/' . $this->thang . '/nam/' . $this->nam); ?>"><i class="icon-download-alt"></i> Xuất ra file Exel</a>
                     <a class="btn btn-small" type="button" href="<?php echo $this->baseUrl('tochuccanbo/employees'); ?>">Quay lại</a>
                 </p>
             </div>
