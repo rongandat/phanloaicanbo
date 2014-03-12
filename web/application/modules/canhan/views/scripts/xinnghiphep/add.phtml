@@ -53,7 +53,7 @@
                 <div class="controls">
                     <p>
                         <button class="btn btn-small btn-primary" type="submit">Đồng ý</button>
-                        <a class="btn btn-small" type="button" href="<?php echo $this->baseUrl('canhan/xinnghiphep/index/page/'.$this->arrParam['page']); ?>">Quay lại</a>
+                        <a class="btn btn-small" type="button" href="<?php echo $this->baseUrl('canhan/xinnghiphep/index/page/' . $this->arrParam['page']); ?>">Quay lại</a>
                     </p>
                 </div>
             </div>
@@ -64,6 +64,7 @@
 <script>
     $(function() {
         $( "#xnp_from_date" ).datepicker({
+            yearRange: '1900:2050',
             changeMonth: true,
             changeYear: true,
             defaultDate: "+1w",
@@ -77,6 +78,7 @@
             buttonImageOnly: true
         });
         $( "#xnp_to_date" ).datepicker({
+            yearRange: '1900:2050',
             changeMonth: true,
             changeYear: true,
             defaultDate: "+1w",

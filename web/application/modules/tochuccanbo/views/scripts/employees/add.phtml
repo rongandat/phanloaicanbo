@@ -70,7 +70,7 @@
             <div class="control-group">
                 <label class="control-label" for="ngay_sinh">Ngày sinh</label>
                 <div class="controls">
-                    <?php echo $this->formText('ngay_sinh', $this->arrParam['ngay_sinh'], array('class' => 'input-medium', 'placeholder' => 'Ngày sinh', 'readonly' => 'readonly')); ?>                    
+                    <?php echo $this->formText('ngay_sinh', $this->arrParam['ngay_sinh'], array('class' => 'input-medium', 'placeholder' => 'Ngày sinh')); ?>                    
                 </div>
             </div> 
 
@@ -425,6 +425,7 @@
             }
         });
         $( "#ngay_sinh" ).datepicker({
+            yearRange: '1900:2050',
             changeMonth: true,
             changeYear: true,
             defaultDate: "+1w",
@@ -435,6 +436,7 @@
             buttonImageOnly: true
         });
         $( "#ngay_dang" ).datepicker({
+        yearRange: '1900:2050',
             changeMonth: true,
             changeYear: true,
             defaultDate: "+1w",
@@ -445,6 +447,7 @@
             buttonImageOnly: true
         });
         $( "#ngay_doan" ).datepicker({
+            yearRange: '1900:2050',
             changeMonth: true,
             changeYear: true,
             defaultDate: "+1w",
@@ -455,6 +458,7 @@
             buttonImageOnly: true
         });
         $( "#ngay_tuyen_dung" ).datepicker({
+            yearRange: '1900:2050',
             changeMonth: true,
             changeYear: true,
             defaultDate: "+1w",
