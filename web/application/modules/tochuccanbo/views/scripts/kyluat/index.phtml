@@ -85,10 +85,10 @@
                                         <div class="span4 float_left"><strong>Nội dung: </strong> <?php echo $item->kl_chi_tiet; ?></div>
                                     </div>
                                     <div class="row">
-                                        <div class="span4 float_left"><strong>Ngày khen thưởng: </strong> <?php echo date('d-m-Y', strtotime($item->kl_date)); ?></div>
+                                        <div class="span4 float_left"><strong>Ngày kỷ luật/khiển trách: </strong> <?php echo date('d-m-Y', strtotime($item->kl_date)); ?></div>
                                     </div>
                                     <div class="row">
-                                        <div class="span4 float_left"><strong>Mức khen thưởng: </strong> <?php echo $item->kl_money; ?>VND</div>
+                                        <div class="span4 float_left"><strong>Mức phạt: </strong> <?php echo number_format($item->kl_money, 0, '.', ','); ?>VND</div>
                                     </div>
 
                                 </div>
@@ -275,7 +275,7 @@
                 }
             }, 'json');
         }else{
-            alert('Bạn phải nhập đầy đủ lý do và nội dung khen thưởng!');
+            alert('Bạn phải nhập đầy đủ lý do và nội dung khiển trách!');
         }
     }
     

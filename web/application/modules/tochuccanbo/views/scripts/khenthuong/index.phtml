@@ -88,7 +88,7 @@
                                         <div class="span4 float_left"><strong>Ngày khen thưởng: </strong> <?php echo date('d-m-Y', strtotime($item->kt_date)); ?></div>
                                     </div>
                                     <div class="row">
-                                        <div class="span4 float_left"><strong>Mức khen thưởng: </strong> <?php echo $item->kt_money; ?>VND</div>
+                                        <div class="span4 float_left"><strong>Mức khen thưởng: </strong> <?php echo number_format($item->kt_money, 0, '.', ','); ?>VND</div>
                                     </div>
 
                                 </div>
