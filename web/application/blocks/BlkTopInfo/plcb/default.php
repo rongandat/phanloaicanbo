@@ -1,13 +1,11 @@
 
 <?php
 $fullname = trim($this->_employee_info->em_ho);
-if (trim($this->_employee_info->em_ten_dem))
-    $fullname .= ' ' . trim($this->_employee_info->em_ten_dem);
 $fullname .= ' ' . trim($this->_employee_info->em_ten);
 
 $date_last_login = '00:00:0000 00:00:00';
-if ($identity->last_login_data) {
-    $date_last_login = date('d-m-Y h:i:s', $identity->last_login_data['login_date']);
+if ($this->_identity->last_login_data) {
+    $date_last_login = date('d-m-Y h:i:s', $this->_identity->last_login_data['login_date']);
 }
 ?>
 

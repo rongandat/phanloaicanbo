@@ -31,9 +31,9 @@ foreach ($this->filter as $filter) {
                     <?php
                     foreach ($this->paginator as $item) {
                         echo '<tr>
-                            <td>' . $item->em_ho . ' ' . $item->em_ten_dem . ' ' . $item->em_ten . '</td>                           
-                            <td>' . ($item->em_gioi_tinh?'Nam':'Nữ') . '</td>                           
-                            <td>' . date('d-m-Y',$item->em_ngay_sinh) . '</td>                           
+                            <td>' . $item->em_ho . ' ' . $item->em_ten . '</td>                           
+                            <td>' . ($item->em_gioi_tinh ? 'Nam' : 'Nữ') . '</td>                           
+                            <td>' . date('d-m-Y', $item->em_ngay_sinh) . '</td>                           
                             <td>' . $this->viewGetPhongBanName($item->em_phong_ban) . '</td>                           
                             <td>' . $this->viewGetChucVuName($item->em_chuc_vu) . '</td>                           
                             

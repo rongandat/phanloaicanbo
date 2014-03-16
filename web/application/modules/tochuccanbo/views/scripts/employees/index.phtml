@@ -47,7 +47,7 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
                 foreach ($this->paginator as $item) {
                     echo '<tr>
                             <td class="checkall_style"><input type="checkbox" name="cid[]" id="cid" value="' . $item->em_id . '"></td>
-                            <td>' . $item->em_ho . ' ' . $item->em_ten_dem . '</a></td>                            
+                            <td>' . $item->em_ho . '</a></td>                            
                             <td>' . $item->em_ten . '</a></td>                            
                             <td>' . $list_chuc_vu[$item->em_chuc_vu] . '</a></td>                            
                             <td>' . $list_phong_ban[$item->em_phong_ban] . '</a></td>  
@@ -65,16 +65,16 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
                                             <a role="menuitem" tabindex="-1" data-toggle="modal" href="#mdLuanChuyen" title="Luân chuyển" onclick="loadFormLuanChuyen(' . $item->em_id . ')"><i class="icon-retweet"></i> Luân chuyển</a>
                                         </li>                                        
                                         <li role="presentation">
-                                            <a role="menuitem" tabindex="-1" data-toggle="modal" href="#mdKhenThuong" title="Khen thưởng" onclick="loadFormKhenThuong(' . $item->em_id . ', \'' . $item->em_ho . ' ' . $item->em_ten_dem . ' ' . $item->em_ten . '\')"><i class="icon-star"></i> Khen thưởng</a>
+                                            <a role="menuitem" tabindex="-1" data-toggle="modal" href="#mdKhenThuong" title="Khen thưởng" onclick="loadFormKhenThuong(' . $item->em_id . ', \'' . $item->em_ho . ' ' . $item->em_ten . '\')"><i class="icon-star"></i> Khen thưởng</a>
                                         </li>
                                         <li role="presentation">
-                                            <a role="menuitem" tabindex="-1" data-toggle="modal" href="#mdKyLuat" title="Kỷ luật" onclick="loadFormKyLuat(' . $item->em_id . ', \'' . $item->em_ho . ' ' . $item->em_ten_dem . ' ' . $item->em_ten . '\')"><i class="icon-exclamation-sign"></i> Kỷ luật</a>
+                                            <a role="menuitem" tabindex="-1" data-toggle="modal" href="#mdKyLuat" title="Kỷ luật" onclick="loadFormKyLuat(' . $item->em_id . ', \'' . $item->em_ho . ' ' . $item->em_ten . '\')"><i class="icon-exclamation-sign"></i> Kỷ luật</a>
                                         </li>
                                         <li role="presentation">
                                             <a role="menuitem" tabindex="-1" href="' . $this->baseUrl('tochuccanbo/employees/thongke/id/' . $item->em_id . '/page/' . $this->arrParam['page']) . '" title="Thống kê"><i class="icon-tasks"></i> Thống kê</a>
                                         </li>
                                         <li role="presentation">
-                                            <a role="menuitem" tabindex="-1" data-toggle="modal" href="#mdThongBao" title="Gửi thông báo" onclick="loadFormThongBao(' . $item->em_id . ', \'' . $item->em_ho . ' ' . $item->em_ten_dem . ' ' . $item->em_ten . '\')"><i class="icon-envelope"></i> Gửi thông báo</a>
+                                            <a role="menuitem" tabindex="-1" data-toggle="modal" href="#mdThongBao" title="Gửi thông báo" onclick="loadFormThongBao(' . $item->em_id . ', \'' . $item->em_ho . ' ' . $item->em_ten . '\')"><i class="icon-envelope"></i> Gửi thông báo</a>
                                         </li>
                                         <li role="presentation">
                                             <a role="menuitem" tabindex="-1" href="' . $this->baseUrl('tochuccanbo/tinhluong/index/id/' . $item->em_id) . '" title="Tính lương"><i class="icon-folder-close"></i> Tính lương</a>

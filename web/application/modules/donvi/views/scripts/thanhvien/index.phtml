@@ -27,7 +27,7 @@
                         ?>
                         <tr>
                             <td class="checkall_style"><input type="checkbox" name="cid[]" id="cid" value="<?php echo $nhan_vien->em_id; ?>"></td>
-                            <td id="name_<?php echo $nhan_vien->em_id; ?>"><?php echo $nhan_vien->em_ho . ' ' . $nhan_vien->em_ten_dem . ' ' . $nhan_vien->em_ten; ?></td>
+                            <td id="name_<?php echo $nhan_vien->em_id; ?>"><?php echo $nhan_vien->em_ho . ' ' . $nhan_vien->em_ten; ?></td>
                             <td><?php echo $nhan_vien->em_ten_khac; ?></td>
                             <td><?php echo date('d-m-Y', strtotime($nhan_vien->em_ngay_sinh)); ?></td>
                             <td><?php echo ($nhan_vien->em_gioi_tinh ? 'Nam' : 'Nữ'); ?></td>
@@ -36,13 +36,13 @@
                                     <a class="btn btn-mini" id="drop_<?php echo $nhan_vien->em_id; ?>" role="button" data-toggle="dropdown" href="#"><i class="icon-th-list"></i> Chức năng <b class="caret"></b></a>                                    
                                     <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop_<?php echo $nhan_vien->em_id; ?>">
                                         <li role="presentation">
-                                            <a role="menuitem" tabindex="-1" data-toggle="modal" href="#mdThongBao" title="Gửi tin nhắn" onclick="loadFormThongBao('<?php echo $nhan_vien->em_id; ?>', '<?php echo $nhan_vien->em_ho . ' ' . $nhan_vien->em_ten_dem . ' ' . $nhan_vien->em_ten; ?>')"><i class="icon-envelope"></i> Gửi thông báo</a>
+                                            <a role="menuitem" tabindex="-1" data-toggle="modal" href="#mdThongBao" title="Gửi tin nhắn" onclick="loadFormThongBao('<?php echo $nhan_vien->em_id; ?>', '<?php echo $nhan_vien->em_ho . ' ' . $nhan_vien->em_ten; ?>')"><i class="icon-envelope"></i> Gửi thông báo</a>
                                         </li>
                                         <li role="presentation">
-                                            <a role="menuitem" tabindex="-1" data-toggle="modal" href="#mdKhenThuong" title="Khen thưởng" onclick="loadFormKhenThuong('<?php echo $nhan_vien->em_id;?>', '<?php echo $nhan_vien->em_ho . ' ' . $nhan_vien->em_ten_dem . ' ' . $nhan_vien->em_ten;?>')"><i class="icon-star"></i> Khen thưởng</a>
+                                            <a role="menuitem" tabindex="-1" data-toggle="modal" href="#mdKhenThuong" title="Khen thưởng" onclick="loadFormKhenThuong('<?php echo $nhan_vien->em_id; ?>', '<?php echo $nhan_vien->em_ho . ' ' . $nhan_vien->em_ten; ?>')"><i class="icon-star"></i> Khen thưởng</a>
                                         </li>
                                         <li role="presentation">
-                                            <a role="menuitem" tabindex="-1" data-toggle="modal" href="#mdKyLuat" title="Kỷ luật" onclick="loadFormKyLuat('<?php echo $nhan_vien->em_id;?>', '<?php echo $nhan_vien->em_ho . ' ' . $nhan_vien->em_ten_dem . ' ' . $nhan_vien->em_ten;?>')"><i class="icon-exclamation-sign"></i> Kỷ luật</a>
+                                            <a role="menuitem" tabindex="-1" data-toggle="modal" href="#mdKyLuat" title="Kỷ luật" onclick="loadFormKyLuat('<?php echo $nhan_vien->em_id; ?>', '<?php echo $nhan_vien->em_ho . ' ' . $nhan_vien->em_ten; ?>')"><i class="icon-exclamation-sign"></i> Kỷ luật</a>
                                         </li>
                                         <li role="presentation">
                                             <a role="menuitem" tabindex="-1" href="<?php echo $this->baseUrl('donvi/duyetchamcong'); ?>" title="Duyệt chấm công"><i class="icon-calendar"></i> Duyệt chấm công</a>

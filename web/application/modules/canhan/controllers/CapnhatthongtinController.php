@@ -126,7 +126,6 @@ class Canhan_CapnhatthongtinController extends Zend_Controller_Action {
             //Zend_Debug::dump($this->_arrParam);
             //echo '</pre>';
             $em_ho = trim($this->_arrParam['em_ho']);
-            $em_ten_dem = trim($this->_arrParam['em_ten_dem']);
             $em_ten = trim($this->_arrParam['em_ten']);
             $em_ten_khac = $this->_arrParam['em_ten_khac'];
             $em_so_chung_minh_thu = trim($this->_arrParam['em_so_chung_minh_thu']);
@@ -179,7 +178,6 @@ class Canhan_CapnhatthongtinController extends Zend_Controller_Action {
                 $ngay_doan = date('Y-m-d', strtotime($ngay_doan));
                 
                 $data['eme_ho'] = $em_ho;
-                $data['eme_ten_dem'] = $em_ten_dem;
                 $data['eme_ten'] = $em_ten;
                 $data['eme_ten_khac'] = $em_ten_khac;
                 $data['eme_so_chung_minh_thu'] = $em_so_chung_minh_thu;

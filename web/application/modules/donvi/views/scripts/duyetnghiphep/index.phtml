@@ -46,7 +46,7 @@
                         }
                         ?>
                         <tr>
-                            <td id="name_<?php echo $nghi_phep->xnp_em_id; ?>"><?php echo $nghi_phep->em_ho . ' ' . $nghi_phep->em_ten_dem . ' ' . $nghi_phep->em_ten; ?></td>
+                            <td id="name_<?php echo $nghi_phep->xnp_em_id; ?>"><?php echo $nghi_phep->em_ho . ' ' . $nghi_phep->em_ten; ?></td>
                             <td><?php echo date('d-m-Y', strtotime($nghi_phep->xnp_from_date)); ?></td>
                             <td><?php echo date('d-m-Y', strtotime($nghi_phep->xnp_to_date)); ?></td>
                             <td><span id="sp_xnp_<?php echo $nghi_phep->xnp_id;?>"><?php echo $don_vi_icon; ?></span> <?php echo ($flag_add_edit ? '<i class="icon-ok-sign" onclick="update_status('.$nghi_phep->xnp_id.',1)"></i> <i class="icon-remove-sign" onclick="update_status('.$nghi_phep->xnp_id.',0)"></i>' : ''); ?></td>
@@ -59,7 +59,7 @@
                                     </div>
                                     <div class="modal-body">
                                         <div class="row">
-                                            <div class="span4 float_left"><strong>Nhân viên: </strong> <?php echo $nghi_phep->em_ho . ' ' . $nghi_phep->em_ten_dem . ' ' . $nghi_phep->em_ten; ?></div>
+                                            <div class="span4 float_left"><strong>Nhân viên: </strong> <?php echo $nghi_phep->em_ho . ' ' . $nghi_phep->em_ten; ?></div>
                                         </div>
                                         <div class="row">
                                             <div class="span4 float_left"><strong>Ngày sinh: </strong> <?php echo date('d-m-Y', strtotime($nghi_phep->em_ngay_sinh)); ?></div>

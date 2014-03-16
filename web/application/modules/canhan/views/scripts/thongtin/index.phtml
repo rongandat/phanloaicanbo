@@ -5,9 +5,7 @@
         <p class="lead">Thông tin cá nhân</p>
         <div class="row">
             <?php
-            $fullname = trim($this->employee_info->em_ho);
-            if (trim($this->employee_info->em_ten_dem))
-                $fullname .= ' ' . trim($this->employee_info->em_ten_dem);
+            $fullname = trim($this->employee_info->em_ho);            
             $fullname .= ' ' . trim($this->employee_info->em_ten);
             ?>
             <div class="span4 float_left"><strong>Họ tên: </strong> <?php echo $fullname; ?></div>

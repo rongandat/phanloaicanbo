@@ -1,7 +1,5 @@
 <?php
 $fullname = trim($this->_employee_info->em_ho);
-if (trim($this->_employee_info->em_ten_dem))
-    $fullname .= ' ' . trim($this->_employee_info->em_ten_dem);
 $fullname .= ' ' . trim($this->_employee_info->em_ten);
 
 $date_last_login = '00:00:0000 00:00:00';

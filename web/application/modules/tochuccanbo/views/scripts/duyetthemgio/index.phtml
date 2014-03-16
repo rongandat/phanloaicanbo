@@ -64,7 +64,7 @@ foreach ($this->list_phong_ban_option as $phong_ban) {
                     }
                     ?>
                     <tr>
-                        <td id="name_<?php echo $item->ltg_em_id; ?>"><?php echo $item->em_ho . ' ' . $item->em_ten_dem . ' ' . $item->em_ten; ?></td>
+                        <td id="name_<?php echo $item->ltg_em_id; ?>"><?php echo $item->em_ho . ' ' . $item->em_ten; ?></td>
                         <td><?php echo $list_phong_ban[$item->em_phong_ban]; ?></td>
                         <td><?php echo date('d-m', strtotime($item->ltg_ngay)); ?></td>
                         <td><?php echo $item->ltg_gio_bat_dau . ':' . $item->ltg_phut_bat_dau; ?></td>
@@ -80,7 +80,7 @@ foreach ($this->list_phong_ban_option as $phong_ban) {
                                 </div>
                                 <div class="modal-body">                                        
                                     <div class="row">
-                                        <div class="span4 float_left"><strong>Nhân viên: </strong> <?php echo $item->em_ho . ' ' . $item->em_ten_dem . ' ' . $item->em_ten; ?></div>
+                                        <div class="span4 float_left"><strong>Nhân viên: </strong> <?php echo $item->em_ho . ' ' . $item->em_ten; ?></div>
                                     </div>
                                     <div class="row">
                                         <div class="span4 float_left"><strong>Ngày sinh: </strong> <?php echo date('d-m-Y', strtotime($item->em_ngay_sinh)); ?></div>

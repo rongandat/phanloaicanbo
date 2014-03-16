@@ -14,7 +14,7 @@
                 $name = 'Hệ thống';
                 $phong_ban = '';
                 if ($this->thong_bao['tb_from']) {
-                    $name = $this->thong_bao['em_ho'] . ' ' . $this->thong_bao['em_ten_dem'] . ' ' . $this->thong_bao['em_ten'];
+                    $name = $this->thong_bao['em_ho'] . ' '. $this->thong_bao['em_ten'];
                     $phong_ban = 'Phòng: ' . $this->viewGetPhongBanName($this->thong_bao['em_phong_ban']) . '<br>';
                 }
                 ?>

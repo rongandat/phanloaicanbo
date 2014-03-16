@@ -127,7 +127,7 @@
                         <tbody>
                             <tr>
                                 <td>
-                                    <?php echo $this->em_info->em_ho . ' ' . $this->em_info->em_ten_dem . ' ' . $this->em_info->em_ten; ?>
+                                    <?php echo $this->em_info->em_ho . ' ' . $this->em_info->em_ten; ?>
                                 </td>
                                 <td>
                                     <?php echo ($this->em_info->em_gioi_tinh ? 'Nam' : 'Nữ') ?>
@@ -202,7 +202,7 @@
                                 <td><?php echo number_format($thanh_tien_hsl, 0, '.', ','); ?></td>
                             </tr>
                             <tr>
-                                <td>Phụ cấp công việc</td>
+                                <td>Phụ cấp chức vụ</td>
                                 <td colspan="2"><?php echo $hs_pc_cong_viec; ?></td>
                                 <td><span id="lbl_thanh_tien_pc_cong_viec"><?php echo number_format($thanh_tien_pc_cong_viec, 0, '.', ','); ?></span></td>
                             </tr>
@@ -353,7 +353,7 @@
                 <div class="control-group">
                     <div class="controls">
                         <p>
-                            <a class="btn btn-small btn-primary" target="_blank" href="<?php echo$this->baseUrl('tochuccanbo/inluong/down/id/' . $this->nv_id.'/thang/'.$this->thang.'/nam/'.$this->nam);?>"><i class="icon-download-alt"></i> Xuất bảng lương</a>
+                            <a class="btn btn-small btn-primary" target="_blank" href="<?php echo$this->baseUrl('tochuccanbo/inluong/down/id/' . $this->nv_id . '/thang/' . $this->thang . '/nam/' . $this->nam); ?>"><i class="icon-download-alt"></i> Xuất bảng lương</a>
                             <a class="btn btn-small" type="button" href="<?php echo $this->baseUrl('tochuccanbo/employees'); ?>">Quay lại</a>
                         </p>
                     </div>

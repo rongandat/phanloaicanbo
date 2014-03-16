@@ -49,7 +49,7 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
                     $check_bang_luong = $this->viewCheckBangLuong($nhanvien->em_id, $this->thang, $this->nam);
                     ?>
                     <tr class="<?php echo ($check_bang_luong ? 'success' : 'error') ?>">
-                        <td><?php echo $nhanvien->em_ho . ' ' . $nhanvien->em_ten_dem . ' ' . $nhanvien->em_ten; ?></td>
+                        <td><?php echo $nhanvien->em_ho . ' ' . $nhanvien->em_ten; ?></td>
                         <td><?php echo date('d-m-Y', strtotime($nhanvien->em_ngay_sinh)); ?></td>                        
                         <td><?php echo ($nhanvien->em_gioi_tinh ? 'Nam' : 'Nữ'); ?></td>                        
                         <td><?php echo $list_chuc_vu[$nhanvien->em_chuc_vu]; ?></td>                        

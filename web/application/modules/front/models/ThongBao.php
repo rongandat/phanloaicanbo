@@ -12,7 +12,7 @@ class Front_Model_ThongBao extends Zend_Db_Table_Abstract {
     public function fetchData($filters = array(), $sortFeild = null, $limit = null, $page = 1) {
         $select = $this->select(Zend_Db_Table::SELECT_WITH_FROM_PART);
         $select->setIntegrityCheck(false)
-                ->joinLeft(TABLE_EMPLOYEES, TABLE_EMPLOYEES . '.em_id = ' . $this->_name . '.tb_from', array('em_ten', 'em_ten_dem', 'em_ho', 'em_phong_ban'));
+                ->joinLeft(TABLE_EMPLOYEES, TABLE_EMPLOYEES . '.em_id = ' . $this->_name . '.tb_from', array('em_ten', 'em_ho', 'em_phong_ban'));
 
         if (count($filters) > 0) {
             foreach ($filters as $feild => $keyword) {
@@ -38,7 +38,7 @@ class Front_Model_ThongBao extends Zend_Db_Table_Abstract {
     public function fetchOneRow($filters = array()) {
         $select = $this->select(Zend_Db_Table::SELECT_WITH_FROM_PART);
         $select->setIntegrityCheck(false)
-                ->joinLeft(TABLE_EMPLOYEES, TABLE_EMPLOYEES . '.em_id = ' . $this->_name . '.tb_from', array('em_ten', 'em_ten_dem', 'em_ho', 'em_phong_ban'));
+                ->joinLeft(TABLE_EMPLOYEES, TABLE_EMPLOYEES . '.em_id = ' . $this->_name . '.tb_from', array('em_ten', 'em_ho', 'em_phong_ban'));
 
         if (count($filters) > 0) {
             foreach ($filters as $feild => $keyword) {

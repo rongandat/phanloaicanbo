@@ -163,7 +163,7 @@
                     <tbody>
                         <tr>
                             <td>
-                                <?php echo $this->em_info->em_ho . ' ' . $this->em_info->em_ten_dem . ' ' . $this->em_info->em_ten; ?>
+                                <?php echo $this->em_info->em_ho . ' ' . $this->em_info->em_ten; ?>
                             </td>
                             <td>
                                 <?php echo ($this->em_info->em_gioi_tinh ? 'Nam' : 'Nữ') ?>
@@ -238,7 +238,7 @@
                             <td><span id="lbl_thanh_tien_hsl"><?php echo number_format($thanh_tien_hsl, 0, '.', ','); ?></span></td>
                         </tr>
                         <tr>
-                            <td>Phụ cấp công việc</td>
+                            <td>Phụ cấp chức vụ</td>
                             <td colspan="2"><input type="text" onchange="re_calculator()" class="input-mini" name="bl_hs_pc_cong_viec" value="<?php echo $hs_pc_cong_viec; ?>"/></td>
                             <td><span id="lbl_thanh_tien_pc_cong_viec"><?php echo number_format($thanh_tien_pc_cong_viec, 0, '.', ','); ?></span></td>
                         </tr>

@@ -236,7 +236,6 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
             //Zend_Debug::dump($this->_arrParam);
             //echo '</pre>';
             $em_ho = trim($this->_arrParam['em_ho']);
-            $em_ten_dem = trim($this->_arrParam['em_ten_dem']);
             $em_ten = trim($this->_arrParam['em_ten']);
             $em_ten_khac = $this->_arrParam['em_ten_khac'];
             $em_so_chung_minh_thu = trim($this->_arrParam['em_so_chung_minh_thu']);
@@ -301,7 +300,6 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
                 
                 
                 $data['em_ho'] = $em_ho;
-                $data['em_ten_dem'] = $em_ten_dem;
                 $data['em_ten'] = $em_ten;
                 $data['em_ten_khac'] = $em_ten_khac;
                 $data['em_so_chung_minh_thu'] = $em_so_chung_minh_thu;
@@ -463,7 +461,6 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
             //Zend_Debug::dump($this->_arrParam);
             //echo '</pre>';
             $em_ho = trim($this->_arrParam['em_ho']);
-            $em_ten_dem = trim($this->_arrParam['em_ten_dem']);
             $em_ten = trim($this->_arrParam['em_ten']);
             $em_ten_khac = $this->_arrParam['em_ten_khac'];
             $em_so_chung_minh_thu = trim($this->_arrParam['em_so_chung_minh_thu']);
@@ -525,7 +522,6 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
                 $ngay_doan = date('Y-m-d', strtotime($ngay_doan));                
 
                 $data['em_ho'] = $em_ho;
-                $data['em_ten_dem'] = $em_ten_dem;
                 $data['em_ten'] = $em_ten;
                 $data['em_ten_khac'] = $em_ten_khac;
                 $data['em_so_chung_minh_thu'] = $em_so_chung_minh_thu;
@@ -644,7 +640,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
                 $error_message = array('Hệ số phải có dạng số.');
             }
             if (!is_numeric($eh_pc_cong_viec)) {
-                $error_message = array('Phụ cấp công việc phải có dạng số.');
+                $error_message = array('Phụ cấp chức vụ phải có dạng số.');
             }
             if (!is_numeric($eh_pc_trach_nhiem)) {
                 $error_message = array('Phụ cấp trách nhiệm phải có dạng số.');

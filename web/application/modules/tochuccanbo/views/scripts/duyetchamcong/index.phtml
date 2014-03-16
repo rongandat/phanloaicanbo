@@ -22,7 +22,7 @@ foreach ($this->list_phong_ban_option as $phong_ban) {
                 <?php
                 $list_nv = array('' => 'Chọn nhân viên');
                 foreach ($this->list_nhan_vien as $nhan_vien) {
-                    $list_nv[$nhan_vien->em_id] = $nhan_vien->em_ho . ' ' . $nhan_vien->em_ten_dem . ' ' . $nhan_vien->em_ten;
+                    $list_nv[$nhan_vien->em_id] = $nhan_vien->em_ho . ' ' . $nhan_vien->em_ten;
                 }
                 echo $this->formSelect('sl_chon_nv', null, array('onchange' => 'get_detail()'), $list_nv);
                 ?>

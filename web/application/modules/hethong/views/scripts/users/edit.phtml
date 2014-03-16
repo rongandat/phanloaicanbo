@@ -44,9 +44,7 @@
                         <?php
                         $employee_options = array();
                         foreach ($this->list_employees as $employee) {
-                            $fullname = trim($employee->em_ho);
-                            if (trim($employee->em_ten_dem))
-                                $fullname .= ' ' . trim($employee->em_ten_dem);
+                            $fullname = trim($employee->em_ho);                            
                             $fullname .= ' ' . trim($employee->em_ten);
                             $employee_options[$employee->em_id] = $fullname;
                         }

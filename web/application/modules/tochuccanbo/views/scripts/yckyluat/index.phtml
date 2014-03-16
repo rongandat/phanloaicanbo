@@ -29,7 +29,7 @@
                     $phong_ban_name = $this->viewGetPhongBanName($item->em_phong_ban);
                     ?>
                     <tr id="name_<?php echo $item->kl_id; ?>">
-                        <td><?php echo $item->em_ho . ' ' . $item->em_ten_dem . ' ' . $item->em_ten; ?></td>
+                        <td><?php echo $item->em_ho . ' ' . $item->em_ten; ?></td>
                         <td><?php echo $phong_ban_name; ?></td>
                         <td><?php echo $item->kl_ly_do; ?><span id="hd_kl_chi_tiet_<?php echo $item->kl_id; ?>" class="hide"><?php echo $item->kl_chi_tiet; ?></span></td>
                         <td><?php echo date('d-m-Y', strtotime($item->kl_date)); ?></td>
@@ -41,7 +41,7 @@
                                         <a role="menuitem" tabindex="-1" data-toggle="modal" href="#mdChiTiet<?php echo $item->kl_id; ?>" title="Xem chi tiết"><i class="icon-align-justify"></i> Xem chi tiết</a>
                                     </li>                                    
                                     <li role="presentation">
-                                        <a role="menuitem" tabindex="-1" data-toggle="modal" href="#mdKhenThuong" title="Sửa nội dung" onclick="loadFormKhenThuong(<?php echo $item->kl_id; ?>,<?php echo date('d', strtotime($item->kl_date)); ?>, <?php echo date('m', strtotime($item->kl_date)); ?>, <?php echo date('Y', strtotime($item->kl_date)); ?>, '<?php echo $item->em_ho . ' ' . $item->em_ten_dem . ' ' . $item->em_ten; ?>', '<?php echo $item->kl_ly_do; ?>', <?php echo $item->kl_money; ?>)"><i class="icon-edit"></i> Sửa nội dung</a>
+                                        <a role="menuitem" tabindex="-1" data-toggle="modal" href="#mdKhenThuong" title="Sửa nội dung" onclick="loadFormKhenThuong(<?php echo $item->kl_id; ?>,<?php echo date('d', strtotime($item->kl_date)); ?>, <?php echo date('m', strtotime($item->kl_date)); ?>, <?php echo date('Y', strtotime($item->kl_date)); ?>, '<?php echo $item->em_ho . ' ' . $item->em_ten; ?>', '<?php echo $item->kl_ly_do; ?>', <?php echo $item->kl_money; ?>)"><i class="icon-edit"></i> Sửa nội dung</a>
                                     </li>                                    
                                     <li role="presentation">
                                         <a role="menuitem" tabindex="-1" onclick="update_status(<?php echo $item->kl_id; ?>, 1)" title="Đồng ý"><i class="icon-ok-circle"></i> Đồng ý</a>
@@ -58,7 +58,7 @@
                                 </div>
                                 <div class="modal-body">
                                     <div class="row">
-                                        <div class="span4 float_left"><strong>Nhân viên: </strong> <?php echo $item->em_ho . ' ' . $item->em_ten_dem . ' ' . $item->em_ten; ?></div>
+                                        <div class="span4 float_left"><strong>Nhân viên: </strong> <?php echo $item->em_ho . ' ' . $item->em_ten; ?></div>
                                     </div>
                                     <div class="row">
                                         <div class="span4 float_left"><strong>Phòng ban: </strong> <?php echo $phong_ban_name; ?></div>
@@ -78,7 +78,7 @@
 
                                 </div>
                                 <div class="modal-footer">
-                                    <button class="btn btn-primary" data-toggle="modal" href="#mdKhenThuong" title="Sửa nội dung" onclick="loadFormKhenThuong(<?php echo $item->kl_id; ?>,<?php echo date('d', strtotime($item->kl_date)); ?>, <?php echo date('m', strtotime($item->kl_date)); ?>, <?php echo date('Y', strtotime($item->kl_date)); ?>, '<?php echo $item->em_ho . ' ' . $item->em_ten_dem . ' ' . $item->em_ten; ?>', '<?php echo $item->kl_ly_do; ?>', <?php echo $item->kl_money; ?>)">Sửa nội dung</button>
+                                    <button class="btn btn-primary" data-toggle="modal" href="#mdKhenThuong" title="Sửa nội dung" onclick="loadFormKhenThuong(<?php echo $item->kl_id; ?>,<?php echo date('d', strtotime($item->kl_date)); ?>, <?php echo date('m', strtotime($item->kl_date)); ?>, <?php echo date('Y', strtotime($item->kl_date)); ?>, '<?php echo $item->em_ho . ' ' . $item->em_ten; ?>', '<?php echo $item->kl_ly_do; ?>', <?php echo $item->kl_money; ?>)">Sửa nội dung</button>
                                     <button class="btn btn-success" type="button" onclick="update_status(<?php echo $item->kl_id; ?>, 1)">Đồng ý</button>
                                     <button class="btn btn-danger" type="button" onclick="update_status(<?php echo $item->kl_id; ?>, 0)">Không đồng ý</button>
                                     <button class="btn" data-dismiss="modal" aria-hidden="true">Đóng</button>

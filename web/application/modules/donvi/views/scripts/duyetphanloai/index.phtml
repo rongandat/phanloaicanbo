@@ -40,7 +40,7 @@ foreach ($this->ket_qua as $ket_qua) {
                         ?>
                         <tr>
                             <td class="checkall_style"><input type="checkbox" name="cid[]" id="cid" value="<?php echo $nhan_vien->em_id; ?>"></td>
-                            <td id="name_<?php echo $nhan_vien->em_id; ?>"><?php echo $nhan_vien->em_ho . ' ' . $nhan_vien->em_ten_dem . ' ' . $nhan_vien->em_ten; ?></td>
+                            <td id="name_<?php echo $nhan_vien->em_id; ?>"><?php echo $nhan_vien->em_ho . ' ' . $nhan_vien->em_ten; ?></td>
                             <td><?php echo ($phan_loai ? $phan_loai->dg_phan_loai : '-'); ?></td>
                             <td>
                                 <?php
@@ -75,7 +75,7 @@ foreach ($this->ket_qua as $ket_qua) {
                                             <a role="menuitem" tabindex="-1" data-toggle="modal" href="#mdPL_<?php echo ($phan_loai ? $phan_loai->dg_id : $rd_id); ?>" title="Xem chi tiết"><i class="icon-calendar"></i> Xem chi tiết</a>
                                         </li>
                                         <li role="presentation">
-                                            <a role="menuitem" tabindex="-1" data-toggle="modal" href="#mdThongBao" title="Gửi tin nhắn" onclick="loadFormThongBao('<?php echo $nhan_vien->em_id; ?>', '<?php echo $nhan_vien->em_ho . ' ' . $nhan_vien->em_ten_dem . ' ' . $nhan_vien->em_ten; ?>')"><i class="icon-envelope"></i> Gửi thông báo</a>
+                                            <a role="menuitem" tabindex="-1" data-toggle="modal" href="#mdThongBao" title="Gửi tin nhắn" onclick="loadFormThongBao('<?php echo $nhan_vien->em_id; ?>', '<?php echo $nhan_vien->em_ho . ' ' . $nhan_vien->em_ten; ?>')"><i class="icon-envelope"></i> Gửi thông báo</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -87,7 +87,7 @@ foreach ($this->ket_qua as $ket_qua) {
                                     <div class="modal-body">
                                         <?php if ($phan_loai) { ?>
                                             <div class="row">
-                                                <div class="span4 float_left"><strong>Nhân viên: </strong> <?php echo $nhan_vien->em_ho . ' ' . $nhan_vien->em_ten_dem . ' ' . $nhan_vien->em_ten; ?></div>
+                                                <div class="span4 float_left"><strong>Nhân viên: </strong> <?php echo $nhan_vien->em_ho . ' ' . $nhan_vien->em_ten; ?></div>
                                             </div>
                                             <div class="row">
                                                 <div class="span4 float_left"><strong>Công việc trong tháng: </strong> <?php echo $phan_loai->dg_cong_viec; ?></div>

@@ -63,7 +63,7 @@ foreach ($this->list_phong_ban_option as $phong_ban) {
                     }
                     ?>
                     <tr>
-                        <td id="name_<?php echo $nghi_phep->xnp_em_id; ?>"><?php echo $nghi_phep->em_ho . ' ' . $nghi_phep->em_ten_dem . ' ' . $nghi_phep->em_ten; ?></td>
+                        <td id="name_<?php echo $nghi_phep->xnp_em_id; ?>"><?php echo $nghi_phep->em_ho . ' ' . $nghi_phep->em_ten; ?></td>
                         <td><?php echo $list_phong_ban[$nghi_phep->em_phong_ban]; ?></td>
                         <td><?php echo date('d-m-Y', strtotime($nghi_phep->xnp_from_date)); ?></td>
                         <td><?php echo date('d-m-Y', strtotime($nghi_phep->xnp_to_date)); ?></td>
@@ -78,7 +78,7 @@ foreach ($this->list_phong_ban_option as $phong_ban) {
                                 </div>
                                 <div class="modal-body">
                                     <div class="row">
-                                        <div class="span4 float_left"><strong>Nhân viên: </strong> <?php echo $nghi_phep->em_ho . ' ' . $nghi_phep->em_ten_dem . ' ' . $nghi_phep->em_ten; ?></div>
+                                        <div class="span4 float_left"><strong>Nhân viên: </strong> <?php echo $nghi_phep->em_ho . ' ' . $nghi_phep->em_ten; ?></div>
                                     </div>
                                     <div class="row">
                                         <div class="span4 float_left"><strong>Ngày sinh: </strong> <?php echo date('d-m-Y', strtotime($nghi_phep->em_ngay_sinh)); ?></div>

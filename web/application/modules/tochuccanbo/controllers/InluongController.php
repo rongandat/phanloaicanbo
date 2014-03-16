@@ -450,7 +450,7 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
                                         <td style="padding-top: 2pt; width: 100pt; padding-bottom: 2pt;">Chức vụ</td>
                                 </tr>
                                 <tr>
-                                        <td style="padding-top: 2pt; padding-bottom: 2pt;">' . $nhan_vien->em_ho . ' ' . $nhan_vien->em_ten_dem . ' ' . $nhan_vien->em_ten . '</td>
+                                        <td style="padding-top: 2pt; padding-bottom: 2pt;">' . $nhan_vien->em_ho . ' ' . $nhan_vien->em_ten . '</td>
                                         <td style="padding-top: 2pt; padding-bottom: 2pt;">' . ($nhan_vien->em_gioi_tinh ? 'Nam' : 'Nữ') . '</td>
                                         <td style="padding-top: 2pt; padding-bottom: 2pt;">' . date('d-m-Y', strtotime($nhan_vien->em_ngay_sinh)) . '</td>
                                         <td style="padding-top: 2pt; padding-bottom: 2pt;">' . $this->view->viewGetPhongBanName($nhan_vien->em_phong_ban) . '</td>
@@ -793,7 +793,7 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
                                         <td style="padding-top: 2pt; width: 100pt; padding-bottom: 2pt;">Chức vụ</td>
                                 </tr>
                                 <tr>
-                                        <td style="padding-top: 2pt; padding-bottom: 2pt;">' . $em_info->em_ho . ' ' . $em_info->em_ten_dem . ' ' . $em_info->em_ten . '</td>
+                                        <td style="padding-top: 2pt; padding-bottom: 2pt;">' . $em_info->em_ho . ' ' . $em_info->em_ten . '</td>
                                         <td style="padding-top: 2pt; padding-bottom: 2pt;">' . ($em_info->em_gioi_tinh ? 'Nam' : 'Nữ') . '</td>
                                         <td style="padding-top: 2pt; padding-bottom: 2pt;">' . date('d-m-Y', strtotime($em_info->em_ngay_sinh)) . '</td>
                                         <td style="padding-top: 2pt; padding-bottom: 2pt;">' . $this->view->viewGetPhongBanName($em_info->em_phong_ban) . '</td>
@@ -977,7 +977,7 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
             ';
 
             $mpdf->WriteHTML($text_outout);
-            $file_name = $this->loc_tieng_viet($em_info->em_ho) . '_' . $this->loc_tieng_viet($em_info->em_ten_dem) . '_' . $this->loc_tieng_viet($em_info->em_ten) . '_' . $thang . '-' . $nam . '.pdf';
+            $file_name = $this->loc_tieng_viet($em_info->em_ho) . '_' . $this->loc_tieng_viet($em_info->em_ten) . '_' . $thang . '-' . $nam . '.pdf';
             $mpdf->Output($file_name, 'D');
             die();
         }
