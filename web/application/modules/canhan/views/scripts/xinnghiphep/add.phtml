@@ -21,31 +21,31 @@
                 <?php echo $this->success_message; ?>
             </div>
         <?php endif; ?> 
-        <form class="form-horizontal" method="post" action="">
+        <form class="form-horizontal" id="frm_add_nghi_phep" method="post" action="">
             <div class="control-group">
                 <label class="control-label" for="xnp_ly_do">Lý do</label>
                 <div class="controls">
-                    <?php echo $this->formText('xnp_ly_do', $this->arrParam['xnp_ly_do'], array('class' => 'input-xxlarge', 'placeholder' => '')); ?>                   
+                    <?php echo $this->formText('xnp_ly_do', $this->arrParam['xnp_ly_do'], array('class' => 'input-xxlarge', 'placeholder' => '', 'data-required' => '')); ?>                   
 
                 </div>            
             </div>
             <div class="control-group">
                 <label class="control-label" for="xnp_chi_tiet">Chi tiết</label>
                 <div class="controls">
-                    <?php echo $this->formTextarea('xnp_chi_tiet', $this->arrParam['xnp_chi_tiet'], array('class' => 'input-xlarge', 'rows' => 10)); ?>                   
+                    <?php echo $this->formTextarea('xnp_chi_tiet', $this->arrParam['xnp_chi_tiet'], array('class' => 'input-xlarge', 'rows' => 10, 'data-required' => '')); ?>                   
                 </div>            
             </div>
             <div class="control-group">
                 <label class="control-label" for="xnp_from_date">Từ ngày</label>
                 <div class="controls">
-                    <?php echo $this->formText('xnp_from_date', $this->arrParam['xnp_from_date'], array('class' => 'input-large', 'placeholder' => '', 'readonly' => 'readonly')); ?>                  
+                    <?php echo $this->formText('xnp_from_date', $this->arrParam['xnp_from_date'], array('class' => 'input-large', 'placeholder' => '', 'data-required' => '')); ?>                  
                     <span class="help-block">Chọn ngày bắt đầu nghỉ phép</span>
                 </div>            
             </div>
             <div class="control-group">
                 <label class="control-label" for="xnp_to_date">Đến hết ngày</label>
                 <div class="controls">
-                    <?php echo $this->formText('xnp_to_date', $this->arrParam['xnp_to_date'], array('class' => 'input-large', 'placeholder' => '', 'readonly' => 'readonly')); ?>                  
+                    <?php echo $this->formText('xnp_to_date', $this->arrParam['xnp_to_date'], array('class' => 'input-large', 'placeholder' => '', 'data-required' => '')); ?>                  
                     <span class="help-block">nếu nghỉ 1 ngày thì chọn ngày kết thúc bằng ngày bắt đầu.</span>
                 </div>            
             </div>
@@ -62,7 +62,7 @@
 </div>
 
 <script>
-    $(function() {
+    $(function() {        
         $( "#xnp_from_date" ).datepicker({
             yearRange: '1900:2050',
             changeMonth: true,
@@ -76,7 +76,7 @@
             showOn: "button",
             buttonImage: site_url+"/date-picker-icon.png",
             buttonImageOnly: true
-        });
+        });        
         $( "#xnp_to_date" ).datepicker({
             yearRange: '1900:2050',
             changeMonth: true,
@@ -92,4 +92,43 @@
             buttonImageOnly: true
         });
     });
+    $(function () {
+        $.validator.addMethod('vietnameeseDate',
+        function (value, element) {
+            if (this.optional(element)) {
+                return true;
+            }
+            var ok = true;
+            try {
+                $.datepicker.parseDate('dd/mm/yy', value);
+            }
+            catch (err) {
+                ok = false;
+            }
+            return ok;
+        });
+        $('form').validate({
+            onKeyup : true,
+            eachValidField : function() {
+                $(this).closest('div.control-group').removeClass('error').addClass('success');
+            },
+            eachInvalidField : function() {
+                $(this).closest('div.control-group').removeClass('success').addClass('error');
+            },
+            rules: {            
+                // compound rule
+                xnp_from_date: {
+                    required: true, 
+                    vietnameeseDate: true
+                }
+            },
+            highlight: function(element) {
+                $(element).closest('div.control-group').removeClass('success').addClass('error');
+            },
+            success: function(element) {
+                $(element).closest('div.control-group').removeClass('error').addClass('success');
+            }
+        });
+    });
+    
 </script>
