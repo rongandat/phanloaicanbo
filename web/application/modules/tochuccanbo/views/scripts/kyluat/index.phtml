@@ -13,36 +13,49 @@
             </div>
         </div>
 
+        <div class="clearfix">
+        </div>
+        <div class="btn-toolbar float_left">
+            <div class="btn-group">
+                <button class="btn" onclick="OnSubmitForm('<?php echo $this->baseUrl('tochuccanbo/kyluat/updatestatus/status/1/thang/' . $this->thang . '/nam/' . $this->nam); ?>')"><i class="icon-ok-sign"></i> Đồng ý</button>
+                <button class="btn" onclick="OnSubmitForm('<?php echo $this->baseUrl('tochuccanbo/kyluat/updatestatus/status/0/thang/' . $this->thang . '/nam/' . $this->nam); ?>')"><i class="icon-ban-circle"></i> Không đồng ý</button>
+            </div>
+        </div>
+        <div class="clearfix">
+        </div>
+
         <table class="table table-bordered table-hover">
             <thead>
                 <tr>  
+                    <th class="checkall_style"><input type="checkbox" name="check_all" id="checkbox" onclick="checkedAll()"></th>
                     <th>Họ tên</th>
                     <th style="width: 120px;">Đơn vị</th>
                     <th style="width: 250px;">Lý do</th>
                     <th style="width: 100px;">Ngày</th>
-                    <th style="width: 90px;">Trạng thái</th>
+                    <th style="width: 110px;">Trạng thái</th>
                     <th style="width: 120px;">Chức năng</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
                 foreach ($this->list_ky_luat as $item) {
-                    $trang_thai_icon = 'Không duyệt';
+                    $trang_thai_icon = 'Không đồng ý';
                     if ($item->kl_don_vi && !$item->kl_don_vi->kl_ptccb_viewed) {
                         $trang_thai_icon = 'Chờ duyệt';
                     }
 
                     if ($item->kl_status) {
-                        $trang_thai_icon = 'Đã duyệt';
+                        $trang_thai_icon = 'Đồng ý';
                     } else {
                         if ($item->kl_ptccb_viewed)
-                            $trang_thai_icon = 'Không duyệt';
+                            $trang_thai_icon = 'Không đồng ý';
                     }
 
 
                     $phong_ban_name = $this->viewGetPhongBanName($item->em_phong_ban);
                     ?>
                     <tr id="name_<?php echo $item->kl_id; ?>">
+                        <td class="checkall_style"><input type="checkbox" name="cid[]" id="cid" value="<?php echo $item->kl_id; ?>"></td>
                         <td><?php echo $item->em_ho . ' ' . $item->em_ten; ?></td>
                         <td><?php echo $phong_ban_name; ?></td>
                         <td><?php echo $item->kl_ly_do; ?><span id="hd_kl_chi_tiet_<?php echo $item->kl_id; ?>" class="hide"><?php echo $item->kl_chi_tiet; ?></span></td>

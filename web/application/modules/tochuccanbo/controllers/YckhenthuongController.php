@@ -141,4 +141,48 @@ class Tochuccanbo_YckhenthuongController extends Zend_Controller_Action {
         $this->view->process_status = $process_status;
     }
 
+    public function updatestatusAction() {
+        $this->_helper->layout()->disableLayout();
+        $process_status = 0;
+        if ($this->_request->isPost()) {
+            $auth = Zend_Auth::getInstance();
+            $identity = $auth->getIdentity();
+            $from_id = $identity->em_id;
+
+            $thang = $this->_request->getParam('thang', 0);
+            $nam = $this->_request->getParam('nam', 0);
+
+            $kt_status = $this->_request->getParam('status', 0);
+            if ($kt_status > 1) {
+                $kt_status = 1;
+            }
+            if ($kt_status < 0) {
+                $kt_status = 0;
+            }
+            $process_status = 1;
+            $current_time = new Zend_Db_Expr('NOW()');
+            $khenthuongModel = new Front_Model_KhenThuong();
+            $item = $this->getRequest()->getPost('cid');
+            foreach ($item as $k => $v) {
+                $process_status = $khenthuongModel->update(array('kt_can_bo_to_chuc' => $from_id, 'kt_ptccb_viewed' => 1, 'kt_status' => $kt_status, 'kt_date_modified' => $current_time), "kt_id=$v");
+                if ($process_status) {
+                    if ($kt_status) {
+                        $thongbao_model = new Front_Model_ThongBao();
+                        $row_content = $khenthuongModel->fetchRow(array('kt_id' => $v));
+                        $data = array();
+                        $data['tb_from'] = 0;
+                        $data['tb_to'] = $row_content->kt_em_id;
+                        $data['tb_tieu_de'] = '[Khen Thưởng] ' . $row_content->kt_ly_do;
+                        $data['tb_noi_dung'] = $row_content->kt_chi_tiet;
+                        $data['tb_status'] = 0;
+                        $data['tb_date_added'] = $current_time;
+                        $data['tb_date_modified'] = $current_time;
+                        $thongbao_model->insert($data);
+                    }
+                }
+            }
+            $this->_redirect('tochuccanbo/yckhenthuong/index/thang/' . $thang . '/nam/' . $nam);
+        }
+    }
+
 }

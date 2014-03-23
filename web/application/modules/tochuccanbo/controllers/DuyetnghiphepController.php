@@ -120,4 +120,46 @@ class Tochuccanbo_DuyetnghiphepController extends Zend_Controller_Action {
         $this->view->process_status = $process_status;
     }
 
+    public function updatestatusAction() {
+        $this->_helper->layout()->disableLayout();
+        $xnp_status = $this->_request->getParam('status', 0);
+        $thang = $this->_request->getParam('thang', 0);
+        $nam = $this->_request->getParam('nam', 0);
+        $phongban = $this->_request->getParam('phongban', 0);
+        $current_time = new Zend_Db_Expr('NOW()');
+        if ($xnp_status > 1) {
+            $xnp_status = 1;
+        }
+        if ($xnp_status < 0) {
+            $xnp_status = -1;
+        }
+        $xnpModel = new Front_Model_XinNghiPhep();
+        if ($this->_request->isPost()) {
+            $item = $this->getRequest()->getPost('cid');
+            foreach ($item as $k => $v) {
+                $process_status = $xnpModel->update(array('xnp_ptccb_status' => $xnp_status), "xnp_id=$v");
+                if ($process_status) {
+                    $thongbao_model = new Front_Model_ThongBao();
+                    $row_content = $xnpModel->fetchRow(array('xnp_id' => $v));
+                    $data = array();
+                    $data['tb_from'] = 0;
+                    $data['tb_to'] = $row_content->xnp_em_id;
+                    $data['tb_tieu_de'] = '[Xin nghỉ phép] Đơn xin nghỉ phép đã được duyệt.';
+                    $data['tb_noi_dung'] = 'Đơn nghỉ phép của bạn đã được duyệt.<br> Lịch nghỉ của bạn bắt đầu từ ' . date('d-m-Y', strtotime($row_content->xnp_from_date)) . ' đến ngày ' . date('d-m-Y', strtotime($row_content->xnp_to_date));
+                    $data['tb_status'] = 0;
+                    $data['tb_date_added'] = $current_time;
+                    $data['tb_date_modified'] = $current_time;
+
+                    if (!$xnp_status) {
+                        $data['tb_tieu_de'] = '[Xin nghỉ phép] Đơn xin nghỉ phép đã không được chấp nhận.';
+                        $data['tb_noi_dung'] = 'Đơn nghỉ phép của bạn đã không được chấp nhận.<br> Bạn không được phép nghỉ từ ' . date('d-m-Y', strtotime($row_content->xnp_from_date)) . ' đến ngày ' . date('d-m-Y', strtotime($row_content->xnp_to_date));
+                    }
+
+                    $thongbao_model->insert($data);
+                }
+            }
+        }
+        $this->_redirect('tochuccanbo/duyetnghiphep/index/thang/' . $thang . '/nam/' . $nam . '/phongban/' . $phongban);
+    }
+
 }

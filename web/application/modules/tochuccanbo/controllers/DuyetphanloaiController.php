@@ -65,7 +65,7 @@ class Tochuccanbo_DuyetphanloaiController extends Zend_Controller_Action {
 
         if(!$pb_selected){
             //$list_employees = $emModel->fetchData(array('em_delete' => 0));
-            $list_employees = array();
+            $list_employees = $emModel->fetchAll();
         }else{
             $select = $emModel->select()->where('em_delete=?', 0)->where('em_phong_ban in (?)', $pb_ids);
             $list_employees = $emModel->fetchAll($select);
@@ -112,4 +112,24 @@ class Tochuccanbo_DuyetphanloaiController extends Zend_Controller_Action {
         $this->view->process_status = $process_status;
     }
 
+    public function updatestatusAction() {
+        $this->_helper->layout()->disableLayout();        
+        $process_status = 0;
+        if ($this->_request->isPost()) {
+            $thang = (int) $this->_request->getParam('thang', 0);
+            $nam = (int) $this->_request->getParam('nam', 0);      
+            $phongban = (int) $this->_request->getParam('phongban', 0);      
+            $danhgiaModel = new Front_Model_DanhGia();
+            
+            $item = $this->getRequest()->getPost('cid');
+            foreach ($item as $k => $v) {
+                $find_row = $danhgiaModel->fetchRow("dg_em_id=$v and dg_thang=$thang and dg_nam=$nam");
+                if($find_row && $find_row->dg_don_vi_status){
+                    $process_status = $danhgiaModel->update(array('dg_ptccb_status' => $find_row->dg_don_vi_status), "dg_id=$find_row->dg_id");
+                }
+            }
+            $this->_redirect('tochuccanbo/duyetphanloai/index/thang/'.$thang.'/nam/'.$nam.'/phongban/'.$phongban);
+        }        
+    }
+    
 }

@@ -141,5 +141,49 @@ class Tochuccanbo_KyluatController extends Zend_Controller_Action {
         $this->view->new_status = $new_status;
         $this->view->process_status = $process_status;
     }
+    
+    public function updatestatusAction() {
+        $this->_helper->layout()->disableLayout();
+        $process_status = 0;
+        if ($this->_request->isPost()) {
+            $auth = Zend_Auth::getInstance();
+            $identity = $auth->getIdentity();
+            $from_id = $identity->em_id;
+
+            $thang = $this->_request->getParam('thang', 0);
+            $nam = $this->_request->getParam('nam', 0);
+
+            $kl_status = $this->_request->getParam('status', 0);
+            if ($kl_status > 1) {
+                $kl_status = 1;
+            }
+            if ($kl_status < 0) {
+                $kl_status = 0;
+            }
+            $process_status = 1;
+            $current_time = new Zend_Db_Expr('NOW()');
+            $kyluatModel = new Front_Model_KyLuat();
+            $item = $this->getRequest()->getPost('cid');
+            foreach ($item as $k => $v) {
+                $process_status = $kyluatModel->update(array('kl_can_bo_to_chuc' => $from_id, 'kl_ptccb_viewed' => 1, 'kl_status' => $kl_status, 'kl_date_modified' => $current_time), "kl_id=$v");
+                if ($process_status) {
+                    if ($kl_status) {
+                        $thongbao_model = new Front_Model_ThongBao();
+                        $row_content = $kyluatModel->fetchRow(array('kl_id' => $v));
+                        $data = array();
+                        $data['tb_from'] = 0;
+                        $data['tb_to'] = $row_content->kl_em_id;
+                        $data['tb_tieu_de'] = '[Kỷ luật/Khiển trách] ' . $row_content->kl_ly_do;
+                        $data['tb_noi_dung'] = $row_content->kl_chi_tiet;
+                        $data['tb_status'] = 0;
+                        $data['tb_date_added'] = $current_time;
+                        $data['tb_date_modified'] = $current_time;
+                        $thongbao_model->insert($data);
+                    }
+                }
+            }
+            $this->_redirect('tochuccanbo/kyluat/index/thang/' . $thang . '/nam/' . $nam);
+        }
+    }
 
 }

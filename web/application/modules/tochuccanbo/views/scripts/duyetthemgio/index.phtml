@@ -32,9 +32,21 @@ foreach ($this->list_phong_ban_option as $phong_ban) {
             </div>
         </div>
 
+        <div class="clearfix">
+        </div>
+        <div class="btn-toolbar float_left">
+            <div class="btn-group">
+                <button class="btn" onclick="OnSubmitForm('<?php echo $this->baseUrl('tochuccanbo/duyetthemgio/updatestatus/status/1/thang/' . $this->thang . '/nam/' . $this->nam . '/phongban/' . $this->pb_id); ?>')"><i class="icon-ok-sign"></i> Duyệt</button>
+                <button class="btn" onclick="OnSubmitForm('<?php echo $this->baseUrl('tochuccanbo/duyetthemgio/updatestatus/status/0/thang/' . $this->thang . '/nam/' . $this->nam . '/phongban/' . $this->pb_id); ?>')"><i class="icon-remove-sign"></i> Không duyệt</button>
+            </div>
+        </div>
+        <div class="clearfix">
+        </div>
+
         <table class="table table-bordered table-hover">
             <thead>
                 <tr>  
+                    <th class="checkall_style"><input type="checkbox" name="check_all" id="checkbox" onclick="checkedAll()"></th>
                     <th>Họ tên</th>
                     <th style="width: 120px;">Phòng ban</th>
                     <th style="width: 50px;">Ngày</th>
@@ -64,6 +76,7 @@ foreach ($this->list_phong_ban_option as $phong_ban) {
                     }
                     ?>
                     <tr>
+                        <td class="checkall_style"><input type="checkbox" name="cid[]" id="cid" value="<?php echo $item->ltg_id; ?>"></td>
                         <td id="name_<?php echo $item->ltg_em_id; ?>"><?php echo $item->em_ho . ' ' . $item->em_ten; ?></td>
                         <td><?php echo $list_phong_ban[$item->em_phong_ban]; ?></td>
                         <td><?php echo date('d-m', strtotime($item->ltg_ngay)); ?></td>
