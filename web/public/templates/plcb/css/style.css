@@ -447,3 +447,5 @@ div.success_ui h2, div.error_ui h2{
 .ta_left{
     text-align: left !important;
 }
+
+.ui-datepicker-trigger{ margin-left: 5px;}

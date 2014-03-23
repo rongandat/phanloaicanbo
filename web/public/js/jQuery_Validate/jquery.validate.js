@@ -676,7 +676,7 @@ $.extend($.validator, {
 		},
 
 		showLabel: function( element, message ) {
-			var label = this.errorsFor( element );
+			/*var label = this.errorsFor( element );
 			if ( label.length ) {
 				// refresh error/success class
 				label.removeClass( this.settings.validClass ).addClass( this.settings.errorClass );
@@ -710,6 +710,7 @@ $.extend($.validator, {
 				}
 			}
 			this.toShow = this.toShow.add(label);
+                        */
 		},
 
 		errorsFor: function( element ) {

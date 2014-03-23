@@ -39,14 +39,14 @@
                 <div class="control-group">
                     <label class="control-label" for="xnp_from_date">Từ ngày</label>
                     <div class="controls">
-                        <?php echo $this->formText('xnp_from_date', date('d/m/Y', strtotime($this->xnp_info->xnp_from_date)), array('class' => 'input-large', 'placeholder' => '', 'readonly' => 'readonly')); ?>                  
+                        <?php echo $this->formText('xnp_from_date', date('d/m/Y', strtotime($this->xnp_info->xnp_from_date)), array('class' => 'input-large', 'placeholder' => '')); ?>                  
                         <span class="help-block">Chọn ngày bắt đầu nghỉ phép</span>
                     </div>            
                 </div>
                 <div class="control-group">
                     <label class="control-label" for="xnp_to_date">Đến hết ngày</label>
                     <div class="controls">
-                        <?php echo $this->formText('xnp_to_date', date('d/m/Y', strtotime($this->xnp_info->xnp_to_date)), array('class' => 'input-large', 'placeholder' => '', 'readonly' => 'readonly')); ?>                  
+                        <?php echo $this->formText('xnp_to_date', date('d/m/Y', strtotime($this->xnp_info->xnp_to_date)), array('class' => 'input-large', 'placeholder' => '')); ?>                  
                         <span class="help-block">nếu nghỉ 1 ngày thì chọn ngày kết thúc bằng ngày bắt đầu.</span>
                     </div>            
                 </div>
@@ -109,6 +109,47 @@
             showOn: "button",
             buttonImage: site_url+"/date-picker-icon.png",
             buttonImageOnly: true
+        });
+        
+        $.validator.addMethod('vietnameeseDate',
+        function (value, element) {
+            if (this.optional(element)) {
+                return true;
+            }
+            var ok = true;
+            try {
+                $.datepicker.parseDate('dd/mm/yy', value);
+            }
+            catch (err) {
+                ok = false;
+            }
+            return ok;
+        });
+        $('form').validate({
+            onKeyup : true,            
+            rules: {            
+                // compound rule
+                xnp_ly_do: {
+                    required: true
+                },
+                xnp_chi_tiet: {
+                    required: true
+                },
+                xnp_from_date: {
+                    required: true, 
+                    vietnameeseDate: true
+                },
+                xnp_to_date: {
+                    required: true, 
+                    vietnameeseDate: true
+                }
+            },
+            highlight: function(element) {
+                $(element).closest('div.control-group').removeClass('success').addClass('error');
+            },
+            success: function(element) {
+                $(element).closest('div.control-group').removeClass('error').addClass('success');
+            }
         });
     });
 </script>

@@ -185,7 +185,7 @@
             <div class="control-group">
                 <label class="control-label" for="ngay_tuyen_dung">Ngày tuyển dụng</label>
                 <div class="controls">
-                    <?php echo $this->formText('ngay_tuyen_dung', $this->arrParam['ngay_tuyen_dung'], array('class' => 'input-medium', 'placeholder' => 'Ngày tuyển dụng', 'readonly' => 'readonly')); ?> 
+                    <?php echo $this->formText('ngay_tuyen_dung', $this->arrParam['ngay_tuyen_dung'], array('class' => 'input-medium', 'placeholder' => 'Ngày tuyển dụng')); ?> 
 
                 </div>
             </div>
@@ -237,7 +237,7 @@
             <div class="control-group">
                 <label class="control-label" for="ngay_dang">Ngày vào đảng</label>
                 <div class="controls">                    
-                    <?php echo $this->formText('ngay_dang', $this->arrParam['ngay_dang'], array('class' => 'input-medium', 'placeholder' => 'Ngày vào đảng', 'readonly' => 'readonly')); ?>                    
+                    <?php echo $this->formText('ngay_dang', $this->arrParam['ngay_dang'], array('class' => 'input-medium', 'placeholder' => 'Ngày vào đảng')); ?>                    
                 </div>
             </div> 
 
@@ -256,7 +256,7 @@
             <div class="control-group">
                 <label class="control-label" for="ngay_doan">Ngày vào đoàn</label>
                 <div class="controls">
-                    <?php echo $this->formText('ngay_doan', $this->arrParam['ngay_doan'], array('class' => 'input-medium', 'placeholder' => 'Ngày vào đoàn', 'readonly' => 'readonly')); ?>                    
+                    <?php echo $this->formText('ngay_doan', $this->arrParam['ngay_doan'], array('class' => 'input-medium', 'placeholder' => 'Ngày vào đoàn')); ?>                    
                 </div>
             </div> 
             <div class="control-group">
@@ -467,6 +467,53 @@
             buttonImage: site_url+"/date-picker-icon.png",
             buttonImageOnly: true
         });
+        
+        $.validator.addMethod('vietnameeseDate',
+        function (value, element) {
+            if (this.optional(element)) {
+                return true;
+            }
+            var ok = true;
+            try {
+                $.datepicker.parseDate('dd/mm/yy', value);
+            }
+            catch (err) {
+                ok = false;
+            }
+            return ok;
+        });
+        $('form').validate({
+            onKeyup : true,            
+            rules: {            
+                // compound rule
+                em_ho: {
+                    required: true
+                },
+                em_ten: {
+                    required: true
+                },
+                ngay_sinh: {
+                    vietnameeseDate: true
+                },
+                ngay_tuyen_dung: {
+                    vietnameeseDate: true
+                },
+                ngay_dang: {
+                    vietnameeseDate: true
+                },
+                ngay_doan: {
+                    vietnameeseDate: true
+                }
+            },
+            highlight: function(element) {
+                $(element).closest('div.control-group').removeClass('success').addClass('error');
+            },
+            success: function(element) {
+                $(element).closest('div.control-group').removeClass('error').addClass('success');
+            }
+        });
+        
+        
     });    
     
     function changeTinh(){

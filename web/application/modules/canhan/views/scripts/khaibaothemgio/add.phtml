@@ -25,7 +25,7 @@
             <div class="control-group">
                 <label class="control-label" for="ltg_date">Ngày</label>
                 <div class="controls">
-                    <?php echo $this->formText('ltg_date', $this->arrParam['ltg_date'], array('class' => 'input-large', 'placeholder' => '', 'readonly' => 'readonly')); ?>                  
+                    <?php echo $this->formText('ltg_date', $this->arrParam['ltg_date'], array('class' => 'input-large', 'placeholder' => '')); ?>                  
                     <span class="help-block">Chọn ngày làm thêm giờ</span>
                 </div>            
             </div>
@@ -107,6 +107,37 @@
             showOn: "button",
             buttonImage: site_url+"/date-picker-icon.png",
             buttonImageOnly: true
+        });
+        
+        $.validator.addMethod('vietnameeseDate',
+        function (value, element) {
+            if (this.optional(element)) {
+                return true;
+            }
+            var ok = true;
+            try {
+                $.datepicker.parseDate('dd/mm/yy', value);
+            }
+            catch (err) {
+                ok = false;
+            }
+            return ok;
+        });
+        $('form').validate({
+            onKeyup : true,            
+            rules: {            
+                // compound rule
+                ltg_date: {
+                    required: true, 
+                    vietnameeseDate: true
+                }
+            },
+            highlight: function(element) {
+                $(element).closest('div.control-group').removeClass('success').addClass('error');
+            },
+            success: function(element) {
+                $(element).closest('div.control-group').removeClass('error').addClass('success');
+            }
         });
     });
 </script>
