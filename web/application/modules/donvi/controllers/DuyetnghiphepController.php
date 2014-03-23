@@ -68,13 +68,13 @@ class Donvi_DuyetnghiphepController extends Zend_Controller_Action {
         foreach ($list_nhan_vien as $nhan_vien) {
             $list_nhan_vien_id[] = $nhan_vien->em_id;
         }
-        
+
         $list_nghi_phep = $xnpModel->fetchByDate($list_nhan_vien_id, "$nam-$thang-01 00:00:00", "$nam-$thang-31 23:59:59");
         $this->view->list_nghi_phep = $list_nghi_phep;
         $this->view->thang = $thang;
         $this->view->nam = $nam;
     }
-    
+
     public function jqupdatestatusAction() {
         $this->_helper->layout()->disableLayout();
         $new_status = 'Đã duyệt';
@@ -82,23 +82,44 @@ class Donvi_DuyetnghiphepController extends Zend_Controller_Action {
         if ($this->_request->isPost()) {
             $xnp_id = $this->_arrParam['xnp_id'];
             $xnp_status = $this->_arrParam['xnp_status'];
-            if($xnp_status>1){
-                $xnp_status=1;
+            if ($xnp_status > 1) {
+                $xnp_status = 1;
             }
-            if($xnp_status<0){
+            if ($xnp_status < 0) {
                 $xnp_status = -1;
             }
             $process_status = 1;
             $xnpModel = new Front_Model_XinNghiPhep();
             $process_status = $xnpModel->update(array('xnp_don_vi_status' => $xnp_status), "xnp_id=$xnp_id and xnp_ptccb_status<0");
-            if($process_status){
-                if(!$xnp_status){
+            if ($process_status) {
+                if (!$xnp_status) {
                     $new_status = 'Không duyệt';
                 }
             }
         }
         $this->view->new_status = $new_status;
         $this->view->process_status = $process_status;
+    }
+
+    public function updatestatusAction() {
+        $this->_helper->layout()->disableLayout();
+        $xnp_status = $this->_request->getParam('status', 0);
+        $thang = $this->_request->getParam('thang', 0);
+        $nam = $this->_request->getParam('nam', 0);
+        if ($xnp_status > 1) {
+            $xnp_status = 1;
+        }
+        if ($xnp_status < 0) {
+            $xnp_status = -1;
+        }
+        $xnpModel = new Front_Model_XinNghiPhep();
+        if ($this->_request->isPost()) {
+            $item = $this->getRequest()->getPost('cid');
+            foreach ($item as $k => $v) {
+                $xnpModel->update(array('xnp_don_vi_status' => $xnp_status), "xnp_id=$v and xnp_ptccb_status<0");
+            }
+        }
+        $this->_redirect('donvi/duyetnghiphep/index/thang/'.$thang.'/nam/'.$nam);
     }
 
 }

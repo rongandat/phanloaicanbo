@@ -100,5 +100,26 @@ class Donvi_DuyetthemgioController extends Zend_Controller_Action {
         $this->view->new_status = $new_status;
         $this->view->process_status = $process_status;
     }
+    
+    public function updatestatusAction() {
+        $this->_helper->layout()->disableLayout();
+        $xnp_status = $this->_request->getParam('status', 0);
+        $thang = $this->_request->getParam('thang', 0);
+        $nam = $this->_request->getParam('nam', 0);
+        if ($xnp_status > 1) {
+            $xnp_status = 1;
+        }
+        if ($xnp_status < 0) {
+            $xnp_status = -1;
+        }
+        $ltgModel = new Front_Model_LamThemGio();
+        if ($this->_request->isPost()) {
+            $item = $this->getRequest()->getPost('cid');
+            foreach ($item as $k => $v) {
+                $ltgModel->update(array('ltg_don_vi_status' => $xnp_status), "ltg_id=$v and ltg_tccb_status<0");
+            }
+        }
+        $this->_redirect('donvi/duyetthemgio/index/thang/'.$thang.'/nam/'.$nam);
+    }
 
 }
