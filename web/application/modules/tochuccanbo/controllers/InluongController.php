@@ -190,7 +190,7 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
             $objPHPExcel->getActiveSheet()->SetCellValue('AB1', 'TT PC Kiêm Nhiệm');
             $objPHPExcel->getActiveSheet()->SetCellValue('AC1', 'TT PC Khác');
             $objPHPExcel->getActiveSheet()->SetCellValue('AD1', 'Tổng Cộng (I)');
-            $objPHPExcel->getActiveSheet()->SetCellValue('AE1', 'Tỷ Lệ Tăng Thêm');            
+            $objPHPExcel->getActiveSheet()->SetCellValue('AE1', 'Tỷ Lệ Tăng Thêm');
             $objPHPExcel->getActiveSheet()->SetCellValue('AF1', 'Thưởng');
             $objPHPExcel->getActiveSheet()->SetCellValue('AG1', 'Phạt');
             $objPHPExcel->getActiveSheet()->SetCellValue('AH1', 'Được Nhận');
@@ -767,163 +767,164 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
 
             $tong_cong = $tong_2 + $tong_khen_thuong - $tong_khien_trach;
 
-            $mpdf = new mPDF();
+
+            //$mpdf = new mPDF();
 
             $text_outout = '
-                <table width="500pt" border="0">
-                    <tr>
-                        <td width="200" style="text-align:center;">TỔNG CỤC HẢI QUAN
-                            <div><strong>CỤC HẢI QUAN HÀ TĨNH</strong></div>
-                        </td>
-                        <td width="342">&nbsp;</td>
-                        <td width="23">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td colspan="3" style="text-align:center; font-size: 11pt; padding-top:10pt">BẢNG LƯƠNG THÁNG ' . $thang . '-' . $nam . '</td>
-                    </tr>
-                    <tr>
-                        <td colspan="3" style="text-align:left; font-size: 10pt; padding-top:10pt">
-                            Thông tin cá nhân
-                            <table width="500pt" border="1" style="margin-top: 5pt; margin-bottom: 10pt;  font-family: Mono; padding: 10pt; font-size: 9pt;">                                
-                                <tr>
-                                        <td style="padding-top: 2pt; width: 120pt; padding-bottom: 2pt;">Họ tên</td>
-                                        <td style="padding-top: 2pt; width: 80pt; padding-bottom: 2pt;">Giới tính</td>
-                                        <td style="padding-top: 2pt; width: 100pt; padding-bottom: 2pt;">Ngày sinh</td>
-                                        <td style="padding-top: 2pt; width: 100pt; padding-bottom: 2pt;">Phòng ban</td>
-                                        <td style="padding-top: 2pt; width: 100pt; padding-bottom: 2pt;">Chức vụ</td>
-                                </tr>
-                                <tr>
-                                        <td style="padding-top: 2pt; padding-bottom: 2pt;">' . $em_info->em_ho . ' ' . $em_info->em_ten . '</td>
-                                        <td style="padding-top: 2pt; padding-bottom: 2pt;">' . ($em_info->em_gioi_tinh ? 'Nam' : 'Nữ') . '</td>
-                                        <td style="padding-top: 2pt; padding-bottom: 2pt;">' . date('d-m-Y', strtotime($em_info->em_ngay_sinh)) . '</td>
-                                        <td style="padding-top: 2pt; padding-bottom: 2pt;">' . $this->view->viewGetPhongBanName($em_info->em_phong_ban) . '</td>
-                                        <td style="padding-top: 2pt; padding-bottom: 2pt;">' . $this->view->viewGetChucVuName($em_info->em_chuc_vu) . '</td>
-                                </tr>                        
-                            </table>
-                            Thông tin cá nhân
-                            <table width="500pt" border="1" style="margin-top: 5pt;  margin-bottom: 10pt; font-family: Mono; padding: 10pt; font-size: 9pt;" class="widecells">                                
-                                <tr>
-                                        <td style="padding-top: 2pt; padding-bottom: 2pt;">Lương cơ bản</td>   
-                                        ' . ($giai_doan ? '<td style="padding-top: 2pt; padding-bottom: 2pt;">Thử việc</td>  ' : '') . '
-                                        <td style="padding-top: 2pt; width: 70pt; padding-bottom: 2pt;">BHXH</td>
-                                        <td style="padding-top: 2pt; width: 70pt; padding-bottom: 2pt;">BHYT</td>
-                                        <td style="padding-top: 2pt; width: 190pt; padding-bottom: 2pt;">Đã trừ BHXH+BHYT</td>
-                                </tr>
-                                <tr>
-                                        <td style="padding-top: 2pt; padding-bottom: 2pt;">' . number_format($luong_toi_thieu, 0, '.', ',') . '</td>
-                                        ' . ($giai_doan ? '<td style="padding-top: 2pt; padding-bottom: 2pt;">' . $luong_thu_viec . '%</td>  ' : '') . '
-                                        <td style="padding-top: 2pt; padding-bottom: 2pt;">' . $bhxh . '%</td>
-                                        <td style="padding-top: 2pt; padding-bottom: 2pt;">' . $bhyt . '%</td>
-                                        <td style="padding-top: 2pt; padding-bottom: 2pt;">
-                                            Lương tối thiểu: ' . number_format($luong_toi_thieu_sau_bh, 0, '.', ',') . '<br>
-                                            PC công việc: ' . number_format($pc_cong_viec, 0, '.', ',') . '<br>
-                                            PC trách nhiệm: ' . number_format($pc_trach_nhiem, 0, '.', ',') . '<br>
-                                            PC khu vực: ' . number_format($pc_khu_vuc, 0, '.', ',') . '<br>
-                                            PC TNVK: ' . number_format($pc_tnvk, 0, '.', ',') . ' <br>
-                                            PC công vụ: ' . number_format($pc_cong_vu, 0, '.', ',') . '<br>
-                                            PC khác: ' . number_format($pc_khac, 0, '.', ',') . '<br>
-                                            PC thâm niên: ' . number_format($pc_tham_nien, 0, '.', ',') . '<br>
-                                            PC kiêm nhiệm: ' . number_format($pc_kiem_nhiem, 0, '.', ',') . '<br>
-                                            PC ưu đãi nghề: ' . number_format($pc_uu_dai_nghe, 0, '.', ',') . '<br>
-                                        </td>
-                                </tr>                               
-                            </table>
-                            Bảng lương
-                            <table width="500pt" border="1" style="margin-top: 5pt;  margin-bottom: 10pt; font-family: Mono; padding: 10pt; font-size: 9pt;" class="widecells">                                
-                                <tr>
-                                        <td style="padding-top: 2pt; width: 150pt; padding-bottom: 2pt;">Tên</td>
-                                        <td style="padding-top: 2pt; width: 245pt; padding-bottom: 2pt;" colspan="2">Hệ số</td>
-                                        <td style="padding-top: 2pt; width: 105pt; padding-bottom: 2pt;">Thành tiền</td>
-                                </tr>
-                                <tr>
-                                        <tr>
-                                            <td>Hệ số lương</td>
-                                            <td colspan="2">' . $he_so_luong . '</td>
-                                            <td>' . number_format($thanh_tien_hsl, 0, '.', ',') . '</td>
-                                        </tr>
-                                        <tr>
-                                            <td>PC công việc</td>
-                                            <td colspan="2">' . $hs_pc_cong_viec . '</td>
-                                            <td>' . number_format($thanh_tien_pc_cong_viec, 0, '.', ',') . '</td>
-                                        </tr>
-                                        <tr>
-                                            <td>PC trách nhiệm</td>
-                                            <td colspan="2">' . $hs_pc_trach_nhiem . '</td>
-                                            <td>' . number_format($thanh_tien_pc_trach_nhiem, 0, '.', ',') . '</td>
-                                        </tr>
-                                        <tr>
-                                            <td>PC khu vực</td>
-                                            <td colspan="2">' . $hs_pc_khu_vuc . '</td>
-                                            <td>' . number_format($thanh_tien_pc_khu_vuc, 0, '.', ',') . '</td>
-                                        </tr>
-                                        <tr>
-                                            <td>PC thâm niên vượt khung</td>
-                                            <td style="width: 100px;">' . $hs_pc_tnvk_phan_tram . '%</td>
-                                            <td>' . $hs_pc_tnvk . '</td>
-                                            <td>' . number_format($thanh_tien_pc_tham_nien_vuot_khung, 0, '.', ',') . '</td>
-                                        </tr>
-                                        <tr>
-                                            <td>PC thâm niên</td>
-                                            <td style="width: 100px;">' . $tham_nien . ' Năm</td>
-                                            <td>' . $hs_pc_tham_nien . '</td>
-                                            <td>' . number_format($thanh_tien_pc_tham_nien, 0, '.', ',') . '</td>
-                                        </tr>
-                                        <tr>
-                                            <td>PC ưu đãi nghề</td>
-                                            <td style="width: 100px;">' . $uu_dai_nghe . '%</td>
-                                            <td>' . $hs_pc_uu_dai_nghe . '</td>
-                                            <td>' . number_format($thanh_tien_pc_uu_dai_nghe, 0, '.', ',') . '</td>
-                                        </tr>
-                                        <tr>
-                                            <td>PC công vụ</td>
-                                            <td style="width: 100px;">' . $cong_vu . '%</td>
-                                            <td>' . $hs_pc_cong_vu . '</td>
-                                            <td>' . number_format($thanh_tien_pc_cong_vu, 0, '.', ',') . '</td>
-                                        </tr>
-                                        <tr>
-                                            <td>PC kiêm nhiệm</td>
-                                            <td colspan="2">' . $hs_pc_kiem_nhiem . '</td>
-                                            <td>' . number_format($thanh_tien_pc_kiem_nhiem, 0, '.', ',') . '</td>
-                                        </tr>
-                                        <tr>
-                                            <td>PC khác</td>
-                                            <td colspan="2">' . $hs_pc_khac . '</td>
-                                            <td>' . number_format($thanh_tien_pc_khac, 0, '.', ',') . '</td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="3">Tổng cộng (I)</td>
-                                            <td>' . number_format($tong_1, 0, '.', ',') . '</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Tỷ lệ tăng thêm</td>
-                                            <td colspan="2">' . $hs_tang_them . '</td>
-                                            <td>' . number_format($ti_le_tang_them, 0, '.', ',') . '</td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="3"><strong>Tổng cộng (II)</strong></td>
-                                            <td><strong>' . number_format($tong_2, 0, '.', ',') . '</strong></td>
-                                        </tr>
-                                </tr>                               
-                            </table>
-                            
-                            Khen thưởng
-                            <table width="500pt" border="1" style="margin-top: 5pt;  margin-bottom: 10pt; font-family: Mono; padding: 10pt; font-size: 9pt;" class="widecells">                                
-                                <tr>
-                                        <td style="padding-top: 2pt; width: 15pt; padding-bottom: 2pt;">#</td>
-                                        <td style="padding-top: 2pt; width: 80pt; padding-bottom: 2pt;">Ngày</td>
-                                        <td style="padding-top: 2pt; width: 300pt; padding-bottom: 2pt;">Lý do</td>
-                                        <td style="padding-top: 2pt; width: 105pt; padding-bottom: 2pt;">Mức thưởng</td>
-                                </tr>';
+              <table width="500pt" border="0">
+              <tr>
+              <td width="200" style="text-align:center;">TỔNG CỤC HẢI QUAN
+              <div><strong>CỤC HẢI QUAN HÀ TĨNH</strong></div>
+              </td>
+              <td width="342">&nbsp;</td>
+              <td width="23">&nbsp;</td>
+              </tr>
+              <tr>
+              <td colspan="3" style="text-align:center; font-size: 11pt; padding-top:10pt">BẢNG LƯƠNG THÁNG ' . $thang . '-' . $nam . '</td>
+              </tr>
+              <tr>
+              <td colspan="3" style="text-align:left; font-size: 10pt; padding-top:10pt">
+              Thông tin cá nhân
+              <table width="500pt" border="1" style="margin-top: 5pt; margin-bottom: 10pt;  font-family: Mono; padding: 10pt; font-size: 9pt;">
+              <tr>
+              <td style="padding-top: 2pt; width: 120pt; padding-bottom: 2pt;">Họ tên</td>
+              <td style="padding-top: 2pt; width: 80pt; padding-bottom: 2pt;">Giới tính</td>
+              <td style="padding-top: 2pt; width: 100pt; padding-bottom: 2pt;">Ngày sinh</td>
+              <td style="padding-top: 2pt; width: 100pt; padding-bottom: 2pt;">Phòng ban</td>
+              <td style="padding-top: 2pt; width: 100pt; padding-bottom: 2pt;">Chức vụ</td>
+              </tr>
+              <tr>
+              <td style="padding-top: 2pt; padding-bottom: 2pt;">' . $em_info->em_ho . ' ' . $em_info->em_ten . '</td>
+              <td style="padding-top: 2pt; padding-bottom: 2pt;">' . ($em_info->em_gioi_tinh ? 'Nam' : 'Nữ') . '</td>
+              <td style="padding-top: 2pt; padding-bottom: 2pt;">' . date('d-m-Y', strtotime($em_info->em_ngay_sinh)) . '</td>
+              <td style="padding-top: 2pt; padding-bottom: 2pt;">' . $this->view->viewGetPhongBanName($em_info->em_phong_ban) . '</td>
+              <td style="padding-top: 2pt; padding-bottom: 2pt;">' . $this->view->viewGetChucVuName($em_info->em_chuc_vu) . '</td>
+              </tr>
+              </table>
+              Thông tin cá nhân
+              <table width="500pt" border="1" style="margin-top: 5pt;  margin-bottom: 10pt; font-family: Mono; padding: 10pt; font-size: 9pt;" class="widecells">
+              <tr>
+              <td style="padding-top: 2pt; padding-bottom: 2pt;">Lương cơ bản</td>
+              ' . ($giai_doan ? '<td style="padding-top: 2pt; padding-bottom: 2pt;">Thử việc</td>  ' : '') . '
+              <td style="padding-top: 2pt; width: 70pt; padding-bottom: 2pt;">BHXH</td>
+              <td style="padding-top: 2pt; width: 70pt; padding-bottom: 2pt;">BHYT</td>
+              <td style="padding-top: 2pt; width: 190pt; padding-bottom: 2pt;">Đã trừ BHXH+BHYT</td>
+              </tr>
+              <tr>
+              <td style="padding-top: 2pt; padding-bottom: 2pt;">' . number_format($luong_toi_thieu, 0, '.', ',') . '</td>
+              ' . ($giai_doan ? '<td style="padding-top: 2pt; padding-bottom: 2pt;">' . $luong_thu_viec . '%</td>  ' : '') . '
+              <td style="padding-top: 2pt; padding-bottom: 2pt;">' . $bhxh . '%</td>
+              <td style="padding-top: 2pt; padding-bottom: 2pt;">' . $bhyt . '%</td>
+              <td style="padding-top: 2pt; padding-bottom: 2pt;">
+              Lương tối thiểu: ' . number_format($luong_toi_thieu_sau_bh, 0, '.', ',') . '<br>
+              PC công việc: ' . number_format($pc_cong_viec, 0, '.', ',') . '<br>
+              PC trách nhiệm: ' . number_format($pc_trach_nhiem, 0, '.', ',') . '<br>
+              PC khu vực: ' . number_format($pc_khu_vuc, 0, '.', ',') . '<br>
+              PC TNVK: ' . number_format($pc_tnvk, 0, '.', ',') . ' <br>
+              PC công vụ: ' . number_format($pc_cong_vu, 0, '.', ',') . '<br>
+              PC khác: ' . number_format($pc_khac, 0, '.', ',') . '<br>
+              PC thâm niên: ' . number_format($pc_tham_nien, 0, '.', ',') . '<br>
+              PC kiêm nhiệm: ' . number_format($pc_kiem_nhiem, 0, '.', ',') . '<br>
+              PC ưu đãi nghề: ' . number_format($pc_uu_dai_nghe, 0, '.', ',') . '<br>
+              </td>
+              </tr>
+              </table>
+              Bảng lương
+              <table width="500pt" border="1" style="margin-top: 5pt;  margin-bottom: 10pt; font-family: Mono; padding: 10pt; font-size: 9pt;" class="widecells">
+              <tr>
+              <td style="padding-top: 2pt; width: 150pt; padding-bottom: 2pt;">Tên</td>
+              <td style="padding-top: 2pt; width: 245pt; padding-bottom: 2pt;" colspan="2">Hệ số</td>
+              <td style="padding-top: 2pt; width: 105pt; padding-bottom: 2pt;">Thành tiền</td>
+              </tr>
+              <tr>
+              <tr>
+              <td>Hệ số lương</td>
+              <td colspan="2">' . $he_so_luong . '</td>
+              <td>' . number_format($thanh_tien_hsl, 0, '.', ',') . '</td>
+              </tr>
+              <tr>
+              <td>PC công việc</td>
+              <td colspan="2">' . $hs_pc_cong_viec . '</td>
+              <td>' . number_format($thanh_tien_pc_cong_viec, 0, '.', ',') . '</td>
+              </tr>
+              <tr>
+              <td>PC trách nhiệm</td>
+              <td colspan="2">' . $hs_pc_trach_nhiem . '</td>
+              <td>' . number_format($thanh_tien_pc_trach_nhiem, 0, '.', ',') . '</td>
+              </tr>
+              <tr>
+              <td>PC khu vực</td>
+              <td colspan="2">' . $hs_pc_khu_vuc . '</td>
+              <td>' . number_format($thanh_tien_pc_khu_vuc, 0, '.', ',') . '</td>
+              </tr>
+              <tr>
+              <td>PC thâm niên vượt khung</td>
+              <td style="width: 100px;">' . $hs_pc_tnvk_phan_tram . '%</td>
+              <td>' . $hs_pc_tnvk . '</td>
+              <td>' . number_format($thanh_tien_pc_tham_nien_vuot_khung, 0, '.', ',') . '</td>
+              </tr>
+              <tr>
+              <td>PC thâm niên</td>
+              <td style="width: 100px;">' . $tham_nien . ' Năm</td>
+              <td>' . $hs_pc_tham_nien . '</td>
+              <td>' . number_format($thanh_tien_pc_tham_nien, 0, '.', ',') . '</td>
+              </tr>
+              <tr>
+              <td>PC ưu đãi nghề</td>
+              <td style="width: 100px;">' . $uu_dai_nghe . '%</td>
+              <td>' . $hs_pc_uu_dai_nghe . '</td>
+              <td>' . number_format($thanh_tien_pc_uu_dai_nghe, 0, '.', ',') . '</td>
+              </tr>
+              <tr>
+              <td>PC công vụ</td>
+              <td style="width: 100px;">' . $cong_vu . '%</td>
+              <td>' . $hs_pc_cong_vu . '</td>
+              <td>' . number_format($thanh_tien_pc_cong_vu, 0, '.', ',') . '</td>
+              </tr>
+              <tr>
+              <td>PC kiêm nhiệm</td>
+              <td colspan="2">' . $hs_pc_kiem_nhiem . '</td>
+              <td>' . number_format($thanh_tien_pc_kiem_nhiem, 0, '.', ',') . '</td>
+              </tr>
+              <tr>
+              <td>PC khác</td>
+              <td colspan="2">' . $hs_pc_khac . '</td>
+              <td>' . number_format($thanh_tien_pc_khac, 0, '.', ',') . '</td>
+              </tr>
+              <tr>
+              <td colspan="3">Tổng cộng (I)</td>
+              <td>' . number_format($tong_1, 0, '.', ',') . '</td>
+              </tr>
+              <tr>
+              <td>Tỷ lệ tăng thêm</td>
+              <td colspan="2">' . $hs_tang_them . '</td>
+              <td>' . number_format($ti_le_tang_them, 0, '.', ',') . '</td>
+              </tr>
+              <tr>
+              <td colspan="3"><strong>Tổng cộng (II)</strong></td>
+              <td><strong>' . number_format($tong_2, 0, '.', ',') . '</strong></td>
+              </tr>
+              </tr>
+              </table>
+
+              Khen thưởng
+              <table width="500pt" border="1" style="margin-top: 5pt;  margin-bottom: 10pt; font-family: Mono; padding: 10pt; font-size: 9pt;" class="widecells">
+              <tr>
+              <td style="padding-top: 2pt; width: 15pt; padding-bottom: 2pt;">#</td>
+              <td style="padding-top: 2pt; width: 80pt; padding-bottom: 2pt;">Ngày</td>
+              <td style="padding-top: 2pt; width: 300pt; padding-bottom: 2pt;">Lý do</td>
+              <td style="padding-top: 2pt; width: 105pt; padding-bottom: 2pt;">Mức thưởng</td>
+              </tr>';
             if (sizeof($khen_thuong)) {
                 $i = 0;
                 foreach ($khen_thuong as $kt) {
                     $i++;
 
                     $text_outout .= '<tr id="r_kl_' . $kt->kt_id . '"><td>' . $i . '</td>
-                                        <td>' . date('d-m-Y', strtotime($kt->kt_date)) . '</td>
-                                        <td>' . $kt->kt_ly_do . '</td>
-                                        <td>' . number_format($kt->kt_money, 0, '.', ',') . '</td>
-                                    </tr>';
+              <td>' . date('d-m-Y', strtotime($kt->kt_date)) . '</td>
+              <td>' . $kt->kt_ly_do . '</td>
+              <td>' . number_format($kt->kt_money, 0, '.', ',') . '</td>
+              </tr>';
                 }
             } else {
                 echo '<tr><td colspan="4">Không có khen thưởng nào!</td></tr>';
@@ -931,18 +932,18 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
 
 
             $text_outout.= '<tr>
-                                        <td colspan="3"><strong>Tổng cộng (III)</strong></td>
-                                        <td><strong>' . number_format($tong_khen_thuong, 0, '.', ',') . '</strong></td>
-                                    </tr>                            
-                            </table>
-                           Kỷ luật
-                            <table width="500pt" border="1" style="margin-top: 5pt;  margin-bottom: 10pt; font-family: Mono; padding: 10pt; font-size: 9pt;" class="widecells">                                
-                                <tr>
-                                        <td style="padding-top: 2pt; width: 15pt; padding-bottom: 2pt;">#</td>
-                                        <td style="padding-top: 2pt; width: 80pt; padding-bottom: 2pt;">Ngày</td>
-                                        <td style="padding-top: 2pt; width: 300pt; padding-bottom: 2pt;">Lý do</td>
-                                        <td style="padding-top: 2pt; width: 105pt; padding-bottom: 2pt;">Mức phạt</td>
-                                </tr>';
+              <td colspan="3"><strong>Tổng cộng (III)</strong></td>
+              <td><strong>' . number_format($tong_khen_thuong, 0, '.', ',') . '</strong></td>
+              </tr>
+              </table>
+              Kỷ luật
+              <table width="500pt" border="1" style="margin-top: 5pt;  margin-bottom: 10pt; font-family: Mono; padding: 10pt; font-size: 9pt;" class="widecells">
+              <tr>
+              <td style="padding-top: 2pt; width: 15pt; padding-bottom: 2pt;">#</td>
+              <td style="padding-top: 2pt; width: 80pt; padding-bottom: 2pt;">Ngày</td>
+              <td style="padding-top: 2pt; width: 300pt; padding-bottom: 2pt;">Lý do</td>
+              <td style="padding-top: 2pt; width: 105pt; padding-bottom: 2pt;">Mức phạt</td>
+              </tr>';
 
 
             if (sizeof($ky_luat)) {
@@ -951,34 +952,76 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
                     $i++;
 
                     $text_outout .= '<tr id="r_kl_' . $kl->kl_id . '"><td>' . $i . '</td>
-                                        <td>' . date('d-m-Y', strtotime($kl->kl_date)) . '</td>
-                                        <td>' . $kl->kl_ly_do . '</td>
-                                        <td>' . number_format($kl->kl_money, 0, '.', ',') . '</td>
-                                    </tr>';
+              <td>' . date('d-m-Y', strtotime($kl->kl_date)) . '</td>
+              <td>' . $kl->kl_ly_do . '</td>
+              <td>' . number_format($kl->kl_money, 0, '.', ',') . '</td>
+              </tr>';
                 }
             } else {
                 echo '<tr><td colspan="4">Không có kỷ luật/khiển trách nào nào!</td></tr>';
             }
 
             $text_outout .= '<tr>
-                                        <td colspan="3"><strong>Tổng cộng (IV)</strong></td>
-                                        <td><strong>' . number_format($tong_khien_trach, 0, '.', ',') . '</strong></td>
-                                    </tr>                            
-                            </table>
-                            <table width="500pt" border="1" style="margin-top: 5pt;  margin-bottom: 10pt; font-family: Mono; padding: 10pt; font-size: 9pt;" class="widecells">                                
-                                <tr>
-                                        <td style="padding-top: 2pt; padding-bottom: 2pt;">Tổng được nhận = II + III + IV</td>
-                                        <td style="padding-top: 2pt; width: 105pt; padding-bottom: 2pt;"><strong>' . number_format($tong_cong, 0, '.', ',') . '</strong></td>
-                                </tr>                          
-                            </table>
-                        </td>
-                    </tr>
-                </table>
-            ';
+              <td colspan="3"><strong>Tổng cộng (IV)</strong></td>
+              <td><strong>' . number_format($tong_khien_trach, 0, '.', ',') . '</strong></td>
+              </tr>
+              </table>
+              <table width="500pt" border="1" style="margin-top: 5pt;  margin-bottom: 10pt; font-family: Mono; padding: 10pt; font-size: 9pt;" class="widecells">
+              <tr>
+              <td style="padding-top: 2pt; padding-bottom: 2pt;">Tổng được nhận = II + III + IV</td>
+              <td style="padding-top: 2pt; width: 105pt; padding-bottom: 2pt;"><strong>' . number_format($tong_cong, 0, '.', ',') . '</strong></td>
+              </tr>
+              </table>
+              </td>
+              </tr>
+              </table>
+              ';
 
-            $mpdf->WriteHTML($text_outout);
-            $file_name = $this->loc_tieng_viet($em_info->em_ho) . '_' . $this->loc_tieng_viet($em_info->em_ten) . '_' . $thang . '-' . $nam . '.pdf';
-            $mpdf->Output($file_name, 'D');
+            /*
+              $mpdf->WriteHTML($text_outout);
+              $file_name = $this->loc_tieng_viet($em_info->em_ho) . '_' . $this->loc_tieng_viet($em_info->em_ten) . '_' . $thang . '-' . $nam . '.pdf';
+              $mpdf->Output($file_name, 'D');
+             */
+            $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+
+            $pdf->SetCreator(PDF_CREATOR);
+            $pdf->SetAuthor('Nicola Asuni');
+            $pdf->SetTitle('TCPDF Example 001');
+            $pdf->SetSubject('TCPDF Tutorial');
+            $pdf->SetKeywords('TCPDF, PDF, example, test, guide');
+
+            $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE . ' 001', PDF_HEADER_STRING, array(0, 64, 255), array(0, 64, 128));
+            $pdf->setFooterData(array(0, 64, 0), array(0, 64, 128));
+
+            $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+            $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+
+            $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+
+            $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+            $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+            $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+
+            $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+
+            $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+
+            $pdf->setFontSubsetting(true);
+
+            $pdf->SetFont('dejavusans', '', 14, '', true);
+
+            $pdf->AddPage();
+
+            $pdf->setTextShadow(array('enabled' => true, 'depth_w' => 0.2, 'depth_h' => 0.2, 'color' => array(196, 196, 196), 'opacity' => 1, 'blend_mode' => 'Normal'));
+
+            $html = 'Nguyễn Mạnh HÙng';
+
+            $pdf->writeHTMLCell(0, 0, '', '', $text_outout, 0, 1, 0, true, '', true);
+
+// ---------------------------------------------------------
+// Close and output PDF document
+// This method has several options, check the source code documentation for more information.
+            $pdf->Output('example_001.pdf', 'I');
             die();
         }
     }
