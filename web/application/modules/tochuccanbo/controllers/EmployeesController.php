@@ -195,6 +195,12 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
 
         $chucvucongdoanModel = new Front_Model_ChucVuCongDoan();
         $list_chuc_vu_cong_doan = $chucvucongdoanModel->fetchData(array('cvcdoan_status' => 1));
+        
+        $lyluanModel = new Front_Model_LyLuanChinhTri();
+        $list_ly_luan_chinh_tri = $lyluanModel->fetchData(array('llct_status' => 1));
+        
+        $quanlynnModel = new Front_Model_QuanLyNhaNuoc();
+        $list_quan_ly_nn = $quanlynnModel->fetchData(array('qlnn_status' => 1));
 
         $error_message = array();
         $success_message = '';
@@ -355,6 +361,8 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
         $this->view->list_chuc_vu_doan = $list_chuc_vu_doan;
         $this->view->list_chuc_vu_dang = $list_chuc_vu_dang;
         $this->view->list_chuc_vu_cong_doan = $list_chuc_vu_cong_doan;
+        $this->view->list_ly_luan_chinh_tri = $list_ly_luan_chinh_tri;
+        $this->view->list_quan_ly_nha_nuoc = $list_quan_ly_nn;
         $this->view->arrParam = $this->_arrParam;
     }
 
