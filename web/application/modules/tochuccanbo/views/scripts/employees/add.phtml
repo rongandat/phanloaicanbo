@@ -217,9 +217,9 @@
             </div>
 
             <div class="control-group">
-                <label class="control-label" for="ngay_tuyen_dung">Ngày tuyển dụng</label>
+                <label class="control-label" for="em_ngay_tuyen_dung">Ngày tuyển dụng</label>
                 <div class="controls">
-                    <?php echo $this->formText('ngay_tuyen_dung', $this->arrParam['ngay_tuyen_dung'], array('class' => 'input-medium', 'placeholder' => 'Ngày tuyển dụng')); ?> 
+                    <?php echo $this->formText('em_ngay_tuyen_dung', $this->arrParam['em_ngay_tuyen_dung'], array('class' => 'input-medium', 'placeholder' => 'Ngày tuyển dụng')); ?> 
 
                 </div>
             </div>
@@ -372,16 +372,16 @@
             </div>
 
             <div class="control-group">
-                <label class="control-label" for="ngay_nhap_ngu">Ngày nhập ngũ</label>
+                <label class="control-label" for="em_ngay_nhap_ngu">Ngày nhập ngũ</label>
                 <div class="controls">                    
-                    <?php echo $this->formText('ngay_nhap_ngu', $this->arrParam['ngay_nhap_ngu'], array('class' => 'input-medium')); ?>                    
+                    <?php echo $this->formText('em_ngay_nhap_ngu', $this->arrParam['em_ngay_nhap_ngu'], array('class' => 'input-medium')); ?>                    
                 </div>
             </div> 
 
             <div class="control-group">
-                <label class="control-label" for="ngay_xuat_ngu">Ngày xuất ngũ</label>
+                <label class="control-label" for="em_ngay_xuat_ngu">Ngày xuất ngũ</label>
                 <div class="controls">                    
-                    <?php echo $this->formText('ngay_xuat_ngu', $this->arrParam['ngay_xuat_ngu'], array('class' => 'input-medium')); ?>                    
+                    <?php echo $this->formText('em_ngay_xuat_ngu', $this->arrParam['em_ngay_xuat_ngu'], array('class' => 'input-medium')); ?>                    
                 </div>
             </div> 
             <div class="control-group">
@@ -418,14 +418,20 @@
             <div class="control-group">
                 <label class="control-label" for="em_chieu_cao">Chiều cao</label>
                 <div class="controls">
-                    <?php echo $this->formText('em_chieu_cao', $this->arrParam['em_chieu_cao'], array('class' => 'input-xlarge')); ?> 
+                    <div class="input-prepend input-append">
+                        <?php echo $this->formText('em_chieu_cao', $this->arrParam['em_chieu_cao'], array('class' => 'input-xlarge')); ?> 
+                        <span class="add-on">cm</span>
+                    </div>                    
                 </div>
             </div>
 
             <div class="control-group">
-                <label class="control-label" for="em_nhom_mau">Cân nặng</label>
+                <label class="control-label" for="em_can_nang">Cân nặng</label>
                 <div class="controls">
-                    <?php echo $this->formText('em_nhom_mau', $this->arrParam['em_nhom_mau'], array('class' => 'input-xlarge')); ?> 
+                    <div class="input-prepend input-append">
+                        <?php echo $this->formText('em_can_nang', $this->arrParam['em_can_nang'], array('class' => 'input-xlarge')); ?> 
+                        <span class="add-on">kg</span>
+                    </div> 
                 </div>
             </div>
 
