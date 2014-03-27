@@ -93,6 +93,12 @@
                 </div>
             </div>
             <div class="control-group">
+                <label class="control-label" for="em_ton_giao">Tôn giáo</label>
+                <div class="controls">
+                    <?php echo $this->formText('em_ton_giao', $this->arrParam['em_ton_giao'], array()); ?>  
+                </div>
+            </div>
+            <div class="control-group">
                 <label class="control-label" for="em_home_phone">Điện thoại</label>
                 <div class="controls">
                     <div class="input-prepend input-append">
@@ -455,7 +461,7 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th style="width: 10%;"><button type="button" class="btn btn-primary">Thêm</button></th>
+                                <th style="width: 10%;"><button type="button" class="btn btn-primary" onclick="addLichSuDaoTao()">Thêm</button></th>
                                 <th style="width: 20%;">Tên trường</th>
                                 <th style="width: 20%;">Chuyên nghành</th>
                                 <th style="width: 20%;">Từ ngày - đến ngày</th>
@@ -463,27 +469,8 @@
                                 <th style="width: 15%;">Văn bằng</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>                                
-                                <td>
-                                    <button type="button" class="btn btn-danger">Xóa</button>
-                                </td>
-                                <td>
-                                    <?php echo $this->formText('em_gia_dinh_chinh_sach', $this->arrParam['em_gia_dinh_chinh_sach'], array('class' => 'input-medium')); ?> 
-                                </td>
-                                <td>
-                                    <?php echo $this->formText('em_gia_dinh_chinh_sach', $this->arrParam['em_gia_dinh_chinh_sach'], array('class' => 'input-small')); ?> 
-                                </td>
-                                <td>
-                                    <?php echo $this->formText('em_gia_dinh_chinh_sach', $this->arrParam['em_gia_dinh_chinh_sach'], array('class' => 'input-small')); ?> 
-                                </td>
-                                <td>
-                                    <?php echo $this->formText('em_gia_dinh_chinh_sach', $this->arrParam['em_gia_dinh_chinh_sach'], array('class' => 'input-mini')); ?> 
-                                </td>
-                                <td>
-                                    <?php echo $this->formText('em_gia_dinh_chinh_sach', $this->arrParam['em_gia_dinh_chinh_sach'], array('class' => 'input-mini')); ?> 
-                                </td>
-                            </tr>
+                        <tbody id="ct_lich_su_dao_tao">
+                            
                         </tbody>
                     </table>
                 </div>
@@ -494,23 +481,12 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th style="width: 10%;"><button type="button" class="btn btn-primary">Thêm</button></th>
+                                <th style="width: 10%;"><button type="button" class="btn btn-primary" onclick="addQuaTrinhCongtac()">Thêm</button></th>
                                 <th style="width: 25%;">Từ tháng/năm - đến tháng/năm</th>
                                 <th style="width: 65%;">Chi tiết</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>                                
-                                <td>
-                                    <button type="button" class="btn btn-danger">Xóa</button>
-                                </td>
-                                <td>
-                                    <?php echo $this->formText('em_gia_dinh_chinh_sach', $this->arrParam['em_gia_dinh_chinh_sach'], array('class' => 'input-medium')); ?> 
-                                </td>
-                                <td>
-                                    <?php echo $this->formText('em_gia_dinh_chinh_sach', $this->arrParam['em_gia_dinh_chinh_sach'], array('class' => 'input-xxlarge')); ?> 
-                                </td>
-                            </tr>
+                        <tbody id="ct_qua_trinh_cong_tac">
                         </tbody>
                     </table>
                 </div>
@@ -521,31 +497,14 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th style="width: 10%;"><button type="button" class="btn btn-primary">Thêm</button></th>
+                                <th style="width: 10%;"><button type="button" class="btn btn-primary" onclick="addGiaDinhBanThan()">Thêm</button></th>
                                 <th style="width: 15%;">Mối quan hệ</th>
                                 <th style="width: 20%;">Họ và tên</th>
                                 <th style="width: 20%;">Năm sinh</th>
                                 <th style="width: 35%;">Chi tiết</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>                                
-                                <td>
-                                    <button type="button" class="btn btn-danger">Xóa</button>
-                                </td>
-                                <td>
-                                    <?php echo $this->formText('em_gia_dinh_chinh_sach', $this->arrParam['em_gia_dinh_chinh_sach'], array('class' => 'input-small')); ?> 
-                                </td>
-                                <td>
-                                    <?php echo $this->formText('em_gia_dinh_chinh_sach', $this->arrParam['em_gia_dinh_chinh_sach'], array('class' => 'input-medium')); ?> 
-                                </td>
-                                <td>
-                                    <?php echo $this->formText('em_gia_dinh_chinh_sach', $this->arrParam['em_gia_dinh_chinh_sach'], array('class' => 'input-medium')); ?> 
-                                </td>
-                                <td>
-                                    <?php echo $this->formText('em_gia_dinh_chinh_sach', $this->arrParam['em_gia_dinh_chinh_sach'], array('class' => 'input-large')); ?> 
-                                </td>
-                            </tr>
+                        <tbody id="ct_gia_dinh_ban_than">                            
                         </tbody>
                     </table>
                 </div>
@@ -556,31 +515,14 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th style="width: 10%;"><button type="button" class="btn btn-primary">Thêm</button></th>
+                                <th style="width: 10%;"><button type="button" class="btn btn-primary" onclick="addGiaDinhVo()">Thêm</button></th>
                                 <th style="width: 15%;">Mối quan hệ</th>
                                 <th style="width: 20%;">Họ và tên</th>
                                 <th style="width: 20%;">Năm sinh</th>
                                 <th style="width: 35%;">Chi tiết</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>                                
-                                <td>
-                                    <button type="button" class="btn btn-danger">Xóa</button>
-                                </td>
-                                <td>
-                                    <?php echo $this->formText('em_gia_dinh_chinh_sach', $this->arrParam['em_gia_dinh_chinh_sach'], array('class' => 'input-small')); ?> 
-                                </td>
-                                <td>
-                                    <?php echo $this->formText('em_gia_dinh_chinh_sach', $this->arrParam['em_gia_dinh_chinh_sach'], array('class' => 'input-medium')); ?> 
-                                </td>
-                                <td>
-                                    <?php echo $this->formText('em_gia_dinh_chinh_sach', $this->arrParam['em_gia_dinh_chinh_sach'], array('class' => 'input-medium')); ?> 
-                                </td>
-                                <td>
-                                    <?php echo $this->formText('em_gia_dinh_chinh_sach', $this->arrParam['em_gia_dinh_chinh_sach'], array('class' => 'input-large')); ?> 
-                                </td>
-                            </tr>
+                        <tbody id="ct_gia_dinh_vo">                            
                         </tbody>
                     </table>
                 </div>
@@ -591,50 +533,36 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th style="width: 10%;"><button type="button" class="btn btn-primary">Thêm</button></th>
+                                <th style="width: 10%;"><button type="button" class="btn btn-primary" onclick="addQuaTrinhLuong()">Thêm</button></th>
                                 <th style="width: 30%;">tháng/năm</th>
-                                <th style="width: 30%;">Mã nghạc/bậc</th>
+                                <th style="width: 30%;">Mã nghạch/bậc</th>
                                 <th style="width: 30%;">Hệ số lương</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>                                
-                                <td>
-                                    <button type="button" class="btn btn-danger">Xóa</button>
-                                </td>
-                                <td>
-                                    <?php echo $this->formText('em_gia_dinh_chinh_sach', $this->arrParam['em_gia_dinh_chinh_sach'], array('class' => 'input-large')); ?> 
-                                </td>
-                                <td>
-                                    <?php echo $this->formText('em_gia_dinh_chinh_sach', $this->arrParam['em_gia_dinh_chinh_sach'], array('class' => 'input-large')); ?> 
-                                </td>
-                                <td>
-                                    <?php echo $this->formText('em_gia_dinh_chinh_sach', $this->arrParam['em_gia_dinh_chinh_sach'], array('class' => 'input-large')); ?> 
-                                </td>
-                            </tr>
+                        <tbody id="ct_qua_trinh_luong">
                         </tbody>
                     </table>
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label" for="em_van_hoa_pt"></label>
+                <label class="control-label" for="em_bi_bat"></label>
                 <div class="controls">
                     <span class="help-block">Khai rõ: bị bắt, bị tù (từ ngày tháng năm nào đến ngày tháng năm nào, ở đâu), đã khai báo cho ai, những vấn đề gì? Bản thân có làm việc trong chế độ cũ (cơ quan, đơn vị nào, địa điểm, chức danh, chức vụ, thời gian làm việc ....)</span>
-                    <?php echo $this->formTextarea('xnp_chi_tiet', $this->arrParam['xnp_chi_tiet'], array('class' => 'input-xlarge', 'rows' => 10, 'data-required' => '')); ?> 
+                    <?php echo $this->formTextarea('em_bi_bat', $this->arrParam['em_bi_bat'], array('class' => 'input-xlarge', 'rows' => 10, 'data-required' => '')); ?> 
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label" for="em_van_hoa_pt"></label>
+                <label class="control-label" for="em_tham_gia_to_chuc"></label>
                 <div class="controls">
                     <span class="help-block">Tham gia hoặc có quan hệ với các tổ chức chính trị, kinh tế, xã hội nào ở nước ngoài (làm gì, tổ chức nào, đặt trụ sở ở đâu .........?)</span>
-                    <?php echo $this->formTextarea('xnp_chi_tiet1', $this->arrParam['xnp_chi_tiet'], array('class' => 'input-xlarge', 'rows' => 10, 'data-required' => '')); ?> 
+                    <?php echo $this->formTextarea('em_tham_gia_to_chuc', $this->arrParam['em_tham_gia_to_chuc'], array('class' => 'input-xlarge', 'rows' => 10, 'data-required' => '')); ?> 
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label" for="em_van_hoa_pt"></label>
+                <label class="control-label" for="em_than_nhan_nuoc_ngoai"></label>
                 <div class="controls">
                     <span class="help-block">Có thân nhân (Cha, Mẹ, Vợ, Chồng, con, anh chị em ruột) ở nước ngoài (làm gì, địa chỉ)?</span>
-                    <?php echo $this->formTextarea('xnp_chi_tiet2', $this->arrParam['xnp_chi_tiet'], array('class' => 'input-xlarge', 'rows' => 10, 'data-required' => '')); ?> 
+                    <?php echo $this->formTextarea('em_than_nhan_nuoc_ngoai', $this->arrParam['em_than_nhan_nuoc_ngoai'], array('class' => 'input-xlarge', 'rows' => 10, 'data-required' => '')); ?> 
                 </div>
             </div>
         </fieldset>
