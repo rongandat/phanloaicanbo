@@ -124,6 +124,12 @@ class Tochuccanbo_CapnhatthongtinController extends Zend_Controller_Action {
         $chucvucongdoanModel = new Front_Model_ChucVuCongDoan();
         $list_chuc_vu_cong_doan = $chucvucongdoanModel->fetchData(array('cvcdoan_status' => 1));
 
+        $lyluanModel = new Front_Model_LyLuanChinhTri();
+        $list_ly_luan_chinh_tri = $lyluanModel->fetchData(array('llct_status' => 1));
+
+        $quanlynnModel = new Front_Model_QuanLyNhaNuoc();
+        $list_quan_ly_nn = $quanlynnModel->fetchData(array('qlnn_status' => 1));
+
         $error_message = array();
 
         $min = 10;
@@ -188,7 +194,37 @@ class Tochuccanbo_CapnhatthongtinController extends Zend_Controller_Action {
             $em_tin_hoc = $this->_arrParam['em_tin_hoc'];
             $em_chung_chi_khac = $this->_arrParam['em_chung_chi_khac'];
             $em_bang_scan_upload = $this->_arrParam['anh_bang_cap'];
-            $em_status = $this->_arrParam['em_status'];
+            
+            /* Moi them */
+            $em_ton_giao = trim($this->_arrParam['em_ton_giao']);
+            $em_noi_sinh_huyen = trim($this->_arrParam['em_noi_sinh_huyen']);
+            $em_noi_sinh_tinh = trim($this->_arrParam['em_noi_sinh_tinh']);
+            $em_que_quan_huyen = trim($this->_arrParam['em_que_quan_huyen']);
+            $em_que_quan_tinh = trim($this->_arrParam['em_que_quan_tinh']);
+            $em_noi_o = trim($this->_arrParam['em_noi_o']);
+            $em_noi_o_huyen = $this->_arrParam['em_noi_o_huyen'];
+            $em_noi_o_tinh = $this->_arrParam['em_noi_o_tinh'];
+            $em_ngay_nhap_ngu = trim($this->_arrParam['em_ngay_nhap_ngu']);
+            $em_ngay_xuat_ngu = trim($this->_arrParam['em_ngay_xuat_ngu']);
+            $em_quan_ham = trim($this->_arrParam['em_quan_ham']);
+            $em_danh_hieu = trim($this->_arrParam['em_danh_hieu']);
+            $em_so_bhxh = trim($this->_arrParam['em_so_bhxh']);
+            $em_tinh_trang_suc_khoe = trim($this->_arrParam['em_tinh_trang_suc_khoe']);
+            $em_chieu_cao = trim($this->_arrParam['em_chieu_cao']);
+            $em_can_nang = trim($this->_arrParam['em_can_nang']);
+            $em_nhom_mau = trim($this->_arrParam['em_nhom_mau']);
+            $em_thuong_binh = trim($this->_arrParam['em_thuong_binh']);
+            $em_gia_dinh_chinh_sach = trim($this->_arrParam['em_gia_dinh_chinh_sach']);
+            $em_lich_su_dao_tao = $this->_arrParam['em_lich_su_dao_tao'];
+            $em_qua_trinh_cong_tac = $this->_arrParam['em_qua_trinh_cong_tac'];
+            $em_gia_dinh_ban_than = $this->_arrParam['em_gia_dinh_ban_than'];
+            $em_gia_dinh_vo = $this->_arrParam['em_gia_dinh_vo'];
+            $em_qua_trinh_luong = $this->_arrParam['em_qua_trinh_luong'];
+            $em_bi_bat = trim($this->_arrParam['em_bi_bat']);
+            $em_tham_gia_to_chuc = trim($this->_arrParam['em_tham_gia_to_chuc']);
+            $em_than_nhan_nuoc_ngoai = trim($this->_arrParam['em_than_nhan_nuoc_ngoai']);
+            $em_ly_luan_chinh_tri = trim($this->_arrParam['em_ly_luan_chinh_tri']);
+            $em_quan_ly_nha_nuoc = trim($this->_arrParam['em_quan_ly_nha_nuoc']);
 
             $validator_length = new Zend_Validate_StringLength(array('min' => 2, 'max' => 255));
 
@@ -204,16 +240,22 @@ class Tochuccanbo_CapnhatthongtinController extends Zend_Controller_Action {
 
             if (!sizeof($error_message)) {
                 $current_time = new Zend_Db_Expr('NOW()');
-                
-                $ngay_sinh = str_replace('/', '-', $ngay_sinh); 
+
+                $ngay_sinh = str_replace('/', '-', $ngay_sinh);
                 $ngay_sinh = date('Y-m-d', strtotime($ngay_sinh));
-                
-                $ngay_dang = str_replace('/', '-', $ngay_dang); 
+
+                $ngay_dang = str_replace('/', '-', $ngay_dang);
                 $ngay_dang = date('Y-m-d', strtotime($ngay_dang));
-                
-                $ngay_doan = str_replace('/', '-', $ngay_doan); 
+
+                $ngay_doan = str_replace('/', '-', $ngay_doan);
                 $ngay_doan = date('Y-m-d', strtotime($ngay_doan));
-                
+
+                $em_ngay_nhap_ngu = str_replace('/', '-', $em_ngay_nhap_ngu);
+                $em_ngay_nhap_ngu = date('Y-m-d', strtotime($em_ngay_nhap_ngu));
+
+                $em_ngay_xuat_ngu = str_replace('/', '-', $em_ngay_xuat_ngu);
+                $em_ngay_xuat_ngu = date('Y-m-d', strtotime($em_ngay_xuat_ngu));
+
                 $data['em_ho'] = $em_ho;
                 $data['em_ten'] = $em_ten;
                 $data['em_ten_khac'] = $em_ten_khac;
@@ -241,6 +283,39 @@ class Tochuccanbo_CapnhatthongtinController extends Zend_Controller_Action {
                 $data['em_ngay_vao_dang'] = $ngay_dang;
                 $data['em_ngay_vao_doan'] = $ngay_doan;
                 $data['em_date_modified'] = $current_time;
+
+                /* Moi them */
+                $data['em_ton_giao'] = $em_ton_giao;
+                $data['em_noi_sinh_huyen'] = $em_noi_sinh_huyen;
+                $data['em_noi_sinh_tinh'] = $em_noi_sinh_tinh;
+                $data['em_que_quan_huyen'] = $em_que_quan_huyen;
+                $data['em_que_quan_tinh'] = $em_que_quan_tinh;
+                $data['em_noi_o'] = $em_noi_o;
+                $data['em_noi_o_huyen'] = $em_noi_o_huyen;
+                $data['em_noi_o_tinh'] = $em_noi_o_tinh;
+                $data['em_ngay_nhap_ngu'] = $em_ngay_nhap_ngu;
+                $data['em_ngay_xuat_ngu'] = $em_ngay_xuat_ngu;
+                $data['em_quan_ham'] = $em_quan_ham;
+                $data['em_danh_hieu'] = $em_danh_hieu;
+                $data['em_so_bhxh'] = $em_so_bhxh;
+                $data['em_tinh_trang_suc_khoe'] = $em_tinh_trang_suc_khoe;
+                $data['em_chieu_cao'] = $em_chieu_cao;
+                $data['em_can_nang'] = $em_can_nang;
+                $data['em_nhom_mau'] = $em_nhom_mau;
+                $data['em_thuong_binh'] = $em_thuong_binh;
+                $data['em_gia_dinh_chinh_sach'] = $em_gia_dinh_chinh_sach;
+                $data['em_lich_su_dao_tao'] = serialize($em_lich_su_dao_tao);
+                $data['em_qua_trinh_cong_tac'] = serialize($em_qua_trinh_cong_tac);
+                $data['em_gia_dinh_ban_than'] = serialize($em_gia_dinh_ban_than);
+                $data['em_gia_dinh_vo'] = serialize($em_gia_dinh_vo);
+                $data['em_qua_trinh_luong'] = serialize($em_qua_trinh_luong);
+                $data['em_bi_bat'] = $em_bi_bat;
+                $data['em_tham_gia_to_chuc'] = $em_tham_gia_to_chuc;
+                $data['em_than_nhan_nuoc_ngoai'] = $em_than_nhan_nuoc_ngoai;
+                $data['em_ly_luan_chinh_tri'] = $em_ly_luan_chinh_tri;
+                $data['em_quan_ly_nha_nuoc'] = $em_quan_ly_nha_nuoc;
+
+
                 $employeesModel->update($data, 'em_id=' . $employee_info->em_id);
                 $employeesEditModel->delete('eme_id=' . $employee_info->eme_id);
                 $success_message = 'Đã cập nhật thông tin thành công.';
@@ -258,13 +333,15 @@ class Tochuccanbo_CapnhatthongtinController extends Zend_Controller_Action {
         $this->view->list_chuc_vu_doan = $list_chuc_vu_doan;
         $this->view->list_chuc_vu_dang = $list_chuc_vu_dang;
         $this->view->list_chuc_vu_cong_doan = $list_chuc_vu_cong_doan;
+        $this->view->list_ly_luan_chinh_tri = $list_ly_luan_chinh_tri;
+        $this->view->list_quan_ly_nha_nuoc = $list_quan_ly_nn;
     }
 
     public function deleteAction() {
         $this->_helper->layout()->disableLayout();
         $id = $this->_getParam('id', 0);
         $employeeEditModel = new Front_Model_EmployeesEdit();
-        $employeeEditModel->delete(array('eme_id' => $id));
+        $employeeEditModel->delete('eme_id=' . $id);
         $this->_redirect('tochuccanbo/capnhatthongtin/index/page/' . $this->_page);
     }
 
@@ -274,7 +351,7 @@ class Tochuccanbo_CapnhatthongtinController extends Zend_Controller_Action {
         if ($this->_request->isPost()) {
             $item = $this->getRequest()->getPost('cid');
             foreach ($item as $k => $v) {
-                $employeeEditModel->delete(array('eme_id' => $v));
+                $employeeEditModel->delete('eme_id=' . $v);
             }
         }
         $this->_redirect('tochuccanbo/capnhatthongtin/index/page/' . $this->_page);

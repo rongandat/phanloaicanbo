@@ -28,11 +28,11 @@
                     <div class="controls">
                         <div class="input-prepend input-append">
                             <span class="add-on">Họ & Tên đệm</span>
-                            <?php echo $this->formText('em_ho', $this->employee_info->em_ho, array('required' => '', 'class' => 'input-small', 'placeholder' => 'Họ')); ?>                    
+                            <?php echo $this->formText('em_ho', $this->employee_info->em_ho, array('required' => '', 'class' => 'input-medium', 'placeholder' => 'Họ')); ?>                    
                         </div>
                         <div class="input-prepend input-append">
                             <span class="add-on">Tên</span>
-                            <?php echo $this->formText('em_ten', $this->employee_info->em_ten, array('required' => '', 'class' => 'input-small', 'placeholder' => 'Tên')); ?>  
+                            <?php echo $this->formText('em_ten', $this->employee_info->em_ten, array('required' => '', 'class' => 'input-medium', 'placeholder' => 'Tên')); ?>  
                         </div>
                         <span class="help-inline">(*)</span>
                         <span class="help-block">Nhập đầy đủ Họ và Tên của cán bộ</span>
@@ -332,7 +332,7 @@
 
             </fieldset>
             <fieldset>
-                <legend>Thông tin Đảng - Đoàn</legend>
+                <legend>Thông tin Đảng - Đoàn - Quân ngũ</legend>
                 <div class="control-group">
                     <label class="control-label" for="em_chuc_vu_dang">Chức vụ đảng</label>
                     <div class="controls">
@@ -591,7 +591,7 @@
                     </div>
                 </div>
                 <div class="control-group">
-                    <label class="control-label" for="em_van_hoa_pt">Gia đình (về bên vợ)</label>
+                    <label class="control-label" for="em_van_hoa_pt">Gia đình (về bên vợ/chồng)</label>
                     <div class="controls">
                         <table class="table table-bordered">
                             <thead>

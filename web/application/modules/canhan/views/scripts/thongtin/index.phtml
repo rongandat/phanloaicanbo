@@ -5,7 +5,7 @@
         <p class="lead">Thông tin cá nhân</p>
         <div class="row">
             <?php
-            $fullname = trim($this->employee_info->em_ho);            
+            $fullname = trim($this->employee_info->em_ho);
             $fullname .= ' ' . trim($this->employee_info->em_ten);
             ?>
             <div class="span4 float_left"><strong>Họ tên: </strong> <?php echo $fullname; ?></div>
@@ -37,16 +37,24 @@
         <div class="row">
             <div class="span6 float_left"><strong>Dân tộc: </strong> <?php echo $this->viewGetDanTocName($this->employee_info->em_dan_toc); ?></div>
         </div>
+        <div class="row">
+            <div class="span6 float_left"><strong>Tôn giáo: </strong> <?php echo $this->employee_info->em_ton_giao; ?></div>
+        </div>
         <div class="row">            
             <div class="span4 float_left"><strong>Số điện thoại: </strong> <?php echo $this->employee_info->em_home_phone; ?></div>
             <div class="span4 float_left"><strong>Di động: </strong> <?php echo $this->employee_info->em_phone; ?></div>
         </div>
         <div class="row">            
-            <div class="span4 float_left"><strong>Nơi sinh: </strong> <?php echo $this->employee_info->em_noi_sinh; ?></div>
-            <div class="span4 float_left"><strong>Quê quán: </strong> <?php echo $this->employee_info->em_que_quan; ?></div>
+            <div class="span9 float_left"><strong>Nơi sinh: </strong> <?php echo $this->employee_info->em_noi_sinh . ' - ' . $this->employee_info->em_noi_sinh_huyen . ' - ' . $this->employee_info->em_noi_sinh_tinh; ?></div>
+        </div>
+        <div class="row">            
+            <div class="span9 float_left"><strong>Quê quán: </strong> <?php echo $this->employee_info->em_que_quan . ' - ' . $this->employee_info->em_que_quan_huyen . ' - ' . $this->employee_info->em_que_quan_tinh; ?></div>
         </div>
         <div class="row">            
             <div class="span9 float_left"><strong>Địa chỉ: </strong> <?php echo $this->employee_info->em_dia_chi . ' - ' . $this->viewGetHuyenName($this->employee_info->em_dia_chi_huyen) . ' - ' . $this->viewGetTinhName($this->employee_info->em_dia_chi_tinh); ?></div>
+        </div>
+        <div class="row">            
+            <div class="span9 float_left"><strong>Nơi ở: </strong> <?php echo $this->employee_info->em_noi_o . ' - ' . $this->viewGetHuyenName($this->employee_info->em_noi_o_huyen) . ' - ' . $this->viewGetTinhName($this->employee_info->em_noi_o_tinh); ?></div>
         </div>
 
         <br/>
@@ -62,7 +70,14 @@
             <div class="span4 float_left"><strong>Ngày tuyển dụng: </strong> <?php echo date('d-m-Y', strtotime($this->employee_info->em_ngay_tuyen_dung)); ?></div>
         </div>
         <div class="row">            
+            <div class="span9 float_left"><strong>Cơ quan tuyển dụng: </strong> <?php echo $this->employee_info->em_co_quan_tuyen_dung; ?></div>
+        </div>
+        <div class="row">            
+            <div class="span9 float_left"><strong>Nghề nghiệp trước khi tuyển dụng: </strong> <?php echo $this->employee_info->em_cong_viec_khi_tuyen_dung; ?></div>
+        </div>
+        <div class="row">            
             <div class="span4 float_left"><strong>Ngạch công chức: </strong> <?php echo $this->viewGetNgachCongChucName($this->employee_info->em_ngach_cong_chuc); ?></div>
+            <div class="span4 float_left"><strong>Mã nghạch: </strong> <?php echo $this->employee_info->em_ma_ngach; ?></div>
         </div>
         <div class="row">            
             <div class="span4 float_left"><strong>Công việc: </strong> <?php echo $this->employee_info->em_cong_viec; ?></div>
@@ -71,7 +86,7 @@
 
         <br/>
         <p class="lead">Thông tin Đảng - Đoàn</p>
-        
+
         <div class="row">            
             <div class="span4 float_left"><strong>Chức vụ đảng: </strong> <?php echo $this->viewGetChucVuDangName($this->employee_info->em_chuc_vu_dang); ?></div>
         </div>
@@ -87,6 +102,180 @@
         <div class="row">            
             <div class="span4 float_left"><strong>Chức vụ công đoàn: </strong> <?php echo $this->viewGetChucVuCongDoanName($this->employee_info->em_chuc_vu_cong_doan); ?></div>
         </div>
+        <div class="row">            
+            <div class="span4 float_left"><strong>Ngày nhập ngũ: </strong> <?php echo $this->employee_info->em_chuc_vu_dang ? date('d-m-Y', strtotime($this->employee_info->em_ngay_nhap_ngu)) : ''; ?></div>
+        </div>
+        <div class="row">            
+            <div class="span4 float_left"><strong>Ngày xuất ngũ: </strong> <?php echo $this->employee_info->em_chuc_vu_dang ? date('d-m-Y', strtotime($this->employee_info->em_ngay_xuat_ngu)) : ''; ?></div>
+        </div>
+        <div class="row">            
+            <div class="span9 float_left"><strong>Quân hàm cao nhất: </strong> <?php echo $this->employee_info->em_quan_ham; ?></div>
+        </div>
+        <div class="row">            
+            <div class="span9 float_left"><strong>Danh hiệu cao nhất: </strong> <?php echo $this->employee_info->em_danh_hieu; ?></div>
+        </div>
+
+        <br/>
+        <p class="lead">Thông tin sức khỏe</p>
+        <div class="row">            
+            <div class="span4 float_left"><strong>Số sổ BHXH: </strong> <?php echo $this->employee_info->em_so_bhxh; ?></div>
+        </div>
+        <div class="row">            
+            <div class="span9 float_left"><strong>Tình trạng sức khỏe: </strong> <?php echo $this->employee_info->em_tinh_trang_suc_khoe; ?></div>
+        </div>
+        <div class="row">            
+            <div class="span4 float_left"><strong>Chiều cao: </strong> <?php echo $this->employee_info->em_chieu_cao; ?> cm</div>
+        </div>
+        <div class="row">            
+            <div class="span9 float_left"><strong>Cân nặng: </strong> <?php echo $this->employee_info->em_can_nang; ?> kg</div>
+        </div>
+        <div class="row">            
+            <div class="span9 float_left"><strong>Nhóm máu: </strong> <?php echo strtoupper($this->employee_info->em_nhom_mau); ?></div>
+        </div>
+        <div class="row">            
+            <div class="span9 float_left"><strong>Thương binh hạng: </strong> <?php echo $this->employee_info->em_thuong_binh; ?></div>
+        </div>
+        <div class="row">            
+            <div class="span9 float_left"><strong>Con gia đình chính sách: </strong> <?php echo $this->employee_info->em_gia_dinh_chinh_sach; ?></div>
+        </div>
+
+        <br/>
+        <p class="lead">Thông tin lịch sử</p>
+        <div class="row">            
+            <div class="span9 float_left"><strong>Lịch sử đào tạo: </strong></div>
+            <div class="span9 float_left">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th style="width: 25%;">Tên trường</th>
+                            <th style="width: 25%;">Chuyên nghành</th>
+                            <th style="width: 20%;">Từ ngày - đến ngày</th>
+                            <th style="width: 15%;">Hình thức đào tạo</th>
+                            <th style="width: 15%;">Văn bằng</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ct_lich_su_dao_tao">
+                        <?php
+                        foreach (unserialize($this->employee_info->em_lich_su_dao_tao) as $item) {
+                            echo '<tr>  
+                                    <td>' . $item['ten_truong'] . '</td>
+                                    <td>' . $item['chuyen_nghanh'] . '</td>
+                                    <td>' . $item['ngay_thang'] . '</td>
+                                    <td>' . $item['hinh_thuc'] . '</td>
+                                    <td>' . $item['van_bang'] . '</td>
+                                </tr>';
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="row">            
+            <div class="span9 float_left"><strong>Quá trình công tác: </strong></div>
+            <div class="span9 float_left">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th style="width: 40%;">Từ tháng/năm - đến tháng/năm</th>
+                            <th style="width: 60%;">Chi tiết</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        foreach (unserialize($this->employee_info->em_qua_trinh_cong_tac) as $item) {
+                            echo '<tr>  
+                                    <td>' . $item['ngay_thang'] . '</td>
+                                    <td>' . $item['chi_tiet'] . '</td>
+                                </tr>';
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="row">            
+            <div class="span9 float_left"><strong>Thành phần gia đình (về bản thân): </strong></div>
+            <div class="span9 float_left">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th style="width: 20%;">Mối quan hệ</th>
+                            <th style="width: 20%;">Họ và tên</th>
+                            <th style="width: 20%;">Năm sinh</th>
+                            <th style="width: 40%;">Chi tiết</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        foreach (unserialize($this->employee_info->em_gia_dinh_ban_than) as $item) {
+                            echo '<tr>  
+                                    <td>' . $item['moi_quan_he'] . '</td>
+                                    <td>' . $item['ho_ten'] . '</td>
+                                    <td>' . $item['nam_sinh'] . '</td>
+                                    <td>' . $item['chi_tiet'] . '</td>
+                                </tr>';
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="row">            
+            <div class="span9 float_left"><strong>Thành phần gia đình (về bên vợ/chồng): </strong></div>
+            <div class="span9 float_left">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th style="width: 20%;">Mối quan hệ</th>
+                            <th style="width: 20%;">Họ và tên</th>
+                            <th style="width: 20%;">Năm sinh</th>
+                            <th style="width: 40%;">Chi tiết</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        foreach (unserialize($this->employee_info->em_gia_dinh_vo) as $item) {
+                            echo '<tr>  
+                                    <td>' . $item['moi_quan_he'] . '</td>
+                                    <td>' . $item['ho_ten'] . '</td>
+                                    <td>' . $item['nam_sinh'] . '</td>
+                                    <td>' . $item['chi_tiet'] . '</td>
+                                </tr>';
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="row">            
+            <div class="span9 float_left"><strong>Quá trình lương: </strong></div>
+            <div class="span9 float_left">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th style="width: 30%;">tháng/năm</th>
+                            <th style="width: 40%;">Mã nghạch/bậc</th>
+                            <th style="width: 30%;">Hệ số lương</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        foreach (unserialize($this->employee_info->em_qua_trinh_luong) as $item) {
+                            echo '<tr>  
+                                    <td>' . $item['ngay_thang'] . '</td>
+                                    <td>' . $item['ma_ngach'] . '</td>
+                                    <td>' . $item['he_so'] . '</td>
+                                </tr>';
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
         <br/>
         <p class="lead">Thông tin học vấn</p>
@@ -95,6 +284,14 @@
             <div class="span4 float_left"><strong>Văn hóa phổ thông: </strong> <?php echo $this->employee_info->em_van_hoa_pt; ?></div>
         </div>
 
+        <div class="row">            
+            <div class="span4 float_left"><strong>Lý luận chính trị: </strong> <?php echo $this->viewGetLyLuanChinhTriName($this->employee_info->em_ly_luan_chinh_tri); ?></div>
+        </div>  
+        
+        <div class="row">            
+            <div class="span4 float_left"><strong>Quản lý nhà nước: </strong> <?php echo $this->viewGetQuanLyNhaNuocName($this->employee_info->em_quan_ly_nha_nuoc); ?></div>
+        </div>    
+        
         <div class="row">            
             <div class="span4 float_left"><strong>Học hàm cao nhất: </strong> <?php echo $this->viewGetHocHamName($this->employee_info->em_hoc_ham); ?></div>
         </div>       
@@ -125,10 +322,10 @@
             foreach (unserialize($this->employee_info->em_anh_bang_cap) as $anh_scan) {
                 if (!$count_image) {
                     $ol_html.= '<li data-target="#myCarousel" data-slide-to="' . $count_image . '" class="active"></li>';
-                    $inner_html.= '<div class="item active"><img src="' . $this->baseUrl('public/uploads/') . $anh_scan . '" class="anh_bang_cap_slide"></div>';
+                    $inner_html.= '<div class="item active"><img src="' . $this->baseUrl('public/uploads/') . $anh_scan['anh'] . '" class="anh_bang_cap_slide"><div class="carousel-caption"><h4>' . $anh_scan['name'] . '</h4></div></div>';
                 } else {
                     $ol_html.= '<li data-target="#myCarousel" data-slide-to="' . $count_image . '" class=""></li>';
-                    $inner_html.= '<div class="item"><img src="' . $this->baseUrl('public/uploads/') . $anh_scan . '" class="anh_bang_cap_slide"></div>';
+                    $inner_html.= '<div class="item"><img src="' . $this->baseUrl('public/uploads/') . $anh_scan['anh'] . '" class="anh_bang_cap_slide"><div class="carousel-caption"><h4>' . $anh_scan['name'] . '</h4></div></div>';
                 }
                 $count_image++;
             }
@@ -144,7 +341,7 @@
                 <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>
             </div>
         </div>
-        
+
         <div class="control-group">
             <div class="controls">
                 <p>  
@@ -152,7 +349,7 @@
                 </p>
             </div>
         </div>
-        
+
     </div> 
 
 </div>

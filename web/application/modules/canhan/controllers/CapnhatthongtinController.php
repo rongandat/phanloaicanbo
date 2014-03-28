@@ -41,7 +41,7 @@ class Canhan_CapnhatthongtinController extends Zend_Controller_Action {
         $this->view->headTitle($this->view->title);
 
         $layoutPath = APPLICATION_PATH . '/templates/' . TEMPLATE_USED;
-        $option = array('layout' => 'canhan/layout',
+        $option = array('layout' => '1_column/layout',
             'layoutPath' => $layoutPath);
         Zend_Layout::startMvc($option);
 
@@ -87,6 +87,12 @@ class Canhan_CapnhatthongtinController extends Zend_Controller_Action {
         $chucvucongdoanModel = new Front_Model_ChucVuCongDoan();
         $list_chuc_vu_cong_doan = $chucvucongdoanModel->fetchData(array('cvcdoan_status' => 1));
         
+        $lyluanModel = new Front_Model_LyLuanChinhTri();
+        $list_ly_luan_chinh_tri = $lyluanModel->fetchData(array('llct_status' => 1));
+
+        $quanlynnModel = new Front_Model_QuanLyNhaNuoc();
+        $list_quan_ly_nn = $quanlynnModel->fetchData(array('qlnn_status' => 1));
+        
         $error_message = array();
 
         $min = 10;
@@ -122,9 +128,7 @@ class Canhan_CapnhatthongtinController extends Zend_Controller_Action {
                 }
                 $data['eme_anh_the'] = $arrFileName['em_anh_the'];
             }
-            //echo '<pre>';
-            //Zend_Debug::dump($this->_arrParam);
-            //echo '</pre>';
+            
             $em_ho = trim($this->_arrParam['em_ho']);
             $em_ten = trim($this->_arrParam['em_ten']);
             $em_ten_khac = $this->_arrParam['em_ten_khac'];
@@ -151,8 +155,38 @@ class Canhan_CapnhatthongtinController extends Zend_Controller_Action {
             $em_tin_hoc = $this->_arrParam['em_tin_hoc'];
             $em_chung_chi_khac = $this->_arrParam['em_chung_chi_khac'];
             $em_bang_scan_upload = $this->_arrParam['anh_bang_cap'];
-            $em_status = $this->_arrParam['em_status'];
-
+            
+            /* Moi them */
+            $em_ton_giao = trim($this->_arrParam['em_ton_giao']);
+            $em_noi_sinh_huyen = trim($this->_arrParam['em_noi_sinh_huyen']);
+            $em_noi_sinh_tinh = trim($this->_arrParam['em_noi_sinh_tinh']);
+            $em_que_quan_huyen = trim($this->_arrParam['em_que_quan_huyen']);
+            $em_que_quan_tinh = trim($this->_arrParam['em_que_quan_tinh']);
+            $em_noi_o = trim($this->_arrParam['em_noi_o']);
+            $em_noi_o_huyen = $this->_arrParam['em_noi_o_huyen'];
+            $em_noi_o_tinh = $this->_arrParam['em_noi_o_tinh'];            
+            $em_ngay_nhap_ngu = trim($this->_arrParam['em_ngay_nhap_ngu']);
+            $em_ngay_xuat_ngu = trim($this->_arrParam['em_ngay_xuat_ngu']);
+            $em_quan_ham = trim($this->_arrParam['em_quan_ham']);
+            $em_danh_hieu = trim($this->_arrParam['em_danh_hieu']);
+            $em_so_bhxh = trim($this->_arrParam['em_so_bhxh']);
+            $em_tinh_trang_suc_khoe = trim($this->_arrParam['em_tinh_trang_suc_khoe']);
+            $em_chieu_cao = trim($this->_arrParam['em_chieu_cao']);
+            $em_can_nang = trim($this->_arrParam['em_can_nang']);
+            $em_nhom_mau = trim($this->_arrParam['em_nhom_mau']);
+            $em_thuong_binh = trim($this->_arrParam['em_thuong_binh']);
+            $em_gia_dinh_chinh_sach = trim($this->_arrParam['em_gia_dinh_chinh_sach']);
+            $em_lich_su_dao_tao = $this->_arrParam['em_lich_su_dao_tao'];
+            $em_qua_trinh_cong_tac = $this->_arrParam['em_qua_trinh_cong_tac'];
+            $em_gia_dinh_ban_than = $this->_arrParam['em_gia_dinh_ban_than'];
+            $em_gia_dinh_vo = $this->_arrParam['em_gia_dinh_vo'];
+            $em_qua_trinh_luong = $this->_arrParam['em_qua_trinh_luong'];
+            $em_bi_bat = trim($this->_arrParam['em_bi_bat']);
+            $em_tham_gia_to_chuc = trim($this->_arrParam['em_tham_gia_to_chuc']);
+            $em_than_nhan_nuoc_ngoai = trim($this->_arrParam['em_than_nhan_nuoc_ngoai']);
+            $em_ly_luan_chinh_tri = trim($this->_arrParam['em_ly_luan_chinh_tri']);
+            $em_quan_ly_nha_nuoc = trim($this->_arrParam['em_quan_ly_nha_nuoc']);
+            
             $validator_length = new Zend_Validate_StringLength(array('min' => 2, 'max' => 255));
 
             //kiem tra dữ liệu
@@ -176,6 +210,12 @@ class Canhan_CapnhatthongtinController extends Zend_Controller_Action {
                 
                 $ngay_doan = str_replace('/', '-', $ngay_doan); 
                 $ngay_doan = date('Y-m-d', strtotime($ngay_doan));
+                
+                $em_ngay_nhap_ngu = str_replace('/', '-', $em_ngay_nhap_ngu);
+                $em_ngay_nhap_ngu = date('Y-m-d', strtotime($em_ngay_nhap_ngu));
+
+                $em_ngay_xuat_ngu = str_replace('/', '-', $em_ngay_xuat_ngu);
+                $em_ngay_xuat_ngu = date('Y-m-d', strtotime($em_ngay_xuat_ngu));
                 
                 $data['eme_ho'] = $em_ho;
                 $data['eme_ten'] = $em_ten;
@@ -204,6 +244,37 @@ class Canhan_CapnhatthongtinController extends Zend_Controller_Action {
                 $data['eme_ngay_vao_dang'] = $ngay_dang;
                 $data['eme_ngay_vao_doan'] = $ngay_doan;
                 $data['eme_date_modified'] = $current_time;
+                
+                /* Moi them */
+                $data['eme_ton_giao'] = $em_ton_giao;
+                $data['eme_noi_sinh_huyen'] = $em_noi_sinh_huyen;
+                $data['eme_noi_sinh_tinh'] = $em_noi_sinh_tinh;
+                $data['eme_que_quan_huyen'] = $em_que_quan_huyen;
+                $data['eme_que_quan_tinh'] = $em_que_quan_tinh;
+                $data['eme_noi_o'] = $em_noi_o;
+                $data['eme_noi_o_huyen'] = $em_noi_o_huyen;
+                $data['eme_noi_o_tinh'] = $em_noi_o_tinh;                
+                $data['eme_ngay_nhap_ngu'] = $em_ngay_nhap_ngu;
+                $data['eme_ngay_xuat_ngu'] = $em_ngay_xuat_ngu;
+                $data['eme_quan_ham'] = $em_quan_ham;
+                $data['eme_danh_hieu'] = $em_danh_hieu;
+                $data['eme_so_bhxh'] = $em_so_bhxh;
+                $data['eme_tinh_trang_suc_khoe'] = $em_tinh_trang_suc_khoe;
+                $data['eme_chieu_cao'] = $em_chieu_cao;
+                $data['eme_can_nang'] = $em_can_nang;
+                $data['eme_nhom_mau'] = $em_nhom_mau;
+                $data['eme_thuong_binh'] = $em_thuong_binh;
+                $data['eme_gia_dinh_chinh_sach'] = $em_gia_dinh_chinh_sach;
+                $data['eme_lich_su_dao_tao'] = serialize($em_lich_su_dao_tao);
+                $data['eme_qua_trinh_cong_tac'] = serialize($em_qua_trinh_cong_tac);
+                $data['eme_gia_dinh_ban_than'] = serialize($em_gia_dinh_ban_than);
+                $data['eme_gia_dinh_vo'] = serialize($em_gia_dinh_vo);
+                $data['eme_qua_trinh_luong'] = serialize($em_qua_trinh_luong);
+                $data['eme_bi_bat'] = $em_bi_bat;
+                $data['eme_tham_gia_to_chuc'] = $em_tham_gia_to_chuc;
+                $data['eme_than_nhan_nuoc_ngoai'] = $em_than_nhan_nuoc_ngoai;
+                $data['eme_ly_luan_chinh_tri'] = $em_ly_luan_chinh_tri;
+                $data['eme_quan_ly_nha_nuoc'] = $em_quan_ly_nha_nuoc;
 
                 $checkExit = $employeesEditModel->fetchRow('em_id=' . $id);
                 if ($checkExit) {
@@ -228,5 +299,7 @@ class Canhan_CapnhatthongtinController extends Zend_Controller_Action {
         $this->view->list_chuc_vu_doan = $list_chuc_vu_doan;
         $this->view->list_chuc_vu_dang = $list_chuc_vu_dang;
         $this->view->list_chuc_vu_cong_doan = $list_chuc_vu_cong_doan;
+        $this->view->list_ly_luan_chinh_tri = $list_ly_luan_chinh_tri;
+        $this->view->list_quan_ly_nha_nuoc = $list_quan_ly_nn;
     }
 }
