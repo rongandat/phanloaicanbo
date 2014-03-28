@@ -744,7 +744,7 @@
                     alert('Upload không thành công.\n Xin hãy thử lại.');
                 }else{   
                     var unix = Math.round(+new Date()/1000);
-                    $('#tbd_anh_bang_cap').append("<tr id=\""+unix+"\"><td><input type=\"hidden\" name=\"anh_bang_cap[]\" value=\""+data.file_name+"\"/><img src=\"<?php echo $this->baseUrl('public/uploads/'); ?>" + data.file_name + "\" class=\"img-polaroid anh_bang_cap\"></td> <td> <button class=\"btn btn-small btn btn-danger\" type=\"button\" onclick=\"deleteAnhScan('"+unix+"')\">Xóa</button></td></tr>");
+                    $('#tbd_anh_bang_cap').append("<tr id=\""+unix+"\"><td><input type=\"text\" name=\"anh_bang_cap["+unix+"][name]\" placeholder=\"Tên\" class=\"input-xlarge\"></td><td><input type=\"hidden\" name=\"anh_bang_cap["+unix+"][anh]\" value=\""+data.file_name+"\"/><img src=\"<?php echo $this->baseUrl('public/uploads/'); ?>" + data.file_name + "\" class=\"img-polaroid anh_bang_cap\"></td> <td> <button class=\"btn btn-small btn btn-danger\" type=\"button\" onclick=\"deleteAnhScan('"+unix+"')\">Xóa</button></td></tr>");
                 }
             }
         });
@@ -781,7 +781,7 @@
             buttonImage: site_url+"/date-picker-icon.png",
             buttonImageOnly: true
         });
-        $( "#ngay_tuyen_dung" ).datepicker({
+        $( "#em_ngay_tuyen_dung" ).datepicker({
             yearRange: '1900:2050',
             changeMonth: true,
             changeYear: true,
@@ -792,7 +792,8 @@
             buttonImage: site_url+"/date-picker-icon.png",
             buttonImageOnly: true
         });
-        $( "#ngay_nhap_ngu" ).datepicker({
+        
+        $( "#em_ngay_nhap_ngu" ).datepicker({
             yearRange: '1900:2050',
             changeMonth: true,
             changeYear: true,
@@ -803,7 +804,8 @@
             buttonImage: site_url+"/date-picker-icon.png",
             buttonImageOnly: true
         });
-        $( "#ngay_xuat_ngu" ).datepicker({
+        
+        $( "#em_ngay_xuat_ngu" ).datepicker({
             yearRange: '1900:2050',
             changeMonth: true,
             changeYear: true,
@@ -842,7 +844,7 @@
                 ngay_sinh: {
                     vietnameeseDate: true
                 },
-                ngay_tuyen_dung: {
+                em_ngay_tuyen_dung: {
                     vietnameeseDate: true
                 },
                 ngay_dang: {
@@ -851,10 +853,10 @@
                 ngay_doan: {
                     vietnameeseDate: true
                 },
-                ngay_nhap_ngu: {
+                em_ngay_nhap_ngu: {
                     vietnameeseDate: true
                 },
-                ngay_xuat_ngu: {
+                em_ngay_xuat_ngu: {
                     vietnameeseDate: true
                 }
             },

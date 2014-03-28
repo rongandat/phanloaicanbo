@@ -26,10 +26,16 @@
                 <div class="control-group">
                     <label class="control-label" for="em_ho">Họ Tên</label>
                     <div class="controls">
-                        <?php echo $this->formText('em_ho', $this->employee_info->em_ho, array('required' => '', 'class' => 'input-small', 'placeholder' => 'Họ')); ?>                    
-                        <?php echo $this->formText('em_ten', $this->employee_info->em_ten, array('required' => '', 'class' => 'input-small', 'placeholder' => 'Tên')); ?>  
+                        <div class="input-prepend input-append">
+                            <span class="add-on">Họ & Tên đệm</span>
+                            <?php echo $this->formText('em_ho', $this->employee_info->em_ho, array('required' => '', 'class' => 'input-small', 'placeholder' => 'Họ')); ?>                    
+                        </div>
+                        <div class="input-prepend input-append">
+                            <span class="add-on">Tên</span>
+                            <?php echo $this->formText('em_ten', $this->employee_info->em_ten, array('required' => '', 'class' => 'input-small', 'placeholder' => 'Tên')); ?>  
+                        </div>
                         <span class="help-inline">(*)</span>
-                        <span class="help-block">Nhập đầy đủ Họ và Tên của cán bộ, Tên đệm có thể bỏ trống nếu không có.</span>
+                        <span class="help-block">Nhập đầy đủ Họ và Tên của cán bộ</span>
                     </div>
                 </div>
                 <div class="control-group">
@@ -80,62 +86,6 @@
                 </div> 
 
                 <div class="control-group">
-                    <label class="control-label" for="em_home_phone">Điện thoại</label>
-                    <div class="controls">
-                        <?php echo $this->formText('em_home_phone', $this->employee_info->em_home_phone, array('class' => 'input-small', 'placeholder' => 'Điện thoại')); ?>                    
-                        <?php echo $this->formText('em_phone', $this->employee_info->em_phone, array('placeholder' => 'Di động')); ?>                    
-                    </div>
-                </div> 
-                <div class="control-group">
-                    <label class="control-label" for="em_noi_sinh">Nơi sinh</label>
-                    <div class="controls">
-                        <?php echo $this->formText('em_noi_sinh', $this->employee_info->em_noi_sinh, array('class' => 'input-xlarge')); ?>                    
-
-                    </div>
-                </div> 
-                <div class="control-group">
-                    <label class="control-label" for="em_que_quan">Quê quán</label>
-                    <div class="controls">
-                        <?php echo $this->formText('em_que_quan', $this->employee_info->em_que_quan, array('class' => 'input-xlarge')); ?>                    
-
-                    </div>
-                </div> 
-                <div class="control-group">
-                    <label class="control-label" for="em_dia_chi">Địa chỉ</label>
-                    <div class="controls">
-                        <?php echo $this->formText('em_dia_chi', $this->employee_info->em_dia_chi, array('class' => 'input-xlarge')); ?> 
-                    </div>
-                </div> 
-
-
-                <div class="control-group">
-                    <label class="control-label" for="em_dia_chi_tinh">Tỉnh</label>
-                    <div class="controls">
-                        <?php
-                        $tinh_options = array(0 => '');
-                        foreach ($this->list_tinh as $tinh) {
-                            $tinh_options[$tinh->tinh_id] = $tinh->tinh_name;
-                        }
-                        echo $this->formSelect('em_dia_chi_tinh', $this->employee_info->em_dia_chi_tinh, array('class' => 'input-medium', 'onchange' => 'changeTinh()'), $tinh_options);
-                        ?>                    
-
-                    </div>
-                </div> 
-
-                <div class="control-group">
-                    <label class="control-label" for="em_dia_chi_huyen">Huyện</label>
-                    <div class="controls">
-                        <?php
-                        $huyen_options = array(0 => '');
-                        foreach ($this->list_huyen as $huyen) {
-                            $huyen_options[$huyen->huyen_id] = $huyen->huyen_name;
-                        }
-                        echo $this->formSelect('em_dia_chi_huyen', $this->employee_info->em_dia_chi_huyen, array('class' => 'input-medium'), $huyen_options);
-                        ?> 
-                    </div>
-                </div> 
-
-                <div class="control-group">
                     <label class="control-label" for="em_dan_toc">Dân tộc</label>
                     <div class="controls">
                         <?php
@@ -148,6 +98,122 @@
                     </div>
                 </div> 
 
+                <div class="control-group">
+                    <label class="control-label" for="em_ton_giao">Tôn giáo</label>
+                    <div class="controls">
+                        <?php echo $this->formText('em_ton_giao', $this->employee_info->em_ton_giao, array()); ?>  
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="em_home_phone">Điện thoại</label>
+                    <div class="controls">
+                        <div class="input-prepend input-append">
+                            <span class="add-on">Cố định</span>
+                            <?php echo $this->formText('em_home_phone', $this->employee_info->em_home_phone, array('class' => 'input-small', 'placeholder' => 'Điện thoại')); ?>                    
+                        </div>
+                        <div class="input-prepend input-append">
+                            <span class="add-on">Di động</span>
+                            <?php echo $this->formText('em_phone', $this->employee_info->em_phone, array('placeholder' => 'Di động')); ?>                                       
+                        </div>
+
+                    </div>
+                </div> 
+
+                <div class="control-group">
+                    <label class="control-label" for="em_noi_sinh">Nơi sinh</label>
+                    <div class="controls">
+                        <div class="input-prepend input-append">
+                            <span class="add-on">Xã</span>
+                            <?php echo $this->formText('em_noi_sinh', $this->employee_info->em_noi_sinh, array('class' => 'input-xlarge')); ?>                    
+                        </div>
+                        <div class="input-prepend input-append">
+                            <span class="add-on">Huyện</span>
+                            <?php echo $this->formText('em_noi_sinh_huyen', $this->employee_info->em_noi_sinh_huyen, array('class' => 'input-medium')); ?>                    
+                        </div>
+                        <div class="input-prepend input-append">
+                            <span class="add-on">Tỉnh</span>
+                            <?php echo $this->formText('em_noi_sinh_tinh', $this->employee_info->em_noi_sinh_tinh, array('class' => 'input-medium')); ?>                    
+                        </div>                    
+                    </div>
+                </div> 
+
+                <div class="control-group">
+                    <label class="control-label" for="em_que_quan">Quê quán</label>
+                    <div class="controls">
+                        <div class="input-prepend input-append">
+                            <span class="add-on">Xã</span>
+                            <?php echo $this->formText('em_que_quan', $this->employee_info->em_que_quan, array('class' => 'input-xlarge')); ?>                    
+                        </div>
+                        <div class="input-prepend input-append">
+                            <span class="add-on">Huyện</span>
+                            <?php echo $this->formText('em_que_quan_huyen', $this->employee_info->em_que_quan_huyen, array('class' => 'input-medium')); ?>                    
+                        </div>
+                        <div class="input-prepend input-append">
+                            <span class="add-on">Tỉnh</span>
+                            <?php echo $this->formText('em_que_quan_tinh', $this->employee_info->em_que_quan_tinh, array('class' => 'input-medium')); ?>                    
+                        </div>
+                    </div>
+                </div> 
+
+
+                <div class="control-group">
+                    <label class="control-label" for="em_dia_chi">Địa chỉ</label>
+                    <div class="controls">
+                        <div class="input-prepend input-append">
+                            <span class="add-on">Số Nhà/Xã</span>
+                            <?php echo $this->formText('em_dia_chi', $this->employee_info->em_dia_chi, array('class' => 'input-xlarge')); ?> 
+                        </div>
+
+                        <div class="input-prepend input-append">
+                            <span class="add-on">Tỉnh</span>
+                            <?php
+                            $tinh_options = array(0 => '');
+                            foreach ($this->list_tinh as $tinh) {
+                                $tinh_options[$tinh->tinh_id] = $tinh->tinh_name;
+                            }
+                            echo $this->formSelect('em_dia_chi_tinh', $this->employee_info->em_dia_chi_tinh, array('class' => 'input-medium', 'onchange' => 'changeTinh(0)'), $tinh_options);
+                            ?>
+                        </div>
+
+                        <div class="input-prepend input-append">
+                            <span class="add-on">Huyện</span>
+                            <?php
+                            $huyen_options = array(0 => '');
+                            foreach ($this->list_huyen as $huyen) {
+                                $huyen_options[$huyen->huyen_id] = $huyen->huyen_name;
+                            }
+                            echo $this->formSelect('em_dia_chi_huyen', $this->employee_info->em_dia_chi_huyen, array('class' => 'input-medium'), $huyen_options);
+                            ?> 
+                        </div>
+                        <span class="help-block">Nơi đăng ký bộ khẩu thường trú.</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="em_noi_o">Nơi ở</label>
+                    <div class="controls">
+                        <div class="input-prepend input-append">
+                            <span class="add-on">Số Nhà/Xã</span>
+                            <?php echo $this->formText('em_noi_o', $this->employee_info->em_noi_o, array('class' => 'input-medium')); ?> 
+                        </div>
+
+                        <div class="input-prepend input-append">
+                            <span class="add-on">Tỉnh</span>
+                            <?php
+                            echo $this->formSelect('em_noi_o_tinh', $this->employee_info->em_noi_o_tinh, array('class' => 'input-medium', 'onchange' => 'changeTinh(1)'), $tinh_options);
+                            ?>
+                        </div>
+
+                        <div class="input-prepend input-append">
+                            <span class="add-on">Huyện</span>
+                            <?php
+                            echo $this->formSelect('em_noi_o_huyen', $this->employee_info->em_noi_o_huyen, array('class' => 'input-medium'), $huyen_options);
+                            ?> 
+                        </div>
+                        <span class="help-block">Địa chỉ nơi ở hiện nay.</span>
+                    </div>
+                </div>
 
             </fieldset>
 
@@ -163,7 +229,30 @@
                 </div>
 
                 <div class="control-group">
-                    <label class="control-label" for="em_chuc_vu">Chức vụ</label>
+                    <label class="control-label" for="em_ngay_tuyen_dung">Ngày tuyển dụng</label>
+                    <div class="controls">                        
+                        <?php echo $this->formText('em_ngay_tuyen_dung', date('d/m/Y', strtotime($this->employee_info->em_ngay_tuyen_dung)), array('class' => 'input-medium', 'placeholder' => 'Ngày tuyển dụng')); ?> 
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="em_co_quan_tuyen_dung">Cơ quan tuyển dụng</label>
+                    <div class="controls">
+
+                        <?php echo $this->formText('em_co_quan_tuyen_dung', $this->employee_info->em_co_quan_tuyen_dung, array('class' => 'input-xlarge')); ?> 
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="em_cong_viec_khi_tuyen_dung">Nghề nghiệp khi được tuyển dụng</label>
+                    <div class="controls">
+
+                        <?php echo $this->formText('em_cong_viec_khi_tuyen_dung', $this->employee_info->em_cong_viec_khi_tuyen_dung, array('class' => 'input-xlarge')); ?> 
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="em_chuc_vu">Chức vụ hiện tại</label>
                     <div class="controls">
                         <?php
                         $chuc_vu_options = array(0 => '');
@@ -176,7 +265,7 @@
                 </div> 
 
                 <div class="control-group">
-                    <label class="control-label" for="em_phong_ban">Đơn vị</label>
+                    <label class="control-label" for="em_phong_ban">Đơn vị hiện tại</label>
                     <div class="controls">
                         <?php
                         $phong_ban_options = array(0 => '');
@@ -187,13 +276,6 @@
                         ?> 
                     </div>
                 </div>              
-
-                <div class="control-group">
-                    <label class="control-label" for="ngay_tuyen_dung">Ngày tuyển dụng</label>
-                    <div class="controls">                        
-                        <?php echo $this->formText('ngay_tuyen_dung', date('d/m/Y', strtotime($this->employee_info->em_ngay_tuyen_dung)), array('class' => 'input-medium', 'placeholder' => 'Ngày tuyển dụng')); ?> 
-                    </div>
-                </div>
 
                 <div class="control-group">
                     <label class="control-label" for="em_ngach_cong_chuc">Ngạch công chức</label>
@@ -209,7 +291,15 @@
                 </div>
 
                 <div class="control-group">
-                    <label class="control-label" for="em_cong_viec">Công việc</label>
+                    <label class="control-label" for="em_ma_ngach">Mã nghạch</label>
+                    <div class="controls">
+
+                        <?php echo $this->formText('em_ma_ngach', $this->employee_info->em_ma_ngach, array('class' => 'input-xlarge')); ?> 
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="em_cong_viec">Công việc hiện tại</label>
                     <div class="controls">
 
                         <?php echo $this->formText('em_cong_viec', $this->employee_info->em_cong_viec, array('class' => 'input-xlarge')); ?> 
@@ -221,6 +311,22 @@
                     <div class="controls">
 
                         <?php echo $this->formText('em_chuyen_mon', $this->employee_info->em_chuyen_mon, array('class' => 'input-xlarge')); ?> 
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="em_khen_thuong">Khen thưởng</label>
+                    <div class="controls">
+                        <?php echo $this->formText('em_khen_thuong', $this->employee_info->em_khen_thuong, array('class' => 'input-xlarge')); ?> 
+                        <span class="help-block">Hình thức cao nhất, năm nào</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="em_ky_luat">Kỷ luật</label>
+                    <div class="controls">
+                        <?php echo $this->formText('em_ky_luat', $this->employee_info->em_ky_luat, array('class' => 'input-xlarge')); ?> 
+                        <span class="help-block">Về đảng, chính quyền, đoàn thể hình thức cao nhất, năm nào</span>
                     </div>
                 </div>
 
@@ -276,6 +382,311 @@
                         ?>                     
                     </div>
                 </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="em_ngay_nhap_ngu">Ngày nhập ngũ</label>
+                    <div class="controls">                    
+                        <?php echo $this->formText('em_ngay_nhap_ngu', date('d/m/Y', strtotime($this->employee_info->em_ngay_nhap_ngu)), array('class' => 'input-medium')); ?>                    
+                    </div>
+                </div> 
+
+                <div class="control-group">
+                    <label class="control-label" for="em_ngay_xuat_ngu">Ngày xuất ngũ</label>
+                    <div class="controls">                    
+                        <?php echo $this->formText('em_ngay_xuat_ngu', date('d/m/Y', strtotime($this->employee_info->em_ngay_xuat_ngu)), array('class' => 'input-medium')); ?>                    
+                    </div>
+                </div> 
+                <div class="control-group">
+                    <label class="control-label" for="em_quan_ham">Quân hàm cao nhất</label>
+                    <div class="controls">
+
+                        <?php echo $this->formText('em_quan_ham', $this->employee_info->em_quan_ham, array('class' => 'input-xlarge')); ?> 
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="em_danh_hieu">Danh hiệu cao nhất</label>
+                    <div class="controls">
+                        <?php echo $this->formText('em_danh_hieu', $this->employee_info->em_danh_hieu, array('class' => 'input-xlarge')); ?> 
+                        <span class="help-block">Anh hùng lao động, anh hùng lực lượng vũ trang; nhà giáo, thày thuốc, nghệ sĩ nhân dân và ưu tú, …</span>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Thông tin sức khỏe</legend>
+                <div class="control-group">
+                    <label class="control-label" for="em_so_bhxh">Số sổ BHXH</label>
+                    <div class="controls">
+                        <?php echo $this->formText('em_so_bhxh', $this->employee_info->em_so_bhxh, array('class' => 'input-medium')); ?> 
+                    </div>
+                </div> 
+
+                <div class="control-group">
+                    <label class="control-label" for="em_tinh_trang_suc_khoe">Tình trạng sức khỏe</label>
+                    <div class="controls">
+                        <?php echo $this->formText('em_tinh_trang_suc_khoe', $this->employee_info->em_tinh_trang_suc_khoe, array('class' => 'input-xlarge')); ?> 
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="em_chieu_cao">Chiều cao</label>
+                    <div class="controls">
+                        <div class="input-prepend input-append">
+                            <?php echo $this->formText('em_chieu_cao', $this->employee_info->em_chieu_cao, array('class' => 'input-xlarge')); ?> 
+                            <span class="add-on">cm</span>
+                        </div>                    
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="em_can_nang">Cân nặng</label>
+                    <div class="controls">
+                        <div class="input-prepend input-append">
+                            <?php echo $this->formText('em_can_nang', $this->employee_info->em_can_nang, array('class' => 'input-xlarge')); ?> 
+                            <span class="add-on">kg</span>
+                        </div> 
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="em_nhom_mau">Nhóm máu</label>
+                    <div class="controls">
+                        <?php echo $this->formText('em_nhom_mau', $this->employee_info->em_nhom_mau, array('class' => 'input-xlarge')); ?> 
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="em_thuong_binh">Thương binh hạng</label>
+                    <div class="controls">
+                        <?php echo $this->formText('em_thuong_binh', $this->employee_info->em_thuong_binh, array('class' => 'input-xlarge')); ?> 
+
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="em_gia_dinh_chinh_sach">Con gia đình chính sách</label>
+                    <div class="controls">
+                        <?php echo $this->formText('em_gia_dinh_chinh_sach', $this->employee_info->em_gia_dinh_chinh_sach, array('class' => 'input-xlarge')); ?> 
+                        <span class="help-block">Con thương binh, con liệt sĩ, người nhiễm chất độc da cam Dioxin</span>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Thông tin lịch sử bản thân</legend>
+                <div class="control-group">
+                    <label class="control-label" for="em_van_hoa_pt">Lịch sử đào tạo</label>
+                    <div class="controls">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th style="width: 10%;"><button type="button" class="btn btn-primary" onclick="addLichSuDaoTao()">Thêm</button></th>
+                                    <th style="width: 20%;">Tên trường</th>
+                                    <th style="width: 20%;">Chuyên nghành</th>
+                                    <th style="width: 20%;">Từ ngày - đến ngày</th>
+                                    <th style="width: 15%;">Hình thức đào tạo</th>
+                                    <th style="width: 15%;">Văn bằng</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ct_lich_su_dao_tao">
+                                <?php
+                                foreach (unserialize($this->employee_info->em_lich_su_dao_tao) as $item) {
+                                    $random_id = mt_rand();
+                                    echo '<tr id="' . $random_id . '">                           
+                                            <td>
+                                                <button type="button" class="btn btn-danger" onclick="deleteNode(\'' . $random_id . '\')">Xóa</button>
+                                            </td>
+                                            <td>
+                                                <input type="text" name="em_lich_su_dao_tao[' . $random_id . '][ten_truong]" value="' . $item['ten_truong'] . '" class="input-medium">
+                                            </td>
+                                            <td>
+                                                <input type="text" name="em_lich_su_dao_tao[' . $random_id . '][chuyen_nghanh]" value="' . $item['chuyen_nghanh'] . '" class="input-small">
+                                            </td>
+                                            <td>
+                                                <input type="text" name="em_lich_su_dao_tao[' . $random_id . '][ngay_thang]" value="' . $item['ngay_thang'] . '" class="input-small">
+                                            </td>
+                                            <td>
+                                                <input type="text" name="em_lich_su_dao_tao[' . $random_id . '][hinh_thuc]" value="' . $item['hinh_thuc'] . '" class="input-mini">
+                                            </td>
+                                            <td>
+                                                <input type="text" name="em_lich_su_dao_tao[' . $random_id . '][van_bang]" value="' . $item['van_bang'] . '" class="input-mini">
+                                            </td>
+                                        </tr>';
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="em_van_hoa_pt">Quá trình công tác</label>
+                    <div class="controls">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th style="width: 10%;"><button type="button" class="btn btn-primary" onclick="addQuaTrinhCongtac()">Thêm</button></th>
+                                    <th style="width: 25%;">Từ tháng/năm - đến tháng/năm</th>
+                                    <th style="width: 65%;">Chi tiết</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ct_qua_trinh_cong_tac">
+                                <?php
+                                foreach (unserialize($this->employee_info->em_qua_trinh_cong_tac) as $item) {
+                                    $random_id = mt_rand();
+                                    echo '<tr id="' . $random_id . '">                           
+                                            <td>
+                                                <button type="button" class="btn btn-danger" onclick="deleteNode(\'' . $random_id . '\')">Xóa</button>
+                                            </td>
+                                            <td>
+                                                <input type="text" name="em_qua_trinh_cong_tac[' . $random_id . '][ngay_thang]" value="' . $item['ngay_thang'] . '" class="input-medium">
+                                            </td>
+                                            <td>
+                                                <input type="text" name="em_qua_trinh_cong_tac[' . $random_id . '][chi_tiet]" value="' . $item['chi_tiet'] . '" class="input-xlarge">
+                                            </td>
+                                        </tr>';
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="em_van_hoa_pt">Gia đình (về bản thân)</label>
+                    <div class="controls">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th style="width: 10%;"><button type="button" class="btn btn-primary" onclick="addGiaDinhBanThan()">Thêm</button></th>
+                                    <th style="width: 15%;">Mối quan hệ</th>
+                                    <th style="width: 20%;">Họ và tên</th>
+                                    <th style="width: 20%;">Năm sinh</th>
+                                    <th style="width: 35%;">Chi tiết</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ct_gia_dinh_ban_than">  
+                                <?php
+                                foreach (unserialize($this->employee_info->em_gia_dinh_ban_than) as $item) {
+                                    $random_id = mt_rand();
+                                    echo '<tr id="' . $random_id . '">                           
+                                            <td>
+                                                <button type="button" class="btn btn-danger" onclick="deleteNode(\'' . $random_id . '\')">Xóa</button>
+                                            </td>
+                                            <td>
+                                                <input type="text" name="em_gia_dinh_ban_than[' . $random_id . '][moi_quan_he]" value="' . $item['moi_quan_he'] . '" class="input-small">
+                                            </td>
+                                            <td>
+                                                <input type="text" name="em_gia_dinh_ban_than[' . $random_id . '][ho_ten]" value="' . $item['ho_ten'] . '" class="input-medium">
+                                            </td>
+                                            <td>
+                                                <input type="text" name="em_gia_dinh_ban_than[' . $random_id . '][nam_sinh]" value="' . $item['nam_sinh'] . '" class="input-medium">
+                                            </td>
+                                            <td>
+                                                <input type="text" name="em_gia_dinh_ban_than[' . $random_id . '][chi_tiet]" value="' . $item['chi_tiet'] . '" class="input-large">
+                                            </td>
+                                        </tr>';
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="em_van_hoa_pt">Gia đình (về bên vợ)</label>
+                    <div class="controls">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th style="width: 10%;"><button type="button" class="btn btn-primary" onclick="addGiaDinhVo()">Thêm</button></th>
+                                    <th style="width: 15%;">Mối quan hệ</th>
+                                    <th style="width: 20%;">Họ và tên</th>
+                                    <th style="width: 20%;">Năm sinh</th>
+                                    <th style="width: 35%;">Chi tiết</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ct_gia_dinh_vo">  
+                                <?php
+                                foreach (unserialize($this->employee_info->em_gia_dinh_vo) as $item) {
+                                    $random_id = mt_rand();
+                                    echo '<tr id="' . $random_id . '">                           
+                                            <td>
+                                                <button type="button" class="btn btn-danger" onclick="deleteNode(\'' . $random_id . '\')">Xóa</button>
+                                            </td>
+                                            <td>
+                                                <input type="text" name="em_gia_dinh_vo[' . $random_id . '][moi_quan_he]" value="' . $item['moi_quan_he'] . '" class="input-small">
+                                            </td>
+                                            <td>
+                                                <input type="text" name="em_gia_dinh_vo[' . $random_id . '][ho_ten]" value="' . $item['ho_ten'] . '" class="input-medium">
+                                            </td>
+                                            <td>
+                                                <input type="text" name="em_gia_dinh_vo[' . $random_id . '][nam_sinh]" value="' . $item['nam_sinh'] . '" class="input-medium">
+                                            </td>
+                                            <td>
+                                                <input type="text" name="em_gia_dinh_vo[' . $random_id . '][chi_tiet]" value="' . $item['chi_tiet'] . '" class="input-large">
+                                            </td>
+                                        </tr>';
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="em_van_hoa_pt">Quá trình lương</label>
+                    <div class="controls">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th style="width: 10%;"><button type="button" class="btn btn-primary" onclick="addQuaTrinhLuong()">Thêm</button></th>
+                                    <th style="width: 30%;">tháng/năm</th>
+                                    <th style="width: 30%;">Mã nghạch/bậc</th>
+                                    <th style="width: 30%;">Hệ số lương</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ct_qua_trinh_luong">
+                                <?php
+                                foreach (unserialize($this->employee_info->em_qua_trinh_luong) as $item) {
+                                    $random_id = mt_rand();
+                                    echo '<tr id="' . $random_id . '">                           
+                                            <td>
+                                                <button type="button" class="btn btn-danger" onclick="deleteNode(\'' . $random_id . '\')">Xóa</button>
+                                            </td>
+                                            <td>
+                                                <input type="text" name="em_qua_trinh_luong[' . $random_id . '][ngay_thang]" value="' . $item['ngay_thang'] . '" class="input-large">
+                                            </td>
+                                            <td>
+                                                <input type="text" name="em_qua_trinh_luong[' . $random_id . '][ma_ngach]" value="' . $item['ma_ngach'] . '" class="input-large">
+                                            </td>
+                                            <td>
+                                                <input type="text" name="em_qua_trinh_luong[' . $random_id . '][he_so]" value="' . $item['he_so'] . '" class="input-medium">
+                                            </td>
+                                        </tr>';
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="em_bi_bat"></label>
+                    <div class="controls">
+                        <span class="help-block">Khai rõ: bị bắt, bị tù (từ ngày tháng năm nào đến ngày tháng năm nào, ở đâu), đã khai báo cho ai, những vấn đề gì? Bản thân có làm việc trong chế độ cũ (cơ quan, đơn vị nào, địa điểm, chức danh, chức vụ, thời gian làm việc ....)</span>
+                        <?php echo $this->formTextarea('em_bi_bat', $this->employee_info->em_bi_bat, array('class' => 'input-xlarge', 'rows' => 10, 'data-required' => '')); ?> 
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="em_tham_gia_to_chuc"></label>
+                    <div class="controls">
+                        <span class="help-block">Tham gia hoặc có quan hệ với các tổ chức chính trị, kinh tế, xã hội nào ở nước ngoài (làm gì, tổ chức nào, đặt trụ sở ở đâu .........?)</span>
+                        <?php echo $this->formTextarea('em_tham_gia_to_chuc', $this->employee_info->em_tham_gia_to_chuc, array('class' => 'input-xlarge', 'rows' => 10, 'data-required' => '')); ?> 
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="em_than_nhan_nuoc_ngoai"></label>
+                    <div class="controls">
+                        <span class="help-block">Có thân nhân (Cha, Mẹ, Vợ, Chồng, con, anh chị em ruột) ở nước ngoài (làm gì, địa chỉ)?</span>
+                        <?php echo $this->formTextarea('em_than_nhan_nuoc_ngoai', $this->employee_info->em_than_nhan_nuoc_ngoai, array('class' => 'input-xlarge', 'rows' => 10, 'data-required' => '')); ?> 
+                    </div>
+                </div>
             </fieldset>
 
             <fieldset>
@@ -285,6 +696,32 @@
                     <div class="controls">
 
                         <?php echo $this->formText('em_van_hoa_pt', $this->employee_info->em_van_hoa_pt, array('class' => 'input-xlarge')); ?> 
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="em_ly_luan_chinh_tri">Lý luận chính trị</label>
+                    <div class="controls">
+                        <?php
+                        $ly_luan_options = array(0 => '');
+                        foreach ($this->list_ly_luan_chinh_tri as $ly_luan) {
+                            $ly_luan_options[$ly_luan->llct_id] = $ly_luan->llct_name;
+                        }
+                        echo $this->formSelect('em_ly_luan_chinh_tri', $this->employee_info->em_ly_luan_chinh_tri, array('class' => 'input-medium'), $ly_luan_options);
+                        ?> 
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="em_quan_ly_nha_nuoc">Quản lý nhà nước</label>
+                    <div class="controls">
+                        <?php
+                        $quan_ly_nn_options = array(0 => '');
+                        foreach ($this->list_quan_ly_nha_nuoc as $quan_ly_nn) {
+                            $quan_ly_nn_options[$quan_ly_nn->qlnn_id] = $quan_ly_nn->qlnn_name;
+                        }
+                        echo $this->formSelect('em_quan_ly_nha_nuoc', $this->employee_info->em_quan_ly_nha_nuoc, array('class' => 'input-medium'), $quan_ly_nn_options);
+                        ?> 
                     </div>
                 </div>
 
@@ -368,7 +805,7 @@
                                 <?php
                                 foreach (unserialize($this->employee_info->em_anh_bang_cap) as $anh_scan) {
                                     $random_id = mt_rand();
-                                    echo '<tr id="' . $random_id . '"><td><input type="hidden" name="anh_bang_cap[]" value="' . $anh_scan . '"/><img src="' . $this->baseUrl('public/uploads/') . $anh_scan . '" class="img-polaroid anh_bang_cap"></td> <td> <button class="btn btn-small btn btn-danger" type="button" onclick="deleteAnhScan(\'' . $random_id . '\')">Xóa</button></td></tr>';
+                                    echo '<tr id="' . $random_id . '"><td><input type="text" name="anh_bang_cap[' . $random_id . '][name]" placeholder="Tên" value="' . $anh_scan['name'] . '" class="input-xlarge"></td><td><input type="hidden" name="anh_bang_cap[' . $random_id . '][anh]" value="' . $anh_scan['anh'] . '"/><img src="' . $this->baseUrl('public/uploads/') . $anh_scan['anh'] . '" class="img-polaroid anh_bang_cap"></td> <td> <button class="btn btn-small btn btn-danger" type="button" onclick="deleteAnhScan(\'' . $random_id . '\')">Xóa</button></td></tr>';
                                 }
                                 ?>
                             </tbody>
@@ -435,7 +872,7 @@
                     alert('Upload không thành công.\n Xin hãy thử lại.');
                 }else{   
                     var unix = Math.round(+new Date()/1000);
-                    $('#tbd_anh_bang_cap').append("<tr id=\""+unix+"\"><td><input type=\"hidden\" name=\"anh_bang_cap[]\" value=\""+data.file_name+"\"/><img src=\"<?php echo $this->baseUrl('public/uploads/'); ?>" + data.file_name + "\" class=\"img-polaroid anh_bang_cap\"></td> <td> <button class=\"btn btn-small btn btn-danger\" type=\"button\" onclick=\"deleteAnhScan('"+unix+"')\">Xóa</button></td></tr>");
+                    $('#tbd_anh_bang_cap').append("<tr id=\""+unix+"\"><td><input type=\"text\" name=\"anh_bang_cap["+unix+"][name]\" placeholder=\"Tên\" class=\"input-xlarge\"></td><td><input type=\"hidden\" name=\"anh_bang_cap["+unix+"][anh]\" value=\""+data.file_name+"\"/><img src=\"<?php echo $this->baseUrl('public/uploads/'); ?>" + data.file_name + "\" class=\"img-polaroid anh_bang_cap\"></td> <td> <button class=\"btn btn-small btn btn-danger\" type=\"button\" onclick=\"deleteAnhScan('"+unix+"')\">Xóa</button></td></tr>");
                 }
             }
         });
@@ -472,7 +909,31 @@
             buttonImage: site_url+"/date-picker-icon.png",
             buttonImageOnly: true
         });
-        $( "#ngay_tuyen_dung" ).datepicker({
+        $( "#em_ngay_tuyen_dung" ).datepicker({
+            yearRange: '1900:2050',
+            changeMonth: true,
+            changeYear: true,
+            defaultDate: "+1w",
+            numberOfMonths: 1,
+            dateFormat: 'd/m/yy',
+            showOn: "button",
+            buttonImage: site_url+"/date-picker-icon.png",
+            buttonImageOnly: true
+        });
+        
+        $( "#em_ngay_nhap_ngu" ).datepicker({
+            yearRange: '1900:2050',
+            changeMonth: true,
+            changeYear: true,
+            defaultDate: "+1w",
+            numberOfMonths: 1,
+            dateFormat: 'd/m/yy',
+            showOn: "button",
+            buttonImage: site_url+"/date-picker-icon.png",
+            buttonImageOnly: true
+        });
+        
+        $( "#em_ngay_xuat_ngu" ).datepicker({
             yearRange: '1900:2050',
             changeMonth: true,
             changeYear: true,
@@ -511,13 +972,19 @@
                 ngay_sinh: {
                     vietnameeseDate: true
                 },
-                ngay_tuyen_dung: {
+                em_ngay_tuyen_dung: {
                     vietnameeseDate: true
                 },
                 ngay_dang: {
                     vietnameeseDate: true
                 },
                 ngay_doan: {
+                    vietnameeseDate: true
+                },
+                em_ngay_nhap_ngu: {
+                    vietnameeseDate: true
+                },
+                em_ngay_xuat_ngu: {
                     vietnameeseDate: true
                 }
             },
@@ -531,10 +998,28 @@
         
     });    
     
-    function changeTinh(){
-        var tinh_id = $('#em_dia_chi_tinh').val();
+    function changeTinh(type_tinh){
+        $.blockUI({
+            message: '<h3>Đang lọc huyện</h3>',
+            css: {                         
+                border: 'none', 
+                padding: '15px', 
+                backgroundColor: '#000', 
+                '-webkit-border-radius': '10px', 
+                '-moz-border-radius': '10px', 
+                opacity: .5, 
+                color: '#fff' 
+            }
+        }); 
         
         var select = $('#em_dia_chi_huyen');
+        var tinh_id = $('#em_dia_chi_tinh').val();
+        
+        if(type_tinh){
+            tinh_id = $('#em_noi_o_tinh').val();
+            select = $('#em_noi_o_huyen');
+        }
+        
         if(select.prop) {
             var options = select.prop('options');
         }
@@ -544,7 +1029,8 @@
         $('option', select).remove();
 
 
-        $.getJSON( site_url+'/tochuccanbo/employees/gethuyen/tid/'+tinh_id, function( data ) {            
+        $.getJSON( site_url+'/tochuccanbo/employees/gethuyen/tid/'+tinh_id, function( data ) { 
+            $.unblockUI();
             $.each( data, function( key, val ) {
                 select.append('<option value="'+val.id+'">'+val.name+'</option>');
             });
