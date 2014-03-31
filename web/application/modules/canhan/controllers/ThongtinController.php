@@ -43,6 +43,11 @@ class Canhan_ThongtinController extends Zend_Controller_Action {
         $this->view->employee_info = $employeeInfo;
     }
 
+    public function printerAction(){
+        $this->_helper->layout()->disableLayout();
+        
+    }
+    
     public function mau2cAction() {
         $translate = Zend_Registry::get('Zend_Translate');
         $this->view->title = 'Quản lý tài khoản - ' . $translate->_('TEXT_DEFAULT_TITLE');
