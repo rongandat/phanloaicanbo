@@ -1,0 +1,43 @@
+body {
+  font-family: "Times New Roman", Times, serif;
+}
+
+table{
+	width: 100%;
+	padding:0;
+	margin:0;
+	border:0;
+}
+
+table.tb_main{
+	width:900px;
+}
+
+table.tb_border{
+	border:1px solid #000;
+}
+
+tr{
+	padding:0;
+	margin:0;
+}
+
+td {
+	font-family: "Times New Roman", Times, serif;
+	padding:0;
+	margin:0;
+	vertical-align:middle;
+	height:30px;
+}
+
+th {
+	font-family: "Times New Roman", Times, serif;
+}
+
+td.cl_anh{
+	border: 1px solid #000;
+	width:150px;
+	height:200px;
+	text-align: center;
+	vertical-align: middle;
+}
