@@ -167,6 +167,7 @@ class Canhan_CapnhatthongtinController extends Zend_Controller_Action {
             $em_noi_o_tinh = $this->_arrParam['em_noi_o_tinh'];            
             $em_ngay_nhap_ngu = trim($this->_arrParam['em_ngay_nhap_ngu']);
             $em_ngay_xuat_ngu = trim($this->_arrParam['em_ngay_xuat_ngu']);
+            $em_cmt_ngay_cap = trim($this->_arrParam['em_cmt_ngay_cap']);
             $em_quan_ham = trim($this->_arrParam['em_quan_ham']);
             $em_danh_hieu = trim($this->_arrParam['em_danh_hieu']);
             $em_so_bhxh = trim($this->_arrParam['em_so_bhxh']);
@@ -217,10 +218,14 @@ class Canhan_CapnhatthongtinController extends Zend_Controller_Action {
                 $em_ngay_xuat_ngu = str_replace('/', '-', $em_ngay_xuat_ngu);
                 $em_ngay_xuat_ngu = date('Y-m-d', strtotime($em_ngay_xuat_ngu));
                 
+                $em_cmt_ngay_cap = str_replace('/', '-', $em_cmt_ngay_cap);
+                $em_cmt_ngay_cap = date('Y-m-d', strtotime($em_cmt_ngay_cap));
+                
                 $data['eme_ho'] = $em_ho;
                 $data['eme_ten'] = $em_ten;
                 $data['eme_ten_khac'] = $em_ten_khac;
                 $data['eme_so_chung_minh_thu'] = $em_so_chung_minh_thu;
+                $data['eme_cmt_ngay_cap'] = $em_cmt_ngay_cap;
                 $data['eme_gioi_tinh'] = $em_gioi_tinh;
                 $data['eme_home_phone'] = $em_home_phone;
                 $data['eme_phone'] = $em_phone;

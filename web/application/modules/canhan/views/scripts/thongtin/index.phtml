@@ -20,7 +20,8 @@
             <div class="span6 float_left"><strong>Ngày sinh: </strong> <?php echo date('d-m-Y', strtotime($this->employee_info->em_ngay_sinh)); ?></div>
         </div>
         <div class="row">
-            <div class="span6 float_left"><strong>Số chứng minh thư: </strong> <?php echo $this->employee_info->em_so_chung_minh_thu; ?></div>
+            <div class="span4 float_left"><strong>Số chứng minh thư: </strong> <?php echo $this->employee_info->em_so_chung_minh_thu; ?></div>
+            <div class="span4 float_left"><strong>Ngày cấp: </strong> <?php echo ($this->employee_info->em_cmt_ngay_cap? date('d-m-Y', strtotime($this->employee_info->em_cmt_ngay_cap)):''); ?></div>
         </div>
         <div class="row">
             <div class="span4 float_left">

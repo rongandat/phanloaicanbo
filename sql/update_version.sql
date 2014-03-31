@@ -33,6 +33,8 @@ ALTER TABLE `employees` ADD COLUMN `em_ton_giao` VARCHAR(255) AFTER `em_chuc_vu_
  ADD COLUMN `em_ly_luan_chinh_tri` INTEGER UNSIGNED AFTER `em_chuc_vu_cong_doan`,
  ADD COLUMN `em_quan_ly_nha_nuoc` INTEGER UNSIGNED AFTER `em_chuc_vu_cong_doan`;
 
+ALTER TABLE `employees` ADD COLUMN `em_cmt_ngay_cap` DATETIME AFTER `em_so_chung_minh_thu`;
+
 
 ALTER TABLE `employees_edit` ADD COLUMN `eme_ton_giao` VARCHAR(255) AFTER `eme_anh_bang_cap`,
  ADD COLUMN `eme_noi_sinh_huyen` VARCHAR(255) AFTER `eme_anh_bang_cap`,
@@ -65,3 +67,5 @@ ALTER TABLE `employees_edit` ADD COLUMN `eme_ton_giao` VARCHAR(255) AFTER `eme_a
  ADD COLUMN `eme_quan_ly_nha_nuoc` INTEGER UNSIGNED AFTER `eme_anh_bang_cap`;
 
 ALTER TABLE `employees_edit` DROP COLUMN `eme_status`;
+
+ALTER TABLE `employees_edit` ADD COLUMN `eme_cmt_ngay_cap` DATETIME AFTER `eme_so_chung_minh_thu`;

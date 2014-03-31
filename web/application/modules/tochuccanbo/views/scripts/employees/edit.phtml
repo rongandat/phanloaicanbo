@@ -51,7 +51,15 @@
                     <div class="controls">
                         <?php echo $this->formText('em_so_chung_minh_thu', $this->employee_info->em_so_chung_minh_thu, array('class' => 'input-medium', 'placeholder' => 'Số chứng minh thư')); ?> 
                     </div>
-                </div>            
+                </div>       
+
+                <div class="control-group">
+                    <label class="control-label" for="em_cmt_ngay_cap">Ngày cấp</label>
+                    <div class="controls">
+                        <?php echo $this->formText('em_cmt_ngay_cap', date('d/m/Y', strtotime($this->employee_info->em_cmt_ngay_cap)), array('class' => 'input-medium')); ?> 
+                    </div>
+                </div>     
+
                 <div class="control-group">
                     <label class="control-label" for="em_anh_the">Ảnh thẻ</label>
                     <div class="controls">
@@ -945,6 +953,18 @@
             buttonImageOnly: true
         });
         
+        $( "#em_cmt_ngay_cap" ).datepicker({
+            yearRange: '1900:2050',
+            changeMonth: true,
+            changeYear: true,
+            defaultDate: "+1w",
+            numberOfMonths: 1,
+            dateFormat: 'd/m/yy',
+            showOn: "button",
+            buttonImage: site_url+"/date-picker-icon.png",
+            buttonImageOnly: true
+        });
+        
         $.validator.addMethod('vietnameeseDate',
         function (value, element) {
             if (this.optional(element)) {
@@ -985,6 +1005,9 @@
                     vietnameeseDate: true
                 },
                 em_ngay_xuat_ngu: {
+                    vietnameeseDate: true
+                },
+                em_cmt_ngay_cap: {
                     vietnameeseDate: true
                 }
             },
