@@ -78,6 +78,14 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
         $this->view->list_ngach_cong_chuc = $list_ngach_cong_chuc;
     }
 
+    public function printerAction(){
+        $this->_helper->layout()->disableLayout();
+        $id = $this->_getParam('id', 0);
+        $employeeModel = new Front_Model_Employees();
+        $employeeInfo = $employeeModel->fetchRow('em_id=' . $id);
+        $this->view->employee_info = $employeeInfo;
+    }
+    
     public function searchAction() {
         $translate = Zend_Registry::get('Zend_Translate');
         $this->view->title = 'Quản lý cán bộ - ' . $translate->_('TEXT_DEFAULT_TITLE');

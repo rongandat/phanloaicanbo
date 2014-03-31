@@ -43,11 +43,15 @@ class Canhan_ThongtinController extends Zend_Controller_Action {
         $this->view->employee_info = $employeeInfo;
     }
 
-    public function printerAction(){
+    public function printerAction() {
         $this->_helper->layout()->disableLayout();
-        
+        $auth = Zend_Auth::getInstance();
+        $identity = $auth->getIdentity();
+        $employeeModel = new Front_Model_Employees();
+        $employeeInfo = $employeeModel->fetchRow('em_id=' . $identity->em_id);
+        $this->view->employee_info = $employeeInfo;
     }
-    
+
     public function mau2cAction() {
         $translate = Zend_Registry::get('Zend_Translate');
         $this->view->title = 'Quản lý tài khoản - ' . $translate->_('TEXT_DEFAULT_TITLE');
