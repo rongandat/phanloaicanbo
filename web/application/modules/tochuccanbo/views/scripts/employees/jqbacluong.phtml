@@ -1,0 +1,8 @@
+<?php
+$data['status'] = 0;
+if ($this->bac_luong) {
+    $data['status'] = 1;
+    $data['data'] = $this->bac_luong;
+}
+echo json_encode($data);
+?>

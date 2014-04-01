@@ -1,3 +1,7 @@
+<?php
+$thang_options = range(1, 12);
+$nam_options = range(1900, 2050);
+?>
 <div id="dv_form_he_so">
     <?php if (sizeof($this->error_message)): ?>
         <div class="alert alert-error" id="dv_he_so_error">
@@ -47,6 +51,25 @@
         </div>
 
         <div class="control-group">
+            <label class="control-label" for="eh_bac_luong">Bậc lương</label>
+            <div class="controls">                
+                <div class="input-prepend input-append">    
+                    <?php
+                    $bac_luong_options = array(0 => '');
+                    foreach ($this->bac_luong as $bl) {
+                        $bac_luong_options[$bl->bl_id] = $bl->bl_name;
+                    }
+
+                    if ($this->he_so)
+                        echo $this->formSelect('eh_bac_luong', $this->he_so->eh_bac_luong, array('onchange' => 'change_bac_luong(this)'), $bac_luong_options);
+                    else
+                        echo $this->formSelect('eh_bac_luong', null, array('onchange' => 'change_bac_luong(this)'), $bac_luong_options);
+                    ?>                                    
+                </div>    
+            </div>            
+        </div> 
+
+        <div class="control-group">
             <label class="control-label" for="eh_he_so">Hệ số lương</label>
             <div class="controls">                
                 <div class="input-prepend input-append">    
@@ -55,6 +78,21 @@
                         echo $this->formText('eh_he_so', $this->he_so->eh_he_so, array('class' => 'input-medium', 'placeholder' => ''));
                     else
                         echo $this->formText('eh_he_so', null, array('class' => 'input-medium', 'placeholder' => ''));
+                    ?>                   
+                    <span class="add-on">Hệ số</span>                    
+                </div>    
+            </div>            
+        </div> 
+
+        <div class="control-group">
+            <label class="control-label" for="eh_pc_thu_hut">Phụ cấp thu hút</label>
+            <div class="controls">                
+                <div class="input-prepend input-append">    
+                    <?php
+                    if ($this->he_so)
+                        echo $this->formText('eh_pc_thu_hut', $this->he_so->eh_pc_thu_hut, array('class' => 'input-medium', 'placeholder' => ''));
+                    else
+                        echo $this->formText('eh_pc_thu_hut', null, array('class' => 'input-medium', 'placeholder' => ''));
                     ?>                   
                     <span class="add-on">Hệ số</span>                    
                 </div>    
@@ -90,7 +128,7 @@
                 </div>
             </div>            
         </div> 
-        
+
         <div class="control-group">
             <label class="control-label" for="eh_pc_kv">Phụ cấp khu vực</label>
             <div class="controls">
@@ -120,19 +158,21 @@
                 </div>                
             </div>            
         </div> 
-        
+
         <div class="control-group">
-            <label class="control-label" for="eh_tham_niem">Thâm niên</label>
+            <label class="control-label" for="eh_tham_nien_thang">Tính thâm niên từ</label>
             <div class="controls">
-                <div class="input-prepend input-append">    
-                    <?php
-                    if ($this->he_so)
-                        echo $this->formText('eh_tham_niem', $this->he_so->eh_tham_niem, array('class' => 'input-medium', 'placeholder' => ''));
-                    else
-                        echo $this->formText('eh_tham_niem', null, array('class' => 'input-medium', 'placeholder' => ''));
-                    ?>                   
-                    <span class="add-on">Năm</span>                    
-                </div> 
+                <?php
+                if ($this->he_so) {
+                    echo $this->formSelect('eh_tham_nien_thang', date('m', strtotime($this->he_so->eh_tham_niem)), array('class' => 'input-small'), $thang_options);
+                    echo '<span class="help-inline"> / </span>';
+                    echo $this->formSelect('eh_tham_nien_nam', date('Y', strtotime($this->he_so->eh_tham_niem)), array('class' => 'input-small'), $nam_options);
+                } else {
+                    echo $this->formSelect('eh_tham_nien_thang', null, array('class' => 'input-small'), $thang_options);
+                    echo '<span class="help-inline"> / </span>';
+                    echo $this->formSelect('eh_tham_nien_nam', null, array('class' => 'input-small'), $nam_options);
+                }
+                ?>  
             </div>            
         </div>        
 
@@ -150,7 +190,7 @@
                 </div> 
             </div>            
         </div>
-        
+
 
         <div class="control-group">
             <label class="control-label" for="eh_pc_cong_vu_phan_tram">Phụ cấp công vụ</label>
@@ -191,8 +231,14 @@
                         echo $this->formText('eh_pc_khac', $this->he_so->eh_pc_khac, array('class' => 'input-medium', 'placeholder' => ''));
                     else
                         echo $this->formText('eh_pc_khac', null, array('class' => 'input-medium', 'placeholder' => ''));
-                    ?>                   
-                    <span class="add-on">Hệ số</span>                    
+                    ?> 
+                    <?php
+                    $type_options = array(0 => 'Hệ số', 1 => 'Phần trăm (%)');
+                    if ($this->he_so)
+                        echo $this->formSelect('eh_pc_khac_type', $this->he_so->eh_pc_khac_type, array('class' => 'input-medium'), $type_options);
+                    else
+                        echo $this->formSelect('eh_pc_khac_type', null, array('class' => 'input-medium'), $type_options);
+                    ?>
                 </div>
             </div>            
         </div>
@@ -201,22 +247,14 @@
             <label class="control-label" for="eh_thang_dieu_chinh">Hạn điều chỉnh</label>
             <div class="controls">
                 <?php
-                $thang_options = array();
-                for ($i = 1; $i <= 12; $i++) {
-                    $thang_options[$i] = $i;
-                }
-                $nam_dieu_chinh_options = array();
-                for ($i = 2000; $i <= 2100; $i++) {
-                    $nam_dieu_chinh_options[$i] = $i;
-                }
                 if ($this->he_so) {
                     echo $this->formSelect('eh_thang_dieu_chinh', date('m', strtotime($this->he_so->eh_han_dieu_chinh)), array('class' => 'input-small'), $thang_options);
                     echo '<span class="help-inline"> / </span>';
-                    echo $this->formSelect('eh_nam_dieu_chinh', date('Y', strtotime($this->he_so->eh_han_dieu_chinh)), array('class' => 'input-small'), $nam_dieu_chinh_options);
+                    echo $this->formSelect('eh_nam_dieu_chinh', date('Y', strtotime($this->he_so->eh_han_dieu_chinh)), array('class' => 'input-small'), $nam_options);
                 } else {
                     echo $this->formSelect('eh_thang_dieu_chinh', null, array('class' => 'input-small'), $thang_options);
                     echo '<span class="help-inline"> / </span>';
-                    echo $this->formSelect('eh_nam_dieu_chinh', null, array('class' => 'input-small'), $nam_dieu_chinh_options);
+                    echo $this->formSelect('eh_nam_dieu_chinh', null, array('class' => 'input-small'), $nam_options);
                 }
                 ?>    
                 <span class="help-block">Thời điểm điều chỉnh lần tiếp theo.</span>

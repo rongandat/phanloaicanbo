@@ -98,3 +98,5 @@ ALTER TABLE `bac_luong` ADD COLUMN `bl_order` INTEGER UNSIGNED NOT NULL DEFAULT 
 ALTER TABLE `employees_heso` MODIFY COLUMN `eh_tham_niem` DATETIME NOT NULL,
  ADD COLUMN `eh_pc_khac_type` VARCHAR(45) NOT NULL DEFAULT 0 COMMENT '0: he so, 1: %' AFTER `eh_pc_kv`,
  ADD COLUMN `eh_pc_thu_hut` DOUBLE NOT NULL DEFAULT 0 AFTER `eh_pc_khac_type`;
+
+ALTER TABLE `employees_heso` ADD COLUMN `eh_bac_luong` INTEGER UNSIGNED NOT NULL DEFAULT 0 AFTER `eh_pc_thu_hut`;

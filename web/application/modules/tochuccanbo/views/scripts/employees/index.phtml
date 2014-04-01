@@ -433,6 +433,37 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
         });       
     }
     
+    function change_bac_luong(element){
+        $.blockUI({
+            message: '<h3>Đang thực hiện</h3>',
+            css: {                         
+                border: 'none', 
+                padding: '15px', 
+                backgroundColor: '#000', 
+                '-webkit-border-radius': '10px', 
+                '-moz-border-radius': '10px', 
+                opacity: .5, 
+                color: '#fff'
+            },
+            baseZ: 2000
+        });
+        var bl_id = $(element).val();
+        $.getJSON( site_url+'/tochuccanbo/employees/jqbacluong/id/'+bl_id, function( data ) {  
+            $('#eh_he_so').val(data.data.bl_he_so_luong);
+            $('#eh_pc_thu_hut').val(data.data.bl_pc_thu_hut);
+            $('#eh_pc_cong_viec').val(data.data.bl_pc_chuc_vu);
+            $('#eh_pc_trach_nhiem').val(data.data.bl_pc_trach_nhiem);
+            $('#eh_pc_kv').val(data.data.bl_pc_khu_vuc);
+            $('#eh_pc_tnvk_phan_tram').val(data.data.bl_pc_tnvk);
+            $('#eh_pc_udn_phan_tram').val(data.data.bl_pc_udn);
+            $('#eh_pc_cong_vu_phan_tram').val(data.data.bl_pc_cong_vu);
+            $('#eh_pc_kiem_nhiem').val(data.data.bl_pc_kiem_nhiem);
+            $('#eh_pc_khac').val(data.data.bl_pc_khac);
+            $('#bl_pc_khac_type').val(data.data.bl_pc_khac_type);
+            $.unblockUI();            
+        });
+    }
+    
     function loadFormLuanChuyen(em_id){
         $('#mdLuanChuyenBody').html('Đang tải dữ liệu...');
         $.getJSON( site_url+'/tochuccanbo/employees/getdataluanchuyen/id/'+em_id, function( data ) {       
