@@ -7,11 +7,14 @@ class Zend_View_Helper_ViewGetEmployeeInfo extends Zend_Controller_Action_Helper
      */
     public $view;
 
-    public function viewGetEmployeeInfo($id) {
-        $employeeModel = new Front_Model_Employees();
-        $employee = $employeeModel->fetchRow('em_id=' . $id);
-        if ($employee) {            
-            return $employee;
+    public function viewGetEmployeeInfo($id = 0) {
+        if ($id) {
+            $employeeModel = new Front_Model_Employees();
+            $employee = $employeeModel->fetchRow('em_id=' . $id);
+            if ($employee) {
+                return $employee;
+            }
+            return false;
         }
         return false;
     }

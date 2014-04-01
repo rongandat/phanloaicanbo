@@ -8,10 +8,13 @@ class Zend_View_Helper_ViewGetDanTocName extends Zend_Controller_Action_Helper_A
     public $view;
 
     public function viewGetDanTocName($id) {
-        $dantocModel = new Front_Model_Dantoc();
-        $dantoc = $dantocModel->fetchRow('dt_id=' . $id .' and dt_status=1');
-        if ($dantoc) {            
-            return $dantoc->dt_name;
+        if($id) {
+            $dantocModel = new Front_Model_Dantoc();
+            $dantoc = $dantocModel->fetchRow('dt_id=' . $id . ' and dt_status=1');
+            if ($dantoc) {
+                return $dantoc->dt_name;
+            }
+            return '';
         }
         return '';
     }

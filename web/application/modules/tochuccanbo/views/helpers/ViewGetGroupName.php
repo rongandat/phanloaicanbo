@@ -7,11 +7,14 @@ class Zend_View_Helper_ViewGetGroupName extends Zend_Controller_Action_Helper_Ab
      */
     public $view;
 
-    public function viewGetGroupName($id) {
-        $groupModel = new Front_Model_Groups;
-        $group = $groupModel->fetchRow('group_id=' . $id);
-        if ($group) {            
-            return $group->group_name;
+    public function viewGetGroupName($id = 0) {
+        if ($id) {
+            $groupModel = new Front_Model_Groups;
+            $group = $groupModel->fetchRow('group_id=' . $id);
+            if ($group) {
+                return $group->group_name;
+            }
+            return '';
         }
         return '';
     }

@@ -7,11 +7,14 @@ class Zend_View_Helper_ViewGetChucVuDoanName extends Zend_Controller_Action_Help
      */
     public $view;
 
-    public function viewGetChucVuDoanName($id) {
-        $chucvudoanModel = new Front_Model_ChucVuDoan();
-        $chucvu = $chucvudoanModel->fetchRow('cvdoan_id=' . $id .' and cvdoan_status=1');
-        if ($chucvu) {            
-            return $chucvu->cvdoan_name;
+    public function viewGetChucVuDoanName($id = 0) {
+        if ($id) {
+            $chucvudoanModel = new Front_Model_ChucVuDoan();
+            $chucvu = $chucvudoanModel->fetchRow('cvdoan_id=' . $id . ' and cvdoan_status=1');
+            if ($chucvu) {
+                return $chucvu->cvdoan_name;
+            }
+            return '';
         }
         return '';
     }

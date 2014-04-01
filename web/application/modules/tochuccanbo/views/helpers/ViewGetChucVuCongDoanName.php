@@ -8,10 +8,13 @@ class Zend_View_Helper_ViewGetChucVuCongDoanName extends Zend_Controller_Action_
     public $view;
 
     public function viewGetChucVuCongDoanName($id) {
-        $chucvucongdoanModel = new Front_Model_ChucVuCongDoan();
-        $chucvu = $chucvucongdoanModel->fetchRow('cvcdoan_id=' . $id .' and cvcdoan_status=1');
-        if ($chucvu) {            
-            return $chucvu->cvcdoan_name;
+        if ($id) {
+            $chucvucongdoanModel = new Front_Model_ChucVuCongDoan();
+            $chucvu = $chucvucongdoanModel->fetchRow('cvcdoan_id=' . $id . ' and cvcdoan_status=1');
+            if ($chucvu) {
+                return $chucvu->cvcdoan_name;
+            }
+            return '';
         }
         return '';
     }

@@ -7,11 +7,14 @@ class Zend_View_Helper_ViewGetChucVuName extends Zend_Controller_Action_Helper_A
      */
     public $view;
 
-    public function viewGetChucVuName($id) {
-        $chucvuModel = new Front_Model_Chucvu();
-        $chuc_vu = $chucvuModel->fetchRow('cv_id=' . $id .' and cv_status=1');
-        if ($chuc_vu) {            
-            return $chuc_vu->cv_name;
+    public function viewGetChucVuName($id = 0) {
+        if ($id) {
+            $chucvuModel = new Front_Model_Chucvu();
+            $chuc_vu = $chucvuModel->fetchRow('cv_id=' . $id . ' and cv_status=1');
+            if ($chuc_vu) {
+                return $chuc_vu->cv_name;
+            }
+            return '';
         }
         return '';
     }

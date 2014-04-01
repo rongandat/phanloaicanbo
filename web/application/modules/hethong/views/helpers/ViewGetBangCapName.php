@@ -7,11 +7,14 @@ class Zend_View_Helper_ViewGetBangCapName extends Zend_Controller_Action_Helper_
      */
     public $view;
 
-    public function viewGetBangCapName($id) {
-        $bangcapModel = new Front_Model_Bangcap();
-        $bang_cap = $bangcapModel->fetchRow('bc_id=' . $id .' and bc_status=1');
-        if ($bang_cap) {            
-            return $bang_cap->bc_name;
+    public function viewGetBangCapName($id = 0) {
+        if ($id) {
+            $bangcapModel = new Front_Model_Bangcap();
+            $bang_cap = $bangcapModel->fetchRow('bc_id=' . $id . ' and bc_status=1');
+            if ($bang_cap) {
+                return $bang_cap->bc_name;
+            }
+            return '';
         }
         return '';
     }
