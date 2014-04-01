@@ -69,3 +69,32 @@ ALTER TABLE `employees_edit` ADD COLUMN `eme_ton_giao` VARCHAR(255) AFTER `eme_a
 ALTER TABLE `employees_edit` DROP COLUMN `eme_status`;
 
 ALTER TABLE `employees_edit` ADD COLUMN `eme_cmt_ngay_cap` DATETIME AFTER `eme_so_chung_minh_thu`;
+
+CREATE TABLE `bac_luong` (
+  `bl_id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  `bl_name` VARCHAR(255) NOT NULL,
+  `bl_he_so_luong` FLOAT NOT NULL,
+  `bl_pc_chuc_vu` FLOAT NOT NULL,
+  `bl_pc_trach_nhiem` FLOAT NOT NULL,
+  `bl_pc_khu_vuc` FLOAT NOT NULL,
+  `bl_pc_tnvk` FLOAT NOT NULL,
+  `bl_pc_udn` FLOAT NOT NULL,
+  `bl_pc_cong_vu` FLOAT NOT NULL,
+  `bl_pc_kiem_nhiem` FLOAT NOT NULL,
+  `bl_pc_khac` FLOAT NOT NULL,
+  `bl_pc_khac_type` INTEGER UNSIGNED NOT NULL DEFAULT 0 COMMENT '\'0: he_so, 1: %\'',
+  `bl_pc_thu_hut` FLOAT NOT NULL,
+  PRIMARY KEY (`bl_id`)
+)
+ENGINE = InnoDB;
+
+ALTER TABLE `bac_luong` ADD COLUMN `bl_status` INTEGER UNSIGNED NOT NULL DEFAULT 1 AFTER `bl_pc_thu_hut`;
+ALTER TABLE `bac_luong` ADD COLUMN `bl_date_modified` DATETIME AFTER `bl_status`,
+ ADD COLUMN `bl_date_added` DATETIME AFTER `bl_date_modified`;
+
+ALTER TABLE `bac_luong` ADD COLUMN `bl_order` INTEGER UNSIGNED NOT NULL DEFAULT 0 AFTER `bl_date_added`;
+
+
+ALTER TABLE `employees_heso` MODIFY COLUMN `eh_tham_niem` DATETIME NOT NULL,
+ ADD COLUMN `eh_pc_khac_type` VARCHAR(45) NOT NULL DEFAULT 0 COMMENT '0: he so, 1: %' AFTER `eh_pc_kv`,
+ ADD COLUMN `eh_pc_thu_hut` DOUBLE NOT NULL DEFAULT 0 AFTER `eh_pc_khac_type`;

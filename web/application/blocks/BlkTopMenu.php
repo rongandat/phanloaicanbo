@@ -60,7 +60,8 @@ class Block_BlkTopMenu extends Zend_View_Helper_Abstract {
                     'yckyluat' => 'QL Yêu cầu kỷ luật/khiển trách',
                     'khenthuong' => 'QL Khen thưởng',
                     'kyluat' => 'QL kỷ luật/khiển trách',
-                    'hesoluong' => 'QL Hệ số lương'
+                    'hesoluong' => 'QL Hệ số lương',
+                    'bacluong' => 'QL Bậc lương'
             )),
             'danhsach' => array('name' => 'Danh sách', 'sub' => array(
                     'phongban' => 'Lọc theo phòng ban',
