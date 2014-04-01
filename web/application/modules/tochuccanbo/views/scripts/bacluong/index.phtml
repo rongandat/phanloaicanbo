@@ -24,13 +24,13 @@
                 <?php
                 foreach ($this->list_bac_luong as $item) {
                     echo '<tr>
-                            <td class="checkall_style"><input type="checkbox" name="cid[]" id="cid" value="' . $item->bc_id . '"></td>
-                            <td><a href="' . $this->baseUrl('tochuccanbo/bacluong/edit/id/' . $item->bc_id) . '">' . $item->bc_name . '</a></td>                            
-                            <td class="order_style text-center">' . $item->bc_order . '</td>
-                            <td class="status_style"><a href="' . ($item->bc_status ? $this->baseUrl('tochuccanbo/bacluong/changestatus/id/' . $item->bc_id . '/status/0') : $this->baseUrl('tochuccanbo/bacluong/changestatus/id/' . $item->bc_id . '/status/1')) . '"><div class="' . ($item->bc_status ? 'icon_status_active' : 'icon_status_inactive') . '"></div></a></td>
+                            <td class="checkall_style"><input type="checkbox" name="cid[]" id="cid" value="' . $item->bl_id . '"></td>
+                            <td><a href="' . $this->baseUrl('tochuccanbo/bacluong/edit/id/' . $item->bl_id) . '">' . $item->bl_name . '</a></td>                            
+                            <td class="order_style text-center">' . $item->bl_order . '</td>
+                            <td class="status_style"><a href="' . ($item->bl_status ? $this->baseUrl('tochuccanbo/bacluong/changestatus/id/' . $item->bl_id . '/status/0') : $this->baseUrl('tochuccanbo/bacluong/changestatus/id/' . $item->bl_id . '/status/1')) . '"><div class="' . ($item->bl_status ? 'icon_status_active' : 'icon_status_inactive') . '"></div></a></td>
                             <td class="function_style">
-                                <a class="btn btn-mini" href="' . $this->baseUrl('tochuccanbo/bacluong/edit/id/' . $item->bc_id) . '" title="Sửa"><i class="icon-edit"></i> Sửa</a>
-                                <a class="btn btn-mini" href="' . $this->baseUrl('tochuccanbo/bacluong/delete/id/' . $item->bc_id) . '" title="Xóa"><i class="icon-trash"></i> Xóa</a>                                
+                                <a class="btn btn-mini" href="' . $this->baseUrl('tochuccanbo/bacluong/edit/id/' . $item->bl_id) . '" title="Sửa"><i class="icon-edit"></i> Sửa</a>
+                                <a class="btn btn-mini" href="' . $this->baseUrl('tochuccanbo/bacluong/delete/id/' . $item->bl_id) . '" title="Xóa"><i class="icon-trash"></i> Xóa</a>                                
                             </td>
                         </tr>';
                 }

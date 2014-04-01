@@ -1,60 +1,187 @@
-<div class="body_content float_right">
-    <h5>Thêm bằng cấp mới</h5>               
 
-    <div class="main-content-box"> 
-        <?php if ($this->error_message) : ?>
-            <div class="alert alert-error">
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                <h5>Thông báo!</h5>
-                Thêm mới không thành công vì:
-                <ol>
-                    <?php foreach ($this->error_message as $message): ?>
-                        <li><?php echo $message; ?></li>
-                    <?php endforeach; ?>
-                </ol>
-            </div> 
-        <?php endif; ?>  
-        <?php if ($this->success_message) : ?>
-            <div class="alert alert-success">
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                <h5>Thông báo!</h5>
-                <?php echo $this->success_message; ?>
+<h5>Thêm bậc lương mới</h5>               
+
+<div class="main-content-box"> 
+    <?php if ($this->error_message) : ?>
+        <div class="alert alert-error">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h5>Thông báo!</h5>
+            Thêm mới không thành công vì:
+            <ol>
+                <?php foreach ($this->error_message as $message): ?>
+                    <li><?php echo $message; ?></li>
+                <?php endforeach; ?>
+            </ol>
+        </div> 
+    <?php endif; ?>  
+    <?php if ($this->success_message) : ?>
+        <div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h5>Thông báo!</h5>
+            <?php echo $this->success_message; ?>
+        </div>
+    <?php endif; ?>  
+    <form class="form-horizontal" method="post" action="">
+        <div class="control-group">
+            <label class="control-label" for="bl_name">Tên bậc lương</label>
+            <div class="controls">
+                <?php echo $this->formText('bl_name', $this->arrParam['bl_name'], array('required' => '')); ?>
+                <span class="help-inline">(*)</span>
             </div>
-        <?php endif; ?>  
-        <form class="form-horizontal" method="post" action="">
-            <div class="control-group">
-                <label class="control-label" for="bc_name">Tên bằng cấp</label>
-                <div class="controls">
-                    <?php echo $this->formText('bc_name', NULL, array('required' => '')); ?>
-                    <span class="help-inline">(*)</span>
-                </div>
-            </div> 
-            
-            <div class="control-group">
-                <label class="control-label" for="bc_order">Vị trí</label>
-                <div class="controls">
-                    <?php echo $this->formText('bc_order', NULL, array()); ?>
-                    <span class="help-block">Dùng để sắp xếp vị trí hiển thị khi dùng.</span>
-                </div>                
-            </div>
-            
-            <div class="control-group">
-                <label class="control-label" for="bc_status">Trạng thái</label>
-                <div class="controls">
+        </div> 
+
+        <div class="control-group">
+            <label class="control-label" for="bl_he_so_luong">Hệ số lương</label>
+            <div class="controls">                
+                <div class="input-prepend input-append">    
                     <?php
-                    $status_options = array(1=>'Sử dụng', 0=>'Khóa');                    
-                    echo $this->formSelect('bc_status', null, null, $status_options);
-                    ?>                     
+                    echo $this->formText('bl_he_so_luong',  $this->arrParam['bl_he_so_luong'], array('class' => 'input-medium', 'placeholder' => '', 'required' => ''));
+                    ?>    
+                    <span class="add-on">Hệ số</span>     
+                </div>    
+            </div>            
+        </div> 
+
+        <div class="control-group">
+            <label class="control-label" for="bl_pc_chuc_vu">Phụ cấp chức vụ</label>
+            <div class="controls">
+                <div class="input-prepend input-append">    
+                    <?php
+                    echo $this->formText('bl_pc_chuc_vu',  $this->arrParam['bl_pc_chuc_vu'], array('class' => 'input-medium', 'placeholder' => '', 'required' => ''));
+                    ?>                   
+                    <span class="add-on">Hệ số</span>                    
+                </div> 
+            </div>            
+        </div> 
+
+        <div class="control-group">
+            <label class="control-label" for="bl_pc_thu_hut">Phụ cấp thu hút</label>
+            <div class="controls">
+                <div class="input-prepend input-append">    
+                    <?php
+                    echo $this->formText('bl_pc_thu_hut',  $this->arrParam['bl_pc_thu_hut'], array('class' => 'input-medium', 'placeholder' => '', 'required' => ''));
+                    ?>                   
+                    <span class="add-on">Hệ số</span>                    
+                </div> 
+            </div>            
+        </div> 
+
+        <div class="control-group">
+            <label class="control-label" for="bl_pc_trach_nhiem">Phụ cấp trách nhiệm</label>
+            <div class="controls">
+                <div class="input-prepend input-append">  
+                    <?php
+                    echo $this->formText('bl_pc_trach_nhiem',  $this->arrParam['bl_pc_trach_nhiem'], array('class' => 'input-medium', 'placeholder' => '', 'required' => ''));
+                    ?>                   
+                    <span class="add-on">Hệ số</span>   
                 </div>
-            </div> 
-            <div class="control-group">
-                <div class="controls">
-                    <p>
-                        <button class="btn btn-small btn-primary" type="submit">Thêm mới</button>
-                        <a class="btn btn-small" type="button" href="<?php echo $this->baseUrl('hethong/bangcap/index/page/'.$this->arrParam['page']); ?>">Quay lại</a>
-                    </p>
+            </div>            
+        </div> 
+
+        <div class="control-group">
+            <label class="control-label" for="bl_pc_khu_vuc">Phụ cấp khu vực</label>
+            <div class="controls">
+                <div class="input-prepend input-append">  
+                    <?php
+                    echo $this->formText('bl_pc_khu_vuc',  $this->arrParam['bl_pc_khu_vuc'], array('class' => 'input-medium', 'placeholder' => '', 'required' => ''));
+                    ?>                   
+                    <span class="add-on">Hệ số</span>   
                 </div>
+            </div>            
+        </div> 
+
+        <div class="control-group">
+            <label class="control-label" for="bl_pc_tnvk">Phụ cấp TNVK</label>
+            <div class="controls">
+                <div class="input-prepend input-append">    
+                    <?php
+                    echo $this->formText('bl_pc_tnvk',  $this->arrParam['bl_pc_tnvk'], array('class' => 'input-medium', 'placeholder' => '', 'required' => ''));
+                    ?>                   
+                    <span class="add-on">%</span>                    
+                </div>                
+            </div>            
+        </div> 
+
+        <div class="control-group">
+            <label class="control-label" for="bl_pc_udn">Phụ cấp ƯĐN</label>
+            <div class="controls">
+                <div class="input-prepend input-append">    
+                    <?php
+                    echo $this->formText('bl_pc_udn',  $this->arrParam['bl_pc_udn'], array('class' => 'input-medium', 'placeholder' => '', 'required' => ''));
+                    ?>                   
+                    <span class="add-on">%</span>                    
+                </div> 
+            </div>            
+        </div>
+
+
+        <div class="control-group">
+            <label class="control-label" for="bl_pc_cong_vu">Phụ cấp công vụ</label>
+            <div class="controls">
+                <div class="input-prepend input-append">    
+                    <?php
+                    echo $this->formText('bl_pc_cong_vu',  $this->arrParam['bl_pc_cong_vu'], array('class' => 'input-medium', 'placeholder' => '', 'required' => ''));
+                    ?>                   
+                    <span class="add-on">%</span>                    
+                </div> 
+            </div>            
+        </div>        
+
+        <div class="control-group">
+            <label class="control-label" for="bl_pc_kiem_nhiem">Phụ cấp kiêm nhiệm</label>
+            <div class="controls">
+                <div class="input-prepend input-append">  
+                    <?php
+                    echo $this->formText('bl_pc_kiem_nhiem',  $this->arrParam['bl_pc_kiem_nhiem'], array('class' => 'input-medium', 'placeholder' => '', 'required' => ''));
+                    ?>                   
+                    <span class="add-on">Hệ số</span>                    
+                </div>
+            </div>            
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="bl_pc_khac">Phụ cấp khác</label>
+            <div class="controls">
+                <div class="input-prepend input-append">  
+                    <?php
+                    echo $this->formText('bl_pc_khac',  $this->arrParam['bl_pc_khac'], array('class' => 'input-medium', 'placeholder' => '', 'required' => ''));
+                    ?>  
+                </div>
+                <div class="input-prepend input-append">
+                    <span class="add-on">Tính theo</span>
+                    <?php
+                    $type_options = array(0 => 'Hệ số', 1 => 'Phần trăm (%)');
+                    echo $this->formSelect('bl_pc_khac_type',  $this->arrParam['bl_pc_khac_type'],  array('class' => 'input-medium'), $type_options);
+                    ?> 
+                </div>
+            </div>            
+        </div>        
+
+
+        <div class="control-group">
+            <label class="control-label" for="bl_order">Vị trí</label>
+            <div class="controls">
+                <?php echo $this->formText('bl_order',  $this->arrParam['bl_order'], array()); ?>
+                <span class="help-block">Dùng để sắp xếp vị trí hiển thị khi dùng.</span>
+            </div>                
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="bl_status">Trạng thái</label>
+            <div class="controls">
+                <?php
+                $status_options = array(1 => 'Sử dụng', 0 => 'Khóa');
+                echo $this->formSelect('bl_status',  $this->arrParam['bl_status'], null, $status_options);
+                ?>                     
             </div>
-        </form>
-    </div> 
-</div>
+        </div> 
+        <div class="control-group">
+            <div class="controls">
+                <p>
+                    <button class="btn btn-small btn-primary" type="submit">Thêm mới</button>
+                    <a class="btn btn-small" type="button" href="<?php echo $this->baseUrl('tochuccanbo/bacluong/index'); ?>">Quay lại</a>
+                </p>
+            </div>
+        </div>
+    </form>
+</div> 

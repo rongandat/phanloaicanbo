@@ -73,17 +73,17 @@ ALTER TABLE `employees_edit` ADD COLUMN `eme_cmt_ngay_cap` DATETIME AFTER `eme_s
 CREATE TABLE `bac_luong` (
   `bl_id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   `bl_name` VARCHAR(255) NOT NULL,
-  `bl_he_so_luong` FLOAT NOT NULL,
-  `bl_pc_chuc_vu` FLOAT NOT NULL,
-  `bl_pc_trach_nhiem` FLOAT NOT NULL,
-  `bl_pc_khu_vuc` FLOAT NOT NULL,
-  `bl_pc_tnvk` FLOAT NOT NULL,
-  `bl_pc_udn` FLOAT NOT NULL,
-  `bl_pc_cong_vu` FLOAT NOT NULL,
-  `bl_pc_kiem_nhiem` FLOAT NOT NULL,
-  `bl_pc_khac` FLOAT NOT NULL,
+  `bl_he_so_luong` DOUBLE  NOT NULL,
+  `bl_pc_chuc_vu` DOUBLE  NOT NULL,
+  `bl_pc_trach_nhiem` DOUBLE  NOT NULL,
+  `bl_pc_khu_vuc` DOUBLE  NOT NULL,
+  `bl_pc_tnvk` DOUBLE  NOT NULL,
+  `bl_pc_udn` DOUBLE  NOT NULL,
+  `bl_pc_cong_vu` DOUBLE  NOT NULL,
+  `bl_pc_kiem_nhiem` DOUBLE  NOT NULL,
+  `bl_pc_khac` DOUBLE  NOT NULL,
   `bl_pc_khac_type` INTEGER UNSIGNED NOT NULL DEFAULT 0 COMMENT '\'0: he_so, 1: %\'',
-  `bl_pc_thu_hut` FLOAT NOT NULL,
+  `bl_pc_thu_hut` DOUBLE  NOT NULL,
   PRIMARY KEY (`bl_id`)
 )
 ENGINE = InnoDB;
