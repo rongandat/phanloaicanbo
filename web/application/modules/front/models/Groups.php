@@ -16,6 +16,12 @@ class Front_Model_Groups extends Zend_Db_Table_Abstract {
         return $this->fetchRow($select);
     }
 
+    public function getGroupByPermission($permission_id = 0){
+        $select = $this->select();
+        $select->where("group_permissions like '$permission_id%' or group_permissions like '%$permission_id%' or group_permissions like '%$permission_id'");
+        return $this->fetchAll($select);
+    }
+
     public function fetchData($filters = array(), $sortFeild = null, $limit = null, $page = 1) {
         $select = $this->select();
         //add cac filter vao truy van tim kiem

@@ -18,21 +18,24 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 
         Zend_Controller_Action_HelperBroker::addPath(
                 APPLICATION_PATH . '/modules/front/views/helpers');
-        
+
         Zend_Controller_Action_HelperBroker::addPath(
                 APPLICATION_PATH . '/modules/hethong/views/helpers');
-        
+
         Zend_Controller_Action_HelperBroker::addPath(
                 APPLICATION_PATH . '/modules/canhan/views/helpers');
-        
+
         Zend_Controller_Action_HelperBroker::addPath(
                 APPLICATION_PATH . '/modules/tochuccanbo/views/helpers');
-        
+
         Zend_Controller_Action_HelperBroker::addPath(
                 APPLICATION_PATH . '/modules/front/controllers/helpers');
-        
+
         Zend_Controller_Action_HelperBroker::addPath(
                 APPLICATION_PATH . '/modules/danhsach/controllers/helpers');
+        
+        Zend_Controller_Action_HelperBroker::addPath(
+                APPLICATION_PATH . '/helpers', '');
     }
 
     protected function _initLoadRouter() {
