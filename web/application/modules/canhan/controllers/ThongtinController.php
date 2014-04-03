@@ -11,8 +11,6 @@ class Canhan_ThongtinController extends Zend_Controller_Action {
         $auth = Zend_Auth::getInstance();
         $identity = $auth->getIdentity();
 
-        $this->_helper->GlobalHelpers->checkPhongUsers(3005);
-        
         //kiem tra permission
         $check_permission = $this->_helper->global->checkPermission($identity->group_id, '2002');
         if (!$check_permission) {

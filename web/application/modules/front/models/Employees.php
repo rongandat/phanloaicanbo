@@ -41,4 +41,13 @@ class Front_Model_Employees extends Zend_Db_Table_Abstract {
         $select->where($this->_name . '.em_phong_ban =?', $room);
         return $this->fetchAll($select);
     }
+    
+    public function getUsersByGroups($groups){
+        $select = $this->select(Zend_Db_Table::SELECT_WITH_FROM_PART);
+        $select->setIntegrityCheck(false)
+                ->joinInner(TABLE_USERS, TABLE_USERS . '.em_id = ' . $this->_name . '.em_id', array('*'))
+                ->joinInner(TABLE_GROUPS, TABLE_USERS . '.group_id = ' . TABLE_GROUPS . '.group_id', array('*'));
+        $select->where(TABLE_GROUPS . '.group_id in (?)', $groups);
+        return $this->fetchAll($select);
+    }
 }

@@ -46,20 +46,20 @@ class Canhan_DanhgiaphanloaiController extends Zend_Controller_Action {
         $auth = Zend_Auth::getInstance();
         $identity = $auth->getIdentity();
         $em_id = $identity->em_id;
-        
+
         $danhgiaModel = new Front_Model_DanhGia();
         $danh_gia = $danhgiaModel->fetchOneData(array('dg_em_id' => $em_id, 'dg_thang' => $thang, 'dg_nam' => $nam));
-        
+
         $tieuchiModel = new Front_Model_TieuChiDanhGiaCB();
         $list_tieuchi = $tieuchiModel->fetchData(array('tcdgcb_status' => 1), 'tcdgcb_order ASC');
-        
+
         $ketquaModel = new Front_Model_DanhGiaKetQuaCV();
         $list_ketqua = $ketquaModel->fetchData(array('dgkqcv_status' => 1), 'dgkqcv_order ASC');
-        
+
         $error_message = array();
         $success_message = '';
-        
-        if ($this->_request->isPost()) {            
+
+        if ($this->_request->isPost()) {
             $cong_viec = $this->_arrParam['d_cong_viec'];
             $kq_cong_viec = $this->_arrParam['d_kq_cong_viec'];
             $ngay_nghi = $this->_arrParam['d_ngay_nghi'];
@@ -73,8 +73,8 @@ class Canhan_DanhgiaphanloaiController extends Zend_Controller_Action {
             if ($danh_gia && ($danh_gia->dg_don_vi_status != '' || $danh_gia->dg_ptccb_status != '')) {
                 $error_message[] = 'Đánh giá phân loại đã được duyệt nên không thể thay đổi.';
             }
-            
-            if(!$cong_viec){
+
+            if (!$cong_viec) {
                 $error_message[] = 'Công việc trong tháng không được để trống';
             }
             if (!sizeof($error_message)) {
@@ -92,7 +92,7 @@ class Canhan_DanhgiaphanloaiController extends Zend_Controller_Action {
                         'dg_date_modifyed' => $current_time
                             ), 'dg_id=' . $danh_gia->dg_id
                     );
-                }else{
+                } else {
                     $danhgiaModel->insert(array(
                         'dg_em_id' => $em_id,
                         'dg_thang' => $thang,
@@ -112,11 +112,27 @@ class Canhan_DanhgiaphanloaiController extends Zend_Controller_Action {
                     );
                 }
             }
+
+            $users = $this->_helper->GlobalHelpers->checkDonViUsers($em_id,3005);
+            $thongbao_model = new Front_Model_ThongBao();
+            $data = array();
+            $data['tb_from'] = 0;
+            $data['tb_tieu_de'] = '[Thông báo] Duyệt đánh giá phân loại.';
+            $data['tb_noi_dung'] = 'Có khai báo đánh giá phân loại mới<br/> Bạn hãy vào <strong>Đơn vị => Duyệt phân loại cán bộ</strong> để xét duyệt.';
+            $data['tb_status'] = 0;
+            $data['tb_date_added'] = $current_time;
+            $data['tb_date_modified'] = $current_time;
+
+            foreach ($users as $user) {
+                $data['tb_to'] = $user->em_id;
+                $thongbao_model->insert($data);
+            }
+
             $success_message = 'Đã cập nhật thành công.';
-                $danh_gia = $danhgiaModel->fetchOneData(array('dg_em_id' => $em_id, 'dg_thang' => $thang, 'dg_nam' => $nam));
+            $danh_gia = $danhgiaModel->fetchOneData(array('dg_em_id' => $em_id, 'dg_thang' => $thang, 'dg_nam' => $nam));
         }
-                
-        if($danh_gia){
+
+        if ($danh_gia) {
             $this->_arrParam['d_cong_viec'] = $danh_gia->dg_cong_viec;
             $this->_arrParam['d_kq_cong_viec'] = $danh_gia->dg_ket_qua_cong_viec;
             $this->_arrParam['d_ngay_nghi'] = $danh_gia->dg_so_ngay_nghi;
@@ -127,7 +143,7 @@ class Canhan_DanhgiaphanloaiController extends Zend_Controller_Action {
             $this->_arrParam['d_ghi_chu'] = $danh_gia->dg_ghi_chu;
             $this->_arrParam['d_phan_loai'] = $danh_gia->dg_phan_loai;
         }
-        
+
         $this->view->tieu_chi = $list_tieuchi;
         $this->view->ket_qua = $list_ketqua;
         $this->view->success_message = $success_message;

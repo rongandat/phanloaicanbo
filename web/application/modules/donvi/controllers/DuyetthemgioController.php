@@ -68,13 +68,13 @@ class Donvi_DuyetthemgioController extends Zend_Controller_Action {
         foreach ($list_nhan_vien as $nhan_vien) {
             $list_nhan_vien_id[] = $nhan_vien->em_id;
         }
-        
+
         $list_lam_them_gio = $ltgModel->fetchByDate($list_nhan_vien_id, "$nam-$thang-01 00:00:00", "$nam-$thang-31 23:59:59");
         $this->view->lam_them_gio = $list_lam_them_gio;
         $this->view->thang = $thang;
         $this->view->nam = $nam;
     }
-    
+
     public function jqupdatestatusAction() {
         $this->_helper->layout()->disableLayout();
         $new_status = 'Đã duyệt';
@@ -82,25 +82,42 @@ class Donvi_DuyetthemgioController extends Zend_Controller_Action {
         if ($this->_request->isPost()) {
             $item_id = $this->_arrParam['item_id'];
             $item_status = $this->_arrParam['item_status'];
-            if($item_status>1){
-                $item_status=1;
+            if ($item_status > 1) {
+                $item_status = 1;
             }
-            if($item_status<0){
+            if ($item_status < 0) {
                 $item_status = -1;
             }
             $process_status = 1;
             $ltgModel = new Front_Model_LamThemGio();
             $process_status = $ltgModel->update(array('ltg_don_vi_status' => $item_status), "ltg_id=$item_id and ltg_tccb_status<0");
-            if($process_status){
-                if(!$item_status){
+            if ($process_status) {
+                if (!$item_status) {
                     $new_status = 'Không duyệt';
+                } else {
+                    $users = $this->_helper->GlobalHelpers->checkToChucUsers(4005);
+                    $current_time = new Zend_Db_Expr('NOW()');
+
+                    $thongbao_model = new Front_Model_ThongBao();
+                    $data = array();
+                    $data['tb_from'] = 0;
+                    $data['tb_tieu_de'] = '[Thông báo] Duyệt khai báo làm thêm giờ.';
+                    $data['tb_noi_dung'] = 'Có khai báo làm thêm giờ mới<br/> Bạn hãy vào <strong>Tổ chức cán bộ => Duyệt thêm giờ</strong> để xét duyệt.';
+                    $data['tb_status'] = 0;
+                    $data['tb_date_added'] = $current_time;
+                    $data['tb_date_modified'] = $current_time;
+
+                    foreach ($users as $user) {
+                        $data['tb_to'] = $user->em_id;
+                        $thongbao_model->insert($data);
+                    }
                 }
             }
         }
         $this->view->new_status = $new_status;
         $this->view->process_status = $process_status;
     }
-    
+
     public function updatestatusAction() {
         $this->_helper->layout()->disableLayout();
         $xnp_status = $this->_request->getParam('status', 0);
@@ -119,7 +136,7 @@ class Donvi_DuyetthemgioController extends Zend_Controller_Action {
                 $ltgModel->update(array('ltg_don_vi_status' => $xnp_status), "ltg_id=$v and ltg_tccb_status<0");
             }
         }
-        $this->_redirect('donvi/duyetthemgio/index/thang/'.$thang.'/nam/'.$nam);
+        $this->_redirect('donvi/duyetthemgio/index/thang/' . $thang . '/nam/' . $nam);
     }
 
 }
