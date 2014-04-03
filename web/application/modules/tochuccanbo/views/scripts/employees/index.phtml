@@ -20,6 +20,9 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
         <div class="btn-toolbar float_left">
             <div class="btn-group">
                 <button class="btn" onclick="OnSubmitForm('<?php echo $this->baseUrl('tochuccanbo/employees/deleteitems/page/' . $this->arrParam['page']); ?>')"><i class="icon-trash"></i> Xóa chọn</button>
+                <a class="btn btn-warning" href="#"><i class="icon-arrow-up"></i> Nâng lương</a>
+                <a class="btn btn-warning" href="#"><i class="icon-retweet"></i> Luân chuyển</a>
+                <a class="btn btn-warning" href="#"><i class="icon-home"></i> Về hưu</a>
                 <a class="btn" href="<?php echo $this->baseUrl('tochuccanbo/employees/add/page/' . $this->arrParam['page']); ?>"><i class="icon-plus-sign"></i> Thêm mới</a>
             </div>
         </div>

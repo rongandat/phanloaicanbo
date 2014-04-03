@@ -289,6 +289,9 @@ class Canhan_CapnhatthongtinController extends Zend_Controller_Action {
                     $employeesEditModel->insert($data);
                 }
 
+                
+                
+                
                 $success_message = 'Yêu cầu cập nhật thông tin thành công';
             }
         }
