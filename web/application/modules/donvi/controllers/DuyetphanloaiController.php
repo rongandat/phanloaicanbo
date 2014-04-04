@@ -84,9 +84,26 @@ class Donvi_DuyetphanloaiController extends Zend_Controller_Action {
             $c_id = $this->_arrParam['dg_id'];
             $c_status = strtoupper(trim($this->_arrParam['dg_status']));            
             $danhgiaModel = new Front_Model_DanhGia();
-            $process_status = $danhgiaModel->update(array('dg_don_vi_status' => $c_status), "dg_id=$c_id and dg_ptccb_status=''");
+            $process_status = $danhgiaModel->update(array('dg_don_vi_status' => $c_status), "dg_id=$c_id and (dg_ptccb_status='' or dg_ptccb_status IS NULL)");
             if($process_status){
                 $new_status = $c_status;
+                
+                $users = $this->_helper->GlobalHelpers->checkToChucUsers(4003);
+                $current_time = new Zend_Db_Expr('NOW()');
+                
+                $thongbao_model = new Front_Model_ThongBao();
+                $data = array();
+                $data['tb_from'] = 0;
+                $data['tb_tieu_de'] = '[Thông báo] Duyệt đánh giá phân loại.';
+                $data['tb_noi_dung'] = 'Có đơn đánh giá phân phân loại theo tháng mới<br/> Bạn hãy vào <strong>Tổ chức cán bộ => Duyệt phân loại cán bộ</strong> để xét duyệt.';
+                $data['tb_status'] = 0;
+                $data['tb_date_added'] = $current_time;
+                $data['tb_date_modified'] = $current_time;
+
+                foreach ($users as $user) {
+                    $data['tb_to'] = $user->em_id;
+                    $thongbao_model->insert($data);
+                }
             }
         }
         $this->view->new_status = $new_status;

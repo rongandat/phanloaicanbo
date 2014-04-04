@@ -97,21 +97,39 @@ class Donvi_DuyetchamcongController extends Zend_Controller_Action {
         $this->view->list_holidays = $list_holidays;
         $this->view->list_nghi_phep = $list_nghi_phep;
     }
-    
+
     public function jqupdatestatusAction() {
-        $this->_helper->layout()->disableLayout();        
+        $this->_helper->layout()->disableLayout();
         $process_status = 0;
         if ($this->_request->isPost()) {
             $c_id = $this->_arrParam['c_id'];
             $c_status = $this->_arrParam['c_status'];
-            if($c_status>1){
-                $c_status=1;
+            if ($c_status > 1) {
+                $c_status = 1;
             }
-            if($c_status<0){
+            if ($c_status < 0) {
                 $c_status = -1;
             }
             $chaqmcongModel = new Front_Model_ChamCong();
             $process_status = $chaqmcongModel->update(array('c_don_vi_status' => $c_status), "c_id=$c_id and c_ptccb_status<0");
+            if ($process_status && $c_status) {
+                $users = $this->_helper->GlobalHelpers->checkToChucUsers(4006);
+                $current_time = new Zend_Db_Expr('NOW()');
+
+                $thongbao_model = new Front_Model_ThongBao();
+                $data = array();
+                $data['tb_from'] = 0;
+                $data['tb_tieu_de'] = '[Thông báo] Duyệt chấm công tháng.';
+                $data['tb_noi_dung'] = 'Có đơn xin duyệt chấm công mới<br/> Bạn hãy vào <strong>Tổ chức cán bộ => Duyệt chấm công</strong> để xét duyệt.';
+                $data['tb_status'] = 0;
+                $data['tb_date_added'] = $current_time;
+                $data['tb_date_modified'] = $current_time;
+
+                foreach ($users as $user) {
+                    $data['tb_to'] = $user->em_id;
+                    $thongbao_model->insert($data);
+                }
+            }
         }
         $this->view->process_status = $process_status;
     }

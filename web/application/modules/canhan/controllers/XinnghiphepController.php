@@ -105,6 +105,22 @@ class Canhan_XinnghiphepController extends Zend_Controller_Action {
                     'xnp_date_created' => $current_time
                         )
                 );
+
+                $users = $this->_helper->GlobalHelpers->checkDonViUsers($em_id, 3002);
+                $thongbao_model = new Front_Model_ThongBao();
+                $data = array();
+                $data['tb_from'] = 0;
+                $data['tb_tieu_de'] = '[Thông báo] Duyệt đơn xin nghỉ phép.';
+                $data['tb_noi_dung'] = 'Có đơn xin nghỉ phép mới<br/> Bạn hãy vào <strong>Đơn vị => Duyệt nghỉ phép</strong> để xét duyệt.';
+                $data['tb_status'] = 0;
+                $data['tb_date_added'] = $current_time;
+                $data['tb_date_modified'] = $current_time;
+
+                foreach ($users as $user) {
+                    $data['tb_to'] = $user->em_id;
+                    $thongbao_model->insert($data);
+                }
+
                 $success_message = 'Đã nộp đơn nghỉ phép thành công.';
             }
         }

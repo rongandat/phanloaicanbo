@@ -94,6 +94,22 @@ class Donvi_DuyetnghiphepController extends Zend_Controller_Action {
             if ($process_status) {
                 if (!$xnp_status) {
                     $new_status = 'Không duyệt';
+                } else {
+                    $users = $this->_helper->GlobalHelpers->checkToChucUsers(4004);
+                    $current_time = new Zend_Db_Expr('NOW()');
+                    $thongbao_model = new Front_Model_ThongBao();
+                    $data = array();
+                    $data['tb_from'] = 0;
+                    $data['tb_tieu_de'] = '[Thông báo] Duyệt đơn xin nghỉ phép.';
+                    $data['tb_noi_dung'] = 'Có đơn đơn xin nghỉ phép mới<br/> Bạn hãy vào <strong>Tổ chức cán bộ => Duyệt nghỉ phép</strong> để xét duyệt.';
+                    $data['tb_status'] = 0;
+                    $data['tb_date_added'] = $current_time;
+                    $data['tb_date_modified'] = $current_time;
+
+                    foreach ($users as $user) {
+                        $data['tb_to'] = $user->em_id;
+                        $thongbao_model->insert($data);
+                    }
                 }
             }
         }
@@ -118,8 +134,25 @@ class Donvi_DuyetnghiphepController extends Zend_Controller_Action {
             foreach ($item as $k => $v) {
                 $xnpModel->update(array('xnp_don_vi_status' => $xnp_status), "xnp_id=$v and xnp_ptccb_status<0");
             }
+            if ($xnp_status) {
+                $users = $this->_helper->GlobalHelpers->checkToChucUsers(4004);
+                $current_time = new Zend_Db_Expr('NOW()');
+                $thongbao_model = new Front_Model_ThongBao();
+                $data = array();
+                $data['tb_from'] = 0;
+                $data['tb_tieu_de'] = '[Thông báo] Duyệt đơn xin nghỉ phép.';
+                $data['tb_noi_dung'] = 'Có đơn đơn xin nghỉ phép mới<br/> Bạn hãy vào <strong>Tổ chức cán bộ => Duyệt nghỉ phép</strong> để xét duyệt.';
+                $data['tb_status'] = 0;
+                $data['tb_date_added'] = $current_time;
+                $data['tb_date_modified'] = $current_time;
+
+                foreach ($users as $user) {
+                    $data['tb_to'] = $user->em_id;
+                    $thongbao_model->insert($data);
+                }
+            }
         }
-        $this->_redirect('donvi/duyetnghiphep/index/thang/'.$thang.'/nam/'.$nam);
+        $this->_redirect('donvi/duyetnghiphep/index/thang/' . $thang . '/nam/' . $nam);
     }
 
 }
