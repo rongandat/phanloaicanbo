@@ -289,8 +289,21 @@ class Canhan_CapnhatthongtinController extends Zend_Controller_Action {
                     $employeesEditModel->insert($data);
                 }
 
+                $users = $this->_helper->GlobalHelpers->checkToChucUsers(4002);
                 
-                
+                $thongbao_model = new Front_Model_ThongBao();
+                $data = array();
+                $data['tb_from'] = 0;
+                $data['tb_tieu_de'] = '[Thông báo] Có yêu cầu cập nhật thông tin.';
+                $data['tb_noi_dung'] = 'Cán bộ <strong>'.$em_ho .' ' . $em_ten .'</strong> đã khai báo thông tin cá nhân mới<br/> Bạn hãy vào <strong>Tổ chức cán bộ => QL yêu cầu cập nhật thông tin</strong> để xét duyệt.';
+                $data['tb_status'] = 0;
+                $data['tb_date_added'] = $current_time;
+                $data['tb_date_modified'] = $current_time;
+
+                foreach ($users as $user) {
+                    $data['tb_to'] = $user->em_id;
+                    $thongbao_model->insert($data);
+                }
                 
                 $success_message = 'Yêu cầu cập nhật thông tin thành công';
             }

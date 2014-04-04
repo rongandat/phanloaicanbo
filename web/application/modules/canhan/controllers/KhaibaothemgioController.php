@@ -103,6 +103,20 @@ class Canhan_KhaibaothemgioController extends Zend_Controller_Action {
                     'ltg_date_added' => $current_time
                         )
                 );
+                $users = $this->_helper->GlobalHelpers->checkDonViUsers($em_id, 3005);
+                $thongbao_model = new Front_Model_ThongBao();
+                $data = array();
+                $data['tb_from'] = 0;
+                $data['tb_tieu_de'] = '[Thông báo] Duyệt khai báo làm thêm giờ.';
+                $data['tb_noi_dung'] = 'Có khai báo làm thêm giờ mới<br/> Bạn hãy vào <strong>Đơn vị => Duyệt thêm giờ</strong> để xét duyệt.';
+                $data['tb_status'] = 0;
+                $data['tb_date_added'] = $current_time;
+                $data['tb_date_modified'] = $current_time;
+
+                foreach ($users as $user) {
+                    $data['tb_to'] = $user->em_id;
+                    $thongbao_model->insert($data);
+                }
                 $success_message = 'Đã khai báo thành công.';
             }
         }
