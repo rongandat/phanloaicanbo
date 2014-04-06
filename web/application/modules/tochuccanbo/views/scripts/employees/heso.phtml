@@ -1,6 +1,9 @@
 <?php
 $thang_options = range(1, 12);
-$nam_options = range(1900, 2050);
+$nam_options = array();
+for($i=1900; $i<=2050; $i++){
+    $nam_options[$i] = $i;
+}
 ?>
 <div id="dv_form_he_so">
     <?php if (sizeof($this->error_message)): ?>

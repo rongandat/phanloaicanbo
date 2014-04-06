@@ -31,8 +31,8 @@ class Front_Model_Employees extends Zend_Db_Table_Abstract {
         }
         return $this->fetchAll($select);
     }
-    
-    public function getUsersByGroupsAndPhong($groups, $room){
+
+    public function getUsersByGroupsAndPhong($groups, $room) {
         $select = $this->select(Zend_Db_Table::SELECT_WITH_FROM_PART);
         $select->setIntegrityCheck(false)
                 ->joinInner(TABLE_USERS, TABLE_USERS . '.em_id = ' . $this->_name . '.em_id', array('*'))
@@ -41,8 +41,8 @@ class Front_Model_Employees extends Zend_Db_Table_Abstract {
         $select->where($this->_name . '.em_phong_ban =?', $room);
         return $this->fetchAll($select);
     }
-    
-    public function getUsersByGroups($groups){
+
+    public function getUsersByGroups($groups) {
         $select = $this->select(Zend_Db_Table::SELECT_WITH_FROM_PART);
         $select->setIntegrityCheck(false)
                 ->joinInner(TABLE_USERS, TABLE_USERS . '.em_id = ' . $this->_name . '.em_id', array('*'))
@@ -50,4 +50,27 @@ class Front_Model_Employees extends Zend_Db_Table_Abstract {
         $select->where(TABLE_GROUPS . '.group_id in (?)', $groups);
         return $this->fetchAll($select);
     }
+
+    public function getNangLuong($thang = 0, $nam = 0, $phong_ban = array()) {
+        $ngay_gioi_han = "$nam-$thang-31 23:9:59";
+        $select = $this->select(Zend_Db_Table::SELECT_WITH_FROM_PART);
+        $select->setIntegrityCheck(false)
+                ->joinInner(TABLE_EMPLOYEESHESO, TABLE_EMPLOYEESHESO . '.eh_em_id = ' . $this->_name . '.em_id', array('*'));
+        if($phong_ban)
+            $select->where($this->_name . '.em_phong_ban in (?)', $phong_ban);
+        $select->where(TABLE_EMPLOYEESHESO . '.eh_han_dieu_chinh <=?', $ngay_gioi_han);
+        $select->where($this->_name . '.em_delete =?', 0);
+        return $this->fetchAll($select);
+    }
+    
+    public function getLuanChuyen($thang = 0, $nam = 0, $phong_ban = array()) {
+        $ngay_gioi_han = "$nam-$thang-31 23:9:59";
+        $select = $this->select();
+        if($phong_ban)
+            $select->where('em_phong_ban in (?)', $phong_ban);
+        $select->where('em_han_luan_chuyen <=?', $ngay_gioi_han);
+        $select->where('em_delete =?', 0);
+        return $this->fetchAll($select);
+    }
+
 }
