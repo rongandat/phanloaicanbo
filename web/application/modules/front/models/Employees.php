@@ -17,6 +17,7 @@ class Front_Model_Employees extends Zend_Db_Table_Abstract {
                 $select->where($feild . ' =?', $keyword);
             }
         }
+        $select->where('em_nghi_huu =?', 0);
         //add sort vao truy van
         if (null != $sortFeild) {
             $select->order($sortFeild);
@@ -39,6 +40,7 @@ class Front_Model_Employees extends Zend_Db_Table_Abstract {
                 ->joinInner(TABLE_GROUPS, TABLE_USERS . '.group_id = ' . TABLE_GROUPS . '.group_id', array('*'));
         $select->where(TABLE_GROUPS . '.group_id in (?)', $groups);
         $select->where($this->_name . '.em_phong_ban =?', $room);
+        $select->where($this->_name . '.em_nghi_huu =?', 0);
         return $this->fetchAll($select);
     }
 
@@ -48,6 +50,7 @@ class Front_Model_Employees extends Zend_Db_Table_Abstract {
                 ->joinInner(TABLE_USERS, TABLE_USERS . '.em_id = ' . $this->_name . '.em_id', array('*'))
                 ->joinInner(TABLE_GROUPS, TABLE_USERS . '.group_id = ' . TABLE_GROUPS . '.group_id', array('*'));
         $select->where(TABLE_GROUPS . '.group_id in (?)', $groups);
+        $select->where($this->_name . '.em_nghi_huu =?', 0);
         return $this->fetchAll($select);
     }
 
@@ -56,20 +59,38 @@ class Front_Model_Employees extends Zend_Db_Table_Abstract {
         $select = $this->select(Zend_Db_Table::SELECT_WITH_FROM_PART);
         $select->setIntegrityCheck(false)
                 ->joinInner(TABLE_EMPLOYEESHESO, TABLE_EMPLOYEESHESO . '.eh_em_id = ' . $this->_name . '.em_id', array('*'));
-        if($phong_ban)
+        if ($phong_ban)
             $select->where($this->_name . '.em_phong_ban in (?)', $phong_ban);
         $select->where(TABLE_EMPLOYEESHESO . '.eh_han_dieu_chinh <=?', $ngay_gioi_han);
         $select->where($this->_name . '.em_delete =?', 0);
+        $select->where($this->_name . '.em_nghi_huu =?', 0);
         return $this->fetchAll($select);
     }
-    
+
     public function getLuanChuyen($thang = 0, $nam = 0, $phong_ban = array()) {
         $ngay_gioi_han = "$nam-$thang-31 23:9:59";
         $select = $this->select();
-        if($phong_ban)
+        if ($phong_ban)
             $select->where('em_phong_ban in (?)', $phong_ban);
         $select->where('em_han_luan_chuyen <=?', $ngay_gioi_han);
         $select->where('em_delete =?', 0);
+        $select->where('em_nghi_huu =?', 0);
+        return $this->fetchAll($select);
+    }
+
+    public function getNghiHuu($phong_ban = array()) {
+        $df_value = new Zend_Config_Ini(APPLICATION_PATH . '/configs/default_value.ini');
+        $nam_sinh_nghi_huu_nam = date('Y', time()) - $df_value->DF_VALUES->TABLE_TUOI_NGHI_HUU_NAM;
+        $nam_sinh_nghi_huu_nu = date('Y', time()) - $df_value->DF_VALUES->TABLE_TUOI_NGHI_HUU_NU;
+        $ngay_sinh_nghi_huu_nam = "$nam_sinh_nghi_huu_nam-" . date('m', time()) . "-01 00:00:00";
+        $ngay_sinh_nghi_huu_nu = "$nam_sinh_nghi_huu_nu-" . date('m', time()) . "-01 00:00:00";
+        $conditions = "(em_ngay_sinh<='$ngay_sinh_nghi_huu_nam' and em_gioi_tinh=1) or (em_ngay_sinh<='$ngay_sinh_nghi_huu_nu' and em_gioi_tinh=0)";
+        $select = $this->select();
+        if ($phong_ban)
+            $select->where('em_phong_ban in (?)', $phong_ban);
+        $select->where($conditions);
+        $select->where('em_nghi_huu =?', 0);
+        $select->where('em_status =?', 1);
         return $this->fetchAll($select);
     }
 

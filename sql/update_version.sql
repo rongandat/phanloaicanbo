@@ -102,3 +102,6 @@ ALTER TABLE `employees_heso` MODIFY COLUMN `eh_tham_niem` DATETIME NOT NULL,
 ALTER TABLE `employees_heso` ADD COLUMN `eh_bac_luong` INTEGER UNSIGNED NOT NULL DEFAULT 0 AFTER `eh_pc_thu_hut`;
 
 ALTER TABLE `employees` ADD COLUMN `em_han_luan_chuyen` DATETIME AFTER `em_phong_ban`;
+
+ALTER TABLE `employees` ADD COLUMN `em_nghi_huu` INTEGER UNSIGNED NOT NULL DEFAULT 0 AFTER `em_han_luan_chuyen`,
+ ADD COLUMN `em_ngay_nghi_huu` DATETIME AFTER `em_nghi_huu`;

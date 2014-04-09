@@ -54,6 +54,10 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
         $phong_ban_choosed = Array();
         $phongbanModel->fetchData($pb_selected, $phong_ban_choosed);
 
+        $check_nang_luong = $this->_helper->global->checkNangLuong();
+        $check_luan_chuyen = $this->_helper->global->checkLuanChuyen();
+        $check_ve_huu = $this->_helper->global->checkNghiHuu();
+        
         $pb_ids = array($pb_selected);
         foreach ($phong_ban_choosed as $pb) {
             $pb_ids[] = $pb->pb_id;
@@ -76,6 +80,9 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
         $this->view->list_phong_ban = $list_phong_ban;
         $this->view->list_phong_ban_option = $list_phong_ban_option;
         $this->view->list_ngach_cong_chuc = $list_ngach_cong_chuc;
+        $this->view->check_nang_luong = $check_nang_luong;
+        $this->view->check_luan_chuyen = $check_luan_chuyen;
+        $this->view->check_ve_huu = $check_ve_huu;
     }
 
     public function nangluongAction() {
@@ -173,6 +180,56 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
             $list_employees = $employeesModel->getLuanChuyen($thang, $nam, array());
         } else {
             $list_employees = $employeesModel->getLuanChuyen($thang, $nam, $pb_ids);
+        }
+        $paginator = Zend_Paginator::factory($list_employees);
+        $paginator->setItemCountPerPage(NUM_PER_PAGE);
+        $paginator->setCurrentPageNumber($this->_page);
+        $this->view->page = $this->_page;
+        $this->view->pb_id = $pb_selected;
+        $this->view->paginator = $paginator;
+        $this->view->list_chuc_vu = $list_chuc_vu;
+        $this->view->list_phong_ban = $list_phong_ban;
+        $this->view->list_phong_ban_option = $list_phong_ban_option;
+        $this->view->list_ngach_cong_chuc = $list_ngach_cong_chuc;
+    }
+    
+    public function nghihuuAction() {
+        $translate = Zend_Registry::get('Zend_Translate');
+        $this->view->title = 'Quản lý cán bộ sắp nghỉ hưu - ' . $translate->_('TEXT_DEFAULT_TITLE');
+        $this->view->headTitle($this->view->title);
+
+        $layoutPath = APPLICATION_PATH . '/templates/' . TEMPLATE_USED;
+        $option = array('layout' => '1_column/layout',
+            'layoutPath' => $layoutPath);
+
+        Zend_Layout::startMvc($option);
+
+        $pb_selected = $this->_getParam('phongban', 0);
+
+        $chucvuModel = new Front_Model_Chucvu();
+        $list_chuc_vu = $chucvuModel->fetchData(array('cv_status' => 1));
+        $ngachcongchucModel = new Front_Model_NgachCongChuc();
+        $list_ngach_cong_chuc = $ngachcongchucModel->fetchData(array('ncc_status' => 1));
+
+        $phongbanModel = new Front_Model_Phongban();
+        $list_phong_ban = $phongbanModel->fetchAll();
+
+        $phong_ban = Array();
+        $list_phong_ban_option = $phongbanModel->fetchData(0, $phong_ban);
+
+        $phong_ban_choosed = Array();
+        $phongbanModel->fetchData($pb_selected, $phong_ban_choosed);
+
+        $pb_ids = array($pb_selected);
+        foreach ($phong_ban_choosed as $pb) {
+            $pb_ids[] = $pb->pb_id;
+        }
+        
+        $employeesModel = new Front_Model_Employees();
+        if (!$pb_selected) {
+            $list_employees = $employeesModel->getNghiHuu(array());
+        } else {
+            $list_employees = $employeesModel->getNghiHuu($pb_ids);
         }
         $paginator = Zend_Paginator::factory($list_employees);
         $paginator->setItemCountPerPage(NUM_PER_PAGE);
@@ -1112,6 +1169,51 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
                 Ngạch công chức: ' . $this->view->viewGetNgachCongChucName($em_ngach_cong_chuc) . '</br>
                 Công việc: ' . $em_cong_viec . '</br>
                 Chuyên môn: ' . $em_chuyen_mon . '</br>';
+                $data['tb_status'] = 0;
+                $data['tb_date_added'] = $current_time;
+                $data['tb_date_modified'] = $current_time;
+                $thongbao_model->insert($data);
+            }
+            $em_info = $emModel->fetchRow('em_id =' . $emID);
+        }
+        $this->view->error_message = $error_message;
+        $this->view->success_message = $success_message;
+        $this->view->em_id = $emID;
+        $this->view->employee_info = $em_info;
+        $this->view->list_chuc_vu = $list_chuc_vu;
+        $this->view->list_phong_ban = $list_phong_ban;
+        $this->view->list_ngach_cong_chuc = $list_ngach_cong_chuc;
+    }
+    
+    public function formnghihuuAction() {
+        $this->_helper->layout()->disableLayout();
+        $emID = $this->_getParam('id', 0);
+        $emModel = new Front_Model_Employees();
+        $em_info = $emModel->fetchRow('em_id =' . $emID);
+        $chucvuModel = new Front_Model_Chucvu();
+        $list_chuc_vu = $chucvuModel->fetchData(array('cv_status' => 1));
+        $ngachcongchucModel = new Front_Model_NgachCongChuc();
+        $list_ngach_cong_chuc = $ngachcongchucModel->fetchData(array('ncc_status' => 1));
+
+        $phongbanModel = new Front_Model_Phongban();
+        $list_phong_ban = $phongbanModel->fetchAll('pb_status=1');
+
+        $error_message = array();
+        $success_message = '';
+        if ($this->_request->isPost()) {            
+            $current_time = new Zend_Db_Expr('NOW()');    
+            $data = array();
+            $data['em_nghi_huu'] = 1;
+            $data['em_ngay_nghi_huu'] = $current_time;
+            $success_message = $emModel->update($data, 'em_id=' . $emID);
+
+            if ($success_message) {
+                $thongbao_model = new Front_Model_ThongBao();
+                $data = array();
+                $data['tb_from'] = 0;
+                $data['tb_to'] = $emID;
+                $data['tb_tieu_de'] = '[Nghỉ hưu] Bạn vừa được duyệt nghỉ hưu';
+                $data['tb_noi_dung'] = 'Phòng tổ chức vừa chuyển trạng thái của bạn sang nghỉ hưu.';
                 $data['tb_status'] = 0;
                 $data['tb_date_added'] = $current_time;
                 $data['tb_date_modified'] = $current_time;
