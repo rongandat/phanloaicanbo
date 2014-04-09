@@ -105,3 +105,7 @@ ALTER TABLE `employees` ADD COLUMN `em_han_luan_chuyen` DATETIME AFTER `em_phong
 
 ALTER TABLE `employees` ADD COLUMN `em_nghi_huu` INTEGER UNSIGNED NOT NULL DEFAULT 0 AFTER `em_han_luan_chuyen`,
  ADD COLUMN `em_ngay_nghi_huu` DATETIME AFTER `em_nghi_huu`;
+ 
+ ALTER TABLE `bang_luong` ADD COLUMN `bl_time_tham_nien` DATETIME AFTER `bl_luong_thu_viec`,
+ ADD COLUMN `bl_pc_thu_hut` FLOAT NOT NULL DEFAULT 0 AFTER `bl_time_tham_nien`,
+ ADD COLUMN `bl_pc_khac_type` INTEGER UNSIGNED NOT NULL DEFAULT 0 AFTER `bl_pc_thu_hut`;
