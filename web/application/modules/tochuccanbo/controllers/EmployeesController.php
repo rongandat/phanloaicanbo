@@ -54,6 +54,10 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
         $phong_ban_choosed = Array();
         $phongbanModel->fetchData($pb_selected, $phong_ban_choosed);
 
+        $check_nang_luong = $this->_helper->global->checkNangLuong();
+        $check_luan_chuyen = $this->_helper->global->checkLuanChuyen();
+        $check_ve_huu = $this->_helper->global->checkNghiHuu();
+        
         $pb_ids = array($pb_selected);
         foreach ($phong_ban_choosed as $pb) {
             $pb_ids[] = $pb->pb_id;
@@ -65,6 +69,167 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
         } else {
             $select = $employeesModel->select()->where('em_delete=?', 0)->where('em_phong_ban in (?)', $pb_ids);
             $list_employees = $employeesModel->fetchAll($select);
+        }
+        $paginator = Zend_Paginator::factory($list_employees);
+        $paginator->setItemCountPerPage(NUM_PER_PAGE);
+        $paginator->setCurrentPageNumber($this->_page);
+        $this->view->page = $this->_page;
+        $this->view->pb_id = $pb_selected;
+        $this->view->paginator = $paginator;
+        $this->view->list_chuc_vu = $list_chuc_vu;
+        $this->view->list_phong_ban = $list_phong_ban;
+        $this->view->list_phong_ban_option = $list_phong_ban_option;
+        $this->view->list_ngach_cong_chuc = $list_ngach_cong_chuc;
+        $this->view->check_nang_luong = $check_nang_luong;
+        $this->view->check_luan_chuyen = $check_luan_chuyen;
+        $this->view->check_ve_huu = $check_ve_huu;
+    }
+
+    public function nangluongAction() {
+        $translate = Zend_Registry::get('Zend_Translate');
+        $this->view->title = 'Quản lý cán bộ - ' . $translate->_('TEXT_DEFAULT_TITLE');
+        $this->view->headTitle($this->view->title);
+
+        $layoutPath = APPLICATION_PATH . '/templates/' . TEMPLATE_USED;
+        $option = array('layout' => '1_column/layout',
+            'layoutPath' => $layoutPath);
+
+        Zend_Layout::startMvc($option);
+
+        $pb_selected = $this->_getParam('phongban', 0);
+
+        $chucvuModel = new Front_Model_Chucvu();
+        $list_chuc_vu = $chucvuModel->fetchData(array('cv_status' => 1));
+        $ngachcongchucModel = new Front_Model_NgachCongChuc();
+        $list_ngach_cong_chuc = $ngachcongchucModel->fetchData(array('ncc_status' => 1));
+
+        $phongbanModel = new Front_Model_Phongban();
+        $list_phong_ban = $phongbanModel->fetchAll();
+
+        $phong_ban = Array();
+        $list_phong_ban_option = $phongbanModel->fetchData(0, $phong_ban);
+
+        $phong_ban_choosed = Array();
+        $phongbanModel->fetchData($pb_selected, $phong_ban_choosed);
+
+        $pb_ids = array($pb_selected);
+        foreach ($phong_ban_choosed as $pb) {
+            $pb_ids[] = $pb->pb_id;
+        }
+
+        $date = time();
+        $thang = date('m', $date);
+        $nam = date('Y', $date);
+
+        $employeesModel = new Front_Model_Employees();
+        if (!$pb_selected) {
+            $list_employees = $employeesModel->getNangLuong($thang, $nam, array());
+        } else {
+            $list_employees = $employeesModel->getNangLuong($thang, $nam, $pb_ids);
+        }
+        $paginator = Zend_Paginator::factory($list_employees);
+        $paginator->setItemCountPerPage(NUM_PER_PAGE);
+        $paginator->setCurrentPageNumber($this->_page);
+        $this->view->page = $this->_page;
+        $this->view->pb_id = $pb_selected;
+        $this->view->paginator = $paginator;
+        $this->view->list_chuc_vu = $list_chuc_vu;
+        $this->view->list_phong_ban = $list_phong_ban;
+        $this->view->list_phong_ban_option = $list_phong_ban_option;
+        $this->view->list_ngach_cong_chuc = $list_ngach_cong_chuc;
+    }
+    
+    public function luanchuyenAction() {
+        $translate = Zend_Registry::get('Zend_Translate');
+        $this->view->title = 'Quản lý cán bộ - ' . $translate->_('TEXT_DEFAULT_TITLE');
+        $this->view->headTitle($this->view->title);
+
+        $layoutPath = APPLICATION_PATH . '/templates/' . TEMPLATE_USED;
+        $option = array('layout' => '1_column/layout',
+            'layoutPath' => $layoutPath);
+
+        Zend_Layout::startMvc($option);
+
+        $pb_selected = $this->_getParam('phongban', 0);
+
+        $chucvuModel = new Front_Model_Chucvu();
+        $list_chuc_vu = $chucvuModel->fetchData(array('cv_status' => 1));
+        $ngachcongchucModel = new Front_Model_NgachCongChuc();
+        $list_ngach_cong_chuc = $ngachcongchucModel->fetchData(array('ncc_status' => 1));
+
+        $phongbanModel = new Front_Model_Phongban();
+        $list_phong_ban = $phongbanModel->fetchAll();
+
+        $phong_ban = Array();
+        $list_phong_ban_option = $phongbanModel->fetchData(0, $phong_ban);
+
+        $phong_ban_choosed = Array();
+        $phongbanModel->fetchData($pb_selected, $phong_ban_choosed);
+
+        $pb_ids = array($pb_selected);
+        foreach ($phong_ban_choosed as $pb) {
+            $pb_ids[] = $pb->pb_id;
+        }
+
+        $date = time();
+        $thang = date('m', $date);
+        $nam = date('Y', $date);
+
+        $employeesModel = new Front_Model_Employees();
+        if (!$pb_selected) {
+            $list_employees = $employeesModel->getLuanChuyen($thang, $nam, array());
+        } else {
+            $list_employees = $employeesModel->getLuanChuyen($thang, $nam, $pb_ids);
+        }
+        $paginator = Zend_Paginator::factory($list_employees);
+        $paginator->setItemCountPerPage(NUM_PER_PAGE);
+        $paginator->setCurrentPageNumber($this->_page);
+        $this->view->page = $this->_page;
+        $this->view->pb_id = $pb_selected;
+        $this->view->paginator = $paginator;
+        $this->view->list_chuc_vu = $list_chuc_vu;
+        $this->view->list_phong_ban = $list_phong_ban;
+        $this->view->list_phong_ban_option = $list_phong_ban_option;
+        $this->view->list_ngach_cong_chuc = $list_ngach_cong_chuc;
+    }
+    
+    public function nghihuuAction() {
+        $translate = Zend_Registry::get('Zend_Translate');
+        $this->view->title = 'Quản lý cán bộ sắp nghỉ hưu - ' . $translate->_('TEXT_DEFAULT_TITLE');
+        $this->view->headTitle($this->view->title);
+
+        $layoutPath = APPLICATION_PATH . '/templates/' . TEMPLATE_USED;
+        $option = array('layout' => '1_column/layout',
+            'layoutPath' => $layoutPath);
+
+        Zend_Layout::startMvc($option);
+
+        $pb_selected = $this->_getParam('phongban', 0);
+
+        $chucvuModel = new Front_Model_Chucvu();
+        $list_chuc_vu = $chucvuModel->fetchData(array('cv_status' => 1));
+        $ngachcongchucModel = new Front_Model_NgachCongChuc();
+        $list_ngach_cong_chuc = $ngachcongchucModel->fetchData(array('ncc_status' => 1));
+
+        $phongbanModel = new Front_Model_Phongban();
+        $list_phong_ban = $phongbanModel->fetchAll();
+
+        $phong_ban = Array();
+        $list_phong_ban_option = $phongbanModel->fetchData(0, $phong_ban);
+
+        $phong_ban_choosed = Array();
+        $phongbanModel->fetchData($pb_selected, $phong_ban_choosed);
+
+        $pb_ids = array($pb_selected);
+        foreach ($phong_ban_choosed as $pb) {
+            $pb_ids[] = $pb->pb_id;
+        }
+        
+        $employeesModel = new Front_Model_Employees();
+        if (!$pb_selected) {
+            $list_employees = $employeesModel->getNghiHuu(array());
+        } else {
+            $list_employees = $employeesModel->getNghiHuu($pb_ids);
         }
         $paginator = Zend_Paginator::factory($list_employees);
         $paginator->setItemCountPerPage(NUM_PER_PAGE);
@@ -826,30 +991,30 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
             $eh_pc_khac = $this->_request->getParam('eh_pc_khac', 0);
             $eh_thang_dieu_chinh = $this->_request->getParam('eh_thang_dieu_chinh', 0);
             $eh_nam_dieu_chinh = $this->_request->getParam('eh_nam_dieu_chinh', 0);
-            
+
             $eh_pc_thu_hut = $this->_request->getParam('eh_pc_thu_hut', 0);
             $eh_bac_luong = $this->_request->getParam('eh_bac_luong', 0);
             $eh_pc_khac_type = $this->_request->getParam('eh_pc_khac_type', 0);
-            
+
             $eh_tham_nien_thang = $this->_request->getParam('eh_tham_nien_thang', 0);
             $eh_tham_nien_nam = $this->_request->getParam('eh_tham_nien_nam', 0);
 
             if (!$eh_bac_luong) {
                 $error_message = array('Bạn phải chọn bậc lương.');
             }
-            
+
             if (!is_numeric($eh_he_so)) {
                 $error_message = array('Hệ số phải có dạng số.');
             }
-            
+
             if (!is_numeric($eh_pc_thu_hut)) {
                 $error_message = array('Phụ cấp thu hút phải có dạng số.');
             }
-            
+
             if (!is_numeric($eh_he_so)) {
                 $error_message = array('Hệ số phải có dạng số.');
             }
-            
+
             if (!is_numeric($eh_pc_cong_viec)) {
                 $error_message = array('Phụ cấp chức vụ phải có dạng số.');
             }
@@ -957,12 +1122,112 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
         $this->view->list_huyen = $list_huyen;
     }
 
-    public function getdataluanchuyenAction() {
+    public function formluanchuyenAction() {
         $this->_helper->layout()->disableLayout();
         $emID = $this->_getParam('id', 0);
         $emModel = new Front_Model_Employees();
         $em_info = $emModel->fetchRow('em_id =' . $emID);
+        $chucvuModel = new Front_Model_Chucvu();
+        $list_chuc_vu = $chucvuModel->fetchData(array('cv_status' => 1));
+        $ngachcongchucModel = new Front_Model_NgachCongChuc();
+        $list_ngach_cong_chuc = $ngachcongchucModel->fetchData(array('ncc_status' => 1));
+
+        $phongbanModel = new Front_Model_Phongban();
+        $list_phong_ban = $phongbanModel->fetchAll('pb_status=1');
+
+        $error_message = array();
+        $success_message = '';
+        if ($this->_request->isPost()) {
+            $em_chuc_vu = $this->_arrParam['em_chuc_vu'];
+            $em_phong_ban = $this->_arrParam['em_phong_ban'];
+            $em_ngach_cong_chuc = $this->_arrParam['em_ngach_cong_chuc'];
+            $em_cong_viec = trim($this->_arrParam['em_cong_viec']);
+            $em_chuyen_mon = trim($this->_arrParam['em_chuyen_mon']);
+            $em_thang_dieu_chinh = $this->_request->getParam('em_han_luan_chuyen_thang', 0);
+            $em_nam_dieu_chinh = $this->_request->getParam('em_han_luan_chuyen_nam', 0);
+            $date_dieu_chinh = date_create($em_nam_dieu_chinh . '-' . $em_thang_dieu_chinh . '-1');
+            $current_time = new Zend_Db_Expr('NOW()');
+            $data['em_chuc_vu'] = $em_chuc_vu;
+            $data['em_phong_ban'] = $em_phong_ban;
+            $data['em_ngach_cong_chuc'] = $em_ngach_cong_chuc;
+            $data['em_cong_viec'] = $em_cong_viec;
+            $data['em_chuyen_mon'] = $em_chuyen_mon;
+            $data['em_han_luan_chuyen'] = date_format($date_dieu_chinh, "Y-m-d H:iP");
+            $data['em_date_modified'] = $current_time;
+            $success_message = $emModel->update($data, 'em_id=' . $emID);
+
+            if ($success_message) {
+                $thongbao_model = new Front_Model_ThongBao();
+                $data = array();
+                $data['tb_from'] = 0;
+                $data['tb_to'] = $emID;
+                $data['tb_tieu_de'] = '[Luân chuyển] Bạn đã được luân chuyển sang đơn vị/công việc mới';
+                $data['tb_noi_dung'] = 'Bạn vừa được luân chuyển sang đơn vị/công việc mới.</br>
+                Chi tiết như sau:</br>
+                Chức vụ: ' . $this->view->viewGetChucVuName($em_chuc_vu) . '</br>
+                Phòng ban: ' . $this->view->viewGetPhongBanName($em_phong_ban) . '</br>
+                Ngạch công chức: ' . $this->view->viewGetNgachCongChucName($em_ngach_cong_chuc) . '</br>
+                Công việc: ' . $em_cong_viec . '</br>
+                Chuyên môn: ' . $em_chuyen_mon . '</br>';
+                $data['tb_status'] = 0;
+                $data['tb_date_added'] = $current_time;
+                $data['tb_date_modified'] = $current_time;
+                $thongbao_model->insert($data);
+            }
+            $em_info = $emModel->fetchRow('em_id =' . $emID);
+        }
+        $this->view->error_message = $error_message;
+        $this->view->success_message = $success_message;
+        $this->view->em_id = $emID;
         $this->view->employee_info = $em_info;
+        $this->view->list_chuc_vu = $list_chuc_vu;
+        $this->view->list_phong_ban = $list_phong_ban;
+        $this->view->list_ngach_cong_chuc = $list_ngach_cong_chuc;
+    }
+    
+    public function formnghihuuAction() {
+        $this->_helper->layout()->disableLayout();
+        $emID = $this->_getParam('id', 0);
+        $emModel = new Front_Model_Employees();
+        $em_info = $emModel->fetchRow('em_id =' . $emID);
+        $chucvuModel = new Front_Model_Chucvu();
+        $list_chuc_vu = $chucvuModel->fetchData(array('cv_status' => 1));
+        $ngachcongchucModel = new Front_Model_NgachCongChuc();
+        $list_ngach_cong_chuc = $ngachcongchucModel->fetchData(array('ncc_status' => 1));
+
+        $phongbanModel = new Front_Model_Phongban();
+        $list_phong_ban = $phongbanModel->fetchAll('pb_status=1');
+
+        $error_message = array();
+        $success_message = '';
+        if ($this->_request->isPost()) {            
+            $current_time = new Zend_Db_Expr('NOW()');    
+            $data = array();
+            $data['em_nghi_huu'] = 1;
+            $data['em_ngay_nghi_huu'] = $current_time;
+            $success_message = $emModel->update($data, 'em_id=' . $emID);
+
+            if ($success_message) {
+                $thongbao_model = new Front_Model_ThongBao();
+                $data = array();
+                $data['tb_from'] = 0;
+                $data['tb_to'] = $emID;
+                $data['tb_tieu_de'] = '[Nghỉ hưu] Bạn vừa được duyệt nghỉ hưu';
+                $data['tb_noi_dung'] = 'Phòng tổ chức vừa chuyển trạng thái của bạn sang nghỉ hưu.';
+                $data['tb_status'] = 0;
+                $data['tb_date_added'] = $current_time;
+                $data['tb_date_modified'] = $current_time;
+                $thongbao_model->insert($data);
+            }
+            $em_info = $emModel->fetchRow('em_id =' . $emID);
+        }
+        $this->view->error_message = $error_message;
+        $this->view->success_message = $success_message;
+        $this->view->em_id = $emID;
+        $this->view->employee_info = $em_info;
+        $this->view->list_chuc_vu = $list_chuc_vu;
+        $this->view->list_phong_ban = $list_phong_ban;
+        $this->view->list_ngach_cong_chuc = $list_ngach_cong_chuc;
     }
 
     public function updatedataluanchuyenAction() {
@@ -994,7 +1259,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
                 Chi tiết như sau:</br>
                 Chức vụ: ' . $this->view->viewGetChucVuName($em_chuc_vu) . '</br>
                 Phòng ban: ' . $this->view->viewGetPhongBanName($em_phong_ban) . '</br>
-                Ngạch công chức: ' . $this->view->viewGetNgachCongChucName($em_chuc_vu) . '</br>
+                Ngạch công chức: ' . $this->view->viewGetNgachCongChucName($em_ngach_cong_chuc) . '</br>
                 Công việc: ' . $em_cong_viec . '</br>
                 Chuyên môn: ' . $em_chuyen_mon . '</br>';
             $data['tb_status'] = 0;

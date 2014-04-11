@@ -1,4 +1,4 @@
-<h5>Tính lương <span id="sp_message_tinh_luong" class="<?php echo ($this->bang_luong? '':'hidden');?>"> - (Lương tháng này đã được lưu!)</span></h5>               
+<h5>Tính lương <span id="sp_message_tinh_luong" class="<?php echo ($this->bang_luong ? '' : 'hidden'); ?>"> - (Lương tháng này đã được lưu!)</span></h5>               
 
 <div class="main-content-box">
     <?php
@@ -50,7 +50,7 @@
 
 
         $luong_toi_thieu_sau_bh = (int) ($luong_toi_thieu * (100 - ($bhxh + $bhyt)) / 100);
-        $pc_cong_viec = (int) ($luong_toi_thieu * (100 - ($bhxh + $bhyt)) / 100);
+        $pc_chuc_vu = (int) ($luong_toi_thieu * (100 - ($bhxh + $bhyt)) / 100);
         $pc_trach_nhiem = $luong_toi_thieu;
         $pc_khu_vuc = (int) ($luong_toi_thieu * (100 - $bhyt) / 100);
         $pc_tnvk = (int) ($luong_toi_thieu * (100 - ($bhxh + $bhyt)) / 100);
@@ -63,48 +63,48 @@
 
         $thanh_tien_hsl = $luong_toi_thieu_sau_bh * $he_so_luong;
 
-        
+
         //if ($this->he_so->eh_giai_doan)
         //$hs_pc_cong_viec = number_format ($this->he_so->eh_pc_cong_viec*(100-$luong_thu_viec)/100, 2);
-        $thanh_tien_pc_cong_viec = $hs_pc_cong_viec * $pc_cong_viec;
+        $thanh_tien_pc_cong_viec = $hs_pc_cong_viec * $pc_chuc_vu;
 
-        
+
         //if ($this->he_so->eh_giai_doan)
         //$hs_pc_trach_nhiem = number_format ($this->he_so->eh_pc_trach_nhiem*(100-$luong_thu_viec)/100, 2);
         $thanh_tien_pc_trach_nhiem = $hs_pc_trach_nhiem * $pc_trach_nhiem;
 
-        
+
         //if ($this->he_so->eh_giai_doan)
         //$hs_pc_khu_vuc = number_format ($this->he_so->eh_pc_kv*(100-$luong_thu_viec)/100, 2);
         $thanh_tien_pc_khu_vuc = $hs_pc_khu_vuc * $pc_khu_vuc;
 
-        
+
         $hs_pc_tnvk = $he_so_luong * $hs_pc_tnvk_phan_tram / 100;
         //if ($this->he_so->eh_giai_doan)
         //$hs_pc_tnvk = number_format ($hs_pc_tnvk*(100-$luong_thu_viec)/100, 2);
         $thanh_tien_pc_tham_nien_vuot_khung = $hs_pc_tnvk * $pc_tnvk;
 
-        
+
         $hs_pc_tham_nien = floor((($he_so_luong + $hs_pc_cong_viec + $hs_pc_trach_nhiem + $hs_pc_khu_vuc) * $tham_nien / 100) * 100) / 100;
         $thanh_tien_pc_tham_nien = $hs_pc_tham_nien * $pc_tham_nien;
 
-        
+
         $hs_pc_uu_dai_nghe = floor((($he_so_luong + $hs_pc_cong_viec + $hs_pc_tnvk) * $uu_dai_nghe / 100) * 100) / 100;
         $thanh_tien_pc_uu_dai_nghe = $hs_pc_uu_dai_nghe * $pc_uu_dai_nghe;
 
-        
+
         $hs_pc_cong_vu = floor((($he_so_luong + $hs_pc_cong_viec + $hs_pc_tnvk) * $cong_vu / 100) * 100) / 100;
         $thanh_tien_pc_cong_vu = $hs_pc_cong_vu * $pc_cong_vu;
 
-        
+
         $hs_pc_kiem_nhiem = floor((($he_so_luong + $hs_pc_cong_viec + $hs_pc_tnvk) * $kiem_nhiem / 100) * 100) / 100;
         $thanh_tien_pc_kiem_nhiem = $hs_pc_kiem_nhiem * $pc_kiem_nhiem;
 
-        
+
         $thanh_tien_pc_khac = $hs_pc_khac * $pc_khac;
         $tong_1 = (int) ($thanh_tien_hsl + $thanh_tien_pc_cong_viec + $thanh_tien_pc_trach_nhiem + $thanh_tien_pc_khu_vuc + $thanh_tien_pc_tham_nien_vuot_khung + $thanh_tien_pc_tham_nien + $thanh_tien_pc_uu_dai_nghe + $thanh_tien_pc_cong_vu + $thanh_tien_pc_kiem_nhiem);
 
-        
+
         $hs_tang_them = $he_so_luong + $hs_pc_cong_viec + $hs_pc_trach_nhiem + $hs_pc_khu_vuc + $hs_pc_tnvk + $hs_pc_tham_nien + $hs_pc_uu_dai_nghe + $hs_pc_cong_vu + $hs_pc_kiem_nhiem + $hs_pc_khac;
         $ti_le_tang_them = ($hs_tang_them - $hs_pc_kiem_nhiem) * $luong_toi_thieu * $he_so_tang_them;
         $tong_2 = (int) $tong_1 + $ti_le_tang_them;
@@ -209,7 +209,7 @@
                             </td>
                             <td>
                                 Lương tối thiểu: <?php echo number_format($luong_toi_thieu_sau_bh, 0, '.', ','); ?> <br>
-                                PC công việc: <?php echo number_format($pc_cong_viec, 0, '.', ','); ?><br>
+                                PC chức vụ: <?php echo number_format($pc_chuc_vu, 0, '.', ','); ?><br>
                                 PC trách nhiệm: <?php echo number_format($pc_trach_nhiem, 0, '.', ','); ?><br>
                                 PC khu vực: <?php echo number_format($pc_khu_vuc, 0, '.', ','); ?><br>
                                 PC TNVK: <?php echo number_format($pc_tnvk, 0, '.', ','); ?> <br>
@@ -233,6 +233,18 @@
                     </tr>
                     <tbody>
                         <tr>
+                            <td>Kết quả phân loại tháng</td>
+                            <td style="width: 150px;">
+                                <select class="input-medium">
+                                    <option>A</option>
+                                    <option>B</option>
+                                    <option>C</option>
+                                </select>
+                            </td>
+                            <td><span id="lbl_hs_danh_gia"><?php echo $hs_pc_tham_nien; ?></span></td>
+                            <td></td>
+                        </tr>
+                        <tr>
                             <td>Hệ số lương</td>
                             <td colspan="2"><input type="text" onchange="re_calculator()" class="input-mini" name="bl_hs_luong" value="<?php echo $he_so_luong; ?>"/></td>
                             <td><span id="lbl_thanh_tien_hsl"><?php echo number_format($thanh_tien_hsl, 0, '.', ','); ?></span></td>
@@ -251,6 +263,11 @@
                             <td>Phụ cấp khu vực</td>
                             <td colspan="2"><input type="text" onchange="re_calculator()" class="input-mini" name="bl_hs_pc_khu_vuc" value="<?php echo $hs_pc_khu_vuc; ?>"/></td>
                             <td><span id="lbl_thanh_tien_pc_khu_vuc"><?php echo number_format($thanh_tien_pc_khu_vuc, 0, '.', ','); ?></span></td>
+                        </tr>
+                        <tr>
+                            <td>Phụ cấp thu hút</td>
+                            <td colspan="2"><input type="text" onchange="re_calculator()" class="input-mini" name="bl_hs_pc_thu_hut" value="<?php echo $hs_pc_khu_vuc; ?>"/></td>
+                            <td><span id="lbl_thanh_tien_pc_thu_hut"><?php echo number_format($thanh_tien_pc_khu_vuc, 0, '.', ','); ?></span></td>
                         </tr>
                         <tr>
                             <td>Phụ cấp thâm niên vượt khung</td>
@@ -414,7 +431,7 @@
     var bhxh = <?php echo $bhxh; ?>;
     var bhyt = <?php echo $bhyt; ?>;
     var luong_toi_thieu_sau_bh = <?php echo $luong_toi_thieu_sau_bh; ?>;
-    var pc_cong_viec = <?php echo $pc_cong_viec; ?>;
+    var pc_cong_viec = <?php echo $pc_chuc_vu; ?>;
     var pc_trach_nhiem = <?php echo $pc_trach_nhiem; ?>;
     var pc_khu_vuc = <?php echo $pc_khu_vuc; ?>;
     var pc_tnvk = <?php echo $pc_tnvk; ?>;

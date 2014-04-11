@@ -13,7 +13,7 @@ defined('TABLE_PREFIX')
 
 // Define site url
 defined('SITE_URL')
-    || define('SITE_URL', 'http://localhost/phanloaicanbo/web');
+    || define('SITE_URL', 'http://192.168.0.103/phanloaicanbo/web');
 
 // Define site template
 defined('TEMPLATE_USED')
