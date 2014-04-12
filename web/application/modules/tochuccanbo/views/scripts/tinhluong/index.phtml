@@ -3,7 +3,7 @@
 <div class="main-content-box">
     <?php
     if ($this->em_info && $this->he_so && $this->he_so_cb):
-
+        $he_so_phan_loai = array('A' => 1.2, 'B' => 1, 'C' => 0.8);
         $luong_thu_viec = 0;
         if ($this->bang_luong) {
             $luong_toi_thieu = $this->bang_luong->bl_luong_toi_thieu;
@@ -23,6 +23,10 @@
             $kiem_nhiem = $this->bang_luong->bl_pc_kiem_nhiem;
             $hs_pc_khac = $this->bang_luong->bl_hs_pc_khac;
             $he_so_tang_them = $this->bang_luong->bl_pc_tang_them;
+            $hs_pc_khac_type = $this->bang_luong->bl_pc_khac_type;
+            $hs_pc_thu_hut = $this->bang_luong->bl_pc_thu_hut;
+            $phan_loai = strtoupper($this->bang_luong->bl_phan_loai);
+            $phan_loai_he_so = $this->bang_luong->bl_phan_loai_he_so;
         } else {
             $luong_toi_thieu = $this->he_so_cb->hs_luong_co_ban;
             $giai_doan = $this->he_so->eh_giai_doan;
@@ -46,6 +50,16 @@
             $kiem_nhiem = $this->he_so->eh_pc_kiem_nhiem;
             $hs_pc_khac = $this->he_so->eh_pc_khac;
             $he_so_tang_them = 0.5;
+            $hs_pc_khac_type = $this->he_so->eh_pc_khac_type;
+            $hs_pc_thu_hut = $this->he_so->eh_pc_thu_hut;
+            $phan_loai = 'A';
+            if ($this->phan_loai) {
+                $phan_loai = strtoupper($this->phan_loai->dg_ptccb_status);
+            }
+            if (!$he_so_phan_loai[$phan_loai]) {
+                $phan_loai = 'A';
+            }
+            $phan_loai_he_so = $he_so_phan_loai[$phan_loai];
         }
 
 
@@ -235,13 +249,15 @@
                         <tr>
                             <td>Kết quả phân loại tháng</td>
                             <td style="width: 150px;">
-                                <select class="input-medium">
-                                    <option>A</option>
-                                    <option>B</option>
-                                    <option>C</option>
+                                <select name="sl_phan_loai" id="sl_phan_loai" class="input-medium">
+                                    <?php
+                                    foreach ($he_so_phan_loai as $phan_loai_type => $phan_loai_value) {
+                                        echo "<option value='$phan_loai_type' ".($phan_loai_type==$phan_loai? 'selected':'').">$phan_loai_type</option>";
+                                    }
+                                    ?>
                                 </select>
                             </td>
-                            <td><span id="lbl_hs_danh_gia"><?php echo $hs_pc_tham_nien; ?></span></td>
+                            <td><span id="lbl_phan_loai_he_so"><?php echo $phan_loai_he_so; ?></span></td>
                             <td></td>
                         </tr>
                         <tr>
@@ -266,7 +282,7 @@
                         </tr>
                         <tr>
                             <td>Phụ cấp thu hút</td>
-                            <td colspan="2"><input type="text" onchange="re_calculator()" class="input-mini" name="bl_hs_pc_thu_hut" value="<?php echo $hs_pc_khu_vuc; ?>"/></td>
+                            <td colspan="2"><input type="text" onchange="re_calculator()" class="input-mini" name="bl_hs_pc_thu_hut" value="<?php echo $hs_pc_thu_hut; ?>"/></td>
                             <td><span id="lbl_thanh_tien_pc_thu_hut"><?php echo number_format($thanh_tien_pc_khu_vuc, 0, '.', ','); ?></span></td>
                         </tr>
                         <tr>
@@ -419,7 +435,7 @@
         Xin hãy cập nhật thông tin hệ số lương và phụ cấp của nhân viên này!
     <?php elseif ($this->he_so_cb): ?>
         Xin hãy nhập thông tin lương cơ bản của hệ thống.
-    <?php endif; ?>
+<?php endif; ?>
 </div>
 
 

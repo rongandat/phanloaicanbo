@@ -109,3 +109,6 @@ ALTER TABLE `employees` ADD COLUMN `em_nghi_huu` INTEGER UNSIGNED NOT NULL DEFAU
  ALTER TABLE `bang_luong` ADD COLUMN `bl_time_tham_nien` DATETIME AFTER `bl_luong_thu_viec`,
  ADD COLUMN `bl_pc_thu_hut` FLOAT NOT NULL DEFAULT 0 AFTER `bl_time_tham_nien`,
  ADD COLUMN `bl_pc_khac_type` INTEGER UNSIGNED NOT NULL DEFAULT 0 AFTER `bl_pc_thu_hut`;
+
+ALTER TABLE `bang_luong` ADD COLUMN `bl_phan_loai` VARCHAR(45) NOT NULL DEFAULT 'A' AFTER `bl_pc_khac_type`,
+ ADD COLUMN `bl_phan_loai_he_so` FLOAT NOT NULL DEFAULT 1.2 AFTER `bl_phan_loai`;

@@ -35,5 +35,4 @@ class Front_Model_DanhGiaKetQuaCV extends Zend_Db_Table_Abstract {
         }
         return $this->fetchAll($select);
     }
-
 }

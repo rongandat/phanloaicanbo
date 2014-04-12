@@ -31,7 +31,7 @@ class Front_Model_DanhGia extends Zend_Db_Table_Abstract {
         }
         return $this->fetchAll($select);
     }
-    
+
     public function fetchOneData($filters = array(), $sortFeild = null, $limit = null, $page = 1) {
         $select = $this->select();
         //add cac filter vao truy van tim kiem
@@ -52,6 +52,15 @@ class Front_Model_DanhGia extends Zend_Db_Table_Abstract {
             }
             $select->limit($limit, $offset);
         }
+        return $this->fetchRow($select);
+    }
+
+    public function getPhanLoai($em_id, $thang, $nam) {
+        $select = $this->select();
+        $select->where('dg_em_id =?', $em_id);
+        $select->where('dg_thang =?', $thang);
+        $select->where('dg_nam <=?', $nam);
+        $select->where('dg_ptccb_status !=?', '');
         return $this->fetchRow($select);
     }
 

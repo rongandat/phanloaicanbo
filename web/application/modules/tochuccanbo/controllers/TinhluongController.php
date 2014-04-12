@@ -4,7 +4,6 @@ class Tochuccanbo_TinhluongController extends Zend_Controller_Action {
 
     protected $_arrParam;
     protected $_page = 1;
-    protected $_kw = '';
     protected $_actionMain;
 
     public function init() {
@@ -18,7 +17,6 @@ class Tochuccanbo_TinhluongController extends Zend_Controller_Action {
             exit();
         }
         $this->_arrParam = $this->_request->getParams();
-        $this->_kw = $this->_arrParam['kw'];
         $this->_arrParam['page'] = $this->_request->getParam('page', 1);
         if ($this->_arrParam['page'] == '' || $this->_arrParam['page'] <= 0) {
             $this->_arrParam['page'] = 1;
@@ -57,6 +55,8 @@ class Tochuccanbo_TinhluongController extends Zend_Controller_Action {
         $bangluongModel = new Front_Model_BangLuong();
         $bang_luong = $bangluongModel->fetchByDate($em_id, "$nam-$thang-01 00:00:00", "$nam-$thang-31 23:59:59");
 
+        $ketquaModel = new Front_Model_DanhGia();
+        $phan_loai = $ketquaModel->getPhanLoai($em_id, $thang, $nam);
         $this->view->khen_thuong = $khen_thuong;
         $this->view->ky_luat = $ky_luat;
         $this->view->em_info = $em_info;
@@ -66,6 +66,7 @@ class Tochuccanbo_TinhluongController extends Zend_Controller_Action {
         $this->view->nam = $nam;
         $this->view->nv_id = $em_id;
         $this->view->bang_luong = $bang_luong;
+        $this->view->phan_loai = $phan_loai;
         if($nam>date('Y', $date) || ($nam==date('Y', $date)&& $thang>date('m', $date))){
             $this->_helper->viewRenderer->setRender('thoigian');
         }
