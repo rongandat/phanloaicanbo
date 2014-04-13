@@ -112,3 +112,7 @@ ALTER TABLE `employees` ADD COLUMN `em_nghi_huu` INTEGER UNSIGNED NOT NULL DEFAU
 
 ALTER TABLE `bang_luong` ADD COLUMN `bl_phan_loai` VARCHAR(45) NOT NULL DEFAULT 'A' AFTER `bl_pc_khac_type`,
  ADD COLUMN `bl_phan_loai_he_so` FLOAT NOT NULL DEFAULT 1.2 AFTER `bl_phan_loai`;
+
+ALTER TABLE `he_so` DROP COLUMN `hs_luong_hop_dong`;
+
+ALTER TABLE `bang_luong` MODIFY COLUMN `bl_loai_luong` INT(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '0: chinh thuc, 1: hop dong';

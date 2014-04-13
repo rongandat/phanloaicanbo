@@ -33,17 +33,6 @@
         </div>
 
         <div class="control-group">
-            <label class="control-label" for="hs_luong_hop_dong">Lương hợp đồng</label>
-            <div class="controls">
-                <div class="input-prepend input-append">    
-                    <?php echo $this->formText('hs_luong_hop_dong', ($this->he_so_luong ? $this->he_so_luong->hs_luong_hop_dong : null), array('class' => 'input-medium', 'placeholder' => '0')); ?> 
-                    <span class="add-on">VND</span>
-                </div>
-                <span class="help-block">Mức lương cơ bản dành cho nhân viên hợp đồng.</span>
-            </div>
-        </div>
-
-        <div class="control-group">
             <label class="control-label" for="hs_he_so_luong_thuc_tap">Lương thử việc</label>
             <div class="controls">
                 <div class="input-prepend input-append">    
@@ -115,7 +104,6 @@
                 <tr>
                     <th>Ngày áp dụng</th>
                     <th>Biên chế</th>
-                    <th>Hợp đồng</th>
                     <th>Thử việc</th>
                 </tr>
             </thead>
@@ -125,7 +113,6 @@
                     echo '<tr>
                         <td>' . date('m/Y', strtotime($lich_su->hs_ngay_bat_dau)) . '</td>
                         <td>' . $lich_su->hs_luong_co_ban . ' VND</td>
-                        <td>' . $lich_su->hs_luong_hop_dong . ' VND</td>
                         <td>' . $lich_su->hs_he_so_luong_thuc_tap . ' %</td>                        
                     </tr>';
                 }

@@ -82,6 +82,8 @@ class Tochuccanbo_TinhluongController extends Zend_Controller_Action {
         $process_status = 0;
         if ($this->_request->isPost()) {
             $bl_em_id = $this->_request->getParam('bl_em_id', 0);
+            $phan_loai_thang = $this->_request->getParam('sl_phan_loai', 'A');
+            $phan_loai_thang_he_so = $this->_request->getParam('bl_phan_loai_he_so', 1.2);
             $bl_luong_toi_thieu = $this->_request->getParam('bl_luong_toi_thieu', 0);
             $bl_luong_thu_viec = $this->_request->getParam('bl_luong_thu_viec', 0);
             $bl_giai_doan = $this->_request->getParam('bl_giai_doan', 0);
@@ -96,11 +98,13 @@ class Tochuccanbo_TinhluongController extends Zend_Controller_Action {
             $bl_hs_pc_cong_viec = $this->_request->getParam('bl_hs_pc_cong_viec', 0);
             $bl_hs_pc_trach_nhiem = $this->_request->getParam('bl_hs_pc_trach_nhiem', 0);
             $bl_hs_pc_khu_vuc = $this->_request->getParam('bl_hs_pc_khu_vuc', 0);
+            $bl_hs_pc_thu_hut = $this->_request->getParam('bl_hs_pc_thu_hut', 0);
             $bl_hs_pc_tnvk = $this->_request->getParam('bl_hs_pc_tnvk', 0);
             $bl_tham_nien = $this->_request->getParam('bl_tham_nien', 0);
             $bl_hs_pc_udn = $this->_request->getParam('bl_hs_pc_udn', 0);
             $bl_hs_pc_cong_vu = $this->_request->getParam('bl_hs_pc_cong_vu', 0);
             $bl_hs_pc_khac = $this->_request->getParam('bl_hs_pc_khac', 0);
+            $bl_hs_pc_khac_type = $this->_request->getParam('bl_pc_khac_type', 0);
 
             if ($bl_em_id == '')
                 $bl_em_id = 0;
@@ -132,6 +136,8 @@ class Tochuccanbo_TinhluongController extends Zend_Controller_Action {
                 $bl_hs_pc_trach_nhiem = 0;
             if ($bl_hs_pc_khu_vuc == '')
                 $bl_hs_pc_khu_vuc = 0;
+            if ($bl_hs_pc_thu_hut == '')
+                $bl_hs_pc_thu_hut = 0;
             if ($bl_hs_pc_tnvk == '')
                 $bl_hs_pc_tnvk = 0;
             if ($bl_tham_nien == '')
@@ -173,6 +179,8 @@ class Tochuccanbo_TinhluongController extends Zend_Controller_Action {
                 $error_message = array('PC trách nhiệm phải là dạng số');
             if (!is_numeric($bl_hs_pc_khu_vuc))
                 $error_message = array('PC khu vực phải là dạng số');
+            if (!is_numeric($bl_hs_pc_thu_hut))
+                $error_message = array('PC thu hút phải là dạng số');
             if (!is_numeric($bl_hs_pc_tnvk))
                 $error_message = array('PC TNVK phải là dạng số');
             if (!is_numeric($bl_tham_nien))
@@ -192,6 +200,8 @@ class Tochuccanbo_TinhluongController extends Zend_Controller_Action {
                 $data = array(
                     'bl_em_id' => $bl_em_id,
                     'bl_ptccb_id' => $my_id,
+                    'bl_phan_loai' => $phan_loai_thang,
+                    'bl_phan_loai_he_so' => $phan_loai_thang_he_so,
                     'bl_luong_toi_thieu' => $bl_luong_toi_thieu,
                     'bl_luong_thu_viec' => $bl_luong_thu_viec,
                     'bl_giai_doan' => $bl_giai_doan,
@@ -204,11 +214,13 @@ class Tochuccanbo_TinhluongController extends Zend_Controller_Action {
                     'bl_hs_pc_cong_viec' => $bl_hs_pc_cong_viec,
                     'bl_hs_pc_trach_nhiem' => $bl_hs_pc_trach_nhiem,
                     'bl_hs_pc_khu_vuc' => $bl_hs_pc_khu_vuc,
+                    'bl_pc_thu_hut' => $bl_hs_pc_thu_hut,
                     'bl_hs_pc_tnvk' => $bl_hs_pc_tnvk,
                     'bl_tham_nien' => $bl_tham_nien,
                     'bl_hs_pc_udn' => $bl_hs_pc_udn,
                     'bl_hs_pc_cong_vu' => $bl_hs_pc_cong_vu,
                     'bl_hs_pc_khac' => $bl_hs_pc_khac,
+                    'bl_pc_khac_type' => $bl_hs_pc_khac_type,
                     'bl_date_modified' => $current_time
                 );
 

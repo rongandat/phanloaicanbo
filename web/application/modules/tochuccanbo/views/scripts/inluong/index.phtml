@@ -24,64 +24,71 @@
             $hs_pc_khac = $this->bang_luong->bl_hs_pc_khac;
             $he_so_tang_them = $this->bang_luong->bl_pc_tang_them;
 
+            $hs_pc_khac_type = $this->bang_luong->bl_pc_khac_type;
+            $hs_pc_thu_hut = $this->bang_luong->bl_pc_thu_hut;
+            $phan_loai = strtoupper($this->bang_luong->bl_phan_loai);
+            $phan_loai_he_so = $this->bang_luong->bl_phan_loai_he_so;
+
             $luong_toi_thieu_sau_bh = (int) ($luong_toi_thieu * (100 - ($bhxh + $bhyt)) / 100);
-            $pc_cong_viec = (int) ($luong_toi_thieu * (100 - ($bhxh + $bhyt)) / 100);
-            $pc_trach_nhiem = $luong_toi_thieu;
-            $pc_khu_vuc = (int) ($luong_toi_thieu * (100 - $bhyt) / 100);
-            $pc_tnvk = (int) ($luong_toi_thieu * (100 - ($bhxh + $bhyt)) / 100);
-            $pc_cong_vu = $luong_toi_thieu;
-            $pc_khac = $luong_toi_thieu;
-            $pc_tham_nien = (int) ($luong_toi_thieu * (100 - ($bhxh + $bhyt)) / 100);
-            $pc_kiem_nhiem = $luong_toi_thieu;
-            $pc_uu_dai_nghe = $luong_toi_thieu;
+            $luong_toi_thieu_bhyt = (int) ($luong_toi_thieu * (100 - $bhyt) / 100);
 
+            $pc_trach_nhiem = $pc_cong_vu = $pc_khac = $pc_kiem_nhiem = $pc_uu_dai_nghe = $luong_toi_thieu;
+            $pc_chuc_vu = $pc_tnvk = $pc_thu_hut = $pc_tham_nien = $luong_toi_thieu_sau_bh;
+            $pc_khu_vuc = $luong_toi_thieu_bhyt;
 
-            $thanh_tien_hsl = $luong_toi_thieu_sau_bh * $he_so_luong;
+            $thanh_tien_hsl = $luong_toi_thieu_sau_bh * $he_so_luong * $phan_loai_he_so;
 
 
             //if ($this->he_so->eh_giai_doan)
             //$hs_pc_cong_viec = number_format ($this->he_so->eh_pc_cong_viec*(100-$luong_thu_viec)/100, 2);
-            $thanh_tien_pc_cong_viec = $hs_pc_cong_viec * $pc_cong_viec;
+            $thanh_tien_pc_chuc_vu = $hs_pc_cong_viec * $pc_chuc_vu * $phan_loai_he_so;
 
 
             //if ($this->he_so->eh_giai_doan)
             //$hs_pc_trach_nhiem = number_format ($this->he_so->eh_pc_trach_nhiem*(100-$luong_thu_viec)/100, 2);
-            $thanh_tien_pc_trach_nhiem = $hs_pc_trach_nhiem * $pc_trach_nhiem;
+            $thanh_tien_pc_trach_nhiem = $hs_pc_trach_nhiem * $pc_trach_nhiem * $phan_loai_he_so;
 
 
             //if ($this->he_so->eh_giai_doan)
             //$hs_pc_khu_vuc = number_format ($this->he_so->eh_pc_kv*(100-$luong_thu_viec)/100, 2);
-            $thanh_tien_pc_khu_vuc = $hs_pc_khu_vuc * $pc_khu_vuc;
+            $thanh_tien_pc_khu_vuc = $hs_pc_khu_vuc * $pc_khu_vuc * $phan_loai_he_so;
 
+            $thanh_tien_pc_thu_hut = $hs_pc_thu_hut * $pc_thu_hut * $phan_loai_he_so;
 
             $hs_pc_tnvk = $he_so_luong * $hs_pc_tnvk_phan_tram / 100;
             //if ($this->he_so->eh_giai_doan)
             //$hs_pc_tnvk = number_format ($hs_pc_tnvk*(100-$luong_thu_viec)/100, 2);
-            $thanh_tien_pc_tham_nien_vuot_khung = $hs_pc_tnvk * $pc_tnvk;
+            $thanh_tien_pc_tham_nien_vuot_khung = $hs_pc_tnvk * $pc_tnvk * $phan_loai_he_so;
 
 
             $hs_pc_tham_nien = floor((($he_so_luong + $hs_pc_cong_viec + $hs_pc_trach_nhiem + $hs_pc_khu_vuc) * $tham_nien / 100) * 100) / 100;
-            $thanh_tien_pc_tham_nien = $hs_pc_tham_nien * $pc_tham_nien;
+            $thanh_tien_pc_tham_nien = $hs_pc_tham_nien * $pc_tham_nien * $phan_loai_he_so;
 
 
             $hs_pc_uu_dai_nghe = floor((($he_so_luong + $hs_pc_cong_viec + $hs_pc_tnvk) * $uu_dai_nghe / 100) * 100) / 100;
-            $thanh_tien_pc_uu_dai_nghe = $hs_pc_uu_dai_nghe * $pc_uu_dai_nghe;
+            $thanh_tien_pc_uu_dai_nghe = $hs_pc_uu_dai_nghe * $pc_uu_dai_nghe * $phan_loai_he_so;
 
 
             $hs_pc_cong_vu = floor((($he_so_luong + $hs_pc_cong_viec + $hs_pc_tnvk) * $cong_vu / 100) * 100) / 100;
-            $thanh_tien_pc_cong_vu = $hs_pc_cong_vu * $pc_cong_vu;
+            $thanh_tien_pc_cong_vu = $hs_pc_cong_vu * $pc_cong_vu * $phan_loai_he_so;
 
 
             $hs_pc_kiem_nhiem = floor((($he_so_luong + $hs_pc_cong_viec + $hs_pc_tnvk) * $kiem_nhiem / 100) * 100) / 100;
-            $thanh_tien_pc_kiem_nhiem = $hs_pc_kiem_nhiem * $pc_kiem_nhiem;
-
+            $thanh_tien_pc_kiem_nhiem = $hs_pc_kiem_nhiem * $pc_kiem_nhiem * $phan_loai_he_so;
 
             $thanh_tien_pc_khac = $hs_pc_khac * $pc_khac;
-            $tong_1 = (int) ($thanh_tien_hsl + $thanh_tien_pc_cong_viec + $thanh_tien_pc_trach_nhiem + $thanh_tien_pc_khu_vuc + $thanh_tien_pc_tham_nien_vuot_khung + $thanh_tien_pc_tham_nien + $thanh_tien_pc_uu_dai_nghe + $thanh_tien_pc_cong_vu + $thanh_tien_pc_kiem_nhiem);
+            $hs_pc_khac_he_so = $hs_pc_khac;
+            if ($hs_pc_khac_type) {
+                $thanh_tien_pc_khac = $thanh_tien_pc_khac / 100;
+                $hs_pc_khac_he_so = $hs_pc_khac / 100;
+            }
+            $thanh_tien_pc_khac = $thanh_tien_pc_khac * $phan_loai_he_so;
+
+            $tong_1 = (int) ($thanh_tien_pc_thu_hut + $thanh_tien_hsl + $thanh_tien_pc_chuc_vu + $thanh_tien_pc_trach_nhiem + $thanh_tien_pc_khu_vuc + $thanh_tien_pc_tham_nien_vuot_khung + $thanh_tien_pc_tham_nien + $thanh_tien_pc_uu_dai_nghe + $thanh_tien_pc_cong_vu + $thanh_tien_pc_kiem_nhiem);
 
 
-            $hs_tang_them = $he_so_luong + $hs_pc_cong_viec + $hs_pc_trach_nhiem + $hs_pc_khu_vuc + $hs_pc_tnvk + $hs_pc_tham_nien + $hs_pc_uu_dai_nghe + $hs_pc_cong_vu + $hs_pc_kiem_nhiem + $hs_pc_khac;
-            $ti_le_tang_them = ($hs_tang_them - $hs_pc_kiem_nhiem) * $luong_toi_thieu * $he_so_tang_them;
+            $hs_tang_them = $hs_pc_thu_hut + $he_so_luong + $hs_pc_cong_viec + $hs_pc_trach_nhiem + $hs_pc_khu_vuc + $hs_pc_tnvk + $hs_pc_tham_nien + $hs_pc_uu_dai_nghe + $hs_pc_cong_vu + $hs_pc_kiem_nhiem + $hs_pc_khac_he_so;
+            $ti_le_tang_them = ($hs_tang_them - $hs_pc_kiem_nhiem) * $luong_toi_thieu * $he_so_tang_them * $phan_loai_he_so;
             $tong_2 = (int) $tong_1 + $ti_le_tang_them;
 
             $tong_khen_thuong = 0;
@@ -172,16 +179,8 @@
                                     <?php echo $bhyt; ?>%
                                 </td>
                                 <td>
-                                    Lương tối thiểu: <?php echo number_format($luong_toi_thieu_sau_bh, 0, '.', ','); ?> <br>
-                                    PC công việc: <?php echo number_format($pc_cong_viec, 0, '.', ','); ?><br>
-                                    PC trách nhiệm: <?php echo number_format($pc_trach_nhiem, 0, '.', ','); ?><br>
-                                    PC khu vực: <?php echo number_format($pc_khu_vuc, 0, '.', ','); ?><br>
-                                    PC TNVK: <?php echo number_format($pc_tnvk, 0, '.', ','); ?> <br>
-                                    PC công vụ: <?php echo number_format($pc_cong_vu, 0, '.', ','); ?><br>
-                                    PC khác: <?php echo number_format($pc_khac, 0, '.', ','); ?><br>
-                                    PC thâm niên: <?php echo number_format($pc_tham_nien, 0, '.', ','); ?><br>
-                                    PC kiêm nhiệm: <?php echo number_format($pc_kiem_nhiem, 0, '.', ','); ?><br>
-                                    PC ưu đãi nghề: <?php echo number_format($pc_uu_dai_nghe, 0, '.', ','); ?><br>  
+                                    Đã trừ BHYT + BHXH: <?php echo number_format($luong_toi_thieu_sau_bh, 0, '.', ','); ?> <br>
+                                    Đã trừ BHYT: <?php echo number_format($luong_toi_thieu_bhyt, 0, '.', ','); ?><br> 
                                 </td>
                             </tr>
                         </tbody>
@@ -197,6 +196,15 @@
                         </tr>
                         <tbody>
                             <tr>
+                                <td>Kết quả phân loại tháng</td>
+                                <td style="width: 150px;">
+                                    <?php echo $phan_loai; ?>
+                                </td>
+                                <td><span id="lbl_phan_loai_he_so"><?php echo $phan_loai_he_so; ?></span></td>
+                                <td></td>
+                            </tr>
+
+                            <tr>
                                 <td>Hệ số lương</td>
                                 <td colspan="2"><?php echo $he_so_luong; ?></td>
                                 <td><?php echo number_format($thanh_tien_hsl, 0, '.', ','); ?></td>
@@ -204,7 +212,7 @@
                             <tr>
                                 <td>Phụ cấp chức vụ</td>
                                 <td colspan="2"><?php echo $hs_pc_cong_viec; ?></td>
-                                <td><span id="lbl_thanh_tien_pc_cong_viec"><?php echo number_format($thanh_tien_pc_cong_viec, 0, '.', ','); ?></span></td>
+                                <td><span id="lbl_thanh_tien_pc_cong_viec"><?php echo number_format($thanh_tien_pc_chuc_vu, 0, '.', ','); ?></span></td>
                             </tr>
                             <tr>
                                 <td>Phụ cấp trách nhiệm</td>
@@ -215,6 +223,11 @@
                                 <td>Phụ cấp khu vực</td>
                                 <td colspan="2"><?php echo $hs_pc_khu_vuc; ?></td>
                                 <td><span id="lbl_thanh_tien_pc_khu_vuc"><?php echo number_format($thanh_tien_pc_khu_vuc, 0, '.', ','); ?></span></td>
+                            </tr>
+                            <tr>
+                                <td>Phụ cấp thu hút</td>
+                                <td colspan="2"><?php echo $hs_pc_thu_hut; ?></td>
+                                <td><span id="lbl_thanh_tien_pc_thu_hut"><?php echo number_format($thanh_tien_pc_thu_hut, 0, '.', ','); ?></span></td>
                             </tr>
                             <tr>
                                 <td>Phụ cấp thâm niên vượt khung</td>
@@ -247,7 +260,7 @@
                             </tr>
                             <tr>
                                 <td>Phụ cấp khác</td>
-                                <td colspan="2"><?php echo $hs_pc_khac; ?></td>
+                                <td colspan="2"><?php echo $hs_pc_khac; ?><?php echo $hs_pc_khac_type ? '%' : ''; ?></td>
                                 <td><span id="lbl_thanh_tien_pc_khac"><?php echo number_format($thanh_tien_pc_khac, 0, '.', ','); ?></span></td>
                             </tr>
                             <tr>

@@ -38,7 +38,6 @@ class Tochuccanbo_HeSoLuongController extends Zend_Controller_Action {
         if ($this->_request->isPost()) {
             $data = array();
             $hs_luong_co_ban = trim($this->_arrParam['hs_luong_co_ban']);
-            $hs_luong_hop_dong = trim($this->_arrParam['hs_luong_hop_dong']);
             $hs_he_so_luong_thuc_tap = trim($this->_arrParam['hs_he_so_luong_thuc_tap']);
             $hs_bhxh = trim($this->_arrParam['hs_bhxh']);
             $hs_bhyt = trim($this->_arrParam['hs_bhyt']);
@@ -48,10 +47,6 @@ class Tochuccanbo_HeSoLuongController extends Zend_Controller_Action {
 
             if (!is_numeric($hs_luong_co_ban)) {
                 $error_message[] = 'Lương cơ bản phải là dạng số.';
-            }
-
-            if (!is_numeric($hs_luong_hop_dong)) {
-                $error_message[] = 'Lương hợp đồng phải là dạng số.';
             }
 
             if (!is_numeric($hs_he_so_luong_thuc_tap)) {
@@ -66,7 +61,6 @@ class Tochuccanbo_HeSoLuongController extends Zend_Controller_Action {
 
             if (!sizeof($error_message)) {
                 $data['hs_luong_co_ban'] = $hs_luong_co_ban;
-                $data['hs_luong_hop_dong'] = $hs_luong_hop_dong;
                 $data['hs_he_so_luong_thuc_tap'] = $hs_he_so_luong_thuc_tap;
                 $data['hs_bhxh'] = $hs_bhxh;
                 $data['hs_bhyt'] = $hs_bhyt;

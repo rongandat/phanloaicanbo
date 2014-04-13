@@ -4,7 +4,6 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
 
     protected $_arrParam;
     protected $_page = 1;
-    protected $_kw = '';
     protected $_actionMain;
 
     public function init() {
@@ -18,7 +17,6 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
             exit();
         }
         $this->_arrParam = $this->_request->getParams();
-        $this->_kw = $this->_arrParam['kw'];
         $this->_arrParam['page'] = $this->_request->getParam('page', 1);
         if ($this->_arrParam['page'] == '' || $this->_arrParam['page'] <= 0) {
             $this->_arrParam['page'] = 1;
