@@ -1053,6 +1053,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
                         'eh_giai_doan' => $eh_giai_doan,
                         'eh_bac_luong' => $eh_bac_luong,
                         'eh_he_so' => $eh_he_so,
+                        'eh_pc_kv' => $eh_pc_kv,
                         'eh_pc_thu_hut' => $eh_pc_thu_hut,
                         'eh_pc_cong_viec' => $eh_pc_cong_viec,
                         'eh_pc_trach_nhiem' => $eh_pc_trach_nhiem,

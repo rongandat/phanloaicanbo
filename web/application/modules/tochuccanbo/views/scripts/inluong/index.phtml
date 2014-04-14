@@ -13,7 +13,7 @@
             $he_so_luong = $this->bang_luong->bl_hs_luong;
             $bhxh = $this->bang_luong->bl_bhxh;
             $bhyt = $this->bang_luong->bl_bhyt;
-            $hs_pc_cong_viec = $this->bang_luong->bl_hs_pc_cong_viec;
+            $hs_pc_chuc_vu = $this->bang_luong->bl_hs_pc_cong_viec;
             $hs_pc_trach_nhiem = $this->bang_luong->bl_hs_pc_trach_nhiem;
             $hs_pc_khu_vuc = $this->bang_luong->bl_hs_pc_khu_vuc;
             $hs_pc_tnvk_phan_tram = $this->bang_luong->bl_hs_pc_tnvk;
@@ -25,7 +25,7 @@
             $he_so_tang_them = $this->bang_luong->bl_pc_tang_them;
 
             $hs_pc_khac_type = $this->bang_luong->bl_pc_khac_type;
-            $hs_pc_thu_hut = $this->bang_luong->bl_pc_thu_hut;
+            $hs_pc_thu_hut_phan_tram = $this->bang_luong->bl_pc_thu_hut;
             $phan_loai = strtoupper($this->bang_luong->bl_phan_loai);
             $phan_loai_he_so = $this->bang_luong->bl_phan_loai_he_so;
 
@@ -40,8 +40,8 @@
 
 
             //if ($this->he_so->eh_giai_doan)
-            //$hs_pc_cong_viec = number_format ($this->he_so->eh_pc_cong_viec*(100-$luong_thu_viec)/100, 2);
-            $thanh_tien_pc_chuc_vu = $hs_pc_cong_viec * $pc_chuc_vu * $phan_loai_he_so;
+            //$hs_pc_chuc_vu = number_format ($this->he_so->eh_pc_cong_viec*(100-$luong_thu_viec)/100, 2);
+            $thanh_tien_pc_chuc_vu = $hs_pc_chuc_vu * $pc_chuc_vu * $phan_loai_he_so;
 
 
             //if ($this->he_so->eh_giai_doan)
@@ -53,27 +53,30 @@
             //$hs_pc_khu_vuc = number_format ($this->he_so->eh_pc_kv*(100-$luong_thu_viec)/100, 2);
             $thanh_tien_pc_khu_vuc = $hs_pc_khu_vuc * $pc_khu_vuc * $phan_loai_he_so;
 
-            $thanh_tien_pc_thu_hut = $hs_pc_thu_hut * $pc_thu_hut * $phan_loai_he_so;
-
-            $hs_pc_tnvk = $he_so_luong * $hs_pc_tnvk_phan_tram / 100;
+           
+            $hs_pc_tnvk = ($he_so_luong +$hs_pc_chuc_vu) * $hs_pc_tnvk_phan_tram / 100;
             //if ($this->he_so->eh_giai_doan)
             //$hs_pc_tnvk = number_format ($hs_pc_tnvk*(100-$luong_thu_viec)/100, 2);
             $thanh_tien_pc_tham_nien_vuot_khung = $hs_pc_tnvk * $pc_tnvk * $phan_loai_he_so;
 
 
-            $hs_pc_tham_nien = floor((($he_so_luong + $hs_pc_cong_viec + $hs_pc_trach_nhiem + $hs_pc_khu_vuc) * $tham_nien / 100) * 100) / 100;
+            $hs_pc_tham_nien = floor((($he_so_luong + $hs_pc_chuc_vu + $hs_pc_trach_nhiem) * $tham_nien / 100) * 100) / 100;
             $thanh_tien_pc_tham_nien = $hs_pc_tham_nien * $pc_tham_nien * $phan_loai_he_so;
 
 
-            $hs_pc_uu_dai_nghe = floor((($he_so_luong + $hs_pc_cong_viec + $hs_pc_tnvk) * $uu_dai_nghe / 100) * 100) / 100;
+            $hs_pc_thu_hut = floor((($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $hs_pc_thu_hut_phan_tram / 100) * 100) / 100;
+            $thanh_tien_pc_thu_hut = $hs_pc_thu_hut * $pc_thu_hut * $phan_loai_he_so;
+            
+            
+            $hs_pc_uu_dai_nghe = floor((($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $uu_dai_nghe / 100) * 100) / 100;
             $thanh_tien_pc_uu_dai_nghe = $hs_pc_uu_dai_nghe * $pc_uu_dai_nghe * $phan_loai_he_so;
 
 
-            $hs_pc_cong_vu = floor((($he_so_luong + $hs_pc_cong_viec + $hs_pc_tnvk) * $cong_vu / 100) * 100) / 100;
+            $hs_pc_cong_vu = floor((($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $cong_vu / 100) * 100) / 100;
             $thanh_tien_pc_cong_vu = $hs_pc_cong_vu * $pc_cong_vu * $phan_loai_he_so;
 
 
-            $hs_pc_kiem_nhiem = floor((($he_so_luong + $hs_pc_cong_viec + $hs_pc_tnvk) * $kiem_nhiem / 100) * 100) / 100;
+            $hs_pc_kiem_nhiem = floor((($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $kiem_nhiem / 100) * 100) / 100;
             $thanh_tien_pc_kiem_nhiem = $hs_pc_kiem_nhiem * $pc_kiem_nhiem * $phan_loai_he_so;
 
             $thanh_tien_pc_khac = $hs_pc_khac * $pc_khac;
@@ -87,7 +90,7 @@
             $tong_1 = (int) ($thanh_tien_pc_thu_hut + $thanh_tien_hsl + $thanh_tien_pc_chuc_vu + $thanh_tien_pc_trach_nhiem + $thanh_tien_pc_khu_vuc + $thanh_tien_pc_tham_nien_vuot_khung + $thanh_tien_pc_tham_nien + $thanh_tien_pc_uu_dai_nghe + $thanh_tien_pc_cong_vu + $thanh_tien_pc_kiem_nhiem);
 
 
-            $hs_tang_them = $hs_pc_thu_hut + $he_so_luong + $hs_pc_cong_viec + $hs_pc_trach_nhiem + $hs_pc_khu_vuc + $hs_pc_tnvk + $hs_pc_tham_nien + $hs_pc_uu_dai_nghe + $hs_pc_cong_vu + $hs_pc_kiem_nhiem + $hs_pc_khac_he_so;
+            $hs_tang_them = $hs_pc_thu_hut + $he_so_luong + $hs_pc_chuc_vu + $hs_pc_trach_nhiem + $hs_pc_khu_vuc + $hs_pc_tnvk + $hs_pc_tham_nien + $hs_pc_uu_dai_nghe + $hs_pc_cong_vu + $hs_pc_kiem_nhiem + $hs_pc_khac_he_so;
             $ti_le_tang_them = ($hs_tang_them - $hs_pc_kiem_nhiem) * $luong_toi_thieu * $he_so_tang_them * $phan_loai_he_so;
             $tong_2 = (int) $tong_1 + $ti_le_tang_them;
 
@@ -211,7 +214,7 @@
                             </tr>
                             <tr>
                                 <td>Phụ cấp chức vụ</td>
-                                <td colspan="2"><?php echo $hs_pc_cong_viec; ?></td>
+                                <td colspan="2"><?php echo $hs_pc_chuc_vu; ?></td>
                                 <td><span id="lbl_thanh_tien_pc_cong_viec"><?php echo number_format($thanh_tien_pc_chuc_vu, 0, '.', ','); ?></span></td>
                             </tr>
                             <tr>
@@ -226,7 +229,8 @@
                             </tr>
                             <tr>
                                 <td>Phụ cấp thu hút</td>
-                                <td colspan="2"><?php echo $hs_pc_thu_hut; ?></td>
+                                <td style="width: 150px;"><?php echo $hs_pc_thu_hut_phan_tram; ?>%</td>
+                                <td><span><?php echo $hs_pc_thu_hut; ?></span></td>
                                 <td><span id="lbl_thanh_tien_pc_thu_hut"><?php echo number_format($thanh_tien_pc_thu_hut, 0, '.', ','); ?></span></td>
                             </tr>
                             <tr>
