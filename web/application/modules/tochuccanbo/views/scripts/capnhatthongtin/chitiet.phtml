@@ -52,11 +52,17 @@
                         <?php echo $this->formText('em_so_chung_minh_thu', $this->employee_info->eme_so_chung_minh_thu, array('class' => 'input-medium', 'placeholder' => 'Số chứng minh thư')); ?> 
                     </div>
                 </div>  
-                
+
                 <div class="control-group">
                     <label class="control-label" for="em_cmt_ngay_cap">Ngày cấp</label>
                     <div class="controls">
-                        <?php echo $this->formText('em_cmt_ngay_cap', date('d/m/Y', strtotime($this->employee_info->eme_cmt_ngay_cap)), array('class' => 'input-medium', 'placeholder' => 'Số chứng minh thư')); ?> 
+                        <?php
+                        if ($this->employee_info->eme_cmt_ngay_cap && $this->employee_info->eme_cmt_ngay_cap != '' && $this->employee_info->eme_cmt_ngay_cap != '0000-00-00 00:00:00') {
+                            echo $this->formText('em_cmt_ngay_cap', date('d/m/Y', strtotime($this->employee_info->eme_cmt_ngay_cap)), array('class' => 'input-medium', 'placeholder' => 'Ngày cấp'));
+                        } else {
+                            echo $this->formText('em_cmt_ngay_cap', null, array('class' => 'input-medium', 'placeholder' => 'Ngày cấp'));
+                        }
+                        ?> 
                     </div>
                 </div>            
                 <div class="control-group">
@@ -88,7 +94,13 @@
                 <div class="control-group">
                     <label class="control-label" for="ngay_sinh">Ngày sinh</label>
                     <div class="controls">                          
-                        <?php echo $this->formText('ngay_sinh', date('d/m/Y', strtotime($this->employee_info->eme_ngay_sinh)), array('class' => 'input-medium', 'placeholder' => 'Ngày sinh')); ?> 
+                        <?php
+                        if ($this->employee_info->eme_ngay_sinh && $this->employee_info->eme_ngay_sinh != '' && $this->employee_info->eme_ngay_sinh != '0000-00-00 00:00:00') {
+                            echo $this->formText('ngay_sinh', date('d/m/Y', strtotime($this->employee_info->eme_ngay_sinh)), array('class' => 'input-medium', 'placeholder' => 'Ngày sinh'));
+                        } else {
+                            echo $this->formText('ngay_sinh', null, array('class' => 'input-medium', 'placeholder' => 'Ngày sinh'));
+                        }
+                        ?> 
                     </div>
                 </div> 
 
@@ -241,7 +253,13 @@
                 <div class="control-group">
                     <label class="control-label" for="ngay_dang">Ngày vào đảng</label>
                     <div class="controls">                             
-                        <?php echo $this->formText('ngay_dang', date('d/m/Y', strtotime($this->employee_info->eme_ngay_vao_dang)), array('class' => 'input-medium', 'placeholder' => 'Ngày vào đảng')); ?> 
+                        <?php
+                        if ($this->employee_info->eme_ngay_vao_dang && $this->employee_info->eme_ngay_vao_dang != '' && $this->employee_info->eme_ngay_vao_dang != '0000-00-00 00:00:00') {
+                            echo $this->formText('ngay_dang', date('d/m/Y', strtotime($this->employee_info->eme_ngay_vao_dang)), array('class' => 'input-medium', 'placeholder' => 'Ngày vào đảng'));
+                        } else {
+                            echo $this->formText('ngay_dang', null, array('class' => 'input-medium', 'placeholder' => 'Ngày vào đảng'));
+                        }
+                        ?> 
                     </div>
                 </div> 
 
@@ -260,7 +278,13 @@
                 <div class="control-group">
                     <label class="control-label" for="ngay_doan">Ngày vào đoàn</label>
                     <div class="controls">                          
-                        <?php echo $this->formText('ngay_doan', date('d/m/Y', strtotime($this->employee_info->eme_ngay_vao_doan)), array('class' => 'input-medium', 'placeholder' => 'Ngày vào đoàn')); ?> 
+                        <?php
+                        if ($this->employee_info->eme_ngay_vao_doan && $this->employee_info->eme_ngay_vao_doan != '' && $this->employee_info->eme_ngay_vao_doan != '0000-00-00 00:00:00') {
+                            echo $this->formText('ngay_doan', date('d/m/Y', strtotime($this->employee_info->eme_ngay_vao_doan)), array('class' => 'input-medium', 'placeholder' => 'Ngày vào đoàn'));
+                        } else {
+                            echo $this->formText('ngay_doan', null, array('class' => 'input-medium', 'placeholder' => 'Ngày vào đoàn'));
+                        }
+                        ?> 
                     </div>
                 </div> 
                 <div class="control-group">
@@ -279,14 +303,26 @@
                 <div class="control-group">
                     <label class="control-label" for="em_ngay_nhap_ngu">Ngày nhập ngũ</label>
                     <div class="controls">                    
-                        <?php echo $this->formText('em_ngay_nhap_ngu', date('d/m/Y', strtotime($this->employee_info->eme_ngay_nhap_ngu)), array('class' => 'input-medium')); ?>                    
+                        <?php
+                        if ($this->employee_info->eme_ngay_nhap_ngu && $this->employee_info->eme_ngay_nhap_ngu != '' && $this->employee_info->eme_ngay_nhap_ngu != '0000-00-00 00:00:00') {
+                            echo $this->formText('em_ngay_nhap_ngu', date('d/m/Y', strtotime($this->employee_info->eme_ngay_nhap_ngu)), array('class' => 'input-medium'));
+                        } else {
+                            echo $this->formText('em_ngay_nhap_ngu', null, array('class' => 'input-medium'));
+                        }
+                        ?>                    
                     </div>
                 </div> 
 
                 <div class="control-group">
                     <label class="control-label" for="em_ngay_xuat_ngu">Ngày xuất ngũ</label>
                     <div class="controls">                    
-                        <?php echo $this->formText('em_ngay_xuat_ngu', date('d/m/Y', strtotime($this->employee_info->eme_ngay_xuat_ngu)), array('class' => 'input-medium')); ?>                    
+                        <?php
+                        if ($this->employee_info->eme_ngay_xuat_ngu && $this->employee_info->eme_ngay_xuat_ngu != '' && $this->employee_info->eme_ngay_xuat_ngu != '0000-00-00 00:00:00') {
+                            echo $this->formText('em_ngay_xuat_ngu', date('d/m/Y', strtotime($this->employee_info->eme_ngay_xuat_ngu)), array('class' => 'input-medium'));
+                        } else {
+                            echo $this->formText('em_ngay_xuat_ngu', null, array('class' => 'input-medium'));
+                        }
+                        ?>                    
                     </div>
                 </div> 
                 <div class="control-group">
@@ -707,7 +743,7 @@
                 </div>
 
             </fieldset>
-            
+
             <div class="control-group">
                 <div class="controls">
                     <p>                    
@@ -770,7 +806,10 @@
             changeYear: true,
             defaultDate: "+1w",
             numberOfMonths: 1,
-            dateFormat: 'd/m/yy'
+            dateFormat: 'd/m/yy',
+            showOn: "button",
+            buttonImage: site_url+"/date-picker-icon.png",
+            buttonImageOnly: true
         });
         $( "#ngay_doan" ).datepicker({
             yearRange: '1900:2050',
@@ -778,7 +817,10 @@
             changeYear: true,
             defaultDate: "+1w",
             numberOfMonths: 1,
-            dateFormat: 'd/m/yy'
+            dateFormat: 'd/m/yy',
+            showOn: "button",
+            buttonImage: site_url+"/date-picker-icon.png",
+            buttonImageOnly: true
         });   
         
         $( "#em_ngay_nhap_ngu" ).datepicker({

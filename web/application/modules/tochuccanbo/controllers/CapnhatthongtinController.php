@@ -194,7 +194,7 @@ class Tochuccanbo_CapnhatthongtinController extends Zend_Controller_Action {
             $em_tin_hoc = $this->_arrParam['em_tin_hoc'];
             $em_chung_chi_khac = $this->_arrParam['em_chung_chi_khac'];
             $em_bang_scan_upload = $this->_arrParam['anh_bang_cap'];
-            
+
             /* Moi them */
             $em_ton_giao = trim($this->_arrParam['em_ton_giao']);
             $em_noi_sinh_huyen = trim($this->_arrParam['em_noi_sinh_huyen']);
@@ -242,24 +242,34 @@ class Tochuccanbo_CapnhatthongtinController extends Zend_Controller_Action {
             if (!sizeof($error_message)) {
                 $current_time = new Zend_Db_Expr('NOW()');
 
-                $ngay_sinh = str_replace('/', '-', $ngay_sinh);
-                $ngay_sinh = date('Y-m-d', strtotime($ngay_sinh));
+                if ($ngay_sinh != '') {
+                    $ngay_sinh = str_replace('/', '-', $ngay_sinh);
+                    $ngay_sinh = date('Y-m-d', strtotime($ngay_sinh));
+                }
 
-                $ngay_dang = str_replace('/', '-', $ngay_dang);
-                $ngay_dang = date('Y-m-d', strtotime($ngay_dang));
+                if ($ngay_dang != '') {
+                    $ngay_dang = str_replace('/', '-', $ngay_dang);
+                    $ngay_dang = date('Y-m-d', strtotime($ngay_dang));
+                }
 
-                $ngay_doan = str_replace('/', '-', $ngay_doan);
-                $ngay_doan = date('Y-m-d', strtotime($ngay_doan));
+                if ($ngay_doan != '') {
+                    $ngay_doan = str_replace('/', '-', $ngay_doan);
+                    $ngay_doan = date('Y-m-d', strtotime($ngay_doan));
+                }
 
-                $em_ngay_nhap_ngu = str_replace('/', '-', $em_ngay_nhap_ngu);
-                $em_ngay_nhap_ngu = date('Y-m-d', strtotime($em_ngay_nhap_ngu));
+                if ($em_ngay_nhap_ngu != '') {
+                    $em_ngay_nhap_ngu = str_replace('/', '-', $em_ngay_nhap_ngu);
+                    $em_ngay_nhap_ngu = date('Y-m-d', strtotime($em_ngay_nhap_ngu));
+                }
+                if ($em_ngay_xuat_ngu != '') {
+                    $em_ngay_xuat_ngu = str_replace('/', '-', $em_ngay_xuat_ngu);
+                    $em_ngay_xuat_ngu = date('Y-m-d', strtotime($em_ngay_xuat_ngu));
+                }
 
-                $em_ngay_xuat_ngu = str_replace('/', '-', $em_ngay_xuat_ngu);
-                $em_ngay_xuat_ngu = date('Y-m-d', strtotime($em_ngay_xuat_ngu));
-                
-                $em_cmt_ngay_cap = str_replace('/', '-', $em_cmt_ngay_cap);
-                $em_cmt_ngay_cap = date('Y-m-d', strtotime($em_cmt_ngay_cap));
-
+                if ($em_cmt_ngay_cap != '') {
+                    $em_cmt_ngay_cap = str_replace('/', '-', $em_cmt_ngay_cap);
+                    $em_cmt_ngay_cap = date('Y-m-d', strtotime($em_cmt_ngay_cap));
+                }
                 $data['em_ho'] = $em_ho;
                 $data['em_ten'] = $em_ten;
                 $data['em_ten_khac'] = $em_ten_khac;

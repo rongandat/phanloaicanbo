@@ -17,11 +17,23 @@
             <div class="span6 float_left"><strong>Giới tính: </strong> <?php echo $this->employee_info->em_gioi_tinh ? 'Nam' : 'Nữ'; ?></div>
         </div>
         <div class="row">
-            <div class="span6 float_left"><strong>Ngày sinh: </strong> <?php echo ($this->employee_info->em_ngay_sinh? date('d-m-Y', strtotime($this->employee_info->em_ngay_sinh)):''); ?></div>
+            <div class="span6 float_left"><strong>Ngày sinh: </strong> 
+                <?php
+                if ($this->employee_info->em_ngay_sinh && $this->employee_info->em_ngay_sinh != '' && $this->employee_info->em_ngay_sinh != '0000-00-00 00:00:00') {
+                    echo ($this->employee_info->em_ngay_sinh ? date('d-m-Y', strtotime($this->employee_info->em_ngay_sinh)) : '');
+                }
+                ?>
+            </div>
         </div>
         <div class="row">
             <div class="span4 float_left"><strong>Số chứng minh thư: </strong> <?php echo $this->employee_info->em_so_chung_minh_thu; ?></div>
-            <div class="span4 float_left"><strong>Ngày cấp: </strong> <?php echo ($this->employee_info->em_cmt_ngay_cap? date('d-m-Y', strtotime($this->employee_info->em_cmt_ngay_cap)):''); ?></div>
+            <div class="span4 float_left"><strong>Ngày cấp: </strong> 
+                <?php
+                if ($this->employee_info->em_cmt_ngay_cap && $this->employee_info->em_cmt_ngay_cap != '' && $this->employee_info->em_cmt_ngay_cap != '0000-00-00 00:00:00') {
+                    echo ($this->employee_info->em_cmt_ngay_cap ? date('d-m-Y', strtotime($this->employee_info->em_cmt_ngay_cap)) : '');
+                }
+                ?>
+            </div>
         </div>
         <div class="row">
             <div class="span4 float_left">
@@ -68,7 +80,13 @@
             <div class="span4 float_left"><strong>Chức vụ: </strong> <?php echo $this->viewGetChucVuName($this->employee_info->em_chuc_vu); ?></div>
         </div>
         <div class="row">            
-            <div class="span4 float_left"><strong>Ngày tuyển dụng: </strong> <?php echo ($this->employee_info->em_ngay_tuyen_dung? date('d-m-Y', strtotime($this->employee_info->em_ngay_tuyen_dung)):''); ?></div>
+            <div class="span4 float_left"><strong>Ngày tuyển dụng: </strong>
+                <?php
+                if ($this->employee_info->em_ngay_tuyen_dung && $this->employee_info->em_ngay_tuyen_dung != '' && $this->employee_info->em_ngay_tuyen_dung != '0000-00-00 00:00:00') {
+                    echo ($this->employee_info->em_ngay_tuyen_dung ? date('d-m-Y', strtotime($this->employee_info->em_ngay_tuyen_dung)) : '');
+                }
+                ?>  
+            </div>
         </div>
         <div class="row">            
             <div class="span9 float_left"><strong>Cơ quan tuyển dụng: </strong> <?php echo $this->employee_info->em_co_quan_tuyen_dung; ?></div>
@@ -92,22 +110,46 @@
             <div class="span4 float_left"><strong>Chức vụ đảng: </strong> <?php echo $this->viewGetChucVuDangName($this->employee_info->em_chuc_vu_dang); ?></div>
         </div>
         <div class="row">            
-            <div class="span4 float_left"><strong>Ngày vào đảng: </strong> <?php echo ($this->employee_info->em_chuc_vu_dang && $this->employee_info->em_ngay_vao_dang) ? date('d-m-Y', strtotime($this->employee_info->em_ngay_vao_dang)) : ''; ?></div>
+            <div class="span4 float_left"><strong>Ngày vào đảng: </strong> 
+                <?php
+                if ($this->employee_info->em_ngay_vao_dang && $this->employee_info->em_ngay_vao_dang != '' && $this->employee_info->em_ngay_vao_dang != '0000-00-00 00:00:00') {
+                    echo ($this->employee_info->em_ngay_vao_dang ? date('d-m-Y', strtotime($this->employee_info->em_ngay_vao_dang)) : '');
+                }
+                ?>                
+            </div>
         </div>
         <div class="row">            
             <div class="span4 float_left"><strong>Chức vụ đoàn: </strong> <?php echo $this->viewGetChucVuDoanName($this->employee_info->em_chuc_vu_doan); ?></div>
         </div>
         <div class="row">            
-            <div class="span4 float_left"><strong>Ngày vào đảng: </strong> <?php echo ($this->employee_info->em_chuc_vu_doan &&  $this->employee_info->em_ngay_vao_doan)? date('d-m-Y', strtotime($this->employee_info->em_ngay_vao_doan)) : ''; ?></div>
+            <div class="span4 float_left"><strong>Ngày vào đoàn: </strong> 
+                <?php
+                if ($this->employee_info->em_ngay_vao_doan && $this->employee_info->em_ngay_vao_doan != '' && $this->employee_info->em_ngay_vao_doan != '0000-00-00 00:00:00') {
+                    echo ($this->employee_info->em_ngay_vao_doan ? date('d-m-Y', strtotime($this->employee_info->em_ngay_vao_doan)) : '');
+                }
+                ?>                
+            </div>
         </div>
         <div class="row">            
             <div class="span4 float_left"><strong>Chức vụ công đoàn: </strong> <?php echo $this->viewGetChucVuCongDoanName($this->employee_info->em_chuc_vu_cong_doan); ?></div>
         </div>
         <div class="row">            
-            <div class="span4 float_left"><strong>Ngày nhập ngũ: </strong> <?php echo $this->employee_info->em_ngay_nhap_ngu ? date('d-m-Y', strtotime($this->employee_info->em_ngay_nhap_ngu)) : ''; ?></div>
+            <div class="span4 float_left"><strong>Ngày nhập ngũ: </strong> 
+                <?php
+                if ($this->employee_info->em_ngay_nhap_ngu && $this->employee_info->em_ngay_nhap_ngu != '' && $this->employee_info->em_ngay_nhap_ngu != '0000-00-00 00:00:00') {
+                    echo ($this->employee_info->em_ngay_nhap_ngu ? date('d-m-Y', strtotime($this->employee_info->em_ngay_nhap_ngu)) : '');
+                }
+                ?>                
+            </div>
         </div>
         <div class="row">            
-            <div class="span4 float_left"><strong>Ngày xuất ngũ: </strong> <?php echo $this->employee_info->em_ngay_xuat_ngu ? date('d-m-Y', strtotime($this->employee_info->em_ngay_xuat_ngu)) : ''; ?></div>
+            <div class="span4 float_left"><strong>Ngày xuất ngũ: </strong> 
+                <?php
+                if ($this->employee_info->em_ngay_xuat_ngu && $this->employee_info->em_ngay_xuat_ngu != '' && $this->employee_info->em_ngay_xuat_ngu != '0000-00-00 00:00:00') {
+                    echo ($this->employee_info->em_ngay_xuat_ngu ? date('d-m-Y', strtotime($this->employee_info->em_ngay_xuat_ngu)) : '');
+                }
+                ?>                 
+            </div>
         </div>
         <div class="row">            
             <div class="span9 float_left"><strong>Quân hàm cao nhất: </strong> <?php echo $this->employee_info->em_quan_ham; ?></div>
@@ -288,11 +330,11 @@
         <div class="row">            
             <div class="span4 float_left"><strong>Lý luận chính trị: </strong> <?php echo $this->viewGetLyLuanChinhTriName($this->employee_info->em_ly_luan_chinh_tri); ?></div>
         </div>  
-        
+
         <div class="row">            
             <div class="span4 float_left"><strong>Quản lý nhà nước: </strong> <?php echo $this->viewGetQuanLyNhaNuocName($this->employee_info->em_quan_ly_nha_nuoc); ?></div>
         </div>    
-        
+
         <div class="row">            
             <div class="span4 float_left"><strong>Học hàm cao nhất: </strong> <?php echo $this->viewGetHocHamName($this->employee_info->em_hoc_ham); ?></div>
         </div>       

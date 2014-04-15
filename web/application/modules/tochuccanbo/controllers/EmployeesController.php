@@ -55,7 +55,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
         $check_nang_luong = $this->_helper->global->checkNangLuong();
         $check_luan_chuyen = $this->_helper->global->checkLuanChuyen();
         $check_ve_huu = $this->_helper->global->checkNghiHuu();
-        
+
         $pb_ids = array($pb_selected);
         foreach ($phong_ban_choosed as $pb) {
             $pb_ids[] = $pb->pb_id;
@@ -136,7 +136,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
         $this->view->list_phong_ban_option = $list_phong_ban_option;
         $this->view->list_ngach_cong_chuc = $list_ngach_cong_chuc;
     }
-    
+
     public function luanchuyenAction() {
         $translate = Zend_Registry::get('Zend_Translate');
         $this->view->title = 'Quản lý cán bộ - ' . $translate->_('TEXT_DEFAULT_TITLE');
@@ -190,7 +190,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
         $this->view->list_phong_ban_option = $list_phong_ban_option;
         $this->view->list_ngach_cong_chuc = $list_ngach_cong_chuc;
     }
-    
+
     public function nghihuuAction() {
         $translate = Zend_Registry::get('Zend_Translate');
         $this->view->title = 'Quản lý cán bộ sắp nghỉ hưu - ' . $translate->_('TEXT_DEFAULT_TITLE');
@@ -222,7 +222,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
         foreach ($phong_ban_choosed as $pb) {
             $pb_ids[] = $pb->pb_id;
         }
-        
+
         $employeesModel = new Front_Model_Employees();
         if (!$pb_selected) {
             $list_employees = $employeesModel->getNghiHuu(array());
@@ -498,32 +498,56 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
 
             if (!sizeof($error_message)) {
                 $current_time = new Zend_Db_Expr('NOW()');
-                $ngay_sinh = str_replace('/', '-', $ngay_sinh);
-                $ngay_sinh = date('Y-m-d', strtotime($ngay_sinh));
 
-                $ngay_tuyen_dung = str_replace('/', '-', $ngay_tuyen_dung);
-                $ngay_tuyen_dung = date('Y-m-d', strtotime($ngay_tuyen_dung));
+                if ($ngay_sinh != '') {
+                    $ngay_sinh = str_replace('/', '-', $ngay_sinh);
+                    $ngay_sinh = date('Y-m-d', strtotime($ngay_sinh));
+                    $data['em_ngay_sinh'] = $ngay_sinh;
+                }
 
-                $ngay_dang = str_replace('/', '-', $ngay_dang);
-                $ngay_dang = date('Y-m-d', strtotime($ngay_dang));
+                if ($ngay_tuyen_dung != '') {
+                    $ngay_tuyen_dung = str_replace('/', '-', $ngay_tuyen_dung);
+                    $ngay_tuyen_dung = date('Y-m-d', strtotime($ngay_tuyen_dung));
+                    $data['em_ngay_tuyen_dung'] = $ngay_tuyen_dung;
+                }
 
-                $ngay_doan = str_replace('/', '-', $ngay_doan);
-                $ngay_doan = date('Y-m-d', strtotime($ngay_doan));
+                if ($ngay_dang != '') {
+                    $ngay_dang = str_replace('/', '-', $ngay_dang);
+                    $ngay_dang = date('Y-m-d', strtotime($ngay_dang));
+                    $data['em_ngay_vao_dang'] = $ngay_dang;
+                }
 
-                $em_ngay_nhap_ngu = str_replace('/', '-', $em_ngay_nhap_ngu);
-                $em_ngay_nhap_ngu = date('Y-m-d', strtotime($em_ngay_nhap_ngu));
 
-                $em_ngay_xuat_ngu = str_replace('/', '-', $em_ngay_xuat_ngu);
-                $em_ngay_xuat_ngu = date('Y-m-d', strtotime($em_ngay_xuat_ngu));
+                if ($ngay_doan != '') {
+                    $ngay_doan = str_replace('/', '-', $ngay_doan);
+                    $ngay_doan = date('Y-m-d', strtotime($ngay_doan));
+                    $data['em_ngay_vao_doan'] = $ngay_doan;
+                }
 
-                $em_cmt_ngay_cap = str_replace('/', '-', $em_cmt_ngay_cap);
-                $em_cmt_ngay_cap = date('Y-m-d', strtotime($em_cmt_ngay_cap));
+
+                if ($em_ngay_nhap_ngu != '') {
+                    $em_ngay_nhap_ngu = str_replace('/', '-', $em_ngay_nhap_ngu);
+                    $em_ngay_nhap_ngu = date('Y-m-d', strtotime($em_ngay_nhap_ngu));
+                    $data['em_ngay_nhap_ngu'] = $em_ngay_nhap_ngu;
+                }
+
+                if ($em_ngay_xuat_ngu != '') {
+                    $em_ngay_xuat_ngu = str_replace('/', '-', $em_ngay_xuat_ngu);
+                    $em_ngay_xuat_ngu = date('Y-m-d', strtotime($em_ngay_xuat_ngu));
+                    $data['em_ngay_xuat_ngu'] = $em_ngay_xuat_ngu;
+                }
+
+                if ($em_cmt_ngay_cap != '') {
+                    $em_cmt_ngay_cap = str_replace('/', '-', $em_cmt_ngay_cap);
+                    $em_cmt_ngay_cap = date('Y-m-d', strtotime($em_cmt_ngay_cap));
+                    $data['em_cmt_ngay_cap'] = $em_cmt_ngay_cap;
+                }
 
                 $data['em_ho'] = $em_ho;
                 $data['em_ten'] = $em_ten;
                 $data['em_ten_khac'] = $em_ten_khac;
                 $data['em_so_chung_minh_thu'] = $em_so_chung_minh_thu;
-                $data['em_cmt_ngay_cap'] = $em_cmt_ngay_cap;
+
                 $data['em_gioi_tinh'] = $em_gioi_tinh;
                 $data['em_home_phone'] = $em_home_phone;
                 $data['em_phone'] = $em_phone;
@@ -550,10 +574,6 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
                 $data['em_chung_chi_khac'] = $em_chung_chi_khac;
                 $data['em_anh_bang_cap'] = serialize($em_bang_scan_upload);
                 $data['em_status'] = $em_status;
-                $data['em_ngay_sinh'] = $ngay_sinh;
-                $data['em_ngay_tuyen_dung'] = $ngay_tuyen_dung;
-                $data['em_ngay_vao_dang'] = $ngay_dang;
-                $data['em_ngay_vao_doan'] = $ngay_doan;
 
                 /* Moi them */
                 $data['em_ton_giao'] = $em_ton_giao;
@@ -569,8 +589,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
                 $data['em_ma_ngach'] = $em_ma_ngach;
                 $data['em_khen_thuong'] = $em_khen_thuong;
                 $data['em_ky_luat'] = $em_ky_luat;
-                $data['em_ngay_nhap_ngu'] = $em_ngay_nhap_ngu;
-                $data['em_ngay_xuat_ngu'] = $em_ngay_xuat_ngu;
+
                 $data['em_quan_ham'] = $em_quan_ham;
                 $data['em_danh_hieu'] = $em_danh_hieu;
                 $data['em_so_bhxh'] = $em_so_bhxh;
@@ -812,32 +831,54 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
             if (!sizeof($error_message)) {
                 $current_time = new Zend_Db_Expr('NOW()');
 
-                $ngay_sinh = str_replace('/', '-', $ngay_sinh);
-                $ngay_sinh = date('Y-m-d', strtotime($ngay_sinh));
+                if ($ngay_sinh != '') {
+                    $ngay_sinh = str_replace('/', '-', $ngay_sinh);
+                    $ngay_sinh = date('Y-m-d', strtotime($ngay_sinh));
+                }
+                $data['em_ngay_sinh'] = $ngay_sinh;
 
-                $ngay_tuyen_dung = str_replace('/', '-', $ngay_tuyen_dung);
-                $ngay_tuyen_dung = date('Y-m-d', strtotime($ngay_tuyen_dung));
+                if ($ngay_tuyen_dung != '') {
+                    $ngay_tuyen_dung = str_replace('/', '-', $ngay_tuyen_dung);
+                    $ngay_tuyen_dung = date('Y-m-d', strtotime($ngay_tuyen_dung));
+                }
+                $data['em_ngay_tuyen_dung'] = $ngay_tuyen_dung;
 
-                $ngay_dang = str_replace('/', '-', $ngay_dang);
-                $ngay_dang = date('Y-m-d', strtotime($ngay_dang));
+                if ($ngay_dang != '') {
+                    $ngay_dang = str_replace('/', '-', $ngay_dang);
+                    $ngay_dang = date('Y-m-d', strtotime($ngay_dang));
+                }
+                $data['em_ngay_vao_dang'] = $ngay_dang;
 
-                $ngay_doan = str_replace('/', '-', $ngay_doan);
-                $ngay_doan = date('Y-m-d', strtotime($ngay_doan));
 
-                $em_ngay_nhap_ngu = str_replace('/', '-', $em_ngay_nhap_ngu);
-                $em_ngay_nhap_ngu = date('Y-m-d', strtotime($em_ngay_nhap_ngu));
+                if ($ngay_doan != '') {
+                    $ngay_doan = str_replace('/', '-', $ngay_doan);
+                    $ngay_doan = date('Y-m-d', strtotime($ngay_doan));
+                }
+                $data['em_ngay_vao_doan'] = $ngay_doan;
 
-                $em_ngay_xuat_ngu = str_replace('/', '-', $em_ngay_xuat_ngu);
-                $em_ngay_xuat_ngu = date('Y-m-d', strtotime($em_ngay_xuat_ngu));
 
-                $em_cmt_ngay_cap = str_replace('/', '-', $em_cmt_ngay_cap);
-                $em_cmt_ngay_cap = date('Y-m-d', strtotime($em_cmt_ngay_cap));
+                if ($em_ngay_nhap_ngu != '') {
+                    $em_ngay_nhap_ngu = str_replace('/', '-', $em_ngay_nhap_ngu);
+                    $em_ngay_nhap_ngu = date('Y-m-d', strtotime($em_ngay_nhap_ngu));
+                }
+                $data['em_ngay_nhap_ngu'] = $em_ngay_nhap_ngu;
+
+                if ($em_ngay_xuat_ngu != '') {
+                    $em_ngay_xuat_ngu = str_replace('/', '-', $em_ngay_xuat_ngu);
+                    $em_ngay_xuat_ngu = date('Y-m-d', strtotime($em_ngay_xuat_ngu));
+                }
+                $data['em_ngay_xuat_ngu'] = $em_ngay_xuat_ngu;
+
+                if ($em_cmt_ngay_cap != '') {
+                    $em_cmt_ngay_cap = str_replace('/', '-', $em_cmt_ngay_cap);
+                    $em_cmt_ngay_cap = date('Y-m-d', strtotime($em_cmt_ngay_cap));
+                }
+                $data['em_cmt_ngay_cap'] = $em_cmt_ngay_cap;
 
                 $data['em_ho'] = $em_ho;
                 $data['em_ten'] = $em_ten;
                 $data['em_ten_khac'] = $em_ten_khac;
                 $data['em_so_chung_minh_thu'] = $em_so_chung_minh_thu;
-                $data['em_cmt_ngay_cap'] = $em_cmt_ngay_cap;
                 $data['em_gioi_tinh'] = $em_gioi_tinh;
                 $data['em_home_phone'] = $em_home_phone;
                 $data['em_phone'] = $em_phone;
@@ -864,9 +905,6 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
                 $data['em_chung_chi_khac'] = $em_chung_chi_khac;
                 $data['em_anh_bang_cap'] = serialize($em_bang_scan_upload);
                 $data['em_status'] = $em_status;
-                $data['em_ngay_sinh'] = $ngay_sinh;
-                $data['em_ngay_tuyen_dung'] = $ngay_tuyen_dung;
-                $data['em_ngay_vao_dang'] = $ngay_dang;
 
                 /* Moi them */
                 $data['em_ton_giao'] = $em_ton_giao;
@@ -882,8 +920,6 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
                 $data['em_ma_ngach'] = $em_ma_ngach;
                 $data['em_khen_thuong'] = $em_khen_thuong;
                 $data['em_ky_luat'] = $em_ky_luat;
-                $data['em_ngay_nhap_ngu'] = $em_ngay_nhap_ngu;
-                $data['em_ngay_xuat_ngu'] = $em_ngay_xuat_ngu;
                 $data['em_quan_ham'] = $em_quan_ham;
                 $data['em_danh_hieu'] = $em_danh_hieu;
                 $data['em_so_bhxh'] = $em_so_bhxh;
@@ -904,7 +940,6 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
                 $data['em_ly_luan_chinh_tri'] = $em_ly_luan_chinh_tri;
                 $data['em_quan_ly_nha_nuoc'] = $em_quan_ly_nha_nuoc;
 
-                $data['em_ngay_vao_doan'] = $ngay_doan;
                 $data['em_date_modified'] = $current_time;
                 $employeesModel->update($data, 'em_id=' . $id);
                 $employee_info = $employeesModel->fetchRow('em_id=' . $id . ' and em_delete=0');
@@ -1183,7 +1218,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
         $this->view->list_phong_ban = $list_phong_ban;
         $this->view->list_ngach_cong_chuc = $list_ngach_cong_chuc;
     }
-    
+
     public function formnghihuuAction() {
         $this->_helper->layout()->disableLayout();
         $emID = $this->_getParam('id', 0);
@@ -1199,8 +1234,8 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
 
         $error_message = array();
         $success_message = '';
-        if ($this->_request->isPost()) {            
-            $current_time = new Zend_Db_Expr('NOW()');    
+        if ($this->_request->isPost()) {
+            $current_time = new Zend_Db_Expr('NOW()');
             $data = array();
             $data['em_nghi_huu'] = 1;
             $data['em_ngay_nghi_huu'] = $current_time;
