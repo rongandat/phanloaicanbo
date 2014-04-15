@@ -14,7 +14,9 @@ foreach ($this->filter as $filter) {
                 echo $this->formSelect('sl_filter', $this->filter_selected, array('onchange' => 'on_choose_filter()'), $filter_options);
                 ?>
             </div>
-
+            <div class="btn-toolbar form-search float_right text-right">
+                <a class="btn btn-small btn-primary" target="_blank" href="<?php echo $this->baseUrl('danhsach/hocham/xuat/id/' . $this->filter_selected); ?>"><i class="icon-download-alt"></i> Xuất ra file excel</a>
+            </div>
             <div class="clearfix">
             </div>
             <table class="table table-bordered table-hover">

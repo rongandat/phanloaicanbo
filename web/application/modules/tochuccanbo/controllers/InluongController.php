@@ -320,9 +320,13 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
 
             if ($k) {
                 $objPHPExcel->getActiveSheet()->setTitle('Bảng lương');
-
+                if ($pb_selected && $phong_ban_selected_info) {
+                    $file_name = 'Bang_luong_' . str_replace(' ', '_', $this->loc_tieng_viet($phong_ban_selected_info->pb_name)) . '_' . $thang . '-' . $nam . '.xls';
+                } else {
+                    $file_name = 'Bang_luong_' . $thang . '-' . $nam . '.xls';
+                }
                 header('Content-Type: application/vnd.ms-excel');
-                header('Content-Disposition: attachment;filename="hungnm.xls"');
+                header('Content-Disposition: attachment;filename="'.$file_name.'"');
                 header('Cache-Control: max-age=0');
                 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
                 $objWriter->save('php://output');

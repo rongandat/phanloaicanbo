@@ -27,6 +27,101 @@ class Danhsach_NgachcongchucController extends Zend_Controller_Action {
         $this->view->arrParam = $this->_arrParam;
     }
 
+    public function xuatAction() {
+        $inputFileName = APPLICATION_PATH . "/../tmp/Mau_Ca_Nhan_Excel.xlsx";
+
+        $objPHPExcel = PHPExcel_IOFactory::load($inputFileName);
+
+        $objPHPExcel->getProperties()->setCreator("Cục Hải Quan Hà Tĩnh");
+        $objPHPExcel->getProperties()->setLastModifiedBy("Cục Hải Quan Hà Tĩnh");
+        $objPHPExcel->getProperties()->setTitle("Bảng thông tin");
+        $objPHPExcel->getProperties()->setSubject("Bảng thông tin");
+        $objPHPExcel->getProperties()->setDescription("Bảng thông tin nhân viên - Cục Hải Quan Hà Tĩnh");
+        
+        $translate = Zend_Registry::get('Zend_Translate');
+        $this->view->title = 'Lọc danh sách theo nghạch công chức - ' . $translate->_('TEXT_DEFAULT_TITLE');
+        $this->view->headTitle($this->view->title);
+
+        $layoutPath = APPLICATION_PATH . '/templates/' . TEMPLATE_USED;
+        $option = array('layout' => 'danhsach/layout',
+            'layoutPath' => $layoutPath);
+        Zend_Layout::startMvc($option);
+
+        $filter_selected = $this->_getParam('id', 0);
+
+        $hesoModel = new Front_Model_EmployeesHeso();
+        $emModel = new Front_Model_Employees();
+        $filterModel = new Front_Model_NgachCongChuc();
+        $list_filters = $filterModel->fetchData(array('ncc_status'=>1));
+        $filters = array();
+        if($filter_selected) $filters['em_ngach_cong_chuc'] = $filter_selected;
+        $list_items = $emModel->fetchData($filters);
+        $i = 0;
+        if (sizeof($list_items)) {
+            foreach ($list_items as $item) {
+                $em_he_so = $hesoModel->fetchRow("eh_em_id=$item->em_id");
+                $objPHPExcel->setActiveSheetIndex($i);
+                $objPHPExcel->getActiveSheet()->setTitle($item->em_ho . ' ' . $item->em_ten);
+                $n = 6;
+                foreach (unserialize($item->em_lich_su_dao_tao) as $item_daotao) {
+                    $objPHPExcel->getActiveSheet()->SetCellValue('D' . $n, $item_daotao['chuyen_nghanh']);
+                    $objPHPExcel->getActiveSheet()->SetCellValue('E' . $n, $item_daotao['ten_truong']);
+                    $objPHPExcel->getActiveSheet()->SetCellValue('F' . $n, $item_daotao['van_bang']);
+                    $objPHPExcel->getActiveSheet()->SetCellValue('G' . $n, $item_daotao['hinh_thuc']);
+                    $n++;
+                    if ($n == 8) {
+                        break;
+                    }
+                }
+                $objPHPExcel->getActiveSheet()->SetCellValue('H6', $this->view->viewGetQuanLyNhaNuocName($item->em_quan_ly_nha_nuoc));
+                $objPHPExcel->getActiveSheet()->SetCellValue('I6', $this->view->viewGetLyLuanChinhTriName($item->em_ly_luan_chinh_tri));
+                $objPHPExcel->getActiveSheet()->SetCellValue('J6', $item->em_so_cong_chuc);
+                $objPHPExcel->getActiveSheet()->SetCellValue('K6', $item->em_phone);
+
+                if ($em_he_so) {
+                    if($em_he_so->eh_tham_niem && $em_he_so->eh_tham_niem != '0000-00-00 00:00:00'){
+                        $objPHPExcel->getActiveSheet()->SetCellValue('A6', date('m/Y', strtotime($em_he_so->eh_tham_niem)));
+                    } 
+                    $objPHPExcel->getActiveSheet()->SetCellValue('A10', $em_he_so->eh_pc_cong_vu_phan_tram . '%');
+                    $objPHPExcel->getActiveSheet()->SetCellValue('B10', $em_he_so->eh_pc_thu_hut . '%');
+                    $objPHPExcel->getActiveSheet()->SetCellValue('C10', $em_he_so->eh_pc_kiem_nhiem);
+                    $objPHPExcel->getActiveSheet()->SetCellValue('D10', $em_he_so->eh_pc_udn_phan_tram . '%');
+                    $objPHPExcel->getActiveSheet()->SetCellValue('E10', $em_he_so->eh_pc_khac . ($em_he_so->eh_pc_khac_type ? '%' : ''));
+                }
+
+                if ($item->em_anh_the) {
+                    $link_anh = UPLOAD_PATH . '/avatars/' . $item->em_anh_the;
+                } else {
+                    $link_anh = UPLOAD_PATH.'/avatars/anh_the.jpg';
+                }
+                
+                $objDrawing = new PHPExcel_Worksheet_Drawing();
+                $objDrawing->setName('Logo');
+                $objDrawing->setDescription('Logo');
+                $objDrawing->setPath(UPLOAD_PATH.'/avatars/anh_the.jpg');
+                $objDrawing->setCoordinates('F15');
+                $objDrawing->setHeight(180);
+                $objDrawing->setWidth(120);
+                $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
+                
+                $i++;
+            }
+
+            $count_sheet = $objPHPExcel->getSheetCount();
+            for ($j = $count_sheet - 1; $j > $i; $j--) {
+                $objPHPExcel->removeSheetByIndex($j);
+            }
+            header('Content-Type: application/vnd.ms-excel');
+            header('Content-Disposition: attachment;filename="Bang_Thong_Tin_Nhan_Vien_Theo_Ngach_Cong_Chuc.xls"');
+            header('Cache-Control: max-age=0');
+            $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+            $objWriter->save('php://output');
+            die();
+        } else {
+            die('Không có dữ liệu nào');
+        }
+    }
+    
     public function indexAction() {
         $translate = Zend_Registry::get('Zend_Translate');
         $this->view->title = 'Lọc danh sách theo nghạch công chức - ' . $translate->_('TEXT_DEFAULT_TITLE');

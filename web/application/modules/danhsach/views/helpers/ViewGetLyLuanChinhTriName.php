@@ -8,7 +8,7 @@ class Zend_View_Helper_ViewGetLyLuanChinhTriName extends Zend_Controller_Action_
     public $view;
 
     public function viewGetLyLuanChinhTriName($id = '') {
-        if ($id) {
+        if ($id && $id !='') {
             $lyluanModel = new Front_Model_LyLuanChinhTri();
             $row = $lyluanModel->fetchRow('llct_id=' . $id . ' and llct_status=1');
             if ($row) {

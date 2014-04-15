@@ -12,7 +12,7 @@ class Tochuccanbo_BacluongController extends Zend_Controller_Action {
         $identity = $auth->getIdentity();
 
         //kiem tra permission
-        $check_permission = $this->_helper->global->checkPermission($identity->group_id, '4012');
+        $check_permission = $this->_helper->global->checkPermission($identity->group_id, '4014');
         if (!$check_permission) {
             $this->_redirect('index/permission/');
             exit();
@@ -74,7 +74,8 @@ class Tochuccanbo_BacluongController extends Zend_Controller_Action {
                 $error_message[] = 'Tên bậc lương không được để trống.';
             }
 
-            $valid = new Zend_Validate_Float();
+            $locale = new Zend_Locale('en_US');
+            $valid = new Zend_Validate_Float($locale);
 
             if (!$valid->isValid($bl_he_so_luong)) {
                 $error_message[] = 'Hệ số lương phải có dạng số.';

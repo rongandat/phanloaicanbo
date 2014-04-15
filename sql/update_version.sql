@@ -116,3 +116,23 @@ ALTER TABLE `bang_luong` ADD COLUMN `bl_phan_loai` VARCHAR(45) NOT NULL DEFAULT 
 ALTER TABLE `he_so` DROP COLUMN `hs_luong_hop_dong`;
 
 ALTER TABLE `bang_luong` MODIFY COLUMN `bl_loai_luong` INT(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '0: chinh thuc, 1: hop dong';
+
+CREATE TABLE  `ly_luan_chinh_tri` (
+  `llct_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `llct_name` varchar(255) NOT NULL,
+  `llct_order` int(10) unsigned NOT NULL DEFAULT '0',
+  `llct_status` int(10) unsigned NOT NULL DEFAULT '1',
+  `llct_date_added` datetime DEFAULT NULL,
+  `llct_date_modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`llct_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+CREATE TABLE  `quan_ly_nha_nuoc` (
+  `qlnn_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `qlnn_name` varchar(255) NOT NULL,
+  `qlnn_order` int(10) unsigned NOT NULL DEFAULT '0',
+  `qlnn_status` int(10) unsigned NOT NULL DEFAULT '1',
+  `qlnn_date_added` datetime DEFAULT NULL,
+  `qlnn_date_modified` datetime DEFAULT NULL,
+  PRIMARY KEY (`qlnn_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;

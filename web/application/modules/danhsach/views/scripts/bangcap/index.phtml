@@ -14,7 +14,9 @@ foreach ($this->filter as $filter) {
                 echo $this->formSelect('sl_filter', $this->filter_selected, array('onchange' => 'on_choose_filter()'), $filter_options);
                 ?>
             </div>
-
+            <div class="btn-toolbar form-search float_right text-right">
+                <a class="btn btn-small btn-primary" target="_blank" href="<?php echo $this->baseUrl('danhsach/bangcap/xuat/id/' . $this->filter_selected); ?>"><i class="icon-download-alt"></i> Xuất ra file excel</a>
+            </div>
             <div class="clearfix">
             </div>
             <table class="table table-bordered table-hover">
@@ -32,8 +34,8 @@ foreach ($this->filter as $filter) {
                     foreach ($this->paginator as $item) {
                         echo '<tr>
                             <td>' . $item->em_ho . ' ' . $item->em_ten . '</td>                           
-                            <td>' . ($item->em_gioi_tinh?'Nam':'Nữ') . '</td>                           
-                            <td>' . date('d-m-Y',$item->em_ngay_sinh) . '</td>                           
+                            <td>' . ($item->em_gioi_tinh ? 'Nam' : 'Nữ') . '</td>                           
+                            <td>' . date('d-m-Y', $item->em_ngay_sinh) . '</td>                           
                             <td>' . $this->viewGetPhongBanName($item->em_phong_ban) . '</td>                           
                             <td>' . $this->viewGetChucVuName($item->em_chuc_vu) . '</td>                           
                             
