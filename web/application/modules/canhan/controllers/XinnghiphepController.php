@@ -111,7 +111,7 @@ class Canhan_XinnghiphepController extends Zend_Controller_Action {
                 $data = array();
                 $data['tb_from'] = 0;
                 $data['tb_tieu_de'] = '[Thông báo] Duyệt đơn xin nghỉ phép.';
-                $data['tb_noi_dung'] = 'Có đơn xin nghỉ phép mới<br/> Bạn hãy vào <strong>Đơn vị => Duyệt nghỉ phép</strong> để xét duyệt.';
+                $data['tb_noi_dung'] = 'Có đơn xin nghỉ phép mới.<br/> Bạn hãy <strong><a href="'.$this->view->baseUrl('donvi/duyetnghiphep').'">click vào đây</a></strong> để xét duyệt.';
                 $data['tb_status'] = 0;
                 $data['tb_date_added'] = $current_time;
                 $data['tb_date_modified'] = $current_time;

@@ -278,6 +278,10 @@
 </div>
 
 <script>
+    jQuery(function($) {
+      $('#kt_money').autoNumeric('init');    
+      $('#kl_money').autoNumeric('init');    
+    });
     function loadFormKyLuat(em_id, em_name){        
         $('#mdKyLuatBody #kl_cap_nhat_id').val(em_id);
         $('#mdKyLuatBody #kl_can_bo').html('<strong>'+em_name+'</strong>');
@@ -297,7 +301,8 @@
         var kl_day = $('#mdKyLuatBody #kl_ngay_ky_luat').val();
         var kl_month = $('#mdKyLuatBody #kl_thang_ky_luat').val();
         var kl_year = $('#mdKyLuatBody #kl_nam_ky_luat').val();   
-        var kl_money = $('#mdKyLuatBody #kl_money').val();   
+        //var kl_money = $('#mdKyLuatBody #kl_money').val();   
+        var kl_money = $('#mdKyLuatBody #kl_money').autoNumeric('get');   
         if(kl_title !='' && kl_content!=''){
             $.post( site_url+'/donvi/thanhvien/jqkyluat', {
                 em_id: em_id, 
@@ -340,7 +345,8 @@
         var kt_day = $('#mdKhenThuongBody #kt_ngay_khen_thuong').val();
         var kt_month = $('#mdKhenThuongBody #kt_thang_khen_thuong').val();
         var kt_year = $('#mdKhenThuongBody #kt_nam_khen_thuong').val(); 
-        var kt_money = $('#mdKhenThuongBody #kt_money').val(); 
+        //var kt_money = $('#mdKhenThuongBody #kt_money').val(); 
+        var kt_money = $('#mdKhenThuongBody #kt_money').autoNumeric('get');
         
         if(kt_title !='' && kt_content!=''){
             $.post( site_url+'/donvi/thanhvien/jqkhenthuong', { 

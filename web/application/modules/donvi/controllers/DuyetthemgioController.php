@@ -102,7 +102,7 @@ class Donvi_DuyetthemgioController extends Zend_Controller_Action {
                     $data = array();
                     $data['tb_from'] = 0;
                     $data['tb_tieu_de'] = '[Thông báo] Duyệt khai báo làm thêm giờ.';
-                    $data['tb_noi_dung'] = 'Có khai báo làm thêm giờ mới<br/> Bạn hãy vào <strong>Tổ chức cán bộ => Duyệt thêm giờ</strong> để xét duyệt.';
+                    $data['tb_noi_dung'] = 'Có khai báo làm thêm giờ mới<br/> Bạn hãy <strong><a href="'.$this->view->baseUrl('tochuccanbo/duyetthemgio').'">click vào đây</a></strong> để xét duyệt.';
                     $data['tb_status'] = 0;
                     $data['tb_date_added'] = $current_time;
                     $data['tb_date_modified'] = $current_time;

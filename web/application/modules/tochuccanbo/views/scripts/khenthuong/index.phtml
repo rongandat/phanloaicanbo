@@ -226,6 +226,10 @@
         $('#txt_thang_nam').monthpicker('show');
     });
     
+    jQuery(function($) {
+      $('#mdKhenThuongBody #kt_money').autoNumeric('init');   
+    });
+    
     function loadFormKhenThuong(kt_id, ngay, thang, nam, em_name, ly_do, money){ 
         var chi_tiet = $('#hd_kt_chi_tiet_'+kt_id).html();
         $('#mdChiTiet'+kt_id).modal('hide');
@@ -236,7 +240,7 @@
         $('#mdKhenThuongBody #kt_can_bo').html('<strong>'+em_name+'</strong>');
         tinyMCE.get('kt_chi_tiet').setContent(chi_tiet);
         $('#mdKhenThuongBody #kt_ly_do').val(ly_do);
-        $('#mdKhenThuongBody #kt_money').val(money);
+        $('#mdKhenThuongBody #kt_money').autoNumeric('set',money);
         $('#dv_khen_thuong_success').hide();
         $('#dv_khen_thuong_error').hide();
     }
@@ -263,7 +267,8 @@
         var kt_day = $('#mdKhenThuongBody #kt_ngay_khen_thuong').val();
         var kt_month = $('#mdKhenThuongBody #kt_thang_khen_thuong').val();
         var kt_year = $('#mdKhenThuongBody #kt_nam_khen_thuong').val(); 
-        var kt_money = $('#mdKhenThuongBody #kt_money').val(); 
+        //var kt_money = $('#mdKhenThuongBody #kt_money').val(); 
+        var kt_money = $('#mdKhenThuongBody #kt_money').autoNumeric('get');   
         
         if(kt_title !='' && kt_content!=''){
             $.post( site_url+'/tochuccanbo/khenthuong/jqkhenthuong', { 
@@ -282,6 +287,7 @@
                     $('#dv_khen_thuong_success').show();
                     tinyMCE.get('kt_chi_tiet').setContent('');
                     $('#mdKhenThuongBody #kt_ly_do').val('');
+                    window.location.reload(true);
                 }else{
                     $.error_ui('Thông báo', 'Không thể thực hiện được!', 4000); 
                     $('#dv_khen_thuong_error').show();

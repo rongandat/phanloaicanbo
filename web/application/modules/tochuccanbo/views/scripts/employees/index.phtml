@@ -352,6 +352,11 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
 
 
 <script type="text/javascript">
+    jQuery(function($) {
+      $('#kt_money').autoNumeric('init');    
+      $('#kl_money').autoNumeric('init');    
+    });
+    
     function on_choose_phong_ban(){
         var phong_ban = $('#sl_phong_ban').val();
         window.location = site_url+'/tochuccanbo/employees/index/phongban/'+phong_ban;
@@ -436,7 +441,8 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
         var kl_day = $('#mdKyLuatBody #kl_ngay_khen_thuong').val();
         var kl_month = $('#mdKyLuatBody #kl_thang_khen_thuong').val();
         var kl_year = $('#mdKyLuatBody #kl_nam_khen_thuong').val();   
-        var kl_money = $('#mdKyLuatBody #kl_money').val();   
+        //var kl_money = $('#mdKyLuatBody #kl_money').val();   
+        var kl_money = $('#mdKyLuatBody #kl_money').autoNumeric('get');   
         if(kl_title !='' && kl_content!=''){
             $.post( site_url+'/tochuccanbo/employees/jqkyluat', {
                 em_id: em_id, 
@@ -479,7 +485,8 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
         var kt_day = $('#mdKhenThuongBody #kt_ngay_khen_thuong').val();
         var kt_month = $('#mdKhenThuongBody #kt_thang_khen_thuong').val();
         var kt_year = $('#mdKhenThuongBody #kt_nam_khen_thuong').val(); 
-        var kt_money = $('#mdKhenThuongBody #kt_money').val(); 
+        //var kt_money = $('#mdKhenThuongBody #kt_money').val(); 
+        var kt_money = $('#mdKhenThuongBody #kt_money').autoNumeric('get'); 
         
         if(kt_title !='' && kt_content!=''){
             $.post( site_url+'/tochuccanbo/employees/jqkhenthuong', { 

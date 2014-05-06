@@ -118,7 +118,7 @@ class Canhan_DanhgiaphanloaiController extends Zend_Controller_Action {
             $data = array();
             $data['tb_from'] = 0;
             $data['tb_tieu_de'] = '[Thông báo] Duyệt đánh giá phân loại.';
-            $data['tb_noi_dung'] = 'Có khai báo đánh giá phân loại mới<br/> Bạn hãy vào <strong>Đơn vị => Duyệt phân loại cán bộ</strong> để xét duyệt.';
+            $data['tb_noi_dung'] = 'Có khai báo đánh giá phân loại mới.<br/> Bạn hãy <strong><a href="'.$this->view->baseUrl('donvi/duyetphanloai').'">click vào đây</a></strong> để xét duyệt.';
             $data['tb_status'] = 0;
             $data['tb_date_added'] = $current_time;
             $data['tb_date_modified'] = $current_time;

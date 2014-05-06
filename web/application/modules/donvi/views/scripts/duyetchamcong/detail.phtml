@@ -21,7 +21,7 @@ if ($this->cham_cong && $this->cham_cong->c_ptccb_status == 1) {
         <div id="dv_cham_cong_chi_tiet">
 
             <?php
-            $holiday_options = array('' => '', '-2' => 'Nghỉ phép', '-1' => 'Nghỉ không phép', '0' => 'Đi làm');
+            $holiday_options = array('' => '', '-2' => 'Nghỉ phép', '-1' => 'Nghỉ không phép', '0' => 'Có mặt làm việc');
             foreach ($this->list_holidays as $holiday) {
                 $holiday_options["$holiday->hld_id"] = $holiday->hld_name;
             }
