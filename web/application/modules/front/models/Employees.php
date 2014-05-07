@@ -62,7 +62,6 @@ class Front_Model_Employees extends Zend_Db_Table_Abstract {
         if ($phong_ban)
             $select->where($this->_name . '.em_phong_ban in (?)', $phong_ban);
         $select->where(TABLE_EMPLOYEESHESO . '.eh_han_dieu_chinh <=?', $ngay_gioi_han);
-        $select->where($this->_name . '.em_delete =?', 0);
         $select->where($this->_name . '.em_nghi_huu =?', 0);
         return $this->fetchAll($select);
     }
@@ -73,7 +72,6 @@ class Front_Model_Employees extends Zend_Db_Table_Abstract {
         if ($phong_ban)
             $select->where('em_phong_ban in (?)', $phong_ban);
         $select->where('em_han_luan_chuyen <=?', $ngay_gioi_han);
-        $select->where('em_delete =?', 0);
         $select->where('em_nghi_huu =?', 0);
         return $this->fetchAll($select);
     }

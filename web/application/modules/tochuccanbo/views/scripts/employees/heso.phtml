@@ -52,6 +52,13 @@ for($i=1900; $i<=2050; $i++){
                 ?> 
             </div>
         </div>
+        
+        <div class="control-group">
+            <label class="control-label">Ngạch công chức</label>
+            <div class="controls">
+                <?php echo $this->viewGetNgachCongChucName($this->em_info->em_ngach_cong_chuc); ?>
+            </div>
+        </div>
 
         <div class="control-group">
             <label class="control-label" for="eh_bac_luong">Bậc lương</label>
@@ -64,9 +71,9 @@ for($i=1900; $i<=2050; $i++){
                     }
 
                     if ($this->he_so)
-                        echo $this->formSelect('eh_bac_luong', $this->he_so->eh_bac_luong, array('onchange' => 'change_bac_luong(this)'), $bac_luong_options);
+                        echo $this->formSelect('eh_bac_luong', $this->he_so->eh_bac_luong, array('onchange' => 'change_bac_luong(this, '.$this->em_info->em_ngach_cong_chuc.')'), $bac_luong_options);
                     else
-                        echo $this->formSelect('eh_bac_luong', null, array('onchange' => 'change_bac_luong(this)'), $bac_luong_options);
+                        echo $this->formSelect('eh_bac_luong', null, array('onchange' => 'change_bac_luong(this, '.$this->em_info->em_ngach_cong_chuc.')'), $bac_luong_options);
                     ?>                                    
                 </div>    
             </div>            

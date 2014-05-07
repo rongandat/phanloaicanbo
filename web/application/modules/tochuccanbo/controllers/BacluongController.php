@@ -52,21 +52,13 @@ class Tochuccanbo_BacluongController extends Zend_Controller_Action {
         Zend_Layout::startMvc($option);
 
         $bacluongModel = new Front_Model_BacLuong();
+        $nghachModel = new Front_Model_NgachCongChuc();
+        $list_nghach = $nghachModel->fetchData('ncc_status=1');
         $error_message = array();
         $success_message = '';
         if ($this->_request->isPost()) {
             $bl_name = trim($this->_arrParam['bl_name']);
             $bl_he_so_luong = $this->_arrParam['bl_he_so_luong'];
-            $bl_pc_chuc_vu = $this->_arrParam['bl_pc_chuc_vu'];
-            $bl_pc_trach_nhiem = $this->_arrParam['bl_pc_trach_nhiem'];
-            $bl_pc_khu_vuc = $this->_arrParam['bl_pc_khu_vuc'];
-            $bl_pc_tnvk = $this->_arrParam['bl_pc_tnvk'];
-            $bl_pc_udn = $this->_arrParam['bl_pc_udn'];
-            $bl_pc_cong_vu = $this->_arrParam['bl_pc_cong_vu'];
-            $bl_pc_kiem_nhiem = $this->_arrParam['bl_pc_kiem_nhiem'];
-            $bl_pc_khac = $this->_arrParam['bl_pc_khac'];
-            $bl_pc_khac_type = $this->_arrParam['bl_pc_khac_type'];
-            $bl_pc_thu_hut = $this->_arrParam['bl_pc_thu_hut'];
             $bl_status = $this->_arrParam['bl_status'];
             $bl_order = trim($this->_arrParam['bl_order']);
 
@@ -76,54 +68,18 @@ class Tochuccanbo_BacluongController extends Zend_Controller_Action {
 
             $locale = new Zend_Locale('en_US');
             $valid = new Zend_Validate_Float($locale);
-
-            if (!$valid->isValid($bl_he_so_luong)) {
-                $error_message[] = 'Hệ số lương phải có dạng số.';
+            foreach ($bl_he_so_luong as $he_so) {                
+                if (!$valid->isValid($he_so)) {
+                    $error_message[0] = 'Hệ số lương phải có dạng số.';
+                }
             }
 
-            if (!$valid->isValid($bl_pc_thu_hut)) {
-                $error_message[] = 'Phụ cấp thu hút lương phải có dạng số.';
-            }
 
-            if (!$valid->isValid($bl_pc_chuc_vu)) {
-                $error_message[] = 'Phụ cấp chức vụ phải có dạng số.';
-            }
-            if (!$valid->isValid($bl_pc_trach_nhiem)) {
-                $error_message[] = 'Phụ cấp trách nhiệm phải có dạng số.';
-            }
-            if (!$valid->isValid($bl_pc_khu_vuc)) {
-                $error_message[] = 'Phụ cấp khu vực phải có dạng số.';
-            }
-            if (!$valid->isValid($bl_pc_tnvk)) {
-                $error_message[] = 'Phụ cấp thâm niên vượt khung lương phải có dạng số.';
-            }
-            if (!$valid->isValid($bl_pc_udn)) {
-                $error_message[] = 'Phụ cấp ưu đãi nghề lương phải có dạng số.';
-            }
-            if (!$valid->isValid($bl_pc_cong_vu)) {
-                $error_message[] = 'Phụ cấp công vụ lương phải có dạng số.';
-            }
-            if (!$valid->isValid($bl_pc_kiem_nhiem)) {
-                $error_message[] = 'Phụ cấp kiêm nhiệm lương phải có dạng số.';
-            }
-            if (!$valid->isValid($bl_pc_khac)) {
-                $error_message[] = 'Phụ cấp khác lương phải có dạng số.';
-            }
             if (!sizeof($error_message)) {
                 $current_time = new Zend_Db_Expr('NOW()');
                 $data = array(
                     'bl_name' => $bl_name,
-                    'bl_he_so_luong' => $bl_he_so_luong,
-                    'bl_pc_chuc_vu' => $bl_pc_chuc_vu,
-                    'bl_pc_trach_nhiem' => $bl_pc_trach_nhiem,
-                    'bl_pc_khu_vuc' => $bl_pc_khu_vuc,
-                    'bl_pc_tnvk' => $bl_pc_tnvk,
-                    'bl_pc_udn' => $bl_pc_udn,
-                    'bl_pc_cong_vu' => $bl_pc_cong_vu,
-                    'bl_pc_kiem_nhiem' => $bl_pc_kiem_nhiem,
-                    'bl_pc_khac' => $bl_pc_khac,
-                    'bl_pc_khac_type' => $bl_pc_khac_type,
-                    'bl_pc_thu_hut' => $bl_pc_thu_hut,
+                    'bl_he_so_luong' => serialize($bl_he_so_luong),
                     'bl_status' => $bl_status,
                     'bl_order' => $bl_order,
                     'bl_date_added' => $current_time,
@@ -135,6 +91,7 @@ class Tochuccanbo_BacluongController extends Zend_Controller_Action {
         }
         $this->view->success_message = $success_message;
         $this->view->error_message = $error_message;
+        $this->view->list_ngach = $list_nghach;
     }
 
     public function editAction() {
@@ -151,6 +108,8 @@ class Tochuccanbo_BacluongController extends Zend_Controller_Action {
         $id = $this->_getParam('id', 0);
 
         $bacluongModel = new Front_Model_BacLuong();
+        $nghachModel = new Front_Model_NgachCongChuc();
+        $list_nghach = $nghachModel->fetchData('ncc_status=1');
         $error_message = array();
         $success_message = '';
 
@@ -161,17 +120,7 @@ class Tochuccanbo_BacluongController extends Zend_Controller_Action {
 
         if ($this->_request->isPost()) {
             $bl_name = trim($this->_arrParam['bl_name']);
-            $bl_he_so_luong = $this->_arrParam['bl_he_so_luong'];
-            $bl_pc_chuc_vu = $this->_arrParam['bl_pc_chuc_vu'];
-            $bl_pc_trach_nhiem = $this->_arrParam['bl_pc_trach_nhiem'];
-            $bl_pc_khu_vuc = $this->_arrParam['bl_pc_khu_vuc'];
-            $bl_pc_tnvk = $this->_arrParam['bl_pc_tnvk'];
-            $bl_pc_udn = $this->_arrParam['bl_pc_udn'];
-            $bl_pc_cong_vu = $this->_arrParam['bl_pc_cong_vu'];
-            $bl_pc_kiem_nhiem = $this->_arrParam['bl_pc_kiem_nhiem'];
-            $bl_pc_khac = $this->_arrParam['bl_pc_khac'];
-            $bl_pc_khac_type = $this->_arrParam['bl_pc_khac_type'];
-            $bl_pc_thu_hut = $this->_arrParam['bl_pc_thu_hut'];
+            $bl_he_so_luong = $this->_arrParam['bl_he_so_luong'];            
             $bl_status = $this->_arrParam['bl_status'];
             $bl_order = trim($this->_arrParam['bl_order']);
 
@@ -181,66 +130,29 @@ class Tochuccanbo_BacluongController extends Zend_Controller_Action {
 
             $valid = new Zend_Validate_Float();
 
-            if (!$valid->isValid($bl_he_so_luong)) {
-                $error_message[] = 'Hệ số lương phải có dạng số.';
-            }
-
-            if (!$valid->isValid($bl_pc_thu_hut)) {
-                $error_message[] = 'Phụ cấp thu hút lương phải có dạng số.';
-            }
-
-            if (!$valid->isValid($bl_pc_chuc_vu)) {
-                $error_message[] = 'Phụ cấp chức vụ phải có dạng số.';
-            }
-            if (!$valid->isValid($bl_pc_trach_nhiem)) {
-                $error_message[] = 'Phụ cấp trách nhiệm phải có dạng số.';
-            }
-            if (!$valid->isValid($bl_pc_khu_vuc)) {
-                $error_message[] = 'Phụ cấp khu vực phải có dạng số.';
-            }
-            if (!$valid->isValid($bl_pc_tnvk)) {
-                $error_message[] = 'Phụ cấp thâm niên vượt khung lương phải có dạng số.';
-            }
-            if (!$valid->isValid($bl_pc_udn)) {
-                $error_message[] = 'Phụ cấp ưu đãi nghề lương phải có dạng số.';
-            }
-            if (!$valid->isValid($bl_pc_cong_vu)) {
-                $error_message[] = 'Phụ cấp công vụ lương phải có dạng số.';
-            }
-            if (!$valid->isValid($bl_pc_kiem_nhiem)) {
-                $error_message[] = 'Phụ cấp kiêm nhiệm lương phải có dạng số.';
-            }
-            if (!$valid->isValid($bl_pc_khac)) {
-                $error_message[] = 'Phụ cấp khác lương phải có dạng số.';
+            foreach ($bl_he_so_luong as $he_so) {                
+                if (!$valid->isValid($he_so)) {
+                    $error_message[0] = 'Hệ số lương phải có dạng số.';
+                }
             }
 
             if (!sizeof($error_message)) {
                 $current_time = new Zend_Db_Expr('NOW()');
                 $data = array(
                     'bl_name' => $bl_name,
-                    'bl_he_so_luong' => $bl_he_so_luong,
-                    'bl_pc_chuc_vu' => $bl_pc_chuc_vu,
-                    'bl_pc_trach_nhiem' => $bl_pc_trach_nhiem,
-                    'bl_pc_khu_vuc' => $bl_pc_khu_vuc,
-                    'bl_pc_tnvk' => $bl_pc_tnvk,
-                    'bl_pc_udn' => $bl_pc_udn,
-                    'bl_pc_cong_vu' => $bl_pc_cong_vu,
-                    'bl_pc_kiem_nhiem' => $bl_pc_kiem_nhiem,
-                    'bl_pc_khac' => $bl_pc_khac,
-                    'bl_pc_khac_type' => $bl_pc_khac_type,
-                    'bl_pc_thu_hut' => $bl_pc_thu_hut,
+                    'bl_he_so_luong' => serialize($bl_he_so_luong),
                     'bl_status' => $bl_status,
                     'bl_order' => $bl_order,
                     'bl_date_added' => $current_time,
                     'bl_date_modified' => $current_time
                 );
-                
+
                 $bacluongModel->update($data, 'bl_id=' . $id);
                 $bl_info = $bacluongModel->fetchRow('bl_id=' . $id);
                 $success_message = 'Đã cập nhật thông tin thành công.';
             }
         }
-
+        $this->view->list_ngach = $list_nghach;
         $this->view->bl_info = $bl_info;
         $this->view->success_message = $success_message;
         $this->view->error_message = $error_message;

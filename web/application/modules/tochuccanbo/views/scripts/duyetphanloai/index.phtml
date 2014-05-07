@@ -77,7 +77,7 @@ foreach ($this->list_phong_ban_option as $phong_ban) {
                             ?>                                
                         </td>
                         <td>
-                            <?php echo ($phan_loai ? '<span id="sp_dg_' . $nhan_vien->em_id . '">' . $phan_loai->dg_ptccb_status . '</span>' : '<span id="sp_dg_' . $nhan_vien->em_id . '">-</span>'); ?>
+                            <?php echo ($phan_loai ? '<span id="sp_dg_' . $nhan_vien->em_id . '">' . $phan_loai->dg_ptccb_status . '</span>' : '<span id="sp_dg_' . $nhan_vien->em_id . '">A</span>'); ?>
 
                             <div class="dropdown float_right" style="padding-right: 6px;">
                                 <a class="btn btn-mini" id="drop_pl_<?php echo $nhan_vien->em_id; ?>" role="button" data-toggle="dropdown" href="#"><i class="icon-refresh"></i> <b class="caret"></b></a>                                    

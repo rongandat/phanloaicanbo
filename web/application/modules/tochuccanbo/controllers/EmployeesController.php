@@ -63,9 +63,9 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
 
         $employeesModel = new Front_Model_Employees();
         if (!$pb_selected) {
-            $list_employees = $employeesModel->fetchData(array('em_delete' => 0));
+            $list_employees = $employeesModel->fetchData();
         } else {
-            $select = $employeesModel->select()->where('em_delete=?', 0)->where('em_phong_ban in (?)', $pb_ids);
+            $select = $employeesModel->select()->where('em_phong_ban in (?)', $pb_ids);
             $list_employees = $employeesModel->fetchAll($select);
         }
         $paginator = Zend_Paginator::factory($list_employees);
@@ -458,7 +458,6 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
             $em_noi_o_tinh = $this->_arrParam['em_noi_o_tinh'];
             $em_co_quan_tuyen_dung = trim($this->_arrParam['em_co_quan_tuyen_dung']);
             $em_cong_viec_khi_tuyen_dung = trim($this->_arrParam['em_cong_viec_khi_tuyen_dung']);
-            $em_ma_ngach = trim($this->_arrParam['em_ma_ngach']);
             $em_khen_thuong = trim($this->_arrParam['em_khen_thuong']);
             $em_ky_luat = trim($this->_arrParam['em_ky_luat']);
             $em_ngay_nhap_ngu = trim($this->_arrParam['em_ngay_nhap_ngu']);
@@ -586,7 +585,6 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
                 $data['em_noi_o_tinh'] = $em_noi_o_tinh;
                 $data['em_co_quan_tuyen_dung'] = $em_co_quan_tuyen_dung;
                 $data['em_cong_viec_khi_tuyen_dung'] = $em_cong_viec_khi_tuyen_dung;
-                $data['em_ma_ngach'] = $em_ma_ngach;
                 $data['em_khen_thuong'] = $em_khen_thuong;
                 $data['em_ky_luat'] = $em_ky_luat;
 
@@ -659,7 +657,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
             $success_message = 'Đã thêm mới thành công.';
         }
 
-        $employee_info = $employeesModel->fetchRow('em_id=' . $id . ' and em_delete=0');
+        $employee_info = $employeesModel->fetchRow('em_id=' . $id);
 
         if (!$employee_info) {
             $error_message[] = 'Không tìm thấy thông tin.';
@@ -790,7 +788,6 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
             $em_noi_o_tinh = $this->_arrParam['em_noi_o_tinh'];
             $em_co_quan_tuyen_dung = trim($this->_arrParam['em_co_quan_tuyen_dung']);
             $em_cong_viec_khi_tuyen_dung = trim($this->_arrParam['em_cong_viec_khi_tuyen_dung']);
-            $em_ma_ngach = trim($this->_arrParam['em_ma_ngach']);
             $em_khen_thuong = trim($this->_arrParam['em_khen_thuong']);
             $em_ky_luat = trim($this->_arrParam['em_ky_luat']);
             $em_ngay_nhap_ngu = trim($this->_arrParam['em_ngay_nhap_ngu']);
@@ -917,7 +914,6 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
                 $data['em_noi_o_tinh'] = $em_noi_o_tinh;
                 $data['em_co_quan_tuyen_dung'] = $em_co_quan_tuyen_dung;
                 $data['em_cong_viec_khi_tuyen_dung'] = $em_cong_viec_khi_tuyen_dung;
-                $data['em_ma_ngach'] = $em_ma_ngach;
                 $data['em_khen_thuong'] = $em_khen_thuong;
                 $data['em_ky_luat'] = $em_ky_luat;
                 $data['em_quan_ham'] = $em_quan_ham;
@@ -942,7 +938,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
 
                 $data['em_date_modified'] = $current_time;
                 $employeesModel->update($data, 'em_id=' . $id);
-                $employee_info = $employeesModel->fetchRow('em_id=' . $id . ' and em_delete=0');
+                $employee_info = $employeesModel->fetchRow('em_id=' . $id);
                 $success_message = 'Đã cập nhật thông tin thành công.';
             }
         }
@@ -981,7 +977,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
         $employeeModel = new Front_Model_Employees();
         $error_message = array();
 
-        $employee_info = $employeeModel->fetchRow('em_id=' . $id . ' and em_delete=0');
+        $employee_info = $employeeModel->fetchRow('em_id=' . $id);
         if (!$employee_info) {
             $error_message[] = 'Không tìm thấy thông tin của cán bộ.';
         }
@@ -990,7 +986,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
             $del = $this->getRequest()->getPost('del');
             if ($del == 'Yes') {
                 $id = $this->getRequest()->getPost('id');
-                $employeeModel->update(array('em_delete' => 1), 'em_id=' . $id);
+                $employeeModel->delete('em_id=' . $id);
             }
             $this->_redirect('tochuccanbo/employees/index/page/' . $this->_page);
         }
@@ -1002,6 +998,8 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
     public function hesoAction() {
         $this->_helper->layout()->disableLayout();
         $em_id = $this->_getParam('id', 0);
+        $emModel = new Front_Model_Employees();
+        $em_info = $emModel->fetchRow("em_id=$em_id");
         $hesoModel = new Front_Model_EmployeesHeso();
         $bacluongModel = new Front_Model_BacLuong();
         $he_so = $hesoModel->fetchRow("eh_em_id=$em_id");
@@ -1119,6 +1117,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
         $this->view->he_so = $he_so;
         $this->view->bac_luong = $bac_luong;
         $this->view->em_id = $em_id;
+        $this->view->em_info = $em_info;
     }
 
     public function changestatusAction() {
@@ -1142,7 +1141,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
         if ($this->_request->isPost()) {
             $item = $this->getRequest()->getPost('cid');
             foreach ($item as $k => $v) {
-                $employeeModel->update(array('em_delete' => 1), 'em_id=' . $v);
+                $employeeModel->delete('em_id=' . $v);
             }
         }
         $this->_redirect('tochuccanbo/employees/index/page/' . $this->_page);
@@ -1405,9 +1404,14 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
     public function jqbacluongAction() {
         $this->_helper->layout()->disableLayout();
         $bl_id = $this->_request->getParam('id', 0);
+        $ncc_id = $this->_request->getParam('ncc', 0);
         $bacluongModel = new Front_Model_BacLuong();
-        $bac_luong = $bacluongModel->fetchRow('bl_id=' . $bl_id)->toArray();
+        $bac_luong = $bacluongModel->fetchRow('bl_id=' . $bl_id);
+        if($bac_luong){
+            $bac_luong = $bac_luong->toArray();
+        }
         $this->view->bac_luong = $bac_luong;
+        $this->view->ncc_id = $ncc_id;
     }
 
 }

@@ -30,133 +30,24 @@
             </div>
         </div> 
 
-        <div class="control-group">
-            <label class="control-label" for="bl_he_so_luong">Hệ số lương</label>
-            <div class="controls">                
-                <div class="input-prepend input-append">    
-                    <?php
-                    echo $this->formText('bl_he_so_luong', $this->bl_info->bl_he_so_luong, array('class' => 'input-medium', 'placeholder' => '', 'required' => ''));
-                    ?>    
-                    <span class="add-on">Hệ số</span>     
-                </div>    
-            </div>            
-        </div> 
+        <?php
+        $he_so_luong = unserialize($this->bl_info->bl_he_so_luong);
+        foreach ($this->list_ngach as $ngach_cong_chuc) {
+            ?>
 
-        <div class="control-group">
-            <label class="control-label" for="bl_pc_chuc_vu">Phụ cấp chức vụ</label>
-            <div class="controls">
-                <div class="input-prepend input-append">    
-                    <?php
-                    echo $this->formText('bl_pc_chuc_vu', $this->bl_info->bl_pc_chuc_vu, array('class' => 'input-medium', 'placeholder' => '', 'required' => ''));
-                    ?>                   
-                    <span class="add-on">Hệ số</span>                    
-                </div> 
-            </div>            
-        </div> 
+            <div class="control-group">
+                <label class="control-label"><?php echo $ngach_cong_chuc->ncc_name; ?></label>
+                <div class="controls">                
+                    <div class="input-prepend input-append">    
+                        <?php
+                        echo $this->formText('bl_he_so_luong[' . $ngach_cong_chuc->ncc_id . ']', $he_so_luong[$ngach_cong_chuc->ncc_id], array('class' => 'input-medium', 'placeholder' => '', 'required' => ''));
+                        ?>    
+                        <span class="add-on">Hệ số</span>     
+                    </div>    
+                </div>            
+            </div> 
 
-        <div class="control-group">
-            <label class="control-label" for="bl_pc_thu_hut">Phụ cấp thu hút</label>
-            <div class="controls">
-                <div class="input-prepend input-append">    
-                    <?php
-                    echo $this->formText('bl_pc_thu_hut', $this->bl_info->bl_pc_thu_hut, array('class' => 'input-medium', 'placeholder' => '', 'required' => ''));
-                    ?>                   
-                    <span class="add-on">%</span>                    
-                </div> 
-            </div>            
-        </div> 
-
-        <div class="control-group">
-            <label class="control-label" for="bl_pc_trach_nhiem">Phụ cấp trách nhiệm</label>
-            <div class="controls">
-                <div class="input-prepend input-append">  
-                    <?php
-                    echo $this->formText('bl_pc_trach_nhiem', $this->bl_info->bl_pc_trach_nhiem, array('class' => 'input-medium', 'placeholder' => '', 'required' => ''));
-                    ?>                   
-                    <span class="add-on">Hệ số</span>   
-                </div>
-            </div>            
-        </div> 
-
-        <div class="control-group">
-            <label class="control-label" for="bl_pc_khu_vuc">Phụ cấp khu vực</label>
-            <div class="controls">
-                <div class="input-prepend input-append">  
-                    <?php
-                    echo $this->formText('bl_pc_khu_vuc', $this->bl_info->bl_pc_khu_vuc, array('class' => 'input-medium', 'placeholder' => '', 'required' => ''));
-                    ?>                   
-                    <span class="add-on">Hệ số</span>   
-                </div>
-            </div>            
-        </div> 
-
-        <div class="control-group">
-            <label class="control-label" for="bl_pc_tnvk">Phụ cấp TNVK</label>
-            <div class="controls">
-                <div class="input-prepend input-append">    
-                    <?php
-                    echo $this->formText('bl_pc_tnvk', $this->bl_info->bl_pc_tnvk, array('class' => 'input-medium', 'placeholder' => '', 'required' => ''));
-                    ?>                   
-                    <span class="add-on">%</span>                    
-                </div>                
-            </div>            
-        </div> 
-
-        <div class="control-group">
-            <label class="control-label" for="bl_pc_udn">Phụ cấp ƯĐN</label>
-            <div class="controls">
-                <div class="input-prepend input-append">    
-                    <?php
-                    echo $this->formText('bl_pc_udn', $this->bl_info->bl_pc_udn, array('class' => 'input-medium', 'placeholder' => '', 'required' => ''));
-                    ?>                   
-                    <span class="add-on">%</span>                    
-                </div> 
-            </div>            
-        </div>
-
-
-        <div class="control-group">
-            <label class="control-label" for="bl_pc_cong_vu">Phụ cấp công vụ</label>
-            <div class="controls">
-                <div class="input-prepend input-append">    
-                    <?php
-                    echo $this->formText('bl_pc_cong_vu', $this->bl_info->bl_pc_cong_vu, array('class' => 'input-medium', 'placeholder' => '', 'required' => ''));
-                    ?>                   
-                    <span class="add-on">%</span>                    
-                </div> 
-            </div>            
-        </div>        
-
-        <div class="control-group">
-            <label class="control-label" for="bl_pc_kiem_nhiem">Phụ cấp kiêm nhiệm</label>
-            <div class="controls">
-                <div class="input-prepend input-append">  
-                    <?php
-                    echo $this->formText('bl_pc_kiem_nhiem', $this->bl_info->bl_pc_kiem_nhiem, array('class' => 'input-medium', 'placeholder' => '', 'required' => ''));
-                    ?>                   
-                    <span class="add-on">Hệ số</span>                    
-                </div>
-            </div>            
-        </div>
-
-        <div class="control-group">
-            <label class="control-label" for="bl_pc_khac">Phụ cấp khác</label>
-            <div class="controls">
-                <div class="input-prepend input-append">  
-                    <?php
-                    echo $this->formText('bl_pc_khac', $this->bl_info->bl_pc_khac, array('class' => 'input-medium', 'placeholder' => '', 'required' => ''));
-                    ?>  
-                </div>
-                <div class="input-prepend input-append">
-                    <span class="add-on">Tính theo</span>
-                    <?php
-                    $type_options = array(0 => 'Hệ số', 1 => 'Phần trăm (%)');
-                    echo $this->formSelect('bl_pc_khac_type', $this->bl_info->bl_pc_khac_type, array('class' => 'input-medium'), $type_options);
-                    ?> 
-                </div>
-            </div>            
-        </div>        
-
+        <?php } ?>
 
         <div class="control-group">
             <label class="control-label" for="bl_order">Vị trí</label>
@@ -178,7 +69,7 @@
         <div class="control-group">
             <div class="controls">
                 <p>
-                    <button class="btn btn-small btn-primary" type="submit">Thêm mới</button>
+                    <button class="btn btn-small btn-primary" type="submit">Cập nhật</button>
                     <a class="btn btn-small" type="button" href="<?php echo $this->baseUrl('tochuccanbo/bacluong/index'); ?>">Quay lại</a>
                 </p>
             </div>

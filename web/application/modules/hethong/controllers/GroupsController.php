@@ -62,7 +62,8 @@ class Hethong_GroupsController extends Zend_Controller_Action {
                     array('id' => 2005, 'name' => 'Chấm công'),
                     array('id' => 2006, 'name' => 'Khai báo thêm giờ'),
                     array('id' => 2007, 'name' => 'Thống kê tháng'),
-                    array('id' => 2008, 'name' => 'Đánh giá phân loại')
+                    array('id' => 2008, 'name' => 'Đánh giá phân loại'),
+                    array('id' => 2009, 'name' => 'Xem bảng lương')
                 )
             ),
             array(

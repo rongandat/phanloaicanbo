@@ -48,6 +48,8 @@ class Tochuccanbo_DuyetchamcongController extends Zend_Controller_Action {
         $emModel = new Front_Model_Employees();
         $phongbanModel = new Front_Model_Phongban();
 
+        $list_phong_ban = $phongbanModel->fetchAll();
+        
         $pb_selected = $this->_getParam('phongban', 0);
         $nv_selected = $this->_getParam('nhanvien', 0);
         $phong_ban_id = $list_phongban = $phong_ban = Array();
@@ -71,6 +73,7 @@ class Tochuccanbo_DuyetchamcongController extends Zend_Controller_Action {
         $this->view->nam = $nam;
         $this->view->pb_id = $pb_selected;
         $this->view->nv_id = $nv_selected;
+        $this->view->list_phong_ban = $list_phong_ban;
         $this->view->list_phong_ban_option = $list_phong_ban_option;
     }
 

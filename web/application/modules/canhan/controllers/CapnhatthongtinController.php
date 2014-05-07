@@ -54,7 +54,7 @@ class Canhan_CapnhatthongtinController extends Zend_Controller_Action {
         $success_message = '';
 
         $id = $identity->em_id;
-        $employee_info = $employeesModel->fetchRow('em_id=' . $id . ' and em_delete=0');
+        $employee_info = $employeesModel->fetchRow('em_id=' . $id);
 
         if (!$employee_info) {
             $error_message[] = 'Không tìm thấy thông tin.';

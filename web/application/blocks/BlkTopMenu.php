@@ -40,7 +40,8 @@ class Block_BlkTopMenu extends Zend_View_Helper_Abstract {
                     'khaibaothemgio' => 'Khai báo thêm giờ',
                     'thongkethang' => 'Thống kê tháng',
                     'danhgiaphanloai' => 'Đánh giá phân loại',
-                    'doimatkhau' => 'Đổi mật khẩu'
+                    'doimatkhau' => 'Đổi mật khẩu',
+                    'inluong' => 'Xem bảng lương'
             )),
             'donvi' => array('name' => 'Đơn vị', 'sub' => array(
                     'thanhvien' => 'Thành viên',

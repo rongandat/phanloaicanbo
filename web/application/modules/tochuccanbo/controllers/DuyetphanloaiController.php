@@ -67,7 +67,7 @@ class Tochuccanbo_DuyetphanloaiController extends Zend_Controller_Action {
             //$list_employees = $emModel->fetchData(array('em_delete' => 0));
             $list_employees = $emModel->fetchAll();
         }else{
-            $select = $emModel->select()->where('em_delete=?', 0)->where('em_phong_ban in (?)', $pb_ids);
+            $select = $emModel->select()->where('em_phong_ban in (?)', $pb_ids);
             $list_employees = $emModel->fetchAll($select);
         }
         

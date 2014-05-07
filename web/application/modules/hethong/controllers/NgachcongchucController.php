@@ -88,15 +88,22 @@ class Hethong_NgachcongchucController extends Zend_Controller_Action {
         $error_message = array();
         $success_message = '';
         if ($this->_request->isPost()) {
+            $ncc_ma_nghach = trim($this->_arrParam['ncc_ma_ngach']);
             $ncc_name = trim($this->_arrParam['ncc_name']);
             $ncc_order = trim($this->_arrParam['ncc_order']);
             $ncc_status = $this->_arrParam['ncc_status'];
+            $ncc_nam_nang_bac = $this->_arrParam['ncc_nam_nang_bac'];
 
             $validator_length = new Zend_Validate_StringLength(array('min' => 2, 'max' => 100));
             if (!is_numeric($ncc_order)) {
                 $ncc_order = 0;
             }
 
+            //kiem tra dữ liệu
+            if (!$validator_length->isValid($ncc_ma_nghach)) {
+                $error_message[] = 'Mã nghạch phải bằng hoặc hơn 4 ký tự và nhỏ hơn hoặc bằng 100 ký tự.';
+            }
+            
             //kiem tra dữ liệu
             if (!$validator_length->isValid($ncc_name)) {
                 $error_message[] = 'Tên ngạch công chức phải bằng hoặc hơn 2 ký tự và nhỏ hơn hoặc bằng 100 ký tự.';
@@ -105,8 +112,10 @@ class Hethong_NgachcongchucController extends Zend_Controller_Action {
             if (!sizeof($error_message)) {
                 $current_time = new Zend_Db_Expr('NOW()');
                 $ngachcongchucModel->insert(array(
+                    'ncc_ma_ngach' => $ncc_ma_nghach,
                     'ncc_name' => $ncc_name,
                     'ncc_status' => $ncc_status,
+                    'ncc_nam_nang_bac' => $ncc_nam_nang_bac,
                     'ncc_order' => $ncc_order,
                     'ncc_date_added' => $current_time,
                     'ncc_date_modified' => $current_time
@@ -142,9 +151,11 @@ class Hethong_NgachcongchucController extends Zend_Controller_Action {
         }
 
         if ($this->_request->isPost()) {
+            $ncc_ma_nghach = trim($this->_arrParam['ncc_ma_ngach']);
             $ncc_name = trim($this->_arrParam['ncc_name']);
             $ncc_order = trim($this->_arrParam['ncc_order']);
             $ncc_status = $this->_arrParam['ncc_status'];
+            $ncc_nam_nang_bac = $this->_arrParam['ncc_nam_nang_bac'];
 
             if (!is_numeric($ncc_order)) {
                 $ncc_order = 0;
@@ -153,6 +164,11 @@ class Hethong_NgachcongchucController extends Zend_Controller_Action {
             $validator_length = new Zend_Validate_StringLength(array('min' => 4, 'max' => 100));
 
             //kiem tra dữ liệu
+            if (!$validator_length->isValid($ncc_ma_nghach)) {
+                $error_message[] = 'Mã nghạch phải bằng hoặc hơn 4 ký tự và nhỏ hơn hoặc bằng 100 ký tự.';
+            }
+            
+            //kiem tra dữ liệu
             if (!$validator_length->isValid($ncc_name)) {
                 $error_message[] = 'Tên ngạch công chức phải bằng hoặc hơn 4 ký tự và nhỏ hơn hoặc bằng 100 ký tự.';
             }
@@ -160,7 +176,9 @@ class Hethong_NgachcongchucController extends Zend_Controller_Action {
             if (!sizeof($error_message)) {
                 $current_time = new Zend_Db_Expr('NOW()');
                 $ngachcongchucModel->update(array(
+                    'ncc_ma_ngach' => $ncc_ma_nghach,
                     'ncc_name' => $ncc_name,
+                    'ncc_nam_nang_bac' => $ncc_nam_nang_bac,
                     'ncc_status' => $ncc_status,
                     'ncc_order' => $ncc_order,
                     'ncc_date_modified' => $current_time
@@ -172,6 +190,7 @@ class Hethong_NgachcongchucController extends Zend_Controller_Action {
                 $ncc_info->ncc_order = $ncc_order;
 
                 $success_message = 'Đã cập nhật thông tin thành công.';
+                $ncc_info = $ngachcongchucModel->fetchRow('ncc_id=' . $id);
             }
         }
 

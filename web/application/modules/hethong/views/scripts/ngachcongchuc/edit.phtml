@@ -23,6 +23,14 @@
         <?php if ($this->ncc_info) : ?>        
             <form class="form-horizontal" method="post" action="">
                 <div class="control-group">
+                    <label class="control-label" for="ncc_ma_ngach">Mã nghạch</label>
+                    <div class="controls">
+                        <?php echo $this->formText('ncc_ma_ngach', $this->ncc_info->ncc_ma_ngach, array('required' => '')); ?>
+                        <span class="help-inline">(*)</span>
+                    </div>
+                </div> 
+                
+                <div class="control-group">
                     <label class="control-label" for="ncc_name">Tên ngạch công chức</label>
                     <div class="controls">
                         <?php echo $this->formText('ncc_name', $this->ncc_info->ncc_name, array('required' => '')); ?>
@@ -30,6 +38,16 @@
                     </div>
                 </div> 
 
+                <div class="control-group">
+                <label class="control-label" for="ncc_nam_nang_bac">Năm nâng bậc lương</label>
+                <div class="controls">
+                    <?php
+                    $nam_options = array(1=>'1', 2=>'2', 3=>'3', 4=>'4', 5=>'5', 6=>'6', 7=>'7',8=>'8', 9=>'9', 10=>'10');                    
+                    echo $this->formSelect('ncc_nam_nang_bac', $this->ncc_info->ncc_nam_nang_bac, null, $nam_options);
+                    ?>                     
+                </div>
+            </div> 
+                
                 <div class="control-group">
                     <label class="control-label" for="ncc_order">Vị trí</label>
                     <div class="controls">

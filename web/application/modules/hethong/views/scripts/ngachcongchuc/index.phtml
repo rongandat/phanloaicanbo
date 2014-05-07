@@ -19,6 +19,7 @@
                 <thead>
                     <tr>
                         <th class="checkall_style"><input type="checkbox" name="check_all" id="checkbox" onclick="checkedAll()"></th>
+                        <th>Mã Nghạch</th>  
                         <th>Tên ngạch công chức</th>  
                         <th class="order_style">Sắp xếp</th>
                         <th class="status_style">Trạng thái</th>
@@ -30,6 +31,7 @@
                     foreach ($this->paginator as $item) {
                         echo '<tr>
                             <td class="checkall_style"><input type="checkbox" name="cid[]" id="cid" value="' . $item->ncc_id . '"></td>
+                            <td><a href="' . $this->baseUrl('hethong/ngachcongchuc/edit/id/' . $item->ncc_id . '/page/' . $this->arrParam['page']) . '">' . $item->ncc_ma_ngach . '</a></td>                            
                             <td><a href="' . $this->baseUrl('hethong/ngachcongchuc/edit/id/' . $item->ncc_id . '/page/' . $this->arrParam['page']) . '">' . $item->ncc_name . '</a></td>                            
                             <td class="order_style text-center">'.$item->ncc_order.'</td>
                             <td class="status_style"><a href="' . ($item->ncc_status ? $this->baseUrl('hethong/ngachcongchuc/changestatus/id/' . $item->ncc_id . '/status/0/page/' . $this->arrParam['page']) : $this->baseUrl('hethong/ngachcongchuc/changestatus/id/' . $item->ncc_id . '/status/1/page/' . $this->arrParam['page'])) . '"><div class="' . ($item->ncc_status ? 'icon_status_active' : 'icon_status_inactive') . '"></div></a></td>
