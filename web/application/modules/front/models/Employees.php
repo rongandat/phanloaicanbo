@@ -41,6 +41,7 @@ class Front_Model_Employees extends Zend_Db_Table_Abstract {
         $select->where(TABLE_GROUPS . '.group_id in (?)', $groups);
         $select->where($this->_name . '.em_phong_ban =?', $room);
         $select->where($this->_name . '.em_nghi_huu =?', 0);
+        $select->where($this->_name . '.em_status =?', 1);
         return $this->fetchAll($select);
     }
 
@@ -51,6 +52,7 @@ class Front_Model_Employees extends Zend_Db_Table_Abstract {
                 ->joinInner(TABLE_GROUPS, TABLE_USERS . '.group_id = ' . TABLE_GROUPS . '.group_id', array('*'));
         $select->where(TABLE_GROUPS . '.group_id in (?)', $groups);
         $select->where($this->_name . '.em_nghi_huu =?', 0);
+        $select->where($this->_name . '.em_status =?', 1);
         return $this->fetchAll($select);
     }
 
@@ -63,6 +65,7 @@ class Front_Model_Employees extends Zend_Db_Table_Abstract {
             $select->where($this->_name . '.em_phong_ban in (?)', $phong_ban);
         $select->where(TABLE_EMPLOYEESHESO . '.eh_han_dieu_chinh <=?', $ngay_gioi_han);
         $select->where($this->_name . '.em_nghi_huu =?', 0);
+        $select->where($this->_name . '.em_status =?', 1);
         return $this->fetchAll($select);
     }
 
@@ -73,6 +76,7 @@ class Front_Model_Employees extends Zend_Db_Table_Abstract {
             $select->where('em_phong_ban in (?)', $phong_ban);
         $select->where('em_han_luan_chuyen <=?', $ngay_gioi_han);
         $select->where('em_nghi_huu =?', 0);
+        $select->where('em_status =?', 1);
         return $this->fetchAll($select);
     }
 
@@ -89,6 +93,19 @@ class Front_Model_Employees extends Zend_Db_Table_Abstract {
         $select->where($conditions);
         $select->where('em_nghi_huu =?', 0);
         $select->where('em_status =?', 1);
+        return $this->fetchAll($select);
+    }
+
+    public function getChamCong($thang = 0, $nam = 0, $phong_ban = array()) {
+        $select = $this->select(Zend_Db_Table::SELECT_WITH_FROM_PART);
+        $select->setIntegrityCheck(false)
+                ->joinLeft(TABLE_CHAMCONG, TABLE_CHAMCONG . '.c_em_id = ' . $this->_name . '.em_id', array('*'));
+        if ($phong_ban)
+            $select->where($this->_name . '.em_phong_ban in (?)', $phong_ban);
+        $select->where(TABLE_CHAMCONG . '.c_thang =?', $thang);
+        $select->where(TABLE_CHAMCONG . '.c_nam =?', $nam);
+        $select->where($this->_name . '.em_nghi_huu =?', 0);
+        $select->where($this->_name . '.em_status =?', 1);
         return $this->fetchAll($select);
     }
 

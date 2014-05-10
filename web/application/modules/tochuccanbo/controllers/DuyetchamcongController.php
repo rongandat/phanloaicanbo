@@ -49,7 +49,7 @@ class Tochuccanbo_DuyetchamcongController extends Zend_Controller_Action {
         $phongbanModel = new Front_Model_Phongban();
 
         $list_phong_ban = $phongbanModel->fetchAll();
-        
+
         $pb_selected = $this->_getParam('phongban', 0);
         $nv_selected = $this->_getParam('nhanvien', 0);
         $phong_ban_id = $list_phongban = $phong_ban = Array();
@@ -59,7 +59,7 @@ class Tochuccanbo_DuyetchamcongController extends Zend_Controller_Action {
 
         $phong_ban_options = Array();
         $list_phong_ban_option = $phongbanModel->fetchData(0, $phong_ban_options);
-        
+
         if (sizeof($list_phongban)) {
             foreach ($list_phongban as $phong_ban_info) {
                 $phong_ban_id[] = $phong_ban_info->pb_id;
@@ -119,10 +119,78 @@ class Tochuccanbo_DuyetchamcongController extends Zend_Controller_Action {
             if ($c_status < 0) {
                 $c_status = -1;
             }
-            $chaqmcongModel = new Front_Model_ChamCong();
-            $process_status = $chaqmcongModel->update(array('c_ptccb_status' => $c_status), "c_id=$c_id");
+            $chamcongModel = new Front_Model_ChamCong();
+            $process_status = $chamcongModel->update(array('c_ptccb_status' => $c_status), "c_id=$c_id");
         }
         $this->view->process_status = $process_status;
+    }
+
+    public function updatestatusAction() {
+        $this->_helper->layout()->disableLayout();
+        $c_status = $this->_request->getParam('status', 0);
+        $thang = $this->_request->getParam('thang', 0);
+        $nam = $this->_request->getParam('nam', 0);
+        $phongban = $this->_request->getParam('phongban', 0);
+        $current_time = new Zend_Db_Expr('NOW()');
+        if ($c_status > 1) {
+            $c_status = 1;
+        }
+        if ($c_status < 0) {
+            $c_status = -1;
+        }
+        
+        $chamcongModel = new Front_Model_ChamCong();
+        if ($this->_request->isPost()) {
+            $item = $this->getRequest()->getPost('cid');            
+            foreach ($item as $k => $v) {
+                $cham_cong = $chamcongModel->fetchOneData(array('c_em_id' => $v, 'c_thang' => $thang, 'c_nam' => $nam));
+                if (!$cham_cong) {
+                    $chamcongModel->insert(array(
+                        'c_em_id' => $v,
+                        'c_thang' => $thang,
+                        'c_nam' => $nam,
+                        'c_ngay_1' => '',
+                        'c_ngay_2' => '',
+                        'c_ngay_3' => '',
+                        'c_ngay_4' => '',
+                        'c_ngay_5' => '',
+                        'c_ngay_6' => '',
+                        'c_ngay_7' => '',
+                        'c_ngay_8' => '',
+                        'c_ngay_9' => '',
+                        'c_ngay_10' => '',
+                        'c_ngay_11' => '',
+                        'c_ngay_12' => '',
+                        'c_ngay_13' => '',
+                        'c_ngay_14' => '',
+                        'c_ngay_15' => '',
+                        'c_ngay_16' => '',
+                        'c_ngay_17' => '',
+                        'c_ngay_18' => '',
+                        'c_ngay_19' => '',
+                        'c_ngay_20' => '',
+                        'c_ngay_21' => '',
+                        'c_ngay_22' => '',
+                        'c_ngay_23' => '',
+                        'c_ngay_24' => '',
+                        'c_ngay_25' => '',
+                        'c_ngay_26' => '',
+                        'c_ngay_27' => '',
+                        'c_ngay_28' => '',
+                        'c_ngay_29' => '',
+                        'c_ngay_30' => '',
+                        'c_ngay_31' => '',
+                        'c_ptccb_status' => $c_status,
+                        'c_date_created' => $current_time,
+                        'c_date_modifyed' => $current_time
+                            )
+                    );
+                } else {
+                    $chamcongModel->update(array('c_ptccb_status' => $c_status), "c_em_id=$v and c_thang=$thang and c_nam=$nam");
+                }
+            }
+        }
+        $this->_redirect('tochuccanbo/duyetchamcong/index/thang/' . $thang . '/nam/' . $nam . '/phongban/' . $phongban);
     }
 
 }

@@ -137,36 +137,7 @@ if ($this->cham_cong && $this->cham_cong->c_don_vi_status == 1) {
             }
 
             echo "</tr></table>";
-            ?>
-
-            <div class="control-group">
-                <label class="control-label">Đơn vị</label>
-                <div class="controls">
-                    <label class="control-label ta_left" style="padding-left: 15px;"><?php echo $trang_thai_icon; ?></label>                
-                </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label">Phòng tổ chức</label>
-                <div class="controls">
-                    <?php
-                    $status_options = array('-1' => 'Chưa duyệt', '1' => 'Duyệt');
-                    echo $this->formSelect('sl_ptccb_status', ($this->cham_cong ? $this->cham_cong->c_ptccb_status : null), null, $status_options);
-                    ?>
-                </div>
-            </div>
-
-            <div class="control-group">
-                <div class="controls">
-                    <p>   
-                        <?php
-                        if ($flag_add_edit)
-                            echo '<button class="btn btn-small btn-primary" type="button" onclick="on_update_status(' . $this->cham_cong->c_id . ')">Cập nhật</button>';
-                        ?>                        
-                        <a class="btn btn-small" data-toggle="modal" href="#mdThongBao" onclick="loadFormThongBao()">Gửi thông báo</a>
-                        <a class="btn btn-small" type="button" href="<?php echo $this->baseUrl('donvi/thanhvien'); ?>">Quay lại</a>
-                    </p>
-                </div>
-            </div>
+            ?>            
         </div>
     </form>
 </div>

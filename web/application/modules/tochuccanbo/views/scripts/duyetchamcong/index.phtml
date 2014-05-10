@@ -35,8 +35,8 @@ foreach ($this->list_phong_ban_option as $phong_ban) {
         </div>
         <div class="btn-toolbar float_left">
             <div class="btn-group">
-                <button class="btn" onclick="OnSubmitForm('<?php echo $this->baseUrl('tochuccanbo/duyetthemgio/updatestatus/status/1/thang/' . $this->thang . '/nam/' . $this->nam . '/phongban/' . $this->pb_id); ?>')"><i class="icon-ok-sign"></i> Duyệt</button>
-                <button class="btn" onclick="OnSubmitForm('<?php echo $this->baseUrl('tochuccanbo/duyetthemgio/updatestatus/status/0/thang/' . $this->thang . '/nam/' . $this->nam . '/phongban/' . $this->pb_id); ?>')"><i class="icon-remove-sign"></i> Không duyệt</button>
+                <button class="btn" onclick="OnSubmitForm('<?php echo $this->baseUrl('tochuccanbo/duyetchamcong/updatestatus/status/1/thang/' . $this->thang . '/nam/' . $this->nam . '/phongban/' . $this->pb_id); ?>')"><i class="icon-ok-sign"></i> Duyệt</button>
+                <button class="btn" onclick="OnSubmitForm('<?php echo $this->baseUrl('tochuccanbo/duyetchamcong/updatestatus/status/0/thang/' . $this->thang . '/nam/' . $this->nam . '/phongban/' . $this->pb_id); ?>')"><i class="icon-remove-sign"></i> Không duyệt</button>
             </div>
         </div>
 
@@ -57,14 +57,48 @@ foreach ($this->list_phong_ban_option as $phong_ban) {
             <tbody>
                 <?php
                 foreach ($this->list_nhan_vien as $item) {
+                    $cham_cong = $this->viewGetChamCong($this->thang, $this->nam, $item->em_id);
+                    $dv_status = $phong_to_chuc_status = 'Chưa duyệt';
+                    $class = '';
+                    if ($cham_cong) {
+                        if ($cham_cong->c_don_vi_status == 0) {
+                            $dv_status = 'Không duyệt';
+                        }
+
+                        if ($cham_cong->c_don_vi_status > 0) {
+                            $dv_status = 'Đã duyệt';
+                        }
+
+                        if ($cham_cong->c_ptccb_status == 0) {
+                            $phong_to_chuc_status = 'Không duyệt';
+                            $class = 'error';
+                        }
+
+                        if ($cham_cong->c_ptccb_status > 0) {
+                            $phong_to_chuc_status = 'Đã duyệt';
+                            $class = 'success';
+                        }
+                    }
                     ?>  
-                    <tr>
+                    <tr class="<?php echo $class; ?>">
                         <td class="checkall_style"><input type="checkbox" name="cid[]" id="cid" value="<?php echo $item->em_id; ?>"></td>
                         <td><?php echo $item->em_ho . ' ' . $item->em_ten; ?></td>
-                        <td><?php echo $list_phong_ban[$item->em_phong_ban]; ?></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td style="width: 200px;"><?php echo $list_phong_ban[$item->em_phong_ban]; ?></td>
+                        <td style="width: 100px;"><?php echo $dv_status; ?></td>
+                        <td style="width: 100px;"><?php echo $phong_to_chuc_status; ?></td>
+                        <td style="width: 130px;">
+                            <div class="dropdown float_left" style="padding-right: 6px;">
+                                <a class="btn btn-mini" id="drop_<?php echo $item->em_id; ?>" role="button" data-toggle="dropdown" href="#"><i class="icon-th-list"></i> Chức năng <b class="caret"></b></a>                                    
+                                <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop_<?php echo $item->em_id; ?>">
+                                    <li role="presentation">
+                                        <a role="menuitem" tabindex="-1" data-toggle="modal" href="#mdThongBao" title="Gửi thông báo" onclick="loadFormThongBao(<?php echo $item->em_id; ?>, '<?php echo $item->em_ho . ' ' . $item->em_ten; ?>')"><i class="icon-envelope"></i> Gửi thông báo</a>
+                                    </li>                                
+                                    <li role="presentation">
+                                        <a role="menuitem" tabindex="-1" data-toggle="modal" href="#mdDetail" title="Chi tiết" onclick="loadFormChiTiet(<?php echo $item->em_id; ?>, <?php echo $this->thang; ?>, <?php echo $this->nam; ?>, '<?php echo $item->em_ho . ' ' . $item->em_ten; ?>')"><i class="icon-calendar"></i> Chi tiết</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
                     </tr>
                 <?php } ?>
             </tbody>
@@ -73,7 +107,65 @@ foreach ($this->list_phong_ban_option as $phong_ban) {
     </form>
 </div>
 
+<!-- Modal -->
+<div id="mdThongBao" class="modal_xlager hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Thông Báo</h3>
+    </div>
+    <div class="modal-body" id="mdThongBaoBody">
+        <div class="alert alert-error" id="dv_thong_bao_error" style="display: none;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h5>Thông báo!</h5>
+            Cập nhật không thành công!
+        </div>
 
+        <div class="alert alert-success" id="dv_thong_bao_success" style="display: none;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h5>Thông báo!</h5>
+            Cập nhật thành công!
+        </div>
+
+        <form class="form-horizontal">
+            <input type="hidden" id="tb_cap_nhat_id" value=""/>
+
+            <div class="control-group">
+                <label class="control-label" for="tb_can_bo">Người nhận</label>
+                <div class="controls" id="tb_can_bo">
+
+                </div>            
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="tb_tieu_de">Tiêu đề</label>
+                <div class="controls">
+                    <?php echo $this->formText('tb_tieu_de', null, array('class' => 'input-xxlarge', 'placeholder' => '')); ?>                   
+                </div>            
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="tb_noi_dung">Nội dung</label>
+                <div class="controls">
+                    <?php echo $this->formTextarea('tb_noi_dung', null, array('class' => 'input-xlarge', 'rows' => 5)); ?>                   
+                </div>            
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Đóng</button>
+        <button class="btn btn-primary" onclick="postFormThongBao();" id="btn_gui_thong_bao">Gửi thông báo</button>
+    </div>
+</div>
+
+<div id="mdDetail" class="modal_xxlager hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myDetailLabel">Chi tiết</h3>
+    </div>
+    <div class="modal-body" id="mdDetailBody">
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Đóng</button>        
+    </div>
+</div>
 
 <script>
     var currentYear = <?php echo $this->nam; ?>;    
@@ -108,11 +200,15 @@ foreach ($this->list_phong_ban_option as $phong_ban) {
         }        
         window.location = site_url+'/tochuccanbo/duyetchamcong/index/thang/'+c_m+'/nam/'+c_y+'/phongban/'+phong_ban;
     }
+    function loadFormChiTiet(em_id, thang, nam, em_name){
+        $('#myDetailLabel').html(em_name);       
+        $('#mdDetailBody').html('Đang tải dữ liệu');
+        $('#mdDetailBody').load(site_url+'/tochuccanbo/duyetchamcong/detail/thang/'+thang+'/nam/'+nam+'/em/'+em_id+' #dv_cham_cong_chi_tiet', function(){
+         
+        });
+    }
     
-    function loadFormThongBao(){ 
-        var em_id = $("#sl_chon_nv option:selected").val();
-        var em_name = $("#sl_chon_nv option:selected").text();
-
+    function loadFormThongBao(em_id, em_name){        
         $('#mdThongBaoBody #tb_cap_nhat_id').val(em_id);
         $('#mdThongBaoBody #tb_can_bo').html('<strong>'+em_name+'</strong>');
         tinyMCE.get('tb_noi_dung').setContent('');
@@ -121,7 +217,7 @@ foreach ($this->list_phong_ban_option as $phong_ban) {
         $('#dv_thong_bao_error').hide();
     }
     
-    function postFormThongBao(){                
+    function postFormThongBao(){   
         $('#dv_thong_bao_success').hide();
         $('#dv_thong_bao_error').hide();
         var em_id = $('#mdThongBaoBody #tb_cap_nhat_id').val();
@@ -133,7 +229,7 @@ foreach ($this->list_phong_ban_option as $phong_ban) {
                 em_id: em_id, 
                 tb_title: tb_title, 
                 tb_content: tb_content
-            }, function(data) {    
+            }, function(data) {   
                 $("#btn_gui_thong_bao").removeAttr("disabled");
                 if(data.status){
                     $('#dv_thong_bao_success').show();
@@ -145,32 +241,6 @@ foreach ($this->list_phong_ban_option as $phong_ban) {
             }, 'json');
         }else{
             alert('Bạn phải nhập đầy đủ tiêu đề và nội dung!');
-        }        
-    }
-    
-    function on_update_status(cc_id){
-        $.blockUI({
-            message: '<h3>Đang thực hiện</h3>',
-            css: {                         
-                border: 'none', 
-                padding: '15px', 
-                backgroundColor: '#000', 
-                '-webkit-border-radius': '10px', 
-                '-moz-border-radius': '10px', 
-                opacity: .5, 
-                color: '#fff' 
-            }
-        });
-        var st = $('#sl_ptccb_status').val();
-        $.post( site_url+'/tochuccanbo/duyetchamcong/jqupdatestatus', {
-            c_id: cc_id, 
-            c_status: st
-        }, function(data) {    
-            if(data.status){                
-                $.success_ui('Thông báo!', 'Thực hiện thành công!', 4000);                
-            }else{
-                $.error_ui('Thông báo', 'Không thể thực hiện được!', 4000); 
-            }
-        }, 'json');
+        }         
     }
 </script>
