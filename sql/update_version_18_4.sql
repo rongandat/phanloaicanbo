@@ -18,5 +18,3 @@ ALTER TABLE `bac_luong` MODIFY COLUMN `bl_he_so_luong` TEXT NOT NULL,
  DROP COLUMN `bl_pc_thu_hut`;
 
 ALTER TABLE `employees` DROP COLUMN `em_ma_ngach`;
-
-
