@@ -13,7 +13,7 @@ defined('TABLE_PREFIX')
 
 // Define site url
 defined('SITE_URL')
-    || define('SITE_URL', 'http://localhost/phanloaicanbo/web');
+    || define('SITE_URL', 'http://192.168.5.101/phanloaicanbo/web');
 
 // Define site template
 defined('TEMPLATE_USED')
@@ -26,6 +26,10 @@ defined('NUM_PER_PAGE')
 //define upload path
 defined('UPLOAD_PATH')
     || define('UPLOAD_PATH', realpath(dirname(__FILE__) . '/public/uploads'));
+
+//define upload path
+defined('IMPORT_PATH')
+    || define('IMPORT_PATH', realpath(dirname(__FILE__) . '/import'));
 
 defined('UPLOADED_URL')
     || define('UPLOADED_URL', SITE_URL.'/public/uploads/');

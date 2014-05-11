@@ -18,3 +18,9 @@ ALTER TABLE `bac_luong` MODIFY COLUMN `bl_he_so_luong` TEXT NOT NULL,
  DROP COLUMN `bl_pc_thu_hut`;
 
 ALTER TABLE `employees` DROP COLUMN `em_ma_ngach`;
+
+ALTER TABLE `employees_heso` MODIFY COLUMN `eh_pc_khac_type` INTEGER UNSIGNED NOT NULL DEFAULT 0 COMMENT '0: he so, 1: %',
+ ADD COLUMN `eh_pc_doc_hai` DOUBLE NOT NULL DEFAULT 0 AFTER `eh_bac_luong`,
+ ADD COLUMN `eh_pc_doc_hai_type` INTEGER UNSIGNED NOT NULL DEFAULT 0 COMMENT '0: he so, 1: tien co dinh' AFTER `eh_pc_doc_hai`;
+
+ALTER TABLE `employees_heso` ADD COLUMN `eh_han_ap_dung` DATETIME DEFAULT '0000-00-00 00:00:00' AFTER `eh_pc_doc_hai_type`;

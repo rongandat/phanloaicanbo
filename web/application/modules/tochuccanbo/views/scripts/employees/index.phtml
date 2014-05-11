@@ -19,7 +19,7 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
     <form name="appForm" method="post" action="">
         <div class="btn-toolbar float_left">
             <div class="btn-group">
-                <button class="btn" onclick="OnSubmitForm('<?php echo $this->baseUrl('tochuccanbo/employees/deleteitems/page/' . $this->arrParam['page']); ?>')"><i class="icon-trash"></i> Xóa chọn</button>
+                <button class="btn" onclick="OnSubmitForm('<?php echo $this->baseUrl('tochuccanbo/employees/deleteitems/page/' . $this->arrParam['page']); ?>')"><i class="icon-trash"></i> Xóa</button>
                 <?php if ($this->check_nang_luong): ?>
                     <a class="btn btn-warning" href="<?php echo $this->baseUrl('tochuccanbo/employees/nangluong/page/' . $this->arrParam['page']); ?>"><i class="icon-arrow-up"></i> Nâng lương</a>
                 <?php endif; ?>
@@ -30,6 +30,7 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
                     <a class="btn btn-warning" href="<?php echo $this->baseUrl('tochuccanbo/employees/nghihuu/page/' . $this->arrParam['page']); ?>"><i class="icon-home"></i> Về hưu</a>
                 <?php endif; ?>
                 <a class="btn" href="<?php echo $this->baseUrl('tochuccanbo/employees/add/page/' . $this->arrParam['page']); ?>"><i class="icon-plus-sign"></i> Thêm mới</a>
+                <a class="btn" href="<?php echo $this->baseUrl('tochuccanbo/employees/import/page/' . $this->arrParam['page']); ?>"><i class="icon-plus-sign"></i> Nhập từ Excel</a>
             </div>
         </div>
         <div class="btn-toolbar form-search float_right text-right">

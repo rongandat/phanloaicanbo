@@ -57,7 +57,7 @@ class Front_Model_Employees extends Zend_Db_Table_Abstract {
     }
 
     public function getNangLuong($thang = 0, $nam = 0, $phong_ban = array()) {
-        $ngay_gioi_han = "$nam-$thang-31 23:9:59";
+        $ngay_gioi_han = "$nam-$thang-31 23:59:59";
         $select = $this->select(Zend_Db_Table::SELECT_WITH_FROM_PART);
         $select->setIntegrityCheck(false)
                 ->joinInner(TABLE_EMPLOYEESHESO, TABLE_EMPLOYEESHESO . '.eh_em_id = ' . $this->_name . '.em_id', array('*'));
@@ -70,7 +70,7 @@ class Front_Model_Employees extends Zend_Db_Table_Abstract {
     }
 
     public function getLuanChuyen($thang = 0, $nam = 0, $phong_ban = array()) {
-        $ngay_gioi_han = "$nam-$thang-31 23:9:59";
+        $ngay_gioi_han = "$nam-$thang-31 23:59:59";
         $select = $this->select();
         if ($phong_ban)
             $select->where('em_phong_ban in (?)', $phong_ban);

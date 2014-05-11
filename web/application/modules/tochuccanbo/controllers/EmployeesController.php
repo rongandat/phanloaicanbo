@@ -25,6 +25,64 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
         $this->view->arrParam = $this->_arrParam;
     }
 
+    public function importAction() {
+        $translate = Zend_Registry::get('Zend_Translate');
+        $this->view->title = 'Quản lý cán bộ - ' . $translate->_('TEXT_DEFAULT_TITLE');
+        $this->view->headTitle($this->view->title);
+
+        $layoutPath = APPLICATION_PATH . '/templates/' . TEMPLATE_USED;
+        $option = array('layout' => '1_column/layout',
+            'layoutPath' => $layoutPath);
+
+        Zend_Layout::startMvc($option);
+
+        $employeesModel = new Front_Model_Employees();
+
+        $min = 20;
+        $max = 10 * 1024 * 1024; //2MB
+        $dir = '/excel'; //thu muc uploads
+        $dir_upload = IMPORT_PATH . $dir; //duong dan
+        $upload = new Zend_File_Transfer_Adapter_Http();
+        $upload->setDestination($dir_upload);
+        $upload->addValidator('Count', false, array('min' => 1, 'max' => 1)) // so file duoc upload 1 lan la 1
+                ->addValidator('Size', false, array('min' => $min, 'max' => $max))
+                ->addValidator('Extension', false, 'xlsx,xls');
+        $files = $upload->getFileInfo();
+        $arrFileName = array();
+        if ($this->getRequest()->isPost()) {
+            if ($upload->isValid()) {
+                foreach ($files as $file => $info) {
+                    if ($info['name'] != '') {
+                        $validator = new Zend_Validate_File_Exists($dir_upload);
+                        if ($validator->isValid($info['name'])) {
+                            $file_name = $upload->getFileName($info['name']);
+                            preg_match("/\.([^\.]+)$/", $file_name, $matches);
+                            $file_ext = $matches[1];
+                            $file_name = time() . '.' . $file_ext;
+                            $arrFileName[$file] = $file_name;
+                            $upload->addFilter('Rename', $dir_upload . '/' . $file_name);
+                        } else {
+                            $arrFileName[$file] = $info['name'];
+                        }
+                        $upload->receive($file);
+                    }
+                }
+                $file_name = $arrFileName['filedata']; //photo la ten form
+                $full_path = $dir_upload . '/' . $file_name;
+                $objPHPExcel = PHPExcel_IOFactory::load($full_path);
+                $sheetData = $objPHPExcel->getActiveSheet()->toArray(null, true, true, true);
+                Zend_Debug::dump($sheetData);
+                foreach ($sheetData as $row) {
+                    echo $row['A'];
+                }
+            } else {
+                $error_message[] = 'Lỗi khi upload file (chỉ cho upload file *.xls, *.xlsx và dưới 10MB).';
+            }
+        }
+        $this->view->error_message = $error_message;
+        $this->view->page = $this->_page;
+    }
+
     public function indexAction() {
         $translate = Zend_Registry::get('Zend_Translate');
         $this->view->title = 'Quản lý cán bộ - ' . $translate->_('TEXT_DEFAULT_TITLE');
@@ -117,7 +175,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
 
         $date = time();
         $thang = date('m', $date);
-        $nam = date('Y', $date);
+        $nam = (date('Y', $date) - 3); //3 nam nang luong 1 lan
 
         $employeesModel = new Front_Model_Employees();
         if (!$pb_selected) {
@@ -997,12 +1055,16 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
 
     public function hesoAction() {
         $this->_helper->layout()->disableLayout();
+        $date = time();
+        $thang = $this->_getParam('thang', date('m', $date));
+        $nam = $this->_getParam('nam', date('Y', $date));
+
         $em_id = $this->_getParam('id', 0);
         $emModel = new Front_Model_Employees();
         $em_info = $emModel->fetchRow("em_id=$em_id");
         $hesoModel = new Front_Model_EmployeesHeso();
         $bacluongModel = new Front_Model_BacLuong();
-        $he_so = $hesoModel->fetchRow("eh_em_id=$em_id");
+        $he_so = $hesoModel->getCurrentHeSo($thang, $nam, $em_id);
         $bac_luong = $bacluongModel->fetchAll('bl_status=1', 'bl_order ASC');
         $error_message = array();
         $success_message = '';
@@ -1015,7 +1077,6 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
             $eh_pc_trach_nhiem = $this->_request->getParam('eh_pc_trach_nhiem', 0);
             $eh_pc_kv = $this->_request->getParam('eh_pc_kv', 0);
             $eh_pc_tnvk_phan_tram = $this->_request->getParam('eh_pc_tnvk_phan_tram', 0);
-            $eh_tham_niem = $this->_request->getParam('eh_tham_niem', 0);
             $eh_pc_udn_phan_tram = $this->_request->getParam('eh_pc_udn_phan_tram', 0);
             $eh_pc_cong_vu_phan_tram = $this->_request->getParam('eh_pc_cong_vu_phan_tram', 0);
             $eh_pc_kiem_nhiem = $this->_request->getParam('eh_pc_kiem_nhiem', 0);
@@ -1027,8 +1088,14 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
             $eh_bac_luong = $this->_request->getParam('eh_bac_luong', 0);
             $eh_pc_khac_type = $this->_request->getParam('eh_pc_khac_type', 0);
 
+            $eh_pc_doc_hai = $this->_request->getParam('eh_pc_doc_hai', 0);
+            $eh_pc_doc_hai_type = $this->_request->getParam('eh_pc_doc_hai_type', 0);
+
             $eh_tham_nien_thang = $this->_request->getParam('eh_tham_nien_thang', 0);
             $eh_tham_nien_nam = $this->_request->getParam('eh_tham_nien_nam', 0);
+
+            $eh_thang_ap_dung = $this->_request->getParam('eh_thang_ap_dung', 0);
+            $eh_nam_ap_dung = $this->_request->getParam('eh_nam_ap_dung', 0);
 
             if (!$eh_bac_luong) {
                 $error_message = array('Bạn phải chọn bậc lương.');
@@ -1070,6 +1137,11 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
             if (!is_numeric($eh_pc_kiem_nhiem)) {
                 $error_message = array('Phụ cấp kiêm nhiệm phải có dạng số.');
             }
+
+            if (!is_numeric($eh_pc_doc_hai)) {
+                $error_message = array('Phụ cấp độc hại phải có dạng số.');
+            }
+
             if (!is_numeric($eh_pc_khac)) {
                 $error_message = array('Phụ cấp khác phải có dạng số.');
             }
@@ -1081,6 +1153,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
                     $current_time = new Zend_Db_Expr('NOW()');
                     $date_dieu_chinh = date_create($eh_nam_dieu_chinh . '-' . $eh_thang_dieu_chinh . '-1');
                     $date_tham_nien = date_create($eh_tham_nien_nam . '-' . $eh_tham_nien_thang . '-1');
+                    $date_ap_dung = date_create($eh_nam_ap_dung . '-' . $eh_thang_ap_dung . '-1');
                     $data = array(
                         'eh_loai_luong' => $eh_loai_luong,
                         'eh_giai_doan' => $eh_giai_doan,
@@ -1097,17 +1170,23 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
                         'eh_pc_kiem_nhiem' => $eh_pc_kiem_nhiem,
                         'eh_pc_khac' => $eh_pc_khac,
                         'eh_pc_khac_type' => $eh_pc_khac_type,
+                        'eh_pc_doc_hai' => $eh_pc_doc_hai,
+                        'eh_pc_doc_hai_type' => $eh_pc_doc_hai_type,
                         'eh_date_modified' => $current_time,
                         'eh_han_dieu_chinh' => date_format($date_dieu_chinh, "Y-m-d H:iP")
                     );
+                    $he_so = $hesoModel->checkHeSo($eh_thang_ap_dung, $eh_nam_ap_dung, $em_id);
                     if (!$he_so) {
                         $data['eh_em_id'] = $update_em_id;
                         $data['eh_date_added'] = $current_time;
+                        $data['eh_han_ap_dung'] = date_format($date_ap_dung, "Y-m-d H:iP");
                         $hesoModel->insert($data);
+                        $he_so_id = $hesoModel->getAdapter()->lastInsertId();
                     } else {
-                        $hesoModel->update($data, "eh_em_id=$update_em_id");
+                        $he_so_id = $he_so->eh_id;
+                        $hesoModel->update($data, "eh_id=$he_so_id");
                     }
-                    $he_so = $hesoModel->fetchRow("eh_em_id=$em_id");
+                    $he_so = $hesoModel->fetchRow("eh_id=$he_so_id");
                     $success_message = 'Đã cập nhật thông tin thành công.';
                 }
             }
@@ -1407,7 +1486,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
         $ncc_id = $this->_request->getParam('ncc', 0);
         $bacluongModel = new Front_Model_BacLuong();
         $bac_luong = $bacluongModel->fetchRow('bl_id=' . $bl_id);
-        if($bac_luong){
+        if ($bac_luong) {
             $bac_luong = $bac_luong->toArray();
         }
         $this->view->bac_luong = $bac_luong;

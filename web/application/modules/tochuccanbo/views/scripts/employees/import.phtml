@@ -1,0 +1,39 @@
+<h5>Thêm cán bộ mới từ file Excel</h5>       
+<div class="main-content-box">
+    <?php if (sizeof($this->error_message)): ?>
+        <div class="alert alert-error" id="dv_he_so_error">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h5>Thông báo!</h5>
+            Cập nhật không thành công vì:
+            <ol>
+                <?php foreach ($this->error_message as $message): ?>
+                    <li><?php echo $message; ?></li>
+                <?php endforeach; ?>
+            </ol>
+        </div>
+    <?php endif; ?>
+    <?php if ($this->success_message): ?>
+        <div class="alert alert-success" id="dv_he_so_success">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h5>Thông báo!</h5>
+            Cập nhật thành công!
+        </div>
+    <?php endif; ?>
+    <form class="form-horizontal" action="" enctype="multipart/form-data" method="post" id="frm_update_heso">
+        <div class="control-group">
+            <label class="control-label" for="filedata">Nhập file excel</label>
+            <div class="controls">
+                <?php echo $this->formFile('filedata'); ?>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <p>                    
+                    <button class="btn btn-small btn-primary" type="submit">Thực hiện</button>
+                    <a class="btn btn-small" type="button" href="<?php echo $this->baseUrl('tochuccanbo/employees/index/page/' . $this->arrParam['page']); ?>">Quay lại</a>
+                </p>
+            </div>
+        </div>
+
+    </form>    
+</div>
