@@ -46,7 +46,19 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
             <tbody>
                 <?php
                 foreach ($this->paginator as $item) {
-                    echo '<tr>
+                    $class='';
+                    if($item->em_time_cong_tac && $item->em_time_cong_tac != '' && $item->em_time_cong_tac != '0000-00-00 00:00:00'){
+                        $month_join = date('m', strtotime($item->em_time_cong_tac));
+                        $year_join = date('Y', strtotime($item->em_time_cong_tac));
+                        $sub_year = $this->nam - $year_join;
+                        if($this->thang<$month_join){
+                            $sub_year--;
+                        }
+                        if($sub_year>=2){
+                            $class = 'error';
+                        }
+                    }
+                    echo '<tr class="'.$class.'">
                             <td class="checkall_style"><input type="checkbox" name="cid[]" id="cid" value="' . $item->em_id . '"></td>
                             <td>' . $item->em_ho . '</a></td>                            
                             <td>' . $item->em_ten . '</a></td>                            

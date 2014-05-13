@@ -45,24 +45,23 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
             </thead>
             <tbody>
                 <?php
-                foreach ($this->paginator as $item) {
+                foreach ($this->list_nhan_vien as $item) {
                     echo '<tr>
-                            <td class="checkall_style"><input type="checkbox" name="cid[]" id="cid" value="' . $item->em_id . '"></td>
-                            <td>' . $item->em_ho . '</a></td>                            
-                            <td>' . $item->em_ten . '</a></td>                            
-                            <td>' . $list_chuc_vu[$item->em_chuc_vu] . '</a></td>                            
-                            <td>' . $list_phong_ban[$item->em_phong_ban] . '</a></td>  
-                            <td class="status_style"><div class="' . ($item->em_status ? 'icon_status_active' : 'icon_status_inactive') . '"></div></td>
+                            <td class="checkall_style"><input type="checkbox" name="cid[]" id="cid" value="' . $item['em_id'] . '"></td>
+                            <td>' . $item['em_ho'] . '</a></td>                            
+                            <td>' . $item['em_ten'] . '</a></td>                            
+                            <td>' . $list_chuc_vu[$item['em_chuc_vu']] . '</a></td>                            
+                            <td>' . $list_phong_ban[$item['em_phong_ban']] . '</a></td>  
+                            <td class="status_style"><div class="' . ($item['em_status'] ? 'icon_status_active' : 'icon_status_inactive') . '"></div></td>
                             <td class="function_style">
-                                <a class="btn btn-mini" data-toggle="modal" href="#mdHeSoLuong" title="Hệ số lương" onclick="loadFormHeSo(' . $item->em_id . ')"><i class="icon-list-alt"></i> Điều chinh hệ số lương</a>
-                                <a class="btn btn-mini" data-toggle="modal" href="#mdThongBao" title="Gửi thông báo" onclick="loadFormThongBao(' . $item->em_id . ', \'' . $item->em_ho . ' ' . $item->em_ten . '\')"><i class="icon-envelope"></i> Gửi thông báo</a>
+                                <a class="btn btn-mini" data-toggle="modal" href="#mdHeSoLuong" title="Hệ số lương" onclick="loadFormHeSo(' . $item['em_id'] . ')"><i class="icon-list-alt"></i> Điều chinh hệ số lương</a>
+                                <a class="btn btn-mini" data-toggle="modal" href="#mdThongBao" title="Gửi thông báo" onclick="loadFormThongBao(' . $item['em_id'] . ', \'' . $item['em_ho'] . ' ' . $item['em_ten'] . '\')"><i class="icon-envelope"></i> Gửi thông báo</a>
                             </td>
                         </tr>';
                 }
                 ?>
             </tbody>
         </table>
-        <?php echo $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml'); ?>
     </form>
 </div> 
 

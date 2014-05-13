@@ -173,22 +173,10 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
             $pb_ids[] = $pb->pb_id;
         }
 
-        $date = time();
-        $thang = date('m', $date);
-        $nam = (date('Y', $date) - 3); //3 nam nang luong 1 lan
-
-        $employeesModel = new Front_Model_Employees();
-        if (!$pb_selected) {
-            $list_employees = $employeesModel->getNangLuong($thang, $nam, array());
-        } else {
-            $list_employees = $employeesModel->getNangLuong($thang, $nam, $pb_ids);
-        }
-        $paginator = Zend_Paginator::factory($list_employees);
-        $paginator->setItemCountPerPage(NUM_PER_PAGE);
-        $paginator->setCurrentPageNumber($this->_page);
-        $this->view->page = $this->_page;
+        $list_nang_luong = $this->_helper->global->checkNangLuong();
+        
         $this->view->pb_id = $pb_selected;
-        $this->view->paginator = $paginator;
+        $this->view->list_nhan_vien = $list_nang_luong;
         $this->view->list_chuc_vu = $list_chuc_vu;
         $this->view->list_phong_ban = $list_phong_ban;
         $this->view->list_phong_ban_option = $list_phong_ban_option;
@@ -229,7 +217,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
 
         $date = time();
         $thang = date('m', $date);
-        $nam = date('Y', $date);
+        $nam = date('Y', $date) - 3;
 
         $employeesModel = new Front_Model_Employees();
         if (!$pb_selected) {
@@ -247,6 +235,8 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
         $this->view->list_phong_ban = $list_phong_ban;
         $this->view->list_phong_ban_option = $list_phong_ban_option;
         $this->view->list_ngach_cong_chuc = $list_ngach_cong_chuc;
+        $this->view->thang = $thang;
+        $this->view->nam = $nam;
     }
 
     public function nghihuuAction() {
@@ -562,7 +552,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
                     $ngay_sinh = date('Y-m-d', strtotime($ngay_sinh));
                     $data['em_ngay_sinh'] = $ngay_sinh;
                 }
-                
+
                 if ($em_time_cong_tac != '') {
                     $em_time_cong_tac = str_replace('/', '-', $em_time_cong_tac);
                     $em_time_cong_tac = date('Y-m-1', strtotime($em_time_cong_tac));
@@ -905,7 +895,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
                     $em_time_cong_tac = date('Y-m-1', strtotime($em_time_cong_tac));
                 }
                 $data['em_time_cong_tac'] = $em_time_cong_tac;
-                
+
                 if ($ngay_tuyen_dung != '') {
                     $ngay_tuyen_dung = str_replace('/', '-', $ngay_tuyen_dung);
                     $ngay_tuyen_dung = date('Y-m-d', strtotime($ngay_tuyen_dung));
@@ -1269,18 +1259,14 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
             $em_ngach_cong_chuc = $this->_arrParam['em_ngach_cong_chuc'];
             $em_cong_viec = trim($this->_arrParam['em_cong_viec']);
             $em_chuyen_mon = trim($this->_arrParam['em_chuyen_mon']);
-            $em_thang_dieu_chinh = $this->_request->getParam('em_han_luan_chuyen_thang', 0);
-            $em_nam_dieu_chinh = $this->_request->getParam('em_han_luan_chuyen_nam', 0);
-            $date_dieu_chinh = date_create($em_nam_dieu_chinh . '-' . $em_thang_dieu_chinh . '-1');
             $current_time = new Zend_Db_Expr('NOW()');
             $data['em_chuc_vu'] = $em_chuc_vu;
             $data['em_phong_ban'] = $em_phong_ban;
             $data['em_ngach_cong_chuc'] = $em_ngach_cong_chuc;
             $data['em_cong_viec'] = $em_cong_viec;
             $data['em_chuyen_mon'] = $em_chuyen_mon;
-            $data['em_han_luan_chuyen'] = date_format($date_dieu_chinh, "Y-m-d H:iP");
             $data['em_date_modified'] = $current_time;
-            $data['em_time_cong_tac'] =  date('Y-m-1', time());
+            $data['em_time_cong_tac'] = date('Y-m-1', time());
             $success_message = $emModel->update($data, 'em_id=' . $emID);
 
             if ($success_message) {

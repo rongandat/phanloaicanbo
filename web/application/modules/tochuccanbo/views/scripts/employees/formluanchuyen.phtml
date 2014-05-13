@@ -84,24 +84,7 @@ for ($i = 1900; $i <= 2050; $i++) {
 
                 <?php echo $this->formText('em_chuyen_mon', $this->employee_info->em_chuyen_mon, array('class' => 'input-xlarge')); ?> 
             </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="em_han_luan_chuyen_thang">Hạn điều chỉnh</label>
-            <div class="controls">
-                <?php
-                if ($this->employee_info) {
-                    echo $this->formSelect('em_han_luan_chuyen_thang', date('m', strtotime($this->employee_info->em_han_luan_chuyen)), array('class' => 'input-small'), $thang_options);
-                    echo '<span class="help-inline"> / </span>';
-                    echo $this->formSelect('em_han_luan_chuyen_nam', date('Y', strtotime($this->employee_info->em_han_luan_chuyen)), array('class' => 'input-small'), $nam_options);
-                } else {
-                    echo $this->formSelect('em_han_luan_chuyen_thang', null, array('class' => 'input-small'), $thang_options);
-                    echo '<span class="help-inline"> / </span>';
-                    echo $this->formSelect('em_han_luan_chuyen_nam', null, array('class' => 'input-small'), $nam_options);
-                }
-                ?>    
-                <span class="help-block">Thời điểm điều chỉnh lần tiếp theo.</span>
-            </div>
-        </div>
+        </div>        
 
     </form>
 </div>

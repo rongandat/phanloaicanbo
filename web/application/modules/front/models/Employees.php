@@ -56,17 +56,26 @@ class Front_Model_Employees extends Zend_Db_Table_Abstract {
         return $this->fetchAll($select);
     }
 
-    public function getNangLuong($thang = 0, $nam = 0, $phong_ban = array()) {
+    public function getNangLuong($ngach = 0, $thang = 0, $nam = 0, $phong_ban = array()) {
         $ngay_gioi_han = "$nam-$thang-31 23:59:59";
-        $select = $this->select(Zend_Db_Table::SELECT_WITH_FROM_PART);
-        $select->setIntegrityCheck(false)
-                ->joinInner(TABLE_EMPLOYEESHESO, TABLE_EMPLOYEESHESO . '.eh_em_id = ' . $this->_name . '.em_id', array('*'));
-        if ($phong_ban)
-            $select->where($this->_name . '.em_phong_ban in (?)', $phong_ban);
-        $select->where(TABLE_EMPLOYEESHESO . '.eh_han_dieu_chinh <=?', $ngay_gioi_han);
-        $select->where($this->_name . '.em_nghi_huu =?', 0);
-        $select->where($this->_name . '.em_status =?', 1);
-        return $this->fetchAll($select);
+
+        $where = '';
+        if (sizeof($phong_ban)) {
+            $list_phong_ban = implode(',', $phong_ban);
+            $where = ' and e.em_phong_ban in (' . $list_phong_ban . ')';
+        }
+        $phong_ban = implode(',', $phong_ban);
+
+        $select = "select * from (select * from (SELECT eh_em_id, eh_han_dieu_chinh FROM " . TABLE_EMPLOYEESHESO . "
+        order by eh_han_dieu_chinh DESC) as tmp
+        group by tmp.eh_em_id) as tmp2 inner join " . $this->_name . " e on e.em_id=tmp2.eh_em_id
+        inner join " . TABLE_NGACHCONGCHUC . " ncc on e.em_ngach_cong_chuc=ncc.ncc_id
+        where tmp2.eh_han_dieu_chinh<='$ngay_gioi_han' and ncc.ncc_id=$ngach $where";
+
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $stmt = $db->query($select);        
+        $rows = $stmt->fetchAll();        
+        return $rows;
     }
 
     public function getLuanChuyen($thang = 0, $nam = 0, $phong_ban = array()) {
@@ -74,7 +83,7 @@ class Front_Model_Employees extends Zend_Db_Table_Abstract {
         $select = $this->select();
         if ($phong_ban)
             $select->where('em_phong_ban in (?)', $phong_ban);
-        $select->where('em_han_luan_chuyen <=?', $ngay_gioi_han);
+        $select->where('em_time_cong_tac <=?', $ngay_gioi_han);
         $select->where('em_nghi_huu =?', 0);
         $select->where('em_status =?', 1);
         return $this->fetchAll($select);

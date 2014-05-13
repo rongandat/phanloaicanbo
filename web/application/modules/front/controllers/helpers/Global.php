@@ -20,15 +20,23 @@ class Zend_Controller_Action_Helper_Global extends Zend_Controller_Action_Helper
         return false;
     }
 
-    function checkNangLuong() {
+    function checkNangLuong($phong_ban = array()) {
         $date = time();
         $thang = date('m', $date);
         $nam = date('Y', $date);
 
         $employeesModel = new Front_Model_Employees();
-        $list_employees = $employeesModel->getNangLuong($thang, $nam, array())->toArray();
+        $nghachModel = new Front_Model_NgachCongChuc();
+        $list_nghach = $nghachModel->fetchAll('ncc_status=1');
+
+        $list_employees = array();
+        foreach ($list_nghach as $nghach) {
+            $nam = $nam - $nghach->ncc_nam_nang_bac;
+            $list_employees = array_merge($list_employees, $employeesModel->getNangLuong($nghach->ncc_id, $thang, $nam, $phong_ban));
+        }
+        
         if (sizeof($list_employees)) {
-            return 1;
+            return $list_employees;
         }
         return 0;
     }
@@ -36,7 +44,7 @@ class Zend_Controller_Action_Helper_Global extends Zend_Controller_Action_Helper
     function checkLuanChuyen() {
         $date = time();
         $thang = date('m', $date);
-        $nam = date('Y', $date);
+        $nam = date('Y', $date) - 3;
 
         $employeesModel = new Front_Model_Employees();
         $list_employees = $employeesModel->getLuanChuyen($thang, $nam, array())->toArray();

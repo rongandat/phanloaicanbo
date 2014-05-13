@@ -21,7 +21,7 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
             <div class="btn-group">
                 <button class="btn" onclick="OnSubmitForm('<?php echo $this->baseUrl('tochuccanbo/employees/deleteitems/page/' . $this->arrParam['page']); ?>')"><i class="icon-trash"></i> Xóa</button>
                 <?php if ($this->check_nang_luong): ?>
-                    <a class="btn btn-warning" href="<?php echo $this->baseUrl('tochuccanbo/employees/nangluong/page/' . $this->arrParam['page']); ?>"><i class="icon-arrow-up"></i> Nâng lương</a>
+                    <a class="btn btn-warning" href="<?php echo $this->baseUrl('tochuccanbo/employees/nangluong/page/' . $this->arrParam['page']); ?>"><i class="icon-arrow-up"></i> Nâng bậc lương</a>
                 <?php endif; ?>
                 <?php if ($this->check_luan_chuyen): ?>
                     <a class="btn btn-warning" href="<?php echo $this->baseUrl('tochuccanbo/employees/luanchuyen/page/' . $this->arrParam['page']); ?>"><i class="icon-retweet"></i> Luân chuyển</a>
