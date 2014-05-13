@@ -119,6 +119,68 @@ class Hethong_TinhController extends Zend_Controller_Action {
         $this->view->error_message = $error_message;
     }
 
+    public function importAction() {
+        $dir = '/excel'; //thu muc uploads
+        $dir_upload = IMPORT_PATH . $dir; //duong dan
+        $full_path = $dir_upload . '/tinh.xlsx';
+        $objPHPExcel = PHPExcel_IOFactory::load($full_path);
+        $sheetData = $objPHPExcel->getActiveSheet()->toArray(null, true, true, true);
+        $tinhModel = new Front_Model_Tinh();
+        foreach ($sheetData as $row) {
+            $current_time = new Zend_Db_Expr('NOW()');
+            $tinhModel->insert(array(
+                'tinh_id' => $row['A'],
+                'tinh_name' => $row['B'],
+                'tinh_status' => 1,
+                'tinh_order' => 0,
+                'tinh_date_added' => $current_time,
+                'tinh_date_modified' => $current_time
+                    )
+            );
+        }
+    }
+
+    public function importhAction() {
+        $dir = '/excel'; //thu muc uploads
+        $dir_upload = IMPORT_PATH . $dir; //duong dan
+        $full_path = $dir_upload . '/huyen.xlsx';
+        $objPHPExcel = PHPExcel_IOFactory::load($full_path);
+        $sheetData = $objPHPExcel->getActiveSheet()->toArray(null, true, true, true);
+        $huyenModel = new Front_Model_Huyen();
+        foreach ($sheetData as $row) {
+            $current_time = new Zend_Db_Expr('NOW()');
+            $huyenModel->insert(array(
+                'huyen_name' => $row['B'],
+                'huyen_parent' => $row['A'],
+                'huyen_status' => 1,
+                'huyen_order' => 0,
+                'huyen_date_added' => $current_time,
+                'huyen_date_modified' => $current_time
+                    )
+            );
+        }
+    }
+
+    public function importdAction() {
+        $dir = '/excel'; //thu muc uploads
+        $dir_upload = IMPORT_PATH . $dir; //duong dan
+        $full_path = $dir_upload . '/dantoc.xlsx';
+        $objPHPExcel = PHPExcel_IOFactory::load($full_path);
+        $sheetData = $objPHPExcel->getActiveSheet()->toArray(null, true, true, true);
+        $dantocModel = new Front_Model_Dantoc();
+        foreach ($sheetData as $row) {
+            $current_time = new Zend_Db_Expr('NOW()');
+            $dantocModel->insert(array(
+                'dt_name' => $row['A'],
+                'dt_status' => 1,
+                'dt_order' => 0,
+                'dt_date_added' => $current_time,
+                'dt_date_modified' => $current_time
+                    )
+            );
+        }
+    }
+
     public function editAction() {
 
         $layoutPath = APPLICATION_PATH . '/templates/' . TEMPLATE_USED;
@@ -397,7 +459,7 @@ class Hethong_TinhController extends Zend_Controller_Action {
         $this->view->success_message = $success_message;
         $this->view->error_message = $error_message;
     }
-    
+
     public function hdeleteAction() {
 
         $layoutPath = APPLICATION_PATH . '/templates/' . TEMPLATE_USED;
@@ -426,7 +488,7 @@ class Hethong_TinhController extends Zend_Controller_Action {
                 $id = $this->getRequest()->getPost('id');
                 $huyenModel->delete('huyen_id=' . $id);
             }
-            $this->_redirect('hethong/tinh/huyen/parent/'.$tinh_id.'/page/' . $this->_page);
+            $this->_redirect('hethong/tinh/huyen/parent/' . $tinh_id . '/page/' . $this->_page);
         }
 
         $this->view->parent = $tinh_id;
@@ -434,7 +496,6 @@ class Hethong_TinhController extends Zend_Controller_Action {
         $this->view->error_message = $error_message;
     }
 
-    
     function hchangestatusAction() {
         $this->_helper->layout()->disableLayout();
         $type = $this->_request->getParam('status', 1);
@@ -448,7 +509,7 @@ class Hethong_TinhController extends Zend_Controller_Action {
         $current_time = new Zend_Db_Expr('NOW()');
         $huyenModel = new Front_Model_Huyen();
         $huyenModel->update(array('huyen_status' => $type, 'huyen_date_modified' => $current_time), 'huyen_id=' . $id);
-        $this->_redirect('hethong/tinh/huyen/parent/'.$tinh_id.'/page/' . $this->_page);
+        $this->_redirect('hethong/tinh/huyen/parent/' . $tinh_id . '/page/' . $this->_page);
     }
 
     function hdeleteitemsAction() {
@@ -461,8 +522,7 @@ class Hethong_TinhController extends Zend_Controller_Action {
                 $huyenModel->delete('huyen_id=' . $v);
             }
         }
-        $this->_redirect('hethong/tinh/huyen/parent/'.$tinh_id.'/page/' . $this->_page);
+        $this->_redirect('hethong/tinh/huyen/parent/' . $tinh_id . '/page/' . $this->_page);
     }
-    
-    
+
 }
