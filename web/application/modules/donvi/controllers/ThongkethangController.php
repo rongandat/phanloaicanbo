@@ -141,11 +141,11 @@ class Donvi_ThongkethangController extends Zend_Controller_Action {
 
 
 
+        $chamcongModel = new Front_Model_ChamCong();
         if ($list_nhan_vien) {
             $k = 0;
             foreach ($list_nhan_vien as $nhan_vien) {
                 $k++;
-                $chamcongModel = new Front_Model_ChamCong();
                 $cham_cong = $chamcongModel->fetchOneData(array('c_em_id' => $nhan_vien['em_id'], 'c_thang' => (int) $thang, 'c_nam' => (int) $nam));
                 $objPHPExcel->getActiveSheet()->SetCellValue('A' . ($k + 7), $k);
                 $objPHPExcel->getActiveSheet()->SetCellValue('B' . ($k + 7), $nhan_vien->em_ho . ' ' . $nhan_vien->em_ten_dem . ' ' . $nhan_vien->em_ten);
@@ -284,7 +284,7 @@ class Donvi_ThongkethangController extends Zend_Controller_Action {
 
             $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 
-            $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+            $pdf->SetMargins(5, PDF_MARGIN_TOP, 5);
             $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
             $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
 
@@ -294,12 +294,10 @@ class Donvi_ThongkethangController extends Zend_Controller_Action {
 
             $pdf->SetFont('dejavusans', '', 14, '', true);
 
-            $pdf->AddPage();
+            $pdf->AddPage('L', 'A4');
 
             $pdf->setTextShadow(array('enabled' => true, 'depth_w' => 0.2, 'depth_h' => 0.2, 'color' => array(196, 196, 196), 'opacity' => 1, 'blend_mode' => 'Normal'));
-
-            foreach ($list_nhan_vien as $nhan_vien) {
-                $text_outout = '
+            $text_outout = '
                         <style>
                             .ten-co-quan {
                                 color: #000;
@@ -359,47 +357,58 @@ class Donvi_ThongkethangController extends Zend_Controller_Action {
                             </tr>
                             <tr>
                                 <td colspan="3" class="ten-bang-luong uppercase">BẢNG CHẤM CÔNG VÀ XẾP LOẠI A,B,C THÁNG ' . $thang . '-' . $nam . '</td>
-                            </tr>
-                           
-                            <tr>
+                            </tr>';
+            $text_outout .= '<tr>
                                 <td colspan="3">
                                     <br/>
-                                    <table border="1" class="noi-dung" cellpadding="35" nobr="true">
+                                    <table border="1" class="noi-dung" cellpadding="5" nobr="true">
                                         <tr>
-                                            <td style="width: 10pt;" rowspan="2"><strong>STT</strong></td>
-                                            <td style="width: 80pt;" rowspan="2"><strong>HỌ TÊN</strong></td>
-                                            <td ><strong>Ngày Công Trong Tháng</strong></td>';
-
-                
-                $text_outout .= '  <td style="width: 100pt;" rowspan="2"><strong>PHÂN LOẠI A, B, C</strong></td>
-                                            <td style="width: 100pt;" rowspan="2"><strong>GHI CHÚ</strong></td>
+                                            <td style="width: 25pt;" rowspan="2"><strong>STT</strong></td>
+                                            <td style="width: 70pt;" rowspan="2"><strong>HỌ TÊN</strong></td>
+                                            <td colspan="31" style="text-align:center;"><strong>Ngày Công Trong Tháng</strong></td>
+                                            <td style="width: 50pt;" rowspan="2"><strong>Phân loại A,B,C</strong></td>
+                                            <td style="width: 50pt;" rowspan="2"><strong>Ghi chú</strong></td>
                                         </tr>
                                         <tr>';
+            for ($i = 1; $i <= 31; $i++) {
+                $text_outout .= '<td >' . $i . '</td>';
+            }
+            $text_outout .= '</tr>';
+            $k = 0;
+
+            $chamcongModel = new Front_Model_ChamCong();
+
+            foreach ($list_nhan_vien as $nhan_vien) {
+                $text_outout .= '<tr>';
+                $k++;
+                $cham_cong = $chamcongModel->fetchOneData(array('c_em_id' => $nhan_vien['em_id'], 'c_thang' => (int) $thang, 'c_nam' => (int) $nam));
+                $text_outout .= '<td>' . $k . '</td>';
+                $text_outout .= '<td>' . $nhan_vien->em_ho . ' ' . $nhan_vien->em_ten_dem . ' ' . $nhan_vien->em_ten . '</td>';
                 for ($i = 1; $i <= 31; $i++) {
-                    $text_outout .= '<td style="width: 5pt;"><strong>' . $i . '</strong></td>';
+                    $ngay_chamcong = 'c_ngay_' . $i;
+                    $trangthai_ngaycong = $cham_cong->$ngay_chamcong;
+                    $status = !empty($listHoliday[$trangthai_ngaycong]) ? $listHoliday[$trangthai_ngaycong] : '&nbsp;';
+                    $text_outout .= '<td>' . $status . '</td>';
                 }
-                $text_outout .= '</tr>
-                                    </table>
+                $text_outout .= '</tr>';
+            }
+            $text_outout .= '</table>
                                 </td>
                             </tr>';
 
-                $text_outout .='<tr>
-                                <td colspan="3">
-                                    <br/>
-                                    <table border="1" width="100%" class="noi-dung" cellpadding="5" nobr="true">';
-                foreach ($holidays as $holiday) {
-                    $text_outout .= '<tr>
-                <td style = "width: 395pt;"><strong>' . $holiday['hld_name'] . ': ' . $holiday['hld_code'] . '</strong></td>
-                </tr>';
-                }
-                $text_outout .= '</table>
+            $text_outout .= '</table>
                                 </td>
-                            </tr>
-                        </table> ';
-                $pdf->writeHTMLCell(0, 0, '', '', $text_outout, 0, 1, 0, true, '', true);
+                            </tr>';
+            $text_outout .= '<tr><td style=""></td><td style="width: 120pt;">&nbsp;</td><td style="width: 50pt;">&nbsp;</td></tr>';
+            foreach ($holidays as $holiday) {
+                
+                $text_outout .= '<tr class="noi-dung"><td style="width: 32pt;"></td><td style="width: 70pt;">' . $holiday['hld_name'] . '</td><td style="width: 50pt;">' . $holiday['hld_code'] . '</td></tr>';
             }
+
+            $text_outout .='</table> ';
+            $pdf->writeHTMLCell(0, 0, '', '', $text_outout, 0, 1, 0, true, '', true);
             $pdf->Output($file_name, 'I');
-                die();
+            die();
             $k += 5;
             foreach ($holidays as $holiday) {
                 $k++;
