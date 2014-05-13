@@ -28,7 +28,7 @@ class Danhsach_ChungchiController extends Zend_Controller_Action {
     }
 
     public function xuatAction() {
-        $inputFileName = APPLICATION_PATH . "/../tmp/Mau_Ca_Nhan_Excel.xlsx";
+        $inputFileName = APPLICATION_PATH . "/../tmp/xuat_du_lieu.xlsx";
 
         $objPHPExcel = PHPExcel_IOFactory::load($inputFileName);
 
@@ -57,62 +57,83 @@ class Danhsach_ChungchiController extends Zend_Controller_Action {
             $list_items = $emModel->fetchAll();
         else
             $list_items = $emModel->fetchAll("em_ngoai_ngu = $filter_selected or em_tin_hoc=$filter_selected or em_chung_chi_khac=$filter_selected");
-        $i = 0;
+        
+        $date = time();
+        $thang = date('m', $date);
+        $nam = date('Y', $date);
+        $i = 4;
         if (sizeof($list_items)) {
+            $stt = 1;
             foreach ($list_items as $item) {
-                $em_he_so = $hesoModel->fetchRow("eh_em_id=$item->em_id");
-                $objPHPExcel->setActiveSheetIndex($i);
-                $objPHPExcel->getActiveSheet()->setTitle($item->em_ho . ' ' . $item->em_ten);
-                $n = 6;
-                foreach (unserialize($item->em_lich_su_dao_tao) as $item_daotao) {
-                    $objPHPExcel->getActiveSheet()->SetCellValue('D' . $n, $item_daotao['chuyen_nghanh']);
-                    $objPHPExcel->getActiveSheet()->SetCellValue('E' . $n, $item_daotao['ten_truong']);
-                    $objPHPExcel->getActiveSheet()->SetCellValue('F' . $n, $item_daotao['van_bang']);
-                    $objPHPExcel->getActiveSheet()->SetCellValue('G' . $n, $item_daotao['hinh_thuc']);
-                    $n++;
-                    if ($n == 8) {
-                        break;
-                    }
+                $time_tang_bac = 0;
+                $em_he_so = $hesoModel->getCurrentHeSo($thang, $nam, $item->em_id);
+
+                $objPHPExcel->setActiveSheetIndex(0);
+                $ngach_cong_chuc = $this->view->viewGetNgachCongChuc($item->em_ngach_cong_chuc);
+                $objPHPExcel->getActiveSheet()->SetCellValue('A' . $i, $stt);
+                $objPHPExcel->getActiveSheet()->SetCellValue('B' . $i, $item->em_ho . ' ' . $item->em_ten);
+                $objPHPExcel->getActiveSheet()->SetCellValue('C' . $i, $item->em_ho);
+                $objPHPExcel->getActiveSheet()->SetCellValue('D' . $i, $item->em_ten);
+                if ($item->em_gioi_tinh) {
+                    if ($item->em_ngay_sinh && $item->em_ngay_sinh != '' && $item->em_ngay_sinh != '0000-00-00 00:00:00')
+                        $objPHPExcel->getActiveSheet()->SetCellValue('E' . $i, date('m/Y', strtotime($item->em_ngay_sinh)));
+                } else {
+                    if ($item->em_ngay_sinh && $item->em_ngay_sinh != '' && $item->em_ngay_sinh != '0000-00-00 00:00:00')
+                        $objPHPExcel->getActiveSheet()->SetCellValue('F' . $i, date('m/Y', strtotime($item->em_ngay_sinh)));
                 }
-                $objPHPExcel->getActiveSheet()->SetCellValue('H6', $this->view->viewGetQuanLyNhaNuocName($item->em_quan_ly_nha_nuoc));
-                $objPHPExcel->getActiveSheet()->SetCellValue('I6', $this->view->viewGetLyLuanChinhTriName($item->em_ly_luan_chinh_tri));
-                $objPHPExcel->getActiveSheet()->SetCellValue('J6', $item->em_so_cong_chuc);
-                $objPHPExcel->getActiveSheet()->SetCellValue('K6', $item->em_phone);
+                $objPHPExcel->getActiveSheet()->SetCellValue('G' . $i, $this->view->viewGetChucVuName($item->em_chuc_vu));
+                $objPHPExcel->getActiveSheet()->SetCellValue('H' . $i, $this->view->viewGetPhongBanName($item->em_phong_ban));
+
+                if ($ngach_cong_chuc) {
+                    $objPHPExcel->getActiveSheet()->SetCellValue('I' . $i, $ngach_cong_chuc->ncc_ma_ngach);
+                    $objPHPExcel->getActiveSheet()->SetCellValue('J' . $i, $ngach_cong_chuc->ncc_name);
+                    $time_tang_bac = $ngach_cong_chuc->ncc_nam_nang_bac;
+                }
+                if ($item->em_time_cong_tac && $item->em_time_cong_tac != '' && $item->em_time_cong_tac != '0000-00-00 00:00:00')
+                    $objPHPExcel->getActiveSheet()->SetCellValue('L' . $i, date('m/Y', strtotime($item->em_time_cong_tac)));
+
+                foreach (unserialize($item->em_lich_su_dao_tao) as $item_daotao) {
+                    $objPHPExcel->getActiveSheet()->SetCellValue('M' . $i, $item_daotao['chuyen_nghanh']);
+                    $objPHPExcel->getActiveSheet()->SetCellValue('N' . $i, $item_daotao['ten_truong']);
+                    $objPHPExcel->getActiveSheet()->SetCellValue('O' . $i, $item_daotao['van_bang']);
+                    $objPHPExcel->getActiveSheet()->SetCellValue('P' . $i, $item_daotao['hinh_thuc']);
+                }
+
+                $objPHPExcel->getActiveSheet()->SetCellValue('Q' . $i, $this->view->viewGetQuanLyNhaNuocName($item->em_quan_ly_nha_nuoc));
+                $objPHPExcel->getActiveSheet()->SetCellValue('R' . $i, $this->view->viewGetLyLuanChinhTriName($item->em_ly_luan_chinh_tri));
+
+                if ($item->em_chuc_vu_dang) {
+                    $objPHPExcel->getActiveSheet()->SetCellValue('S' . $i, 'X');
+                }
 
                 if ($em_he_so) {
-                    if($em_he_so->eh_tham_niem && $em_he_so->eh_tham_niem != '0000-00-00 00:00:00'){
-                        $objPHPExcel->getActiveSheet()->SetCellValue('A6', date('m/Y', strtotime($em_he_so->eh_tham_niem)));
-                    } 
-                    $objPHPExcel->getActiveSheet()->SetCellValue('A10', $em_he_so->eh_pc_cong_vu_phan_tram . '%');
-                    $objPHPExcel->getActiveSheet()->SetCellValue('B10', $em_he_so->eh_pc_thu_hut . '%');
-                    $objPHPExcel->getActiveSheet()->SetCellValue('C10', $em_he_so->eh_pc_kiem_nhiem);
-                    $objPHPExcel->getActiveSheet()->SetCellValue('D10', $em_he_so->eh_pc_udn_phan_tram . '%');
-                    $objPHPExcel->getActiveSheet()->SetCellValue('E10', $em_he_so->eh_pc_khac . ($em_he_so->eh_pc_khac_type ? '%' : ''));
+                    $bac_luong = $this->view->viewGetBacLuong($em_he_so->eh_bac_luong);
+                    if ($bac_luong) {
+                        $objPHPExcel->getActiveSheet()->SetCellValue('T' . $i, $bac_luong->bl_name);
+                        $objPHPExcel->getActiveSheet()->SetCellValue('W' . $i, date('1/m', strtotime($em_he_so->eh_han_dieu_chinh)) . (date('Y', strtotime($em_he_so->eh_han_dieu_chinh)) + $time_tang_bac));
+                    }
+
+                    $hs_pc_chuc_vu = $em_he_so->eh_pc_cong_viec;
+                    $hs_pc_tnvk_phan_tram = $em_he_so->eh_pc_tnvk_phan_tram;
+                    $he_so_luong = $em_he_so->eh_he_so;
+                    $hs_pc_tnvk = ($he_so_luong + $hs_pc_chuc_vu) * $hs_pc_tnvk_phan_tram / 100;
+
+                    $objPHPExcel->getActiveSheet()->SetCellValue('U' . $i, $em_he_so->eh_he_so);
+                    if ($em_he_so->eh_tham_niem && $em_he_so->eh_tham_niem != '' && $em_he_so->eh_tham_niem != '0000-00-00 00:00:00')
+                        $objPHPExcel->getActiveSheet()->SetCellValue('K' . $i, date('1/m/Y', strtotime($em_he_so->eh_tham_niem)));
+                    if ($em_he_so->eh_han_dieu_chinh && $em_he_so->eh_han_dieu_chinh != '' && $em_he_so->eh_han_dieu_chinh != '0000-00-00 00:00:00')
+                        $objPHPExcel->getActiveSheet()->SetCellValue('V' . $i, date('1/m/Y', strtotime($em_he_so->eh_han_dieu_chinh)));
+
+                    $objPHPExcel->getActiveSheet()->SetCellValue('X' . $i, number_format($hs_pc_tnvk, 0, '.', ','));
                 }
 
-                if ($item->em_anh_the) {
-                    $link_anh = UPLOAD_PATH . '/avatars/' . $item->em_anh_the;
-                } else {
-                    $link_anh = UPLOAD_PATH.'/avatars/anh_the.jpg';
-                }
-                
-                $objDrawing = new PHPExcel_Worksheet_Drawing();
-                $objDrawing->setName('Logo');
-                $objDrawing->setDescription('Logo');
-                $objDrawing->setPath(UPLOAD_PATH.'/avatars/anh_the.jpg');
-                $objDrawing->setCoordinates('F15');
-                $objDrawing->setHeight(180);
-                $objDrawing->setWidth(120);
-                $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
-                
-                
+                $objPHPExcel->getActiveSheet()->SetCellValue('Y' . $i, $item->em_so_cong_chuc);
+                $objPHPExcel->getActiveSheet()->SetCellValue('Z' . $i, $item->em_phone);
+
                 $i++;
+                $stt++;
             }
 
-            $count_sheet = $objPHPExcel->getSheetCount();
-            for ($j = $count_sheet - 1; $j > $i; $j--) {
-                $objPHPExcel->removeSheetByIndex($j);
-            }
             header('Content-Type: application/vnd.ms-excel');
             header('Content-Disposition: attachment;filename="Bang_Thong_Tin_Nhan_Vien_Theo_Chung_Chi.xls"');
             header('Cache-Control: max-age=0');

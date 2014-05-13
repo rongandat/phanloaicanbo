@@ -520,6 +520,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
             $em_ky_luat = trim($this->_arrParam['em_ky_luat']);
             $em_ngay_nhap_ngu = trim($this->_arrParam['em_ngay_nhap_ngu']);
             $em_ngay_xuat_ngu = trim($this->_arrParam['em_ngay_xuat_ngu']);
+            $em_time_cong_tac = trim($this->_arrParam['em_time_cong_tac']);
             $em_cmt_ngay_cap = trim($this->_arrParam['em_cmt_ngay_cap']);
             $em_quan_ham = trim($this->_arrParam['em_quan_ham']);
             $em_danh_hieu = trim($this->_arrParam['em_danh_hieu']);
@@ -560,6 +561,12 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
                     $ngay_sinh = str_replace('/', '-', $ngay_sinh);
                     $ngay_sinh = date('Y-m-d', strtotime($ngay_sinh));
                     $data['em_ngay_sinh'] = $ngay_sinh;
+                }
+                
+                if ($em_time_cong_tac != '') {
+                    $em_time_cong_tac = str_replace('/', '-', $em_time_cong_tac);
+                    $em_time_cong_tac = date('Y-m-1', strtotime($em_time_cong_tac));
+                    $data['em_time_cong_tac'] = $em_time_cong_tac;
                 }
 
                 if ($ngay_tuyen_dung != '') {
@@ -850,6 +857,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
             $em_ky_luat = trim($this->_arrParam['em_ky_luat']);
             $em_ngay_nhap_ngu = trim($this->_arrParam['em_ngay_nhap_ngu']);
             $em_ngay_xuat_ngu = trim($this->_arrParam['em_ngay_xuat_ngu']);
+            $em_time_cong_tac = trim($this->_arrParam['em_time_cong_tac']);
             $em_cmt_ngay_cap = trim($this->_arrParam['em_cmt_ngay_cap']);
             $em_quan_ham = trim($this->_arrParam['em_quan_ham']);
             $em_danh_hieu = trim($this->_arrParam['em_danh_hieu']);
@@ -892,6 +900,12 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
                 }
                 $data['em_ngay_sinh'] = $ngay_sinh;
 
+                if ($em_time_cong_tac != '') {
+                    $em_time_cong_tac = str_replace('/', '-', $em_time_cong_tac);
+                    $em_time_cong_tac = date('Y-m-1', strtotime($em_time_cong_tac));
+                }
+                $data['em_time_cong_tac'] = $em_time_cong_tac;
+                
                 if ($ngay_tuyen_dung != '') {
                     $ngay_tuyen_dung = str_replace('/', '-', $ngay_tuyen_dung);
                     $ngay_tuyen_dung = date('Y-m-d', strtotime($ngay_tuyen_dung));
@@ -1266,6 +1280,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
             $data['em_chuyen_mon'] = $em_chuyen_mon;
             $data['em_han_luan_chuyen'] = date_format($date_dieu_chinh, "Y-m-d H:iP");
             $data['em_date_modified'] = $current_time;
+            $data['em_time_cong_tac'] =  date('Y-m-1', time());
             $success_message = $emModel->update($data, 'em_id=' . $emID);
 
             if ($success_message) {

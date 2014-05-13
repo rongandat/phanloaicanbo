@@ -285,6 +285,20 @@ foreach ($this->list_huyen as $huyen) {
                 </div>
 
                 <div class="control-group">
+                    <label class="control-label" for="em_time_cong_tac">Ngày vào đơn vị</label>
+                    <div class="controls">
+                        <?php
+                        if ($this->employee_info->em_time_cong_tac && $this->employee_info->em_time_cong_tac != '' && $this->employee_info->em_time_cong_tac != '0000-00-00 00:00:00') {
+                            echo $this->formText('em_time_cong_tac', date('d/m/Y', strtotime($this->employee_info->em_time_cong_tac)), array('class' => 'input-medium', 'placeholder' => 'Ngày tuyển dụng'));
+                        } else {
+                            echo $this->formText('em_time_cong_tac', null, array('class' => 'input-medium', 'placeholder' => 'Ngày vào đơn vị hiện tại'));
+                        }
+                        ?> 
+                        <span class="help-block">Ngày được chuyển vào đơn vị hiện tại</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
                     <label class="control-label" for="em_chuc_vu">Chức vụ hiện tại</label>
                     <div class="controls">
                         <?php
@@ -927,6 +941,17 @@ foreach ($this->list_huyen as $huyen) {
             }
         });
         $( "#ngay_sinh" ).datepicker({
+            yearRange: '1900:2050',
+            changeMonth: true,
+            changeYear: true,
+            defaultDate: "+1w",
+            numberOfMonths: 1,
+            dateFormat: 'd/m/yy',
+            showOn: "button",
+            buttonImage: site_url+"/date-picker-icon.png",
+            buttonImageOnly: true
+        });
+        $( "#em_time_cong_tac" ).datepicker({
             yearRange: '1900:2050',
             changeMonth: true,
             changeYear: true,
