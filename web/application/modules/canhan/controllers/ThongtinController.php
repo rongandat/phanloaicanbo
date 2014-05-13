@@ -44,6 +44,7 @@ class Canhan_ThongtinController extends Zend_Controller_Action {
     }
 
     public function printerAction() {
+        header('Content-Type: text/html; charset=utf-8');
         $this->_helper->layout()->disableLayout();
         $auth = Zend_Auth::getInstance();
         $identity = $auth->getIdentity();

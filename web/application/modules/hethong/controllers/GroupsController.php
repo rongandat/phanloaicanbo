@@ -35,7 +35,7 @@ class Hethong_GroupsController extends Zend_Controller_Action {
                     array('id' => 1001, 'name' => 'Quản lý tài khoản'),
                     array('id' => 1002, 'name' => 'Quản lý nhóm, phân quyền'),
                     array('id' => 1003, 'name' => 'Quản lý phòng ban'),
-                    array('id' => 1004, 'name' => 'Quản lý ngày nghỉ lễ'),
+                    array('id' => 1004, 'name' => 'Quản lý ngày công'),
                     array('id' => 1005, 'name' => 'Quản lý tiêu chí đánh giá cán bộ'),
                     array('id' => 1006, 'name' => 'Quản lý đánh giá kết quả công việc'),
                     array('id' => 1007, 'name' => 'Quản lý bằng cấp'),

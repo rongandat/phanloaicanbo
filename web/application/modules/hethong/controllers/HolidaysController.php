@@ -39,7 +39,7 @@ class Hethong_HolidaysController extends Zend_Controller_Action {
         Zend_Layout::startMvc($option);
 
         $holidaysModel = new Front_Model_Holidays();
-        $list_holidays = $holidaysModel->fetchData(array('hld_status' => 1), 'hld_order ASC');
+        $list_holidays = $holidaysModel->fetchData(array(), 'hld_order ASC');
 
         $paginator = Zend_Paginator::factory($list_holidays);
         $paginator->setItemCountPerPage(NUM_PER_PAGE);
@@ -89,23 +89,30 @@ class Hethong_HolidaysController extends Zend_Controller_Action {
         $success_message = '';
         if ($this->_request->isPost()) {
             $hld_name = trim($this->_arrParam['hld_name']);
+            $hld_code = trim($this->_arrParam['hld_code']);
             $hld_order = trim($this->_arrParam['hld_order']);
             $hld_status = $this->_arrParam['hld_status'];
 
-            $validator_length = new Zend_Validate_StringLength(array('min' => 2, 'max' => 100));
+            $validator_length = new Zend_Validate_StringLength(array('min' => 1, 'max' => 100));
             if (!is_numeric($hld_order)) {
                 $hld_order = 0;
             }
 
             //kiem tra dữ liệu
             if (!$validator_length->isValid($hld_name)) {
-                $error_message[] = 'Tên ngày nghỉ lễ phải bằng hoặc hơn 2 ký tự và nhỏ hơn hoặc bằng 100 ký tự.';
+                $error_message[] = 'Tên ngày công phải bằng hoặc hơn 1 ký tự và nhỏ hơn hoặc bằng 100 ký tự.';
+            }
+            
+            //kiem tra dữ liệu
+            if (!$validator_length->isValid($hld_code)) {
+                $error_message[] = 'Mã ngày công phải bằng hoặc hơn 1 ký tự và nhỏ hơn hoặc bằng 100 ký tự.';
             }
 
             if (!sizeof($error_message)) {
                 $current_time = new Zend_Db_Expr('NOW()');
                 $holidaysModel->insert(array(
                     'hld_name' => $hld_name,
+                    'hld_code' => $hld_code,
                     'hld_status' => $hld_status,
                     'hld_order' => $hld_order,
                     'hld_date_added' => $current_time,
@@ -143,6 +150,7 @@ class Hethong_HolidaysController extends Zend_Controller_Action {
 
         if ($this->_request->isPost()) {
             $hld_name = trim($this->_arrParam['hld_name']);
+            $hld_code = trim($this->_arrParam['hld_code']);
             $hld_order = trim($this->_arrParam['hld_order']);
             $hld_status = $this->_arrParam['hld_status'];
 
@@ -150,17 +158,23 @@ class Hethong_HolidaysController extends Zend_Controller_Action {
                 $hld_order = 0;
             }
             
-            $validator_length = new Zend_Validate_StringLength(array('min' => 4, 'max' => 100));
+            $validator_length = new Zend_Validate_StringLength(array('min' => 1, 'max' => 100));
 
             //kiem tra dữ liệu
             if (!$validator_length->isValid($hld_name)) {
-                $error_message[] = 'Tên ngày nghỉ lễ phải bằng hoặc hơn 4 ký tự và nhỏ hơn hoặc bằng 100 ký tự.';
+                $error_message[] = 'Tên ngày công phải bằng hoặc hơn 1 ký tự và nhỏ hơn hoặc bằng 100 ký tự.';
+            }
+            
+            //kiem tra dữ liệu
+            if (!$validator_length->isValid($hld_code)) {
+                $error_message[] = 'Mã ngày công phải bằng hoặc hơn 1 ký tự và nhỏ hơn hoặc bằng 100 ký tự.';
             }
 
             if (!sizeof($error_message)) {
                 $current_time = new Zend_Db_Expr('NOW()');
                 $holidaysModel->update(array(
                     'hld_name' => $hld_name,
+                    'hld_code' => $hld_code,
                     'hld_status' => $hld_status,
                     'hld_order' => $hld_order,
                     'hld_date_modified' => $current_time
@@ -168,6 +182,7 @@ class Hethong_HolidaysController extends Zend_Controller_Action {
                 );
 
                 $hld_info->hld_name = $hld_name;
+                $hld_info->hld_code = $hld_code;
                 $hld_info->hld_status = $hld_status;
                 $hld_info->hld_order = $hld_order;
 

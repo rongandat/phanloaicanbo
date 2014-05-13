@@ -18,7 +18,7 @@
             </div>
         </div>
         <?php
-        $holiday_options = array('' => '', '-2' => 'Nghỉ phép', '-1' => 'Nghỉ không phép', '0' => 'Có mặt làm việc');
+        $holiday_options = array('' => '');
         foreach ($this->list_holidays as $holiday) {
             $holiday_options["$holiday->hld_id"] = $holiday->hld_name;
         }

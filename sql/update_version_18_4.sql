@@ -24,3 +24,5 @@ ALTER TABLE `employees_heso` MODIFY COLUMN `eh_pc_khac_type` INTEGER UNSIGNED NO
  ADD COLUMN `eh_pc_doc_hai_type` INTEGER UNSIGNED NOT NULL DEFAULT 0 COMMENT '0: he so, 1: tien co dinh' AFTER `eh_pc_doc_hai`;
 
 ALTER TABLE `employees_heso` ADD COLUMN `eh_han_ap_dung` DATETIME DEFAULT '0000-00-00 00:00:00' AFTER `eh_pc_doc_hai_type`;
+
+ALTER TABLE `holidays` ADD COLUMN `hld_code` VARCHAR(45) AFTER `hld_date_modified`;

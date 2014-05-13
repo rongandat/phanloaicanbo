@@ -23,9 +23,17 @@
         <?php if ($this->hld_info) : ?>        
             <form class="form-horizontal" method="post" action="">
                 <div class="control-group">
-                    <label class="control-label" for="hld_name">Tên ngày nghỉ lễ</label>
+                    <label class="control-label" for="hld_name">Tên ngày công</label>
                     <div class="controls">
                         <?php echo $this->formText('hld_name', $this->hld_info->hld_name, array('required' => '')); ?>
+                        <span class="help-inline">(*)</span>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <label class="control-label" for="hld_code">Mã ngày công</label>
+                    <div class="controls">
+                        <?php echo $this->formText('hld_code', $this->hld_info->hld_code, array('required' => '')); ?>
                         <span class="help-inline">(*)</span>
                     </div>
                 </div> 
