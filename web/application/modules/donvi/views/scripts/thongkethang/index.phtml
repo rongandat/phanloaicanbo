@@ -19,11 +19,11 @@
     <?php $days_in_month = cal_days_in_month(0, (int) $this->thang, (int) $this->nam); ?>
     <table class="table table-bordered table-hover">
         <thead>
-            
+
             <tr>  
-                <th class="checkall_style"  style="vertical-align:inherit" rowspan="2">TT</th>
                 <th style="width: 150px;vertical-align:inherit" rowspan="2">Họ tên</th>
                 <th colspan="<?php echo $days_in_month ?>" style="text-align: center">Ngày công trong tháng</th>
+                <th style="width: 50px;vertical-align:inherit" rowspan="2">Phân loại</th>
             </tr>
             <tr>
                 <?php for ($i = 1; $i <= $days_in_month; $i++) { ?>
@@ -32,27 +32,40 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($this->list_nhan_vien as $key => $nv) { ?>
+            <?php foreach ($this->list_nhan_vien as $key => $nv) {
+                $phan_loai_label = 'A';                
+                $phan_loai = $this->viewGetPhanLoai($nv['em_id'], $this->thang,$this->nam);
+                if($phan_loai){
+                    $phan_loai_label = $phan_loai->dg_ptccb_status;
+                    if(!$phan_loai_label || $phan_loai_label==null || $phan_loai_label == '-'){
+                        $phan_loai_label = 'A';
+                    }
+                }else{
+                    $phan_loai_label = '';
+                }
+                
+                ?>
+                
                 <?php
                 $view_get_chamcong = $this->viewGetChamCong($nv['em_id'], $this->thang, $this->nam);
                 ?>
-                <tr>
-                    <td><?php echo $key ?></td>
+                <tr>                    
                     <td><?php echo $nv['em_ho'] . ' ' . $nv['em_ten_dem'] . ' ' . $nv['em_ten'] ?></td>
                     <?php for ($i = 1; $i <= $days_in_month; $i++) { ?>
-                        <?php 
+                        <?php
                         $ngay_chamcong = 'c_ngay_' . $i;
                         $trangthai_ngaycong = $view_get_chamcong->$ngay_chamcong;
                         ?>
                         <td style="width: 10px;"><?php echo!empty($this->listHoliday[$trangthai_ngaycong]) ? $this->listHoliday[$trangthai_ngaycong] : '' ?></td>
                     <?php } ?>
+                    <td><?php echo $phan_loai_label;?></td>
                 </tr>
             <?php } ?>
         </tbody>
     </table>
-    
+
     <a class="btn btn-small btn-primary" target="_blank" href="<?php echo$this->baseUrl('donvi/thongkethang/pdfthongke/thang/' . $this->thang . '/nam/' . $this->nam); ?>"><i class="icon-download-alt"></i> Xuất ra file PDF</a>
-                    <a class="btn btn-small btn-primary" target="_blank" href="<?php echo$this->baseUrl('donvi/thongkethang/exelthongke/thang/' . $this->thang . '/nam/' . $this->nam); ?>"><i class="icon-download-alt"></i> Xuất ra file Exel</a>
+    <a class="btn btn-small btn-primary" target="_blank" href="<?php echo$this->baseUrl('donvi/thongkethang/exelthongke/thang/' . $this->thang . '/nam/' . $this->nam); ?>"><i class="icon-download-alt"></i> Xuất ra file Exel</a>
 </div>
 
 

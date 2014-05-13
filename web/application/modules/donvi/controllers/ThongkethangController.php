@@ -140,15 +140,26 @@ class Donvi_ThongkethangController extends Zend_Controller_Action {
         }
 
 
+        $objPHPExcel->getActiveSheet()->SetCellValue('A3', 'BẢNG CHẤM CÔNG VÀ XẾP LOẠI A,B,C THÁNG ' . $thang . '-' . $nam);
 
         $chamcongModel = new Front_Model_ChamCong();
         if ($list_nhan_vien) {
             $k = 0;
             foreach ($list_nhan_vien as $nhan_vien) {
+                $phan_loai_label = 'A';
+                $phan_loai = $this->view->viewGetPhanLoai($nhan_vien->em_id, $thang, $nam);
+                if ($phan_loai) {
+                    $phan_loai_label = $phan_loai->dg_ptccb_status;
+                    if (!$phan_loai_label || $phan_loai_label == null || $phan_loai_label == '-') {
+                        $phan_loai_label = 'A';
+                    }
+                } else {
+                    $phan_loai_label = '';
+                }
                 $k++;
-                $cham_cong = $chamcongModel->fetchOneData(array('c_em_id' => $nhan_vien['em_id'], 'c_thang' => (int) $thang, 'c_nam' => (int) $nam));
+                $cham_cong = $chamcongModel->fetchOneData(array('c_em_id' => $nhan_vien->em_id, 'c_thang' => (int) $thang, 'c_nam' => (int) $nam));
                 $objPHPExcel->getActiveSheet()->SetCellValue('A' . ($k + 7), $k);
-                $objPHPExcel->getActiveSheet()->SetCellValue('B' . ($k + 7), $nhan_vien->em_ho . ' ' . $nhan_vien->em_ten_dem . ' ' . $nhan_vien->em_ten);
+                $objPHPExcel->getActiveSheet()->SetCellValue('B' . ($k + 7), $nhan_vien->em_ho . ' ' . $nhan_vien->em_ten);
                 $objPHPExcel->getActiveSheet()->SetCellValue('C' . ($k + 7), !empty($listHoliday[$cham_cong->c_ngay_1]) ? $listHoliday[$cham_cong->c_ngay_1] : '');
                 $objPHPExcel->getActiveSheet()->SetCellValue('D' . ($k + 7), !empty($listHoliday[$cham_cong->c_ngay_2]) ? $listHoliday[$cham_cong->c_ngay_2] : '');
                 $objPHPExcel->getActiveSheet()->SetCellValue('E' . ($k + 7), !empty($listHoliday[$cham_cong->c_ngay_3]) ? $listHoliday[$cham_cong->c_ngay_3] : '');
@@ -180,6 +191,7 @@ class Donvi_ThongkethangController extends Zend_Controller_Action {
                 $objPHPExcel->getActiveSheet()->SetCellValue('AE' . ($k + 7), !empty($listHoliday[$cham_cong->c_ngay_29]) ? $listHoliday[$cham_cong->c_ngay_29] : '');
                 $objPHPExcel->getActiveSheet()->SetCellValue('AF' . ($k + 7), !empty($listHoliday[$cham_cong->c_ngay_30]) ? $listHoliday[$cham_cong->c_ngay_30] : '');
                 $objPHPExcel->getActiveSheet()->SetCellValue('AG' . ($k + 7), !empty($listHoliday[$cham_cong->c_ngay_31]) ? $listHoliday[$cham_cong->c_ngay_31] : '');
+                $objPHPExcel->getActiveSheet()->SetCellValue('AH' . ($k + 7), $phan_loai_label);
             }
 
             $k += 5;
@@ -379,6 +391,16 @@ class Donvi_ThongkethangController extends Zend_Controller_Action {
             $chamcongModel = new Front_Model_ChamCong();
 
             foreach ($list_nhan_vien as $nhan_vien) {
+                $phan_loai_label = 'A';
+                $phan_loai = $this->view->viewGetPhanLoai($nhan_vien->em_id, $thang, $nam);
+                if ($phan_loai) {
+                    $phan_loai_label = $phan_loai->dg_ptccb_status;
+                    if (!$phan_loai_label || $phan_loai_label == null || $phan_loai_label == '-') {
+                        $phan_loai_label = 'A';
+                    }
+                } else {
+                    $phan_loai_label = '';
+                }
                 $text_outout .= '<tr>';
                 $k++;
                 $cham_cong = $chamcongModel->fetchOneData(array('c_em_id' => $nhan_vien['em_id'], 'c_thang' => (int) $thang, 'c_nam' => (int) $nam));
@@ -390,6 +412,8 @@ class Donvi_ThongkethangController extends Zend_Controller_Action {
                     $status = !empty($listHoliday[$trangthai_ngaycong]) ? $listHoliday[$trangthai_ngaycong] : '&nbsp;';
                     $text_outout .= '<td>' . $status . '</td>';
                 }
+                $text_outout .= '<td>'.$phan_loai_label.'</td>';
+                $text_outout .= '<td></td>';
                 $text_outout .= '</tr>';
             }
             $text_outout .= '</table>
@@ -401,7 +425,7 @@ class Donvi_ThongkethangController extends Zend_Controller_Action {
                             </tr>';
             $text_outout .= '<tr><td style=""></td><td style="width: 120pt;">&nbsp;</td><td style="width: 50pt;">&nbsp;</td></tr>';
             foreach ($holidays as $holiday) {
-                
+
                 $text_outout .= '<tr class="noi-dung"><td style="width: 32pt;"></td><td style="width: 70pt;">' . $holiday['hld_name'] . '</td><td style="width: 50pt;">' . $holiday['hld_code'] . '</td></tr>';
             }
 
