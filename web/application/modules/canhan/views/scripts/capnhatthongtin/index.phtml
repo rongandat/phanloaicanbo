@@ -1,3 +1,9 @@
+<?php
+$huyen_json = array();
+foreach ($this->list_huyen as $huyen) {
+    $huyen_json[] = array('id' => $huyen->huyen_id, 'name' => $huyen->huyen_name, 'tinh_id' => $huyen->huyen_parent);
+}
+?>
 <h5>Cập nhật thông tin cán bộ</h5>               
 <div class="main-content-box"> 
     <?php if ($this->error_message) : ?>
@@ -769,6 +775,7 @@
 </div> 
 
 <script type="text/javascript">
+    var list_huyen = <?php echo json_encode($huyen_json); ?>;   
 <?php $timestamp = time(); ?>
     $(function() {
         $('#bang_scan_upload').uploadify({
@@ -919,20 +926,7 @@
         
     });    
     
-    function changeTinh(type_tinh){
-        $.blockUI({
-            message: '<h3>Đang lọc huyện</h3>',
-            css: {                         
-                border: 'none', 
-                padding: '15px', 
-                backgroundColor: '#000', 
-                '-webkit-border-radius': '10px', 
-                '-moz-border-radius': '10px', 
-                opacity: .5, 
-                color: '#fff' 
-            }
-        }); 
-        
+    function changeTinh(type_tinh){               
         var select = $('#em_dia_chi_huyen');
         var tinh_id = $('#em_dia_chi_tinh').val();
         
@@ -950,11 +944,10 @@
         $('option', select).remove();
 
 
-        $.getJSON( site_url+'/tochuccanbo/employees/gethuyen/tid/'+tinh_id, function( data ) { 
-            $.unblockUI();
-            $.each( data, function( key, val ) {
+        $.each( list_huyen, function( key, val ) {
+            if(val.tinh_id == tinh_id){
                 select.append('<option value="'+val.id+'">'+val.name+'</option>');
-            });
+            }            
         });
     }
 </script>

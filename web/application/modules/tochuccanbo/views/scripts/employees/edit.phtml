@@ -1,3 +1,10 @@
+<?php
+$huyen_json = array();
+foreach ($this->list_huyen as $huyen) {
+    $huyen_json[] = array('id' => $huyen->huyen_id, 'name' => $huyen->huyen_name, 'tinh_id' => $huyen->huyen_parent);
+}
+?>
+
 <h5>Cập nhật thông tin cán bộ</h5>               
 <div class="main-content-box"> 
     <?php if ($this->error_message) : ?>
@@ -366,13 +373,12 @@
                 <div class="control-group">
                     <label class="control-label" for="ngay_dang">Ngày vào đảng</label>
                     <div class="controls">                             
-                        <?php 
+                        <?php
                         if ($this->employee_info->em_ngay_vao_dang && $this->employee_info->em_ngay_vao_dang != '' && $this->employee_info->em_ngay_vao_dang != '0000-00-00 00:00:00') {
                             echo $this->formText('ngay_dang', date('d/m/Y', strtotime($this->employee_info->em_ngay_vao_dang)), array('class' => 'input-medium', 'placeholder' => 'Ngày vào đảng'));
-                        }else{
+                        } else {
                             echo $this->formText('ngay_dang', null, array('class' => 'input-medium', 'placeholder' => 'Ngày vào đảng'));
                         }
-                        
                         ?> 
                     </div>
                 </div> 
@@ -392,12 +398,12 @@
                 <div class="control-group">
                     <label class="control-label" for="ngay_doan">Ngày vào đoàn</label>
                     <div class="controls">                          
-                        <?php 
+                        <?php
                         if ($this->employee_info->em_ngay_vao_doan && $this->employee_info->em_ngay_vao_doan != '' && $this->employee_info->em_ngay_vao_doan != '0000-00-00 00:00:00') {
                             echo $this->formText('ngay_doan', date('d/m/Y', strtotime($this->employee_info->em_ngay_vao_doan)), array('class' => 'input-medium', 'placeholder' => 'Ngày vào đoàn'));
-                        }else{
+                        } else {
                             echo $this->formText('ngay_doan', null, array('class' => 'input-medium', 'placeholder' => 'Ngày vào đoàn'));
-                        }                        
+                        }
                         ?> 
                     </div>
                 </div> 
@@ -417,12 +423,12 @@
                 <div class="control-group">
                     <label class="control-label" for="em_ngay_nhap_ngu">Ngày nhập ngũ</label>
                     <div class="controls">                    
-                        <?php 
+                        <?php
                         if ($this->employee_info->em_ngay_nhap_ngu && $this->employee_info->em_ngay_nhap_ngu != '' && $this->employee_info->em_ngay_nhap_ngu != '0000-00-00 00:00:00') {
                             echo $this->formText('em_ngay_nhap_ngu', date('d/m/Y', strtotime($this->employee_info->em_ngay_nhap_ngu)), array('class' => 'input-medium'));
-                        }else{
+                        } else {
                             echo $this->formText('em_ngay_nhap_ngu', null, array('class' => 'input-medium'));
-                        }                        
+                        }
                         ?>                    
                     </div>
                 </div> 
@@ -430,12 +436,12 @@
                 <div class="control-group">
                     <label class="control-label" for="em_ngay_xuat_ngu">Ngày xuất ngũ</label>
                     <div class="controls">                    
-                        <?php 
+                        <?php
                         if ($this->employee_info->em_ngay_xuat_ngu && $this->employee_info->em_ngay_xuat_ngu != '' && $this->employee_info->em_ngay_xuat_ngu != '0000-00-00 00:00:00') {
                             echo $this->formText('em_ngay_xuat_ngu', date('d/m/Y', strtotime($this->employee_info->em_ngay_xuat_ngu)), array('class' => 'input-medium'));
-                        }else{
+                        } else {
                             echo $this->formText('em_ngay_xuat_ngu', null, array('class' => 'input-medium'));
-                        }                        
+                        }
                         ?>                    
                     </div>
                 </div> 
@@ -894,6 +900,7 @@
 </div> 
 
 <script type="text/javascript">
+    var list_huyen = <?php echo json_encode($huyen_json); ?>;   
 <?php $timestamp = time(); ?>
     $(function() {
         $('#bang_scan_upload').uploadify({
@@ -1056,19 +1063,7 @@
         
     });    
     
-    function changeTinh(type_tinh){
-        $.blockUI({
-            message: '<h3>Đang lọc huyện</h3>',
-            css: {                         
-                border: 'none', 
-                padding: '15px', 
-                backgroundColor: '#000', 
-                '-webkit-border-radius': '10px', 
-                '-moz-border-radius': '10px', 
-                opacity: .5, 
-                color: '#fff' 
-            }
-        }); 
+    function changeTinh(type_tinh){        
         
         var select = $('#em_dia_chi_huyen');
         var tinh_id = $('#em_dia_chi_tinh').val();
@@ -1086,12 +1081,10 @@
         }
         $('option', select).remove();
 
-
-        $.getJSON( site_url+'/tochuccanbo/employees/gethuyen/tid/'+tinh_id, function( data ) { 
-            $.unblockUI();
-            $.each( data, function( key, val ) {
+        $.each( list_huyen, function( key, val ) {
+            if(val.tinh_id == tinh_id){
                 select.append('<option value="'+val.id+'">'+val.name+'</option>');
-            });
-        });
+            }            
+        });        
     }
 </script>

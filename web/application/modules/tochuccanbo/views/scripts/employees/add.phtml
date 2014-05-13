@@ -1,3 +1,10 @@
+<?php
+$huyen_json = array();
+foreach ($this->list_huyen as $huyen) {
+    $huyen_json[] = array('id' => $huyen->huyen_id, 'name' => $huyen->huyen_name, 'tinh_id' => $huyen->huyen_parent);
+}
+?>
+
 <h5>Thêm cán bộ mới</h5>               
 
 <div class="main-content-box"> 
@@ -52,7 +59,7 @@
                     <?php echo $this->formText('em_so_chung_minh_thu', $this->arrParam['em_so_chung_minh_thu'], array('class' => 'input-medium')); ?> 
                 </div>
             </div>   
-            
+
             <div class="control-group">
                 <label class="control-label" for="em_cmt_ngay_cap">Ngày cấp</label>
                 <div class="controls">
@@ -475,7 +482,7 @@
                             </tr>
                         </thead>
                         <tbody id="ct_lich_su_dao_tao">
-                            
+
                         </tbody>
                     </table>
                 </div>
@@ -722,6 +729,9 @@
 </div> 
 
 <script type="text/javascript">
+    
+    var list_huyen = <?php echo json_encode($huyen_json); ?>;   
+    
 <?php $timestamp = time(); ?>
     $(function() {
         $('#bang_scan_upload').uploadify({
@@ -886,19 +896,6 @@
     });    
     
     function changeTinh(type_tinh){
-        $.blockUI({
-            message: '<h3>Đang lọc huyện</h3>',
-            css: {                         
-                border: 'none', 
-                padding: '15px', 
-                backgroundColor: '#000', 
-                '-webkit-border-radius': '10px', 
-                '-moz-border-radius': '10px', 
-                opacity: .5, 
-                color: '#fff' 
-            }
-        }); 
-        
         var select = $('#em_dia_chi_huyen');
         var tinh_id = $('#em_dia_chi_tinh').val();
         
@@ -914,13 +911,11 @@
             var options = select.attr('options');
         }
         $('option', select).remove();
-
-
-        $.getJSON( site_url+'/tochuccanbo/employees/gethuyen/tid/'+tinh_id, function( data ) { 
-            $.unblockUI();
-            $.each( data, function( key, val ) {
+        
+        $.each( list_huyen, function( key, val ) {
+            if(val.tinh_id == tinh_id){
                 select.append('<option value="'+val.id+'">'+val.name+'</option>');
-            });
+            }            
         });
     }
 </script>

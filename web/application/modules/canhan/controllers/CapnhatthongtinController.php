@@ -64,7 +64,7 @@ class Canhan_CapnhatthongtinController extends Zend_Controller_Action {
         $list_tinh = $tinhModel->fetchData(array('tinh_status' => 1));
 
         $huyenModel = new Front_Model_Huyen();
-        $list_huyen = $huyenModel->fetchData(array('huyen_status' => 1, 'huyen_parent' => $employee_info->em_dia_chi_tinh));
+        $list_huyen = $huyenModel->fetchData(array('huyen_status' => 1));
 
         $dantocModel = new Front_Model_Dantoc();
         $list_dan_toc = $dantocModel->fetchData(array('dt_status' => 1));
