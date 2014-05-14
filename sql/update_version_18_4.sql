@@ -28,3 +28,9 @@ ALTER TABLE `employees_heso` ADD COLUMN `eh_han_ap_dung` DATETIME DEFAULT '0000-
 ALTER TABLE `holidays` ADD COLUMN `hld_code` VARCHAR(45) AFTER `hld_date_modified`;
 ALTER TABLE `employees` ADD COLUMN `em_time_cong_tac` DATETIME AFTER `em_ngay_nghi_huu`;
 ALTER TABLE `holidays` ADD COLUMN `hld_code` VARCHAR(45) AFTER `hld_date_modified`;
+
+ALTER TABLE `bang_luong` MODIFY COLUMN `bl_giai_doan` INT(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '0: chinh thuc, 1: thu viec',
+ MODIFY COLUMN `bl_loai_luong` INT(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '0: bien che, 1: hop dong',
+ ADD COLUMN `bl_pc_doc_hai` FLOAT NOT NULL DEFAULT 0 AFTER `bl_phan_loai_he_so`,
+ ADD COLUMN `bl_pc_doc_hai_type` INTEGER UNSIGNED NOT NULL DEFAULT 0 AFTER `bl_pc_doc_hai`;
+

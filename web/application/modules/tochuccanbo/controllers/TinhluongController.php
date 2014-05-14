@@ -43,7 +43,7 @@ class Tochuccanbo_TinhluongController extends Zend_Controller_Action {
         $hesocbModel = new Front_Model_HeSo();
         $hesoModel = new Front_Model_EmployeesHeso();
         $em_info = $emModel->fetchRow("em_id=$em_id");
-        $em_he_so = $hesoModel->fetchRow("eh_em_id=$em_id");
+        $em_he_so = $hesoModel->getCurrentHeSo($thang, $nam, $em_id);
         $lastHeSoLuong = $hesocbModel->fetchOneData(array('hs_ngay_bat_dau' => date("$nam-$thang-1")), 'hs_ngay_bat_dau DESC');
 
         $khenthuongModel = new Front_Model_KhenThuong();
@@ -105,11 +105,15 @@ class Tochuccanbo_TinhluongController extends Zend_Controller_Action {
             $bl_hs_pc_cong_vu = $this->_request->getParam('bl_hs_pc_cong_vu', 0);
             $bl_hs_pc_khac = $this->_request->getParam('bl_hs_pc_khac', 0);
             $bl_hs_pc_khac_type = $this->_request->getParam('bl_pc_khac_type', 0);
+            $bl_hs_pc_doc_hai = $this->_request->getParam('bl_hs_pc_doc_hai', 0);
+            $bl_hs_pc_doc_hai_type = $this->_request->getParam('bl_hs_pc_doc_hai_type', 0);
 
             if ($bl_em_id == '')
                 $bl_em_id = 0;
             if ($bl_luong_toi_thieu == '')
                 $bl_luong_toi_thieu = 0;
+            if ($bl_hs_pc_doc_hai == '')
+                $bl_hs_pc_doc_hai = 0;
             if ($bl_luong_thu_viec == '')
                 $bl_luong_thu_viec = 0;
             if ($bl_giai_doan == '')
@@ -191,6 +195,8 @@ class Tochuccanbo_TinhluongController extends Zend_Controller_Action {
                 $error_message = array('PC công vụ phải là dạng số');
             if (!is_numeric($bl_hs_pc_khac))
                 $error_message = array('PC khác phải là dạng số');
+            if (!is_numeric($bl_hs_pc_doc_hai))
+                $error_message = array('PC độc hại phải là dạng số');
 
             if (!sizeof($error_message)) {
                 $bangluongModel = new Front_Model_BangLuong();
@@ -221,6 +227,8 @@ class Tochuccanbo_TinhluongController extends Zend_Controller_Action {
                     'bl_hs_pc_cong_vu' => $bl_hs_pc_cong_vu,
                     'bl_hs_pc_khac' => $bl_hs_pc_khac,
                     'bl_pc_khac_type' => $bl_hs_pc_khac_type,
+                    'bl_pc_doc_hai' => $bl_hs_pc_doc_hai,
+                    'bl_pc_doc_hai_type' => $bl_hs_pc_doc_hai_type,
                     'bl_date_modified' => $current_time
                 );
 

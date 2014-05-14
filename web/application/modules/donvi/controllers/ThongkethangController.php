@@ -12,7 +12,7 @@ class Donvi_ThongkethangController extends Zend_Controller_Action {
         $identity = $auth->getIdentity();
 
         //kiem tra permission
-        $check_permission = $this->_helper->global->checkPermission($identity->group_id, '3002');
+        $check_permission = $this->_helper->global->checkPermission($identity->group_id, '3006');
         if (!$check_permission) {
             $this->_redirect('index/permission/');
             exit();

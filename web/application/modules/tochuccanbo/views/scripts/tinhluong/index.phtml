@@ -6,10 +6,10 @@
         $he_so_phan_loai = array('A' => 1.2, 'B' => 1, 'C' => 0.8);
         $luong_thu_viec = 0;
         if ($this->bang_luong) {
-            $luong_toi_thieu = $this->bang_luong->bl_luong_toi_thieu;
-            $giai_doan = $this->bang_luong->bl_giai_doan;
-            $loai_luong = $this->bang_luong->bl_loai_luong;
-            $luong_thu_viec = $this->bang_luong->bl_luong_thu_viec;
+            $luong_toi_thieu = $this->bang_luong->bl_luong_toi_thieu; //luong co ban
+            $giai_doan = $this->bang_luong->bl_giai_doan; //0: chinh thuc, 1: thu viec
+            $loai_luong = $this->bang_luong->bl_loai_luong; //0: bien che, 1: hop dong
+            $luong_thu_viec = $this->bang_luong->bl_luong_thu_viec; //so phan tram so voi luong chinh
             $he_so_luong = $this->bang_luong->bl_hs_luong;
             $bhxh = $this->bang_luong->bl_bhxh;
             $bhyt = $this->bang_luong->bl_bhyt;
@@ -17,6 +17,8 @@
             $hs_pc_trach_nhiem = $this->bang_luong->bl_hs_pc_trach_nhiem;
             $hs_pc_khu_vuc = $this->bang_luong->bl_hs_pc_khu_vuc;
             $hs_pc_tnvk_phan_tram = $this->bang_luong->bl_hs_pc_tnvk;
+            $hs_pc_doc_hai = $this->bang_luong->bl_pc_doc_hai;
+            $hs_pc_doc_hai_type = $this->bang_luong->bl_pc_doc_hai_type;
             $tham_nien = $this->bang_luong->bl_tham_nien;
             $uu_dai_nghe = $this->bang_luong->bl_hs_pc_udn;
             $cong_vu = $this->bang_luong->bl_hs_pc_cong_vu;
@@ -28,29 +30,39 @@
             $phan_loai = strtoupper($this->bang_luong->bl_phan_loai);
             $phan_loai_he_so = $this->bang_luong->bl_phan_loai_he_so;
         } else {
-            $tham_nien = 0;
-            $luong_toi_thieu = $this->he_so_cb->hs_luong_co_ban;
-            $giai_doan = $this->he_so->eh_giai_doan;
-            $loai_luong = $this->he_so->eh_loai_luong;
-            if ($giai_doan)
-                $luong_thu_viec = $this->he_so_cb->hs_he_so_luong_thuc_tap;
+            $tham_nien = 0; //so nam tham nien
+            $luong_toi_thieu = $this->he_so_cb->hs_luong_co_ban; //luong co ban
+            $giai_doan = $this->he_so->eh_giai_doan; //0: chinh thuc, 1: thu viec
+            $loai_luong = $this->he_so->eh_loai_luong; //0: bien che, 1: hop dong
+
             $he_so_luong = $this->he_so->eh_he_so;
-            if ($giai_doan)
+
+            if ($giai_doan) {
+                $luong_thu_viec = $this->he_so_cb->hs_he_so_luong_thuc_tap; //so phan tram so voi luong chinh
                 $he_so_luong = number_format($this->he_so->eh_he_so * (100 - $luong_thu_viec) / 100, 2);
-            $bhxh = ($this->he_so_cb->hs_bhxh > 0 ? $this->he_so_cb->hs_bhxh : 0);
-            $bhyt = ($this->he_so_cb->hs_bhyt > 0 ? $this->he_so_cb->hs_bhyt : 0);
-            $hs_pc_chuc_vu = $this->he_so->eh_pc_cong_viec;
-            $hs_pc_trach_nhiem = $this->he_so->eh_pc_trach_nhiem;
-            $hs_pc_khu_vuc = $this->he_so->eh_pc_kv;
-            $hs_pc_tnvk_phan_tram = $this->he_so->eh_pc_tnvk_phan_tram;
-            $ngay_tinh_tham_nien = $this->he_so->eh_tham_niem;
-            $uu_dai_nghe = $this->he_so->eh_pc_udn_phan_tram;
-            $cong_vu = $this->he_so->eh_pc_cong_vu_phan_tram;
-            $kiem_nhiem = $this->he_so->eh_pc_kiem_nhiem;
-            $hs_pc_khac = $this->he_so->eh_pc_khac;
+            }
+
+            $bhxh = ($this->he_so_cb->hs_bhxh > 0 ? $this->he_so_cb->hs_bhxh : 0); //bao hiem xa hoi
+            $bhyt = ($this->he_so_cb->hs_bhyt > 0 ? $this->he_so_cb->hs_bhyt : 0); //bao hiem y te
+
+            $hs_pc_chuc_vu = $this->he_so->eh_pc_cong_viec; //he so pc chuc vu            
+            $hs_pc_trach_nhiem = $this->he_so->eh_pc_trach_nhiem; //he so pc trach nhiem            
+            $hs_pc_khu_vuc = $this->he_so->eh_pc_kv; //he so pc khu vuc            
+            $hs_pc_tnvk_phan_tram = $this->he_so->eh_pc_tnvk_phan_tram; //he so pc tnvk
+            $ngay_tinh_tham_nien = $this->he_so->eh_tham_niem; //tinh tham nien tu ngay
+            $uu_dai_nghe = $this->he_so->eh_pc_udn_phan_tram; //he so pc uu dai nghe
+            $cong_vu = $this->he_so->eh_pc_cong_vu_phan_tram; //he so pc cong vu
+            $kiem_nhiem = $this->he_so->eh_pc_kiem_nhiem; //he so pc kiem nhiem
+            $hs_pc_khac = $this->he_so->eh_pc_khac; //he so pc khac
+            $hs_pc_khac_type = $this->he_so->eh_pc_khac_type; //0: he so, 1: phan tram
+
+            $hs_pc_doc_hai = $this->he_so->eh_pc_doc_hai; //pc doc hai
+            $hs_pc_doc_hai_type = $this->he_so->eh_pc_doc_hai_type; //0 he so, 1: tien co dinh
+
             $he_so_tang_them = 0.5;
-            $hs_pc_khac_type = $this->he_so->eh_pc_khac_type;
-            $hs_pc_thu_hut_phan_tram = $this->he_so->eh_pc_thu_hut;
+
+            $hs_pc_thu_hut_phan_tram = $this->he_so->eh_pc_thu_hut; //he so pc thu hut
+
             $phan_loai = 'A';
             if ($this->phan_loai) {
                 $phan_loai = strtoupper($this->phan_loai->dg_ptccb_status);
@@ -76,45 +88,62 @@
         $pc_chuc_vu = $pc_tnvk = $pc_thu_hut = $pc_tham_nien = $luong_toi_thieu_sau_bh;
         $pc_khu_vuc = $luong_toi_thieu_bhyt;
 
-        $thanh_tien_hsl = $luong_toi_thieu_sau_bh * $he_so_luong * $phan_loai_he_so;
+        $thanh_tien_hsl = $luong_toi_thieu_sau_bh * $he_so_luong;
 
 
         //if ($this->he_so->eh_giai_doan)
         //$hs_pc_chuc_vu = number_format ($this->he_so->eh_pc_cong_viec*(100-$luong_thu_viec)/100, 2);
-        $thanh_tien_pc_chuc_vu = $hs_pc_chuc_vu * $pc_chuc_vu * $phan_loai_he_so;
+        $thanh_tien_pc_chuc_vu = $hs_pc_chuc_vu * $pc_chuc_vu;
 
 
         //if ($this->he_so->eh_giai_doan)
         //$hs_pc_trach_nhiem = number_format ($this->he_so->eh_pc_trach_nhiem*(100-$luong_thu_viec)/100, 2);
-        $thanh_tien_pc_trach_nhiem = $hs_pc_trach_nhiem * $pc_trach_nhiem * $phan_loai_he_so;
+        $thanh_tien_pc_trach_nhiem = $hs_pc_trach_nhiem * $pc_trach_nhiem;
 
 
         //if ($this->he_so->eh_giai_doan)
         //$hs_pc_khu_vuc = number_format ($this->he_so->eh_pc_kv*(100-$luong_thu_viec)/100, 2);
-        $thanh_tien_pc_khu_vuc = $hs_pc_khu_vuc * $pc_khu_vuc * $phan_loai_he_so;
+        $thanh_tien_pc_khu_vuc = $hs_pc_khu_vuc * $pc_khu_vuc;
 
-        $hs_pc_tnvk = ($he_so_luong + $hs_pc_chuc_vu) * $hs_pc_tnvk_phan_tram / 100;
-        //if ($this->he_so->eh_giai_doan)
-        //$hs_pc_tnvk = number_format ($hs_pc_tnvk*(100-$luong_thu_viec)/100, 2);
-        $thanh_tien_pc_tham_nien_vuot_khung = $hs_pc_tnvk * $pc_tnvk * $phan_loai_he_so;
+        if (!$giai_doan && !$loai_luong) {
+            $hs_pc_tnvk = ($he_so_luong + $hs_pc_chuc_vu) * $hs_pc_tnvk_phan_tram / 100;
+        } else {
+            $hs_pc_tnvk = $hs_pc_chuc_vu * $hs_pc_tnvk_phan_tram / 100;
+        }
+        $thanh_tien_pc_tham_nien_vuot_khung = $hs_pc_tnvk * $pc_tnvk;
 
-        $hs_pc_thu_hut = floor((($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $hs_pc_thu_hut_phan_tram / 100) * 100) / 100;
-        $thanh_tien_pc_thu_hut = $hs_pc_thu_hut * $pc_thu_hut * $phan_loai_he_so;
 
-        $hs_pc_tham_nien = floor((($he_so_luong + $hs_pc_chuc_vu + $hs_pc_trach_nhiem) * $tham_nien / 100) * 100) / 100;
-        $thanh_tien_pc_tham_nien = $hs_pc_tham_nien * $pc_tham_nien * $phan_loai_he_so;
+        if (!$giai_doan && !$loai_luong)
+            $hs_pc_thu_hut = floor((($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $hs_pc_thu_hut_phan_tram / 100) * 100) / 100;
+        else
+            $hs_pc_thu_hut = floor((($hs_pc_chuc_vu + $hs_pc_tnvk) * $hs_pc_thu_hut_phan_tram / 100) * 100) / 100;
 
+        if (!$giai_doan) {
+            if ($tham_nien >= 5)
+                $hs_pc_tham_nien = floor((($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $tham_nien / 100) * 100) / 100;
+            else
+                $hs_pc_tham_nien = 0;
+        }else {
+            if ($tham_nien >= 5)
+                $hs_pc_tham_nien = floor((($hs_pc_chuc_vu + $hs_pc_tnvk) * $tham_nien / 100) * 100) / 100;
+            else
+                $hs_pc_tham_nien = 0;
+        }
+        $thanh_tien_pc_tham_nien = $hs_pc_tham_nien * $pc_tham_nien;
 
         $hs_pc_uu_dai_nghe = floor((($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $uu_dai_nghe / 100) * 100) / 100;
-        $thanh_tien_pc_uu_dai_nghe = $hs_pc_uu_dai_nghe * $pc_uu_dai_nghe * $phan_loai_he_so;
+        $thanh_tien_pc_uu_dai_nghe = $hs_pc_uu_dai_nghe * $pc_uu_dai_nghe;
 
 
         $hs_pc_cong_vu = floor((($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $cong_vu / 100) * 100) / 100;
-        $thanh_tien_pc_cong_vu = $hs_pc_cong_vu * $pc_cong_vu * $phan_loai_he_so;
+        $thanh_tien_pc_cong_vu = $hs_pc_cong_vu * $pc_cong_vu;
 
-
-        $hs_pc_kiem_nhiem = floor((($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $kiem_nhiem / 100) * 100) / 100;
-        $thanh_tien_pc_kiem_nhiem = $hs_pc_kiem_nhiem * $pc_kiem_nhiem * $phan_loai_he_so;
+        if (!$giai_doan && !$loai_luong) {
+            $hs_pc_kiem_nhiem = floor((($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $kiem_nhiem / 100) * 100) / 100;
+        } else {
+            $hs_pc_kiem_nhiem = floor((($hs_pc_chuc_vu + $hs_pc_tnvk) * $kiem_nhiem / 100) * 100) / 100;
+        }
+        $thanh_tien_pc_kiem_nhiem = $hs_pc_kiem_nhiem * $pc_kiem_nhiem;
 
 
         $thanh_tien_pc_khac = $hs_pc_khac * $pc_khac;
@@ -123,12 +152,12 @@
             $thanh_tien_pc_khac = $thanh_tien_pc_khac / 100;
             $hs_pc_khac_he_so = $hs_pc_khac / 100;
         }
-        $thanh_tien_pc_khac = $thanh_tien_pc_khac * $phan_loai_he_so;
-        $tong_1 = (int) ($thanh_tien_hsl + $thanh_tien_pc_chuc_vu + $thanh_tien_pc_trach_nhiem + $thanh_tien_pc_khu_vuc + $thanh_tien_pc_thu_hut + $thanh_tien_pc_tham_nien_vuot_khung + $thanh_tien_pc_tham_nien + $thanh_tien_pc_uu_dai_nghe + $thanh_tien_pc_cong_vu + $thanh_tien_pc_kiem_nhiem);
+
+        $tong_1 = (int) ($thanh_tien_pc_khac + $thanh_tien_hsl + $thanh_tien_pc_chuc_vu + $thanh_tien_pc_trach_nhiem + $thanh_tien_pc_khu_vuc + $thanh_tien_pc_tham_nien_vuot_khung + $thanh_tien_pc_tham_nien + $thanh_tien_pc_uu_dai_nghe + $thanh_tien_pc_cong_vu + $thanh_tien_pc_kiem_nhiem);
 
 
-        $hs_tang_them = $he_so_luong + $hs_pc_chuc_vu + $hs_pc_trach_nhiem + $hs_pc_khu_vuc + $hs_pc_thu_hut + $hs_pc_tnvk + $hs_pc_tham_nien + $hs_pc_uu_dai_nghe + $hs_pc_cong_vu + $hs_pc_kiem_nhiem + $hs_pc_khac_he_so;
-        $ti_le_tang_them = ($hs_tang_them - $hs_pc_kiem_nhiem) * $luong_toi_thieu * $he_so_tang_them * $phan_loai_he_so;
+        $hs_tang_them = $he_so_luong + $hs_pc_chuc_vu + $hs_pc_trach_nhiem + $hs_pc_khu_vuc + $hs_pc_tnvk + $hs_pc_tham_nien + $hs_pc_uu_dai_nghe + $hs_pc_cong_vu + $hs_pc_kiem_nhiem + $hs_pc_khac_he_so;
+        $ti_le_tang_them = ($hs_tang_them - $hs_pc_kiem_nhiem) * $luong_toi_thieu * $he_so_tang_them;
         $tong_2 = (int) $tong_1 + $ti_le_tang_them;
 
         $tong_khen_thuong = 0;
@@ -260,7 +289,7 @@
                                 </select>
                             </td>
                             <td><span id="lbl_phan_loai_he_so"><?php echo $phan_loai_he_so; ?></span></td>
-                            <td></td>
+                            <td>Áp dụng cho hệ số 0.3</td>
                         </tr>
                         <tr>
                             <td>Hệ số lương</td>
@@ -286,7 +315,18 @@
                             <td>Phụ cấp thu hút</td>
                             <td><input type="text" onchange="re_calculator()" class="input-mini" name="bl_hs_pc_thu_hut" value="<?php echo $hs_pc_thu_hut_phan_tram; ?>"/>%</td>
                             <td><span id="lbl_hs_pc_thu_hut"><?php echo $hs_pc_thu_hut; ?></span></td>
-                            <td><span id="lbl_thanh_tien_pc_thu_hut"><?php echo number_format($thanh_tien_pc_thu_hut, 0, '.', ','); ?></span></td>
+                            <td>Áp dụng cho hệ số 0.3</td>
+                        </tr>
+                        <tr>
+                            <td>Phụ cấp độc hại</td>
+                            <td colspan="2">
+                                <input type="text" class="input-mini" name="bl_hs_pc_doc_hai" value="<?php echo $hs_pc_doc_hai; ?>"/>
+                                <?php
+                                $doc_hai_options = array(0 => 'Hệ số', 1 => 'Tiền cố định');
+                                echo $this->formSelect('bl_hs_pc_doc_hai_type', $hs_pc_doc_hai_type, array('class' => 'input-medium'), $doc_hai_options);
+                                ?> 
+                            </td>
+                            <td>Áp dụng cho hệ số 0.3</td>
                         </tr>
                         <tr>
                             <td>Phụ cấp thâm niên vượt khung</td>
@@ -327,7 +367,7 @@
                             <td><span id="lbl_thanh_tien_tong_1"><?php echo number_format($tong_1, 0, '.', ','); ?></span></td>
                         </tr>
                         <tr>
-                            <td>Tỷ lệ tăng thêm</td>
+                            <td>Tỷ lệ tăng thêm (H/S 0.5)</td>
                             <td colspan="2"><span id="lbl_hs_tang_them"><?php echo $hs_tang_them; ?></span></td>
                             <td><span id="lbl_thanh_tien_tang_them"><?php echo number_format($ti_le_tang_them, 0, '.', ','); ?></span></td>
                         </tr>
@@ -468,7 +508,8 @@
     var kiem_nhiem = <?php echo $kiem_nhiem; ?>;
     var tong_khen_thuong = <?php echo $tong_khen_thuong; ?>;
     var tong_khien_trach = <?php echo $tong_khien_trach; ?>;
-    
+    var giai_doan = <?php echo $giai_doan; ?>;
+    var loai_luong = <?php echo $loai_luong; ?>;
     var currentYear = <?php echo $this->nam; ?>;    
     var currentEm = <?php echo $this->nv_id; ?>;    
     
@@ -492,7 +533,6 @@
     function re_calculator(){
         var phan_loai = $('select[name=sl_phan_loai]').val();
         var hs_phan_loai = he_so_phan_loai[phan_loai];
-        console.log(hs_phan_loai);
         var bl_hs_luong = $('input[name=bl_hs_luong]').val();
         var bl_hs_pc_chuc_vu = $('input[name=bl_hs_pc_cong_viec]').val();
         var bl_hs_pc_trach_nhiem = $('input[name=bl_hs_pc_trach_nhiem]').val();
@@ -526,49 +566,71 @@
         bl_hs_pc_cong_vu = parseFloat(Math.floor(bl_hs_pc_cong_vu * 100) / 100);
         bl_hs_pc_khac = parseFloat(Math.floor(bl_hs_pc_khac * 100) / 100);
         
-        var thanh_tien_hsl = luong_toi_thieu_sau_bh * bl_hs_luong * hs_phan_loai;        
-        var thanh_tien_pc_cong_viec = bl_hs_pc_chuc_vu * pc_cong_viec * hs_phan_loai;        
-        var thanh_tien_pc_trach_nhiem = bl_hs_pc_trach_nhiem * pc_trach_nhiem * hs_phan_loai;        
-        var thanh_tien_pc_khu_vuc = bl_hs_pc_khu_vuc * pc_khu_vuc * hs_phan_loai;
+        var thanh_tien_hsl = luong_toi_thieu_sau_bh * bl_hs_luong;        
+        var thanh_tien_pc_cong_viec = bl_hs_pc_chuc_vu * pc_cong_viec;        
+        var thanh_tien_pc_trach_nhiem = bl_hs_pc_trach_nhiem * pc_trach_nhiem;        
+        var thanh_tien_pc_khu_vuc = bl_hs_pc_khu_vuc * pc_khu_vuc;               
         
-        
-        var hs_pc_tnvk = (bl_hs_luong+bl_hs_pc_chuc_vu) * bl_hs_pc_tnvk / 100;
-        hs_pc_tnvk = parseFloat(Math.floor(hs_pc_tnvk * 100) / 100);        
-        var thanh_tien_pc_tham_nien_vuot_khung = hs_pc_tnvk * pc_tnvk * hs_phan_loai;        
-        
-        
-        var hs_pc_tham_nien = (bl_hs_luong + bl_hs_pc_chuc_vu + bl_hs_pc_trach_nhiem) * bl_tham_nien / 100;
-        hs_pc_tham_nien = parseFloat(Math.floor(hs_pc_tham_nien * 100) / 100);
-        var thanh_tien_pc_tham_nien = hs_pc_tham_nien * pc_tham_nien * hs_phan_loai;
+        if (!giai_doan && !loai_luong) {
+            var hs_pc_tnvk = (bl_hs_luong+bl_hs_pc_chuc_vu) * bl_hs_pc_tnvk / 100;            
+        } else {
+            var hs_pc_tnvk = bl_hs_pc_chuc_vu * bl_hs_pc_tnvk / 100;
+        }
+        hs_pc_tnvk = parseFloat(Math.floor(hs_pc_tnvk * 100) / 100);
+        var thanh_tien_pc_tham_nien_vuot_khung = hs_pc_tnvk * pc_tnvk; 
 
+        if (!giai_doan) {
+            if (bl_tham_nien >= 5){
+                var hs_pc_tham_nien = (bl_hs_luong + bl_hs_pc_chuc_vu + hs_pc_tnvk) * bl_tham_nien / 100;                
+            }else{
+                var hs_pc_tham_nien = 0;
+            }
+        }else {
+            if (bl_tham_nien >= 5){
+                var hs_pc_tham_nien = (bl_hs_pc_chuc_vu + hs_pc_tnvk) * bl_tham_nien / 100;                 
+            }else{
+                var hs_pc_tham_nien = 0;
+            }
+        }
+        hs_pc_tham_nien = parseFloat(Math.floor(hs_pc_tham_nien * 100) / 100);
+        var thanh_tien_pc_tham_nien = hs_pc_tham_nien * pc_tham_nien;
+        
         var hs_pc_uu_dai_nghe = (bl_hs_luong + bl_hs_pc_chuc_vu + hs_pc_tnvk) * bl_hs_pc_udn / 100;
         hs_pc_uu_dai_nghe = parseFloat((Math.floor(hs_pc_uu_dai_nghe * 100) / 100)+'');       
-        var thanh_tien_pc_uu_dai_nghe = hs_pc_uu_dai_nghe * pc_uu_dai_nghe *hs_phan_loai;
+        var thanh_tien_pc_uu_dai_nghe = hs_pc_uu_dai_nghe * pc_uu_dai_nghe;               
         
-        var he_so_pc_thu_hut = (bl_hs_luong + bl_hs_pc_chuc_vu + hs_pc_tnvk) * bl_hs_pc_thu_hut / 100;
-         he_so_pc_thu_hut = parseFloat((Math.floor(he_so_pc_thu_hut * 100) / 100)+'');       
-        var thanh_tien_pc_thu_hut = he_so_pc_thu_hut * pc_thu_hut * hs_phan_loai;
+        if (!giai_doan && !loai_luong){
+            var he_so_pc_thu_hut = (bl_hs_luong + bl_hs_pc_chuc_vu + hs_pc_tnvk) * bl_hs_pc_thu_hut / 100;
+        }else{
+            var he_so_pc_thu_hut = (bl_hs_pc_chuc_vu + hs_pc_tnvk) * bl_hs_pc_thu_hut / 100;            
+        }
         
-        
+        he_so_pc_thu_hut = parseFloat((Math.floor(he_so_pc_thu_hut * 100) / 100)+'');  
+                        
         var hs_pc_cong_vu = (bl_hs_luong + bl_hs_pc_chuc_vu + hs_pc_tnvk) * bl_hs_pc_cong_vu / 100;
         hs_pc_cong_vu = parseFloat(Math.floor(hs_pc_cong_vu * 100) / 100);
-        var thanh_tien_pc_cong_vu = hs_pc_cong_vu * pc_cong_vu * hs_phan_loai;
-
-        var hs_pc_kiem_nhiem = (bl_hs_luong + bl_hs_pc_chuc_vu + hs_pc_tnvk) * kiem_nhiem / 100;
+        var thanh_tien_pc_cong_vu = hs_pc_cong_vu * pc_cong_vu;               
+              
+        if (!giai_doan && !loai_luong) {
+            var hs_pc_kiem_nhiem = (bl_hs_luong + bl_hs_pc_chuc_vu + hs_pc_tnvk) * kiem_nhiem / 100;            
+        }else{
+            var hs_pc_kiem_nhiem = (bl_hs_pc_chuc_vu + hs_pc_tnvk) * kiem_nhiem / 100;            
+        }
         hs_pc_kiem_nhiem = parseFloat(Math.floor(hs_pc_kiem_nhiem * 100) / 100);
-        var thanh_tien_pc_kiem_nhiem = hs_pc_kiem_nhiem * pc_kiem_nhiem * hs_phan_loai;
+        var thanh_tien_pc_kiem_nhiem = hs_pc_kiem_nhiem * pc_kiem_nhiem;
+
         
         var thanh_tien_pc_khac = bl_hs_pc_khac * pc_khac;
         if(pc_khac_type){
             thanh_tien_pc_khac = thanh_tien_pc_khac/100;
             bl_hs_pc_khac = bl_hs_pc_khac/100;
         }
-        thanh_tien_pc_khac = thanh_tien_pc_khac * hs_phan_loai
-        var tong_1 = thanh_tien_hsl + thanh_tien_pc_cong_viec + thanh_tien_pc_trach_nhiem + thanh_tien_pc_khu_vuc+ thanh_tien_pc_thu_hut + thanh_tien_pc_tham_nien_vuot_khung + thanh_tien_pc_tham_nien + thanh_tien_pc_uu_dai_nghe + thanh_tien_pc_cong_vu + thanh_tien_pc_kiem_nhiem;
+        
+        var tong_1 = thanh_tien_pc_khac + thanh_tien_hsl + thanh_tien_pc_cong_viec + thanh_tien_pc_trach_nhiem + thanh_tien_pc_khu_vuc + thanh_tien_pc_tham_nien_vuot_khung + thanh_tien_pc_tham_nien + thanh_tien_pc_uu_dai_nghe + thanh_tien_pc_cong_vu + thanh_tien_pc_kiem_nhiem;
 
-        var hs_tang_them = parseFloat(bl_hs_luong) + parseFloat(bl_hs_pc_chuc_vu) + parseFloat(bl_hs_pc_trach_nhiem) + parseFloat(bl_hs_pc_khu_vuc) + parseFloat(he_so_pc_thu_hut) + parseFloat(hs_pc_tnvk) + parseFloat(hs_pc_tham_nien) + parseFloat(hs_pc_uu_dai_nghe) + parseFloat(hs_pc_cong_vu) + parseFloat(hs_pc_kiem_nhiem) + parseFloat(bl_hs_pc_khac);
+        var hs_tang_them = parseFloat(bl_hs_luong) + parseFloat(bl_hs_pc_chuc_vu) + parseFloat(bl_hs_pc_trach_nhiem) + parseFloat(bl_hs_pc_khu_vuc) + parseFloat(hs_pc_tnvk) + parseFloat(hs_pc_tham_nien) + parseFloat(hs_pc_uu_dai_nghe) + parseFloat(hs_pc_cong_vu) + parseFloat(hs_pc_kiem_nhiem) + parseFloat(bl_hs_pc_khac);
         hs_tang_them = Number(hs_tang_them).toFixed(2);        
-        var ti_le_tang_them = (hs_tang_them - hs_pc_kiem_nhiem) * luong_toi_thieu * 0.5 * hs_phan_loai;
+        var ti_le_tang_them = (hs_tang_them - hs_pc_kiem_nhiem) * luong_toi_thieu * 0.5;
         var tong_2 = tong_1 + ti_le_tang_them;
         var tong_cong = tong_2 + tong_khen_thuong - tong_khien_trach;
         
@@ -579,7 +641,6 @@
         $('#lbl_thanh_tien_pc_trach_nhiem').html(number_format(thanh_tien_pc_trach_nhiem, 0, '.', ','));
         $('#lbl_thanh_tien_pc_khu_vuc').html(number_format(thanh_tien_pc_khu_vuc, 0, '.', ',')); 
         $('#lbl_hs_pc_thu_hut').html(he_so_pc_thu_hut); 
-        $('#lbl_thanh_tien_pc_thu_hut').html(number_format(thanh_tien_pc_thu_hut, 0, '.', ',')); 
         
         $('#lbl_hs_pc_tnvk').html(hs_pc_tnvk);
         $('#lbl_thanh_tien_pc_tnvk').html(number_format(thanh_tien_pc_tham_nien_vuot_khung, 0, '.', ','));

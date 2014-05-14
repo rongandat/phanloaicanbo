@@ -72,7 +72,7 @@
                 for ($i = 2000; $i <= 2100; $i++) {
                     $nam_options[$i] = $i;
                 }
-                echo $this->formSelect('thang_ap_dung', ($this->he_so_luong ? date('d', strtotime($this->he_so_luong->hs_ngay_bat_dau)) : null), array('class' => 'input-small'), $thang_options);
+                echo $this->formSelect('thang_ap_dung', ($this->he_so_luong ? date('m', strtotime($this->he_so_luong->hs_ngay_bat_dau)) : null), array('class' => 'input-small'), $thang_options);
                 echo '<span class="help-inline"> / </span>';
                 echo $this->formSelect('nam_ap_dung', ($this->he_so_luong ? date('Y', strtotime($this->he_so_luong->hs_ngay_bat_dau)) : null), array('class' => 'input-small'), $nam_options);
                 ?>    

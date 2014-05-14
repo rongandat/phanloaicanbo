@@ -9,7 +9,7 @@
                     echo '<li><a href="' . $view->baseUrl($menu_key . '/' . $sub_key) . '">' . $sub_name . '</a></li>';
                 }
                 if ($menu_key == 'tochuccanbo') {
-                    echo '<li><a href="' . $view->baseUrl('tochuccanbo/inluong/intheophong/') . '">In bảng lương theo phòng</a></li>';
+                    echo '<li><a href="' . $view->baseUrl('tochuccanbo/inluong/intheophong/') . '">In bảng lương</a></li>';
                 }
                 echo '</ul>                    
             </li>';

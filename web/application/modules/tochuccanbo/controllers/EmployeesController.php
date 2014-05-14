@@ -421,6 +421,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
     }
 
     public function printerAction() {
+        header('Content-Type: text/html; charset=utf-8');
         $this->_helper->layout()->disableLayout();
         $id = $this->_getParam('id', 0);
         $employeeModel = new Front_Model_Employees();
