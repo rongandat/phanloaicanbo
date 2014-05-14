@@ -104,7 +104,7 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
     }
 
     public function exeltheophongAction() {
-        $inputFileName = APPLICATION_PATH . "/../tmp/Mau_Exel.xlsx";
+        $inputFileName = APPLICATION_PATH . "/../tmp/Mau_Exel_Moi.xlsx";
 
         $objPHPExcel = PHPExcel_IOFactory::load($inputFileName);
 
@@ -150,173 +150,194 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
             $kyluatModel = new Front_Model_KyLuat();
             $bangluongModel = new Front_Model_BangLuong();
             $k = 0;
+            $stt = 0;
+            foreach ($list_phongban_selected as $phong_ban_info) {
+                $k++;
+                $objPHPExcel->setActiveSheetIndex(0)->mergeCells("A" . ($k + 7) . ":AI" . ($k + 7));
+                $objPHPExcel->getActiveSheet()->getStyle("A" . ($k + 7))->getFill()
+                        ->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID,
+                            'startcolor' => array('rgb' => 'F28A8C')
+                        ));
+                $objPHPExcel->getActiveSheet()->SetCellValue('A' . ($k + 7), $phong_ban_info->pb_name);
+                foreach ($list_nhan_vien as $nhan_vien) {
+                    if ($phong_ban_info->pb_id == $nhan_vien->em_phong_ban) {
+                        $khen_thuong = $khenthuongModel->fetchByDate($nhan_vien->em_id, "$nam-$thang-01 00:00:00", "$nam-$thang-31 23:59:59");
+                        $ky_luat = $kyluatModel->fetchByDate($nhan_vien->em_id, "$nam-$thang-01 00:00:00", "$nam-$thang-31 23:59:59");
+                        $bang_luong = $bangluongModel->fetchByDate($nhan_vien->em_id, "$nam-$thang-01 00:00:00", "$nam-$thang-31 23:59:59");
 
-            foreach ($list_nhan_vien as $nhan_vien) {
-                $khen_thuong = $khenthuongModel->fetchByDate($nhan_vien->em_id, "$nam-$thang-01 00:00:00", "$nam-$thang-31 23:59:59");
-                $ky_luat = $kyluatModel->fetchByDate($nhan_vien->em_id, "$nam-$thang-01 00:00:00", "$nam-$thang-31 23:59:59");
-                $bang_luong = $bangluongModel->fetchByDate($nhan_vien->em_id, "$nam-$thang-01 00:00:00", "$nam-$thang-31 23:59:59");
-
-                if ($bang_luong) {
-                    $k++;
-                    $luong_toi_thieu = $bang_luong->bl_luong_toi_thieu;
-                    $giai_doan = $bang_luong->bl_giai_doan;
-                    $loai_luong = $bang_luong->bl_loai_luong;
-                    $luong_thu_viec = $bang_luong->bl_luong_thu_viec;
-                    $he_so_luong = $bang_luong->bl_hs_luong;
-                    $bhxh = $bang_luong->bl_bhxh;
-                    $bhyt = $bang_luong->bl_bhyt;
-                    $hs_pc_chuc_vu = $bang_luong->bl_hs_pc_cong_viec;
-                    $hs_pc_trach_nhiem = $bang_luong->bl_hs_pc_trach_nhiem;
-                    $hs_pc_khu_vuc = $bang_luong->bl_hs_pc_khu_vuc;
-                    $hs_pc_tnvk_phan_tram = $bang_luong->bl_hs_pc_tnvk;
-                    $tham_nien = $bang_luong->bl_tham_nien;
-                    $uu_dai_nghe = $bang_luong->bl_hs_pc_udn;
-                    $cong_vu = $bang_luong->bl_hs_pc_cong_vu;
-                    $kiem_nhiem = $bang_luong->bl_pc_kiem_nhiem;
-                    $hs_pc_khac = $bang_luong->bl_hs_pc_khac;
-                    $he_so_tang_them = $bang_luong->bl_pc_tang_them;
-
-                    $hs_pc_khac_type = $bang_luong->bl_pc_khac_type;
-                    $hs_pc_thu_hut_phan_tram = $bang_luong->bl_pc_thu_hut;
-                    $phan_loai = strtoupper($bang_luong->bl_phan_loai);
-                    $phan_loai_he_so = $bang_luong->bl_phan_loai_he_so;
-
-                    $luong_toi_thieu_sau_bh = (int) ($luong_toi_thieu * (100 - ($bhxh + $bhyt)) / 100);
-                    $luong_toi_thieu_bhyt = (int) ($luong_toi_thieu * (100 - $bhyt) / 100);
-
-                    $pc_trach_nhiem = $pc_cong_vu = $pc_khac = $pc_kiem_nhiem = $pc_uu_dai_nghe = $luong_toi_thieu;
-                    $pc_chuc_vu = $pc_tnvk = $pc_thu_hut = $pc_tham_nien = $luong_toi_thieu_sau_bh;
-                    $pc_khu_vuc = $luong_toi_thieu_bhyt;
-
-                    $thanh_tien_hsl = $luong_toi_thieu_sau_bh * $he_so_luong * $phan_loai_he_so;
-
-
-                    //if ($this->he_so->eh_giai_doan)
-                    //$hs_pc_chuc_vu = number_format ($this->he_so->eh_pc_cong_viec*(100-$luong_thu_viec)/100, 2);
-                    $thanh_tien_pc_chuc_vu = $hs_pc_chuc_vu * $pc_chuc_vu * $phan_loai_he_so;
+                        if ($bang_luong) {
+                            $k++;
+                            $stt++;
+                            $luong_toi_thieu = $bang_luong->bl_luong_toi_thieu; //luong co ban
+                            $giai_doan = $bang_luong->bl_giai_doan; //0: chinh thuc, 1: thu viec
+                            $loai_luong = $bang_luong->bl_loai_luong; //0: bien che, 1: hop dong
+                            $luong_thu_viec = $bang_luong->bl_luong_thu_viec; //so phan tram so voi luong chinh
+                            $he_so_luong = $bang_luong->bl_hs_luong;
+                            $bhxh = $bang_luong->bl_bhxh;
+                            $bhyt = $bang_luong->bl_bhyt;
+                            $hs_pc_chuc_vu = $bang_luong->bl_hs_pc_cong_viec;
+                            $hs_pc_trach_nhiem = $bang_luong->bl_hs_pc_trach_nhiem;
+                            $hs_pc_khu_vuc = $bang_luong->bl_hs_pc_khu_vuc;
+                            $hs_pc_tnvk_phan_tram = $bang_luong->bl_hs_pc_tnvk;
+                            $tham_nien = $bang_luong->bl_tham_nien;
+                            $uu_dai_nghe = $bang_luong->bl_hs_pc_udn;
+                            $cong_vu = $bang_luong->bl_hs_pc_cong_vu;
+                            $kiem_nhiem = $bang_luong->bl_pc_kiem_nhiem;
+                            $hs_pc_khac = $bang_luong->bl_hs_pc_khac;
+                            $he_so_tang_them = $bang_luong->bl_pc_tang_them;
+                            $hs_pc_khac_type = $bang_luong->bl_pc_khac_type;
+                            $hs_pc_thu_hut_phan_tram = $bang_luong->bl_pc_thu_hut;
+                            $phan_loai = strtoupper($bang_luong->bl_phan_loai);
+                            $phan_loai_he_so = $bang_luong->bl_phan_loai_he_so;
 
 
-                    //if ($this->he_so->eh_giai_doan)
-                    //$hs_pc_trach_nhiem = number_format ($this->he_so->eh_pc_trach_nhiem*(100-$luong_thu_viec)/100, 2);
-                    $thanh_tien_pc_trach_nhiem = $hs_pc_trach_nhiem * $pc_trach_nhiem * $phan_loai_he_so;
+                            $luong_toi_thieu_sau_bh = (int) ($luong_toi_thieu * (100 - ($bhxh + $bhyt)) / 100);
+                            $luong_toi_thieu_bhyt = (int) ($luong_toi_thieu * (100 - $bhyt) / 100);
+
+                            $pc_trach_nhiem = $pc_cong_vu = $pc_khac = $pc_kiem_nhiem = $pc_uu_dai_nghe = $luong_toi_thieu;
+                            $pc_chuc_vu = $pc_tnvk = $pc_thu_hut = $pc_tham_nien = $luong_toi_thieu_sau_bh;
+                            $pc_khu_vuc = $luong_toi_thieu_bhyt;
+
+                            $thanh_tien_hsl = $luong_toi_thieu_sau_bh * $he_so_luong;
 
 
-                    //if ($this->he_so->eh_giai_doan)
-                    //$hs_pc_khu_vuc = number_format ($this->he_so->eh_pc_kv*(100-$luong_thu_viec)/100, 2);
-                    $thanh_tien_pc_khu_vuc = $hs_pc_khu_vuc * $pc_khu_vuc * $phan_loai_he_so;
+                            //if ($this->he_so->eh_giai_doan)
+                            //$hs_pc_chuc_vu = number_format ($this->he_so->eh_pc_cong_viec*(100-$luong_thu_viec)/100, 2);
+                            $thanh_tien_pc_chuc_vu = $hs_pc_chuc_vu * $pc_chuc_vu;
 
 
-                    $hs_pc_tnvk = ($he_so_luong + $hs_pc_chuc_vu) * $hs_pc_tnvk_phan_tram / 100;
-                    //if ($this->he_so->eh_giai_doan)
-                    //$hs_pc_tnvk = number_format ($hs_pc_tnvk*(100-$luong_thu_viec)/100, 2);
-                    $thanh_tien_pc_tham_nien_vuot_khung = $hs_pc_tnvk * $pc_tnvk * $phan_loai_he_so;
+                            //if ($this->he_so->eh_giai_doan)
+                            //$hs_pc_trach_nhiem = number_format ($this->he_so->eh_pc_trach_nhiem*(100-$luong_thu_viec)/100, 2);
+                            $thanh_tien_pc_trach_nhiem = $hs_pc_trach_nhiem * $pc_trach_nhiem;
 
 
-                    $hs_pc_tham_nien = floor((($he_so_luong + $hs_pc_chuc_vu + $hs_pc_trach_nhiem) * $tham_nien / 100) * 100) / 100;
-                    $thanh_tien_pc_tham_nien = $hs_pc_tham_nien * $pc_tham_nien * $phan_loai_he_so;
+                            //if ($this->he_so->eh_giai_doan)
+                            //$hs_pc_khu_vuc = number_format ($this->he_so->eh_pc_kv*(100-$luong_thu_viec)/100, 2);
+                            $thanh_tien_pc_khu_vuc = $hs_pc_khu_vuc * $pc_khu_vuc;
 
-                    $hs_pc_thu_hut = floor((($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $hs_pc_thu_hut_phan_tram / 100) * 100) / 100;
-                    $thanh_tien_pc_thu_hut = $hs_pc_thu_hut * $pc_thu_hut * $phan_loai_he_so;
-
-                    $hs_pc_uu_dai_nghe = floor((($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $uu_dai_nghe / 100) * 100) / 100;
-                    $thanh_tien_pc_uu_dai_nghe = $hs_pc_uu_dai_nghe * $pc_uu_dai_nghe * $phan_loai_he_so;
-
-
-                    $hs_pc_cong_vu = floor((($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $cong_vu / 100) * 100) / 100;
-                    $thanh_tien_pc_cong_vu = $hs_pc_cong_vu * $pc_cong_vu * $phan_loai_he_so;
+                            if (!$giai_doan && !$loai_luong) {
+                                $hs_pc_tnvk = ($he_so_luong + $hs_pc_chuc_vu) * $hs_pc_tnvk_phan_tram / 100;
+                            } else {
+                                $hs_pc_tnvk = $hs_pc_chuc_vu * $hs_pc_tnvk_phan_tram / 100;
+                            }
+                            $thanh_tien_pc_tham_nien_vuot_khung = $hs_pc_tnvk * $pc_tnvk;
 
 
-                    $hs_pc_kiem_nhiem = floor((($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $kiem_nhiem / 100) * 100) / 100;
-                    $thanh_tien_pc_kiem_nhiem = $hs_pc_kiem_nhiem * $pc_kiem_nhiem * $phan_loai_he_so;
+                            if (!$giai_doan && !$loai_luong)
+                                $hs_pc_thu_hut = floor((($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $hs_pc_thu_hut_phan_tram / 100) * 100) / 100;
+                            else
+                                $hs_pc_thu_hut = floor((($hs_pc_chuc_vu + $hs_pc_tnvk) * $hs_pc_thu_hut_phan_tram / 100) * 100) / 100;
 
-                    $thanh_tien_pc_khac = $hs_pc_khac * $pc_khac;
-                    $hs_pc_khac_he_so = $hs_pc_khac;
-                    if ($hs_pc_khac_type) {
-                        $thanh_tien_pc_khac = $thanh_tien_pc_khac / 100;
-                        $hs_pc_khac_he_so = $hs_pc_khac / 100;
-                    }
-                    $thanh_tien_pc_khac = $thanh_tien_pc_khac * $phan_loai_he_so;
+                            if (!$giai_doan) {
+                                if ($tham_nien >= 5)
+                                    $hs_pc_tham_nien = floor((($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $tham_nien / 100) * 100) / 100;
+                                else
+                                    $hs_pc_tham_nien = 0;
+                            }else {
+                                if ($tham_nien >= 5)
+                                    $hs_pc_tham_nien = floor((($hs_pc_chuc_vu + $hs_pc_tnvk) * $tham_nien / 100) * 100) / 100;
+                                else
+                                    $hs_pc_tham_nien = 0;
+                            }
+                            $thanh_tien_pc_tham_nien = $hs_pc_tham_nien * $pc_tham_nien;
 
-                    
-                    $tong_khen_thuong = 0;
-                    if (sizeof($khen_thuong)) {
-                        foreach ($khen_thuong as $kt) {
-                            $tong_khen_thuong +=$kt->kt_money;
+                            $hs_pc_uu_dai_nghe = floor((($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $uu_dai_nghe / 100) * 100) / 100;
+                            $thanh_tien_pc_uu_dai_nghe = $hs_pc_uu_dai_nghe * $pc_uu_dai_nghe;
+
+
+                            $hs_pc_cong_vu = floor((($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $cong_vu / 100) * 100) / 100;
+                            $thanh_tien_pc_cong_vu = $hs_pc_cong_vu * $pc_cong_vu;
+
+                            if (!$giai_doan && !$loai_luong) {
+                                $hs_pc_kiem_nhiem = floor((($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $kiem_nhiem / 100) * 100) / 100;
+                            } else {
+                                $hs_pc_kiem_nhiem = floor((($hs_pc_chuc_vu + $hs_pc_tnvk) * $kiem_nhiem / 100) * 100) / 100;
+                            }
+                            $thanh_tien_pc_kiem_nhiem = $hs_pc_kiem_nhiem * $pc_kiem_nhiem;
+
+
+                            $thanh_tien_pc_khac = $hs_pc_khac * $pc_khac;
+                            $hs_pc_khac_he_so = $hs_pc_khac;
+                            if ($hs_pc_khac_type) {
+                                $thanh_tien_pc_khac = $thanh_tien_pc_khac / 100;
+                                $hs_pc_khac_he_so = $hs_pc_khac / 100;
+                            }
+
+
+                            $tong_khen_thuong = 0;
+                            if (sizeof($khen_thuong)) {
+                                foreach ($khen_thuong as $kt) {
+                                    $tong_khen_thuong +=$kt->kt_money;
+                                }
+                            }
+
+                            $tong_khien_trach = 0;
+                            if (sizeof($ky_luat)) {
+                                foreach ($ky_luat as $kl) {
+                                    $tong_khien_trach +=$kl->kl_money;
+                                }
+                            }
+
+                            $tong_1 = (int) ($thanh_tien_pc_khac + $thanh_tien_hsl + $thanh_tien_pc_chuc_vu + $thanh_tien_pc_trach_nhiem + $thanh_tien_pc_khu_vuc + $thanh_tien_pc_tham_nien_vuot_khung + $thanh_tien_pc_tham_nien + $thanh_tien_pc_uu_dai_nghe + $thanh_tien_pc_cong_vu + $thanh_tien_pc_kiem_nhiem + $tong_khen_thuong - $tong_khien_trach);
+
+
+                            $hs_tang_them = $hs_pc_thu_hut + $he_so_luong + $hs_pc_chuc_vu + $hs_pc_trach_nhiem + $hs_pc_khu_vuc + $hs_pc_tnvk + $hs_pc_tham_nien + $hs_pc_uu_dai_nghe + $hs_pc_cong_vu + $hs_pc_kiem_nhiem + $hs_pc_khac_he_so;
+                            $ti_le_tang_them = ($hs_tang_them - $hs_pc_kiem_nhiem) * $luong_toi_thieu * $he_so_tang_them * $phan_loai_he_so;
+                            $tong_2 = (int) $tong_1 + $ti_le_tang_them;
+
+
+                            $he_so_luong_chinh_thuc = $he_so_luong_thuc_tap = $he_so_luong_hop_dong = '';
+                            $thanh_tien_he_so_luong = $thanh_tien_thuc_tap = $thanh_tien_hop_dong = '';
+                            if (!$loai_luong && !$giai_doan) {
+                                $he_so_luong_chinh_thuc = $he_so_luong;
+                                $thanh_tien_he_so_luong = $thanh_tien_hsl;
+                            } else if ($giai_doan) {
+                                $he_so_luong_thuc_tap = $he_so_luong;
+                                $thanh_tien_thuc_tap = $thanh_tien_hsl;
+                            } else {
+                                $he_so_luong_hop_dong = $he_so_luong;
+                                $thanh_tien_hop_dong = $thanh_tien_hsl;
+                            }
+
+                            $objPHPExcel->getActiveSheet()->SetCellValue('A' . ($k + 7), $stt);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('B' . ($k + 7), $nhan_vien->em_ho . ' ' . $nhan_vien->em_ten);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('C' . ($k + 7), $he_so_luong_chinh_thuc);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('D' . ($k + 7), $he_so_luong_thuc_tap);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('E' . ($k + 7), $he_so_luong_hop_dong);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('F' . ($k + 7), $hs_pc_chuc_vu);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('G' . ($k + 7), $hs_pc_trach_nhiem);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('H' . ($k + 7), $hs_pc_khu_vuc);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('I' . ($k + 7), $hs_pc_tnvk_phan_tram);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('J' . ($k + 7), $hs_pc_tnvk);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('K' . ($k + 7), $tham_nien);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('L' . ($k + 7), $hs_pc_tham_nien);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('M' . ($k + 7), $uu_dai_nghe);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('N' . ($k + 7), $hs_pc_uu_dai_nghe);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('O' . ($k + 7), $cong_vu);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('P' . ($k + 7), $hs_pc_cong_vu);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('Q' . ($k + 7), $kiem_nhiem);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('R' . ($k + 7), $hs_pc_khac . ($hs_pc_khac_type ? '%' : ''));
+                            $objPHPExcel->getActiveSheet()->SetCellValue('S' . ($k + 7), $hs_tang_them);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('T' . ($k + 7), number_format($thanh_tien_he_so_luong, 0, '.', ','));
+                            $objPHPExcel->getActiveSheet()->SetCellValue('U' . ($k + 7), number_format($thanh_tien_thuc_tap, 0, '.', ','));
+                            $objPHPExcel->getActiveSheet()->SetCellValue('V' . ($k + 7), number_format($thanh_tien_hop_dong, 0, '.', ','));
+                            $objPHPExcel->getActiveSheet()->SetCellValue('W' . ($k + 7), number_format($thanh_tien_pc_chuc_vu, 0, '.', ','));
+                            $objPHPExcel->getActiveSheet()->SetCellValue('X' . ($k + 7), number_format($thanh_tien_pc_trach_nhiem, 0, '.', ','));
+                            $objPHPExcel->getActiveSheet()->SetCellValue('Y' . ($k + 7), number_format($thanh_tien_pc_khu_vuc, 0, '.', ','));
+                            $objPHPExcel->getActiveSheet()->SetCellValue('Z' . ($k + 7), number_format($thanh_tien_pc_tham_nien_vuot_khung, 0, '.', ','));
+                            $objPHPExcel->getActiveSheet()->SetCellValue('AA' . ($k + 7), number_format($thanh_tien_pc_tham_nien, 0, '.', ','));
+                            $objPHPExcel->getActiveSheet()->SetCellValue('AB' . ($k + 7), number_format($thanh_tien_pc_uu_dai_nghe, 0, '.', ','));
+                            $objPHPExcel->getActiveSheet()->SetCellValue('AC' . ($k + 7), number_format($thanh_tien_pc_kiem_nhiem, 0, '.', ','));
+                            $objPHPExcel->getActiveSheet()->SetCellValue('AD' . ($k + 7), number_format($thanh_tien_pc_khac, 0, '.', ','));
+                            $objPHPExcel->getActiveSheet()->SetCellValue('AE' . ($k + 7), number_format($tong_khen_thuong, 0, '.', ','));
+                            $objPHPExcel->getActiveSheet()->SetCellValue('AF' . ($k + 7), number_format($tong_khien_trach, 0, '.', ','));
+                            $objPHPExcel->getActiveSheet()->SetCellValue('AG' . ($k + 7), number_format($tong_1, 0, '.', ','));
+                            $objPHPExcel->getActiveSheet()->SetCellValue('AH' . ($k + 7), number_format($ti_le_tang_them, 0, '.', ','));
+                            $objPHPExcel->getActiveSheet()->SetCellValue('AI' . ($k + 7), number_format($tong_2, 0, '.', ','));
                         }
                     }
-
-                    $tong_khien_trach = 0;
-                    if (sizeof($ky_luat)) {
-                        foreach ($ky_luat as $kl) {
-                            $tong_khien_trach +=$kl->kl_money;
-                        }
-                    }
-
-                    $tong_1 = (int) ($thanh_tien_pc_thu_hut + $thanh_tien_hsl + $thanh_tien_pc_chuc_vu + $thanh_tien_pc_trach_nhiem + $thanh_tien_pc_khu_vuc + $thanh_tien_pc_tham_nien_vuot_khung + $thanh_tien_pc_tham_nien + $thanh_tien_pc_uu_dai_nghe + $thanh_tien_pc_cong_vu + $thanh_tien_pc_kiem_nhiem + $tong_khen_thuong - $tong_khien_trach);
-
-
-                    $hs_tang_them = $hs_pc_thu_hut + $he_so_luong + $hs_pc_chuc_vu + $hs_pc_trach_nhiem + $hs_pc_khu_vuc + $hs_pc_tnvk + $hs_pc_tham_nien + $hs_pc_uu_dai_nghe + $hs_pc_cong_vu + $hs_pc_kiem_nhiem + $hs_pc_khac_he_so;
-                    $ti_le_tang_them = ($hs_tang_them - $hs_pc_kiem_nhiem) * $luong_toi_thieu * $he_so_tang_them * $phan_loai_he_so;
-                    $tong_2 = (int) $tong_1 + $ti_le_tang_them;
-
-
-                    $he_so_luong_chinh_thuc = $he_so_luong_thuc_tap = $he_so_luong_hop_dong = '';
-                    $thanh_tien_he_so_luong = $thanh_tien_thuc_tap = $thanh_tien_hop_dong = '';
-                    if (!$loai_luong && !$giai_doan) {
-                        $he_so_luong_chinh_thuc = $he_so_luong;
-                        $thanh_tien_he_so_luong = $thanh_tien_hsl;
-                    } else if ($giai_doan) {
-                        $he_so_luong_thuc_tap = $he_so_luong;
-                        $thanh_tien_thuc_tap = $thanh_tien_hsl;
-                    } else {
-                        $he_so_luong_hop_dong = $he_so_luong;
-                        $thanh_tien_hop_dong = $thanh_tien_hsl;
-                    }
-
-
-                    $objPHPExcel->getActiveSheet()->SetCellValue('A' . ($k + 7), $k);
-                    $objPHPExcel->getActiveSheet()->SetCellValue('B' . ($k + 7), $nhan_vien->em_ho . ' ' . $nhan_vien->em_ten);
-                    $objPHPExcel->getActiveSheet()->SetCellValue('C' . ($k + 7), $he_so_luong_chinh_thuc);
-                    $objPHPExcel->getActiveSheet()->SetCellValue('D' . ($k + 7), $he_so_luong_thuc_tap);
-                    $objPHPExcel->getActiveSheet()->SetCellValue('E' . ($k + 7), $he_so_luong_hop_dong);
-                    $objPHPExcel->getActiveSheet()->SetCellValue('F' . ($k + 7), $hs_pc_chuc_vu);
-                    $objPHPExcel->getActiveSheet()->SetCellValue('G' . ($k + 7), $hs_pc_trach_nhiem);
-                    $objPHPExcel->getActiveSheet()->SetCellValue('H' . ($k + 7), $hs_pc_khu_vuc);
-                    $objPHPExcel->getActiveSheet()->SetCellValue('I' . ($k + 7), $hs_pc_tnvk_phan_tram);
-                    $objPHPExcel->getActiveSheet()->SetCellValue('J' . ($k + 7), $hs_pc_tnvk);
-                    $objPHPExcel->getActiveSheet()->SetCellValue('K' . ($k + 7), $tham_nien);
-                    $objPHPExcel->getActiveSheet()->SetCellValue('L' . ($k + 7), $hs_pc_tham_nien);
-                    $objPHPExcel->getActiveSheet()->SetCellValue('M' . ($k + 7), $uu_dai_nghe);
-                    $objPHPExcel->getActiveSheet()->SetCellValue('N' . ($k + 7), $hs_pc_uu_dai_nghe);
-                    $objPHPExcel->getActiveSheet()->SetCellValue('O' . ($k + 7), $cong_vu);
-                    $objPHPExcel->getActiveSheet()->SetCellValue('P' . ($k + 7), $hs_pc_cong_vu);
-                    $objPHPExcel->getActiveSheet()->SetCellValue('Q' . ($k + 7), $hs_pc_thu_hut_phan_tram);
-                    $objPHPExcel->getActiveSheet()->SetCellValue('R' . ($k + 7), $hs_pc_thu_hut);
-                    $objPHPExcel->getActiveSheet()->SetCellValue('S' . ($k + 7), $kiem_nhiem);
-                    $objPHPExcel->getActiveSheet()->SetCellValue('T' . ($k + 7), $hs_pc_khac . ($hs_pc_khac_type ? '%' : ''));
-                    $objPHPExcel->getActiveSheet()->SetCellValue('U' . ($k + 7), $hs_tang_them);
-                    $objPHPExcel->getActiveSheet()->SetCellValue('V' . ($k + 7), $phan_loai);
-                    $objPHPExcel->getActiveSheet()->SetCellValue('W' . ($k + 7), $phan_loai_he_so);
-                    $objPHPExcel->getActiveSheet()->SetCellValue('X' . ($k + 7), number_format($thanh_tien_he_so_luong, 0, '.', ','));
-                    $objPHPExcel->getActiveSheet()->SetCellValue('Y' . ($k + 7), number_format($thanh_tien_thuc_tap, 0, '.', ','));
-                    $objPHPExcel->getActiveSheet()->SetCellValue('Z' . ($k + 7), number_format($thanh_tien_hop_dong, 0, '.', ','));
-                    $objPHPExcel->getActiveSheet()->SetCellValue('AA' . ($k + 7), number_format($thanh_tien_pc_chuc_vu, 0, '.', ','));
-                    $objPHPExcel->getActiveSheet()->SetCellValue('AB' . ($k + 7), number_format($thanh_tien_pc_trach_nhiem, 0, '.', ','));
-                    $objPHPExcel->getActiveSheet()->SetCellValue('AC' . ($k + 7), number_format($thanh_tien_pc_khu_vuc, 0, '.', ','));
-                    $objPHPExcel->getActiveSheet()->SetCellValue('AD' . ($k + 7), number_format($thanh_tien_pc_thu_hut, 0, '.', ','));
-                    $objPHPExcel->getActiveSheet()->SetCellValue('AE' . ($k + 7), number_format($thanh_tien_pc_tham_nien_vuot_khung, 0, '.', ','));
-                    $objPHPExcel->getActiveSheet()->SetCellValue('AF' . ($k + 7), number_format($thanh_tien_pc_tham_nien, 0, '.', ','));
-                    $objPHPExcel->getActiveSheet()->SetCellValue('AG' . ($k + 7), number_format($thanh_tien_pc_uu_dai_nghe, 0, '.', ','));
-                    $objPHPExcel->getActiveSheet()->SetCellValue('AH' . ($k + 7), number_format($thanh_tien_pc_kiem_nhiem, 0, '.', ','));
-                    $objPHPExcel->getActiveSheet()->SetCellValue('AI' . ($k + 7), number_format($thanh_tien_pc_khac, 0, '.', ','));
-                    $objPHPExcel->getActiveSheet()->SetCellValue('AJ' . ($k + 7), number_format($tong_khen_thuong, 0, '.', ','));
-                    $objPHPExcel->getActiveSheet()->SetCellValue('AK' . ($k + 7), number_format($tong_khien_trach, 0, '.', ','));
-                    $objPHPExcel->getActiveSheet()->SetCellValue('AL' . ($k + 7), number_format($tong_1, 0, '.', ','));
-                    $objPHPExcel->getActiveSheet()->SetCellValue('AM' . ($k + 7), number_format($ti_le_tang_them, 0, '.', ','));
-                    $objPHPExcel->getActiveSheet()->SetCellValue('AN' . ($k + 7), number_format($tong_2, 0, '.', ','));
                 }
             }
-
 
             if ($k) {
                 $objPHPExcel->getActiveSheet()->setTitle('Bảng lương');
@@ -326,7 +347,7 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
                     $file_name = 'Bang_luong_' . $thang . '-' . $nam . '.xls';
                 }
                 header('Content-Type: application/vnd.ms-excel');
-                header('Content-Disposition: attachment;filename="'.$file_name.'"');
+                header('Content-Disposition: attachment;filename="' . $file_name . '"');
                 header('Cache-Control: max-age=0');
                 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
                 $objWriter->save('php://output');
