@@ -26,6 +26,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
     }
 
     public function importAction() {
+
         $translate = Zend_Registry::get('Zend_Translate');
         $this->view->title = 'Quản lý cán bộ - ' . $translate->_('TEXT_DEFAULT_TITLE');
         $this->view->headTitle($this->view->title);
@@ -37,7 +38,10 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
         Zend_Layout::startMvc($option);
 
         $employeesModel = new Front_Model_Employees();
-
+        $phongbanModel = new Front_Model_Phongban();
+        $nghachcongchucModel = new Front_Model_NgachCongChuc();
+        $hesoModel = new Front_Model_EmployeesHeso();
+        $bacluongModel = new Front_Model_BacLuong();
         $min = 20;
         $max = 10 * 1024 * 1024; //2MB
         $dir = '/excel'; //thu muc uploads
@@ -49,6 +53,8 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
                 ->addValidator('Extension', false, 'xlsx,xls');
         $files = $upload->getFileInfo();
         $arrFileName = array();
+        $success_message = '';
+        $error_message = array();
         if ($this->getRequest()->isPost()) {
             if ($upload->isValid()) {
                 foreach ($files as $file => $info) {
@@ -71,16 +77,141 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
                 $full_path = $dir_upload . '/' . $file_name;
                 $objPHPExcel = PHPExcel_IOFactory::load($full_path);
                 $sheetData = $objPHPExcel->getActiveSheet()->toArray(null, true, true, true);
-                Zend_Debug::dump($sheetData);
+
+                $current_time = new Zend_Db_Expr('NOW()');
+                $i = 0;
+                $j;
                 foreach ($sheetData as $row) {
-                    echo $row['A'];
+                    $i++;
+                    if ($i >= 4) {
+                        $data = array();
+
+                        $phongban = $phongbanModel->getPhongBanByName($this->strtolower_utf8(trim($row['E'])));
+                        if ($phongban) {
+                            $data['em_phong_ban'] = $phongban->pb_id;
+                        }
+
+                        $ngach_cc = $nghachcongchucModel->getByMaNgach($this->strtolower_utf8(trim($row['F'])));
+                        if ($ngach_cc)
+                            $data['em_ngach_cong_chuc'] = $ngach_cc->ncc_id;
+
+                        $data['em_ho'] = $row['A'];
+                        $data['em_ten'] = $row['B'];
+
+
+                        if (strtoupper(trim($row['C'])) == 'NAM') {
+                            $data['em_gioi_tinh'] = 1;
+                        } else {
+                            $data['em_gioi_tinh'] = 0;
+                        }
+
+                        if (trim($row['D']) != '') {
+                            $date_ngay_sinh = DateTime::createFromFormat('d/m/Y', $row['D']);
+                            $data['em_ngay_sinh'] = $date_ngay_sinh->format('Y-m-d');
+                        }
+
+                        if (trim($row['H']) != '') {
+                            $date_time_cong_tac = DateTime::createFromFormat('d/m/Y', $row['H']);
+                            $data['em_time_cong_tac'] = $date_time_cong_tac->format('Y-m-d');
+                        }
+
+                        $data['em_so_cong_chuc'] = $row['Z'];
+                        $data['em_status'] = 1;
+                        $data['em_date_added'] = $current_time;
+                        $data['em_date_modified'] = $current_time;
+                        $employeesModel->insert($data);
+                        $last_id = $employeesModel->getAdapter()->lastInsertId();
+
+                        $bacluong = $bacluongModel->fetchRow('bl_name=' . trim($row['K']));
+
+
+                        $data_heso = array(
+                            'eh_bac_luong' => $bacluong->bl_id,
+                            'eh_pc_kv' => $row['P'],
+                            'eh_pc_thu_hut' => $row['M'],
+                            'eh_pc_cong_viec' => $row['N'],
+                            'eh_pc_trach_nhiem' => $row['O'],
+                            'eh_pc_tnvk_phan_tram' => $row['Q'],
+                            'eh_pc_udn_phan_tram' => $row['R'],
+                            'eh_pc_cong_vu_phan_tram' => $row['S'],
+                            'eh_pc_kiem_nhiem' => $row['T'],
+                            'eh_pc_khac' => $row['W'],
+                            'eh_pc_khac_type' => 0,
+                            'eh_pc_doc_hai' => $row['U'],
+                            'eh_pc_doc_hai_type' => 0,
+                            'eh_date_modified' => $current_time
+                        );
+
+                        $he_so_theo_bac = unserialize($bacluong->bl_he_so_luong);
+                        if (isset($he_so_theo_bac[$ngach_cc->ncc_id])) {
+                            $data_heso['eh_he_so'] = $he_so_theo_bac[$ngach_cc->ncc_id];
+                        } else {
+                            $data_heso['eh_he_so'] = $row['L'];
+                        }
+
+                        if ($this->strtolower_utf8(trim($row['I'])) === 'biên chế') {
+                            $data_heso['eh_loai_luong'] = 0;
+                        } else {
+                            $data_heso['eh_loai_luong'] = 1;
+                        }
+
+                        if ($this->strtolower_utf8(trim($row['J'])) === 'chính thức') {
+                            $data_heso['eh_giai_doan'] = 0;
+                        } else {
+                            $data_heso['eh_giai_doan'] = 1;
+                        }
+
+                        if ($this->strtolower_utf8(trim($row['V'])) === 'tiền') {
+                            $data_heso['eh_pc_doc_hai_type'] = 1;
+                        }
+
+                        if (trim($row['X']) == '%') {
+                            $data_heso['eh_pc_khac_type'] = 1;
+                        }
+
+                        $date_dieu_chinh = DateTime::createFromFormat('d/m/Y', $row['Y']);
+                        $data_heso['eh_han_dieu_chinh'] = $date_dieu_chinh->format('Y-m-d');
+                        $data_heso['eh_han_ap_dung'] = $date_dieu_chinh->format('Y-m-d');
+
+                        if (trim($row['G']) != '') {
+                            $date_time_tham_nien = DateTime::createFromFormat('d/m/Y', $row['G']);
+                            $data_heso['eh_tham_niem'] = $date_time_tham_nien->format('Y-m-d');
+                        }
+
+                        $data_heso['eh_em_id'] = $last_id;
+                        $data_heso['eh_date_added'] = $current_time;
+
+                        $hesoModel->insert($data_heso);
+                        $j++;
+                    }
                 }
+                $success_message = "Đã thêm $j nhân viên mới.";
             } else {
                 $error_message[] = 'Lỗi khi upload file (chỉ cho upload file *.xls, *.xlsx và dưới 10MB).';
             }
         }
         $this->view->error_message = $error_message;
+        $this->view->success_message = $success_message;
         $this->view->page = $this->_page;
+    }
+
+    function strtolower_utf8($string) {
+        $convert_to = array(
+            "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u",
+            "v", "w", "x", "y", "z", "à", "á", "â", "ã", "ä", "å", "æ", "ç", "è", "é", "ê", "ë", "ì", "í", "î", "ï",
+            "đ", "ñ", "ò", "ó", "ô", "õ", "ö", "ø", "ù", "ú", "û", "ü", "ý", "а", "б", "в", "г", "д", "е", "ё", "ж",
+            "з", "и", "й", "к", "л", "м", "н", "о", "п", "р", "с", "т", "у", "ф", "х", "ц", "ч", "ш", "щ", "ъ", "ы",
+            "ь", "э", "ю", "я"
+        );
+        $convert_from = array(
+            "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U",
+            "V", "W", "X", "Y", "Z", "À", "Á", "Â", "Ã", "Ä", "Å", "Æ", "Ç", "È", "É", "Ê", "Ë", "Ì", "Í", "Î", "Ï",
+            "Đ", "Ñ", "Ò", "Ó", "Ô", "Õ", "Ö", "Ø", "Ù", "Ú", "Û", "Ü", "Ý", "А", "Б", "В", "Г", "Д", "Е", "Ё", "Ж",
+            "З", "И", "Й", "К", "Л", "М", "Н", "О", "П", "Р", "С", "Т", "У", "Ф", "Х", "Ц", "Ч", "Ш", "Щ", "Ъ", "Ъ",
+            "Ь", "Э", "Ю", "Я"
+        );
+
+        return str_replace($convert_from, $convert_to, $string);
     }
 
     public function indexAction() {
@@ -174,7 +305,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
         }
 
         $list_nang_luong = $this->_helper->global->checkNangLuong();
-        
+
         $this->view->pb_id = $pb_selected;
         $this->view->list_nhan_vien = $list_nang_luong;
         $this->view->list_chuc_vu = $list_chuc_vu;

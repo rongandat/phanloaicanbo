@@ -36,4 +36,11 @@ class Front_Model_NgachCongChuc extends Zend_Db_Table_Abstract {
         return $this->fetchAll($select);
     }
 
+    public function getByMaNgach($ma, $status = 1) {
+        $select = $this->select();
+        $select->where('LOWER(ncc_ma_ngach) =?', $ma);
+        $select->where('ncc_status =?', $status);
+        return $this->fetchRow($select);
+    }
+
 }
