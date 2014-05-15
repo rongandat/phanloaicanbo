@@ -128,7 +128,8 @@ class Tochuccanbo_BacluongController extends Zend_Controller_Action {
                 $bl_order = 0;
             }
 
-            $valid = new Zend_Validate_Float();
+            $locale = new Zend_Locale('en_US');
+            $valid = new Zend_Validate_Float($locale);
 
             foreach ($bl_he_so_luong as $he_so) {                
                 if (!$valid->isValid($he_so)) {

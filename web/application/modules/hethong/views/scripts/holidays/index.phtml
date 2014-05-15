@@ -20,6 +20,7 @@
                     <tr>
                         <th class="checkall_style"><input type="checkbox" name="check_all" id="checkbox" onclick="checkedAll()"></th>
                         <th>Tên ngày nghỉ lễ</th>  
+                        <th class="order_style">Mã</th>
                         <th class="order_style">Sắp xếp</th>
                         <th class="status_style">Trạng thái</th>
                         <th class="function_style">Chức năng</th>
@@ -31,6 +32,7 @@
                         echo '<tr>
                             <td class="checkall_style"><input type="checkbox" name="cid[]" id="cid" value="' . $item->hld_id . '"></td>
                             <td><a href="' . $this->baseUrl('hethong/holidays/edit/id/' . $item->hld_id . '/page/' . $this->arrParam['page']) . '">' . $item->hld_name . '</a></td>                            
+                            <td class="order_style text-center">'.$item->hld_code.'</td>
                             <td class="order_style text-center">'.$item->hld_order.'</td>
                             <td class="status_style"><a href="' . ($item->hld_status ? $this->baseUrl('hethong/holidays/changestatus/id/' . $item->hld_id . '/status/0/page/' . $this->arrParam['page']) : $this->baseUrl('hethong/holidays/changestatus/id/' . $item->hld_id . '/status/1/page/' . $this->arrParam['page'])) . '"><div class="' . ($item->hld_status ? 'icon_status_active' : 'icon_status_inactive') . '"></div></a></td>
                             <td class="function_style">

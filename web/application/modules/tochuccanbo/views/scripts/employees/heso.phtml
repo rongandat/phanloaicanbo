@@ -1,5 +1,9 @@
 <?php
-$thang_options = range(1, 12);
+$thang_options = array();
+for($i=1; $i<=12; $i++){
+    $thang_options[$i] = $i;
+}
+
 $nam_options = array();
 for($i=1900; $i<=2050; $i++){
     $nam_options[$i] = $i;

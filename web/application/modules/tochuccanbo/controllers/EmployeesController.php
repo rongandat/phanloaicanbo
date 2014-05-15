@@ -36,7 +36,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
             'layoutPath' => $layoutPath);
 
         Zend_Layout::startMvc($option);
-
+        $date_format = 'd/m/Y';
         $employeesModel = new Front_Model_Employees();
         $phongbanModel = new Front_Model_Phongban();
         $nghachcongchucModel = new Front_Model_NgachCongChuc();
@@ -98,7 +98,6 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
                         $data['em_ho'] = $row['A'];
                         $data['em_ten'] = $row['B'];
 
-
                         if (strtoupper(trim($row['C'])) == 'NAM') {
                             $data['em_gioi_tinh'] = 1;
                         } else {
@@ -106,12 +105,12 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
                         }
 
                         if (trim($row['D']) != '') {
-                            $date_ngay_sinh = DateTime::createFromFormat('d/m/Y', $row['D']);
+                            $date_ngay_sinh = $this->createFromFormat($date_format, $row['D']);
                             $data['em_ngay_sinh'] = $date_ngay_sinh->format('Y-m-d');
                         }
 
                         if (trim($row['H']) != '') {
-                            $date_time_cong_tac = DateTime::createFromFormat('d/m/Y', $row['H']);
+                            $date_time_cong_tac = $this->createFromFormat($date_format, $row['H']);
                             $data['em_time_cong_tac'] = $date_time_cong_tac->format('Y-m-d');
                         }
 
@@ -119,6 +118,9 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
                         $data['em_status'] = 1;
                         $data['em_date_added'] = $current_time;
                         $data['em_date_modified'] = $current_time;
+
+                        
+                        
                         $employeesModel->insert($data);
                         $last_id = $employeesModel->getAdapter()->lastInsertId();
 
@@ -169,13 +171,13 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
                             $data_heso['eh_pc_khac_type'] = 1;
                         }
 
-                        $date_dieu_chinh = DateTime::createFromFormat('d/m/Y', $row['Y']);
-                        $data_heso['eh_han_dieu_chinh'] = $date_dieu_chinh->format('Y-m-d');
-                        $data_heso['eh_han_ap_dung'] = $date_dieu_chinh->format('Y-m-d');
+                        $date_dieu_chinh = $this->createFromFormat($date_format, $row['Y']);
+                        $data_heso['eh_han_dieu_chinh'] = $date_dieu_chinh->format('Y-m-1');
+                        $data_heso['eh_han_ap_dung'] = $date_dieu_chinh->format('Y-m-1');
 
                         if (trim($row['G']) != '') {
-                            $date_time_tham_nien = DateTime::createFromFormat('d/m/Y', $row['G']);
-                            $data_heso['eh_tham_niem'] = $date_time_tham_nien->format('Y-m-d');
+                            $date_time_tham_nien = $this->createFromFormat($date_format, $row['G']);
+                            $data_heso['eh_tham_niem'] = $date_time_tham_nien->format('Y-m-1');
                         }
 
                         $data_heso['eh_em_id'] = $last_id;
@@ -193,6 +195,16 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
         $this->view->error_message = $error_message;
         $this->view->success_message = $success_message;
         $this->view->page = $this->_page;
+    }
+
+    function createFromFormat($format, $time, $timezone = null) {
+        if (!$timezone)
+            $timezone = new DateTimeZone(date_default_timezone_get());
+        $version = explode('.', phpversion());
+        if (((int) $version[0] >= 5 && (int) $version[1] >= 2 && (int) $version[2] > 17)) {
+            return createFromFormat($format, $time, $timezone);
+        }
+        return new DateTime(date($format, strtotime($time)), $timezone);
     }
 
     function strtolower_utf8($string) {
