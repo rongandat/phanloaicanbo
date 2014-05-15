@@ -26,7 +26,6 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
     }
 
     public function importAction() {
-
         $translate = Zend_Registry::get('Zend_Translate');
         $this->view->title = 'Quản lý cán bộ - ' . $translate->_('TEXT_DEFAULT_TITLE');
         $this->view->headTitle($this->view->title);
@@ -37,6 +36,8 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
 
         Zend_Layout::startMvc($option);
         $date_format = 'd/m/Y';
+        $locale = new Zend_Locale('vi_VN');
+        Zend_Date::setOptions(array('format_type' => 'php'));
         $employeesModel = new Front_Model_Employees();
         $phongbanModel = new Front_Model_Phongban();
         $nghachcongchucModel = new Front_Model_NgachCongChuc();
@@ -94,6 +95,9 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
                         $ngach_cc = $nghachcongchucModel->getByMaNgach($this->strtolower_utf8(trim($row['F'])));
                         if ($ngach_cc)
                             $data['em_ngach_cong_chuc'] = $ngach_cc->ncc_id;
+                        else
+                            $data['em_ngach_cong_chuc'] = 0;
+
 
                         $data['em_ho'] = $row['A'];
                         $data['em_ten'] = $row['B'];
@@ -105,13 +109,13 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
                         }
 
                         if (trim($row['D']) != '') {
-                            $date_ngay_sinh = $this->createFromFormat($date_format, $row['D']);
-                            $data['em_ngay_sinh'] = $date_ngay_sinh->format('Y-m-d');
+                            $date_ngay_sinh = new Zend_Date(trim($row['D']), 'd/m/Y');
+                            $data['em_ngay_sinh'] = $date_ngay_sinh->get('Y-m-d');
                         }
 
                         if (trim($row['H']) != '') {
-                            $date_time_cong_tac = $this->createFromFormat($date_format, $row['H']);
-                            $data['em_time_cong_tac'] = $date_time_cong_tac->format('Y-m-d');
+                            $date_time_cong_tac = new Zend_Date(trim($row['H']), 'd/m/Y');
+                            $data['em_time_cong_tac'] = $date_time_cong_tac->get('Y-m-d');
                         }
 
                         $data['em_so_cong_chuc'] = $row['Z'];
@@ -119,16 +123,11 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
                         $data['em_date_added'] = $current_time;
                         $data['em_date_modified'] = $current_time;
 
-                        
-                        
                         $employeesModel->insert($data);
                         $last_id = $employeesModel->getAdapter()->lastInsertId();
-
                         $bacluong = $bacluongModel->fetchRow('bl_name=' . trim($row['K']));
 
-
                         $data_heso = array(
-                            'eh_bac_luong' => $bacluong->bl_id,
                             'eh_pc_kv' => $row['P'],
                             'eh_pc_thu_hut' => $row['M'],
                             'eh_pc_cong_viec' => $row['N'],
@@ -144,12 +143,19 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
                             'eh_date_modified' => $current_time
                         );
 
-                        $he_so_theo_bac = unserialize($bacluong->bl_he_so_luong);
-                        if (isset($he_so_theo_bac[$ngach_cc->ncc_id])) {
-                            $data_heso['eh_he_so'] = $he_so_theo_bac[$ngach_cc->ncc_id];
+                        if ($bacluong) {
+                            $data_heso['eh_bac_luong'] = $bacluong->bl_id;
+                            $he_so_theo_bac = unserialize($bacluong->bl_he_so_luong);
+                            if (isset($he_so_theo_bac[$ngach_cc->ncc_id])) {
+                                $data_heso['eh_he_so'] = $he_so_theo_bac[$ngach_cc->ncc_id];
+                            } else {
+                                $data_heso['eh_he_so'] = $row['L'];
+                            }
                         } else {
+                            $data_heso['eh_bac_luong'] = 0;
                             $data_heso['eh_he_so'] = $row['L'];
                         }
+
 
                         if ($this->strtolower_utf8(trim($row['I'])) === 'biên chế') {
                             $data_heso['eh_loai_luong'] = 0;
@@ -171,18 +177,15 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
                             $data_heso['eh_pc_khac_type'] = 1;
                         }
 
-                        $date_dieu_chinh = $this->createFromFormat($date_format, $row['Y']);
-                        $data_heso['eh_han_dieu_chinh'] = $date_dieu_chinh->format('Y-m-1');
-                        $data_heso['eh_han_ap_dung'] = $date_dieu_chinh->format('Y-m-1');
-
-                        if (trim($row['G']) != '') {
-                            $date_time_tham_nien = $this->createFromFormat($date_format, $row['G']);
-                            $data_heso['eh_tham_niem'] = $date_time_tham_nien->format('Y-m-1');
+                        $date_dieu_chinh = new Zend_Date(trim($row['Y']), 'd/m/Y');
+                        $data_heso['eh_han_dieu_chinh'] = $date_dieu_chinh->get('Y-m-1');
+                        $data_heso['eh_han_ap_dung'] = $date_dieu_chinh->get('Y-m-1');
+                        if (trim($row['G']) != '') {  
+                            $date_time_tham_nien = new Zend_Date(trim($row['G']), 'd/m/Y');                            
+                            $data_heso['eh_tham_niem'] = $date_time_tham_nien->get('Y-m-1');
                         }
-
                         $data_heso['eh_em_id'] = $last_id;
                         $data_heso['eh_date_added'] = $current_time;
-
                         $hesoModel->insert($data_heso);
                         $j++;
                     }
@@ -202,7 +205,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
             $timezone = new DateTimeZone(date_default_timezone_get());
         $version = explode('.', phpversion());
         if (((int) $version[0] >= 5 && (int) $version[1] >= 2 && (int) $version[2] > 17)) {
-            return createFromFormat($format, $time, $timezone);
+            return $this->createFromFormat($format, $time, $timezone);
         }
         return new DateTime(date($format, strtotime($time)), $timezone);
     }
