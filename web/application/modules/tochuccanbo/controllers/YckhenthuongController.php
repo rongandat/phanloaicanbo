@@ -85,7 +85,7 @@ class Tochuccanbo_YckhenthuongController extends Zend_Controller_Action {
             $success_message = $khenthuongModel->update($data, "kt_id=$kt_id");
             if ($success_message) {
                 $thongbao_model = new Front_Model_ThongBao();
-                $row_content = $khenthuongModel->fetchRow(array('kt_id' => $kt_id));
+                $row_content = $khenthuongModel->fetchRow("kt_id = $kt_id");
                 $data = array();
                 $data['tb_from'] = 0;
                 $data['tb_to'] = $row_content->kt_em_id;
@@ -125,7 +125,7 @@ class Tochuccanbo_YckhenthuongController extends Zend_Controller_Action {
             if ($process_status) {
                 if ($kt_status) {
                     $thongbao_model = new Front_Model_ThongBao();
-                    $row_content = $khenthuongModel->fetchRow(array('kt_id' => $kt_id));
+                    $row_content = $khenthuongModel->fetchRow("kt_id = $kt_id");
                     $data = array();
                     $data['tb_from'] = 0;
                     $data['tb_to'] = $row_content->kt_em_id;
@@ -168,7 +168,7 @@ class Tochuccanbo_YckhenthuongController extends Zend_Controller_Action {
                 if ($process_status) {
                     if ($kt_status) {
                         $thongbao_model = new Front_Model_ThongBao();
-                        $row_content = $khenthuongModel->fetchRow(array('kt_id' => $v));
+                        $row_content = $khenthuongModel->fetchRow("kt_id = $v");
                         $data = array();
                         $data['tb_from'] = 0;
                         $data['tb_to'] = $row_content->kt_em_id;

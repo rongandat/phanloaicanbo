@@ -83,7 +83,7 @@ class Tochuccanbo_KyluatController extends Zend_Controller_Action {
             $success_message = $kyluatModel->update($data, "kl_id=$kl_id");
             if ($success_message) {
                 $thongbao_model = new Front_Model_ThongBao();
-                $row_content = $kyluatModel->fetchRow(array('kl_id' => $kl_id));
+                $row_content = $kyluatModel->fetchRow("kl_id=$kl_id");
                 $data = array();
                 $data['tb_from'] = 0;
                 $data['tb_to'] = $row_content->kl_em_id;
@@ -125,7 +125,7 @@ class Tochuccanbo_KyluatController extends Zend_Controller_Action {
                 if ($kl_status) {
                     $new_status = 'Đã duyệt';
                     $thongbao_model = new Front_Model_ThongBao();
-                    $row_content = $kyluatModel->fetchRow(array('kl_id' => $kl_id));
+                    $row_content = $kyluatModel->fetchRow("kl_id=$kl_id");
                     $data = array();
                     $data['tb_from'] = 0;
                     $data['tb_to'] = $row_content->kl_em_id;
@@ -169,7 +169,7 @@ class Tochuccanbo_KyluatController extends Zend_Controller_Action {
                 if ($process_status) {
                     if ($kl_status) {
                         $thongbao_model = new Front_Model_ThongBao();
-                        $row_content = $kyluatModel->fetchRow(array('kl_id' => $v));
+                        $row_content = $kyluatModel->fetchRow("kl_id=$v");
                         $data = array();
                         $data['tb_from'] = 0;
                         $data['tb_to'] = $row_content->kl_em_id;

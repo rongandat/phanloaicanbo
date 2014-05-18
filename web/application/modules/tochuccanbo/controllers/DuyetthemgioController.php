@@ -86,28 +86,29 @@ class Tochuccanbo_DuyetthemgioController extends Zend_Controller_Action {
             if ($item_status < 0) {
                 $item_status = -1;
             }
-            $process_status = 1;
             $current_time = new Zend_Db_Expr('NOW()');
             $ltgModel = new Front_Model_LamThemGio();
-            $process_status = $ltgModel->update(array('ltg_tccb_status' => $item_status), "ltg_id=$item_id");
-            if ($process_status) {
-                $thongbao_model = new Front_Model_ThongBao();
-                $row_content = $ltgModel->fetchRow(array('ltg_id' => $item_id));
-                $data = array();
-                $data['tb_from'] = 0;
-                $data['tb_to'] = $row_content->ltg_em_id;
-                $data['tb_tieu_de'] = '[Làm thêm giờ] Khai báo làm thêm giờ đã được duyệt.';
-                $data['tb_noi_dung'] = 'Khai báo làm thêm giờ của bạn đã được duyệt.<br> Ngày: ' . date('d-m-Y', strtotime($row_content->ltg_ngay)) . '<br> Giờ bắt đầu: ' . $row_content->ltg_gio_bat_dau . ':' . $row_content->ltg_phut_bat_dau . ' <br> Giờ kết thúc: ' . $row_content->ltg_gio_ket_thuc . ':' . $row_content->ltg_phut_ket_thuc;
-                $data['tb_status'] = 0;
-                $data['tb_date_added'] = $current_time;
-                $data['tb_date_modified'] = $current_time;
+            $row_content = $ltgModel->fetchRow("ltg_id =$item_id");
+            if ($row_content && $row_content->ltg_don_vi_status > 0) {
+                $process_status = $ltgModel->update(array('ltg_tccb_status' => $item_status), "ltg_id=$item_id");
+                if ($process_status) {
+                    $thongbao_model = new Front_Model_ThongBao();
+                    $data = array();
+                    $data['tb_from'] = 0;
+                    $data['tb_to'] = $row_content->ltg_em_id;
+                    $data['tb_tieu_de'] = '[Làm thêm giờ] Khai báo làm thêm giờ đã được duyệt.';
+                    $data['tb_noi_dung'] = 'Khai báo làm thêm giờ của bạn đã được duyệt.<br> Ngày: ' . date('d-m-Y', strtotime($row_content->ltg_ngay)) . '<br> Giờ bắt đầu: ' . $row_content->ltg_gio_bat_dau . ':' . $row_content->ltg_phut_bat_dau . ' <br> Giờ kết thúc: ' . $row_content->ltg_gio_ket_thuc . ':' . $row_content->ltg_phut_ket_thuc;
+                    $data['tb_status'] = 0;
+                    $data['tb_date_added'] = $current_time;
+                    $data['tb_date_modified'] = $current_time;
 
-                if (!$item_status) {
-                    $data['tb_tieu_de'] = '[Làm thêm giờ] Khai báo làm thêm giờ đã không được chấp nhận.';
-                    $data['tb_noi_dung'] = 'Khai báo làm thêm giờ của bạn đã không được duyệt.<br> Ngày: ' . date('d-m-Y', strtotime($row_content->ltg_ngay)) . '<br> Giờ bắt đầu: ' . $row_content->ltg_gio_bat_dau . ':' . $row_content->ltg_phut_bat_dau . ' <br> Giờ kết thúc: ' . $row_content->ltg_gio_ket_thuc . ':' . $row_content->ltg_phut_ket_thuc;
-                    $new_status = 'Không duyệt';
+                    if (!$item_status) {
+                        $data['tb_tieu_de'] = '[Làm thêm giờ] Khai báo làm thêm giờ đã không được chấp nhận.';
+                        $data['tb_noi_dung'] = 'Khai báo làm thêm giờ của bạn đã không được duyệt.<br> Ngày: ' . date('d-m-Y', strtotime($row_content->ltg_ngay)) . '<br> Giờ bắt đầu: ' . $row_content->ltg_gio_bat_dau . ':' . $row_content->ltg_phut_bat_dau . ' <br> Giờ kết thúc: ' . $row_content->ltg_gio_ket_thuc . ':' . $row_content->ltg_phut_ket_thuc;
+                        $new_status = 'Không duyệt';
+                    }
+                    $thongbao_model->insert($data);
                 }
-                $thongbao_model->insert($data);
             }
         }
         $this->view->new_status = $new_status;
@@ -131,24 +132,27 @@ class Tochuccanbo_DuyetthemgioController extends Zend_Controller_Action {
         if ($this->_request->isPost()) {
             $item = $this->getRequest()->getPost('cid');
             foreach ($item as $k => $v) {
-                $process_status = $ltgModel->update(array('ltg_tccb_status' => $xnp_status), "ltg_id=$v");
-                if ($process_status) {
-                    $thongbao_model = new Front_Model_ThongBao();
-                    $row_content = $ltgModel->fetchRow(array('ltg_id' => $v));
-                    $data = array();
-                    $data['tb_from'] = 0;
-                    $data['tb_to'] = $row_content->ltg_em_id;
-                    $data['tb_tieu_de'] = '[Làm thêm giờ] Khai báo làm thêm giờ đã được duyệt.';
-                    $data['tb_noi_dung'] = 'Khai báo làm thêm giờ của bạn đã được duyệt.<br> Ngày: ' . date('d-m-Y', strtotime($row_content->ltg_ngay)) . '<br> Giờ bắt đầu: ' . $row_content->ltg_gio_bat_dau . ':' . $row_content->ltg_phut_bat_dau . ' <br> Giờ kết thúc: ' . $row_content->ltg_gio_ket_thuc . ':' . $row_content->ltg_phut_ket_thuc;
-                    $data['tb_status'] = 0;
-                    $data['tb_date_added'] = $current_time;
-                    $data['tb_date_modified'] = $current_time;
+                $row_content = $ltgModel->fetchRow("ltg_id =$v");
+                if ($row_content && $row_content->ltg_don_vi_status > 0) {
+                    $process_status = $ltgModel->update(array('ltg_tccb_status' => $xnp_status), "ltg_id=$v");
+                    if ($process_status) {
+                        $thongbao_model = new Front_Model_ThongBao();
+                        $row_content = $ltgModel->fetchRow(array('ltg_id' => $v));
+                        $data = array();
+                        $data['tb_from'] = 0;
+                        $data['tb_to'] = $row_content->ltg_em_id;
+                        $data['tb_tieu_de'] = '[Làm thêm giờ] Khai báo làm thêm giờ đã được duyệt.';
+                        $data['tb_noi_dung'] = 'Khai báo làm thêm giờ của bạn đã được duyệt.<br> Ngày: ' . date('d-m-Y', strtotime($row_content->ltg_ngay)) . '<br> Giờ bắt đầu: ' . $row_content->ltg_gio_bat_dau . ':' . $row_content->ltg_phut_bat_dau . ' <br> Giờ kết thúc: ' . $row_content->ltg_gio_ket_thuc . ':' . $row_content->ltg_phut_ket_thuc;
+                        $data['tb_status'] = 0;
+                        $data['tb_date_added'] = $current_time;
+                        $data['tb_date_modified'] = $current_time;
 
-                    if (!$xnp_status) {
-                        $data['tb_tieu_de'] = '[Làm thêm giờ] Khai báo làm thêm giờ đã không được chấp nhận.';
-                        $data['tb_noi_dung'] = 'Khai báo làm thêm giờ của bạn đã không được duyệt.<br> Ngày: ' . date('d-m-Y', strtotime($row_content->ltg_ngay)) . '<br> Giờ bắt đầu: ' . $row_content->ltg_gio_bat_dau . ':' . $row_content->ltg_phut_bat_dau . ' <br> Giờ kết thúc: ' . $row_content->ltg_gio_ket_thuc . ':' . $row_content->ltg_phut_ket_thuc;
+                        if (!$xnp_status) {
+                            $data['tb_tieu_de'] = '[Làm thêm giờ] Khai báo làm thêm giờ đã không được chấp nhận.';
+                            $data['tb_noi_dung'] = 'Khai báo làm thêm giờ của bạn đã không được duyệt.<br> Ngày: ' . date('d-m-Y', strtotime($row_content->ltg_ngay)) . '<br> Giờ bắt đầu: ' . $row_content->ltg_gio_bat_dau . ':' . $row_content->ltg_phut_bat_dau . ' <br> Giờ kết thúc: ' . $row_content->ltg_gio_ket_thuc . ':' . $row_content->ltg_phut_ket_thuc;
+                        }
+                        $thongbao_model->insert($data);
                     }
-                    $thongbao_model->insert($data);
                 }
             }
         }

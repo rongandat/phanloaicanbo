@@ -67,7 +67,7 @@ class Tochuccanbo_TinhluongController extends Zend_Controller_Action {
         $this->view->nv_id = $em_id;
         $this->view->bang_luong = $bang_luong;
         $this->view->phan_loai = $phan_loai;
-        if($nam>date('Y', $date) || ($nam==date('Y', $date)&& $thang>date('m', $date))){
+        if ($nam > date('Y', $date) || ($nam == date('Y', $date) && $thang > date('m', $date))) {
             $this->_helper->viewRenderer->setRender('thoigian');
         }
     }
@@ -237,7 +237,20 @@ class Tochuccanbo_TinhluongController extends Zend_Controller_Action {
                     $data['bl_date'] = date_format($date_dieu_chinh, "Y-m-d H:iP");
                     $process_status = $bangluongModel->insert($data);
                 } else {
-                    $process_status = $bangluongModel->update($data, "bl_id=$check_isset->bl_id");
+                    $bl_id = $check_isset->bl_id;
+                    $process_status = $bangluongModel->update($data, "bl_id=$bl_id");
+                }
+                
+                if ($process_status) {
+                    $danhgiaModel = new Front_Model_DanhGia();
+                    $find_row = $danhgiaModel->fetchRow("dg_em_id=$bl_em_id and dg_thang=$bl_thang and dg_nam=$bl_nam");
+                    if ($find_row) {
+                        $dg_id = $find_row->dg_id;
+                        $danhgiaModel->update(array('dg_ptccb_status' => $phan_loai_thang), "dg_id=$dg_id");
+                    } else {
+                        $current_time = new Zend_Db_Expr('NOW()');
+                        $danhgiaModel->insert(array('dg_em_id' => $bl_em_id, 'dg_thang' => $bl_thang, 'dg_nam' => $bl_nam, 'dg_cong_viec' => '', 'dg_ket_qua_cong_viec' => 0, 'dg_ptccb_status' => $phan_loai_thang, 'dg_date_created' => $current_time, 'dg_date_modifyed' => $current_time));
+                    }
                 }
             }
         }

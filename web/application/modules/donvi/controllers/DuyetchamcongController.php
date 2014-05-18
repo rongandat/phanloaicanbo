@@ -107,26 +107,44 @@ class Donvi_DuyetchamcongController extends Zend_Controller_Action {
             if ($c_status > 1) {
                 $c_status = 1;
             }
-            if ($c_status < 0) {
+            if ($c_status <= 0) {
                 $c_status = -1;
             }
             $chaqmcongModel = new Front_Model_ChamCong();
+            $thongbao_model = new Front_Model_ThongBao();
             $process_status = $chaqmcongModel->update(array('c_don_vi_status' => $c_status), "c_id=$c_id and c_ptccb_status<0");
+            $current_time = new Zend_Db_Expr('NOW()');
             if ($process_status && $c_status) {
                 $users = $this->_helper->GlobalHelpers->checkToChucUsers(4006);
-                $current_time = new Zend_Db_Expr('NOW()');
 
-                $thongbao_model = new Front_Model_ThongBao();
+
                 $data = array();
                 $data['tb_from'] = 0;
                 $data['tb_tieu_de'] = '[Thông báo] Duyệt chấm công tháng.';
-                $data['tb_noi_dung'] = 'Có đơn xin duyệt chấm công mới<br/> Bạn hãy <strong><a href="'.$this->view->baseUrl('tochuccanbo/duyetchamcong').'">click vào đây</a></strong> để xét duyệt.';
+                $data['tb_noi_dung'] = 'Có đơn xin duyệt chấm công mới<br/> Bạn hãy <strong><a href="' . $this->view->baseUrl('tochuccanbo/duyetchamcong') . '">click vào đây</a></strong> để xét duyệt.';
                 $data['tb_status'] = 0;
                 $data['tb_date_added'] = $current_time;
                 $data['tb_date_modified'] = $current_time;
 
                 foreach ($users as $user) {
                     $data['tb_to'] = $user->em_id;
+                    $thongbao_model->insert($data);
+                }
+            }
+
+            if ($c_status < 1) {
+                $cham_cong = $chaqmcongModel->fetchRow("c_id=$c_id");
+                if ($cham_cong) {
+                    $thang = $cham_cong->c_thang;
+                    $nam = $cham_cong->c_nam;
+                    $data = array();
+                    $data['tb_from'] = 0;
+                    $data['tb_to'] = $cham_cong->c_em_id;
+                    $data['tb_tieu_de'] = "[Chấm công tháng $thang-$nam] Chấm công không được duyệt.";
+                    $data['tb_noi_dung'] = "Chào bạn!<br/>Chấm công $thang-$nam đã không được duyệt.<br/>Yêu cầu bạn chỉnh sửa lại bảng chấm công tháng $thang-$nam";
+                    $data['tb_status'] = 0;
+                    $data['tb_date_added'] = $current_time;
+                    $data['tb_date_modified'] = $current_time;
                     $thongbao_model->insert($data);
                 }
             }

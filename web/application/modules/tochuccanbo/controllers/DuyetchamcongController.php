@@ -135,58 +135,74 @@ class Tochuccanbo_DuyetchamcongController extends Zend_Controller_Action {
         if ($c_status > 1) {
             $c_status = 1;
         }
-        if ($c_status < 0) {
+        if ($c_status <= 0) {
             $c_status = -1;
         }
-        
+
         $chamcongModel = new Front_Model_ChamCong();
         if ($this->_request->isPost()) {
-            $item = $this->getRequest()->getPost('cid');            
+            $item = $this->getRequest()->getPost('cid');
             foreach ($item as $k => $v) {
                 $cham_cong = $chamcongModel->fetchOneData(array('c_em_id' => $v, 'c_thang' => $thang, 'c_nam' => $nam));
-                if (!$cham_cong) {
-                    $chamcongModel->insert(array(
-                        'c_em_id' => $v,
-                        'c_thang' => $thang,
-                        'c_nam' => $nam,
-                        'c_ngay_1' => '',
-                        'c_ngay_2' => '',
-                        'c_ngay_3' => '',
-                        'c_ngay_4' => '',
-                        'c_ngay_5' => '',
-                        'c_ngay_6' => '',
-                        'c_ngay_7' => '',
-                        'c_ngay_8' => '',
-                        'c_ngay_9' => '',
-                        'c_ngay_10' => '',
-                        'c_ngay_11' => '',
-                        'c_ngay_12' => '',
-                        'c_ngay_13' => '',
-                        'c_ngay_14' => '',
-                        'c_ngay_15' => '',
-                        'c_ngay_16' => '',
-                        'c_ngay_17' => '',
-                        'c_ngay_18' => '',
-                        'c_ngay_19' => '',
-                        'c_ngay_20' => '',
-                        'c_ngay_21' => '',
-                        'c_ngay_22' => '',
-                        'c_ngay_23' => '',
-                        'c_ngay_24' => '',
-                        'c_ngay_25' => '',
-                        'c_ngay_26' => '',
-                        'c_ngay_27' => '',
-                        'c_ngay_28' => '',
-                        'c_ngay_29' => '',
-                        'c_ngay_30' => '',
-                        'c_ngay_31' => '',
-                        'c_ptccb_status' => $c_status,
-                        'c_date_created' => $current_time,
-                        'c_date_modifyed' => $current_time
-                            )
-                    );
-                } else {
-                    $chamcongModel->update(array('c_ptccb_status' => $c_status), "c_em_id=$v and c_thang=$thang and c_nam=$nam");
+                //Don vi phai duyet thi moi dc quyen cap nhat status
+                if ($cham_cong && $cham_cong->c_don_vi_status>0) {
+                    /* $chamcongModel->insert(array(
+                      'c_em_id' => $v,
+                      'c_thang' => $thang,
+                      'c_nam' => $nam,
+                      'c_ngay_1' => '',
+                      'c_ngay_2' => '',
+                      'c_ngay_3' => '',
+                      'c_ngay_4' => '',
+                      'c_ngay_5' => '',
+                      'c_ngay_6' => '',
+                      'c_ngay_7' => '',
+                      'c_ngay_8' => '',
+                      'c_ngay_9' => '',
+                      'c_ngay_10' => '',
+                      'c_ngay_11' => '',
+                      'c_ngay_12' => '',
+                      'c_ngay_13' => '',
+                      'c_ngay_14' => '',
+                      'c_ngay_15' => '',
+                      'c_ngay_16' => '',
+                      'c_ngay_17' => '',
+                      'c_ngay_18' => '',
+                      'c_ngay_19' => '',
+                      'c_ngay_20' => '',
+                      'c_ngay_21' => '',
+                      'c_ngay_22' => '',
+                      'c_ngay_23' => '',
+                      'c_ngay_24' => '',
+                      'c_ngay_25' => '',
+                      'c_ngay_26' => '',
+                      'c_ngay_27' => '',
+                      'c_ngay_28' => '',
+                      'c_ngay_29' => '',
+                      'c_ngay_30' => '',
+                      'c_ngay_31' => '',
+                      'c_don_vi_status' => $c_status,
+                      'c_ptccb_status' => $c_status,
+                      'c_date_created' => $current_time,
+                      'c_date_modifyed' => $current_time
+                      )
+                      );
+
+                     */
+
+                    $chamcongModel->update(array('c_ptccb_status' => $c_status, 'c_don_vi_status' => $c_status), "c_em_id=$v and c_thang=$thang and c_nam=$nam");
+                    if ($c_status < 1) {
+                        $thongbao_model = new Front_Model_ThongBao();
+                        $data = array();
+                        $data['tb_from'] = 0;
+                        $data['tb_to'] = $v;
+                        $data['tb_tieu_de'] = "[Chấm công tháng $thang-$nam] Chấm công không được duyệt.";
+                        $data['tb_noi_dung'] = "Chào bạn!<br/>Chấm công $thang-$nam đã không được duyệt.<br/>Yêu cầu bạn chỉnh sửa lại bảng chấm công tháng $thang-$nam";
+                        $data['tb_status'] = 0;
+                        $data['tb_date_added'] = $current_time;
+                        $data['tb_date_modified'] = $current_time;
+                        $thongbao_model->insert($data);
+                    }
                 }
             }
         }

@@ -63,14 +63,14 @@ class Tochuccanbo_DuyetphanloaiController extends Zend_Controller_Action {
             $pb_ids[] = $pb->pb_id;
         }
 
-        if(!$pb_selected){
+        if (!$pb_selected) {
             //$list_employees = $emModel->fetchData(array('em_delete' => 0));
             $list_employees = $emModel->fetchAll();
-        }else{
+        } else {
             $select = $emModel->select()->where('em_phong_ban in (?)', $pb_ids);
             $list_employees = $emModel->fetchAll($select);
         }
-        
+
         $tieuchiModel = new Front_Model_TieuChiDanhGiaCB();
         $list_tieuchi = $tieuchiModel->fetchData(array('tcdgcb_status' => 1), 'tcdgcb_order ASC');
 
@@ -85,27 +85,35 @@ class Tochuccanbo_DuyetphanloaiController extends Zend_Controller_Action {
         $this->view->list_phong_ban_option = $list_phong_ban_option;
         $this->view->pb_id = $pb_selected;
     }
-    
+
     public function jqupdatestatusAction() {
-        $this->_helper->layout()->disableLayout();        
+        $this->_helper->layout()->disableLayout();
         $process_status = 0;
         $new_status = '';
         if ($this->_request->isPost()) {
             $em_id = $this->_arrParam['em_id'];
             $dg_thang = (int) $this->_arrParam['d_thang'];
             $dg_nam = (int) $this->_arrParam['dg_nam'];
-            $c_status = strtoupper(trim($this->_arrParam['dg_status']));            
+            $c_status = strtoupper(trim($this->_arrParam['dg_status']));
             $danhgiaModel = new Front_Model_DanhGia();
             $find_row = $danhgiaModel->fetchRow("dg_em_id=$em_id and dg_thang=$dg_thang and dg_nam=$dg_nam");
-            if($find_row){
-                $process_status = $danhgiaModel->update(array('dg_ptccb_status' => $c_status), "dg_id=$find_row->dg_id");
-            }else{
+            if ($find_row) {
+                $dg_id = $find_row->dg_id;
+                $process_status = $danhgiaModel->update(array('dg_ptccb_status' => $c_status), "dg_id=$dg_id");
+            } else {
                 $current_time = new Zend_Db_Expr('NOW()');
-                $process_status = $danhgiaModel->insert(array('dg_em_id' => $em_id,'dg_thang'=>$dg_thang, 'dg_nam' => $dg_nam, 'dg_cong_viec' => '', 'dg_ket_qua_cong_viec' => 0,'dg_ptccb_status' => $c_status, 'dg_date_created' => $current_time, 'dg_date_modifyed' => $current_time));
+                $process_status = $danhgiaModel->insert(array('dg_em_id' => $em_id, 'dg_thang' => $dg_thang, 'dg_nam' => $dg_nam, 'dg_cong_viec' => '', 'dg_ket_qua_cong_viec' => 0, 'dg_ptccb_status' => $c_status, 'dg_date_created' => $current_time, 'dg_date_modifyed' => $current_time));
             }
-            
-            if($process_status){
+
+            if ($process_status) {
                 $new_status = $c_status;
+                $bangluongModel = new Front_Model_BangLuong();
+                $bang_luong = $bangluongModel->fetchByDate($em_id, "$dg_nam-$dg_thang-01 00:00:00", "$dg_nam-$dg_thang-31 23:59:59");
+                if ($bang_luong) {
+                    $he_so_phan_loai = array('A' => 1.2, 'B' => 1, 'C' => 0.8);
+                    $bl_id = $bang_luong->bl_id;
+                    $bangluongModel->update(array('bl_phan_loai' => $c_status, 'bl_phan_loai_he_so' => $he_so_phan_loai[$c_status]), "bl_id=$bl_id");
+                }
             }
         }
         $this->view->new_status = $new_status;
@@ -113,23 +121,32 @@ class Tochuccanbo_DuyetphanloaiController extends Zend_Controller_Action {
     }
 
     public function updatestatusAction() {
-        $this->_helper->layout()->disableLayout();        
+        $this->_helper->layout()->disableLayout();
         $process_status = 0;
         if ($this->_request->isPost()) {
             $thang = (int) $this->_request->getParam('thang', 0);
-            $nam = (int) $this->_request->getParam('nam', 0);      
-            $phongban = (int) $this->_request->getParam('phongban', 0);      
+            $nam = (int) $this->_request->getParam('nam', 0);
+            $phongban = (int) $this->_request->getParam('phongban', 0);
             $danhgiaModel = new Front_Model_DanhGia();
-            
+
             $item = $this->getRequest()->getPost('cid');
             foreach ($item as $k => $v) {
                 $find_row = $danhgiaModel->fetchRow("dg_em_id=$v and dg_thang=$thang and dg_nam=$nam");
-                if($find_row && $find_row->dg_don_vi_status){
+                if ($find_row) {
                     $process_status = $danhgiaModel->update(array('dg_ptccb_status' => $find_row->dg_don_vi_status), "dg_id=$find_row->dg_id");
+                    if ($process_status) {
+                        $bangluongModel = new Front_Model_BangLuong();
+                        $bang_luong = $bangluongModel->fetchByDate($find_row->dg_em_id, "$nam-$thang-01 00:00:00", "$nam-$thang-31 23:59:59");
+                        if ($bang_luong) {
+                            $he_so_phan_loai = array('A' => 1.2, 'B' => 1, 'C' => 0.8);
+                            $bl_id = $bang_luong->bl_id;
+                            $bangluongModel->update(array('bl_phan_loai' => $find_row->dg_don_vi_status, 'bl_phan_loai_he_so' => $he_so_phan_loai[$find_row->dg_don_vi_status]), "bl_id=$bl_id");
+                        }
+                    }
                 }
             }
-            $this->_redirect('tochuccanbo/duyetphanloai/index/thang/'.$thang.'/nam/'.$nam.'/phongban/'.$phongban);
-        }        
+            $this->_redirect('tochuccanbo/duyetphanloai/index/thang/' . $thang . '/nam/' . $nam . '/phongban/' . $phongban);
+        }
     }
-    
+
 }

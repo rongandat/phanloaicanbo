@@ -33,3 +33,9 @@ ALTER TABLE `bang_luong` MODIFY COLUMN `bl_giai_doan` INT(10) UNSIGNED NOT NULL 
  ADD COLUMN `bl_pc_doc_hai` FLOAT NOT NULL DEFAULT 0 AFTER `bl_phan_loai_he_so`,
  ADD COLUMN `bl_pc_doc_hai_type` INTEGER UNSIGNED NOT NULL DEFAULT 0 AFTER `bl_pc_doc_hai`;
 
+/* Ngay 18-5*/
+UPDATE cham_cong SET c_don_vi_status='-1', c_ptccb_status='-1' WHERE c_don_vi_status='0';
+UPDATE cham_cong SET c_don_vi_status='-1', c_ptccb_status='-1' WHERE c_ptccb_status='0';
+UPDATE xin_nghi_phep SET xnp_don_vi_status='-1', xnp_ptccb_status='-1' WHERE xnp_don_vi_status='0';
+UPDATE xin_nghi_phep SET xnp_don_vi_status='-1', xnp_ptccb_status='-1' WHERE xnp_ptccb_status='0';
+
