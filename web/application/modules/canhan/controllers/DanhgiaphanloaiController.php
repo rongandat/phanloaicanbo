@@ -39,9 +39,10 @@ class Canhan_DanhgiaphanloaiController extends Zend_Controller_Action {
         Zend_Layout::startMvc($option);
         $this->view->page = $this->_page;
 
-        $date = time();
-        $thang = $this->_getParam('thang', date('m', $date));
-        $nam = $this->_getParam('nam', date('Y', $date));
+        $date = new Zend_Date();
+        $date->subMonth(1);
+        $thang = $this->_getParam('thang', $date->toString("M"));
+        $nam = $this->_getParam('nam', $date->toString("Y"));
 
         $auth = Zend_Auth::getInstance();
         $identity = $auth->getIdentity();

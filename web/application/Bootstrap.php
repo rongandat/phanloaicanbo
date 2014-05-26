@@ -7,6 +7,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
      * @author Nguyen Manh Hung
      */
     protected function _initDefineTable() {
+        // in your bootstrap file
+        $locale = new Zend_Locale('vi_VN');
+        Zend_Registry::set('Zend_Locale', $locale);
+
         $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/table.ini');
         foreach ($config->TABLE_DATABASE as $k => $value) {
             defined($k)
@@ -18,7 +22,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 
         Zend_Controller_Action_HelperBroker::addPath(
                 APPLICATION_PATH . '/modules/front/views/helpers');
-        
+
         Zend_Controller_Action_HelperBroker::addPath(
                 APPLICATION_PATH . '/modules/danhsach/views/helpers');
 
@@ -33,7 +37,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 
         Zend_Controller_Action_HelperBroker::addPath(
                 APPLICATION_PATH . '/modules/front/controllers/helpers');
-        
+
         Zend_Controller_Action_HelperBroker::addPath(
                 APPLICATION_PATH . '/helpers', '');
     }
