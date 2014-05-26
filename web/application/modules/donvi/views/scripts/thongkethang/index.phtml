@@ -26,19 +26,19 @@
                 <th style="width: 50px;vertical-align:inherit" rowspan="2">Phân loại</th>
             </tr>
             <tr>
-                <?php for ($i = 1; $i <= $days_in_month; $i++) { ?>
-                    <th style="width: 5px;"><?php echo $i ?></th>
+                <?php for ($i = 1; $i <= $days_in_month; $i++) { ?>                    
+                    <th style="width: 5px;" <?php $this->viewCheckChuNhatThuBay($i, (int) $this->thang, (int) $this->nam);?>><?php echo $i ?></th>
                 <?php } ?>
             </tr>
         </thead>
         <tbody>
             <?php foreach ($this->list_nhan_vien as $key => $nv) {
-                $phan_loai_label = 'A';                
+                $phan_loai_label = '';                
                 $phan_loai = $this->viewGetPhanLoai($nv['em_id'], $this->thang,$this->nam);
                 if($phan_loai){
                     $phan_loai_label = $phan_loai->dg_ptccb_status;
                     if(!$phan_loai_label || $phan_loai_label==null || $phan_loai_label == '-'){
-                        $phan_loai_label = 'A';
+                        $phan_loai_label = '';
                     }
                 }else{
                     $phan_loai_label = '';
@@ -56,7 +56,7 @@
                         $ngay_chamcong = 'c_ngay_' . $i;
                         $trangthai_ngaycong = $view_get_chamcong->$ngay_chamcong;
                         ?>
-                        <td style="width: 10px;"><?php echo!empty($this->listHoliday[$trangthai_ngaycong]) ? $this->listHoliday[$trangthai_ngaycong] : '' ?></td>
+                        <td style="width: 10px;" <?php echo $this->viewCheckChuNhatThuBay($i, (int) $this->thang, (int) $this->nam);?>><?php echo!empty($this->listHoliday[$trangthai_ngaycong]) ? $this->listHoliday[$trangthai_ngaycong] : '' ?></td>
                     <?php } ?>
                     <td><?php echo $phan_loai_label;?></td>
                 </tr>
