@@ -37,9 +37,10 @@ class Tochuccanbo_DuyetphanloaiController extends Zend_Controller_Action {
             'layoutPath' => $layoutPath);
         Zend_Layout::startMvc($option);
 
-        $date = time();
-        $thang = $this->_getParam('thang', date('m', $date));
-        $nam = $this->_getParam('nam', date('Y', $date));
+        $date = new Zend_Date();
+        $date->subMonth(1);
+        $thang = $this->_getParam('thang', $date->toString("M"));
+        $nam = $this->_getParam('nam', $date->toString("Y"));
 
         $auth = Zend_Auth::getInstance();
         $identity = $auth->getIdentity();
@@ -95,11 +96,18 @@ class Tochuccanbo_DuyetphanloaiController extends Zend_Controller_Action {
             $dg_thang = (int) $this->_arrParam['d_thang'];
             $dg_nam = (int) $this->_arrParam['dg_nam'];
             $c_status = strtoupper(trim($this->_arrParam['dg_status']));
+            if ($c_status == 'O') {
+                $c_status = '';
+            }
             $danhgiaModel = new Front_Model_DanhGia();
             $find_row = $danhgiaModel->fetchRow("dg_em_id=$em_id and dg_thang=$dg_thang and dg_nam=$dg_nam");
             if ($find_row) {
                 $dg_id = $find_row->dg_id;
-                $process_status = $danhgiaModel->update(array('dg_ptccb_status' => $c_status), "dg_id=$dg_id");
+                $data_update = array('dg_ptccb_status' => $c_status);
+                if ($c_status == '') {
+                    $data_update['dg_don_vi_status'] = $c_status;
+                }
+                $process_status = $danhgiaModel->update($data_update, "dg_id=$dg_id");
             } else {
                 $current_time = new Zend_Db_Expr('NOW()');
                 $process_status = $danhgiaModel->insert(array('dg_em_id' => $em_id, 'dg_thang' => $dg_thang, 'dg_nam' => $dg_nam, 'dg_cong_viec' => '', 'dg_ket_qua_cong_viec' => 0, 'dg_ptccb_status' => $c_status, 'dg_date_created' => $current_time, 'dg_date_modifyed' => $current_time));
@@ -109,10 +117,32 @@ class Tochuccanbo_DuyetphanloaiController extends Zend_Controller_Action {
                 $new_status = $c_status;
                 $bangluongModel = new Front_Model_BangLuong();
                 $bang_luong = $bangluongModel->fetchByDate($em_id, "$dg_nam-$dg_thang-01 00:00:00", "$dg_nam-$dg_thang-31 23:59:59");
-                if ($bang_luong) {
+                if ($bang_luong && $c_status != 'O') {
                     $he_so_phan_loai = array('A' => 1.2, 'B' => 1, 'C' => 0.8);
                     $bl_id = $bang_luong->bl_id;
                     $bangluongModel->update(array('bl_phan_loai' => $c_status, 'bl_phan_loai_he_so' => $he_so_phan_loai[$c_status]), "bl_id=$bl_id");
+                }
+
+                $thongbao_model = new Front_Model_ThongBao();
+                $current_time = new Zend_Db_Expr('NOW()');
+                if ($c_status == '') {
+                    $em_info = $this->view->viewGetEmployeeInfo($em_id);
+                    $data = array();
+                    $data['tb_from'] = 0;
+                    $data['tb_tieu_de'] = '[Thông báo] Phòng tổ chức không duyệt đánh giá phân loại.';
+                    $data['tb_noi_dung'] = 'Đánh giá phân phân loại theo tháng của bạn tháng ' . $dg_thang . '-' . $dg_nam . ' không được duyệt.<br/> Yêu cầu bạn hãy <strong><a href="' . $this->view->baseUrl('canhan/danhgiaphanloai') . '">click vào đây</a></strong> để xét chỉnh sửa.';
+                    $data['tb_status'] = 0;
+                    $data['tb_date_added'] = $current_time;
+                    $data['tb_date_modified'] = $current_time;
+                    $data['tb_to'] = $em_id;
+                    $thongbao_model->insert($data);
+
+                    $data['tb_noi_dung'] = 'Đánh giá phân loại của <strong>' . $em_info->em_ho . ' ' . $em_info->em_ten . '</strong> tháng ' . $dg_thang . '-' . $dg_nam . ' phòng tổ chức không duyệt.<br/> Bạn hãy <strong><a href="' . $this->view->baseUrl('donvi/duyetphanloai') . '">click vào đây</a></strong> để xét duyệt lại.';
+                    $don_vi_user = $this->_helper->GlobalHelpers->checkDonViUsers($em_id, 3005);
+                    foreach ($don_vi_user as $user) {
+                        $data['tb_to'] = $user->em_id;
+                        $thongbao_model->insert($data);
+                    }
                 }
             }
         }
@@ -127,13 +157,18 @@ class Tochuccanbo_DuyetphanloaiController extends Zend_Controller_Action {
             $thang = (int) $this->_request->getParam('thang', 0);
             $nam = (int) $this->_request->getParam('nam', 0);
             $phongban = (int) $this->_request->getParam('phongban', 0);
+            $status = (int) $this->_request->getParam('status', 0);
             $danhgiaModel = new Front_Model_DanhGia();
 
             $item = $this->getRequest()->getPost('cid');
             foreach ($item as $k => $v) {
                 $find_row = $danhgiaModel->fetchRow("dg_em_id=$v and dg_thang=$thang and dg_nam=$nam");
                 if ($find_row) {
-                    $process_status = $danhgiaModel->update(array('dg_ptccb_status' => $find_row->dg_don_vi_status), "dg_id=$find_row->dg_id");
+                    if ($status) {
+                        $process_status = $danhgiaModel->update(array('dg_ptccb_status' => $find_row->dg_don_vi_status), "dg_id=$find_row->dg_id");
+                    } else {
+                        $process_status = $danhgiaModel->update(array('dg_ptccb_status' => '', 'dg_don_vi_status' => ''), "dg_id=$find_row->dg_id");
+                    }
                     if ($process_status) {
                         $bangluongModel = new Front_Model_BangLuong();
                         $bang_luong = $bangluongModel->fetchByDate($find_row->dg_em_id, "$nam-$thang-01 00:00:00", "$nam-$thang-31 23:59:59");
@@ -141,6 +176,29 @@ class Tochuccanbo_DuyetphanloaiController extends Zend_Controller_Action {
                             $he_so_phan_loai = array('A' => 1.2, 'B' => 1, 'C' => 0.8);
                             $bl_id = $bang_luong->bl_id;
                             $bangluongModel->update(array('bl_phan_loai' => $find_row->dg_don_vi_status, 'bl_phan_loai_he_so' => $he_so_phan_loai[$find_row->dg_don_vi_status]), "bl_id=$bl_id");
+                        }
+
+
+                        $thongbao_model = new Front_Model_ThongBao();
+                        $current_time = new Zend_Db_Expr('NOW()');
+                        if (!$status) {
+                            $em_info = $this->view->viewGetEmployeeInfo($find_row->dg_em_id);
+                            $data = array();
+                            $data['tb_from'] = 0;
+                            $data['tb_tieu_de'] = '[Thông báo] Phòng tổ chức không duyệt đánh giá phân loại.';
+                            $data['tb_noi_dung'] = 'Đánh giá phân phân loại theo tháng của bạn tháng ' . $thang . '-' . $nam . ' không được duyệt.<br/> Yêu cầu bạn hãy <strong><a href="' . $this->view->baseUrl('canhan/danhgiaphanloai') . '">click vào đây</a></strong> để xét chỉnh sửa.';
+                            $data['tb_status'] = 0;
+                            $data['tb_date_added'] = $current_time;
+                            $data['tb_date_modified'] = $current_time;
+                            $data['tb_to'] = $find_row->dg_em_id;
+                            $thongbao_model->insert($data);
+
+                            $data['tb_noi_dung'] = 'Đánh giá phân loại của <strong>' . $em_info->em_ho . ' ' . $em_info->em_ten . '</strong> tháng ' . $thang . '-' . $nam . ' phòng tổ chức không duyệt.<br/> Bạn hãy <strong><a href="' . $this->view->baseUrl('donvi/duyetphanloai') . '">click vào đây</a></strong> để xét duyệt lại.';
+                            $don_vi_user = $this->_helper->GlobalHelpers->checkDonViUsers($find_row->dg_em_id, 3005);
+                            foreach ($don_vi_user as $user) {
+                                $data['tb_to'] = $user->em_id;
+                                $thongbao_model->insert($data);
+                            }
                         }
                     }
                 }

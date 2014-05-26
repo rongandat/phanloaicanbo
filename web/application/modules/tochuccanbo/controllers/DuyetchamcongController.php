@@ -37,9 +37,11 @@ class Tochuccanbo_DuyetchamcongController extends Zend_Controller_Action {
             'layoutPath' => $layoutPath);
         Zend_Layout::startMvc($option);
 
-        $date = time();
-        $thang = $this->_getParam('thang', date('m', $date));
-        $nam = $this->_getParam('nam', date('Y', $date));
+        $date = new Zend_Date();
+        $date->subMonth(1);
+
+        $thang = $this->_getParam('thang', $date->toString("M"));
+        $nam = $this->_getParam('nam', $date->toString("Y"));
 
         $auth = Zend_Auth::getInstance();
         $identity = $auth->getIdentity();
@@ -87,9 +89,11 @@ class Tochuccanbo_DuyetchamcongController extends Zend_Controller_Action {
             'layoutPath' => $layoutPath);
         Zend_Layout::startMvc($option);
 
-        $date = time();
-        $thang = $this->_getParam('thang', date('m', $date));
-        $nam = $this->_getParam('nam', date('Y', $date));
+        $date = new Zend_Date();
+        $date->subMonth(1);
+
+        $thang = $this->_getParam('thang', $date->toString("M"));
+        $nam = $this->_getParam('nam', $date->toString("Y"));
         $em_id = $this->_getParam('em', 0);
 
         $holidaysModel = new Front_Model_Holidays();
@@ -145,7 +149,7 @@ class Tochuccanbo_DuyetchamcongController extends Zend_Controller_Action {
             foreach ($item as $k => $v) {
                 $cham_cong = $chamcongModel->fetchOneData(array('c_em_id' => $v, 'c_thang' => $thang, 'c_nam' => $nam));
                 //Don vi phai duyet thi moi dc quyen cap nhat status
-                if ($cham_cong && $cham_cong->c_don_vi_status>0) {
+                if ($cham_cong && $cham_cong->c_don_vi_status > 0) {
                     /* $chamcongModel->insert(array(
                       'c_em_id' => $v,
                       'c_thang' => $thang,
@@ -202,6 +206,14 @@ class Tochuccanbo_DuyetchamcongController extends Zend_Controller_Action {
                         $data['tb_date_added'] = $current_time;
                         $data['tb_date_modified'] = $current_time;
                         $thongbao_model->insert($data);
+
+                        $em_info = $this->view->viewGetEmployeeInfo($v);
+                        $data['tb_noi_dung'] = 'Chấm công của <strong>' . $em_info->em_ho . ' ' . $em_info->em_ten . '</strong> tháng ' . $thang . '-' . $nam . ' phòng tổ chức không duyệt.<br/> Bạn hãy <strong><a href="' . $this->view->baseUrl('donvi/duyetchamcong') . '">click vào đây</a></strong> để xét duyệt lại.';
+                        $don_vi_user = $this->_helper->GlobalHelpers->checkDonViUsers($v, 3004);
+                        foreach ($don_vi_user as $user) {
+                            $data['tb_to'] = $user->em_id;
+                            $thongbao_model->insert($data);
+                        }
                     }
                 }
             }
