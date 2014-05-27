@@ -12,8 +12,8 @@
             <thead>
                 <tr>
                     <th>Ngày</th>
-                    <th style="width: 70px;">Bắt đầu</th>
-                    <th style="width: 70px;">Kết thúc</th>
+                    <th style="width: 100px;">Sáng</th>
+                    <th style="width: 100px;">Chiều</th>
                     <th style="width: 100px;">Trạng thái</th>
                     <th style="width: 200px;">Chức năng</th>
                 </tr>
@@ -45,8 +45,8 @@
                         }
                         echo '<tr id="row_id_' . $lam_them_gio->ltg_id . '">                            
                             <td>' . date('d-m-Y', strtotime($lam_them_gio->ltg_ngay)) . '</td>
-                            <td>' . $lam_them_gio->ltg_gio_bat_dau . ':' . ($lam_them_gio->ltg_phut_bat_dau < 10 ? '0' . $lam_them_gio->ltg_phut_bat_dau : $lam_them_gio->ltg_phut_bat_dau) . '</td>                           
-                            <td>' . $lam_them_gio->ltg_gio_ket_thuc . ':' . ($lam_them_gio->ltg_phut_ket_thuc < 10 ? '0' . $lam_them_gio->ltg_phut_ket_thuc : $lam_them_gio->ltg_phut_ket_thuc) . '</td>                           
+                            <td>' . ($lam_them_gio->ltg_gio_bat_dau? $lam_them_gio->ltg_gio_bat_dau.':'.$lam_them_gio->ltg_phut_bat_dau.'-'.$lam_them_gio->ltg_gio_ket_thuc.':'.$lam_them_gio->ltg_phut_ket_thuc:'') . '</td>                           
+                            <td>' . ($lam_them_gio->ltg_gio_bat_dau_chieu? $lam_them_gio->ltg_gio_bat_dau_chieu.':'.$lam_them_gio->ltg_phut_bat_dau_chieu.'-'.$lam_them_gio->ltg_gio_ket_thuc_chieu.':'.$lam_them_gio->ltg_phut_ket_thuc_chieu:'') . '</td>                           
                             <td>' . $trang_thai_icon . '</td>
                             <td>' .
                         ($flag_add_edit ? '
@@ -77,10 +77,10 @@
                                             <div class="span4 float_left"><strong>Ngày: </strong> ' . date('d-m-Y', strtotime($lam_them_gio->ltg_ngay)) . '</div>
                                         </div>                                        
                                         <div class="row">
-                                            <div class="span4 float_left"><strong>Giờ bắt đầu: </strong> ' . $lam_them_gio->ltg_gio_bat_dau . ':' . ($lam_them_gio->ltg_phut_bat_dau < 10 ? '0' . $lam_them_gio->ltg_phut_bat_dau : $lam_them_gio->ltg_phut_bat_dau) . '</div>
+                                            <div class="span4 float_left"><strong>Giờ làm sáng: </strong> ' . ($lam_them_gio->ltg_gio_bat_dau? $lam_them_gio->ltg_gio_bat_dau.':'.$lam_them_gio->ltg_phut_bat_dau.'-'.$lam_them_gio->ltg_gio_ket_thuc.':'.$lam_them_gio->ltg_phut_ket_thuc:'') . '</div>
                                         </div>
                                         <div class="row">
-                                            <div class="span4 float_left"><strong>Giờ kết thúc: </strong> ' . $lam_them_gio->ltg_gio_ket_thuc . ':' . ($lam_them_gio->ltg_phut_ket_thuc < 10 ? '0' . $lam_them_gio->ltg_phut_ket_thuc : $lam_them_gio->ltg_phut_ket_thuc) . '</div>
+                                            <div class="span4 float_left"><strong>Giờ làm chiều: </strong> ' . ($lam_them_gio->ltg_gio_bat_dau_chieu? $lam_them_gio->ltg_gio_bat_dau_chieu.':'.$lam_them_gio->ltg_phut_bat_dau_chieu.'-'.$lam_them_gio->ltg_gio_ket_thuc_chieu.':'.$lam_them_gio->ltg_phut_ket_thuc_chieu:'') . '</div>
                                         </div>
                                         <div class="row">
                                             <div class="span4 float_left"><strong>Ngày khai báo: </strong> ' . date('d-m-Y', strtotime($lam_them_gio->ltg_date_added)) . '</div>

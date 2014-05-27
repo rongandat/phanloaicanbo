@@ -50,8 +50,8 @@ foreach ($this->list_phong_ban_option as $phong_ban) {
                     <th>Họ tên</th>
                     <th style="width: 120px;">Phòng ban</th>
                     <th style="width: 50px;">Ngày</th>
-                    <th style="width: 70px;">Bắt đầu</th>
-                    <th style="width: 70px;">Kết thúc</th>
+                    <th style="width: 70px;">Sáng</th>
+                    <th style="width: 70px;">Chiều</th>
                     <th style="width: 80px;">Đơn vị</th>
                     <th style="width: 140px;">Phòng tổ chức</th>
                     <th style="width: 90px;">Chức năng</th>
@@ -80,8 +80,8 @@ foreach ($this->list_phong_ban_option as $phong_ban) {
                         <td id="name_<?php echo $item->ltg_em_id; ?>"><?php echo $item->em_ho . ' ' . $item->em_ten; ?></td>
                         <td><?php echo $list_phong_ban[$item->em_phong_ban]; ?></td>
                         <td><?php echo date('d-m', strtotime($item->ltg_ngay)); ?></td>
-                        <td><?php echo $item->ltg_gio_bat_dau . ':' . $item->ltg_phut_bat_dau; ?></td>
-                        <td><?php echo $item->ltg_gio_ket_thuc . ':' . $item->ltg_phut_ket_thuc; ?></td>
+                        <td><?php echo ($item->ltg_gio_bat_dau? $item->ltg_gio_bat_dau.':'.$item->ltg_phut_bat_dau.'-'.$item->ltg_gio_ket_thuc.':'.$item->ltg_phut_ket_thuc:''); ?></td>
+                        <td><?php echo ($item->ltg_gio_bat_dau_chieu? $item->ltg_gio_bat_dau_chieu.':'.$item->ltg_phut_bat_dau_chieu.'-'.$item->ltg_gio_ket_thuc_chieu.':'.$item->ltg_phut_ket_thuc_chieu:''); ?></td>
                         <td><?php echo $don_vi_icon; ?></td>
                         <td><span id="sp_xnp_<?php echo $item->ltg_id; ?>"><?php echo $trang_thai_icon; ?></span> <i class="icon-ok-sign" onclick="update_status(<?php echo $item->ltg_id; ?>,1)"></i> <i class="icon-remove-sign" onclick="update_status(<?php echo $item->ltg_id; ?>,0)"></i></td>
                         <td>
@@ -105,10 +105,10 @@ foreach ($this->list_phong_ban_option as $phong_ban) {
                                         <div class="span4 float_left"><strong>Ngày : </strong> <?php echo date('d-m-Y', strtotime($item->ltg_ngay)); ?></div>
                                     </div>
                                     <div class="row">
-                                        <div class="span4 float_left"><strong>Giờ bắt đầu: </strong> <?php echo $item->ltg_gio_bat_dau . ':' . $item->ltg_phut_bat_dau; ?></div>
+                                        <div class="span4 float_left"><strong>Giờ làm sáng: </strong> <?php echo ($item->ltg_gio_bat_dau? $item->ltg_gio_bat_dau.':'.$item->ltg_phut_bat_dau.'-'.$item->ltg_gio_ket_thuc.':'.$item->ltg_phut_ket_thuc:''); ?></div>
                                     </div>
                                     <div class="row">
-                                        <div class="span4 float_left"><strong>Giờ kết thúc: </strong> <?php echo $item->ltg_gio_ket_thuc . ':' . $item->ltg_phut_ket_thuc; ?></div>
+                                        <div class="span4 float_left"><strong>Giờ giờ làm chiều: </strong> <?php echo ($item->ltg_gio_bat_dau_chieu? $item->ltg_gio_bat_dau_chieu.':'.$item->ltg_phut_bat_dau_chieu.'-'.$item->ltg_gio_ket_thuc_chieu.':'.$item->ltg_phut_ket_thuc_chieu:''); ?></div>
                                     </div>
                                     <div class="row">
                                         <div class="span4 float_left"><strong>Ngày khai báo: </strong> <?php echo date('d-m-Y', strtotime($item->ltg_date_added)); ?></div>

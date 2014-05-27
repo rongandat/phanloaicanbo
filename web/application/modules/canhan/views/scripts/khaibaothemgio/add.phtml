@@ -30,48 +30,80 @@
                 </div>            
             </div>
             <?php
-            $gio_options = array();
-            for ($h = 0; $h <= 23; $h++) {
-                $gio_options[$h] = $h;
+            $gio_sang_options = array(''=>'');
+            for ($h = 7; $h <= 11; $h++) {
+                $gio_sang_options[$h] = $h;
             }
+            
+            $gio_chieu_options = array('' => '');
+            for ($h = 14; $h <= 17; $h++) {
+                $gio_chieu_options[$h] = $h;
+            }
+            
             $phut_options = array();
-            for ($m = 0; $m <= 59; $m++) {
+            for ($m = 0; $m <= 59; $m+=5) {
                 $phut_options[$m] = $m;
             }
             ?>
             <div class="control-group">
-                <label class="control-label" for="ltg_gio_bat_dau">Giờ bắt đầu</label>
+                <label class="control-label" for="ltg_gio_bat_dau">Giờ làm sáng</label>
                 <div class="controls">
                     <div class="input-prepend input-append">
                         <span class="add-on">giờ</span>
                         <?php
-                        echo $this->formSelect('ltg_gio_bat_dau', $this->arrParam['ltg_gio_bat_dau'], array('class' => 'input-small'), $gio_options);
+                        echo $this->formSelect('ltg_gio_bat_dau', $this->arrParam['ltg_gio_bat_dau'], array('class' => 'input-mini'), $gio_sang_options);
                         ?>                        
                     </div>
                     <div class="input-prepend input-append">
                         <span class="add-on">phút</span>
                         <?php
-                        echo $this->formSelect('ltg_phut_bat_dau', $this->arrParam['ltg_phut_bat_dau'], array('class' => 'input-small'), $phut_options);
+                        echo $this->formSelect('ltg_phut_bat_dau', $this->arrParam['ltg_phut_bat_dau'], array('class' => 'input-mini'), $phut_options);
                         ?>                        
-                    </div>              
+                    </div> 
+                     - 
+                    <div class="input-prepend input-append">
+                        <span class="add-on">giờ</span>
+                        <?php
+                        echo $this->formSelect('ltg_gio_ket_thuc', $this->arrParam['ltg_gio_ket_thuc'], array('class' => 'input-mini'), $gio_sang_options);
+                        ?>                        
+                    </div>
+                    <div class="input-prepend input-append">
+                        <span class="add-on">phút</span>
+                        <?php
+                        echo $this->formSelect('ltg_phut_ket_thuc', $this->arrParam['ltg_phut_ket_thuc'], array('class' => 'input-mini'), $phut_options);
+                        ?>                        
+                    </div> 
 
                 </div>            
             </div>
             <div class="control-group">
-                <label class="control-label" for="ltg_gio_ket_thuc">Giờ kết thúc</label>
+                <label class="control-label" for="ltg_gio_bat_dau_chieu">Giờ làm chiều</label>
                 <div class="controls">
                     <div class="input-prepend input-append">
                         <span class="add-on">giờ</span>
                         <?php
-                        echo $this->formSelect('ltg_gio_ket_thuc', $this->arrParam['ltg_gio_ket_thuc'], array('class' => 'input-small'), $gio_options);
+                        echo $this->formSelect('ltg_gio_bat_dau_chieu', $this->arrParam['ltg_gio_bat_dau_chieu'], array('class' => 'input-mini'), $gio_chieu_options);
                         ?>                        
                     </div>
                     <div class="input-prepend input-append">
                         <span class="add-on">phút</span>
                         <?php
-                        echo $this->formSelect('ltg_phut_ket_thuc', $this->arrParam['ltg_phut_ket_thuc'], array('class' => 'input-small'), $phut_options);
+                        echo $this->formSelect('ltg_phut_bat_dau_chieu', $this->arrParam['ltg_phut_bat_dau_chieu'], array('class' => 'input-mini'), $phut_options);
                         ?>                        
-                    </div>              
+                    </div> 
+                     - 
+                    <div class="input-prepend input-append">
+                        <span class="add-on">giờ</span>
+                        <?php
+                        echo $this->formSelect('ltg_gio_ket_thuc_chieu', $this->arrParam['ltg_gio_ket_thuc_chieu'], array('class' => 'input-mini'), $gio_chieu_options);
+                        ?>                        
+                    </div>
+                    <div class="input-prepend input-append">
+                        <span class="add-on">phút</span>
+                        <?php
+                        echo $this->formSelect('ltg_phut_ket_thuc_chieu', $this->arrParam['ltg_phut_ket_thuc_chieu'], array('class' => 'input-mini'), $phut_options);
+                        ?>                        
+                    </div>             
 
                 </div>            
             </div>

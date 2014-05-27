@@ -76,6 +76,11 @@ class Canhan_KhaibaothemgioController extends Zend_Controller_Action {
             $ltg_gio_ket_thuc = $this->_arrParam['ltg_gio_ket_thuc'];
             $ltg_phut_ket_thuc = $this->_arrParam['ltg_phut_ket_thuc'];
 
+            $ltg_gio_bat_dau_chieu = $this->_arrParam['ltg_gio_bat_dau_chieu'];
+            $ltg_phut_bat_dau_chieu = $this->_arrParam['ltg_phut_bat_dau_chieu'];
+            $ltg_gio_ket_thuc_chieu = $this->_arrParam['ltg_gio_ket_thuc_chieu'];
+            $ltg_phut_ket_thuc_chieu = $this->_arrParam['ltg_phut_ket_thuc_chieu'];
+
             if (!$ltg_date) {
                 $error_message[] = 'Ngày làm thêm giờ không được để trống.';
             }
@@ -84,8 +89,24 @@ class Canhan_KhaibaothemgioController extends Zend_Controller_Action {
                 $error_message[] = 'Chi tiết công việc không được để trống.';
             }
 
+            if ((!$ltg_gio_bat_dau && !$ltg_gio_bat_dau_chieu) || (!$ltg_gio_ket_thuc && !$ltg_gio_ket_thuc_chieu)) {
+                $error_message[] = 'Phải chọn giờ làm buổi sáng hoặc chiều';
+            }
+
+            if (($ltg_gio_bat_dau && !$ltg_gio_ket_thuc) || ($ltg_gio_ket_thuc && !$ltg_gio_bat_dau)) {
+                $error_message[] = 'Khai báo giờ làm buổi sáng không chính xác';
+            }
+
+            if (($ltg_gio_bat_dau_chieu && !$ltg_gio_ket_thuc_chieu) || ($ltg_gio_ket_thuc_chieu && !$ltg_gio_bat_dau_chieu)) {
+                $error_message[] = 'Khai báo giờ làm buổi chiều không chính xác';
+            }
+
             if (($ltg_gio_ket_thuc < $ltg_gio_bat_dau) || (($ltg_gio_ket_thuc == $ltg_gio_bat_dau) && ($ltg_phut_bat_dau > $ltg_phut_ket_thuc))) {
                 $error_message[] = 'Giờ kết thúc lớn hơn giờ bắt đầu.';
+            }
+
+            if (($ltg_gio_ket_thuc_chieu < $ltg_gio_bat_dau_chieu) || (($ltg_gio_ket_thuc_chieu == $ltg_gio_bat_dau_chieu) && ($ltg_phut_bat_dau_chieu > $ltg_phut_ket_thuc_chieu))) {
+                $error_message[] = 'Giờ kết thúc phải lớn hơn giờ bắt đầu.';
             }
 
             if (!sizeof($error_message)) {
@@ -100,6 +121,10 @@ class Canhan_KhaibaothemgioController extends Zend_Controller_Action {
                     'ltg_phut_bat_dau' => $ltg_phut_bat_dau,
                     'ltg_gio_ket_thuc' => $ltg_gio_ket_thuc,
                     'ltg_phut_ket_thuc' => $ltg_phut_ket_thuc,
+                    'ltg_gio_bat_dau_chieu' => $ltg_gio_bat_dau_chieu,
+                    'ltg_phut_bat_dau_chieu' => $ltg_phut_bat_dau_chieu,
+                    'ltg_gio_ket_thuc_chieu' => $ltg_gio_ket_thuc_chieu,
+                    'ltg_phut_ket_thuc_chieu' => $ltg_phut_ket_thuc_chieu,
                     'ltg_date_added' => $current_time
                         )
                 );
@@ -108,7 +133,7 @@ class Canhan_KhaibaothemgioController extends Zend_Controller_Action {
                 $data = array();
                 $data['tb_from'] = 0;
                 $data['tb_tieu_de'] = '[Thông báo] Duyệt khai báo làm thêm giờ.';
-                $data['tb_noi_dung'] = 'Có khai báo làm thêm giờ mới<br/> Bạn hãy <strong><a href="'.$this->view->baseUrl('donvi/duyetthemgio').'">click vào đây</a></strong> để xét duyệt.';
+                $data['tb_noi_dung'] = 'Có khai báo làm thêm giờ mới<br/> Bạn hãy <strong><a href="' . $this->view->baseUrl('donvi/duyetthemgio') . '">click vào đây</a></strong> để xét duyệt.';
                 $data['tb_status'] = 0;
                 $data['tb_date_added'] = $current_time;
                 $data['tb_date_modified'] = $current_time;
@@ -152,6 +177,11 @@ class Canhan_KhaibaothemgioController extends Zend_Controller_Action {
                 $ltg_gio_ket_thuc = $this->_arrParam['ltg_gio_ket_thuc'];
                 $ltg_phut_ket_thuc = $this->_arrParam['ltg_phut_ket_thuc'];
 
+                $ltg_gio_bat_dau_chieu = $this->_arrParam['ltg_gio_bat_dau_chieu'];
+                $ltg_phut_bat_dau_chieu = $this->_arrParam['ltg_phut_bat_dau_chieu'];
+                $ltg_gio_ket_thuc_chieu = $this->_arrParam['ltg_gio_ket_thuc_chieu'];
+                $ltg_phut_ket_thuc_chieu = $this->_arrParam['ltg_phut_ket_thuc_chieu'];
+
                 if (!$ltg_date) {
                     $error_message[] = 'Ngày làm thêm giờ không được để trống.';
                 }
@@ -160,8 +190,24 @@ class Canhan_KhaibaothemgioController extends Zend_Controller_Action {
                     $error_message[] = 'Chi tiết công việc không được để trống.';
                 }
 
+                if ((!$ltg_gio_bat_dau && !$ltg_gio_bat_dau_chieu) || (!$ltg_gio_ket_thuc && !$ltg_gio_ket_thuc_chieu)) {
+                    $error_message[] = 'Phải chọn giờ làm buổi sáng hoặc chiều';
+                }
+
+                if (($ltg_gio_bat_dau && !$ltg_gio_ket_thuc) || ($ltg_gio_ket_thuc && !$ltg_gio_bat_dau)) {
+                    $error_message[] = 'Khai báo giờ làm buổi sáng không chính xác';
+                }
+
+                if (($ltg_gio_bat_dau_chieu && !$ltg_gio_ket_thuc_chieu) || ($ltg_gio_ket_thuc_chieu && !$ltg_gio_bat_dau_chieu)) {
+                    $error_message[] = 'Khai báo giờ làm buổi chiều không chính xác';
+                }
+
                 if (($ltg_gio_ket_thuc < $ltg_gio_bat_dau) || (($ltg_gio_ket_thuc == $ltg_gio_bat_dau) && ($ltg_phut_bat_dau > $ltg_phut_ket_thuc))) {
                     $error_message[] = 'Giờ kết thúc lớn hơn giờ bắt đầu.';
+                }
+
+                if (($ltg_gio_ket_thuc_chieu < $ltg_gio_bat_dau_chieu) || (($ltg_gio_ket_thuc_chieu == $ltg_gio_bat_dau_chieu) && ($ltg_phut_bat_dau_chieu > $ltg_phut_ket_thuc_chieu))) {
+                    $error_message[] = 'Giờ kết thúc phải lớn hơn giờ bắt đầu.';
                 }
 
                 if (!sizeof($error_message)) {
@@ -175,9 +221,14 @@ class Canhan_KhaibaothemgioController extends Zend_Controller_Action {
                         'ltg_gio_bat_dau' => $ltg_gio_bat_dau,
                         'ltg_phut_bat_dau' => $ltg_phut_bat_dau,
                         'ltg_gio_ket_thuc' => $ltg_gio_ket_thuc,
-                        'ltg_phut_ket_thuc' => $ltg_phut_ket_thuc
+                        'ltg_phut_ket_thuc' => $ltg_phut_ket_thuc,
+                        'ltg_gio_bat_dau_chieu' => $ltg_gio_bat_dau_chieu,
+                        'ltg_phut_bat_dau_chieu' => $ltg_phut_bat_dau_chieu,
+                        'ltg_gio_ket_thuc_chieu' => $ltg_gio_ket_thuc_chieu,
+                        'ltg_phut_ket_thuc_chieu' => $ltg_phut_ket_thuc_chieu,
                             ), 'ltg_id = ' . $ltg_id
                     );
+                    $ltg_info = $ltgModel->fetchRow('ltg_id = ' . $ltg_id);
                     $success_message = 'Đã cập nhật thành công.';
                 }
             }
