@@ -74,7 +74,7 @@ class Donvi_InthemgioController extends Zend_Controller_Action {
                     $em_info = $this->view->viewGetEmployeeInfo($ltg->ltg_em_id);
                     $objPHPExcel->getActiveSheet()->SetCellValue('A' . $k, $k - 8);
                     $objPHPExcel->getActiveSheet()->SetCellValue('B' . $k, $em_info->em_ho . ' ' . $em_info->em_ten);
-                    $objPHPExcel->getActiveSheet()->SetCellValue('C' . $k, $ltg->ltg_chi_tiet);
+                    $objPHPExcel->getActiveSheet()->SetCellValue('C' . $k, strip_tags($ltg->ltg_chi_tiet));
                     $objPHPExcel->getActiveSheet()->getStyle('C' . $k)->getAlignment()->setWrapText(true);
                     $tong_gio = 0;
                     $tong_phut = 0;
