@@ -80,12 +80,19 @@ foreach ($this->list_phong_ban_option as $phong_ban) {
                         }
                     }
                     ?>  
-                    <tr class="<?php echo $class; ?>">
+                    <tr class="<?php echo $class; ?>" id="tr_id_<?php echo $item->em_id; ?>">
                         <td class="checkall_style"><input type="checkbox" name="cid[]" id="cid" value="<?php echo $item->em_id; ?>"></td>
                         <td><?php echo $item->em_ho . ' ' . $item->em_ten; ?></td>
                         <td style="width: 200px;"><?php echo $list_phong_ban[$item->em_phong_ban]; ?></td>
-                        <td style="width: 100px;"><?php echo $dv_status; ?></td>
-                        <td style="width: 100px;"><?php echo $phong_to_chuc_status; ?></td>
+                        <td style="width: 100px;"><span class="cc_<?php echo $item->em_id; ?>"><?php echo $dv_status; ?></span></td>
+                        <td style="width: 100px;">
+                            <span class="cc_<?php echo $item->em_id; ?>"><?php echo $phong_to_chuc_status; ?></span>
+                            <?php
+                            if($cham_cong && $cham_cong->c_don_vi_status>0):
+                            ?>
+                            <i class="icon-ok-sign" onclick="update_status(<?php echo $cham_cong->c_id; ?>,1)"></i> <i class="icon-remove-sign" onclick="update_status(<?php echo $cham_cong->c_id; ?>,0)"></i>
+                            <?php endif;?>
+                        </td>
                         <td style="width: 130px;">
                             <div class="dropdown float_left" style="padding-right: 6px;">
                                 <a class="btn btn-mini" id="drop_<?php echo $item->em_id; ?>" role="button" data-toggle="dropdown" href="#"><i class="icon-th-list"></i> Chức năng <b class="caret"></b></a>                                    
@@ -242,5 +249,38 @@ foreach ($this->list_phong_ban_option as $phong_ban) {
         }else{
             alert('Bạn phải nhập đầy đủ tiêu đề và nội dung!');
         }         
+    }
+    
+    function update_status(id_item, new_status){
+        $.blockUI({
+            message: '<h3>Đang thực hiện</h3>',
+            css: {                         
+                border: 'none', 
+                padding: '15px', 
+                backgroundColor: '#000', 
+                '-webkit-border-radius': '10px', 
+                '-moz-border-radius': '10px', 
+                opacity: .5, 
+                color: '#fff' 
+            }
+        }); 
+        
+        $.post( site_url+'/tochuccanbo/duyetchamcong/jqupdatestatus', {
+            item_id: id_item, 
+            item_status: new_status
+        }, function(data) {    
+            if(data.status){                
+                $.success_ui('Thông báo!', 'Duyệt thành công!', 4000);
+                $('span.cc_'+data.em_id).html(data.new_status);
+                if(new_status>0){
+                    $('#tr_id_'+data.em_id).addClass('success');
+                }else{
+                    $('#tr_id_'+data.em_id).removeClass('success');
+                }
+            }else{
+                $.error_ui('Thông báo', 'Không thể thực hiện được!', 4000); 
+            }
+        }, 'json');
+            
     }
 </script>
