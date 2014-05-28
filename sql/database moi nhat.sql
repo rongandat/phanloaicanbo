@@ -1,7 +1,7 @@
 -- MySQL Administrator dump 1.4
 --
 -- ------------------------------------------------------
--- Server version	5.6.14
+-- Server version	5.5.27
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -28,14 +28,14 @@ USE phanloaicanbo;
 DROP TABLE IF EXISTS `bac_luong`;
 CREATE TABLE `bac_luong` (
   `bl_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `bl_name` varchar(255) NOT NULL,
-  `bl_he_so_luong` text NOT NULL,
+  `bl_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `bl_he_so_luong` text COLLATE utf8_unicode_ci NOT NULL,
   `bl_status` int(10) unsigned NOT NULL DEFAULT '1',
   `bl_date_modified` datetime DEFAULT NULL,
   `bl_date_added` datetime DEFAULT NULL,
   `bl_order` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`bl_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `bac_luong`
@@ -43,9 +43,18 @@ CREATE TABLE `bac_luong` (
 
 /*!40000 ALTER TABLE `bac_luong` DISABLE KEYS */;
 INSERT INTO `bac_luong` (`bl_id`,`bl_name`,`bl_he_so_luong`,`bl_status`,`bl_date_modified`,`bl_date_added`,`bl_order`) VALUES 
- (4,'Báº­c 1','',1,'2014-04-01 17:42:24','2014-04-01 17:42:24',1),
- (5,'Báº­c 2','',1,'2014-04-01 17:44:40','2014-04-01 17:44:40',1),
- (6,'Báº­c 3','a:3:{i:4;s:1:\"1\";i:5;s:1:\"2\";i:6;s:1:\"3\";}',1,'2014-05-07 11:37:58','2014-05-07 11:37:58',1);
+ (1,'1','a:9:{i:4;s:4:\"2.34\";i:5;s:3:\"4.4\";i:6;s:4:\"1.86\";i:7;s:4:\"1.65\";i:8;s:3:\"2.1\";i:9;s:4:\"1.35\";i:10;s:3:\"1.5\";i:11;s:4:\"2.05\";i:12;s:1:\"1\";}',1,'2014-05-14 19:04:22','2014-05-14 19:04:22',0),
+ (2,'2','a:9:{i:4;s:4:\"2.67\";i:5;s:4:\"4.74\";i:6;s:4:\"2.06\";i:7;s:4:\"1.83\";i:8;s:4:\"2.41\";i:9;s:4:\"1.53\";i:10;s:4:\"1.68\";i:11;s:4:\"2.23\";i:12;s:4:\"1.18\";}',1,'2014-05-14 19:05:47','2014-05-14 19:05:47',0),
+ (3,'3','a:9:{i:4;s:1:\"3\";i:5;s:4:\"5.08\";i:6;s:4:\"2.26\";i:7;s:4:\"2.01\";i:8;s:4:\"2.72\";i:9;s:4:\"1.71\";i:10;s:4:\"1.86\";i:11;s:4:\"2.41\";i:12;s:4:\"1.36\";}',1,'2014-05-14 19:07:06','2014-05-14 19:07:06',0),
+ (4,'4','a:9:{i:4;s:4:\"3.33\";i:5;s:4:\"5.42\";i:6;s:4:\"2.46\";i:7;s:4:\"2.19\";i:8;s:4:\"3.03\";i:9;s:4:\"1.89\";i:10;s:4:\"2.04\";i:11;s:4:\"2.59\";i:12;s:4:\"1.54\";}',1,'2014-05-14 19:08:34','2014-05-14 19:08:34',0),
+ (5,'5','a:9:{i:4;s:4:\"3.66\";i:5;s:4:\"5.76\";i:6;s:4:\"2.66\";i:7;s:4:\"2.37\";i:8;s:4:\"3.34\";i:9;s:4:\"2.07\";i:10;s:4:\"2.22\";i:11;s:4:\"2.77\";i:12;s:4:\"1.72\";}',1,'2014-05-14 19:09:46','2014-05-14 19:09:46',0),
+ (6,'6','a:9:{i:4;s:4:\"3.99\";i:5;s:3:\"6.1\";i:6;s:4:\"2.86\";i:7;s:4:\"2.55\";i:8;s:4:\"3.65\";i:9;s:4:\"2.25\";i:10;s:3:\"2.4\";i:11;s:4:\"2.95\";i:12;s:3:\"1.9\";}',1,'2014-05-14 19:10:57','2014-05-14 19:10:57',0),
+ (7,'7','a:9:{i:4;s:4:\"4.32\";i:5;s:4:\"6.44\";i:6;s:4:\"3.06\";i:7;s:4:\"2.73\";i:8;s:4:\"3.96\";i:9;s:4:\"2.43\";i:10;s:4:\"2.58\";i:11;s:4:\"3.13\";i:12;s:4:\"2.08\";}',1,'2014-05-14 19:12:33','2014-05-14 19:12:33',0),
+ (8,'8','a:9:{i:4;s:4:\"4.65\";i:5;s:4:\"6.78\";i:6;s:4:\"3.26\";i:7;s:4:\"2.91\";i:8;s:4:\"4.27\";i:9;s:4:\"2.61\";i:10;s:4:\"2.76\";i:11;s:4:\"3.31\";i:12;s:4:\"2.26\";}',1,'2014-05-14 19:13:32','2014-05-14 19:13:32',0),
+ (9,'9','a:9:{i:4;s:4:\"4.98\";i:5;s:4:\"6.78\";i:6;s:4:\"3.46\";i:7;s:4:\"3.09\";i:8;s:4:\"4.58\";i:9;s:4:\"2.79\";i:10;s:4:\"2.94\";i:11;s:4:\"3.49\";i:12;s:4:\"2.44\";}',1,'2014-05-14 19:15:14','2014-05-14 19:15:14',0),
+ (10,'10','a:9:{i:4;s:4:\"4.98\";i:5;s:4:\"6.78\";i:6;s:4:\"3.66\";i:7;s:4:\"3.27\";i:8;s:4:\"4.89\";i:9;s:4:\"2.97\";i:10;s:4:\"3.12\";i:11;s:4:\"3.67\";i:12;s:4:\"2.62\";}',1,'2014-05-14 19:16:25','2014-05-14 19:16:25',0),
+ (11,'11','a:9:{i:4;s:4:\"4.98\";i:5;s:4:\"6.78\";i:6;s:4:\"3.86\";i:7;s:4:\"3.45\";i:8;s:4:\"4.89\";i:9;s:4:\"3.15\";i:10;s:3:\"3.3\";i:11;s:4:\"3.85\";i:12;s:3:\"2.8\";}',1,'2014-05-14 19:17:35','2014-05-14 19:17:35',0),
+ (12,'12','a:9:{i:4;s:4:\"4.98\";i:5;s:4:\"6.78\";i:6;s:4:\"4.06\";i:7;s:4:\"3.63\";i:8;s:4:\"4.89\";i:9;s:4:\"3.33\";i:10;s:4:\"3.48\";i:11;s:4:\"4.03\";i:12;s:4:\"2.98\";}',1,'2014-05-14 19:18:41','2014-05-14 19:18:41',0);
 /*!40000 ALTER TABLE `bac_luong` ENABLE KEYS */;
 
 
@@ -62,7 +71,7 @@ CREATE TABLE `bang_cap` (
   `bc_date_added` datetime DEFAULT NULL,
   `bc_date_modified` datetime DEFAULT NULL,
   PRIMARY KEY (`bc_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `bang_cap`
@@ -70,10 +79,11 @@ CREATE TABLE `bang_cap` (
 
 /*!40000 ALTER TABLE `bang_cap` DISABLE KEYS */;
 INSERT INTO `bang_cap` (`bc_id`,`bc_name`,`bc_order`,`bc_status`,`bc_date_added`,`bc_date_modified`) VALUES 
- (8,'Cao há»c',2,1,'2013-11-09 22:37:08','2013-11-09 22:37:08'),
+ (8,'Tháº¡c sÄ©',4,1,'2013-11-09 22:37:08','2014-04-16 22:41:41'),
  (9,'Trung cáº¥p',1,1,'2014-02-23 16:57:26','2014-02-23 16:57:26'),
- (10,'Cap Ä‘áº³ng',2,1,'2014-02-23 16:57:33','2014-02-23 16:57:33'),
- (11,'Äáº¡i há»c',3,1,'2014-02-23 16:57:40','2014-02-23 16:57:40');
+ (10,'Cao Ä‘áº³ng',2,1,'2014-02-23 16:57:33','2014-02-25 21:16:37'),
+ (11,'Äáº¡i há»c',3,1,'2014-02-23 16:57:40','2014-02-23 16:57:40'),
+ (12,'Tiáº¿n sÄ©',5,1,'2014-04-16 22:42:02','2014-04-16 22:42:02');
 /*!40000 ALTER TABLE `bang_cap` ENABLE KEYS */;
 
 
@@ -89,8 +99,8 @@ CREATE TABLE `bang_luong` (
   `bl_date_added` datetime NOT NULL,
   `bl_date_modified` datetime NOT NULL,
   `bl_luong_toi_thieu` int(10) unsigned NOT NULL DEFAULT '0',
-  `bl_giai_doan` int(10) unsigned NOT NULL DEFAULT '0',
-  `bl_loai_luong` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '0: chinh thuc, 1: hop dong',
+  `bl_giai_doan` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '0: chinh thuc, 1: thu viec',
+  `bl_loai_luong` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '0: bien che, 1: hop dong',
   `bl_bhxh` float NOT NULL DEFAULT '0',
   `bl_bhyt` float NOT NULL DEFAULT '0',
   `bl_pc_tang_them` float NOT NULL DEFAULT '0',
@@ -111,21 +121,33 @@ CREATE TABLE `bang_luong` (
   `bl_pc_khac_type` int(10) unsigned NOT NULL DEFAULT '0',
   `bl_phan_loai` varchar(45) NOT NULL DEFAULT 'A',
   `bl_phan_loai_he_so` float NOT NULL DEFAULT '1.2',
+  `bl_pc_doc_hai` float NOT NULL DEFAULT '0',
+  `bl_pc_doc_hai_type` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`bl_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `bang_luong`
 --
 
 /*!40000 ALTER TABLE `bang_luong` DISABLE KEYS */;
-INSERT INTO `bang_luong` (`bl_id`,`bl_em_id`,`bl_ptccb_id`,`bl_date_added`,`bl_date_modified`,`bl_luong_toi_thieu`,`bl_giai_doan`,`bl_loai_luong`,`bl_bhxh`,`bl_bhyt`,`bl_pc_tang_them`,`bl_pc_kiem_nhiem`,`bl_hs_luong`,`bl_hs_pc_cong_viec`,`bl_hs_pc_trach_nhiem`,`bl_hs_pc_khu_vuc`,`bl_hs_pc_tnvk`,`bl_tham_nien`,`bl_hs_pc_udn`,`bl_hs_pc_cong_vu`,`bl_hs_pc_khac`,`bl_date`,`bl_luong_thu_viec`,`bl_time_tham_nien`,`bl_pc_thu_hut`,`bl_pc_khac_type`,`bl_phan_loai`,`bl_phan_loai_he_so`) VALUES 
- (1,1,1,'2014-02-23 15:50:42','2014-02-23 18:11:07',1050000,0,0,7,1.5,0.5,0,3.66,0.55,0.05,0,0,19,20,25,0,'2014-02-01 00:00:07',0,NULL,0,0,'A',1.2),
- (2,1,1,'2014-02-23 16:30:00','2014-02-23 16:30:00',1050000,0,0,7,1.5,0.5,0,3.66,0.55,0.05,0,0,19,20,25,0,'2014-01-01 00:00:07',0,NULL,0,0,'A',1.2),
- (3,2,22,'2014-04-13 12:04:33','2014-04-13 12:04:33',1050000,0,0,7,1.5,0.5,9,1,2,4,0,6,14,7,8,10,'2014-04-01 00:00:07',0,NULL,3,1,'B',1),
- (4,2,22,'2014-04-13 12:05:35','2014-04-13 12:05:35',1050000,0,0,7,1.5,0.5,9,1,2,4,0,6,14,7,8,10,'2014-03-01 00:00:07',0,NULL,3,1,'A',1.2),
- (5,22,22,'2014-04-13 21:42:44','2014-04-13 21:42:44',1050000,0,0,7,1.5,0.5,9,1,2,4,0,6,44,7,8,10,'2014-02-01 00:00:07',0,NULL,3,0,'A',1.2),
- (6,22,22,'2014-04-13 21:42:55','2014-04-13 21:42:55',1050000,0,0,7,1.5,0.5,9,1,2,4,0,6,44,7,8,10,'2014-03-01 00:00:07',0,NULL,3,0,'A',1.2);
+INSERT INTO `bang_luong` (`bl_id`,`bl_em_id`,`bl_ptccb_id`,`bl_date_added`,`bl_date_modified`,`bl_luong_toi_thieu`,`bl_giai_doan`,`bl_loai_luong`,`bl_bhxh`,`bl_bhyt`,`bl_pc_tang_them`,`bl_pc_kiem_nhiem`,`bl_hs_luong`,`bl_hs_pc_cong_viec`,`bl_hs_pc_trach_nhiem`,`bl_hs_pc_khu_vuc`,`bl_hs_pc_tnvk`,`bl_tham_nien`,`bl_hs_pc_udn`,`bl_hs_pc_cong_vu`,`bl_hs_pc_khac`,`bl_date`,`bl_luong_thu_viec`,`bl_time_tham_nien`,`bl_pc_thu_hut`,`bl_pc_khac_type`,`bl_phan_loai`,`bl_phan_loai_he_so`,`bl_pc_doc_hai`,`bl_pc_doc_hai_type`) VALUES 
+ (4,1,1,'2014-04-15 01:06:45','2014-04-16 21:35:55',1150000,0,0,8,1.5,0.5,9.1,3.66,0,0,0,0,1,0,0,1,'2014-04-01 00:00:07',0,NULL,20,0,'A',1.2,0,0),
+ (5,1,1,'2014-04-16 21:36:07','2014-04-16 21:36:07',1150000,0,0,8,1.5,0.5,9.1,1.1,2.1,4.1,5.1,6.1,13,7.1,8.1,10.1,'2014-03-01 00:00:07',0,NULL,3.1,0,'A',1.2,0,0),
+ (6,13,13,'2014-04-16 21:38:08','2014-04-16 21:38:08',1150000,0,0,8,1.5,0.5,0,3,0.3,0,0,0,9,20,25,0,'2014-04-01 00:00:07',0,NULL,0,0,'A',1.2,0,0),
+ (7,1,1,'2014-04-16 21:38:09','2014-04-16 21:38:09',1150000,0,0,8,1.5,0.5,9.1,1.1,2.1,4.1,5.1,6.1,13,7.1,8.1,10.1,'2014-02-01 00:00:07',0,NULL,3.1,0,'A',1.2,0,0),
+ (8,19,13,'2014-04-17 22:59:09','2014-04-17 22:59:09',1150000,0,0,8,1.5,0.5,0,2.34,0,0,0,0,1,20,25,0,'2014-03-01 00:00:07',0,NULL,0,0,'A',1.2,0,0),
+ (9,19,13,'2014-04-17 22:59:35','2014-04-17 22:59:35',1150000,0,0,8,1.5,0.5,0,2.34,0,0,0,0,1,20,25,0,'2014-04-01 00:00:07',0,NULL,0,0,'A',1.2,0,0),
+ (10,67,69,'2014-05-15 03:53:48','2014-05-15 23:01:51',1150000,0,0,8,1.5,0.5,0,4.32,0.5,0,0,0,23,20,25,0,'2014-04-01 00:00:07',0,NULL,0,0,'A',1.2,0,0),
+ (11,73,69,'2014-05-15 22:52:39','2014-05-15 22:52:39',1150000,0,0,8,1.5,0.5,0,2.34,0,0,0,0,1,20,25,0,'2014-05-01 00:00:07',0,NULL,0,0,'A',1.2,0,0),
+ (12,73,69,'2014-05-15 22:52:55','2014-05-15 22:56:16',1150000,0,0,8,1.5,0.5,0,2.34,0,0,0,0,1,20,25,0,'2014-04-01 00:00:07',0,NULL,0,0,'',0,0,0),
+ (13,68,69,'2014-05-15 22:53:46','2014-05-15 22:53:46',1150000,0,0,8,1.5,0.5,0,4.74,0.3,0,0,0,19,15,25,0,'2014-04-01 00:00:07',0,NULL,0,0,'',0,0,0),
+ (14,69,69,'2014-05-15 22:54:11','2014-05-15 22:54:11',1150000,0,0,8,1.5,0.5,0,3,0.3,0,0,0,8,20,25,0,'2014-04-01 00:00:07',0,NULL,0,0,'A',1.2,0,0),
+ (15,70,69,'2014-05-15 22:54:37','2014-05-15 22:54:37',1150000,0,0,8,1.5,0.5,0,3.66,0,0,0,0,12,20,25,0,'2014-04-01 00:00:07',0,NULL,0,0,'',0,0,0),
+ (16,71,69,'2014-05-15 22:55:03','2014-05-15 22:55:03',1150000,0,0,8,1.5,0.5,0,2.67,0,0,0,0,3,20,25,0,'2014-04-01 00:00:07',0,NULL,0,0,'',0,0,0),
+ (17,72,69,'2014-05-15 22:55:38','2014-05-15 22:55:38',1150000,0,0,8,1.5,0.5,0,2.34,0,0,0,0,1,20,25,0,'2014-04-01 00:00:07',0,NULL,0,0,'',0,0,0),
+ (18,70,73,'2014-05-16 04:47:41','2014-05-16 04:47:41',1150000,0,0,8,1.5,0.5,0,4.32,0,0,0.5,0,12,20,25,0,'2014-05-01 00:00:07',0,NULL,0,0,'A',1.2,0,0),
+ (19,67,69,'2014-05-18 22:27:52','2014-05-18 22:28:40',1150000,0,0,8,1.5,0.5,0,4.32,0.5,0,0,0,23,20,25,0,'2014-05-01 00:00:07',0,NULL,0,0,'A',1.2,0,0);
 /*!40000 ALTER TABLE `bang_luong` ENABLE KEYS */;
 
 
@@ -175,7 +197,7 @@ CREATE TABLE `cham_cong` (
   `c_date_created` datetime DEFAULT NULL,
   `c_date_modifyed` datetime DEFAULT NULL,
   PRIMARY KEY (`c_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `cham_cong`
@@ -183,8 +205,30 @@ CREATE TABLE `cham_cong` (
 
 /*!40000 ALTER TABLE `cham_cong` DISABLE KEYS */;
 INSERT INTO `cham_cong` (`c_id`,`c_em_id`,`c_thang`,`c_nam`,`c_ngay_1`,`c_ngay_2`,`c_ngay_3`,`c_ngay_4`,`c_ngay_5`,`c_ngay_6`,`c_ngay_7`,`c_ngay_8`,`c_ngay_9`,`c_ngay_10`,`c_ngay_11`,`c_ngay_12`,`c_ngay_13`,`c_ngay_14`,`c_ngay_15`,`c_ngay_16`,`c_ngay_17`,`c_ngay_18`,`c_ngay_19`,`c_ngay_20`,`c_ngay_21`,`c_ngay_22`,`c_ngay_23`,`c_ngay_24`,`c_ngay_25`,`c_ngay_26`,`c_ngay_27`,`c_ngay_28`,`c_ngay_29`,`c_ngay_30`,`c_ngay_31`,`c_don_vi_status`,`c_ptccb_status`,`c_date_created`,`c_date_modifyed`) VALUES 
- (2,1,2,2014,'9','','','','','','','9','8','0','0','0','0','0','9','8','0','0','0','0','0','9','8','0','','','','4','','','',1,1,'2014-02-08 23:08:39','2014-02-08 23:18:29'),
- (3,22,1,2014,'10','10','10','9','8','10','10','10','11','12','9','8','10','10','10','10','10','9','8','10','10','10','10','10','9','8','10','10','10','10','10',-1,-1,'2014-05-13 13:55:25','2014-05-13 13:55:25');
+ (2,1,2,2014,'9','','','','','','','9','8','0','0','0','0','0','9','8','0','0','0','0','0','9','8','0','','','','4','','','',-1,-1,'2014-02-08 23:08:39','2014-02-08 23:18:29'),
+ (3,17,2,2014,'9','8','0','0','-2','-2','-2','9','8','0','0','0','0','0','9','8','0','0','0','0','0','9','8','0','0','0','0','0','','','',-1,1,'2014-02-28 03:30:37','2014-02-28 03:30:37'),
+ (4,13,2,2014,'','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',-1,-1,'2014-03-05 22:10:15','2014-03-05 22:10:15'),
+ (5,1,4,2014,'-2','8','4','9','5','','-2','0','0','','','','','','','','','','','','','','','','','','','','','','',-1,-1,'2014-04-15 00:42:06','2014-04-15 00:42:06'),
+ (6,13,3,2014,'9','9','0','0','0','0','0','9','8','0','0','0','0','0','9','8','0','0','0','0','0','9','8','0','0','0','0','0','9','8','0',-1,1,'2014-04-16 03:26:56','2014-04-16 21:31:34'),
+ (7,13,4,2014,'','','','','','','','','','','','','','','','','','','','','','','','','','9','8','0','0','0','',-1,1,'2014-04-16 03:32:37','2014-04-16 03:32:37'),
+ (8,19,3,2014,'0','8','0','0','0','0','0','9','8','0','0','0','0','0','9','0','0','0','0','0','0','9','8','0','0','0','0','0','9','8','0',-1,1,'2014-04-17 22:39:16','2014-04-17 22:39:16'),
+ (9,19,4,2014,'0','0','0','0','9','8','0','0','0','0','0','9','8','0','0','0','0','0','9','8','0','','','','0','9','8','0','0','0','',1,1,'2014-04-17 22:42:05','2014-04-17 22:42:05'),
+ (10,13,5,2014,'23','23','23','','23','23','23','23','23','23','','23','24','23','15','23','23','','23','23','23','23','23','23','','23','23','23','23','23','13',-1,-1,'2014-05-14 19:28:36','2014-05-14 19:28:36'),
+ (11,73,4,2014,'13','23','23','23','','','23','23','23','23','23','','23','23','14','23','23','23','','','23','23','23','23','23','23','','23','23','22','',-1,-1,'2014-05-15 02:48:07','2014-05-15 02:48:07'),
+ (12,68,4,2014,'23','23','23','23','','','23','13','23','23','23','','','13','23','23','23','23','','','23','23','23','23','23','','','13','23','23','',-1,-1,'2014-05-15 03:09:56','2014-05-15 03:09:56'),
+ (13,70,5,2014,'23','13','','','23','23','21','23','23','','','23','23','23','23','14','','','23','23','23','23','20','','','23','23','23','23','23','',-1,-1,'2014-05-15 03:28:17','2014-05-15 03:28:17'),
+ (14,70,4,2014,'23','23','23','23','','','23','14','23','23','23','','','23','23','23','23','23','','23','23','23','21','23','23','','','13','23','23','',-1,-1,'2014-05-15 03:29:09','2014-05-15 03:29:09'),
+ (15,71,4,2014,'23','23','23','23','','','23','23','23','23','23','','','23','23','23','23','23','','','23','23','23','23','23','','','23','13','23','',-1,-1,'2014-05-15 03:31:35','2014-05-15 03:31:35'),
+ (16,72,5,2014,'23','23','','','23','13','23','23','13','','','23','23','23','23','23','','','23','23','23','23','23','','','23','23','23','23','23','',-1,-1,'2014-05-15 03:33:23','2014-05-15 03:33:23'),
+ (17,72,4,2014,'23','23','23','23','','','23','23','23','23','23','','23','23','23','23','23','23','','','23','23','23','23','23','','','13','23','23','',-1,-1,'2014-05-15 03:39:01','2014-05-15 03:39:01'),
+ (18,67,4,2014,'23','23','23','23','','','23','23','23','23','13','','','23','23','23','23','23','','','23','23','13','23','23','','','23','23','23','',-1,-1,'2014-05-15 03:40:29','2014-05-15 03:40:29'),
+ (19,69,4,2014,'23','23','23','23','','','23','23','23','23','13','','','23','23','23','23','23','','','23','23','23','23','23','','','23','23','23','',-1,-1,'2014-05-15 03:42:05','2014-05-15 03:42:05'),
+ (20,330,4,2014,'23','23','23','23','','23','23','23','23','23','23','','','23','23','23','23','23','23','','23','23','23','23','23','','','14','23','22','',1,-1,'2014-05-16 03:40:35','2014-05-16 03:43:11'),
+ (21,67,5,2014,'','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',-1,-1,'2014-05-16 04:04:30','2014-05-18 11:16:59'),
+ (22,68,5,2014,'','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',1,-1,'2014-05-16 04:04:30','2014-05-16 04:04:30'),
+ (23,69,5,2014,'','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',1,1,'2014-05-16 04:04:30','2014-05-16 04:04:30'),
+ (24,71,5,2014,'','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',-1,-1,'2014-05-16 04:04:30','2014-05-16 04:04:30'),
+ (25,73,5,2014,'','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',-1,-1,'2014-05-16 04:04:30','2014-05-16 04:04:30');
 /*!40000 ALTER TABLE `cham_cong` ENABLE KEYS */;
 
 
@@ -201,7 +245,7 @@ CREATE TABLE `chuc_vu` (
   `cv_date_added` datetime DEFAULT NULL,
   `cv_date_modified` datetime DEFAULT NULL,
   PRIMARY KEY (`cv_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `chuc_vu`
@@ -209,8 +253,21 @@ CREATE TABLE `chuc_vu` (
 
 /*!40000 ALTER TABLE `chuc_vu` DISABLE KEYS */;
 INSERT INTO `chuc_vu` (`cv_id`,`cv_name`,`cv_order`,`cv_status`,`cv_date_added`,`cv_date_modified`) VALUES 
- (4,'GiÃ¡m Ä‘á»‘c',1,1,'2013-11-10 21:38:30','2013-11-10 21:38:30'),
- (6,'TrÆ°á»Ÿng Ä‘Æ¡n vá»‹',1,1,'2013-11-10 21:38:47','2013-11-10 21:38:47');
+ (4,'Cá»¥c trÆ°á»Ÿng',1,1,'2013-11-10 21:38:30','2014-02-25 02:32:38'),
+ (6,'PhÃ³ Cá»¥c trÆ°á»Ÿng',2,1,'2013-11-10 21:38:47','2014-02-25 02:32:55'),
+ (7,'Chi cá»¥c trÆ°á»Ÿng',4,1,'2014-02-25 02:33:09','2014-04-16 22:36:56'),
+ (8,'PhÃ³ Chi cá»¥c trÆ°á»Ÿng',7,1,'2014-02-25 02:33:21','2014-04-16 22:37:16'),
+ (9,'Äá»™i trÆ°á»Ÿng thuá»™c Cá»¥c',5,1,'2014-02-25 02:33:31','2014-02-25 02:33:31'),
+ (10,'PhÃ³ Äá»™i trÆ°á»Ÿng thuá»™c Cá»¥c',6,1,'2014-02-25 02:33:45','2014-02-25 02:33:45'),
+ (11,'Äá»™i trÆ°á»Ÿng thuá»™c Chi cá»¥c',9,1,'2014-02-25 02:33:57','2014-02-25 02:50:21'),
+ (12,'PhÃ³ Äá»™i trÆ°á»Ÿng thuá»™c Chi cá»¥c',10,1,'2014-02-25 02:34:11','2014-02-25 02:50:39'),
+ (13,'TrÆ°á»Ÿng phÃ²ng',3,1,'2014-02-25 02:49:44','2014-04-16 22:36:31'),
+ (14,'PhÃ³ TrÆ°á»Ÿng phÃ²ng',8,1,'2014-02-25 02:49:55','2014-02-25 02:49:55'),
+ (15,'ChÃ¡nh VÄƒn phÃ²ng',3,1,'2014-02-25 21:00:00','2014-02-25 21:12:56'),
+ (16,'Tá»• trÆ°á»Ÿng',11,1,'2014-04-16 22:37:59','2014-04-16 22:37:59'),
+ (17,'PhÃ³ Tá»• trÆ°á»Ÿng',12,1,'2014-04-16 22:38:11','2014-04-16 22:38:11'),
+ (18,'CÃ´ng chá»©c',13,1,'2014-04-17 05:12:58','2014-04-17 05:12:58'),
+ (19,'PhÃ³ ChÃ¡nh VÄƒn phÃ²ng',7,1,'2014-04-17 20:55:04','2014-04-17 20:55:04');
 /*!40000 ALTER TABLE `chuc_vu` ENABLE KEYS */;
 
 
@@ -227,7 +284,7 @@ CREATE TABLE `chuc_vu_cong_doan` (
   `cvcdoan_date_added` datetime DEFAULT NULL,
   `cvcdoan_date_modified` datetime DEFAULT NULL,
   PRIMARY KEY (`cvcdoan_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `chuc_vu_cong_doan`
@@ -235,8 +292,12 @@ CREATE TABLE `chuc_vu_cong_doan` (
 
 /*!40000 ALTER TABLE `chuc_vu_cong_doan` DISABLE KEYS */;
 INSERT INTO `chuc_vu_cong_doan` (`cvcdoan_id`,`cvcdoan_name`,`cvcdoan_order`,`cvcdoan_status`,`cvcdoan_date_added`,`cvcdoan_date_modified`) VALUES 
- (14,'Chá»©c vá»¥ 1',1,1,'2014-02-09 11:33:34','2014-02-09 11:33:34'),
- (15,'Chá»© vá»¥ 2',2,1,'2014-02-09 11:33:42','2014-02-09 11:33:42');
+ (14,'Chá»§ tá»‹ch CÃ´ng Ä‘oÃ n cÆ¡ sá»Ÿ',1,1,'2014-02-09 11:33:34','2014-02-25 02:38:21'),
+ (15,'PhÃ³ Chá»§ tá»‹ch CÃ´ng Ä‘oÃ n cÆ¡ sá»Ÿ',2,1,'2014-02-09 11:33:42','2014-02-25 02:38:40'),
+ (16,'Chá»§ tá»‹ch cÃ´ng Ä‘oÃ n bá»™ pháº­n',4,1,'2014-02-25 02:39:06','2014-02-25 02:39:06'),
+ (17,'UV BCH CÃ´ng Ä‘oÃ n cÆ¡ sá»Ÿ',3,1,'2014-02-25 02:39:18','2014-02-25 02:39:18'),
+ (18,'PhÃ³ Chá»§ tá»‹ch CÃ´ng Ä‘oÃ n bá»™ pháº­n',5,1,'2014-02-25 02:39:36','2014-02-25 02:39:36'),
+ (19,'UV BCH CÃ´ng Ä‘oÃ n bá»™ pháº­n',6,1,'2014-02-25 02:39:51','2014-02-25 02:39:51');
 /*!40000 ALTER TABLE `chuc_vu_cong_doan` ENABLE KEYS */;
 
 
@@ -253,7 +314,7 @@ CREATE TABLE `chuc_vu_dang` (
   `cvdang_date_added` datetime DEFAULT NULL,
   `cvdang_date_modified` datetime DEFAULT NULL,
   PRIMARY KEY (`cvdang_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `chuc_vu_dang`
@@ -261,8 +322,13 @@ CREATE TABLE `chuc_vu_dang` (
 
 /*!40000 ALTER TABLE `chuc_vu_dang` DISABLE KEYS */;
 INSERT INTO `chuc_vu_dang` (`cvdang_id`,`cvdang_name`,`cvdang_order`,`cvdang_status`,`cvdang_date_added`,`cvdang_date_modified`) VALUES 
- (9,'BÃ­ thÆ°',0,1,'2014-02-09 10:57:40','2014-02-09 10:57:40'),
- (10,'PhÃ³ bÃ­ thÆ°',1,1,'2014-02-09 10:58:01','2014-02-09 10:58:01');
+ (9,'BÃ­ thÆ° Äáº£ng á»§y',1,1,'2014-02-09 10:57:40','2014-02-25 02:35:40'),
+ (10,'PhÃ³ BÃ­ thÆ° Äáº£ng á»§y',2,1,'2014-02-09 10:58:01','2014-02-25 02:35:55'),
+ (11,'BÃ­ thÆ° Chi bá»™',4,1,'2014-02-25 02:36:11','2014-02-25 02:36:55'),
+ (12,'PhÃ³ BÃ­ thÆ° Chi bá»™',5,1,'2014-02-25 02:36:24','2014-02-25 02:37:05'),
+ (13,'UV BCH Äáº£ng bá»™',3,1,'2014-02-25 02:36:44','2014-02-25 02:36:44'),
+ (14,'UV BCH Chi bá»™',6,1,'2014-02-25 02:37:27','2014-02-25 02:37:27'),
+ (15,'Äáº£ng viÃªn',7,1,'2014-02-25 02:37:50','2014-02-25 02:37:50');
 /*!40000 ALTER TABLE `chuc_vu_dang` ENABLE KEYS */;
 
 
@@ -279,7 +345,7 @@ CREATE TABLE `chuc_vu_doan` (
   `cvdoan_date_added` datetime DEFAULT NULL,
   `cvdoan_date_modified` datetime DEFAULT NULL,
   PRIMARY KEY (`cvdoan_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `chuc_vu_doan`
@@ -287,9 +353,13 @@ CREATE TABLE `chuc_vu_doan` (
 
 /*!40000 ALTER TABLE `chuc_vu_doan` DISABLE KEYS */;
 INSERT INTO `chuc_vu_doan` (`cvdoan_id`,`cvdoan_name`,`cvdoan_order`,`cvdoan_status`,`cvdoan_date_added`,`cvdoan_date_modified`) VALUES 
- (9,'BÃ­ thÆ°',0,1,'2014-02-09 10:49:12','2014-02-09 10:49:46'),
- (12,'PhÃ³ bÃ­ thÆ°',1,1,'2014-02-09 10:50:51','2014-02-09 10:50:51'),
- (13,'ÄoÃ n viÃªn',2,1,'2014-02-09 10:50:58','2014-02-09 10:50:58');
+ (9,'BÃ­ thÆ° ÄoÃ n cÆ¡ sá»Ÿ',0,1,'2014-02-09 10:49:12','2014-02-25 02:27:15'),
+ (12,'PhÃ³ bÃ­ thÆ° ÄoÃ n cÆ¡ sá»Ÿ',1,1,'2014-02-09 10:50:51','2014-02-25 02:27:29'),
+ (13,'UV BCH ÄoÃ n cÆ¡ sá»Ÿ',2,1,'2014-02-09 10:50:58','2014-02-25 02:27:48'),
+ (14,'BÃ­ thÆ° Chi Ä‘oÃ n',3,1,'2014-02-25 02:28:02','2014-02-25 02:28:16'),
+ (15,'PhÃ³ BÃ­ thÆ° Chi Ä‘oÃ n',4,1,'2014-02-25 02:28:34','2014-02-25 02:28:34'),
+ (16,'UV BCH Chi Ä‘oÃ n',5,1,'2014-02-25 02:28:49','2014-02-25 02:28:49'),
+ (17,'ÄoÃ n viÃªn',6,1,'2014-02-25 02:29:07','2014-02-25 02:29:07');
 /*!40000 ALTER TABLE `chuc_vu_doan` ENABLE KEYS */;
 
 
@@ -307,7 +377,7 @@ CREATE TABLE `chung_chi` (
   `cc_date_added` datetime DEFAULT NULL,
   `cc_date_modified` datetime DEFAULT NULL,
   PRIMARY KEY (`cc_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `chung_chi`
@@ -315,9 +385,22 @@ CREATE TABLE `chung_chi` (
 
 /*!40000 ALTER TABLE `chung_chi` DISABLE KEYS */;
 INSERT INTO `chung_chi` (`cc_id`,`cc_name`,`cc_type`,`cc_order`,`cc_status`,`cc_date_added`,`cc_date_modified`) VALUES 
- (1,'Tiáº¿ng Anh B1',1,0,1,'2013-11-27 11:14:35','2013-11-27 11:14:35'),
- (2,'Tin há»c 1',2,2,1,'2013-11-27 11:15:04','2013-11-27 11:15:04'),
- (3,'ABC',0,0,1,'2013-11-27 11:15:28','2013-11-27 11:15:28');
+ (1,'Anh A',1,1,1,'2013-11-27 11:14:35','2014-04-16 22:44:46'),
+ (2,'VÄƒn phÃ²ng C',2,3,1,'2013-11-27 11:15:04','2014-04-16 22:42:55'),
+ (4,'VÄƒn phÃ²ng A',2,1,1,'2014-04-16 22:43:16','2014-04-16 22:43:16'),
+ (5,'VÄƒn phÃ²ng B',2,2,1,'2014-04-16 22:43:29','2014-04-16 22:43:29'),
+ (6,'Anh B',1,2,1,'2014-04-16 22:45:02','2014-04-16 22:45:02'),
+ (7,'Anh C',1,3,1,'2014-04-16 22:45:12','2014-04-16 22:45:12'),
+ (8,'Anh B1 ChÃ¢u Ã‚u',1,4,1,'2014-04-16 22:45:56','2014-04-16 22:45:56'),
+ (9,'Cá»­ nhÃ¢n',1,0,1,'2014-04-16 22:46:27','2014-04-16 22:47:10'),
+ (10,'Cá»­ nhÃ¢n',2,0,1,'2014-04-16 22:47:38','2014-04-16 22:47:38'),
+ (11,'PhÃ¡p',1,4,1,'2014-04-16 22:48:05','2014-04-16 22:48:05'),
+ (12,'Nga',1,6,1,'2014-04-16 22:48:14','2014-04-16 22:48:14'),
+ (13,'Trung',1,7,1,'2014-04-16 22:48:22','2014-04-16 22:48:22'),
+ (14,'Äá»©c',1,8,1,'2014-04-16 22:48:33','2014-04-16 22:48:33'),
+ (15,'Nháº­t',1,9,1,'2014-04-16 22:48:41','2014-04-16 22:48:41'),
+ (16,'LÃ o',1,10,1,'2014-04-16 22:49:58','2014-04-16 22:49:58'),
+ (17,'LÃ o',1,10,1,'2014-04-16 22:50:43','2014-04-16 22:50:43');
 /*!40000 ALTER TABLE `chung_chi` ENABLE KEYS */;
 
 
@@ -423,7 +506,7 @@ CREATE TABLE `danh_gia` (
   `dg_date_created` datetime DEFAULT NULL,
   `dg_date_modifyed` datetime DEFAULT NULL,
   PRIMARY KEY (`dg_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `danh_gia`
@@ -435,9 +518,27 @@ INSERT INTO `danh_gia` (`dg_id`,`dg_em_id`,`dg_thang`,`dg_nam`,`dg_cong_viec`,`d
  (2,13,2,2014,'',0,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'A','2014-02-19 23:06:35','2014-02-19 23:06:35'),
  (3,1,3,2014,'',0,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'A','2014-02-19 23:09:00','2014-02-19 23:09:00'),
  (4,13,3,2014,'',0,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'B','2014-02-19 23:09:03','2014-02-19 23:09:03'),
- (5,22,4,2014,'<p>zxzxc</p>',9,0,'<p>sdfdsf</p>','<p>fsdf</p>','<p>fsdfsd</p>','a:2:{i:4;s:1:\"0\";i:5;s:1:\"0\";}','<p>fsdfsdf</p>','A','B','C','2014-04-03 23:12:26','2014-04-03 23:15:25'),
- (6,22,5,2014,'<p>dsfgdsf</p>',9,0,'<p>fsdfsd</p>','','<p>fsdfsd</p>','a:2:{i:4;s:1:\"0\";i:5;s:1:\"0\";}','','C','C','C','2014-04-13 12:08:13','2014-04-13 12:08:13'),
- (7,1,5,2014,'',0,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'B','2014-05-07 10:21:34','2014-05-07 10:21:34');
+ (5,17,2,2014,'<p>jkhkjh</p>\r\n<p>jhgjh</p>\r\n<p>jhgk</p>',9,1,'<p>jiohioh</p>','<p>uá»µtugj</p>','<p>á»‹iljljl</p>','a:2:{i:4;s:1:\"0\";i:5;s:1:\"0\";}','<p>uhiughuig</p>','A',NULL,NULL,'2014-02-28 03:33:37','2014-02-28 03:33:37'),
+ (6,13,4,2014,'<p>B&aacute;o c&aacute;o tá»•ng há»£p</p>',9,0,'','<p>Tá»‘t</p>','','a:2:{i:4;s:1:\"0\";i:5;s:1:\"0\";}','','A','A','A','2014-04-14 02:25:16','2014-04-14 02:25:16'),
+ (7,1,4,2014,'<p>Lam viec A</p>',9,0,'<p>Ko nghi buoi nao</p>','<p>dsad</p>','<p>Ä‘as</p>','a:2:{i:4;s:1:\"0\";i:5;s:1:\"0\";}','<p>Ä‘as</p>','A',NULL,'A','2014-04-15 00:42:43','2014-04-15 00:42:43'),
+ (8,19,4,2014,'<p>- N&acirc;ng lÆ°Æ¡ng th&aacute;ng 4/2014</p>\r\n<p>- Xáº¿p loáº¡i ABC th&aacute;ng 3</p>\r\n<p>- Äiá»u Ä‘á»™ng lu&acirc;n chuyá»ƒn Ä‘á»£t 1/2014</p>\r\n<p>- Cháº¡y thá»­ pháº§n má»m TCCB</p>',9,3,'<p>Nghá»‰ ph&eacute;p</p>','<p>Tá»‘t</p>','','a:2:{i:4;s:1:\"0\";i:5;s:1:\"0\";}','','A','A','A','2014-04-17 22:44:54','2014-04-17 22:44:54'),
+ (9,19,3,2014,'<p>- N&acirc;ng lÆ°Æ¡ng 3/2014</p>\r\n<p>- Xáº¿p loáº¡i th&aacute;ng 2</p>\r\n<p>- Theo d&otilde;i cáº­p nháº­t pháº§n má»m</p>',9,0,'','','','a:2:{i:4;s:1:\"0\";i:5;s:1:\"0\";}','','A',NULL,NULL,'2014-04-17 22:45:55','2014-04-17 22:45:55'),
+ (10,30,4,2014,'',0,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'A','2014-04-17 22:53:30','2014-04-17 22:53:30'),
+ (11,29,4,2014,'',0,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'A','2014-04-17 22:53:33','2014-04-17 22:53:33'),
+ (12,28,4,2014,'',0,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'A','2014-04-17 22:53:37','2014-04-17 22:53:37'),
+ (13,23,4,2014,'<p>r34tewyeuywt55u</p>\r\n<p>\\hshf</p>',9,0,'','','','a:2:{i:4;s:1:\"0\";i:5;s:1:\"0\";}','','A','A','A','2014-04-25 21:44:15','2014-04-25 21:44:15'),
+ (14,13,5,2014,'',0,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'A','2014-05-14 23:17:01','2014-05-14 23:17:01'),
+ (15,73,4,2014,'<p>Quáº£n l&yacute; th&ocirc;ng tin CBCC</p>\r\n<p>Xáº¿p loáº¡i ABC</p>\r\n<p>N&acirc;ng lÆ°Æ¡ng</p>\r\n<p>Äiá»u Ä‘á»™ng</p>',9,0,'','','','a:2:{i:4;s:1:\"0\";i:5;s:1:\"0\";}','','A','','','2014-05-15 02:51:37','2014-05-15 02:51:37'),
+ (16,68,4,2014,'<p>Phá»¥ tr&aacute;ch Ä&agrave;o táº¡o, Thi Ä‘ua khen thÆ°á»Ÿng</p>',9,0,'','','','a:2:{i:4;s:1:\"0\";i:5;s:1:\"0\";}','','A','','','2014-05-15 03:11:20','2014-05-15 03:11:20'),
+ (17,70,4,2014,'<p>BHXH</p>\r\n<p>Thai sáº£n</p>',9,0,'','','','a:2:{i:4;s:1:\"0\";i:5;s:1:\"0\";}','','A','','','2014-05-15 03:29:51','2014-05-15 03:29:51'),
+ (18,71,4,2014,'<p>Ä&agrave;o táº¡o</p>\r\n<p>Thi Ä‘ua khen thÆ°á»Ÿng</p>\r\n<p>Ti&ecirc;u ch&iacute; Ä‘&aacute;nh gi&aacute; c&aacute;n bá»™</p>',9,0,'','','','a:2:{i:4;s:1:\"0\";i:5;s:1:\"0\";}','','A','','','2014-05-15 03:32:15','2014-05-15 03:32:15'),
+ (19,72,5,2014,'<p>HÄLÄ</p>\r\n<p>B&aacute;o c&aacute;o TCCB</p>',9,0,'','','','a:2:{i:4;s:1:\"0\";i:5;s:1:\"0\";}','','A',NULL,NULL,'2014-05-15 03:33:53','2014-05-15 03:33:53'),
+ (20,72,4,2014,'<p>HÄLÄ</p>\r\n<p>B&aacute;o c&aacute;o TCCB</p>',9,0,'','','','a:2:{i:4;s:1:\"0\";i:5;s:1:\"0\";}','','A','','','2014-05-15 03:39:21','2014-05-15 03:39:21'),
+ (21,67,4,2014,'<p>Phá»¥ tr&aacute;ch chung ph&ograve;ng TCCB</p>',9,0,'','','','a:2:{i:4;s:1:\"0\";i:5;s:1:\"0\";}','','A','','','2014-05-15 03:40:53','2014-05-15 03:40:53'),
+ (22,69,4,2014,'<p>Phá»¥ tr&aacute;ch cháº¿ Ä‘á»™ ch&iacute;nh s&aacute;ch CBCC</p>',9,0,'','','','a:2:{i:4;s:1:\"0\";i:5;s:1:\"0\";}','','A','','','2014-05-15 03:42:41','2014-05-15 03:42:41'),
+ (23,330,4,2014,'<p>Thanh tra ná»™i bá»™ theo káº¿ hoáº¡ch táº¡i c&aacute;c Ä‘Æ¡n vá»‹ cÆ¡ sá»Ÿ</p>',9,0,'','','','a:2:{i:4;s:1:\"0\";i:5;s:1:\"0\";}','','A',NULL,NULL,'2014-05-16 03:45:11','2014-05-16 03:45:11'),
+ (24,68,5,2014,'',0,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'B','2014-05-16 04:32:06','2014-05-16 04:32:06'),
+ (25,67,5,2014,'',0,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'A','2014-05-18 22:27:24','2014-05-18 22:27:24');
 /*!40000 ALTER TABLE `danh_gia` ENABLE KEYS */;
 
 
@@ -462,11 +563,10 @@ CREATE TABLE `danh_gia_ket_qua_cong_viec` (
 
 /*!40000 ALTER TABLE `danh_gia_ket_qua_cong_viec` DISABLE KEYS */;
 INSERT INTO `danh_gia_ket_qua_cong_viec` (`dgkqcv_id`,`dgkqcv_name`,`dgkqcv_order`,`dgkqcv_status`,`dgkqcv_date_added`,`dgkqcv_date_modified`) VALUES 
- (9,'HoÃ n thÃ nh xuáº¥t sáº¯c',1,1,'2013-11-09 23:01:08','2013-11-09 23:01:08'),
- (10,'HoÃ n thÃ nh tá»‘t',2,1,'2013-11-09 23:01:19','2013-11-09 23:01:19'),
- (11,'HoÃ n thÃ nh cÃ´ng viá»‡c',3,1,'2013-11-09 23:01:39','2014-02-23 16:56:27'),
- (12,'ChÆ°a hoÃ n thÃ nh cÃ´ng viá»‡c',4,1,'2014-02-23 16:56:45','2014-02-23 16:56:45'),
- (13,'Káº¿t quáº£ ráº¥t kÃ©m',3,1,'2014-02-23 16:57:04','2014-02-23 16:57:04');
+ (9,'HoÃ n thÃ nh xuáº¥t sáº¯c nhiá»‡m vá»¥',1,1,'2013-11-09 23:01:08','2014-02-25 02:29:57'),
+ (10,'HoÃ n thÃ nh tá»‘t nhiá»‡m vá»¥',2,1,'2013-11-09 23:01:19','2014-02-25 02:30:25'),
+ (11,'HoÃ n thÃ nh nhiá»‡m vá»¥ nhÆ°ng cÃ²n háº¡n cháº¿ vá» nÄƒng lá»±c',3,1,'2013-11-09 23:01:39','2014-02-25 02:30:58'),
+ (13,'KhÃ´ng hoÃ n thÃ nh nhiá»‡m vá»¥',4,1,'2014-02-23 16:57:04','2014-02-25 02:31:20');
 /*!40000 ALTER TABLE `danh_gia_ket_qua_cong_viec` ENABLE KEYS */;
 
 
@@ -482,6 +582,7 @@ CREATE TABLE `employees` (
   `em_ho` varchar(45) NOT NULL,
   `em_ngay_sinh` datetime DEFAULT NULL,
   `em_so_chung_minh_thu` varchar(45) CHARACTER SET latin1 DEFAULT NULL,
+  `em_cmt_ngay_cap` datetime DEFAULT NULL,
   `em_ten_khac` varchar(100) DEFAULT NULL,
   `em_anh_the` varchar(255) DEFAULT NULL,
   `em_gioi_tinh` int(10) unsigned NOT NULL DEFAULT '1',
@@ -503,6 +604,10 @@ CREATE TABLE `employees` (
   `em_so_cong_chuc` varchar(255) DEFAULT NULL,
   `em_chuc_vu` int(10) unsigned NOT NULL DEFAULT '0',
   `em_phong_ban` int(10) unsigned NOT NULL DEFAULT '0',
+  `em_han_luan_chuyen` datetime DEFAULT NULL,
+  `em_nghi_huu` int(10) unsigned NOT NULL DEFAULT '0',
+  `em_ngay_nghi_huu` datetime DEFAULT NULL,
+  `em_time_cong_tac` datetime DEFAULT NULL,
   `em_ngay_tuyen_dung` datetime DEFAULT NULL,
   `em_ngach_cong_chuc` int(10) unsigned NOT NULL DEFAULT '0',
   `em_cong_viec` varchar(255) DEFAULT NULL,
@@ -549,23 +654,242 @@ CREATE TABLE `employees` (
   `em_delete` int(10) unsigned NOT NULL DEFAULT '0',
   `em_date_added` datetime DEFAULT NULL,
   `em_date_modified` datetime DEFAULT NULL,
-  `em_cmt_ngay_cap` datetime DEFAULT NULL,
-  `em_han_luan_chuyen` datetime DEFAULT NULL,
-  `em_nghi_huu` int(10) unsigned NOT NULL DEFAULT '0',
-  `em_ngay_nghi_huu` datetime DEFAULT NULL,
   PRIMARY KEY (`em_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=522 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `employees`
 --
 
 /*!40000 ALTER TABLE `employees` DISABLE KEYS */;
-INSERT INTO `employees` (`em_id`,`em_ten`,`em_ten_dem`,`em_ho`,`em_ngay_sinh`,`em_so_chung_minh_thu`,`em_ten_khac`,`em_anh_the`,`em_gioi_tinh`,`em_home_phone`,`em_phone`,`em_noi_sinh`,`em_noi_sinh_tinh`,`em_noi_sinh_huyen`,`em_que_quan`,`em_noi_o`,`em_noi_o_tinh`,`em_noi_o_huyen`,`em_que_quan_tinh`,`em_que_quan_huyen`,`em_dia_chi`,`em_dia_chi_tinh`,`em_dia_chi_huyen`,`em_dan_toc`,`em_so_cong_chuc`,`em_chuc_vu`,`em_phong_ban`,`em_ngay_tuyen_dung`,`em_ngach_cong_chuc`,`em_cong_viec`,`em_chuyen_mon`,`em_chuc_vu_dang`,`em_ngay_vao_dang`,`em_chuc_vu_doan`,`em_ngay_vao_doan`,`em_chuc_vu_cong_doan`,`em_quan_ly_nha_nuoc`,`em_ly_luan_chinh_tri`,`em_than_nhan_nuoc_ngoai`,`em_tham_gia_to_chuc`,`em_bi_bat`,`em_qua_trinh_luong`,`em_gia_dinh_vo`,`em_gia_dinh_ban_than`,`em_qua_trinh_cong_tac`,`em_lich_su_dao_tao`,`em_gia_dinh_chinh_sach`,`em_thuong_binh`,`em_nhom_mau`,`em_can_nang`,`em_chieu_cao`,`em_tinh_trang_suc_khoe`,`em_so_bhxh`,`em_danh_hieu`,`em_quan_ham`,`em_ngay_xuat_ngu`,`em_ngay_nhap_ngu`,`em_ky_luat`,`em_khen_thuong`,`em_cong_viec_khi_tuyen_dung`,`em_co_quan_tuyen_dung`,`em_ton_giao`,`em_van_hoa_pt`,`em_hoc_ham`,`em_bang_cap`,`em_ngoai_ngu`,`em_tin_hoc`,`em_chung_chi_khac`,`em_anh_bang_cap`,`em_status`,`em_delete`,`em_date_added`,`em_date_modified`,`em_cmt_ngay_cap`,`em_han_luan_chuyen`,`em_nghi_huu`,`em_ngay_nghi_huu`) VALUES 
- (1,'HÃ¹ng','Máº¡nh','Nguyá»…n','1970-01-07 00:00:00','131398081','Nobita','',1,'','0985679742','Äoan HÃ¹ng','','','VÄ©nh PhÃº','','2','16','','','ThÃ´n 12 -VÃ¢n Du',1,2,2,'HAV102',6,11,'1970-01-01 00:00:00',4,'Ha ah ha','he he he',9,'1970-01-01 00:00:00',12,'1970-01-01 00:00:00',14,0,0,'','','','N;','N;','N;','N;','N;','','','','','','','','','','1970-01-01 00:00:00','1970-01-01 00:00:00','','','','','','12/12',3,8,1,2,3,'N;',1,0,'2013-12-02 16:54:16','2014-05-13 11:58:43','1970-01-01 00:00:00','2037-02-01 00:00:07',0,'2014-04-09 12:35:51'),
- (2,'BÃ­ch','Ngá»c','Ã‚u','1970-01-07 00:00:00','13133123434','BÃ­ch','1385911581.png',0,'','09886838560','Báº£o Tháº¯ng',NULL,NULL,'HoÃ ng LiÃªn SÆ¡n',NULL,NULL,NULL,NULL,NULL,'XÃ³m 11',4,1,2,'HAV1023',6,11,'1981-06-16 00:00:07',5,'Káº¿ ToÃ¡n','Káº¿ toÃ¡n mÃ¡y',2,'2012-07-15 00:00:07',4,'2011-05-18 00:00:07',3,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'12/12',3,8,1,2,3,'a:3:{i:0;s:28:\"1620194362_OneTV  - Logo.png\";i:1;s:17:\"987576096_top.png\";i:2;s:24:\"681729117_Untitled-1.jpg\";}',1,0,'2013-12-01 22:26:21','2013-12-01 22:26:21',NULL,NULL,0,NULL),
- (13,'Äá»“ng','NghÄ©a','ÄÃ o','1970-01-07 00:00:00','3454543534543','Äá»“ng',NULL,1,'5345345','534534534','5345345',NULL,NULL,'534534',NULL,NULL,NULL,NULL,NULL,'5345345',5,2,2,'34534534',4,9,'2013-12-01 17:37:07',5,'5345345','5345345',2,'2013-12-31 17:37:07',2,'2013-12-28 17:37:07',3,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'5443',3,8,1,2,3,'a:3:{i:0;s:22:\"1242417760_anh_the.jpg\";i:1;s:37:\"947727117_game garena on facebook.png\";i:2;s:24:\"34040717_legend team.jpg\";}',1,0,'2013-12-24 17:36:41','2014-04-06 23:08:50',NULL,'2000-01-01 00:00:07',0,NULL),
- (22,'HÃ¹ng',NULL,'Nguyá»…n Máº¡nh','0000-00-00 00:00:00','1313983434','Nobita',NULL,1,'11111','0985679742','Van Du','Phu Tho','Doan Hung','Van Du','1806 - Licogi 13','1','1','Phu Tho','Doan Hung','ThÃ´n 12 -VÃ¢n Du',22,129,3,'HAV102',4,9,'2014-04-01 00:00:00',4,'Lap Trinh','Lap Trinh',9,'0000-00-00 00:00:00',12,'0000-00-00 00:00:00',14,2,2,'<p>Ko co ai o nuoc ngoai</p>','<p>Ko tham giao to chu nao</p>','<p>Chua bi bat bao gio</p>','a:2:{i:1069303768;a:3:{s:10:\"ngay_thang\";s:6:\"2/2012\";s:8:\"ma_ngach\";s:6:\"NCNC/1\";s:5:\"he_so\";s:1:\"1\";}i:402963903;a:3:{s:10:\"ngay_thang\";s:6:\"2/2014\";s:8:\"ma_ngach\";s:5:\"JHK/2\";s:5:\"he_so\";s:3:\"1.2\";}}','a:1:{i:1461677398;a:4:{s:11:\"moi_quan_he\";s:2:\"Bo\";s:6:\"ho_ten\";s:4:\"Long\";s:8:\"nam_sinh\";s:4:\"1950\";s:8:\"chi_tiet\";s:0:\"\";}}','a:2:{i:155129744;a:4:{s:11:\"moi_quan_he\";s:2:\"Vo\";s:6:\"ho_ten\";s:4:\"Bich\";s:8:\"nam_sinh\";s:4:\"1986\";s:8:\"chi_tiet\";s:10:\"da ket hon\";}i:1624146099;a:4:{s:11:\"moi_quan_he\";s:2:\"Bo\";s:6:\"ho_ten\";s:5:\"Thinh\";s:8:\"nam_sinh\";s:4:\"1963\";s:8:\"chi_tiet\";s:0:\"\";}}','a:2:{i:395953171;a:2:{s:10:\"ngay_thang\";s:9:\"2008-2010\";s:8:\"chi_tiet\";s:6:\"iwicom\";}i:1914032958;a:2:{s:10:\"ngay_thang\";s:9:\"2010-2014\";s:8:\"chi_tiet\";s:3:\"cya\";}}','a:2:{i:366989537;a:5:{s:10:\"ten_truong\";s:9:\"Bach Khoa\";s:13:\"chuyen_nghanh\";s:4:\"CNTT\";s:10:\"ngay_thang\";s:9:\"2004-2008\";s:9:\"hinh_thuc\";s:9:\"Chinh quy\";s:8:\"van_bang\";s:8:\"Cao Dang\";}i:2118376300;a:5:{s:10:\"ten_truong\";s:4:\"Ptit\";s:13:\"chuyen_nghanh\";s:4:\"CNTT\";s:10:\"ngay_thang\";s:9:\"2010-2012\";s:9:\"hinh_thuc\";s:9:\"Chinh Quy\";s:8:\"van_bang\";s:7:\"Dai Hoc\";}}','Con thuong binh','1/4','A','60','170','Tot','1212','Anh Hung','Dai tuong','0000-00-00 00:00:00','0000-00-00 00:00:00','Che nay','Khen nay','Lap Trinh','CYA','Ko','12/12',3,8,1,2,3,'a:2:{i:1405174576;a:2:{s:4:\"name\";s:7:\"Ha ha 1\";s:3:\"anh\";s:45:\"577924554_vlcsnap-2013-09-16-18h05m22s194.png\";}i:1986697365;a:2:{s:4:\"name\";s:7:\"O kia 1\";s:3:\"anh\";s:45:\"764999684_vlcsnap-2013-09-16-13h52m39s159.png\";}}',1,0,'2014-03-28 14:32:39','2014-05-13 12:03:44','0000-00-00 00:00:00','2000-01-01 00:00:07',0,NULL);
+INSERT INTO `employees` (`em_id`,`em_ten`,`em_ten_dem`,`em_ho`,`em_ngay_sinh`,`em_so_chung_minh_thu`,`em_cmt_ngay_cap`,`em_ten_khac`,`em_anh_the`,`em_gioi_tinh`,`em_home_phone`,`em_phone`,`em_noi_sinh`,`em_noi_sinh_tinh`,`em_noi_sinh_huyen`,`em_que_quan`,`em_noi_o`,`em_noi_o_tinh`,`em_noi_o_huyen`,`em_que_quan_tinh`,`em_que_quan_huyen`,`em_dia_chi`,`em_dia_chi_tinh`,`em_dia_chi_huyen`,`em_dan_toc`,`em_so_cong_chuc`,`em_chuc_vu`,`em_phong_ban`,`em_han_luan_chuyen`,`em_nghi_huu`,`em_ngay_nghi_huu`,`em_time_cong_tac`,`em_ngay_tuyen_dung`,`em_ngach_cong_chuc`,`em_cong_viec`,`em_chuyen_mon`,`em_chuc_vu_dang`,`em_ngay_vao_dang`,`em_chuc_vu_doan`,`em_ngay_vao_doan`,`em_chuc_vu_cong_doan`,`em_quan_ly_nha_nuoc`,`em_ly_luan_chinh_tri`,`em_than_nhan_nuoc_ngoai`,`em_tham_gia_to_chuc`,`em_bi_bat`,`em_qua_trinh_luong`,`em_gia_dinh_vo`,`em_gia_dinh_ban_than`,`em_qua_trinh_cong_tac`,`em_lich_su_dao_tao`,`em_gia_dinh_chinh_sach`,`em_thuong_binh`,`em_nhom_mau`,`em_can_nang`,`em_chieu_cao`,`em_tinh_trang_suc_khoe`,`em_so_bhxh`,`em_danh_hieu`,`em_quan_ham`,`em_ngay_xuat_ngu`,`em_ngay_nhap_ngu`,`em_ky_luat`,`em_khen_thuong`,`em_cong_viec_khi_tuyen_dung`,`em_co_quan_tuyen_dung`,`em_ton_giao`,`em_van_hoa_pt`,`em_hoc_ham`,`em_bang_cap`,`em_ngoai_ngu`,`em_tin_hoc`,`em_chung_chi_khac`,`em_anh_bang_cap`,`em_status`,`em_delete`,`em_date_added`,`em_date_modified`) VALUES 
+ (67,'Oanh',NULL,'Nguyá»…n Thá»‹ Kim','1970-09-15 00:00:00','','0000-00-00 00:00:00','',NULL,0,'','','Tháº¡ch Trá»‹','HÃ  TÄ©nh','Tháº¡ch HÃ ','Tháº¡ch Trá»‹','83/HÃ  Huy Táº­p','42','314','HÃ  TÄ©nh','Tháº¡ch HÃ ','83/ HÃ  Huy Táº­p',42,314,1,'T30-HQ91-0001',13,19,NULL,0,NULL,'2011-04-01 00:00:00','1991-05-01 00:00:00',4,'Phá»¥ trÃ¡ch phÃ²ng Tá»• chá»©c cÃ¡n bá»™','TCCB - Thanh tra',13,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',0,4,5,'','','','a:1:{i:747231127;a:3:{s:10:\"ngay_thang\";s:6:\"6/2012\";s:8:\"ma_ngach\";s:8:\"08.051/8\";s:5:\"he_so\";s:4:\"3.99\";}}','N;','N;','N;','N;','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','KhÃ´ng','Báº±ng khen BTC','Sinh viÃªn','Tá»•ng cá»¥c Háº£i quan','KhÃ´ng','12/12',4,11,6,5,0,'N;',1,0,'2014-05-14 23:27:52','2014-05-16 03:46:26'),
+ (68,'BÃ¬nh',NULL,'Nguyá»…n ÄÃ¬nh','1972-09-10 00:00:00','','0000-00-00 00:00:00','',NULL,1,'','','','','','','','0','0','','','',0,0,0,'T30-HQ94-0002',14,19,NULL,0,NULL,'2010-09-01 00:00:00','0000-00-00 00:00:00',5,'','',0,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',0,0,0,'','','','N;','N;','N;','N;','N;','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','','','','','','',0,0,0,0,0,'N;',1,0,'2014-05-14 23:27:52','2014-05-15 03:04:56'),
+ (69,'Äá»“ng',NULL,'ÄÃ o NghÄ©a','1982-02-16 00:00:00','','0000-00-00 00:00:00','',NULL,1,'','','','','','','','0','0','','','',0,0,0,'T30-HQ05-0003',14,19,NULL,0,NULL,'2014-05-01 00:00:00','0000-00-00 00:00:00',4,'','',0,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',0,0,0,'','','','N;','N;','N;','N;','N;','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','','','','','','',0,0,0,0,0,'N;',1,0,'2014-05-14 23:27:52','2014-05-16 03:47:49'),
+ (70,'PhÆ°á»£ng',NULL,'LÃª Thá»‹ Kim ','1979-02-06 00:00:00',NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ02-0009',18,19,NULL,0,NULL,'2014-05-01 00:00:00',NULL,4,'','',0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-14 23:27:52','2014-05-15 03:06:11'),
+ (71,'TÃº',NULL,'BÃ¹i Minh ','1984-06-11 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ10-0023',18,19,NULL,0,NULL,'2014-05-01 00:00:00',NULL,4,'','',0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-14 23:27:52','2014-05-15 03:06:27'),
+ (72,'PhÆ°Æ¡ng',NULL,'Äáº­u Minh','1989-09-17 00:00:00','','0000-00-00 00:00:00','',NULL,0,'','','','','','','','0','0','','','',0,0,0,'T30-HQ13-0016',18,19,NULL,0,NULL,'2014-05-01 00:00:00','0000-00-00 00:00:00',4,'','',0,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',0,0,0,'','','','N;','N;','N;','N;','N;','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','','','','','','',0,0,0,0,0,'N;',1,0,'2014-05-14 23:27:52','2014-05-16 03:49:08'),
+ (73,'Vinh',NULL,'NgÃ´ Thá»‹ Ngá»c','1990-05-31 00:00:00','','0000-00-00 00:00:00','',NULL,0,'','','','','','','','0','0','','','',0,0,0,'T30-HQ13-0020',18,19,NULL,0,NULL,'2014-05-01 00:00:00','0000-00-00 00:00:00',4,'','',0,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',0,0,0,'','','','N;','N;','N;','N;','N;','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','','','','','','',0,0,0,0,0,'N;',1,0,'2014-05-14 23:27:52','2014-05-16 03:49:40'),
+ (296,'Thá»',NULL,'LÆ°Æ¡ng TrÆ°á»ng ','1972-06-21 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ94-0012',0,23,NULL,0,NULL,'2011-11-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:42','2014-05-15 04:37:42'),
+ (297,'Lá»¥c',NULL,'Tráº§n ÄÃ¬nh ','1956-05-19 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ77-0001',0,23,NULL,0,NULL,'1997-02-01 00:00:00',NULL,5,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:42','2014-05-15 04:37:42'),
+ (298,'HÃ²a',NULL,'Äinh VÄƒn ','1973-10-26 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ96-0004',0,23,NULL,0,NULL,'2012-10-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:42','2014-05-15 04:37:42'),
+ (299,'Long',NULL,'Nguyá»…n ÄÃ¬nh ','1965-10-13 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ92-0005',0,23,NULL,0,NULL,'2013-08-01 00:00:00',NULL,5,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:42','2014-05-15 04:37:42'),
+ (300,'DÅ©ng',NULL,'LÃª ','1976-05-08 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ02-0003',0,20,NULL,0,NULL,'2000-10-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:42','2014-05-15 04:37:42'),
+ (301,'HÃ ',NULL,'Tráº§n Thá»‹ Song ','1973-12-12 00:00:00',NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ95-0002',0,20,NULL,0,NULL,'2009-04-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:42','2014-05-15 04:37:42'),
+ (302,'Háº¡nh',NULL,'Pháº¡m Thá»‹ Má»¹ ','1980-06-01 00:00:00',NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ05-0005',0,20,NULL,0,NULL,'2005-03-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:42','2014-05-15 04:37:42'),
+ (303,'Anh',NULL,'Nguyá»…n Thá»‹ Ngá»c ','1970-02-15 00:00:00',NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ93-0001',0,20,NULL,0,NULL,'2011-01-01 00:00:00',NULL,6,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:42','2014-05-15 04:37:42'),
+ (304,'DuyÃªn',NULL,'Nguyá»…n Thá»‹ ','1981-04-20 00:00:00',NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ09-0001',0,20,NULL,0,NULL,'2012-06-01 00:00:00',NULL,9,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:42','2014-05-15 04:37:42'),
+ (305,'HiÃªn',NULL,'LÃª Thá»‹ ','1965-07-09 00:00:00',NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ11-0001',0,20,NULL,0,NULL,'2010-10-01 00:00:00',NULL,7,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:42','2014-05-15 04:37:42'),
+ (306,'PhÃº',NULL,'VÃµ Minh ','1983-01-29 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ10-0018',0,20,NULL,0,NULL,'2010-07-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:42','2014-05-15 04:37:42'),
+ (307,'PhÆ°Æ¡ng',NULL,'Nguyá»…n Thá»‹ Viá»‡t ','1984-03-23 00:00:00',NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ10-0029',0,20,NULL,0,NULL,'2012-10-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:42','2014-05-15 04:37:42'),
+ (308,'PhÆ°á»£ng',NULL,'Nguyá»…n Thá»‹ ','1986-11-05 00:00:00',NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ10-0019',0,20,NULL,0,NULL,'2012-06-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:42','2014-05-15 04:37:42'),
+ (309,'Tháº£o',NULL,'Äáº·ng Thá»‹ Äá»©c ','1986-03-13 00:00:00',NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ10-0027',0,20,NULL,0,NULL,'2012-05-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:42','2014-05-15 04:37:42'),
+ (310,'Viá»‡t',NULL,'PhÃ­ Ngá»c ','1983-09-21 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ10-0050',0,20,NULL,0,NULL,'2010-10-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:42','2014-05-15 04:37:42'),
+ (311,'HÃ o',NULL,'Phan Anh ','1988-05-01 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ13-0006',0,20,NULL,0,NULL,'2013-03-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:42','2014-05-15 04:37:42'),
+ (312,'ThÆ°Æ¡ng',NULL,'HoÃ ng Minh ','1985-03-15 00:00:00',NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ10-0022',0,20,NULL,0,NULL,'2014-04-14 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:42','2014-05-15 04:37:42'),
+ (313,'Tuáº¥n',NULL,'Nguyá»…n ÄÃ¬nh ','1984-09-02 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ10-0047',0,20,NULL,0,NULL,'2014-04-14 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:42','2014-05-15 04:37:42'),
+ (314,'Anh',NULL,'BÃ¹i Thá»‹ Kim ','1974-12-22 00:00:00',NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'HÄLÄ 68',0,20,NULL,0,NULL,'2005-12-01 00:00:00',NULL,12,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:42','2014-05-15 04:37:42'),
+ (315,'DÅ©ng',NULL,'Nguyá»…n Sá»¹ ','1978-09-12 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'HÄLÄ 68',0,20,NULL,0,NULL,'2013-01-01 00:00:00',NULL,11,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:42','2014-05-15 04:37:42'),
+ (316,'Long',NULL,'Nguyá»…n XuÃ¢n ','1973-10-24 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'HÄLÄ 68',0,20,NULL,0,NULL,'2011-07-01 00:00:00',NULL,11,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:42','2014-05-15 04:37:42'),
+ (317,'Nam',NULL,'Tráº§n HoÃ i ','1983-11-10 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'HÄLÄ 68',0,20,NULL,0,NULL,'2012-12-01 00:00:00',NULL,11,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:42','2014-05-15 04:37:42'),
+ (318,'TrÆ°á»ng',NULL,'Nguyá»…n Há»¯u ','1980-10-10 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'HÄLÄ 68',0,20,NULL,0,NULL,'2013-05-07 00:00:00',NULL,10,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:42','2014-05-15 04:37:42'),
+ (319,'HÃ ',NULL,'VÃµ Thá»‹ Thu ','1989-06-30 00:00:00',NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'HÄLÄ 68',0,20,NULL,0,NULL,'2013-06-03 00:00:00',NULL,12,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:42','2014-05-15 04:37:42'),
+ (320,'Thao',NULL,'LÃª VÄƒn ','1968-11-20 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'HÄLÄ 68',0,20,NULL,0,NULL,'2013-02-01 00:00:00',NULL,10,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:42','2014-05-15 04:37:42'),
+ (321,'Tuáº¥n',NULL,'Há»“ Anh ','1977-07-07 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'HÄLÄ 68',0,20,NULL,0,NULL,'2013-04-25 00:00:00',NULL,10,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:42','2014-05-15 04:37:42'),
+ (329,'An',NULL,'ÄÃ o XuÃ¢n ','1972-07-01 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ94-0001',0,18,NULL,0,NULL,'2012-10-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:42','2014-05-15 04:37:42'),
+ (330,'ThÃ nh',NULL,'Nguyá»…n ChÃ­ ','1985-08-18 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ09-0006',0,18,NULL,0,NULL,'2012-10-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:42','2014-05-15 04:37:42'),
+ (331,'Hiá»n',NULL,'Nguyá»…n Thá»‹ BÃ­ch ','1986-10-06 00:00:00',NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ08-0002',0,18,NULL,0,NULL,'2011-07-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:42','2014-05-15 04:37:42'),
+ (332,'BÃ¬nh',NULL,'VÃµ ThÃºy Diá»…m ','1990-01-04 00:00:00',NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ13-0001',0,18,NULL,0,NULL,'2013-03-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:42','2014-05-15 04:37:42'),
+ (333,'ThÃ nh',NULL,'Pháº¡m Tiáº¿n ','1977-03-24 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ02-0012',0,17,NULL,0,NULL,'2011-08-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:42','2014-05-15 04:37:42'),
+ (334,'Háº¡nh',NULL,'LÃª VÄƒn ','1969-10-15 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ94-0003',0,17,NULL,0,NULL,'2013-01-01 00:00:00',NULL,5,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:43','2014-05-15 04:37:43'),
+ (335,'Anh',NULL,'ThÃ¡i Äá»©c ','1985-08-23 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ11-0011',0,17,NULL,0,NULL,'2011-11-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:43','2014-05-15 04:37:43'),
+ (336,'HÃ ',NULL,'TrÆ°Æ¡ng Thá»‹ Thanh ','1982-10-12 00:00:00',NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ05-0007',0,17,NULL,0,NULL,'2011-04-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:43','2014-05-15 04:37:43'),
+ (337,'HÃ ',NULL,'Nguyá»…n ÄÃ¬nh ','1978-01-30 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ09-0002',0,17,NULL,0,NULL,'2010-06-01 00:00:00',NULL,0,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:43','2014-05-15 04:37:43'),
+ (338,'Hiá»n',NULL,'Nguyá»…n Thá»‹ ','1985-12-26 00:00:00',NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ10-0041',0,17,NULL,0,NULL,'2012-05-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:43','2014-05-15 04:37:43'),
+ (339,'Tuáº¥n',NULL,'Tráº§n Thanh ','1984-01-29 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ10-0048',0,17,NULL,0,NULL,'2013-01-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:43','2014-05-15 04:37:43'),
+ (340,'Tuyáº¿t',NULL,'Nguyá»…n Thá»‹ ','1986-08-09 00:00:00',NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ09-0007',0,17,NULL,0,NULL,'2012-05-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:43','2014-05-15 04:37:43'),
+ (341,'Huyá»n',NULL,'Äáº·ng Thanh ','1989-03-16 00:00:00',NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ13-0007',0,17,NULL,0,NULL,'2013-03-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:43','2014-05-15 04:37:43'),
+ (342,'LiÃªn',NULL,'Nguyá»…n Thá»‹ ','1981-08-24 00:00:00',NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ06-0007',0,17,NULL,0,NULL,'2014-04-16 00:00:00',NULL,0,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:43','2014-05-15 04:37:43'),
+ (343,'Linh',NULL,'Nguyá»…n ChÃ­ ','1987-10-24 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ13-0009',0,17,NULL,0,NULL,'2013-03-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:43','2014-05-15 04:37:43'),
+ (344,'DÅ©ng',NULL,'Nguyá»…n ChÃ­ ','1977-10-25 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ02-0001',0,16,NULL,0,NULL,'2012-10-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:43','2014-05-15 04:37:43'),
+ (345,'DÅ©ng',NULL,'Äáº·ng HÃ¹ng ','1984-02-03 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ10-0014',0,16,NULL,0,NULL,'2013-02-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:43','2014-05-15 04:37:43'),
+ (346,'HÃ ',NULL,'Tráº§n Thá»‹ ThÃºy ','1981-04-20 00:00:00',NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ05-0006',0,16,NULL,0,NULL,'2010-03-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:43','2014-05-15 04:37:43'),
+ (347,'HÃ²a',NULL,'Pháº¡m VÃµ KhÃ¡nh ','1987-02-21 00:00:00',NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ10-0037',0,16,NULL,0,NULL,'2010-10-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:43','2014-05-15 04:37:43'),
+ (348,'HoÃ i',NULL,'LÃª Thá»‹ Thanh ','1970-07-01 00:00:00',NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ92-0002',0,16,NULL,0,NULL,'2012-05-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:43','2014-05-15 04:37:43'),
+ (349,'PhÃºc',NULL,'Há»“ Thanh ','1983-02-12 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ13-0015',0,16,NULL,0,NULL,'2013-03-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:43','2014-05-15 04:37:43'),
+ (350,'Äá»©c',NULL,'LÃª Minh','1979-03-25 00:00:00','','0000-00-00 00:00:00','',NULL,1,'','','','','','','','0','0','','','',0,0,0,'T30-HQ01-0001',10,22,NULL,0,NULL,'2014-05-01 00:00:00','0000-00-00 00:00:00',4,'','',0,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',0,0,0,'','','','N;','N;','N;','N;','N;','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','','','','','','',0,0,0,0,0,'N;',1,0,'2014-05-15 04:37:43','2014-05-15 04:40:04'),
+ (351,'TÃ i',NULL,'Pháº¡m VÄƒn','1985-08-03 00:00:00','','0000-00-00 00:00:00','',NULL,1,'','','','','','','','0','0','','','',0,0,0,'T30-HQ10-0008',16,22,NULL,0,NULL,'2014-04-01 00:00:00','0000-00-00 00:00:00',4,'','',0,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',0,0,0,'','','','N;','N;','N;','N;','N;','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','','','','','','',0,0,0,0,0,'N;',1,0,'2014-05-15 04:37:43','2014-05-15 04:40:46'),
+ (352,'LÃ¢m',NULL,'Nguyá»…n Ngá»c','1974-02-10 00:00:00','','0000-00-00 00:00:00','',NULL,1,'','','','','','','','0','0','','','',0,0,0,'T30-HQ96-0006',16,22,NULL,0,NULL,'2013-04-01 00:00:00','0000-00-00 00:00:00',4,'','',0,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',0,0,0,'','','','N;','N;','N;','N;','N;','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','','','','','','',0,0,0,0,0,'N;',1,0,'2014-05-15 04:37:43','2014-05-15 04:41:36'),
+ (353,'LÃª',NULL,'Nguyá»…n ThÃ nh','1981-01-07 00:00:00','','0000-00-00 00:00:00','',NULL,1,'','','','','','','','0','0','','','',0,0,0,'T30-HQ06-0006',17,22,NULL,0,NULL,'2012-05-01 00:00:00','0000-00-00 00:00:00',4,'','',0,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',0,0,0,'','','','N;','N;','N;','N;','N;','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','','','','','','',0,0,0,0,0,'N;',1,0,'2014-05-15 04:37:43','2014-05-15 04:42:20'),
+ (354,'Hiá»ƒu',NULL,'Nguyá»…n Máº¡nh','1964-04-16 00:00:00','','0000-00-00 00:00:00','',NULL,1,'','','','','','','','0','0','','','',0,0,0,'T30-HQ96-0005',18,22,NULL,0,NULL,'2013-02-01 00:00:00','0000-00-00 00:00:00',4,'','',0,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',0,0,0,'','','','N;','N;','N;','N;','N;','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','','','','','','',0,0,0,0,0,'N;',1,0,'2014-05-15 04:37:43','2014-05-15 04:44:38'),
+ (355,'Lá»¥c',NULL,'Nguyá»…n VÄƒn','1964-09-10 00:00:00','','0000-00-00 00:00:00','',NULL,1,'','','','','','','','0','0','','','',0,0,0,'T30-HQ89-0002',18,22,NULL,0,NULL,'2011-07-01 00:00:00','0000-00-00 00:00:00',4,'','',0,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',0,0,0,'','','','N;','N;','N;','N;','N;','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','','','','','','',0,0,0,0,0,'N;',1,0,'2014-05-15 04:37:43','2014-05-15 04:45:08'),
+ (356,'ThÃ nh',NULL,'TrÆ°Æ¡ng VÄƒn','1967-07-17 00:00:00','','0000-00-00 00:00:00','',NULL,1,'','','','','','','','0','0','','','',0,0,0,'T30-HQ11-0003',18,22,NULL,0,NULL,'2012-05-01 00:00:00','0000-00-00 00:00:00',7,'','',0,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',0,0,0,'','','','N;','N;','N;','N;','N;','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','','','','','','',0,0,0,0,0,'N;',1,0,'2014-05-15 04:37:43','2014-05-15 04:45:49'),
+ (357,'ThÃ¢n',NULL,'Äinh Nguyá»…n','1977-02-10 00:00:00','','0000-00-00 00:00:00','',NULL,1,'','','','','','','','0','0','','','',0,0,0,'T30-HQ01-0004',18,22,NULL,0,NULL,'2013-01-01 00:00:00','0000-00-00 00:00:00',6,'','',0,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',0,0,0,'','','','N;','N;','N;','N;','N;','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','','','','','','',0,0,0,0,0,'N;',1,0,'2014-05-15 04:37:43','2014-05-15 04:46:26'),
+ (358,'Liá»‡u',NULL,'HoÃ ng Thá»‹','1984-06-26 00:00:00','','0000-00-00 00:00:00','',NULL,0,'','','','','','','','0','0','','','',0,0,0,'T30-HQ08-0003',18,22,NULL,0,NULL,'2014-04-01 00:00:00','0000-00-00 00:00:00',4,'','',0,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',0,0,0,'','','','N;','N;','N;','N;','N;','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','','','','','','',0,0,0,0,0,'N;',1,0,'2014-05-15 04:37:43','2014-05-15 04:47:15'),
+ (359,'Trang',NULL,'BÃ¹i Thá»‹ Quá»³nh','1984-12-25 00:00:00','','0000-00-00 00:00:00','',NULL,0,'','','','','','','','0','0','','','',0,0,0,'T30-HQ08-0005',18,22,NULL,0,NULL,'2012-05-01 00:00:00','0000-00-00 00:00:00',4,'','',0,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',0,0,0,'','','','N;','N;','N;','N;','N;','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','','','','','','',0,0,0,0,0,'N;',1,0,'2014-05-15 04:37:43','2014-05-15 04:47:39'),
+ (360,'Äá»©c',NULL,'VÃµ TÃ¡ Tiáº¿n','1988-05-06 00:00:00','','0000-00-00 00:00:00','',NULL,1,'','','','','','','','0','0','','','',0,0,0,'T30-HQ13-0003',18,22,NULL,0,NULL,'2014-04-01 00:00:00','0000-00-00 00:00:00',4,'','',0,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',0,0,0,'','','','N;','N;','N;','N;','N;','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','','','','','','',0,0,0,0,0,'N;',1,0,'2014-05-15 04:37:43','2014-05-15 04:48:07'),
+ (361,'Giang',NULL,'Tráº§n Háº­u','1982-03-17 00:00:00','','0000-00-00 00:00:00','',NULL,1,'','','','','','','','0','0','','','',0,0,0,'HÄLÄ 68',0,22,NULL,0,NULL,'2013-04-01 00:00:00','0000-00-00 00:00:00',11,'','',0,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',0,0,0,'','','','N;','N;','N;','N;','N;','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','','','','','','',0,0,0,0,0,'N;',1,0,'2014-05-15 04:37:43','2014-05-15 04:54:45'),
+ (362,'Ninh',NULL,'BÃ¹i ThÃºc','1958-12-20 00:00:00','','0000-00-00 00:00:00','',NULL,1,'','','','','','','','0','0','','','',0,0,0,'T30-HQ81-0001',9,21,NULL,0,NULL,'2011-04-01 00:00:00','0000-00-00 00:00:00',5,'','',0,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',0,0,0,'','','','N;','N;','N;','N;','N;','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','','','','','','',0,0,0,0,0,'N;',1,0,'2014-05-15 04:37:43','2014-05-15 04:49:45'),
+ (363,'SÆ¡n',NULL,'Nguyá»…n Thanh','1965-11-13 00:00:00','','0000-00-00 00:00:00','',NULL,1,'','','','','','','','0','0','','','',0,0,0,'T30-HQ88-0001',10,21,NULL,0,NULL,'2011-07-01 00:00:00','0000-00-00 00:00:00',4,'','',0,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',0,0,0,'','','','N;','N;','N;','N;','N;','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','','','','','','',0,0,0,0,0,'N;',1,0,'2014-05-15 04:37:43','2014-05-15 04:50:23'),
+ (364,'SÆ¡n',NULL,'Nguyá»…n','1959-11-08 00:00:00','','0000-00-00 00:00:00','',NULL,1,'','','','','','','','0','0','','','',0,0,0,'T30-HQ95-0006',18,21,NULL,0,NULL,'2012-05-01 00:00:00','0000-00-00 00:00:00',6,'','',0,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',0,0,0,'','','','N;','N;','N;','N;','N;','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','','','','','','',0,0,0,0,0,'N;',1,0,'2014-05-15 04:37:43','2014-05-15 04:50:53'),
+ (365,'Tuáº¥n',NULL,'Tráº§n Anh','1973-03-05 00:00:00','','0000-00-00 00:00:00','',NULL,1,'','','','','','','','0','0','','','',0,0,0,'T30-HQ92-0007',18,21,NULL,0,NULL,'2012-05-01 00:00:00','0000-00-00 00:00:00',6,'','',0,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',0,0,0,'','','','N;','N;','N;','N;','N;','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','','','','','','',0,0,0,0,0,'N;',1,0,'2014-05-15 04:37:43','2014-05-15 04:51:26'),
+ (366,'Tháº¯ng',NULL,'Pháº¡m Máº¡nh','1966-04-13 00:00:00','','0000-00-00 00:00:00','',NULL,1,'','','','','','','','0','0','','','',0,0,0,'T30-HQ94-0009',18,21,NULL,0,NULL,'2013-01-01 00:00:00','0000-00-00 00:00:00',4,'','',0,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',0,0,0,'','','','N;','N;','N;','N;','N;','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','','','','','','',0,0,0,0,0,'N;',1,0,'2014-05-15 04:37:43','2014-05-15 04:51:53'),
+ (367,'Háº£i',NULL,'Pháº¡m Minh','1977-11-19 00:00:00','','0000-00-00 00:00:00','',NULL,1,'','','','','','','','0','0','','','',0,0,0,'T30-HQ13-0005',18,21,NULL,0,NULL,'2013-03-01 00:00:00','0000-00-00 00:00:00',8,'','',0,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',0,0,0,'','','','N;','N;','N;','N;','N;','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','','','','','','',0,0,0,0,0,'N;',1,0,'2014-05-15 04:37:43','2014-05-15 04:52:36'),
+ (368,'LiÃªm',NULL,'Tráº§n VÄƒn','1983-02-10 00:00:00','','0000-00-00 00:00:00','',NULL,1,'','','','','','','','0','0','','','',0,0,0,'T30-HQ13-0008',18,21,NULL,0,NULL,'2013-03-01 00:00:00','0000-00-00 00:00:00',4,'','',0,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',0,0,0,'','','','N;','N;','N;','N;','N;','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','','','','','','',0,0,0,0,0,'N;',1,0,'2014-05-15 04:37:43','2014-05-15 04:53:07'),
+ (369,'NhÃ¢n',NULL,'VÄƒn HoÃ i','1986-04-24 00:00:00','','0000-00-00 00:00:00','',NULL,1,'','','','','','','','0','0','','','',0,0,0,'T30-HQ13-0012',18,21,NULL,0,NULL,'2014-04-01 00:00:00','0000-00-00 00:00:00',4,'','',0,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',0,0,0,'','','','N;','N;','N;','N;','N;','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','','','','','','',0,0,0,0,0,'N;',1,0,'2014-05-15 04:37:43','2014-05-15 04:53:41'),
+ (370,'QuÃ¢n',NULL,'Tráº§n ÄÃ¬nh','1978-05-18 00:00:00','','0000-00-00 00:00:00','',NULL,1,'','','','','','','','0','0','','','',0,0,0,'HÄLÄ 68',0,21,NULL,0,NULL,'2011-10-01 00:00:00','0000-00-00 00:00:00',11,'','',0,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',0,0,0,'','','','N;','N;','N;','N;','N;','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','','','','','','',0,0,0,0,0,'N;',1,0,'2014-05-15 04:37:43','2014-05-15 04:55:18'),
+ (371,'ThÃ nh',NULL,'ÄÃ o ChÃ­ ','1975-12-12 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ97-0001',0,15,NULL,0,NULL,'2014-05-09 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:43','2014-05-15 04:37:43'),
+ (372,'BÃ¬nh',NULL,'Tráº§n Trá»ng ','1981-09-19 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ06-0002',0,15,NULL,0,NULL,'2013-01-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:43','2014-05-15 04:37:43'),
+ (373,'DÅ©ng',NULL,'Nguyá»…n Há»“ng ','1978-08-06 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ02-0002',0,15,NULL,0,NULL,'2012-05-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:43','2014-05-15 04:37:43'),
+ (374,'Cá»«',NULL,'Tráº§n Quá»‘c ','1969-08-30 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ93-0002',0,15,NULL,0,NULL,'2013-04-16 00:00:00',NULL,6,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:43','2014-05-15 04:37:43'),
+ (375,'Anh',NULL,'Nguyá»…n Thá»‹ VÃ¢n ','1987-11-20 00:00:00',NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ10-0010',0,15,NULL,0,NULL,'2012-05-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:43','2014-05-15 04:37:43'),
+ (376,'HoÃ i',NULL,'Biá»‡n Thá»‹ ','1987-05-15 00:00:00',NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ10-0026',0,15,NULL,0,NULL,'2013-01-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:43','2014-05-15 04:37:43'),
+ (377,'Dung',NULL,'Äáº­u Thá»‹ Thuá»³ ','1986-06-14 00:00:00',NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ10-0032',0,15,NULL,0,NULL,'2013-04-16 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:43','2014-05-15 04:37:43'),
+ (378,'LÆ°Æ¡ng',NULL,'Nguyá»…n BÃ¡ ','1987-12-26 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ13-0010',0,15,NULL,0,NULL,'2014-04-14 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:43','2014-05-15 04:37:43'),
+ (379,'SÆ¡n',NULL,'Tráº§n TrÆ°á»ng ','1990-08-16 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ13-0017',0,15,NULL,0,NULL,'2013-03-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:43','2014-05-15 04:37:43'),
+ (380,'Thu',NULL,'HoÃ ng Thá»‹ ','1986-10-06 00:00:00',NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ13-0018',0,15,NULL,0,NULL,'2013-03-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:43','2014-05-15 04:37:43'),
+ (381,'Háº±ng',NULL,'Pháº¡m Thá»‹ Thu ','1986-03-11 00:00:00',NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ10-0036',0,15,NULL,0,NULL,'2014-04-14 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:43','2014-05-15 04:37:43'),
+ (382,'Huyá»n',NULL,'Nguyá»…n Thá»‹ ThÆ°Æ¡ng ','1987-04-26 00:00:00',NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ10-0017',0,15,NULL,0,NULL,'2014-04-18 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:43','2014-05-15 04:37:43'),
+ (383,'Trá»ng',NULL,'Tráº§n VÄƒn ','1963-06-16 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'HÄLÄ 68',0,15,NULL,0,NULL,'2013-03-12 00:00:00',NULL,10,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:43','2014-05-15 04:37:43'),
+ (384,'Tháº¡ch',NULL,'LÃª Ngá»c ','1978-02-27 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'HÄLÄ 68',0,15,NULL,0,NULL,'2012-07-01 00:00:00',NULL,10,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:43','2014-05-15 04:37:43'),
+ (385,'PhÃº',NULL,'BÃ¹i VÄƒn ','1959-05-22 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ82-0003',0,11,NULL,0,NULL,'2012-06-01 00:00:00',NULL,5,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:43','2014-05-15 04:37:43'),
+ (386,'TÃ i',NULL,'HoÃ ng Trá»ng ','1963-09-02 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ87-0003',0,11,NULL,0,NULL,'2011-08-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:43','2014-05-15 04:37:43'),
+ (387,'Anh',NULL,'Tráº§n Thá»‹ Lan ','1984-01-31 00:00:00',NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ06-0001',0,11,NULL,0,NULL,'2012-05-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:43','2014-05-15 04:37:43'),
+ (388,'HÃ¹ng',NULL,'VÃµ Minh ','1954-08-10 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ80-0001',0,11,NULL,0,NULL,'2012-02-01 00:00:00',NULL,7,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:43','2014-05-15 04:37:43'),
+ (389,'Huyá»n',NULL,'Äinh Thá»‹ TÃº ','1985-08-09 00:00:00',NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ10-0016',0,11,NULL,0,NULL,'2012-12-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:43','2014-05-15 04:37:43'),
+ (390,'Huyá»‡n',NULL,'Nguyá»…n VÄƒn ','1955-08-12 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ76-0001',0,11,NULL,0,NULL,'2010-07-01 00:00:00',NULL,6,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:43','2014-05-15 04:37:43'),
+ (391,'LÃ i',NULL,'LÃª Thá»‹ Má»™ng ','1972-11-17 00:00:00',NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ92-0004',0,11,NULL,0,NULL,'2012-05-01 00:00:00',NULL,6,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:44','2014-05-15 04:37:44'),
+ (392,'TÄ©nh',NULL,'LÃª VÄƒn ','1962-02-17 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ85-0001',0,11,NULL,0,NULL,'2012-10-01 00:00:00',NULL,7,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:44','2014-05-15 04:37:44'),
+ (393,'Thao',NULL,'Nguyá»…n NhÆ° ','1978-09-05 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ00-0002',0,11,NULL,0,NULL,'2013-01-01 00:00:00',NULL,6,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:44','2014-05-15 04:37:44'),
+ (394,'TrÆ°á»ng',NULL,'LÃª Duy ','1979-04-17 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ06-0008',0,11,NULL,0,NULL,'2013-01-01 00:00:00',NULL,0,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:44','2014-05-15 04:37:44'),
+ (395,'Äá»©c',NULL,'HoÃ ng Minh ','1988-01-16 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ13-0002',0,11,NULL,0,NULL,'2013-03-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:44','2014-05-15 04:37:44'),
+ (396,'ThÃ¡i',NULL,'LÃª Thanh ','1990-04-01 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'HÄLÄ 68',0,11,NULL,0,NULL,'2013-05-07 00:00:00',NULL,10,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:44','2014-05-15 04:37:44'),
+ (397,'Äá»‹nh',NULL,'Biá»‡n VÄƒn ','1967-05-20 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'HÄLÄ 68',0,11,NULL,0,NULL,'2012-12-01 00:00:00',NULL,11,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:44','2014-05-15 04:37:44'),
+ (398,'HÃ ',NULL,'Tráº§n VÄƒn ','1971-05-19 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'HÄLÄ 68',0,11,NULL,0,NULL,'2013-01-01 00:00:00',NULL,10,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:44','2014-05-15 04:37:44'),
+ (399,'Trung',NULL,'Nguyá»…n BÃ¡','1968-08-12 00:00:00','','0000-00-00 00:00:00','',NULL,1,'','','','','','','','0','0','','','',0,0,0,'T30-HQ92-0006',7,12,NULL,0,NULL,'2013-08-01 00:00:00','0000-00-00 00:00:00',4,'','',0,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',0,0,0,'','','','N;','N;','N;','N;','N;','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','','','','','','',0,0,0,0,0,'N;',1,0,'2014-05-15 04:37:44','2014-05-15 05:07:12'),
+ (400,'Ngá»c',NULL,'LÃ½ Trá»ng','1970-06-13 00:00:00','','0000-00-00 00:00:00','',NULL,1,'','','','','','','','0','0','','','',0,0,0,'T30-HQ94-0005',8,12,NULL,0,NULL,'2014-05-01 00:00:00','0000-00-00 00:00:00',5,'','',0,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',0,0,0,'','','','N;','N;','N;','N;','N;','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','','','','','','',0,0,0,0,0,'N;',1,0,'2014-05-15 04:37:44','2014-05-15 05:07:41'),
+ (401,'Minh',NULL,'Nguyá»…n XuÃ¢n','1965-05-10 00:00:00','','0000-00-00 00:00:00','',NULL,1,'','','','','','','','0','0','','','',0,0,0,'T30-HQ87-0002',8,12,NULL,0,NULL,'2014-05-01 00:00:00','0000-00-00 00:00:00',4,'','',0,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',0,0,0,'','','','N;','N;','N;','N;','N;','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','','','','','','',0,0,0,0,0,'N;',1,0,'2014-05-15 04:37:44','2014-05-15 05:08:18'),
+ (402,'SÆ¡n',NULL,'Nguyá»…n Tiáº¿n','1974-09-03 00:00:00','','0000-00-00 00:00:00','',NULL,1,'','','','','','','','0','0','','','',0,0,0,'T30-HQ02-0010',8,12,NULL,0,NULL,'2011-05-01 00:00:00','0000-00-00 00:00:00',4,'','',0,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',0,0,0,'','','','N;','N;','N;','N;','N;','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','','','','','','',0,0,0,0,0,'N;',1,0,'2014-05-15 04:37:44','2014-05-15 05:08:45'),
+ (403,'Thanh',NULL,'Tráº§n Háº­u','1979-09-10 00:00:00','','0000-00-00 00:00:00','',NULL,1,'','','','','','','','0','0','','','',0,0,0,'T30-HQ01-0003',11,12,NULL,0,NULL,'2012-10-01 00:00:00','0000-00-00 00:00:00',4,'','',0,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',0,0,0,'','','','N;','N;','N;','N;','N;','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','','','','','','',0,0,0,0,0,'N;',1,0,'2014-05-15 04:37:44','2014-05-15 05:09:30'),
+ (404,'Tháº¯ng',NULL,'Pháº¡m Ngá»c','1965-12-20 00:00:00','','0000-00-00 00:00:00','',NULL,1,'','','','','','','','0','0','','','',0,0,0,'T30-HQ98-0005',12,12,NULL,0,NULL,'2013-01-01 00:00:00','0000-00-00 00:00:00',4,'','',0,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',0,0,0,'','','','N;','N;','N;','N;','N;','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','','','','','','',0,0,0,0,0,'N;',1,0,'2014-05-15 04:37:44','2014-05-15 05:10:32'),
+ (405,'Háº£i',NULL,'Kiá»u Há»“ng','1960-12-06 00:00:00','','0000-00-00 00:00:00','',NULL,1,'','','','','','','','0','0','','','',0,0,0,'T30-HQ84-0001',12,12,NULL,0,NULL,'2011-07-01 00:00:00','0000-00-00 00:00:00',4,'','',0,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',0,0,0,'','','','N;','N;','N;','N;','N;','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','','','','','','',0,0,0,0,0,'N;',1,0,'2014-05-15 04:37:44','2014-05-15 05:11:06'),
+ (406,'LÆ°Æ¡ng',NULL,'LÃª VÄƒn','1976-06-10 00:00:00','','0000-00-00 00:00:00','',NULL,1,'','','','','','','','0','0','','','',0,0,0,'T30-HQ98-0003',12,12,NULL,0,NULL,'2012-05-01 00:00:00','0000-00-00 00:00:00',4,'','',0,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',0,0,0,'','','','N;','N;','N;','N;','N;','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','','','','','','',0,0,0,0,0,'N;',1,0,'2014-05-15 04:37:44','2014-05-15 05:11:47'),
+ (407,'Tiá»‡p',NULL,'Pháº¡m Viá»‡t','1979-05-15 00:00:00','','0000-00-00 00:00:00','',NULL,1,'','','','','','','','0','0','','','',0,0,0,'T30-HQ10-0006',12,12,NULL,0,NULL,'2014-04-01 00:00:00','0000-00-00 00:00:00',4,'','',0,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',0,0,0,'','','','N;','N;','N;','N;','N;','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','','','','','','',0,0,0,0,0,'N;',1,0,'2014-05-15 04:37:44','2014-05-15 05:12:46'),
+ (408,'An',NULL,'Nguyá»…n Kháº¯c','1984-10-16 00:00:00','','0000-00-00 00:00:00','',NULL,1,'','','','','','','','0','0','','','',0,0,0,'T30-HQ10-0030',18,12,NULL,0,NULL,'2013-04-01 00:00:00','0000-00-00 00:00:00',4,'','',0,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',0,0,0,'','','','N;','N;','N;','N;','N;','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','','','','','','',0,0,0,0,0,'N;',1,0,'2014-05-15 04:37:44','2014-05-15 05:13:29'),
+ (409,'HoÃ n',NULL,'Nguyá»…n VÄƒn','1981-08-28 00:00:00','','0000-00-00 00:00:00','',NULL,1,'','','','','','','','0','0','','','',0,0,0,'T30-HQ06-0005',18,12,NULL,0,NULL,'2012-05-01 00:00:00','0000-00-00 00:00:00',6,'','',0,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',0,0,0,'','','','N;','N;','N;','N;','N;','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','','','','','','',0,0,0,0,0,'N;',1,0,'2014-05-15 04:37:44','2014-05-15 05:13:54'),
+ (410,'Huy77',NULL,'Pháº¡m Quang','1977-01-06 00:00:00','','0000-00-00 00:00:00','',NULL,1,'','','','','','','','0','0','','','',0,0,0,'T30-HQ98-0001',18,12,NULL,0,NULL,'2012-05-01 00:00:00','0000-00-00 00:00:00',6,'','',0,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',0,0,0,'','','','N;','N;','N;','N;','N;','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','','','','','','',0,0,0,0,0,'N;',1,0,'2014-05-15 04:37:44','2014-05-15 05:14:21'),
+ (411,'Linh',NULL,'HÃ  Ngá»c','1988-09-29 00:00:00','','0000-00-00 00:00:00','',NULL,0,'','','','','','','','0','0','','','',0,0,0,'T30-HQ11-0012',18,12,NULL,0,NULL,'2011-11-01 00:00:00','0000-00-00 00:00:00',4,'','',0,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',0,0,0,'','','','N;','N;','N;','N;','N;','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','','','','','','',0,0,0,0,0,'N;',1,0,'2014-05-15 04:37:44','2014-05-15 05:14:51'),
+ (412,'SÆ¡n',NULL,'Nguyá»…n Há»¯u','1966-02-05 00:00:00','','0000-00-00 00:00:00','',NULL,1,'','','','','','','','0','0','','','',0,0,0,'T30-HQ95-0005',18,12,NULL,0,NULL,'2012-05-01 00:00:00','0000-00-00 00:00:00',6,'','',0,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',0,0,0,'','','','N;','N;','N;','N;','N;','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','','','','','','',0,0,0,0,0,'N;',1,0,'2014-05-15 04:37:44','2014-05-15 05:15:24'),
+ (413,'ThÃ´ng',NULL,'Nguyá»…n ÄÃ¬nh','1988-12-14 00:00:00','','0000-00-00 00:00:00','',NULL,1,'','','','','','','','0','0','','','',0,0,0,'T30-HQ11-0008',18,12,NULL,0,NULL,'2011-09-01 00:00:00','0000-00-00 00:00:00',8,'','',0,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',0,0,0,'','','','N;','N;','N;','N;','N;','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','','','','','','',0,0,0,0,0,'N;',1,0,'2014-05-15 04:37:44','2014-05-15 05:15:56'),
+ (414,'Hiáº¿u',NULL,'Nguyá»…n ÄÃ¬nh','1971-07-01 00:00:00','','0000-00-00 00:00:00','',NULL,1,'','','','','','','','0','0','','','',0,0,0,'T30-HQ13-0021',18,12,NULL,0,NULL,'2013-05-01 00:00:00','0000-00-00 00:00:00',4,'','',0,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',0,0,0,'','','','N;','N;','N;','N;','N;','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','','','','','','',0,0,0,0,0,'N;',1,0,'2014-05-15 04:37:44','2014-05-15 05:16:27'),
+ (415,'PhÃºc',NULL,'Nguyá»…n VÄƒn','1973-02-15 00:00:00','','0000-00-00 00:00:00','',NULL,1,'','','','','','','','0','0','','','',0,0,0,'T30-HQ13-0022',18,12,NULL,0,NULL,'2011-05-01 00:00:00','0000-00-00 00:00:00',7,'','',0,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',0,0,0,'','','','N;','N;','N;','N;','N;','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','','','','','','',0,0,0,0,0,'N;',1,0,'2014-05-15 04:37:44','2014-05-15 05:16:56'),
+ (416,'Viá»‡t',NULL,'Tráº§n Quá»‘c','1957-02-02 00:00:00','','0000-00-00 00:00:00','',NULL,1,'','','','','','','','0','0','','','',0,0,0,'T30-HQ80-0003',18,12,NULL,0,NULL,'2012-05-01 00:00:00','0000-00-00 00:00:00',4,'','',0,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',0,0,0,'','','','N;','N;','N;','N;','N;','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','','','','','','',0,0,0,0,0,'N;',1,0,'2014-05-15 04:37:44','2014-05-15 05:06:22'),
+ (417,'Long',NULL,'VÃµ ThÃ nh','1970-08-05 00:00:00','','0000-00-00 00:00:00','',NULL,1,'','','','','','','','0','0','','','',0,0,0,'T30-HQ98-0002',18,12,NULL,0,NULL,'2013-08-01 00:00:00','0000-00-00 00:00:00',6,'','',0,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',0,0,0,'','','','N;','N;','N;','N;','N;','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','','','','','','',0,0,0,0,0,'N;',1,0,'2014-05-15 04:37:44','2014-05-15 05:05:16'),
+ (418,'HÃ 89',NULL,'Nguyá»…n Thá»‹ Ngá»c','1989-09-02 00:00:00','','0000-00-00 00:00:00','',NULL,0,'','','','','','','','0','0','','','',0,0,0,'T30-HQ13-0004',18,12,NULL,0,NULL,'2013-03-01 00:00:00','0000-00-00 00:00:00',4,'','',0,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',0,0,0,'','','','N;','N;','N;','N;','N;','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','','','','','','',0,0,0,0,0,'N;',1,0,'2014-05-15 04:37:44','2014-05-15 05:04:39'),
+ (419,'NhÆ°',NULL,'DÆ°Æ¡ng Nguyá»…n Tá»‘','1990-03-08 00:00:00','','0000-00-00 00:00:00','',NULL,0,'','','','','','','','0','0','','','',0,0,0,'T30-HQ13-0013',18,12,NULL,0,NULL,'2013-03-01 00:00:00','0000-00-00 00:00:00',4,'','',0,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',0,0,0,'','','','N;','N;','N;','N;','N;','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','','','','','','',0,0,0,0,0,'N;',1,0,'2014-05-15 04:37:44','2014-05-15 05:04:17'),
+ (420,'Tuáº¥n',NULL,'Há»“ Ngá»c','1988-07-02 00:00:00','','0000-00-00 00:00:00','',NULL,1,'','','','','','','','0','0','','','',0,0,0,'T30-HQ13-0019',18,12,NULL,0,NULL,'2013-03-01 00:00:00','0000-00-00 00:00:00',4,'','',0,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',0,0,0,'','','','N;','N;','N;','N;','N;','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','','','','','','',0,0,0,0,0,'N;',1,0,'2014-05-15 04:37:44','2014-05-15 05:03:50'),
+ (421,'Nhung',NULL,'Nguyá»…n Thá»‹ Trang','1990-11-27 00:00:00','','0000-00-00 00:00:00','',NULL,0,'','','','','','','','0','0','','','',0,0,0,'T30-HQ13-0014',18,12,NULL,0,NULL,'2014-04-01 00:00:00','0000-00-00 00:00:00',4,'','',0,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',0,0,0,'','','','N;','N;','N;','N;','N;','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','','','','','','',0,0,0,0,0,'N;',1,0,'2014-05-15 04:37:44','2014-05-15 05:03:21'),
+ (422,'Tháº¯ng',NULL,'Nguyá»…n VÄƒn','1986-12-23 00:00:00','','0000-00-00 00:00:00','',NULL,1,'','','','','','','','0','0','','','',0,0,0,'T30-HQ10-0028',18,12,NULL,0,NULL,'2014-04-01 00:00:00','0000-00-00 00:00:00',4,'','',0,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',0,0,0,'','','','N;','N;','N;','N;','N;','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','','','','','','',0,0,0,0,0,'N;',1,0,'2014-05-15 04:37:44','2014-05-15 05:02:54'),
+ (423,'BÃ¬nh',NULL,'Cao Thanh','1983-02-24 00:00:00','','0000-00-00 00:00:00','',NULL,1,'','','','','','','','0','0','','','',0,0,0,'T30-HQ10-0011',18,12,NULL,0,NULL,'2014-04-01 00:00:00','0000-00-00 00:00:00',4,'','',0,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',0,0,0,'','','','N;','N;','N;','N;','N;','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','','','','','','',0,0,0,0,0,'N;',1,0,'2014-05-15 04:37:44','2014-05-15 05:02:21'),
+ (424,'Chiáº¿n',NULL,'LÃª Äá»©c','1983-04-16 00:00:00','','0000-00-00 00:00:00','',NULL,1,'','','','','','','','0','0','','','',0,0,0,'HÄLÄ 68',0,12,NULL,0,NULL,'2013-05-01 00:00:00','0000-00-00 00:00:00',10,'','',0,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',0,0,0,'','','','N;','N;','N;','N;','N;','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','','','','','','',0,0,0,0,0,'N;',1,0,'2014-05-15 04:37:44','2014-05-15 05:01:52'),
+ (425,'BÃ¬nh',NULL,'BÃ¹i Quang','1970-10-10 00:00:00','','0000-00-00 00:00:00','',NULL,1,'','','','','','','','0','0','','','',0,0,0,'HÄLÄ 68',0,12,NULL,0,NULL,'2012-12-01 00:00:00','0000-00-00 00:00:00',11,'','',0,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',0,0,0,'','','','N;','N;','N;','N;','N;','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','','','','','','',0,0,0,0,0,'N;',1,0,'2014-05-15 04:37:44','2014-05-15 04:56:13'),
+ (426,'HÆ°á»›ng',NULL,'Nguyá»…n Máº¡nh ','1970-05-12 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ92-0003',0,9,NULL,0,NULL,'2012-06-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:44','2014-05-15 04:37:44'),
+ (427,'DÅ©ng',NULL,'LÃª TrÃ­ ','1974-10-10 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ96-0002',0,9,NULL,0,NULL,'2011-05-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:44','2014-05-15 04:37:44'),
+ (428,'HÃ 82',NULL,'Nguyá»…n Thá»‹ Ngá»c ','1982-07-07 00:00:00',NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ06-0003',0,9,NULL,0,NULL,'2012-05-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:44','2014-05-15 04:37:44'),
+ (429,'Huyá»n',NULL,'Nguyá»…n Thá»‹ Thanh ','1979-09-28 00:00:00',NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ02-0007',0,9,NULL,0,NULL,'2013-01-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:44','2014-05-15 04:37:44'),
+ (430,'LuÃ¢n',NULL,'LÃª VÄƒn ','1955-12-08 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ76-0002',0,9,NULL,0,NULL,'2012-05-01 00:00:00',NULL,6,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:44','2014-05-15 04:37:44'),
+ (431,'TÃ¢n',NULL,'HoÃ ng Há»¯u ','1971-08-08 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ95-0007',0,9,NULL,0,NULL,'2013-01-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:44','2014-05-15 04:37:44'),
+ (432,'Trung',NULL,'Äáº·ng Quá»‘c ','1984-06-07 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ10-0003',0,9,NULL,0,NULL,'2014-04-16 00:00:00',NULL,0,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:44','2014-05-15 04:37:44'),
+ (433,'Háº£i',NULL,'LÃª ','1966-11-11 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ95-0003',0,9,NULL,0,NULL,'2013-04-16 00:00:00',NULL,6,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:44','2014-05-15 04:37:44');
+INSERT INTO `employees` (`em_id`,`em_ten`,`em_ten_dem`,`em_ho`,`em_ngay_sinh`,`em_so_chung_minh_thu`,`em_cmt_ngay_cap`,`em_ten_khac`,`em_anh_the`,`em_gioi_tinh`,`em_home_phone`,`em_phone`,`em_noi_sinh`,`em_noi_sinh_tinh`,`em_noi_sinh_huyen`,`em_que_quan`,`em_noi_o`,`em_noi_o_tinh`,`em_noi_o_huyen`,`em_que_quan_tinh`,`em_que_quan_huyen`,`em_dia_chi`,`em_dia_chi_tinh`,`em_dia_chi_huyen`,`em_dan_toc`,`em_so_cong_chuc`,`em_chuc_vu`,`em_phong_ban`,`em_han_luan_chuyen`,`em_nghi_huu`,`em_ngay_nghi_huu`,`em_time_cong_tac`,`em_ngay_tuyen_dung`,`em_ngach_cong_chuc`,`em_cong_viec`,`em_chuyen_mon`,`em_chuc_vu_dang`,`em_ngay_vao_dang`,`em_chuc_vu_doan`,`em_ngay_vao_doan`,`em_chuc_vu_cong_doan`,`em_quan_ly_nha_nuoc`,`em_ly_luan_chinh_tri`,`em_than_nhan_nuoc_ngoai`,`em_tham_gia_to_chuc`,`em_bi_bat`,`em_qua_trinh_luong`,`em_gia_dinh_vo`,`em_gia_dinh_ban_than`,`em_qua_trinh_cong_tac`,`em_lich_su_dao_tao`,`em_gia_dinh_chinh_sach`,`em_thuong_binh`,`em_nhom_mau`,`em_can_nang`,`em_chieu_cao`,`em_tinh_trang_suc_khoe`,`em_so_bhxh`,`em_danh_hieu`,`em_quan_ham`,`em_ngay_xuat_ngu`,`em_ngay_nhap_ngu`,`em_ky_luat`,`em_khen_thuong`,`em_cong_viec_khi_tuyen_dung`,`em_co_quan_tuyen_dung`,`em_ton_giao`,`em_van_hoa_pt`,`em_hoc_ham`,`em_bang_cap`,`em_ngoai_ngu`,`em_tin_hoc`,`em_chung_chi_khac`,`em_anh_bang_cap`,`em_status`,`em_delete`,`em_date_added`,`em_date_modified`) VALUES 
+ (434,'Nga',NULL,'Táº¡ Thá»‹ Kiá»u ','1985-08-30 00:00:00',NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ13-0011',0,9,NULL,0,NULL,'2013-03-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:44','2014-05-15 04:37:44'),
+ (435,'HÃ¹ng68',NULL,'Tráº§n Máº¡nh ','1978-01-26 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'HÄLÄ 68',0,9,NULL,0,NULL,'2011-05-01 00:00:00',NULL,0,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:44','2014-05-15 04:37:44'),
+ (436,'PhÃºc',NULL,'Tráº§n ÄÄƒng ','1987-01-01 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'HÄLÄ 68',0,9,NULL,0,NULL,'2014-01-01 00:00:00',NULL,10,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:44','2014-05-15 04:37:44'),
+ (437,'Linh',NULL,'Nguyá»…n Há»“ng ','1971-10-10 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ93-0003',0,14,NULL,0,NULL,'2013-08-18 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:44','2014-05-15 04:37:44'),
+ (438,'Thá»‘ng',NULL,'LÃª Trá»ng ','1971-08-06 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ95-0008',0,14,NULL,0,NULL,'2013-01-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:44','2014-05-15 04:37:44'),
+ (439,'Tháº¯ng',NULL,'Cao Äá»©c ','1977-08-15 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ00-0001',0,14,NULL,0,NULL,'2014-05-10 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:44','2014-05-15 04:37:44'),
+ (440,'Tiáº¿n',NULL,'Nguyá»…n Duy ','1955-06-02 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ77-0004',0,14,NULL,0,NULL,'2013-08-19 00:00:00',NULL,5,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:45','2014-05-15 04:37:45'),
+ (441,'CÆ°á»ng',NULL,'ÄÃ o Viáº¿t ','1982-05-24 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ05-0002',0,14,NULL,0,NULL,'2012-05-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:45','2014-05-15 04:37:45'),
+ (442,'Viá»‡t',NULL,'BÃ¹i Tháº¿ ','1978-04-10 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ00-0005',0,14,NULL,0,NULL,'2013-01-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:45','2014-05-15 04:37:45'),
+ (443,'TÃ i',NULL,'Nguyá»…n Quang ','1975-03-10 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ98-0004',0,14,NULL,0,NULL,'2013-01-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:45','2014-05-15 04:37:45'),
+ (444,'HÃ¹ng',NULL,'LÃª Máº¡nh ','1976-04-19 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ01-0002',0,14,NULL,0,NULL,'2012-10-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:45','2014-05-15 04:37:45'),
+ (445,'XuÃ¢n',NULL,'Nguyá»…n Thá»‹ ','1983-07-22 00:00:00',NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ06-0009',0,14,NULL,0,NULL,'2012-05-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:45','2014-05-15 04:37:45'),
+ (446,'HÃ o',NULL,'LÃª Song ','1975-07-17 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ06-0004',0,14,NULL,0,NULL,'2011-04-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:45','2014-05-15 04:37:45'),
+ (447,'HÃ ',NULL,'ThÃ¡i VÄƒn ','1970-08-06 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ02-0006',0,14,NULL,0,NULL,'2012-05-01 00:00:00',NULL,6,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:45','2014-05-15 04:37:45'),
+ (448,'HÃ ',NULL,'Äinh Viá»‡t ','1974-10-17 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ05-0004',0,14,NULL,0,NULL,'2013-04-16 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:45','2014-05-15 04:37:45'),
+ (449,'Hiá»ƒn',NULL,'Nguyá»…n Thá»‹ Kim ','1982-11-07 00:00:00',NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ05-0008',0,14,NULL,0,NULL,'2013-04-16 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:45','2014-05-15 04:37:45'),
+ (450,'Tháº¯ng',NULL,'Pháº¡m Anh ','1979-08-31 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ02-0011',0,14,NULL,0,NULL,'2013-04-21 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:45','2014-05-15 04:37:45'),
+ (451,'Diá»‡u',NULL,'Nguyá»…n ÄÃ¬nh ','1984-07-20 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ10-0034',0,14,NULL,0,NULL,'2013-01-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:45','2014-05-15 04:37:45'),
+ (452,'Háº£i',NULL,'Tráº§n Thanh ','1974-07-31 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ96-0003',0,14,NULL,0,NULL,'2013-01-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:45','2014-05-15 04:37:45'),
+ (453,'Háº±ng',NULL,'Pháº¡m Thá»‹ Minh ','1983-09-16 00:00:00',NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ09-0003',0,14,NULL,0,NULL,'2013-02-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:45','2014-05-15 04:37:45'),
+ (454,'HÃ¹ng',NULL,'Nguyá»…n Thanh ','1974-10-13 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ10-0007',0,14,NULL,0,NULL,'2012-05-01 00:00:00',NULL,6,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:45','2014-05-15 04:37:45'),
+ (455,'HÃ¹ng',NULL,'Nguyá»…n Máº¡nh ','1984-09-10 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ11-0005',0,14,NULL,0,NULL,'2011-09-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:45','2014-05-15 04:37:45'),
+ (456,'HÆ°ng',NULL,'Tráº§n VÄƒn ','1987-07-12 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ10-0040',0,14,NULL,0,NULL,'2013-01-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:45','2014-05-15 04:37:45'),
+ (457,'Nga',NULL,'Tráº§n Thá»‹ Tá»‘ ','1978-12-17 00:00:00',NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ09-0005',0,14,NULL,0,NULL,'2012-05-01 00:00:00',NULL,9,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:45','2014-05-15 04:37:45'),
+ (458,'NghÄ©a',NULL,'Phan Trá»ng ','1983-09-17 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ11-0006',0,14,NULL,0,NULL,'2012-12-01 00:00:00',NULL,6,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:45','2014-05-15 04:37:45'),
+ (459,'TÆ°á»ng',NULL,'Nguyá»…n CÃ¡t ','1955-02-25 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ86-0002',0,14,NULL,0,NULL,'2013-01-01 00:00:00',NULL,10,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:45','2014-05-15 04:37:45'),
+ (460,'Thanh',NULL,'LÃª ÄÃ¬nh ','1966-09-01 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ94-0010',0,14,NULL,0,NULL,'2011-07-01 00:00:00',NULL,6,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:45','2014-05-15 04:37:45'),
+ (461,'ThÃ¬n',NULL,'Äáº·ng VÄƒn ','1966-10-18 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ10-0001',0,14,NULL,0,NULL,'2012-05-01 00:00:00',NULL,7,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:45','2014-05-15 04:37:45'),
+ (462,'Thá»©c',NULL,'LÃª ÄÃ¬nh ','1974-12-25 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ10-0009',0,14,NULL,0,NULL,'2012-05-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:45','2014-05-15 04:37:45'),
+ (463,'SÆ¡n',NULL,'Nguyá»…n NhÆ° ','1978-10-15 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ08-0004',0,14,NULL,0,NULL,'2013-04-16 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:45','2014-05-15 04:37:45'),
+ (464,'TÃ¹ng',NULL,'Biá»‡n DÆ°Æ¡ng ','1984-10-29 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ10-0004',0,14,NULL,0,NULL,'2014-04-14 00:00:00',NULL,0,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:45','2014-05-15 04:37:45'),
+ (465,'Minh',NULL,'Tráº§n VÄƒn ','1983-10-05 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ10-0002',0,14,NULL,0,NULL,'2014-04-17 00:00:00',NULL,0,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:45','2014-05-15 04:37:45'),
+ (466,'Huy81',NULL,'Pháº¡m Quang ','1981-09-21 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ09-0004',0,14,NULL,0,NULL,'2014-04-15 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:45','2014-05-15 04:37:45'),
+ (467,'Chi',NULL,'Nguyá»…n KhÃ¡nh ','1986-07-10 00:00:00',NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ10-0012',0,14,NULL,0,NULL,'2014-04-18 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:45','2014-05-15 04:37:45'),
+ (468,'Sang',NULL,'Tráº§n VÄƒn ','1984-10-01 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ11-0007',0,14,NULL,0,NULL,'2014-04-14 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:45','2014-05-15 04:37:45'),
+ (469,'PhÆ°Æ¡ng',NULL,'HÃ  Tiáº¿n ','1978-11-09 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ00-0003',0,14,NULL,0,NULL,'2014-04-14 00:00:00',NULL,6,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:45','2014-05-15 04:37:45'),
+ (470,'Vinh',NULL,'HoÃ ng Trá»ng ','1984-10-04 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ10-0025',0,14,NULL,0,NULL,'2013-08-18 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:45','2014-05-15 04:37:45'),
+ (471,'HÃ¹ng',NULL,'VÃµ ÄÄƒng ','1980-11-05 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'HÄLÄ 68',0,14,NULL,0,NULL,'2013-04-26 00:00:00',NULL,10,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:45','2014-05-15 04:37:45'),
+ (472,'DÅ©ng',NULL,'Nguyá»…n VÄƒn ','1971-05-10 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'HÄLÄ 68',0,14,NULL,0,NULL,'2013-04-25 00:00:00',NULL,11,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:45','2014-05-15 04:37:45'),
+ (473,'Háº£i',NULL,'VÃµ Quang ','1979-01-18 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'HÄLÄ 68',0,14,NULL,0,NULL,'2013-01-01 00:00:00',NULL,10,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:45','2014-05-15 04:37:45'),
+ (474,'KhÃ¡nh',NULL,'Nguyá»…n Quá»‘c ','1988-02-18 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'HÄLÄ 68',0,14,NULL,0,NULL,'2013-01-01 00:00:00',NULL,10,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:45','2014-05-15 04:37:45'),
+ (475,'CÆ°Æ¡ng',NULL,'LÃª Äá»©c ','1985-06-30 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'HÄLÄ 68',0,14,NULL,0,NULL,'2013-01-01 00:00:00',NULL,11,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:45','2014-05-15 04:37:45'),
+ (476,'Anh',NULL,'Nguyá»…n Viá»‡t ','1991-10-23 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'HÄLÄ 68',0,14,NULL,0,NULL,'2013-10-15 00:00:00',NULL,10,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:45','2014-05-15 04:37:45'),
+ (477,'VÅ©',NULL,'LÃª KhÃ¡nh ','1989-11-05 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'HÄLÄ 68',0,14,NULL,0,NULL,'2013-10-15 00:00:00',NULL,10,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:45','2014-05-15 04:37:45'),
+ (478,'Má»¹',NULL,'Nguyá»…n Thá»‹ ','1991-04-27 00:00:00',NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'HÄLÄ 68',0,14,NULL,0,NULL,'2013-11-13 00:00:00',NULL,12,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:45','2014-05-15 04:37:45'),
+ (479,'DÆ°Æ¡ng',NULL,'LÃª Tiáº¿n ','1988-05-25 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'HLV',0,14,NULL,0,NULL,'2012-04-01 00:00:00',NULL,7,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:45','2014-05-15 04:37:45'),
+ (480,'Huá»³nh',NULL,'HoÃ ng HÃ¹ng ','1991-10-13 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'HLV',0,14,NULL,0,NULL,'2012-04-01 00:00:00',NULL,7,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:46','2014-05-15 04:37:46'),
+ (481,'KiÃªn',NULL,'HoÃ ng Trá»ng ','1983-06-05 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'HLV',0,14,NULL,0,NULL,'2012-09-01 00:00:00',NULL,7,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:46','2014-05-15 04:37:46'),
+ (482,'SÃ¢m',NULL,'Nguyá»…n Tiáº¿n ','1956-05-19 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ95-0004',0,13,NULL,0,NULL,'2012-10-01 00:00:00',NULL,5,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:46','2014-05-15 04:37:46'),
+ (483,'HiÃªn',NULL,'Nguyá»…n Há»¯u ','1964-07-02 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ87-0001',0,13,NULL,0,NULL,'2014-05-16 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:46','2014-05-15 04:37:46'),
+ (484,'PhÃºc',NULL,'Tráº§n Thanh ','1971-06-22 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ94-0008',0,13,NULL,0,NULL,'2014-05-16 00:00:00',NULL,5,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:46','2014-05-15 04:37:46'),
+ (485,'NÆ°u',NULL,'Nguyá»…n ','1954-11-05 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ77-0003',0,13,NULL,0,NULL,'2013-08-18 00:00:00',NULL,5,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:46','2014-05-15 04:37:46'),
+ (486,'Äá»©c',NULL,'Nguyá»…n Minh ','1979-01-12 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ02-0005',0,13,NULL,0,NULL,'2011-08-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:46','2014-05-15 04:37:46'),
+ (487,'HÃ¹ng',NULL,'Tráº§n Máº¡nh ','1978-09-17 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ05-0009',0,13,NULL,0,NULL,'2013-01-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:46','2014-05-15 04:37:46'),
+ (488,'BÃ¬nh',NULL,'LÃª Thanh ','1966-08-28 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ95-0001',0,13,NULL,0,NULL,'2013-04-16 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:46','2014-05-15 04:37:46'),
+ (489,'BÃ­nh',NULL,'NgÃ´ VÄƒn ','1986-09-28 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ11-0004',0,13,NULL,0,NULL,'2013-02-01 00:00:00',NULL,8,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:46','2014-05-15 04:37:46'),
+ (490,'Chiáº¿n',NULL,'TrÆ°Æ¡ng XuÃ¢n ','1982-05-02 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ10-0013',0,13,NULL,0,NULL,'2011-09-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:46','2014-05-15 04:37:46'),
+ (491,'Chiáº¿n',NULL,'Nguyá»…n BÃ¡ ','1987-05-22 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ10-0031',0,13,NULL,0,NULL,'2010-10-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:46','2014-05-15 04:37:46'),
+ (492,'DÅ©ng',NULL,'HÃ  VÄƒn ','1975-05-01 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ99-0001',0,13,NULL,0,NULL,'2012-05-01 00:00:00',NULL,6,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:46','2014-05-15 04:37:46'),
+ (493,'Phong',NULL,'Tráº§n ÄÃ¬nh ','1975-08-15 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ94-0007',0,13,NULL,0,NULL,'2014-04-14 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:46','2014-05-15 04:37:46'),
+ (494,'DÅ©ng',NULL,'Nguyá»…n Tiáº¿n ','1983-05-13 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ10-0033',0,13,NULL,0,NULL,'2010-10-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:46','2014-05-15 04:37:46'),
+ (495,'Háº£i',NULL,'Äáº·ng Há»¯u ','1981-03-21 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ09-0008',0,13,NULL,0,NULL,'2012-05-01 00:00:00',NULL,7,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:46','2014-05-15 04:37:46'),
+ (496,'HoÃ ng',NULL,'Nguyá»…n ÄÃ¬nh ','1984-01-15 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ10-0038',0,13,NULL,0,NULL,'2010-10-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:46','2014-05-15 04:37:46'),
+ (497,'HÃ¹ng',NULL,'Nguyá»…n Anh ','1986-06-15 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ10-0039',0,13,NULL,0,NULL,'2010-10-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:46','2014-05-15 04:37:46'),
+ (498,'Huá»³nh',NULL,'Pháº¡m Quang ','1958-09-02 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ11-0002',0,13,NULL,0,NULL,'2012-05-01 00:00:00',NULL,7,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:46','2014-05-15 04:37:46'),
+ (499,'Long',NULL,'Nguyá»…n ÄÄƒng ','1983-10-02 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ10-0042',0,13,NULL,0,NULL,'2012-05-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:46','2014-05-15 04:37:46'),
+ (500,'Nhung',NULL,'Kiá»u Äá»©c ','1962-06-12 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ94-0006',0,13,NULL,0,NULL,'2012-05-01 00:00:00',NULL,6,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:46','2014-05-15 04:37:46'),
+ (501,'Quá»³nh',NULL,'VÃµ XuÃ¢n ','1983-04-10 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ10-0020',0,13,NULL,0,NULL,'2013-02-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:46','2014-05-15 04:37:46'),
+ (502,'Tuáº¥n',NULL,'Pháº¡m BÃ¡ ','1987-05-15 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ10-0046',0,13,NULL,0,NULL,'2013-02-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:46','2014-05-15 04:37:46'),
+ (503,'TÃºy',NULL,'Äinh VÄƒn ','1986-12-26 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ10-0024',0,13,NULL,0,NULL,'2010-07-01 00:00:00',NULL,6,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:46','2014-05-15 04:37:46'),
+ (504,'Tháº¡ch',NULL,'Pháº¡m Ngá»c ','1987-08-26 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ10-0021',0,13,NULL,0,NULL,'2010-10-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:46','2014-05-15 04:37:46'),
+ (505,'ThÆ°',NULL,'VÃµ ÄÃ¬nh ','1982-12-22 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ09-0009',0,13,NULL,0,NULL,'2013-02-01 00:00:00',NULL,7,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:46','2014-05-15 04:37:46'),
+ (506,'Trá»ng',NULL,'Nguyá»…n VÄƒn ','1984-06-12 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ10-0005',0,13,NULL,0,NULL,'2012-05-01 00:00:00',NULL,0,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:46','2014-05-15 04:37:46'),
+ (507,'VÃµ',NULL,'DÆ°Æ¡ng ÄÃ¬nh ','1960-03-04 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ84-0002',0,13,NULL,0,NULL,'2010-03-01 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:46','2014-05-15 04:37:46'),
+ (508,'Thá»§y',NULL,'ÄÆ°á»ng Thá»‹ Thanh ','1986-08-12 00:00:00',NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ10-0044',0,13,NULL,0,NULL,'2013-04-16 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:46','2014-05-15 04:37:46'),
+ (509,'ChÃ¢u',NULL,'LÃª Thá»‹ Minh ','1986-05-10 00:00:00',NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ08-0001',0,13,NULL,0,NULL,'2014-04-14 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:46','2014-05-15 04:37:46'),
+ (510,'ToÃ n',NULL,'Nguyá»…n Song ','1986-11-01 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ10-0045',0,13,NULL,0,NULL,'2013-04-16 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:46','2014-05-15 04:37:46'),
+ (511,'DuyÃªn',NULL,'Nguyá»…n Thá»‹ Háº£i ','1986-01-10 00:00:00',NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ10-0015',0,13,NULL,0,NULL,'2014-04-14 00:00:00',NULL,6,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:46','2014-05-15 04:37:46'),
+ (512,'Trang',NULL,'Tráº§n Thá»‹ Huyá»n ','1987-01-21 00:00:00',NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ10-0049',0,13,NULL,0,NULL,'2013-04-18 00:00:00',NULL,4,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:46','2014-05-15 04:37:46'),
+ (513,'XuÃ¢n',NULL,'Nguyá»…n VÄƒn ','1983-03-10 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'T30-HQ11-0010',0,13,NULL,0,NULL,'2013-02-01 00:00:00',NULL,8,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:46','2014-05-15 04:37:46'),
+ (514,'LÃ½',NULL,'Nguyá»…n XuÃ¢n ','1980-10-10 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'HÄLÄ 68',0,13,NULL,0,NULL,'2013-12-13 00:00:00',NULL,10,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:46','2014-05-15 04:37:46'),
+ (515,'ToÃ n',NULL,'Nguyá»…n VÄ©nh ','1977-05-05 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'HÄLÄ 68',0,13,NULL,0,NULL,'2013-05-07 00:00:00',NULL,10,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:46','2014-05-15 04:37:46'),
+ (516,'An',NULL,'Nguyá»…n HoÃ i ','1975-09-12 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'HÄLÄ 68',0,13,NULL,0,NULL,'2011-02-01 00:00:00',NULL,11,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:46','2014-05-15 04:37:46'),
+ (517,'Äá»‹nh',NULL,'Phan CÃ´ng ','1982-05-05 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'HÄLÄ 68',0,13,NULL,0,NULL,'2013-01-01 00:00:00',NULL,11,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:46','2014-05-15 04:37:46'),
+ (518,'Tá»‹nh',NULL,'Nguyá»…n Thanh ','1970-05-10 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'HÄLÄ 68',0,13,NULL,0,NULL,'2011-07-01 00:00:00',NULL,10,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:46','2014-05-15 04:37:46'),
+ (519,'Háº¡nh',NULL,'BÃ¹i Thá»‹ PhÆ°Æ¡ng ','1989-11-20 00:00:00',NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'HÄLÄ 68',0,13,NULL,0,NULL,'2014-02-10 00:00:00',NULL,12,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:46','2014-05-15 04:37:46'),
+ (520,'Tuáº¥n',NULL,'Pháº¡m Anh ','1988-08-08 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'HLV',0,13,NULL,0,NULL,'2012-08-01 00:00:00',NULL,7,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:46','2014-05-15 04:37:46'),
+ (521,'Quang',NULL,'Nguyá»…n VÄƒn ','1985-08-04 00:00:00',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,'HLV',0,13,NULL,0,NULL,'2012-04-01 00:00:00',NULL,7,NULL,NULL,0,NULL,0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,0,0,0,NULL,1,0,'2014-05-15 04:37:46','2014-05-15 04:37:46');
 /*!40000 ALTER TABLE `employees` ENABLE KEYS */;
 
 
@@ -582,6 +906,7 @@ CREATE TABLE `employees_edit` (
   `eme_ho` varchar(45) NOT NULL,
   `eme_ngay_sinh` datetime DEFAULT NULL,
   `eme_so_chung_minh_thu` varchar(45) CHARACTER SET latin1 DEFAULT NULL,
+  `eme_cmt_ngay_cap` datetime DEFAULT NULL,
   `eme_ten_khac` varchar(100) DEFAULT NULL,
   `eme_anh_the` varchar(255) DEFAULT NULL,
   `eme_gioi_tinh` int(10) unsigned NOT NULL DEFAULT '1',
@@ -636,17 +961,14 @@ CREATE TABLE `employees_edit` (
   `eme_ton_giao` varchar(255) DEFAULT NULL,
   `eme_date_added` datetime DEFAULT NULL,
   `eme_date_modified` datetime DEFAULT NULL,
-  `eme_cmt_ngay_cap` datetime DEFAULT NULL,
   PRIMARY KEY (`eme_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `employees_edit`
 --
 
 /*!40000 ALTER TABLE `employees_edit` DISABLE KEYS */;
-INSERT INTO `employees_edit` (`eme_id`,`em_id`,`eme_ten`,`eme_ten_dem`,`eme_ho`,`eme_ngay_sinh`,`eme_so_chung_minh_thu`,`eme_ten_khac`,`eme_anh_the`,`eme_gioi_tinh`,`eme_home_phone`,`eme_phone`,`eme_noi_sinh`,`eme_que_quan`,`eme_dia_chi`,`eme_dia_chi_tinh`,`eme_dia_chi_huyen`,`eme_dan_toc`,`eme_chuc_vu_dang`,`eme_ngay_vao_dang`,`eme_chuc_vu_doan`,`eme_ngay_vao_doan`,`eme_chuc_vu_cong_doan`,`eme_van_hoa_pt`,`eme_hoc_ham`,`eme_bang_cap`,`eme_ngoai_ngu`,`eme_tin_hoc`,`eme_chung_chi_khac`,`eme_anh_bang_cap`,`eme_quan_ly_nha_nuoc`,`eme_ly_luan_chinh_tri`,`eme_than_nhan_nuoc_ngoai`,`eme_tham_gia_to_chuc`,`eme_bi_bat`,`eme_qua_trinh_luong`,`eme_gia_dinh_vo`,`eme_gia_dinh_ban_than`,`eme_qua_trinh_cong_tac`,`eme_lich_su_dao_tao`,`eme_gia_dinh_chinh_sach`,`eme_thuong_binh`,`eme_nhom_mau`,`eme_can_nang`,`eme_chieu_cao`,`eme_tinh_trang_suc_khoe`,`eme_so_bhxh`,`eme_danh_hieu`,`eme_quan_ham`,`eme_ngay_xuat_ngu`,`eme_ngay_nhap_ngu`,`eme_noi_o_tinh`,`eme_noi_o_huyen`,`eme_noi_o`,`eme_que_quan_tinh`,`eme_que_quan_huyen`,`eme_noi_sinh_tinh`,`eme_noi_sinh_huyen`,`eme_ton_giao`,`eme_date_added`,`eme_date_modified`,`eme_cmt_ngay_cap`) VALUES 
- (2,2,'BÃ­ch',NULL,'Ã‚u','1986-11-02 00:00:00','13133123434','BÃ­ch',NULL,0,'','09886838560','Báº£o Tháº¯ng','HoÃ ng LiÃªn SÆ¡n','XÃ³m 11',4,1,2,0,'2012-07-15 00:00:00',0,'2011-05-18 00:00:00',0,'12/12',3,8,1,2,3,'a:3:{i:959029566;a:2:{s:4:\"name\";s:1:\"1\";s:3:\"anh\";s:1:\"1\";}i:2024213796;a:2:{s:4:\"name\";s:1:\"9\";s:3:\"anh\";s:1:\"9\";}i:941971074;a:2:{s:4:\"name\";s:1:\"6\";s:3:\"anh\";s:1:\"6\";}}',0,0,'','','','N;','N;','N;','N;','N;','','','','','','','','','','1970-01-01 00:00:00','1970-01-01 00:00:00','0','0','','','','','','','2014-04-06 21:57:12','2014-04-06 21:57:12','1970-01-01 00:00:00');
 /*!40000 ALTER TABLE `employees_edit` ENABLE KEYS */;
 
 
@@ -680,7 +1002,7 @@ CREATE TABLE `employees_heso` (
   `eh_pc_doc_hai_type` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '0: he so, 1: tien co dinh',
   `eh_han_ap_dung` datetime DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`eh_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=512 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `employees_heso`
@@ -688,13 +1010,512 @@ CREATE TABLE `employees_heso` (
 
 /*!40000 ALTER TABLE `employees_heso` DISABLE KEYS */;
 INSERT INTO `employees_heso` (`eh_id`,`eh_em_id`,`eh_loai_luong`,`eh_giai_doan`,`eh_he_so`,`eh_pc_cong_viec`,`eh_pc_trach_nhiem`,`eh_pc_tnvk_phan_tram`,`eh_tham_niem`,`eh_pc_udn_phan_tram`,`eh_pc_cong_vu_phan_tram`,`eh_pc_kiem_nhiem`,`eh_pc_khac`,`eh_han_dieu_chinh`,`eh_date_added`,`eh_date_modified`,`eh_pc_kv`,`eh_pc_khac_type`,`eh_pc_thu_hut`,`eh_bac_luong`,`eh_pc_doc_hai`,`eh_pc_doc_hai_type`,`eh_han_ap_dung`) VALUES 
- (1,1,0,0,1,2,4,6,'2000-01-01 00:00:07',7,8,9,10,'2015-01-01 00:00:07','2014-02-22 15:54:27','2014-04-06 22:27:01',0,0,3,4,0,0,'0000-00-00 00:00:00'),
- (2,2,0,0,1,2,4,6,'2000-01-01 00:00:07',7,8,9,10,'2024-01-01 00:00:07','2014-02-22 21:17:29','2014-04-13 10:50:50',0,1,3,4,0,0,'0000-00-00 00:00:00'),
- (3,13,0,0,1,2,4,6,'2001-12-01 00:00:07',7,8,9,10,'2002-12-01 00:00:07','2014-04-01 23:31:42','2014-04-01 23:34:11',0,0,3,4,0,0,'0000-00-00 00:00:00'),
- (4,22,0,0,1,2,4,6,'1970-01-01 00:00:07',7,8,9,10,'2036-01-01 00:00:07','2014-04-09 17:45:21','2014-04-09 17:45:31',0,0,3,4,0,0,'0000-00-00 00:00:00'),
- (5,1,0,0,1,2,4,6,'2000-01-01 00:00:07',7,8,9,10,'2015-01-01 00:00:07','2014-05-13 11:41:25','2014-05-13 11:41:25',0,0,3,5,0,0,'1970-01-01 00:00:07'),
- (6,13,0,0,1,2,4,6,'1999-12-01 00:00:07',7,8,9,10,'2014-04-01 00:00:07','2014-05-13 14:00:55','2014-05-13 14:03:18',0,0,3,4,0,0,'1970-01-01 00:00:07'),
- (7,13,0,0,1,2,4,6,'1998-12-01 00:00:07',7,8,9,10,'2014-04-01 00:00:07','2014-05-13 14:03:35','2014-05-13 14:03:35',0,0,3,4,0,0,'2014-04-01 00:00:07');
+ (1,1,0,0,1.1,2.1,4.1,6.1,'2000-11-01 00:00:07',7.1,8.1,9.1,10.1,'2019-01-01 00:00:07','2014-02-22 15:54:27','2014-04-15 01:05:42',5.1,0,3.1,2,0,0,'0000-00-00 00:00:00'),
+ (2,2,0,0,4.06,0,0,11,'0000-00-00 00:00:00',25,25,0,0,'2016-01-01 00:00:07','2014-02-22 21:17:29','2014-02-22 21:17:29',0,0,0,0,0,0,'0000-00-00 00:00:00'),
+ (3,17,0,0,4,5,0.2,12,'0000-00-00 00:00:00',12,25,0.3,0.1,'2014-01-01 00:00:00','2014-02-25 21:59:32','2014-02-25 21:59:37',0,0,0,0,0,0,'0000-00-00 00:00:00'),
+ (4,18,0,0,4.32,0.6,0,0,'0000-00-00 00:00:00',20,25,0,0,'2014-01-01 00:00:00','2014-02-28 02:04:05','2014-02-28 02:04:05',0,0,0,0,0,0,'0000-00-00 00:00:00'),
+ (5,13,0,0,3,0.3,0,0,'2005-04-01 00:00:07',20,25,0,0,'2014-04-01 00:00:07','2014-04-16 21:25:19','2014-04-17 05:21:18',0,0,0,1,0,0,'0000-00-00 00:00:00'),
+ (6,19,0,0,2.34,0,0,0,'2013-02-01 00:00:07',20,25,0,0,'2017-02-01 00:00:07','2014-04-16 22:26:12','2014-04-16 22:26:12',0,0,0,1,0,0,'0000-00-00 00:00:00'),
+ (7,20,0,0,4.32,0.5,0.15,0,'1991-03-01 00:00:07',20,25,0,0,'2015-03-01 00:00:07','2014-04-17 21:13:58','2014-04-17 21:14:04',0,0,0,2,0,0,'0000-00-00 00:00:00'),
+ (8,21,0,0,4.32,0.6,0,0,'1993-11-01 00:00:07',20,25,0,0,'2016-11-01 00:00:07','2014-04-17 21:16:34','2014-04-17 21:16:34',0.5,0,70,2,0,0,'0000-00-00 00:00:00'),
+ (9,22,0,0,3.99,0.55,0,0,'1992-04-01 00:00:07',20,25,0,0,'2015-04-01 00:00:07','2014-04-17 21:36:57','2014-04-17 21:36:57',0.2,0,70,2,0,0,'0000-00-00 00:00:00'),
+ (10,23,0,0,3.66,0,0,0,'2002-10-01 00:00:07',20,25,0,0,'2017-01-01 00:00:07','2014-04-17 21:38:13','2014-04-17 21:38:13',0,0,0,2,0,0,'0000-00-00 00:00:00'),
+ (11,24,0,0,2.34,0,0,0,'2010-07-01 00:00:07',20,25,0,0,'2014-07-01 00:00:07','2014-04-17 21:39:21','2014-04-17 21:39:34',0,0,0,1,0,0,'0000-00-00 00:00:00'),
+ (12,25,0,0,3,0.3,0,0,'2005-04-01 00:00:07',20,25,0,0,'2015-04-01 00:00:07','2014-04-17 21:41:26','2014-04-17 21:41:43',0.5,0,70,2,0,0,'0000-00-00 00:00:00'),
+ (13,26,0,0,3.66,0.5,0,0,'2002-01-01 00:00:07',20,25,0,0,'2016-01-01 00:00:07','2014-04-17 21:46:10','2014-04-17 21:46:10',0,0,0,2,0,0,'0000-00-00 00:00:00'),
+ (14,27,0,0,2.67,0,0,0,'2010-06-01 00:00:07',20,25,0,0,'2014-06-01 00:00:07','2014-04-17 21:52:04','2014-04-17 21:52:04',0.5,0,70,1,0,0,'0000-00-00 00:00:00'),
+ (15,28,0,0,2.34,0,0,6,'2013-02-01 00:00:07',20,25,0,0,'2017-02-01 00:00:07','2014-04-17 21:52:55','2014-04-17 21:52:55',0,0,0,1,0,0,'0000-00-00 00:00:00'),
+ (16,29,0,0,3.33,0.5,0.35,0,'2002-01-01 00:00:07',20,25,0,0,'2014-04-01 00:00:07','2014-04-17 21:56:30','2014-04-17 21:57:40',0,0,0,2,0,0,'0000-00-00 00:00:00'),
+ (17,30,0,0,3,0.5,0.3,0,'2005-02-01 00:00:07',20,25,0,0,'2014-05-01 00:00:07','2014-04-17 22:06:22','2014-04-17 22:06:22',0,0,0,2,0,0,'0000-00-00 00:00:00'),
+ (18,13,0,0,4.74,0.3,0,0,'2005-04-01 00:00:07',20,25,0,0,'2014-04-01 00:00:07','2014-05-14 19:40:30','2014-05-14 19:40:30',0,0,0,2,0,0,'2010-11-01 00:00:07'),
+ (25,37,0,1,3.33,1.1,1.2,7.6,'2002-02-01 00:00:00',12,1,2,1,'2011-05-01 00:00:00','2014-05-14 20:20:38','2014-05-14 20:20:38',2.4,0,3,4,12,0,'2011-05-01 00:00:00'),
+ (26,38,1,0,2.34,1.2,1.3,2.5,'2002-02-01 00:00:00',10,2.4,1,1.2,'2012-01-04 00:00:00','2014-05-14 20:20:38','2014-05-14 20:20:38',1.5,1,4,1,200000,1,'2012-01-04 00:00:00'),
+ (27,30,0,0,3,0.5,0.3,0,'2005-02-01 00:00:07',20,25,0,0,'2014-05-01 00:00:07','2014-05-14 22:27:33','2014-05-14 22:27:33',0,0,0,3,0,0,'1900-11-01 00:00:07'),
+ (28,30,0,0,3,0.5,0.3,0,'2005-02-01 00:00:07',20,25,0,0,'2014-05-01 00:00:07','2014-05-14 22:28:18','2014-05-14 22:28:23',0,0,0,3,0,0,'2011-05-01 00:00:07'),
+ (29,39,0,1,3.33,1.1,1.2,7.6,'2002-02-01 00:00:00',12,1,2,1,'2011-05-01 00:00:00','2014-05-14 23:27:52','2014-05-14 23:27:52',2.4,0,3,4,12,0,'2011-05-01 00:00:00'),
+ (30,40,1,0,2.34,1.2,1.3,2.5,'2002-02-01 00:00:00',10,2.4,1,1.2,'2012-01-01 00:00:00','2014-05-14 23:27:52','2014-05-14 23:27:52',1.5,1,4,1,200000,1,'2012-01-01 00:00:00'),
+ (31,41,0,0,4.32,0.9,0,0,'1994-12-01 00:00:00',20,25,0,0,'2013-12-01 00:00:00','2014-05-14 23:27:52','2014-05-14 23:27:52',0,0,0,7,0,0,'2013-12-01 00:00:00'),
+ (32,42,0,0,5.76,0.7,0,0,'1977-10-01 00:00:00',15,25,0,0,'2012-11-01 00:00:00','2014-05-14 23:27:52','2014-05-14 23:27:52',0,0,0,5,0,0,'2012-11-01 00:00:00'),
+ (33,43,0,0,3.99,0.7,0,0,'1996-06-01 00:00:00',20,25,0,0,'2012-06-01 00:00:00','2014-05-14 23:27:52','2014-05-14 23:27:52',0,0,0,6,0,0,'2012-06-01 00:00:00'),
+ (34,44,0,0,5.42,0.7,0,0,'1992-12-01 00:00:00',15,25,0,0,'2013-01-01 00:00:00','2014-05-14 23:27:52','2014-05-14 23:27:52',0,0,0,4,0,0,'2013-01-01 00:00:00'),
+ (35,45,0,0,3.66,0.5,0,0,'2002-02-01 00:00:00',20,25,0,0,'2014-05-01 00:00:00','2014-05-14 23:27:52','2014-05-14 23:27:52',0,0,0,5,0,0,'2014-05-01 00:00:00'),
+ (36,46,0,0,3.66,0.3,0,0,'1995-09-01 00:00:00',20,25,0,0,'2012-04-01 00:00:00','2014-05-14 23:27:52','2014-05-14 23:27:52',0,0,0,5,0,0,'2012-04-01 00:00:00'),
+ (37,47,0,0,3,0.5,0,0,'2005-03-01 00:00:00',20,25,0,0,'2011-06-01 00:00:00','2014-05-14 23:27:52','2014-05-14 23:27:52',0,0,0,3,0,0,'2011-06-01 00:00:00'),
+ (38,48,0,0,3.26,0,0,0,'1993-07-01 00:00:00',25,25,0,0,'2013-12-01 00:00:00','2014-05-14 23:27:52','2014-05-14 23:27:52',0,0,0,8,0,0,'2013-12-01 00:00:00'),
+ (39,49,0,0,1.89,0,0,0,'2006-03-01 00:00:00',25,25,0,0,'2014-03-01 00:00:00','2014-05-14 23:27:52','2014-05-14 23:27:52',0,0,0,4,0,0,'2014-03-01 00:00:00'),
+ (40,50,0,0,3.63,0,0,0,'1997-07-01 00:00:00',25,25,0,0,'2013-06-01 00:00:00','2014-05-14 23:27:52','2014-05-14 23:27:52',0,0,0,12,0,0,'2013-06-01 00:00:00'),
+ (41,51,0,0,2.34,0,0,0,'2010-07-01 00:00:00',20,25,0,0,'2011-07-01 00:00:00','2014-05-14 23:27:52','2014-05-14 23:27:52',0,0,0,1,0,0,'2011-07-01 00:00:00'),
+ (42,52,0,0,3,0,0,0,'2010-07-01 00:00:00',20,25,0,0,'2013-11-01 00:00:00','2014-05-14 23:27:52','2014-05-14 23:27:52',0,0,0,3,0,0,'2013-11-01 00:00:00'),
+ (43,53,0,0,2.34,0,0,0,'2010-07-01 00:00:00',20,25,0,0,'2011-07-01 00:00:00','2014-05-14 23:27:52','2014-05-14 23:27:52',0,0,0,1,0,0,'2011-07-01 00:00:00'),
+ (44,54,0,0,2.34,0,0,0,'2010-07-01 00:00:00',20,25,0,0,'2011-08-01 00:00:00','2014-05-14 23:27:52','2014-05-14 23:27:52',0,0,0,1,0,0,'2011-08-01 00:00:00'),
+ (45,55,0,0,2.34,0,0,0,'2010-10-01 00:00:00',20,25,0,0,'2011-10-01 00:00:00','2014-05-14 23:27:52','2014-05-14 23:27:52',0,0,0,1,0,0,'2011-10-01 00:00:00'),
+ (46,56,0,0,2.34,0,0,0,'2013-03-01 00:00:00',20,25,0,0,'2014-03-01 00:00:00','2014-05-14 23:27:52','2014-05-14 23:27:52',0,0,0,1,0,0,'2014-03-01 00:00:00'),
+ (47,57,0,0,2.34,0,0,0,'2010-07-01 00:00:00',20,25,0,0,'2011-07-01 00:00:00','2014-05-14 23:27:52','2014-05-14 23:27:52',0,0,0,1,0,0,'2011-07-01 00:00:00'),
+ (48,58,0,0,2.34,0,0,0,'2010-10-01 00:00:00',20,25,0,0,'2011-10-01 00:00:00','2014-05-14 23:27:52','2014-05-14 23:27:52',0,0,0,1,0,0,'2011-10-01 00:00:00'),
+ (49,59,1,0,2.44,0,0,0,'1997-05-01 00:00:00',0,25,0,0,'2012-05-01 00:00:00','2014-05-14 23:27:52','2014-05-14 23:27:52',0,0,0,9,0,0,'2012-05-01 00:00:00'),
+ (50,60,1,0,2.23,0,0,0,'2011-02-01 00:00:00',0,25,0,0,'2013-02-01 00:00:00','2014-05-14 23:27:52','2014-05-14 23:27:52',0,0,0,2,0,0,'2013-02-01 00:00:00'),
+ (51,61,1,0,2.59,0,0,0,'2006-08-01 00:00:00',0,25,0,0,'2012-08-01 00:00:00','2014-05-14 23:27:52','2014-05-14 23:27:52',0,0,0,4,0,0,'2012-08-01 00:00:00'),
+ (52,62,1,0,2.23,0,0,0,'2011-02-01 00:00:00',0,25,0,0,'2013-02-01 00:00:00','2014-05-14 23:27:52','2014-05-14 23:27:52',0,0,0,2,0,0,'2013-02-01 00:00:00'),
+ (53,63,1,0,1.5,0,0,0,'2013-05-01 00:00:00',0,25,0,0,'2013-05-01 00:00:00','2014-05-14 23:27:52','2014-05-14 23:27:52',0,0,0,1,0,0,'2013-05-01 00:00:00'),
+ (54,64,1,0,1,0,0,0,'2013-06-01 00:00:00',0,25,0,0,'2013-06-01 00:00:00','2014-05-14 23:27:52','2014-05-14 23:27:52',0,0,0,1,0,0,'2013-06-01 00:00:00'),
+ (55,65,1,0,2.4,0,0,0,'1997-05-01 00:00:00',0,25,0,0,'2013-02-01 00:00:00','2014-05-14 23:27:52','2014-05-14 23:27:52',0,0,0,6,0,0,'2013-02-01 00:00:00'),
+ (56,66,1,0,2.22,0,0,0,'2006-03-01 00:00:00',0,25,0,0,'2014-03-01 00:00:00','2014-05-14 23:27:52','2014-05-14 23:27:52',0,0,0,5,0,0,'2014-03-01 00:00:00'),
+ (57,67,0,0,4.32,0.5,0,0,'1991-04-01 00:00:00',20,25,0,0,'2012-10-01 00:00:00','2014-05-14 23:27:52','2014-05-14 23:27:52',0,0,0,7,0,0,'2012-10-01 00:00:00'),
+ (58,68,0,0,4.74,0.3,0,0,'1994-11-01 00:00:00',15,25,0,0,'2011-06-01 00:00:00','2014-05-14 23:27:52','2014-05-14 23:27:52',0,0,0,2,0,0,'2011-06-01 00:00:00'),
+ (59,69,0,0,3,0.3,0,0,'2005-05-01 00:00:00',20,25,0,0,'2012-05-01 00:00:00','2014-05-14 23:27:52','2014-05-14 23:27:52',0,0,0,3,0,0,'2012-05-01 00:00:00'),
+ (60,70,0,0,3.66,0,0,0,'2002-02-01 00:00:00',20,25,0,0,'2014-02-01 00:00:00','2014-05-14 23:27:52','2014-05-14 23:27:52',0,0,0,5,0,0,'2014-02-01 00:00:00'),
+ (61,71,0,0,2.67,0,0,0,'2010-07-01 00:00:00',20,25,0,0,'2014-01-01 00:00:00','2014-05-14 23:27:52','2014-05-14 23:27:52',0,0,0,2,0,0,'2014-01-01 00:00:00'),
+ (62,72,0,0,2.34,0,0,0,'2013-03-01 00:00:00',20,25,0,0,'2014-03-01 00:00:00','2014-05-14 23:27:52','2014-05-14 23:27:52',0,0,0,1,0,0,'2014-03-01 00:00:00'),
+ (63,73,0,0,2.34,0,0,0,'2013-03-01 00:00:00',20,25,0,0,'2014-03-01 00:00:00','2014-05-14 23:27:52','2014-05-14 23:27:52',0,0,0,1,0,0,'2014-03-01 00:00:00'),
+ (64,74,0,0,4.32,0.5,0,0,'1994-11-01 00:00:00',20,25,0,0,'2013-11-01 00:00:00','2014-05-14 23:27:52','2014-05-14 23:27:52',0,0,0,7,0,0,'2013-11-01 00:00:00'),
+ (65,75,0,0,2.67,0,0,0,'2009-01-01 00:00:00',20,25,0,0,'2013-01-01 00:00:00','2014-05-14 23:27:52','2014-05-14 23:27:52',0,0,0,2,0,0,'2013-01-01 00:00:00'),
+ (66,76,0,0,2.67,0,0,0,'2008-12-01 00:00:00',20,25,0,0,'2012-12-01 00:00:00','2014-05-14 23:27:52','2014-05-14 23:27:52',0,0,0,2,0,0,'2012-12-01 00:00:00'),
+ (67,77,0,0,2.34,0,0,0,'2013-03-01 00:00:00',20,25,0,0,'2014-03-01 00:00:00','2014-05-14 23:27:52','2014-05-14 23:27:52',0,0,0,1,0,0,'2014-03-01 00:00:00'),
+ (68,78,0,0,3.66,0.5,0,0,'2002-02-01 00:00:00',20,25,0,0,'2013-02-01 00:00:00','2014-05-14 23:27:52','2014-05-14 23:27:52',0,0,0,5,0,0,'2013-02-01 00:00:00'),
+ (69,79,0,0,4.74,0.3,0,0,'1994-11-01 00:00:00',15,25,0,0,'2012-06-01 00:00:00','2014-05-14 23:27:52','2014-05-14 23:27:52',0,0,0,2,0,0,'2012-06-01 00:00:00'),
+ (70,80,0,0,2.34,0,0,0,'2011-11-01 00:00:00',20,25,0,0,'2012-11-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0,0,0,1,0,0,'2012-11-01 00:00:00'),
+ (71,81,0,0,3,0,0,0,'2005-07-01 00:00:00',20,25,0,0,'2012-06-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0,0,0,3,0,0,'2012-06-01 00:00:00'),
+ (72,82,0,0,3.33,0,0,0,'2004-09-01 00:00:00',20,25,0,0,'2012-12-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0,0,0,4,0,0,'2012-12-01 00:00:00'),
+ (73,83,0,0,2.34,0,0,0,'2010-10-01 00:00:00',20,25,0,0,'2011-10-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0,0,0,1,0,0,'2011-10-01 00:00:00'),
+ (74,84,0,0,2.34,0,0,0,'2010-10-01 00:00:00',20,25,0,0,'2011-10-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0,0,0,1,0,0,'2011-10-01 00:00:00'),
+ (75,85,0,0,2.67,0,0,0,'2009-04-01 00:00:00',20,25,0,0,'2012-10-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0,0,0,2,0,0,'2012-10-01 00:00:00'),
+ (76,86,0,0,2.34,0,0,0,'2013-03-01 00:00:00',20,25,0,0,'2014-03-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0,0,0,1,0,0,'2014-03-01 00:00:00'),
+ (77,87,0,0,3,0,0,0,'2005-01-01 00:00:00',20,25,0,0,'2012-01-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0,0,0,3,0,0,'2012-01-01 00:00:00'),
+ (78,88,0,0,2.34,0,0,0,'2013-03-01 00:00:00',20,25,0,0,'2013-03-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0,0,0,1,0,0,'2013-03-01 00:00:00'),
+ (79,89,0,0,3.33,0.5,0,0,'2002-02-01 00:00:00',20,25,0,0,'2012-02-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0,0,0,4,0,0,'2012-02-01 00:00:00'),
+ (80,90,0,0,2.34,0,0,0,'2010-07-01 00:00:00',20,25,0,0,'2011-07-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0,0,0,1,0,0,'2011-07-01 00:00:00'),
+ (81,91,0,0,3,0,0,0,'2005-05-01 00:00:00',20,25,0,0,'2012-05-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0,0,0,3,0,0,'2012-05-01 00:00:00'),
+ (82,92,0,0,2.34,0,0,0,'2010-10-01 00:00:00',20,25,0,0,'2011-10-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0,0,0,1,0,0,'2011-10-01 00:00:00'),
+ (83,93,0,0,3.99,0,0,0,'1992-12-01 00:00:00',20,25,0,0,'2013-07-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0,0,0,6,0,0,'2013-07-01 00:00:00'),
+ (84,94,0,0,2.34,0,0,0,'2013-03-01 00:00:00',20,25,0,0,'2011-11-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0,0,0,1,0,0,'2011-11-01 00:00:00'),
+ (85,95,0,0,3.33,0.6,0,0,'2001-07-01 00:00:00',20,25,0,0,'2013-01-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0,0,0,4,0,0,'2013-01-01 00:00:00'),
+ (86,96,0,0,3.33,0.3,0,0,'2003-09-01 00:00:00',20,25,0,0,'2013-08-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0,0,0,4,0,0,'2013-08-01 00:00:00'),
+ (87,97,0,0,3.99,0.3,0,0,'1996-11-01 00:00:00',20,25,0,0,'2013-11-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0,0,0,6,0,0,'2013-11-01 00:00:00'),
+ (88,98,0,0,3,0.2,0,0,'2006-11-01 00:00:00',20,25,0,0,'2013-11-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0,0,0,3,0,0,'2013-11-01 00:00:00'),
+ (89,99,0,0,3.99,0,0,0,'1996-06-01 00:00:00',20,25,0,0,'2013-06-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0,0,0,6,0,0,'2013-06-01 00:00:00'),
+ (90,100,0,0,4.32,0,0,0,'1989-07-01 00:00:00',20,25,0,0,'2011-10-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0,0,0,7,0,0,'2011-10-01 00:00:00'),
+ (91,101,0,0,3.63,0,0,9,'1994-12-01 00:00:00',25,25,0,0,'2013-06-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0,0,0,12,0,0,'2013-06-01 00:00:00'),
+ (92,102,0,0,3.26,0,0,0,'2001-07-01 00:00:00',25,25,0,0,'2014-01-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0,0,0,8,0,0,'2014-01-01 00:00:00'),
+ (93,103,0,0,2.67,0,0,0,'2008-12-01 00:00:00',20,25,0,0,'2012-12-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0,0,0,2,0,0,'2012-12-01 00:00:00'),
+ (94,104,0,0,2.67,0,0,0,'2008-12-01 00:00:00',20,25,0,0,'2012-12-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0,0,0,2,0,0,'2012-12-01 00:00:00'),
+ (95,105,0,0,2.34,0,0,0,'2013-03-01 00:00:00',20,25,0,0,'2014-03-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0,0,0,1,0,0,'2014-03-01 00:00:00'),
+ (96,106,1,0,2.05,0,0,0,'2013-01-01 00:00:00',0,25,0,0,'2013-01-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0,0,0,1,0,0,'2013-01-01 00:00:00'),
+ (97,107,0,0,5.42,0.6,0,0,'1984-03-01 00:00:00',15,25,0,0,'2011-11-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0.1,0,0,4,0,0,'2011-11-01 00:00:00'),
+ (98,108,0,0,3.99,0.4,0,0,'1988-03-01 00:00:00',20,25,0,0,'2012-09-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0.1,0,0,6,0,0,'2012-09-01 00:00:00'),
+ (99,109,0,0,3.66,0,0,0,'1995-10-01 00:00:00',25,25,0,0,'2013-11-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0.1,0,0,10,0,0,'2013-11-01 00:00:00'),
+ (100,110,0,0,4.06,0,0,7,'1992-12-01 00:00:00',25,25,0,0,'2013-06-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0.1,0,0,12,0,0,'2013-06-01 00:00:00'),
+ (101,111,0,0,4.65,0,0,0,'1986-09-01 00:00:00',20,25,0,0,'2011-10-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0.1,0,0,8,0,0,'2011-10-01 00:00:00'),
+ (102,112,0,0,2.72,0,0,0,'2013-03-01 00:00:00',25,25,0,0,'2012-03-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0.1,0,0,3,0,0,'2012-03-01 00:00:00'),
+ (103,113,0,0,2.34,0,0,0,'2013-03-01 00:00:00',20,25,0,0,'2012-10-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0.1,0,0,1,0,0,'2012-10-01 00:00:00'),
+ (104,114,0,0,2.34,0,0,0,'2013-03-01 00:00:00',20,25,0,0,'2013-03-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0.1,0,0,1,0,0,'2013-03-01 00:00:00'),
+ (105,115,1,0,2.23,0,0,0,'2008-11-01 00:00:00',0,25,0,0,'2013-08-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0.1,0,0,2,0,0,'2013-08-01 00:00:00'),
+ (106,116,0,0,3.99,0.55,0,0,'1997-05-01 00:00:00',20,25,0,0,'2013-12-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0,0,0,6,0,0,'2013-12-01 00:00:00'),
+ (107,117,0,0,3,0.25,0,0,'2006-08-01 00:00:00',20,25,0,0,'2013-08-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0,0,0,3,0,0,'2013-08-01 00:00:00'),
+ (108,118,0,0,3.33,0.25,0,0,'2002-02-01 00:00:00',20,25,0,0,'2013-11-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0,0,0,4,0,0,'2013-11-01 00:00:00'),
+ (109,119,0,0,3.66,0.15,0,0,'1993-11-01 00:00:00',25,25,0,0,'2013-01-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0,0,0,10,0,0,'2013-01-01 00:00:00'),
+ (110,120,0,0,2.34,0,0,0,'2010-07-01 00:00:00',20,25,0,0,'2011-07-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0,0,0,1,0,0,'2011-07-01 00:00:00'),
+ (111,121,0,0,2.34,0,0,0,'2010-07-01 00:00:00',20,25,0,0,'2011-08-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0,0,0,1,0,0,'2011-08-01 00:00:00'),
+ (112,122,0,0,2.34,0,0,0,'2010-10-01 00:00:00',20,25,0,0,'2011-10-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0,0,0,1,0,0,'2011-10-01 00:00:00'),
+ (113,123,0,0,2.34,0,0,0,'2013-03-01 00:00:00',20,25,0,0,'2014-03-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0,0,0,1,0,0,'2014-03-01 00:00:00'),
+ (114,124,0,0,2.34,0,0,0,'2013-03-01 00:00:00',20,25,0,0,'2014-03-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0,0,0,1,0,0,'2014-03-01 00:00:00'),
+ (115,125,0,0,2.34,0,0,0,'2013-03-01 00:00:00',20,25,0,0,'2014-03-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0,0,0,1,0,0,'2014-03-01 00:00:00'),
+ (116,126,0,0,2.34,0,0,0,'2010-10-01 00:00:00',20,25,0,0,'2011-10-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0,0,0,1,0,0,'2011-10-01 00:00:00'),
+ (117,127,0,0,2.34,0,0,0,'2010-07-01 00:00:00',20,25,0,0,'2011-07-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0,0,0,1,0,0,'2011-07-01 00:00:00'),
+ (118,128,1,0,2.4,0,0,0,'2003-01-01 00:00:00',0,25,0,0,'2013-07-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0,0,0,6,0,0,'2013-07-01 00:00:00'),
+ (119,129,1,0,2.4,0,0,0,'2003-01-01 00:00:00',0,25,0,0,'2013-01-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0,0,0,6,0,0,'2013-01-01 00:00:00'),
+ (120,130,0,0,5.08,0.55,0,0,'1982-10-01 00:00:00',15,25,0,0,'2012-01-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0.1,0,0,3,0,0,'2012-01-01 00:00:00'),
+ (121,131,0,0,4.32,0.35,0,0,'1982-02-01 00:00:00',20,25,0,0,'2013-03-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0.1,0,0,7,0,0,'2013-03-01 00:00:00'),
+ (122,132,0,0,3,0,0,0,'2006-08-01 00:00:00',20,25,0,0,'2012-08-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0.1,0,0,3,0,0,'2012-08-01 00:00:00'),
+ (123,133,0,0,3.63,0,0,20,'1972-06-01 00:00:00',25,25,0,0,'2014-02-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0.1,0,0,12,0,0,'2014-02-01 00:00:00'),
+ (124,134,0,0,2.34,0,0,0,'2010-07-01 00:00:00',20,25,0,0,'2011-07-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0.1,0,0,1,0,0,'2011-07-01 00:00:00'),
+ (125,135,0,0,4.06,0,0,17,'1976-10-01 00:00:00',25,25,0,0,'2014-01-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0.1,0,0,12,0,0,'2014-01-01 00:00:00'),
+ (126,136,0,0,3.86,0,0,0,'1992-12-01 00:00:00',25,25,0,0,'2013-10-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0.1,0,0,11,0,0,'2013-10-01 00:00:00'),
+ (127,137,0,0,3.63,0,0,15,'1985-10-01 00:00:00',25,25,0,0,'2013-10-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0.1,0,0,12,0,0,'2013-10-01 00:00:00'),
+ (128,138,0,0,3.06,0,0,0,'2000-12-01 00:00:00',25,25,0,0,'2012-06-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0.1,0,0,7,0,0,'2012-06-01 00:00:00'),
+ (129,139,0,0,3.33,0,0,0,'2004-09-01 00:00:00',20,25,0,0,'2013-12-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0.1,0,0,4,0,0,'2013-12-01 00:00:00'),
+ (130,140,0,0,2.34,0,0,0,'2013-03-01 00:00:00',20,25,0,0,'2014-03-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0.1,0,0,1,0,0,'2014-03-01 00:00:00'),
+ (131,141,1,0,1.5,0,0,0,'2013-05-01 00:00:00',0,25,0,0,'2013-05-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0.1,0,0,1,0,0,'2013-05-01 00:00:00'),
+ (132,142,1,0,3.13,0,0,0,'2003-01-01 00:00:00',0,25,0,0,'2013-01-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0.1,0,0,7,0,0,'2013-01-01 00:00:00'),
+ (133,143,1,0,2.94,0,0,0,'1997-04-01 00:00:00',0,25,0,0,'2013-10-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0.1,0,0,9,0,0,'2013-10-01 00:00:00'),
+ (134,144,0,0,3.99,0.55,0,0,'1992-05-01 00:00:00',20,25,0,0,'2012-05-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0.2,0,70,6,0,0,'2012-05-01 00:00:00'),
+ (135,145,0,0,4.74,0.35,0,0,'1994-11-01 00:00:00',15,25,0,0,'2012-06-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0.2,0,70,2,0,0,'2012-06-01 00:00:00'),
+ (136,146,0,0,4.32,0.35,0,0,'1987-06-01 00:00:00',20,25,0,0,'2012-10-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0.2,0,70,7,0,0,'2012-10-01 00:00:00'),
+ (137,147,0,0,3.66,0.35,0,0,'2002-02-01 00:00:00',20,25,0,0,'2014-05-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0.2,0,70,5,0,0,'2014-05-01 00:00:00'),
+ (138,148,0,0,3.33,0.25,0,0,'2001-07-01 00:00:00',20,25,0,0,'2012-12-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0.2,0,70,4,0,0,'2012-12-01 00:00:00'),
+ (139,149,0,0,3.99,0.15,0,0,'1998-01-01 00:00:00',20,25,0,0,'2013-01-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0.2,0,70,6,0,0,'2013-01-01 00:00:00'),
+ (140,150,0,0,4.98,0.15,0,0,'1978-10-01 00:00:00',20,25,0,0,'2012-07-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0.2,0,70,9,0,0,'2012-07-01 00:00:00'),
+ (141,151,0,0,3.66,0.25,0,0,'1998-10-01 00:00:00',20,25,0,0,'2011-10-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0.2,0,70,5,0,0,'2011-10-01 00:00:00'),
+ (142,152,0,0,3,0.15,0,0,'2005-04-01 00:00:00',20,25,0,0,'2011-07-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0.2,0,70,3,0,0,'2011-07-01 00:00:00'),
+ (143,153,0,0,2.34,0,0,0,'2010-10-01 00:00:00',20,25,0,0,'2011-10-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0.2,0,70,1,0,0,'2011-10-01 00:00:00'),
+ (144,154,0,0,2.46,0,0,0,'2006-08-01 00:00:00',25,25,0,0,'2013-02-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0.2,0,70,4,0,0,'2013-02-01 00:00:00'),
+ (145,155,0,0,3.26,0,0,0,'1998-10-01 00:00:00',25,25,0,0,'2013-04-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0.2,0,70,8,0,0,'2013-04-01 00:00:00'),
+ (146,156,0,0,2.34,0,0,0,'2011-11-01 00:00:00',20,25,0,0,'2012-11-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0.2,0,70,1,0,0,'2012-11-01 00:00:00'),
+ (147,157,0,0,4.06,0,0,7,'1995-08-01 00:00:00',25,25,0,0,'2013-09-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0.2,0,70,12,0,0,'2013-09-01 00:00:00'),
+ (148,158,0,0,2.1,0,0,0,'2011-09-01 00:00:00',25,25,0,0,'2012-09-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0.2,0,70,1,0,0,'2012-09-01 00:00:00'),
+ (149,159,0,0,4.32,0,0,0,'2013-06-01 00:00:00',20,25,0,0,'2012-10-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0.2,0,70,7,0,0,'2012-10-01 00:00:00'),
+ (150,160,0,0,2.55,0,0,0,'1991-03-01 00:00:00',25,25,0,0,'2013-01-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0.2,0,70,6,0,0,'2013-01-01 00:00:00'),
+ (151,161,0,0,4.98,0,0,0,'1975-03-01 00:00:00',20,25,0,0,'2012-11-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0.2,0,70,9,0,0,'2012-11-01 00:00:00'),
+ (152,162,0,0,4.06,0,0,0,'1990-03-01 00:00:00',25,25,0,0,'2013-11-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0.2,0,70,12,0,0,'2013-11-01 00:00:00'),
+ (153,163,0,0,2.34,0,0,0,'2013-03-01 00:00:00',20,25,0,0,'2014-03-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0.2,0,70,1,0,0,'2014-03-01 00:00:00'),
+ (154,164,0,0,2.34,0,0,0,'2013-03-01 00:00:00',20,25,0,0,'2014-03-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0.2,0,70,1,0,0,'2014-03-01 00:00:00'),
+ (155,165,0,0,2.34,0,0,0,'2013-03-01 00:00:00',20,25,0,0,'2014-03-01 00:00:00','2014-05-14 23:27:53','2014-05-14 23:27:53',0.2,0,70,1,0,0,'2014-03-01 00:00:00'),
+ (156,166,0,0,2.34,0,0,0,'2013-03-01 00:00:00',20,25,0,0,'2014-03-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0.2,0,70,1,0,0,'2014-03-01 00:00:00'),
+ (157,167,0,0,2.34,0,0,0,'2010-07-01 00:00:00',20,25,0,0,'2011-08-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0.2,0,70,1,0,0,'2011-08-01 00:00:00'),
+ (158,168,0,0,2.67,0,0,0,'2010-07-01 00:00:00',20,25,0,0,'2013-07-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0.2,0,70,2,0,0,'2013-07-01 00:00:00'),
+ (159,169,1,0,1.5,0,0,0,'2013-05-01 00:00:00',0,25,0,0,'2013-05-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0.2,0,70,1,0,0,'2013-05-01 00:00:00'),
+ (160,170,1,0,2.59,0,0,0,'2007-08-01 00:00:00',0,25,0,0,'2014-02-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0.2,0,70,4,0,0,'2014-02-01 00:00:00'),
+ (161,171,0,0,3.99,0.55,0,0,'1992-12-01 00:00:00',20,25,0,0,'2012-05-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0,0,70,6,0,0,'2012-05-01 00:00:00'),
+ (162,172,0,0,3.99,0.35,0,0,'1996-11-01 00:00:00',20,25,0,0,'2013-11-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0,0,70,6,0,0,'2013-11-01 00:00:00'),
+ (163,173,0,0,3,0,0,0,'2006-11-01 00:00:00',20,25,0,0,'2013-05-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0,0,70,3,0,0,'2013-05-01 00:00:00'),
+ (164,174,0,0,3.33,0,0,0,'2002-02-01 00:00:00',20,25,0,0,'2013-02-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0,0,70,4,0,0,'2013-02-01 00:00:00'),
+ (165,175,0,0,4.06,0,0,13,'1976-10-01 00:00:00',25,25,0,0,'2014-04-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0,0,70,12,0,0,'2014-04-01 00:00:00'),
+ (166,176,0,0,3.99,0,0,0,'1995-07-01 00:00:00',20,25,0,0,'2013-10-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0,0,70,6,0,0,'2013-10-01 00:00:00'),
+ (167,177,0,0,2.26,0,0,0,'2007-12-01 00:00:00',25,25,0,0,'2012-06-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0,0,70,3,0,0,'2012-06-01 00:00:00'),
+ (168,178,0,0,4.06,0,0,13,'1995-08-01 00:00:00',25,25,0,0,'2013-06-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0,0,70,12,0,0,'2013-06-01 00:00:00'),
+ (169,179,0,0,2.67,0,0,0,'2013-03-01 00:00:00',20,25,0,0,'2014-02-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0,0,70,2,0,0,'2014-02-01 00:00:00'),
+ (170,180,1,0,2.4,0,0,0,'2003-01-01 00:00:00',0,25,0,0,'2013-01-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0,0,70,6,0,0,'2013-01-01 00:00:00'),
+ (171,181,1,0,1.5,0,0,0,'2014-03-01 00:00:00',0,25,0,0,'2014-03-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0,0,70,1,0,0,'2014-03-01 00:00:00'),
+ (172,182,0,0,4.32,0.6,0,0,'1993-12-01 00:00:00',20,25,0,0,'2013-12-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0.5,0,70,7,0,0,'2013-12-01 00:00:00'),
+ (173,183,0,0,3.99,0.4,0,0,'1995-12-01 00:00:00',20,25,0,0,'2011-12-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0.5,0,70,6,0,0,'2011-12-01 00:00:00'),
+ (174,184,0,0,3.66,0.4,0,0,'2000-07-01 00:00:00',20,25,0,0,'2014-03-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0.5,0,70,5,0,0,'2014-03-01 00:00:00'),
+ (175,185,0,0,5.76,0.4,0,0,'1977-10-01 00:00:00',15,25,0,0,'2012-01-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0.5,0,70,5,0,0,'2012-01-01 00:00:00'),
+ (176,186,0,0,3,0.3,0,0,'2005-05-01 00:00:00',20,25,0,0,'2012-05-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0.5,0,70,3,0,0,'2012-05-01 00:00:00'),
+ (177,187,0,0,3.33,0.3,0,0,'2000-07-01 00:00:00',20,25,0,0,'2012-12-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0.5,0,70,4,0,0,'2012-12-01 00:00:00'),
+ (178,188,0,0,3.99,0.3,0,0,'1998-08-01 00:00:00',20,25,0,0,'2013-11-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0.5,0,70,6,0,0,'2013-11-01 00:00:00'),
+ (179,189,0,0,3.66,0.2,0,0,'2001-02-01 00:00:00',20,25,0,0,'2013-05-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0.5,0,70,5,0,0,'2013-05-01 00:00:00'),
+ (180,190,0,0,3,0.3,0,0,'2006-08-01 00:00:00',20,25,0,0,'2013-08-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0.5,0,70,3,0,0,'2013-08-01 00:00:00'),
+ (181,191,0,0,2.67,0.2,0,0,'2003-01-01 00:00:00',20,25,0,0,'2011-08-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0.5,0,70,2,0,0,'2011-08-01 00:00:00'),
+ (182,192,0,0,4.06,0.2,0,0,'1989-03-01 00:00:00',25,25,0,0,'2013-07-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0.5,0,70,12,0,0,'2013-07-01 00:00:00'),
+ (183,193,0,0,3.99,0.2,0,0,'2005-07-01 00:00:00',20,25,0,0,'2014-01-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0.5,0,70,6,0,0,'2014-01-01 00:00:00'),
+ (184,194,0,0,3,0.2,0,0,'2005-03-01 00:00:00',20,25,0,0,'2012-03-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0.5,0,70,3,0,0,'2012-03-01 00:00:00'),
+ (185,195,0,0,3.33,0,0,0,'2002-02-01 00:00:00',20,25,0,0,'2013-08-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0.5,0,70,4,0,0,'2013-08-01 00:00:00'),
+ (186,196,0,0,2.34,0,0,0,'2010-10-01 00:00:00',20,25,0,0,'2011-10-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0.5,0,70,1,0,0,'2011-10-01 00:00:00'),
+ (187,197,0,0,3.66,0,0,0,'1997-01-01 00:00:00',20,25,0,0,'2011-10-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0.5,0,70,5,0,0,'2011-10-01 00:00:00'),
+ (188,198,0,0,2.67,0,0,0,'2009-01-01 00:00:00',20,25,0,0,'2013-01-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0.5,0,70,2,0,0,'2013-01-01 00:00:00'),
+ (189,199,0,0,3.06,0,0,0,'1993-03-01 00:00:00',25,25,0,0,'2012-06-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0.5,0,70,7,0,0,'2012-06-01 00:00:00'),
+ (190,200,0,0,3,0,0,0,'2011-09-01 00:00:00',20,25,0,0,'1970-01-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0.5,0,70,3,0,0,'1970-01-01 00:00:00'),
+ (191,201,0,0,2.34,0,0,0,'2010-10-01 00:00:00',20,25,0,0,'2011-10-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0.5,0,70,1,0,0,'2011-10-01 00:00:00'),
+ (192,202,0,0,2.07,0,0,0,'2005-01-01 00:00:00',25,25,0,0,'2014-04-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0.5,0,70,5,0,0,'2014-04-01 00:00:00'),
+ (193,203,0,0,2.06,0,0,0,'2011-09-01 00:00:00',25,25,0,0,'2014-03-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0.5,0,70,2,0,0,'2014-03-01 00:00:00'),
+ (194,204,0,0,3.48,0,0,28,'1986-06-01 00:00:00',25,25,0,0,'2013-12-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0.5,0,70,12,0,0,'2013-12-01 00:00:00'),
+ (195,205,0,0,3.66,0,0,0,'1994-10-01 00:00:00',25,25,0,0,'2013-11-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0.5,0,70,10,0,0,'2013-11-01 00:00:00'),
+ (196,206,0,0,3.63,0,0,27,'2003-06-01 00:00:00',25,25,0,0,'2013-09-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0.5,0,70,12,0,0,'2013-09-01 00:00:00'),
+ (197,207,0,0,3.99,0,0,0,'1993-02-01 00:00:00',20,25,0,0,'2013-07-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0.5,0,70,6,0,0,'2013-07-01 00:00:00'),
+ (198,208,0,0,2.67,0,0,0,'2008-12-01 00:00:00',20,25,0,0,'2012-12-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0.5,0,70,2,0,0,'2012-12-01 00:00:00'),
+ (199,209,0,0,3,0,0,0,'2007-09-01 00:00:00',20,25,0,0,'2013-09-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0.5,0,70,3,0,0,'2013-09-01 00:00:00'),
+ (200,210,0,0,2.26,0,0,0,'2007-12-01 00:00:00',20,25,0,0,'2012-06-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0.5,0,70,3,0,0,'2012-06-01 00:00:00'),
+ (201,211,0,0,2.67,0,0,0,'2009-01-01 00:00:00',20,25,0,0,'2013-01-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0.5,0,70,2,0,0,'2013-01-01 00:00:00'),
+ (202,212,0,0,2.67,0,0,0,'2010-07-01 00:00:00',20,25,0,0,'2013-10-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0.5,0,70,2,0,0,'2013-10-01 00:00:00'),
+ (203,213,0,0,2.34,0,0,0,'2011-09-01 00:00:00',20,25,0,0,'2012-09-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0.5,0,70,1,0,0,'2012-09-01 00:00:00'),
+ (204,214,0,0,3.26,0,0,0,'2000-12-01 00:00:00',25,25,0,0,'2013-06-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0.5,0,70,8,0,0,'2013-06-01 00:00:00'),
+ (205,215,0,0,2.67,0,0,0,'2010-07-01 00:00:00',20,25,0,0,'2011-07-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0.5,0,70,2,0,0,'2011-07-01 00:00:00'),
+ (206,216,1,0,2.22,0,0,0,'2005-03-01 00:00:00',0,25,0,0,'2013-03-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0.5,0,70,5,0,0,'2013-03-01 00:00:00'),
+ (207,217,1,0,2.77,0,0,0,'2003-01-01 00:00:00',0,25,0,0,'2012-07-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0.5,0,70,5,0,0,'2012-07-01 00:00:00'),
+ (208,218,1,0,1.86,0,0,0,'2005-01-01 00:00:00',0,25,0,0,'2013-12-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0.5,0,70,3,0,0,'2013-12-01 00:00:00'),
+ (209,219,1,0,1.5,0,0,0,'2013-04-01 00:00:00',0,25,0,0,'2013-04-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0.5,0,70,1,0,0,'2013-04-01 00:00:00'),
+ (210,220,1,0,2.23,0,0,0,'2011-05-01 00:00:00',0,25,0,0,'2013-05-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0.5,0,70,2,0,0,'2013-05-01 00:00:00'),
+ (211,221,1,0,1.5,0,0,0,'1970-01-01 00:00:00',0,25,0,0,'2013-10-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0.5,0,70,1,0,0,'2013-10-01 00:00:00'),
+ (212,222,1,0,1.5,0,0,0,'1970-01-01 00:00:00',0,25,0,0,'2013-10-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0.5,0,70,1,0,0,'2013-10-01 00:00:00'),
+ (213,223,1,0,1,0,0,0,'1970-01-01 00:00:00',0,25,0,0,'2013-11-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0.5,0,70,1,0,0,'2013-11-01 00:00:00'),
+ (214,224,1,0,1.83,0,0,0,'2010-10-01 00:00:00',0,25,0,0,'1970-01-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0.5,0,70,2,0,0,'1970-01-01 00:00:00'),
+ (215,225,1,0,1.83,0,0,0,'2010-10-01 00:00:00',0,25,0,0,'1970-01-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0.5,0,70,2,0,0,'1970-01-01 00:00:00'),
+ (216,226,1,0,1.83,0,0,0,'2010-10-01 00:00:00',0,25,0,0,'1970-01-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0.5,0,70,2,0,0,'1970-01-01 00:00:00'),
+ (217,227,0,0,5.76,0.55,0,0,'1995-09-01 00:00:00',15,25,0,0,'2013-01-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0.2,0,0,5,0,0,'2013-01-01 00:00:00'),
+ (218,228,0,0,4.65,0.4,0,0,'1986-11-01 00:00:00',20,25,0,0,'2014-03-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0.2,0,0,8,0,0,'2014-03-01 00:00:00'),
+ (219,229,0,0,4.74,0.35,0,0,'1994-12-01 00:00:00',15,25,0,0,'2012-06-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0.2,0,0,2,0,0,'2012-06-01 00:00:00'),
+ (220,230,0,0,5.42,0.35,0,0,'1977-06-01 00:00:00',15,25,0,0,'2013-12-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0.2,0,0,4,0,0,'2013-12-01 00:00:00'),
+ (221,231,0,0,3.33,0.25,0,0,'2002-02-01 00:00:00',20,25,0,0,'2013-02-01 00:00:00','2014-05-14 23:27:54','2014-05-14 23:27:54',0.2,0,0,4,0,0,'2013-02-01 00:00:00'),
+ (222,232,0,0,3.33,0.25,0,0,'2005-07-01 00:00:00',20,25,0,0,'2013-01-01 00:00:00','2014-05-14 23:27:55','2014-05-14 23:27:55',0.2,0,0,4,0,0,'2013-01-01 00:00:00'),
+ (223,233,0,0,4.98,0.25,0,6,'1995-08-01 00:00:00',20,25,0,0,'2013-10-01 00:00:00','2014-05-14 23:27:55','2014-05-14 23:27:55',0.2,0,0,9,0,0,'2013-10-01 00:00:00'),
+ (224,234,0,0,2.1,0,0,0,'2011-09-01 00:00:00',25,25,0,0,'2012-09-01 00:00:00','2014-05-14 23:27:55','2014-05-14 23:27:55',0.2,0,0,1,0,0,'2012-09-01 00:00:00'),
+ (225,235,0,0,2.34,0,0,0,'2010-07-01 00:00:00',20,25,0,0,'2011-07-01 00:00:00','2014-05-14 23:27:55','2014-05-14 23:27:55',0.2,0,0,1,0,0,'2011-07-01 00:00:00'),
+ (226,236,0,0,2.34,0,0,0,'2010-10-01 00:00:00',20,25,0,0,'2011-10-01 00:00:00','2014-05-14 23:27:55','2014-05-14 23:27:55',0.2,0,0,1,0,0,'2011-10-01 00:00:00'),
+ (227,237,0,0,3.26,0,0,0,'1999-03-01 00:00:00',25,25,0,0,'2013-02-01 00:00:00','2014-05-14 23:27:55','2014-05-14 23:27:55',0.2,0,0,8,0,0,'2013-02-01 00:00:00'),
+ (228,238,0,0,3.66,0,0,0,'1994-11-01 00:00:00',20,25,0,0,'2012-11-01 00:00:00','2014-05-14 23:27:55','2014-05-14 23:27:55',0.2,0,0,5,0,0,'2012-11-01 00:00:00'),
+ (229,239,0,0,2.34,0,0,0,'2010-10-01 00:00:00',20,25,0,0,'2011-10-01 00:00:00','2014-05-14 23:27:55','2014-05-14 23:27:55',0.2,0,0,1,0,0,'2011-10-01 00:00:00'),
+ (230,240,0,0,2.91,0,0,0,'2002-05-01 00:00:00',25,25,0,0,'2014-05-01 00:00:00','2014-05-14 23:27:55','2014-05-14 23:27:55',0.2,0,0,8,0,0,'2014-05-01 00:00:00'),
+ (231,241,0,0,2.34,0,0,0,'2010-10-01 00:00:00',20,25,0,0,'2011-10-01 00:00:00','2014-05-14 23:27:55','2014-05-14 23:27:55',0.2,0,0,1,0,0,'2011-10-01 00:00:00'),
+ (232,242,0,0,2.34,0,0,0,'2010-10-01 00:00:00',20,25,0,0,'2011-10-01 00:00:00','2014-05-14 23:27:55','2014-05-14 23:27:55',0.2,0,0,1,0,0,'2011-10-01 00:00:00'),
+ (233,243,0,0,3.63,0,0,5,'1997-09-01 00:00:00',25,25,0,0,'2013-06-01 00:00:00','2014-05-14 23:27:55','2014-05-14 23:27:55',0.2,0,0,12,0,0,'2013-06-01 00:00:00'),
+ (234,244,0,0,2.34,0,0,0,'2010-10-01 00:00:00',20,25,0,0,'2011-10-01 00:00:00','2014-05-14 23:27:55','2014-05-14 23:27:55',0.2,0,0,1,0,0,'2011-10-01 00:00:00'),
+ (235,245,0,0,3.86,0,0,0,'1982-02-01 00:00:00',25,25,0,0,'2012-04-01 00:00:00','2014-05-14 23:27:55','2014-05-14 23:27:55',0.2,0,0,11,0,0,'2012-04-01 00:00:00'),
+ (236,246,0,0,2.34,0,0,0,'2010-07-01 00:00:00',20,25,0,0,'2011-07-01 00:00:00','2014-05-14 23:27:55','2014-05-14 23:27:55',0.2,0,0,1,0,0,'2011-07-01 00:00:00'),
+ (237,247,0,0,2.34,0,0,0,'2010-10-01 00:00:00',20,25,0,0,'2011-10-01 00:00:00','2014-05-14 23:27:55','2014-05-14 23:27:55',0.2,0,0,1,0,0,'2011-10-01 00:00:00'),
+ (238,248,0,0,2.06,0,0,0,'2010-07-01 00:00:00',25,25,0,0,'2013-01-01 00:00:00','2014-05-14 23:27:55','2014-05-14 23:27:55',0.2,0,0,2,0,0,'2013-01-01 00:00:00'),
+ (239,249,0,0,2.34,0,0,0,'2010-07-01 00:00:00',20,25,0,0,'2011-07-01 00:00:00','2014-05-14 23:27:55','2014-05-14 23:27:55',0.2,0,0,1,0,0,'2011-07-01 00:00:00'),
+ (240,250,0,0,2.91,0,0,0,'2002-05-01 00:00:00',25,25,0,0,'2014-05-01 00:00:00','2014-05-14 23:27:55','2014-05-14 23:27:55',0.2,0,0,8,0,0,'2014-05-01 00:00:00'),
+ (241,251,0,0,2.67,0,0,0,'2009-11-01 00:00:00',20,25,0,0,'2012-11-01 00:00:00','2014-05-14 23:27:55','2014-05-14 23:27:55',0.2,0,0,2,0,0,'2012-11-01 00:00:00'),
+ (242,252,0,0,4.98,0,0,0,'1979-03-01 00:00:00',20,25,0,0,'2013-04-01 00:00:00','2014-05-14 23:27:55','2014-05-14 23:27:55',0.2,0,0,9,0,0,'2013-04-01 00:00:00'),
+ (243,253,0,0,2.34,0,0,0,'2010-10-01 00:00:00',20,25,0,0,'2011-10-01 00:00:00','2014-05-14 23:27:55','2014-05-14 23:27:55',0.2,0,0,1,0,0,'2011-10-01 00:00:00'),
+ (244,254,0,0,2.67,0,0,0,'2008-12-01 00:00:00',20,25,0,0,'2012-12-01 00:00:00','2014-05-14 23:27:55','2014-05-14 23:27:55',0.2,0,0,2,0,0,'2012-12-01 00:00:00'),
+ (245,255,0,0,2.34,0,0,0,'2010-10-01 00:00:00',20,25,0,0,'2011-10-01 00:00:00','2014-05-14 23:27:55','2014-05-14 23:27:55',0.2,0,0,1,0,0,'2011-10-01 00:00:00'),
+ (246,256,0,0,2.06,0,0,0,'2010-07-01 00:00:00',25,25,0,0,'2013-01-01 00:00:00','2014-05-14 23:27:56','2014-05-14 23:27:56',0.2,0,0,2,0,0,'2013-01-01 00:00:00'),
+ (247,257,0,0,2.34,0,0,0,'2010-10-01 00:00:00',20,25,0,0,'2011-10-01 00:00:00','2014-05-14 23:27:56','2014-05-14 23:27:56',0.2,0,0,1,0,0,'2011-10-01 00:00:00'),
+ (248,258,0,0,2.1,0,0,0,'2011-09-01 00:00:00',25,25,0,0,'2012-09-01 00:00:00','2014-05-14 23:27:56','2014-05-14 23:27:56',0.2,0,0,1,0,0,'2012-09-01 00:00:00'),
+ (249,259,1,0,1.5,0,0,0,'1970-01-01 00:00:00',0,25,0,0,'2013-12-01 00:00:00','2014-05-14 23:27:56','2014-05-14 23:27:56',0.2,0,0,1,0,0,'2013-12-01 00:00:00'),
+ (250,260,1,0,1.5,0,0,0,'2013-05-01 00:00:00',0,25,0,0,'2013-05-01 00:00:00','2014-05-14 23:27:56','2014-05-14 23:27:56',0.2,0,0,1,0,0,'2013-05-01 00:00:00'),
+ (251,261,1,0,2.23,0,0,0,'2011-02-01 00:00:00',0,25,0,0,'2013-02-01 00:00:00','2014-05-14 23:27:56','2014-05-14 23:27:56',0.2,0,0,2,0,0,'2013-02-01 00:00:00'),
+ (252,262,0,0,4.32,0.9,0,0,'1994-12-01 00:00:00',20,25,0,0,'2013-12-01 00:00:00','2014-05-15 02:18:01','2014-05-15 02:18:01',0,0,0,7,0,0,'2013-12-01 00:00:00'),
+ (253,263,0,0,5.76,0.7,0,0,'1977-10-01 00:00:00',15,25,0,0,'2012-11-01 00:00:00','2014-05-15 02:18:02','2014-05-15 02:18:02',0,0,0,5,0,0,'2012-11-01 00:00:00'),
+ (254,264,0,0,3.99,0.7,0,0,'1996-06-01 00:00:00',20,25,0,0,'2012-06-01 00:00:00','2014-05-15 02:18:02','2014-05-15 02:18:02',0,0,0,6,0,0,'2012-06-01 00:00:00'),
+ (255,265,0,0,5.42,0.7,0,0,'1992-12-01 00:00:00',15,25,0,0,'2013-01-01 00:00:00','2014-05-15 02:18:02','2014-05-15 02:18:02',0,0,0,4,0,0,'2013-01-01 00:00:00'),
+ (256,266,0,0,3.66,0.5,0,0,'2002-02-01 00:00:00',20,25,0,0,'2014-05-01 00:00:00','2014-05-15 02:18:02','2014-05-15 02:18:02',0,0,0,5,0,0,'2014-05-01 00:00:00'),
+ (257,267,0,0,3.66,0.3,0,0,'1995-09-01 00:00:00',20,25,0,0,'2012-04-01 00:00:00','2014-05-15 02:18:02','2014-05-15 02:18:02',0,0,0,5,0,0,'2012-04-01 00:00:00'),
+ (258,268,0,0,3,0.5,0,0,'2005-03-01 00:00:00',20,25,0,0,'2011-06-01 00:00:00','2014-05-15 02:18:02','2014-05-15 02:18:02',0,0,0,3,0,0,'2011-06-01 00:00:00'),
+ (259,269,1,0,2.22,0,0,0,'2006-03-01 00:00:00',0,25,0,0,'2014-03-01 00:00:00','2014-05-15 03:46:46','2014-05-15 03:46:46',0,0,0,5,0,0,'2014-03-01 00:00:00'),
+ (260,270,0,0,4.32,0.9,0,0,'1994-12-01 00:00:00',20,25,0,0,'2013-12-01 00:00:00','2014-05-15 04:04:25','2014-05-15 04:04:25',0,0,0,7,0,0,'2013-12-01 00:00:00'),
+ (261,271,0,0,5.76,0.7,0,0,'1977-10-01 00:00:00',15,25,0,0,'2012-11-01 00:00:00','2014-05-15 04:04:25','2014-05-15 04:04:25',0,0,0,5,0,0,'2012-11-01 00:00:00'),
+ (262,272,0,0,3.99,0.7,0,0,'1996-06-01 00:00:00',20,25,0,0,'2012-06-01 00:00:00','2014-05-15 04:04:25','2014-05-15 04:04:25',0,0,0,6,0,0,'2012-06-01 00:00:00'),
+ (263,273,0,0,5.42,0.7,0,0,'1992-12-01 00:00:00',15,25,0,0,'2013-01-01 00:00:00','2014-05-15 04:04:25','2014-05-15 04:04:25',0,0,0,4,0,0,'2013-01-01 00:00:00'),
+ (264,274,0,0,3.66,0.5,0,0,'2002-02-01 00:00:00',20,25,0,0,'2014-05-01 00:00:00','2014-05-15 04:04:25','2014-05-15 04:04:25',0,0,0,5,0,0,'2014-05-01 00:00:00'),
+ (265,275,0,0,3.66,0.3,0,0,'1995-09-01 00:00:00',20,25,0,0,'2012-04-01 00:00:00','2014-05-15 04:04:25','2014-05-15 04:04:25',0,0,0,5,0,0,'2012-04-01 00:00:00'),
+ (266,276,0,0,3,0.5,0,0,'2005-03-01 00:00:00',20,25,0,0,'2011-06-01 00:00:00','2014-05-15 04:04:25','2014-05-15 04:04:25',0,0,0,3,0,0,'2011-06-01 00:00:00'),
+ (267,277,0,0,3.26,0,0,0,'1993-07-01 00:00:00',25,25,0,0,'2013-12-01 00:00:00','2014-05-15 04:04:25','2014-05-15 04:04:25',0,0,0,8,0,0,'2013-12-01 00:00:00'),
+ (268,278,0,0,1.89,0,0,0,'2006-03-01 00:00:00',25,25,0,0,'2014-03-01 00:00:00','2014-05-15 04:04:25','2014-05-15 04:04:25',0,0,0,4,0,0,'2014-03-01 00:00:00'),
+ (269,279,0,0,3.63,0,0,0,'1997-07-01 00:00:00',25,25,0,0,'2013-06-01 00:00:00','2014-05-15 04:04:25','2014-05-15 04:04:25',0,0,0,12,0,0,'2013-06-01 00:00:00'),
+ (270,280,0,0,2.34,0,0,0,'2010-07-01 00:00:00',20,25,0,0,'2011-07-01 00:00:00','2014-05-15 04:04:25','2014-05-15 04:04:25',0,0,0,1,0,0,'2011-07-01 00:00:00'),
+ (271,281,0,0,3,0,0,0,'2010-07-01 00:00:00',20,25,0,0,'2013-11-01 00:00:00','2014-05-15 04:04:25','2014-05-15 04:04:25',0,0,0,3,0,0,'2013-11-01 00:00:00'),
+ (272,282,0,0,2.34,0,0,0,'2010-07-01 00:00:00',20,25,0,0,'2011-07-01 00:00:00','2014-05-15 04:04:25','2014-05-15 04:04:25',0,0,0,1,0,0,'2011-07-01 00:00:00'),
+ (273,283,0,0,2.34,0,0,0,'2010-07-01 00:00:00',20,25,0,0,'2011-08-01 00:00:00','2014-05-15 04:04:25','2014-05-15 04:04:25',0,0,0,1,0,0,'2011-08-01 00:00:00'),
+ (274,284,0,0,2.34,0,0,0,'2010-10-01 00:00:00',20,25,0,0,'2011-10-01 00:00:00','2014-05-15 04:04:25','2014-05-15 04:04:25',0,0,0,1,0,0,'2011-10-01 00:00:00'),
+ (275,285,0,0,2.34,0,0,0,'2013-03-01 00:00:00',20,25,0,0,'2014-03-01 00:00:00','2014-05-15 04:04:25','2014-05-15 04:04:25',0,0,0,1,0,0,'2014-03-01 00:00:00'),
+ (276,286,0,0,2.34,0,0,0,'2010-07-01 00:00:00',20,25,0,0,'2011-07-01 00:00:00','2014-05-15 04:04:25','2014-05-15 04:04:25',0,0,0,1,0,0,'2011-07-01 00:00:00'),
+ (277,287,0,0,2.34,0,0,0,'2010-10-01 00:00:00',20,25,0,0,'2011-10-01 00:00:00','2014-05-15 04:04:25','2014-05-15 04:04:25',0,0,0,1,0,0,'2011-10-01 00:00:00'),
+ (278,288,1,0,2.44,0,0,0,'1997-05-01 00:00:00',0,25,0,0,'2012-05-01 00:00:00','2014-05-15 04:04:25','2014-05-15 04:04:25',0,0,0,9,0,0,'2012-05-01 00:00:00'),
+ (279,289,1,0,2.23,0,0,0,'2011-02-01 00:00:00',0,25,0,0,'2013-02-01 00:00:00','2014-05-15 04:04:25','2014-05-15 04:04:25',0,0,0,2,0,0,'2013-02-01 00:00:00'),
+ (280,290,1,0,2.59,0,0,0,'2006-08-01 00:00:00',0,25,0,0,'2012-08-01 00:00:00','2014-05-15 04:04:25','2014-05-15 04:04:25',0,0,0,4,0,0,'2012-08-01 00:00:00'),
+ (281,291,1,0,2.23,0,0,0,'2011-02-01 00:00:00',0,25,0,0,'2013-02-01 00:00:00','2014-05-15 04:04:25','2014-05-15 04:04:25',0,0,0,2,0,0,'2013-02-01 00:00:00'),
+ (282,292,1,0,1.5,0,0,0,'2013-05-01 00:00:00',0,25,0,0,'2013-05-01 00:00:00','2014-05-15 04:04:25','2014-05-15 04:04:25',0,0,0,1,0,0,'2013-05-01 00:00:00'),
+ (283,293,1,0,1,0,0,0,'2013-06-01 00:00:00',0,25,0,0,'2013-06-01 00:00:00','2014-05-15 04:04:26','2014-05-15 04:04:26',0,0,0,1,0,0,'2013-06-01 00:00:00'),
+ (284,294,1,0,2.4,0,0,0,'1997-05-01 00:00:00',0,25,0,0,'2013-02-01 00:00:00','2014-05-15 04:04:26','2014-05-15 04:04:26',0,0,0,6,0,0,'2013-02-01 00:00:00'),
+ (285,295,1,0,2.22,0,0,0,'2006-03-01 00:00:00',0,25,0,0,'2014-03-01 00:00:00','2014-05-15 04:04:26','2014-05-15 04:04:26',0,0,0,5,0,0,'2014-03-01 00:00:00'),
+ (286,296,0,0,4.32,0.9,0,0,'1994-12-01 00:00:00',20,25,0,0,'2013-12-01 00:00:00','2014-05-15 04:37:42','2014-05-15 04:37:42',0,0,0,7,0,0,'2013-12-01 00:00:00'),
+ (287,297,0,0,5.76,0.7,0,0,'1977-10-01 00:00:00',15,25,0,0,'2012-11-01 00:00:00','2014-05-15 04:37:42','2014-05-15 04:37:42',0,0,0,5,0,0,'2012-11-01 00:00:00'),
+ (288,298,0,0,3.99,0.7,0,0,'1996-06-01 00:00:00',20,25,0,0,'2012-06-01 00:00:00','2014-05-15 04:37:42','2014-05-15 04:37:42',0,0,0,6,0,0,'2012-06-01 00:00:00'),
+ (289,299,0,0,5.42,0.7,0,0,'1992-12-01 00:00:00',15,25,0,0,'2013-01-01 00:00:00','2014-05-15 04:37:42','2014-05-15 04:37:42',0,0,0,4,0,0,'2013-01-01 00:00:00'),
+ (290,300,0,0,3.66,0.5,0,0,'2002-02-01 00:00:00',20,25,0,0,'2014-05-01 00:00:00','2014-05-15 04:37:42','2014-05-15 04:37:42',0,0,0,5,0,0,'2014-05-01 00:00:00'),
+ (291,301,0,0,3.66,0.3,0,0,'1995-09-01 00:00:00',20,25,0,0,'2012-04-01 00:00:00','2014-05-15 04:37:42','2014-05-15 04:37:42',0,0,0,5,0,0,'2012-04-01 00:00:00'),
+ (292,302,0,0,3,0.5,0,0,'2005-03-01 00:00:00',20,25,0,0,'2011-06-01 00:00:00','2014-05-15 04:37:42','2014-05-15 04:37:42',0,0,0,3,0,0,'2011-06-01 00:00:00'),
+ (293,303,0,0,3.26,0,0,0,'1993-07-01 00:00:00',25,25,0,0,'2013-12-01 00:00:00','2014-05-15 04:37:42','2014-05-15 04:37:42',0,0,0,8,0,0,'2013-12-01 00:00:00'),
+ (294,304,0,0,1.89,0,0,0,'2006-03-01 00:00:00',25,25,0,0,'2014-03-01 00:00:00','2014-05-15 04:37:42','2014-05-15 04:37:42',0,0,0,4,0,0,'2014-03-01 00:00:00'),
+ (295,305,0,0,3.63,0,0,0,'1997-07-01 00:00:00',25,25,0,0,'2013-06-01 00:00:00','2014-05-15 04:37:42','2014-05-15 04:37:42',0,0,0,12,0,0,'2013-06-01 00:00:00'),
+ (296,306,0,0,2.34,0,0,0,'2010-07-01 00:00:00',20,25,0,0,'2011-07-01 00:00:00','2014-05-15 04:37:42','2014-05-15 04:37:42',0,0,0,1,0,0,'2011-07-01 00:00:00'),
+ (297,307,0,0,3,0,0,0,'2010-07-01 00:00:00',20,25,0,0,'2013-11-01 00:00:00','2014-05-15 04:37:42','2014-05-15 04:37:42',0,0,0,3,0,0,'2013-11-01 00:00:00'),
+ (298,308,0,0,2.34,0,0,0,'2010-07-01 00:00:00',20,25,0,0,'2011-07-01 00:00:00','2014-05-15 04:37:42','2014-05-15 04:37:42',0,0,0,1,0,0,'2011-07-01 00:00:00'),
+ (299,309,0,0,2.34,0,0,0,'2010-07-01 00:00:00',20,25,0,0,'2011-08-01 00:00:00','2014-05-15 04:37:42','2014-05-15 04:37:42',0,0,0,1,0,0,'2011-08-01 00:00:00'),
+ (300,310,0,0,2.34,0,0,0,'2010-10-01 00:00:00',20,25,0,0,'2011-10-01 00:00:00','2014-05-15 04:37:42','2014-05-15 04:37:42',0,0,0,1,0,0,'2011-10-01 00:00:00'),
+ (301,311,0,0,2.34,0,0,0,'2013-03-01 00:00:00',20,25,0,0,'2014-03-01 00:00:00','2014-05-15 04:37:42','2014-05-15 04:37:42',0,0,0,1,0,0,'2014-03-01 00:00:00'),
+ (302,312,0,0,2.34,0,0,0,'2010-07-01 00:00:00',20,25,0,0,'2011-07-01 00:00:00','2014-05-15 04:37:42','2014-05-15 04:37:42',0,0,0,1,0,0,'2011-07-01 00:00:00'),
+ (303,313,0,0,2.34,0,0,0,'2010-10-01 00:00:00',20,25,0,0,'2011-10-01 00:00:00','2014-05-15 04:37:42','2014-05-15 04:37:42',0,0,0,1,0,0,'2011-10-01 00:00:00'),
+ (304,314,1,0,2.44,0,0,0,'1997-05-01 00:00:00',0,25,0,0,'2012-05-01 00:00:00','2014-05-15 04:37:42','2014-05-15 04:37:42',0,0,0,9,0,0,'2012-05-01 00:00:00'),
+ (305,315,1,0,2.23,0,0,0,'2011-02-01 00:00:00',0,25,0,0,'2013-02-01 00:00:00','2014-05-15 04:37:42','2014-05-15 04:37:42',0,0,0,2,0,0,'2013-02-01 00:00:00'),
+ (306,316,1,0,2.59,0,0,0,'2006-08-01 00:00:00',0,25,0,0,'2012-08-01 00:00:00','2014-05-15 04:37:42','2014-05-15 04:37:42',0,0,0,4,0,0,'2012-08-01 00:00:00'),
+ (307,317,1,0,2.23,0,0,0,'2011-02-01 00:00:00',0,25,0,0,'2013-02-01 00:00:00','2014-05-15 04:37:42','2014-05-15 04:37:42',0,0,0,2,0,0,'2013-02-01 00:00:00'),
+ (308,318,1,0,1.5,0,0,0,'2013-05-01 00:00:00',0,25,0,0,'2013-05-01 00:00:00','2014-05-15 04:37:42','2014-05-15 04:37:42',0,0,0,1,0,0,'2013-05-01 00:00:00'),
+ (309,319,1,0,1,0,0,0,'2013-06-01 00:00:00',0,25,0,0,'2013-06-01 00:00:00','2014-05-15 04:37:42','2014-05-15 04:37:42',0,0,0,1,0,0,'2013-06-01 00:00:00'),
+ (310,320,1,0,2.4,0,0,0,'1997-05-01 00:00:00',0,25,0,0,'2013-02-01 00:00:00','2014-05-15 04:37:42','2014-05-15 04:37:42',0,0,0,6,0,0,'2013-02-01 00:00:00'),
+ (311,321,1,0,2.22,0,0,0,'2006-03-01 00:00:00',0,25,0,0,'2014-03-01 00:00:00','2014-05-15 04:37:42','2014-05-15 04:37:42',0,0,0,5,0,0,'2014-03-01 00:00:00'),
+ (312,322,0,0,4.32,0.5,0,0,'1991-04-01 00:00:00',20,25,0,0,'2012-10-01 00:00:00','2014-05-15 04:37:42','2014-05-15 04:37:42',0,0,0,7,0,0,'2012-10-01 00:00:00'),
+ (313,323,0,0,4.74,0.3,0,0,'1994-11-01 00:00:00',15,25,0,0,'2011-06-01 00:00:00','2014-05-15 04:37:42','2014-05-15 04:37:42',0,0,0,2,0,0,'2011-06-01 00:00:00'),
+ (314,324,0,0,3,0.3,0,0,'2005-05-01 00:00:00',20,25,0,0,'2012-05-01 00:00:00','2014-05-15 04:37:42','2014-05-15 04:37:42',0,0,0,3,0,0,'2012-05-01 00:00:00'),
+ (315,325,0,0,3.66,0,0,0,'2002-02-01 00:00:00',20,25,0,0,'2014-02-01 00:00:00','2014-05-15 04:37:42','2014-05-15 04:37:42',0,0,0,5,0,0,'2014-02-01 00:00:00'),
+ (316,326,0,0,2.67,0,0,0,'2010-07-01 00:00:00',20,25,0,0,'2014-01-01 00:00:00','2014-05-15 04:37:42','2014-05-15 04:37:42',0,0,0,2,0,0,'2014-01-01 00:00:00'),
+ (317,327,0,0,2.34,0,0,0,'2013-03-01 00:00:00',20,25,0,0,'2014-03-01 00:00:00','2014-05-15 04:37:42','2014-05-15 04:37:42',0,0,0,1,0,0,'2014-03-01 00:00:00'),
+ (318,328,0,0,2.34,0,0,0,'2013-03-01 00:00:00',20,25,0,0,'2014-03-01 00:00:00','2014-05-15 04:37:42','2014-05-15 04:37:42',0,0,0,1,0,0,'2014-03-01 00:00:00'),
+ (319,329,0,0,4.32,0.5,0,0,'1994-11-01 00:00:00',20,25,0,0,'2013-11-01 00:00:00','2014-05-15 04:37:42','2014-05-15 04:37:42',0,0,0,7,0,0,'2013-11-01 00:00:00'),
+ (320,330,0,0,2.67,0,0,0,'2009-01-01 00:00:00',20,25,0,0,'2013-01-01 00:00:00','2014-05-15 04:37:42','2014-05-15 04:37:42',0,0,0,2,0,0,'2013-01-01 00:00:00'),
+ (321,331,0,0,2.67,0,0,0,'2008-12-01 00:00:00',20,25,0,0,'2012-12-01 00:00:00','2014-05-15 04:37:42','2014-05-15 04:37:42',0,0,0,2,0,0,'2012-12-01 00:00:00'),
+ (322,332,0,0,2.34,0,0,0,'2013-03-01 00:00:00',20,25,0,0,'2014-03-01 00:00:00','2014-05-15 04:37:42','2014-05-15 04:37:42',0,0,0,1,0,0,'2014-03-01 00:00:00'),
+ (323,333,0,0,3.66,0.5,0,0,'2002-02-01 00:00:00',20,25,0,0,'2013-02-01 00:00:00','2014-05-15 04:37:42','2014-05-15 04:37:42',0,0,0,5,0,0,'2013-02-01 00:00:00'),
+ (324,334,0,0,4.74,0.3,0,0,'1994-11-01 00:00:00',15,25,0,0,'2012-06-01 00:00:00','2014-05-15 04:37:43','2014-05-15 04:37:43',0,0,0,2,0,0,'2012-06-01 00:00:00'),
+ (325,335,0,0,2.34,0,0,0,'2011-11-01 00:00:00',20,25,0,0,'2012-11-01 00:00:00','2014-05-15 04:37:43','2014-05-15 04:37:43',0,0,0,1,0,0,'2012-11-01 00:00:00'),
+ (326,336,0,0,3,0,0,0,'2005-07-01 00:00:00',20,25,0,0,'2012-06-01 00:00:00','2014-05-15 04:37:43','2014-05-15 04:37:43',0,0,0,3,0,0,'2012-06-01 00:00:00'),
+ (327,337,0,0,3.33,0,0,0,'2004-09-01 00:00:00',20,25,0,0,'2012-12-01 00:00:00','2014-05-15 04:37:43','2014-05-15 04:37:43',0,0,0,4,0,0,'2012-12-01 00:00:00'),
+ (328,338,0,0,2.34,0,0,0,'2010-10-01 00:00:00',20,25,0,0,'2011-10-01 00:00:00','2014-05-15 04:37:43','2014-05-15 04:37:43',0,0,0,1,0,0,'2011-10-01 00:00:00'),
+ (329,339,0,0,2.34,0,0,0,'2010-10-01 00:00:00',20,25,0,0,'2011-10-01 00:00:00','2014-05-15 04:37:43','2014-05-15 04:37:43',0,0,0,1,0,0,'2011-10-01 00:00:00'),
+ (330,340,0,0,2.67,0,0,0,'2009-04-01 00:00:00',20,25,0,0,'2012-10-01 00:00:00','2014-05-15 04:37:43','2014-05-15 04:37:43',0,0,0,2,0,0,'2012-10-01 00:00:00'),
+ (331,341,0,0,2.34,0,0,0,'2013-03-01 00:00:00',20,25,0,0,'2014-03-01 00:00:00','2014-05-15 04:37:43','2014-05-15 04:37:43',0,0,0,1,0,0,'2014-03-01 00:00:00'),
+ (332,342,0,0,3,0,0,0,'2005-01-01 00:00:00',20,25,0,0,'2012-01-01 00:00:00','2014-05-15 04:37:43','2014-05-15 04:37:43',0,0,0,3,0,0,'2012-01-01 00:00:00'),
+ (333,343,0,0,2.34,0,0,0,'2013-03-01 00:00:00',20,25,0,0,'2013-03-01 00:00:00','2014-05-15 04:37:43','2014-05-15 04:37:43',0,0,0,1,0,0,'2013-03-01 00:00:00'),
+ (334,344,0,0,3.33,0.5,0,0,'2002-02-01 00:00:00',20,25,0,0,'2012-02-01 00:00:00','2014-05-15 04:37:43','2014-05-15 04:37:43',0,0,0,4,0,0,'2012-02-01 00:00:00'),
+ (335,345,0,0,2.34,0,0,0,'2010-07-01 00:00:00',20,25,0,0,'2011-07-01 00:00:00','2014-05-15 04:37:43','2014-05-15 04:37:43',0,0,0,1,0,0,'2011-07-01 00:00:00'),
+ (336,346,0,0,3,0,0,0,'2005-05-01 00:00:00',20,25,0,0,'2012-05-01 00:00:00','2014-05-15 04:37:43','2014-05-15 04:37:43',0,0,0,3,0,0,'2012-05-01 00:00:00'),
+ (337,347,0,0,2.34,0,0,0,'2010-10-01 00:00:00',20,25,0,0,'2011-10-01 00:00:00','2014-05-15 04:37:43','2014-05-15 04:37:43',0,0,0,1,0,0,'2011-10-01 00:00:00'),
+ (338,348,0,0,3.99,0,0,0,'1992-12-01 00:00:00',20,25,0,0,'2013-07-01 00:00:00','2014-05-15 04:37:43','2014-05-15 04:37:43',0,0,0,6,0,0,'2013-07-01 00:00:00'),
+ (339,349,0,0,2.34,0,0,0,'2013-03-01 00:00:00',20,25,0,0,'2011-11-01 00:00:00','2014-05-15 04:37:43','2014-05-15 04:37:43',0,0,0,1,0,0,'2011-11-01 00:00:00'),
+ (340,350,0,0,3.33,0.6,0,0,'2001-07-01 00:00:00',20,25,0,0,'2013-01-01 00:00:00','2014-05-15 04:37:43','2014-05-15 04:37:43',0,0,0,4,0,0,'2013-01-01 00:00:00'),
+ (341,351,0,0,3.33,0.3,0,0,'2003-09-01 00:00:00',20,25,0,0,'2013-08-01 00:00:00','2014-05-15 04:37:43','2014-05-15 04:37:43',0,0,0,4,0,0,'2013-08-01 00:00:00'),
+ (342,352,0,0,3.99,0.3,0,0,'1996-11-01 00:00:00',20,25,0,0,'2013-11-01 00:00:00','2014-05-15 04:37:43','2014-05-15 04:37:43',0,0,0,6,0,0,'2013-11-01 00:00:00'),
+ (343,353,0,0,3,0.2,0,0,'2006-11-01 00:00:00',20,25,0,0,'2013-11-01 00:00:00','2014-05-15 04:37:43','2014-05-15 04:37:43',0,0,0,3,0,0,'2013-11-01 00:00:00'),
+ (344,354,0,0,3.99,0,0,0,'1996-06-01 00:00:00',20,25,0,0,'2013-06-01 00:00:00','2014-05-15 04:37:43','2014-05-15 04:37:43',0,0,0,6,0,0,'2013-06-01 00:00:00'),
+ (345,355,0,0,4.32,0,0,0,'1989-07-01 00:00:00',20,25,0,0,'2011-10-01 00:00:00','2014-05-15 04:37:43','2014-05-15 04:37:43',0,0,0,7,0,0,'2011-10-01 00:00:00'),
+ (346,356,0,0,3.63,0,0,9,'1994-12-01 00:00:00',25,25,0,0,'2013-06-01 00:00:00','2014-05-15 04:37:43','2014-05-15 04:37:43',0,0,0,12,0,0,'2013-06-01 00:00:00'),
+ (347,357,0,0,3.26,0,0,0,'2001-07-01 00:00:00',25,25,0,0,'2014-01-01 00:00:00','2014-05-15 04:37:43','2014-05-15 04:37:43',0,0,0,8,0,0,'2014-01-01 00:00:00'),
+ (348,358,0,0,2.67,0,0,0,'2008-12-01 00:00:00',20,25,0,0,'2012-12-01 00:00:00','2014-05-15 04:37:43','2014-05-15 04:37:43',0,0,0,2,0,0,'2012-12-01 00:00:00'),
+ (349,359,0,0,2.67,0,0,0,'2008-12-01 00:00:00',20,25,0,0,'2012-12-01 00:00:00','2014-05-15 04:37:43','2014-05-15 04:37:43',0,0,0,2,0,0,'2012-12-01 00:00:00'),
+ (350,360,0,0,2.34,0,0,0,'2013-03-01 00:00:00',20,25,0,0,'2014-03-01 00:00:00','2014-05-15 04:37:43','2014-05-15 04:37:43',0,0,0,1,0,0,'2014-03-01 00:00:00'),
+ (351,361,1,0,2.05,0,0,0,'2013-01-01 00:00:00',0,25,0,0,'2013-01-01 00:00:00','2014-05-15 04:37:43','2014-05-15 04:37:43',0,0,0,1,0,0,'2013-01-01 00:00:00'),
+ (352,362,0,0,5.42,0.6,0,0,'1984-03-01 00:00:00',15,25,0,0,'2011-11-01 00:00:00','2014-05-15 04:37:43','2014-05-15 04:37:43',0.1,0,0,4,0,0,'2011-11-01 00:00:00'),
+ (353,363,0,0,3.99,0.4,0,0,'1988-03-01 00:00:00',20,25,0,0,'2012-09-01 00:00:00','2014-05-15 04:37:43','2014-05-15 04:37:43',0.1,0,0,6,0,0,'2012-09-01 00:00:00'),
+ (354,364,0,0,3.66,0,0,0,'1995-10-01 00:00:00',25,25,0,0,'2013-11-01 00:00:00','2014-05-15 04:37:43','2014-05-15 04:37:43',0.1,0,0,10,0,0,'2013-11-01 00:00:00'),
+ (355,365,0,0,4.06,0,0,7,'1992-12-01 00:00:00',25,25,0,0,'2013-06-01 00:00:00','2014-05-15 04:37:43','2014-05-15 04:37:43',0.1,0,0,12,0,0,'2013-06-01 00:00:00'),
+ (356,366,0,0,4.65,0,0,0,'1986-09-01 00:00:00',20,25,0,0,'2011-10-01 00:00:00','2014-05-15 04:37:43','2014-05-15 04:37:43',0.1,0,0,8,0,0,'2011-10-01 00:00:00'),
+ (357,367,0,0,2.72,0,0,0,'2013-03-01 00:00:00',25,25,0,0,'2012-03-01 00:00:00','2014-05-15 04:37:43','2014-05-15 04:37:43',0.1,0,0,3,0,0,'2012-03-01 00:00:00'),
+ (358,368,0,0,2.34,0,0,0,'2013-03-01 00:00:00',20,25,0,0,'2012-10-01 00:00:00','2014-05-15 04:37:43','2014-05-15 04:37:43',0.1,0,0,1,0,0,'2012-10-01 00:00:00'),
+ (359,369,0,0,2.34,0,0,0,'2013-03-01 00:00:00',20,25,0,0,'2013-03-01 00:00:00','2014-05-15 04:37:43','2014-05-15 04:37:43',0.1,0,0,1,0,0,'2013-03-01 00:00:00'),
+ (360,370,1,0,2.23,0,0,0,'2008-11-01 00:00:00',0,25,0,0,'2013-08-01 00:00:00','2014-05-15 04:37:43','2014-05-15 04:37:43',0.1,0,0,2,0,0,'2013-08-01 00:00:00'),
+ (361,371,0,0,3.99,0.55,0,0,'1997-05-01 00:00:00',20,25,0,0,'2013-12-01 00:00:00','2014-05-15 04:37:43','2014-05-15 04:37:43',0,0,0,6,0,0,'2013-12-01 00:00:00'),
+ (362,372,0,0,3,0.25,0,0,'2006-08-01 00:00:00',20,25,0,0,'2013-08-01 00:00:00','2014-05-15 04:37:43','2014-05-15 04:37:43',0,0,0,3,0,0,'2013-08-01 00:00:00'),
+ (363,373,0,0,3.33,0.25,0,0,'2002-02-01 00:00:00',20,25,0,0,'2013-11-01 00:00:00','2014-05-15 04:37:43','2014-05-15 04:37:43',0,0,0,4,0,0,'2013-11-01 00:00:00'),
+ (364,374,0,0,3.66,0.15,0,0,'1993-11-01 00:00:00',25,25,0,0,'2013-01-01 00:00:00','2014-05-15 04:37:43','2014-05-15 04:37:43',0,0,0,10,0,0,'2013-01-01 00:00:00'),
+ (365,375,0,0,2.34,0,0,0,'2010-07-01 00:00:00',20,25,0,0,'2011-07-01 00:00:00','2014-05-15 04:37:43','2014-05-15 04:37:43',0,0,0,1,0,0,'2011-07-01 00:00:00'),
+ (366,376,0,0,2.34,0,0,0,'2010-07-01 00:00:00',20,25,0,0,'2011-08-01 00:00:00','2014-05-15 04:37:43','2014-05-15 04:37:43',0,0,0,1,0,0,'2011-08-01 00:00:00'),
+ (367,377,0,0,2.34,0,0,0,'2010-10-01 00:00:00',20,25,0,0,'2011-10-01 00:00:00','2014-05-15 04:37:43','2014-05-15 04:37:43',0,0,0,1,0,0,'2011-10-01 00:00:00'),
+ (368,378,0,0,2.34,0,0,0,'2013-03-01 00:00:00',20,25,0,0,'2014-03-01 00:00:00','2014-05-15 04:37:43','2014-05-15 04:37:43',0,0,0,1,0,0,'2014-03-01 00:00:00'),
+ (369,379,0,0,2.34,0,0,0,'2013-03-01 00:00:00',20,25,0,0,'2014-03-01 00:00:00','2014-05-15 04:37:43','2014-05-15 04:37:43',0,0,0,1,0,0,'2014-03-01 00:00:00'),
+ (370,380,0,0,2.34,0,0,0,'2013-03-01 00:00:00',20,25,0,0,'2014-03-01 00:00:00','2014-05-15 04:37:43','2014-05-15 04:37:43',0,0,0,1,0,0,'2014-03-01 00:00:00'),
+ (371,381,0,0,2.34,0,0,0,'2010-10-01 00:00:00',20,25,0,0,'2011-10-01 00:00:00','2014-05-15 04:37:43','2014-05-15 04:37:43',0,0,0,1,0,0,'2011-10-01 00:00:00'),
+ (372,382,0,0,2.34,0,0,0,'2010-07-01 00:00:00',20,25,0,0,'2011-07-01 00:00:00','2014-05-15 04:37:43','2014-05-15 04:37:43',0,0,0,1,0,0,'2011-07-01 00:00:00'),
+ (373,383,1,0,2.4,0,0,0,'2003-01-01 00:00:00',0,25,0,0,'2013-07-01 00:00:00','2014-05-15 04:37:43','2014-05-15 04:37:43',0,0,0,6,0,0,'2013-07-01 00:00:00'),
+ (374,384,1,0,2.4,0,0,0,'2003-01-01 00:00:00',0,25,0,0,'2013-01-01 00:00:00','2014-05-15 04:37:43','2014-05-15 04:37:43',0,0,0,6,0,0,'2013-01-01 00:00:00'),
+ (375,385,0,0,5.08,0.55,0,0,'1982-10-01 00:00:00',15,25,0,0,'2012-01-01 00:00:00','2014-05-15 04:37:43','2014-05-15 04:37:43',0.1,0,0,3,0,0,'2012-01-01 00:00:00'),
+ (376,386,0,0,4.32,0.35,0,0,'1982-02-01 00:00:00',20,25,0,0,'2013-03-01 00:00:00','2014-05-15 04:37:43','2014-05-15 04:37:43',0.1,0,0,7,0,0,'2013-03-01 00:00:00'),
+ (377,387,0,0,3,0,0,0,'2006-08-01 00:00:00',20,25,0,0,'2012-08-01 00:00:00','2014-05-15 04:37:43','2014-05-15 04:37:43',0.1,0,0,3,0,0,'2012-08-01 00:00:00'),
+ (378,388,0,0,3.63,0,0,20,'1972-06-01 00:00:00',25,25,0,0,'2014-02-01 00:00:00','2014-05-15 04:37:43','2014-05-15 04:37:43',0.1,0,0,12,0,0,'2014-02-01 00:00:00'),
+ (379,389,0,0,2.34,0,0,0,'2010-07-01 00:00:00',20,25,0,0,'2011-07-01 00:00:00','2014-05-15 04:37:43','2014-05-15 04:37:43',0.1,0,0,1,0,0,'2011-07-01 00:00:00'),
+ (380,390,0,0,4.06,0,0,17,'1976-10-01 00:00:00',25,25,0,0,'2014-01-01 00:00:00','2014-05-15 04:37:44','2014-05-15 04:37:44',0.1,0,0,12,0,0,'2014-01-01 00:00:00'),
+ (381,391,0,0,3.86,0,0,0,'1992-12-01 00:00:00',25,25,0,0,'2013-10-01 00:00:00','2014-05-15 04:37:44','2014-05-15 04:37:44',0.1,0,0,11,0,0,'2013-10-01 00:00:00'),
+ (382,392,0,0,3.63,0,0,15,'1985-10-01 00:00:00',25,25,0,0,'2013-10-01 00:00:00','2014-05-15 04:37:44','2014-05-15 04:37:44',0.1,0,0,12,0,0,'2013-10-01 00:00:00'),
+ (383,393,0,0,3.06,0,0,0,'2000-12-01 00:00:00',25,25,0,0,'2012-06-01 00:00:00','2014-05-15 04:37:44','2014-05-15 04:37:44',0.1,0,0,7,0,0,'2012-06-01 00:00:00'),
+ (384,394,0,0,3.33,0,0,0,'2004-09-01 00:00:00',20,25,0,0,'2013-12-01 00:00:00','2014-05-15 04:37:44','2014-05-15 04:37:44',0.1,0,0,4,0,0,'2013-12-01 00:00:00'),
+ (385,395,0,0,2.34,0,0,0,'2013-03-01 00:00:00',20,25,0,0,'2014-03-01 00:00:00','2014-05-15 04:37:44','2014-05-15 04:37:44',0.1,0,0,1,0,0,'2014-03-01 00:00:00'),
+ (386,396,1,0,1.5,0,0,0,'2013-05-01 00:00:00',0,25,0,0,'2013-05-01 00:00:00','2014-05-15 04:37:44','2014-05-15 04:37:44',0.1,0,0,1,0,0,'2013-05-01 00:00:00'),
+ (387,397,1,0,3.13,0,0,0,'2003-01-01 00:00:00',0,25,0,0,'2013-01-01 00:00:00','2014-05-15 04:37:44','2014-05-15 04:37:44',0.1,0,0,7,0,0,'2013-01-01 00:00:00'),
+ (388,398,1,0,2.94,0,0,0,'1997-04-01 00:00:00',0,25,0,0,'2013-10-01 00:00:00','2014-05-15 04:37:44','2014-05-15 04:37:44',0.1,0,0,9,0,0,'2013-10-01 00:00:00'),
+ (389,399,0,0,3.99,0.55,0,0,'1992-05-01 00:00:00',20,25,0,0,'2012-05-01 00:00:00','2014-05-15 04:37:44','2014-05-15 04:37:44',0.2,0,70,6,0,0,'2012-05-01 00:00:00'),
+ (390,400,0,0,4.74,0.35,0,0,'1994-11-01 00:00:00',15,25,0,0,'2012-06-01 00:00:00','2014-05-15 04:37:44','2014-05-15 04:37:44',0.2,0,70,2,0,0,'2012-06-01 00:00:00'),
+ (391,401,0,0,4.32,0.35,0,0,'1987-06-01 00:00:00',20,25,0,0,'2012-10-01 00:00:00','2014-05-15 04:37:44','2014-05-15 04:37:44',0.2,0,70,7,0,0,'2012-10-01 00:00:00'),
+ (392,402,0,0,3.66,0.35,0,0,'2002-02-01 00:00:00',20,25,0,0,'2014-05-01 00:00:00','2014-05-15 04:37:44','2014-05-15 04:37:44',0.2,0,70,5,0,0,'2014-05-01 00:00:00'),
+ (393,403,0,0,3.33,0.25,0,0,'2001-07-01 00:00:00',20,25,0,0,'2012-12-01 00:00:00','2014-05-15 04:37:44','2014-05-15 04:37:44',0.2,0,70,4,0,0,'2012-12-01 00:00:00'),
+ (394,404,0,0,3.99,0.15,0,0,'1998-01-01 00:00:00',20,25,0,0,'2013-01-01 00:00:00','2014-05-15 04:37:44','2014-05-15 04:37:44',0.2,0,70,6,0,0,'2013-01-01 00:00:00'),
+ (395,405,0,0,4.98,0.15,0,0,'1978-10-01 00:00:00',20,25,0,0,'2012-07-01 00:00:00','2014-05-15 04:37:44','2014-05-15 04:37:44',0.2,0,70,9,0,0,'2012-07-01 00:00:00'),
+ (396,406,0,0,3.66,0.25,0,0,'1998-10-01 00:00:00',20,25,0,0,'2011-10-01 00:00:00','2014-05-15 04:37:44','2014-05-15 04:37:44',0.2,0,70,5,0,0,'2011-10-01 00:00:00'),
+ (397,407,0,0,3,0.15,0,0,'2005-04-01 00:00:00',20,25,0,0,'2011-07-01 00:00:00','2014-05-15 04:37:44','2014-05-15 04:37:44',0.2,0,70,3,0,0,'2011-07-01 00:00:00'),
+ (398,408,0,0,2.34,0,0,0,'2010-10-01 00:00:00',20,25,0,0,'2011-10-01 00:00:00','2014-05-15 04:37:44','2014-05-15 04:37:44',0.2,0,70,1,0,0,'2011-10-01 00:00:00'),
+ (399,409,0,0,2.46,0,0,0,'2006-08-01 00:00:00',25,25,0,0,'2013-02-01 00:00:00','2014-05-15 04:37:44','2014-05-15 04:37:44',0.2,0,70,4,0,0,'2013-02-01 00:00:00'),
+ (400,410,0,0,3.26,0,0,0,'1998-10-01 00:00:00',25,25,0,0,'2013-04-01 00:00:00','2014-05-15 04:37:44','2014-05-15 04:37:44',0.2,0,70,8,0,0,'2013-04-01 00:00:00'),
+ (401,411,0,0,2.34,0,0,0,'2011-11-01 00:00:00',20,25,0,0,'2012-11-01 00:00:00','2014-05-15 04:37:44','2014-05-15 04:37:44',0.2,0,70,1,0,0,'2012-11-01 00:00:00'),
+ (402,412,0,0,4.06,0,0,7,'1995-08-01 00:00:00',25,25,0,0,'2013-09-01 00:00:00','2014-05-15 04:37:44','2014-05-15 04:37:44',0.2,0,70,12,0,0,'2013-09-01 00:00:00'),
+ (403,413,0,0,2.1,0,0,0,'2011-09-01 00:00:00',25,25,0,0,'2012-09-01 00:00:00','2014-05-15 04:37:44','2014-05-15 04:37:44',0.2,0,70,1,0,0,'2012-09-01 00:00:00'),
+ (404,414,0,0,4.32,0,0,0,'2013-06-01 00:00:00',20,25,0,0,'2012-10-01 00:00:00','2014-05-15 04:37:44','2014-05-15 04:37:44',0.2,0,70,7,0,0,'2012-10-01 00:00:00');
+INSERT INTO `employees_heso` (`eh_id`,`eh_em_id`,`eh_loai_luong`,`eh_giai_doan`,`eh_he_so`,`eh_pc_cong_viec`,`eh_pc_trach_nhiem`,`eh_pc_tnvk_phan_tram`,`eh_tham_niem`,`eh_pc_udn_phan_tram`,`eh_pc_cong_vu_phan_tram`,`eh_pc_kiem_nhiem`,`eh_pc_khac`,`eh_han_dieu_chinh`,`eh_date_added`,`eh_date_modified`,`eh_pc_kv`,`eh_pc_khac_type`,`eh_pc_thu_hut`,`eh_bac_luong`,`eh_pc_doc_hai`,`eh_pc_doc_hai_type`,`eh_han_ap_dung`) VALUES 
+ (405,415,0,0,2.55,0,0,0,'1991-03-01 00:00:00',25,25,0,0,'2013-01-01 00:00:00','2014-05-15 04:37:44','2014-05-15 04:37:44',0.2,0,70,6,0,0,'2013-01-01 00:00:00'),
+ (406,416,0,0,4.98,0,0,0,'1975-03-01 00:00:00',20,25,0,0,'2012-11-01 00:00:00','2014-05-15 04:37:44','2014-05-15 04:37:44',0.2,0,70,9,0,0,'2012-11-01 00:00:00'),
+ (407,417,0,0,4.06,0,0,0,'1990-03-01 00:00:00',25,25,0,0,'2013-11-01 00:00:00','2014-05-15 04:37:44','2014-05-15 04:37:44',0.2,0,70,12,0,0,'2013-11-01 00:00:00'),
+ (408,418,0,0,2.34,0,0,0,'2013-03-01 00:00:00',20,25,0,0,'2014-03-01 00:00:00','2014-05-15 04:37:44','2014-05-15 04:37:44',0.2,0,70,1,0,0,'2014-03-01 00:00:00'),
+ (409,419,0,0,2.34,0,0,0,'2013-03-01 00:00:00',20,25,0,0,'2014-03-01 00:00:00','2014-05-15 04:37:44','2014-05-15 04:37:44',0.2,0,70,1,0,0,'2014-03-01 00:00:00'),
+ (410,420,0,0,2.34,0,0,0,'2013-03-01 00:00:00',20,25,0,0,'2014-03-01 00:00:00','2014-05-15 04:37:44','2014-05-15 04:37:44',0.2,0,70,1,0,0,'2014-03-01 00:00:00'),
+ (411,421,0,0,2.34,0,0,0,'2013-03-01 00:00:00',20,25,0,0,'2014-03-01 00:00:00','2014-05-15 04:37:44','2014-05-15 04:37:44',0.2,0,70,1,0,0,'2014-03-01 00:00:00'),
+ (412,422,0,0,2.34,0,0,0,'2010-07-01 00:00:00',20,25,0,0,'2011-08-01 00:00:00','2014-05-15 04:37:44','2014-05-15 04:37:44',0.2,0,70,1,0,0,'2011-08-01 00:00:00'),
+ (413,423,0,0,2.67,0,0,0,'2010-07-01 00:00:00',20,25,0,0,'2013-07-01 00:00:00','2014-05-15 04:37:44','2014-05-15 04:37:44',0.2,0,70,2,0,0,'2013-07-01 00:00:00'),
+ (414,424,1,0,1.5,0,0,0,'2013-05-01 00:00:00',0,25,0,0,'2013-05-01 00:00:00','2014-05-15 04:37:44','2014-05-15 04:37:44',0.2,0,70,1,0,0,'2013-05-01 00:00:00'),
+ (415,425,1,0,2.59,0,0,0,'2007-08-01 00:00:00',0,25,0,0,'2014-02-01 00:00:00','2014-05-15 04:37:44','2014-05-15 04:37:44',0.2,0,70,4,0,0,'2014-02-01 00:00:00'),
+ (416,426,0,0,3.99,0.55,0,0,'1992-12-01 00:00:00',20,25,0,0,'2012-05-01 00:00:00','2014-05-15 04:37:44','2014-05-15 04:37:44',0,0,70,6,0,0,'2012-05-01 00:00:00'),
+ (417,427,0,0,3.99,0.35,0,0,'1996-11-01 00:00:00',20,25,0,0,'2013-11-01 00:00:00','2014-05-15 04:37:44','2014-05-15 04:37:44',0,0,70,6,0,0,'2013-11-01 00:00:00'),
+ (418,428,0,0,3,0,0,0,'2006-11-01 00:00:00',20,25,0,0,'2013-05-01 00:00:00','2014-05-15 04:37:44','2014-05-15 04:37:44',0,0,70,3,0,0,'2013-05-01 00:00:00'),
+ (419,429,0,0,3.33,0,0,0,'2002-02-01 00:00:00',20,25,0,0,'2013-02-01 00:00:00','2014-05-15 04:37:44','2014-05-15 04:37:44',0,0,70,4,0,0,'2013-02-01 00:00:00'),
+ (420,430,0,0,4.06,0,0,13,'1976-10-01 00:00:00',25,25,0,0,'2014-04-01 00:00:00','2014-05-15 04:37:44','2014-05-15 04:37:44',0,0,70,12,0,0,'2014-04-01 00:00:00'),
+ (421,431,0,0,3.99,0,0,0,'1995-07-01 00:00:00',20,25,0,0,'2013-10-01 00:00:00','2014-05-15 04:37:44','2014-05-15 04:37:44',0,0,70,6,0,0,'2013-10-01 00:00:00'),
+ (422,432,0,0,2.26,0,0,0,'2007-12-01 00:00:00',25,25,0,0,'2012-06-01 00:00:00','2014-05-15 04:37:44','2014-05-15 04:37:44',0,0,70,3,0,0,'2012-06-01 00:00:00'),
+ (423,433,0,0,4.06,0,0,13,'1995-08-01 00:00:00',25,25,0,0,'2013-06-01 00:00:00','2014-05-15 04:37:44','2014-05-15 04:37:44',0,0,70,12,0,0,'2013-06-01 00:00:00'),
+ (424,434,0,0,2.67,0,0,0,'2013-03-01 00:00:00',20,25,0,0,'2014-02-01 00:00:00','2014-05-15 04:37:44','2014-05-15 04:37:44',0,0,70,2,0,0,'2014-02-01 00:00:00'),
+ (425,435,1,0,2.4,0,0,0,'2003-01-01 00:00:00',0,25,0,0,'2013-01-01 00:00:00','2014-05-15 04:37:44','2014-05-15 04:37:44',0,0,70,6,0,0,'2013-01-01 00:00:00'),
+ (426,436,1,0,1.5,0,0,0,'2014-03-01 00:00:00',0,25,0,0,'2014-03-01 00:00:00','2014-05-15 04:37:44','2014-05-15 04:37:44',0,0,70,1,0,0,'2014-03-01 00:00:00'),
+ (427,437,0,0,4.32,0.6,0,0,'1993-12-01 00:00:00',20,25,0,0,'2013-12-01 00:00:00','2014-05-15 04:37:44','2014-05-15 04:37:44',0.5,0,70,7,0,0,'2013-12-01 00:00:00'),
+ (428,438,0,0,3.99,0.4,0,0,'1995-12-01 00:00:00',20,25,0,0,'2011-12-01 00:00:00','2014-05-15 04:37:44','2014-05-15 04:37:44',0.5,0,70,6,0,0,'2011-12-01 00:00:00'),
+ (429,439,0,0,3.66,0.4,0,0,'2000-07-01 00:00:00',20,25,0,0,'2014-03-01 00:00:00','2014-05-15 04:37:45','2014-05-15 04:37:45',0.5,0,70,5,0,0,'2014-03-01 00:00:00'),
+ (430,440,0,0,5.76,0.4,0,0,'1977-10-01 00:00:00',15,25,0,0,'2012-01-01 00:00:00','2014-05-15 04:37:45','2014-05-15 04:37:45',0.5,0,70,5,0,0,'2012-01-01 00:00:00'),
+ (431,441,0,0,3,0.3,0,0,'2005-05-01 00:00:00',20,25,0,0,'2012-05-01 00:00:00','2014-05-15 04:37:45','2014-05-15 04:37:45',0.5,0,70,3,0,0,'2012-05-01 00:00:00'),
+ (432,442,0,0,3.33,0.3,0,0,'2000-07-01 00:00:00',20,25,0,0,'2012-12-01 00:00:00','2014-05-15 04:37:45','2014-05-15 04:37:45',0.5,0,70,4,0,0,'2012-12-01 00:00:00'),
+ (433,443,0,0,3.99,0.3,0,0,'1998-08-01 00:00:00',20,25,0,0,'2013-11-01 00:00:00','2014-05-15 04:37:45','2014-05-15 04:37:45',0.5,0,70,6,0,0,'2013-11-01 00:00:00'),
+ (434,444,0,0,3.66,0.2,0,0,'2001-02-01 00:00:00',20,25,0,0,'2013-05-01 00:00:00','2014-05-15 04:37:45','2014-05-15 04:37:45',0.5,0,70,5,0,0,'2013-05-01 00:00:00'),
+ (435,445,0,0,3,0.3,0,0,'2006-08-01 00:00:00',20,25,0,0,'2013-08-01 00:00:00','2014-05-15 04:37:45','2014-05-15 04:37:45',0.5,0,70,3,0,0,'2013-08-01 00:00:00'),
+ (436,446,0,0,2.67,0.2,0,0,'2003-01-01 00:00:00',20,25,0,0,'2011-08-01 00:00:00','2014-05-15 04:37:45','2014-05-15 04:37:45',0.5,0,70,2,0,0,'2011-08-01 00:00:00'),
+ (437,447,0,0,4.06,0.2,0,0,'1989-03-01 00:00:00',25,25,0,0,'2013-07-01 00:00:00','2014-05-15 04:37:45','2014-05-15 04:37:45',0.5,0,70,12,0,0,'2013-07-01 00:00:00'),
+ (438,448,0,0,3.99,0.2,0,0,'2005-07-01 00:00:00',20,25,0,0,'2014-01-01 00:00:00','2014-05-15 04:37:45','2014-05-15 04:37:45',0.5,0,70,6,0,0,'2014-01-01 00:00:00'),
+ (439,449,0,0,3,0.2,0,0,'2005-03-01 00:00:00',20,25,0,0,'2012-03-01 00:00:00','2014-05-15 04:37:45','2014-05-15 04:37:45',0.5,0,70,3,0,0,'2012-03-01 00:00:00'),
+ (440,450,0,0,3.33,0,0,0,'2002-02-01 00:00:00',20,25,0,0,'2013-08-01 00:00:00','2014-05-15 04:37:45','2014-05-15 04:37:45',0.5,0,70,4,0,0,'2013-08-01 00:00:00'),
+ (441,451,0,0,2.34,0,0,0,'2010-10-01 00:00:00',20,25,0,0,'2011-10-01 00:00:00','2014-05-15 04:37:45','2014-05-15 04:37:45',0.5,0,70,1,0,0,'2011-10-01 00:00:00'),
+ (442,452,0,0,3.66,0,0,0,'1997-01-01 00:00:00',20,25,0,0,'2011-10-01 00:00:00','2014-05-15 04:37:45','2014-05-15 04:37:45',0.5,0,70,5,0,0,'2011-10-01 00:00:00'),
+ (443,453,0,0,2.67,0,0,0,'2009-01-01 00:00:00',20,25,0,0,'2013-01-01 00:00:00','2014-05-15 04:37:45','2014-05-15 04:37:45',0.5,0,70,2,0,0,'2013-01-01 00:00:00'),
+ (444,454,0,0,3.06,0,0,0,'1993-03-01 00:00:00',25,25,0,0,'2012-06-01 00:00:00','2014-05-15 04:37:45','2014-05-15 04:37:45',0.5,0,70,7,0,0,'2012-06-01 00:00:00'),
+ (445,455,0,0,3,0,0,0,'2011-09-01 00:00:00',20,25,0,0,'2014-01-01 00:00:00','2014-05-15 04:37:45','2014-05-15 04:37:45',0.5,0,70,3,0,0,'2014-01-01 00:00:00'),
+ (446,456,0,0,2.34,0,0,0,'2010-10-01 00:00:00',20,25,0,0,'2011-10-01 00:00:00','2014-05-15 04:37:45','2014-05-15 04:37:45',0.5,0,70,1,0,0,'2011-10-01 00:00:00'),
+ (447,457,0,0,2.07,0,0,0,'2005-01-01 00:00:00',25,25,0,0,'2014-04-01 00:00:00','2014-05-15 04:37:45','2014-05-15 04:37:45',0.5,0,70,5,0,0,'2014-04-01 00:00:00'),
+ (448,458,0,0,2.06,0,0,0,'2011-09-01 00:00:00',25,25,0,0,'2014-03-01 00:00:00','2014-05-15 04:37:45','2014-05-15 04:37:45',0.5,0,70,2,0,0,'2014-03-01 00:00:00'),
+ (449,459,0,0,3.48,0,0,28,'1986-06-01 00:00:00',25,25,0,0,'2013-12-01 00:00:00','2014-05-15 04:37:45','2014-05-15 04:37:45',0.5,0,70,12,0,0,'2013-12-01 00:00:00'),
+ (450,460,0,0,3.66,0,0,0,'1994-10-01 00:00:00',25,25,0,0,'2013-11-01 00:00:00','2014-05-15 04:37:45','2014-05-15 04:37:45',0.5,0,70,10,0,0,'2013-11-01 00:00:00'),
+ (451,461,0,0,3.63,0,0,27,'2003-06-01 00:00:00',25,25,0,0,'2013-09-01 00:00:00','2014-05-15 04:37:45','2014-05-15 04:37:45',0.5,0,70,12,0,0,'2013-09-01 00:00:00'),
+ (452,462,0,0,3.99,0,0,0,'1993-02-01 00:00:00',20,25,0,0,'2013-07-01 00:00:00','2014-05-15 04:37:45','2014-05-15 04:37:45',0.5,0,70,6,0,0,'2013-07-01 00:00:00'),
+ (453,463,0,0,2.67,0,0,0,'2008-12-01 00:00:00',20,25,0,0,'2012-12-01 00:00:00','2014-05-15 04:37:45','2014-05-15 04:37:45',0.5,0,70,2,0,0,'2012-12-01 00:00:00'),
+ (454,464,0,0,3,0,0,0,'2007-09-01 00:00:00',20,25,0,0,'2013-09-01 00:00:00','2014-05-15 04:37:45','2014-05-15 04:37:45',0.5,0,70,3,0,0,'2013-09-01 00:00:00'),
+ (455,465,0,0,2.26,0,0,0,'2007-12-01 00:00:00',20,25,0,0,'2012-06-01 00:00:00','2014-05-15 04:37:45','2014-05-15 04:37:45',0.5,0,70,3,0,0,'2012-06-01 00:00:00'),
+ (456,466,0,0,2.67,0,0,0,'2009-01-01 00:00:00',20,25,0,0,'2013-01-01 00:00:00','2014-05-15 04:37:45','2014-05-15 04:37:45',0.5,0,70,2,0,0,'2013-01-01 00:00:00'),
+ (457,467,0,0,2.67,0,0,0,'2010-07-01 00:00:00',20,25,0,0,'2013-10-01 00:00:00','2014-05-15 04:37:45','2014-05-15 04:37:45',0.5,0,70,2,0,0,'2013-10-01 00:00:00'),
+ (458,468,0,0,2.34,0,0,0,'2011-09-01 00:00:00',20,25,0,0,'2012-09-01 00:00:00','2014-05-15 04:37:45','2014-05-15 04:37:45',0.5,0,70,1,0,0,'2012-09-01 00:00:00'),
+ (459,469,0,0,3.26,0,0,0,'2000-12-01 00:00:00',25,25,0,0,'2013-06-01 00:00:00','2014-05-15 04:37:45','2014-05-15 04:37:45',0.5,0,70,8,0,0,'2013-06-01 00:00:00'),
+ (460,470,0,0,2.67,0,0,0,'2010-07-01 00:00:00',20,25,0,0,'2011-07-01 00:00:00','2014-05-15 04:37:45','2014-05-15 04:37:45',0.5,0,70,2,0,0,'2011-07-01 00:00:00'),
+ (461,471,1,0,2.22,0,0,0,'2005-03-01 00:00:00',0,25,0,0,'2013-03-01 00:00:00','2014-05-15 04:37:45','2014-05-15 04:37:45',0.5,0,70,5,0,0,'2013-03-01 00:00:00'),
+ (462,472,1,0,2.77,0,0,0,'2003-01-01 00:00:00',0,25,0,0,'2012-07-01 00:00:00','2014-05-15 04:37:45','2014-05-15 04:37:45',0.5,0,70,5,0,0,'2012-07-01 00:00:00'),
+ (463,473,1,0,1.86,0,0,0,'2005-01-01 00:00:00',0,25,0,0,'2013-12-01 00:00:00','2014-05-15 04:37:45','2014-05-15 04:37:45',0.5,0,70,3,0,0,'2013-12-01 00:00:00'),
+ (464,474,1,0,1.5,0,0,0,'2013-04-01 00:00:00',0,25,0,0,'2013-04-01 00:00:00','2014-05-15 04:37:45','2014-05-15 04:37:45',0.5,0,70,1,0,0,'2013-04-01 00:00:00'),
+ (465,475,1,0,2.23,0,0,0,'2011-05-01 00:00:00',0,25,0,0,'2013-05-01 00:00:00','2014-05-15 04:37:45','2014-05-15 04:37:45',0.5,0,70,2,0,0,'2013-05-01 00:00:00'),
+ (466,476,1,0,1.5,0,0,0,'2013-10-01 00:00:00',0,25,0,0,'2013-10-01 00:00:00','2014-05-15 04:37:45','2014-05-15 04:37:45',0.5,0,70,1,0,0,'2013-10-01 00:00:00'),
+ (467,477,1,0,1.5,0,0,0,'2013-10-01 00:00:00',0,25,0,0,'2013-10-01 00:00:00','2014-05-15 04:37:45','2014-05-15 04:37:45',0.5,0,70,1,0,0,'2013-10-01 00:00:00'),
+ (468,478,1,0,1,0,0,0,'2013-11-01 00:00:00',0,25,0,0,'2013-11-01 00:00:00','2014-05-15 04:37:45','2014-05-15 04:37:45',0.5,0,70,1,0,0,'2013-11-01 00:00:00'),
+ (469,479,1,0,1.83,0,0,0,'2010-10-01 00:00:00',0,25,0,0,'2012-10-01 00:00:00','2014-05-15 04:37:45','2014-05-15 04:37:45',0.5,0,70,2,0,0,'2012-10-01 00:00:00'),
+ (470,480,1,0,1.83,0,0,0,'2010-10-01 00:00:00',0,25,0,0,'2012-10-01 00:00:00','2014-05-15 04:37:46','2014-05-15 04:37:46',0.5,0,70,2,0,0,'2012-10-01 00:00:00'),
+ (471,481,1,0,1.83,0,0,0,'2010-10-01 00:00:00',0,25,0,0,'2012-10-01 00:00:00','2014-05-15 04:37:46','2014-05-15 04:37:46',0.5,0,70,2,0,0,'2012-10-01 00:00:00'),
+ (472,482,0,0,5.76,0.55,0,0,'1995-09-01 00:00:00',15,25,0,0,'2013-01-01 00:00:00','2014-05-15 04:37:46','2014-05-15 04:37:46',0.2,0,0,5,0,0,'2013-01-01 00:00:00'),
+ (473,483,0,0,4.65,0.4,0,0,'1986-11-01 00:00:00',20,25,0,0,'2014-03-01 00:00:00','2014-05-15 04:37:46','2014-05-15 04:37:46',0.2,0,0,8,0,0,'2014-03-01 00:00:00'),
+ (474,484,0,0,4.74,0.35,0,0,'1994-12-01 00:00:00',15,25,0,0,'2012-06-01 00:00:00','2014-05-15 04:37:46','2014-05-15 04:37:46',0.2,0,0,2,0,0,'2012-06-01 00:00:00'),
+ (475,485,0,0,5.42,0.35,0,0,'1977-06-01 00:00:00',15,25,0,0,'2013-12-01 00:00:00','2014-05-15 04:37:46','2014-05-15 04:37:46',0.2,0,0,4,0,0,'2013-12-01 00:00:00'),
+ (476,486,0,0,3.33,0.25,0,0,'2002-02-01 00:00:00',20,25,0,0,'2013-02-01 00:00:00','2014-05-15 04:37:46','2014-05-15 04:37:46',0.2,0,0,4,0,0,'2013-02-01 00:00:00'),
+ (477,487,0,0,3.33,0.25,0,0,'2005-07-01 00:00:00',20,25,0,0,'2013-01-01 00:00:00','2014-05-15 04:37:46','2014-05-15 04:37:46',0.2,0,0,4,0,0,'2013-01-01 00:00:00'),
+ (478,488,0,0,4.98,0.25,0,6,'1995-08-01 00:00:00',20,25,0,0,'2013-10-01 00:00:00','2014-05-15 04:37:46','2014-05-15 04:37:46',0.2,0,0,9,0,0,'2013-10-01 00:00:00'),
+ (479,489,0,0,2.1,0,0,0,'2011-09-01 00:00:00',25,25,0,0,'2012-09-01 00:00:00','2014-05-15 04:37:46','2014-05-15 04:37:46',0.2,0,0,1,0,0,'2012-09-01 00:00:00'),
+ (480,490,0,0,2.34,0,0,0,'2010-07-01 00:00:00',20,25,0,0,'2011-07-01 00:00:00','2014-05-15 04:37:46','2014-05-15 04:37:46',0.2,0,0,1,0,0,'2011-07-01 00:00:00'),
+ (481,491,0,0,2.34,0,0,0,'2010-10-01 00:00:00',20,25,0,0,'2011-10-01 00:00:00','2014-05-15 04:37:46','2014-05-15 04:37:46',0.2,0,0,1,0,0,'2011-10-01 00:00:00'),
+ (482,492,0,0,3.26,0,0,0,'1999-03-01 00:00:00',25,25,0,0,'2013-02-01 00:00:00','2014-05-15 04:37:46','2014-05-15 04:37:46',0.2,0,0,8,0,0,'2013-02-01 00:00:00'),
+ (483,493,0,0,3.66,0,0,0,'1994-11-01 00:00:00',20,25,0,0,'2012-11-01 00:00:00','2014-05-15 04:37:46','2014-05-15 04:37:46',0.2,0,0,5,0,0,'2012-11-01 00:00:00'),
+ (484,494,0,0,2.34,0,0,0,'2010-10-01 00:00:00',20,25,0,0,'2011-10-01 00:00:00','2014-05-15 04:37:46','2014-05-15 04:37:46',0.2,0,0,1,0,0,'2011-10-01 00:00:00'),
+ (485,495,0,0,2.91,0,0,0,'2002-05-01 00:00:00',25,25,0,0,'2014-05-01 00:00:00','2014-05-15 04:37:46','2014-05-15 04:37:46',0.2,0,0,8,0,0,'2014-05-01 00:00:00'),
+ (486,496,0,0,2.34,0,0,0,'2010-10-01 00:00:00',20,25,0,0,'2011-10-01 00:00:00','2014-05-15 04:37:46','2014-05-15 04:37:46',0.2,0,0,1,0,0,'2011-10-01 00:00:00'),
+ (487,497,0,0,2.34,0,0,0,'2010-10-01 00:00:00',20,25,0,0,'2011-10-01 00:00:00','2014-05-15 04:37:46','2014-05-15 04:37:46',0.2,0,0,1,0,0,'2011-10-01 00:00:00'),
+ (488,498,0,0,3.63,0,0,5,'1997-09-01 00:00:00',25,25,0,0,'2013-06-01 00:00:00','2014-05-15 04:37:46','2014-05-15 04:37:46',0.2,0,0,12,0,0,'2013-06-01 00:00:00'),
+ (489,499,0,0,2.34,0,0,0,'2010-10-01 00:00:00',20,25,0,0,'2011-10-01 00:00:00','2014-05-15 04:37:46','2014-05-15 04:37:46',0.2,0,0,1,0,0,'2011-10-01 00:00:00'),
+ (490,500,0,0,3.86,0,0,0,'1982-02-01 00:00:00',25,25,0,0,'2012-04-01 00:00:00','2014-05-15 04:37:46','2014-05-15 04:37:46',0.2,0,0,11,0,0,'2012-04-01 00:00:00'),
+ (491,501,0,0,2.34,0,0,0,'2010-07-01 00:00:00',20,25,0,0,'2011-07-01 00:00:00','2014-05-15 04:37:46','2014-05-15 04:37:46',0.2,0,0,1,0,0,'2011-07-01 00:00:00'),
+ (492,502,0,0,2.34,0,0,0,'2010-10-01 00:00:00',20,25,0,0,'2011-10-01 00:00:00','2014-05-15 04:37:46','2014-05-15 04:37:46',0.2,0,0,1,0,0,'2011-10-01 00:00:00'),
+ (493,503,0,0,2.06,0,0,0,'2010-07-01 00:00:00',25,25,0,0,'2013-01-01 00:00:00','2014-05-15 04:37:46','2014-05-15 04:37:46',0.2,0,0,2,0,0,'2013-01-01 00:00:00'),
+ (494,504,0,0,2.34,0,0,0,'2010-07-01 00:00:00',20,25,0,0,'2011-07-01 00:00:00','2014-05-15 04:37:46','2014-05-15 04:37:46',0.2,0,0,1,0,0,'2011-07-01 00:00:00'),
+ (495,505,0,0,2.91,0,0,0,'2002-05-01 00:00:00',25,25,0,0,'2014-05-01 00:00:00','2014-05-15 04:37:46','2014-05-15 04:37:46',0.2,0,0,8,0,0,'2014-05-01 00:00:00'),
+ (496,506,0,0,2.67,0,0,0,'2009-11-01 00:00:00',20,25,0,0,'2012-11-01 00:00:00','2014-05-15 04:37:46','2014-05-15 04:37:46',0.2,0,0,2,0,0,'2012-11-01 00:00:00'),
+ (497,507,0,0,4.98,0,0,0,'1979-03-01 00:00:00',20,25,0,0,'2013-04-01 00:00:00','2014-05-15 04:37:46','2014-05-15 04:37:46',0.2,0,0,9,0,0,'2013-04-01 00:00:00'),
+ (498,508,0,0,2.34,0,0,0,'2010-10-01 00:00:00',20,25,0,0,'2011-10-01 00:00:00','2014-05-15 04:37:46','2014-05-15 04:37:46',0.2,0,0,1,0,0,'2011-10-01 00:00:00'),
+ (499,509,0,0,2.67,0,0,0,'2008-12-01 00:00:00',20,25,0,0,'2012-12-01 00:00:00','2014-05-15 04:37:46','2014-05-15 04:37:46',0.2,0,0,2,0,0,'2012-12-01 00:00:00'),
+ (500,510,0,0,2.34,0,0,0,'2010-10-01 00:00:00',20,25,0,0,'2011-10-01 00:00:00','2014-05-15 04:37:46','2014-05-15 04:37:46',0.2,0,0,1,0,0,'2011-10-01 00:00:00'),
+ (501,511,0,0,2.06,0,0,0,'2010-07-01 00:00:00',25,25,0,0,'2013-01-01 00:00:00','2014-05-15 04:37:46','2014-05-15 04:37:46',0.2,0,0,2,0,0,'2013-01-01 00:00:00'),
+ (502,512,0,0,2.34,0,0,0,'2010-10-01 00:00:00',20,25,0,0,'2011-10-01 00:00:00','2014-05-15 04:37:46','2014-05-15 04:37:46',0.2,0,0,1,0,0,'2011-10-01 00:00:00'),
+ (503,513,0,0,2.1,0,0,0,'2011-09-01 00:00:00',25,25,0,0,'2012-09-01 00:00:00','2014-05-15 04:37:46','2014-05-15 04:37:46',0.2,0,0,1,0,0,'2012-09-01 00:00:00'),
+ (504,514,1,0,1.5,0,0,0,'2013-12-01 00:00:00',0,25,0,0,'2013-12-01 00:00:00','2014-05-15 04:37:46','2014-05-15 04:37:46',0.2,0,0,1,0,0,'2013-12-01 00:00:00'),
+ (505,515,1,0,1.5,0,0,0,'2013-05-01 00:00:00',0,25,0,0,'2013-05-01 00:00:00','2014-05-15 04:37:46','2014-05-15 04:37:46',0.2,0,0,1,0,0,'2013-05-01 00:00:00'),
+ (506,516,1,0,2.23,0,0,0,'2011-02-01 00:00:00',0,25,0,0,'2013-02-01 00:00:00','2014-05-15 04:37:46','2014-05-15 04:37:46',0.2,0,0,2,0,0,'2013-02-01 00:00:00'),
+ (507,517,1,0,2.05,0,0,0,'2013-01-01 00:00:00',0,25,0,0,'2013-01-01 00:00:00','2014-05-15 04:37:46','2014-05-15 04:37:46',0.2,0,0,1,0,0,'2013-01-01 00:00:00'),
+ (508,518,1,0,2.94,0,0,0,'1997-04-01 00:00:00',0,25,0,0,'2013-04-01 00:00:00','2014-05-15 04:37:46','2014-05-15 04:37:46',0.2,0,0,9,0,0,'2013-04-01 00:00:00'),
+ (509,519,1,0,1,0,0,0,'2014-02-01 00:00:00',0,25,0,0,'2014-02-01 00:00:00','2014-05-15 04:37:46','2014-05-15 04:37:46',0.2,0,0,1,0,0,'2014-02-01 00:00:00'),
+ (510,520,1,0,1.83,0,0,0,'2010-10-01 00:00:00',0,25,0,0,'2012-10-01 00:00:00','2014-05-15 04:37:46','2014-05-15 04:37:46',0.2,0,0,2,0,0,'2012-10-01 00:00:00'),
+ (511,521,1,0,1.83,0,0,0,'2010-10-01 00:00:00',0,25,0,0,'2012-10-01 00:00:00','2014-05-15 04:37:46','2014-05-15 04:37:46',0.2,0,0,2,0,0,'2012-10-01 00:00:00');
 /*!40000 ALTER TABLE `employees_heso` ENABLE KEYS */;
 
 
@@ -712,7 +1533,7 @@ CREATE TABLE `groups` (
   `group_date_modified` datetime DEFAULT NULL,
   `group_date_added` datetime DEFAULT NULL,
   PRIMARY KEY (`group_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `groups`
@@ -720,8 +1541,10 @@ CREATE TABLE `groups` (
 
 /*!40000 ALTER TABLE `groups` DISABLE KEYS */;
 INSERT INTO `groups` (`group_id`,`group_name`,`group_status`,`group_order`,`group_permissions`,`group_date_modified`,`group_date_added`) VALUES 
- (1,'NhÃ³m Admin',1,1,'1001,1002,1003,1004,1005,1006,1007,1008,1009,1010,1011,1012,1013,1014,1015,1016,1017,1018,2001,2002,2003,2004,2005,2006,2007,2008,2009,3001,3002,3003,3004,3005,4001,4002,4003,4004,4005,4006,4007,4008,4009,4010,4011,4012,4013,4014,5001,5002,5003,5004,5005,5006,5007,5008,','2014-05-07 10:08:02',NULL),
- (6,'NhÃ³m nhÃ¢n viÃªn',1,2,'2001,2002,2003,2004,2005,2006,2007,2008,','2014-03-28 16:51:39','2013-11-09 16:41:59');
+ (1,'NhÃ³m Admin',1,1,'1001,1002,1003,1004,1005,1006,1007,1008,1009,1010,1011,1012,1013,1014,1015,1016,1017,1018,2001,2002,2003,2004,2005,2006,2007,2008,2009,3001,3002,3003,3004,3005,3006,4001,4002,4003,4004,4005,4006,4007,4008,4009,4010,4011,4012,4013,4014,5001,5002,5003,5004,5005,5006,5007,5008,','2014-05-14 18:37:42',NULL),
+ (6,'NhÃ³m cÃ´ng chá»©c',1,3,'2001,2002,2003,2004,2005,2006,2007,2008,2009,','2014-05-14 18:38:35','2013-11-09 16:41:59'),
+ (7,'TrÆ°á»Ÿng Ä‘Æ¡n vá»‹',1,1,'2001,2002,2003,2004,2005,2006,2007,2008,2009,3001,3002,3003,3004,3005,3006,','2014-05-14 18:38:58','2014-02-28 02:35:17'),
+ (8,'NhÃ³m TÃ i vá»¥',1,2,'2001,2002,2003,2004,2005,2006,2007,2008,2009,4005,4006,4009,4010,4011,','2014-05-14 18:38:47','2014-02-28 02:35:31');
 /*!40000 ALTER TABLE `groups` ENABLE KEYS */;
 
 
@@ -748,7 +1571,7 @@ CREATE TABLE `he_so` (
 /*!40000 ALTER TABLE `he_so` DISABLE KEYS */;
 INSERT INTO `he_so` (`hs_id`,`hs_luong_co_ban`,`hs_he_so_luong_thuc_tap`,`hs_bhyt`,`hs_bhxh`,`hs_date_modified`,`hs_ngay_bat_dau`) VALUES 
  (4,2000000,85,0,0,'2013-12-06 15:56:14','2012-05-01 00:00:00'),
- (5,1050000,85,1.5,7,'2014-04-15 13:04:07','2014-01-01 00:00:00');
+ (5,1150000,85,1.5,8,'2014-03-25 21:42:47','2014-01-01 00:00:00');
 /*!40000 ALTER TABLE `he_so` ENABLE KEYS */;
 
 
@@ -765,7 +1588,7 @@ CREATE TABLE `hoc_ham` (
   `hh_date_added` datetime DEFAULT NULL,
   `hh_date_modified` datetime DEFAULT NULL,
   PRIMARY KEY (`hh_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `hoc_ham`
@@ -774,7 +1597,10 @@ CREATE TABLE `hoc_ham` (
 /*!40000 ALTER TABLE `hoc_ham` DISABLE KEYS */;
 INSERT INTO `hoc_ham` (`hh_id`,`hh_name`,`hh_order`,`hh_status`,`hh_date_added`,`hh_date_modified`) VALUES 
  (3,'Tháº¡c sÄ©',1,1,'2013-11-09 22:15:46','2013-11-09 22:28:15'),
- (4,'Cá»­ nhÃ¢n',2,1,'2014-02-23 16:58:10','2014-02-23 16:58:10');
+ (4,'Cá»­ nhÃ¢n',2,1,'2014-02-23 16:58:10','2014-02-23 16:58:10'),
+ (5,'Trung cáº¥p',3,1,'2014-04-16 23:11:13','2014-04-16 23:11:13'),
+ (6,'Cao Ä‘áº³ng',4,1,'2014-04-16 23:11:31','2014-04-16 23:11:31'),
+ (7,'SÆ¡ cáº¥p',5,1,'2014-04-16 23:11:44','2014-04-16 23:11:44');
 /*!40000 ALTER TABLE `hoc_ham` ENABLE KEYS */;
 
 
@@ -792,7 +1618,7 @@ CREATE TABLE `holidays` (
   `hld_date_modified` datetime DEFAULT NULL,
   `hld_code` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`hld_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `holidays`
@@ -800,9 +1626,18 @@ CREATE TABLE `holidays` (
 
 /*!40000 ALTER TABLE `holidays` DISABLE KEYS */;
 INSERT INTO `holidays` (`hld_id`,`hld_name`,`hld_order`,`hld_status`,`hld_date_added`,`hld_date_modified`,`hld_code`) VALUES 
- (10,'CÃ³ máº·t lÃ m viá»‡c',1,1,'2014-05-13 13:47:53','2014-05-13 13:49:06','x'),
- (11,'Nghá»‰ 1 buá»•i',1,1,'2014-05-13 13:48:13','2014-05-13 13:49:11','-'),
- (12,'Nghá»‰ á»‘m',1,1,'2014-05-13 13:49:25','2014-05-13 13:49:25','á»');
+ (13,'Nghá»‰ má»™t buá»•i',1,1,'2014-04-18 04:32:14','2014-05-14 18:40:54','-'),
+ (14,'Äi cÃ´ng tÃ¡c',2,1,'2014-04-18 04:32:24','2014-05-14 18:41:07','CT'),
+ (15,'Nghá»‰ á»‘m',3,1,'2014-04-18 04:32:32','2014-05-14 18:41:24','á»'),
+ (16,'Nghá»‰ Ä‘áº»',4,1,'2014-04-18 04:32:42','2014-05-14 18:41:38','Ä'),
+ (17,'Nghá»‰ con á»‘m',5,1,'2014-04-18 04:32:53','2014-05-14 18:41:54','Cá»‘'),
+ (18,'Nghá»‰ khÃ´ng lÃ½ do',6,1,'2014-04-18 04:33:04','2014-05-14 18:42:09','O'),
+ (19,'Nghá»‰ bÃ¹',7,1,'2014-04-18 04:33:12','2014-05-14 18:44:35','B'),
+ (20,'Äi há»c cáº£ ngÃ y',8,1,'2014-04-18 04:33:26','2014-05-14 18:45:38','H'),
+ (21,'Äi há»c má»™t ná»­a',8,1,'2014-04-18 04:33:42','2014-05-14 18:45:56','H 1/2'),
+ (22,'Nghá»‰ lá»…',9,1,'2014-04-18 04:33:53','2014-05-14 18:46:20','L'),
+ (23,'CÃ³ máº·t lÃ m viá»‡c',0,1,'2014-05-14 18:40:40','2014-05-14 18:40:40','X'),
+ (24,'Nghá»‰ phÃ©p',7,1,'2014-05-14 18:44:55','2014-05-14 18:45:16','P');
 /*!40000 ALTER TABLE `holidays` ENABLE KEYS */;
 
 
@@ -1547,7 +2382,7 @@ CREATE TABLE `khen_thuong` (
   `kt_ptccb_viewed` int(10) unsigned NOT NULL DEFAULT '0',
   `kt_money` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`kt_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `khen_thuong`
@@ -1555,16 +2390,17 @@ CREATE TABLE `khen_thuong` (
 
 /*!40000 ALTER TABLE `khen_thuong` DISABLE KEYS */;
 INSERT INTO `khen_thuong` (`kt_id`,`kt_can_bo_to_chuc`,`kt_em_id`,`kt_date`,`kt_ly_do`,`kt_chi_tiet`,`kt_status`,`kt_date_added`,`kt_date_modified`,`kt_don_vi`,`kt_ptccb_viewed`,`kt_money`) VALUES 
- (1,1,1,'2014-02-15 00:00:07','LÃ m tá»‘t cÃ´ng viÃªc','<p>dsfds<strong> dsg</strong></p>\n<p>Goo man<em>fdggfdfdgf</em></p>',1,'2013-12-15 21:49:01','2014-02-24 11:41:32',0,1,0),
- (3,1,1,'2014-02-18 00:00:07','Sao tháº¿ nhi','<p>fsdfsd</p>',1,'2014-02-18 17:17:03','2014-02-24 11:34:59',0,1,0),
+ (1,1,1,'2014-02-15 00:00:07','Lamf toot cong viec','<p>dsfds<strong> dsg</strong></p>\n<p>Goo man<em>fdggfdfdgf</em></p>',1,'2013-12-15 21:49:01','2013-12-15 21:49:01',0,0,0),
+ (3,1,1,'2014-02-18 00:00:07','âsdasdasd','<p>fsdfsd</p>',0,'2014-02-18 17:17:03','2014-02-18 17:17:03',0,0,0),
  (7,1,1,'2014-02-18 00:00:07','fgdfg','<p>gdfgdf</p>',1,'2014-02-18 17:20:20','2014-02-18 17:20:20',0,0,0),
  (9,1,1,'2014-02-18 00:00:07','Ka ka ka','<p>Anh khen chu nha</p>',1,'2014-02-18 17:22:07','2014-02-18 23:51:36',1,1,5000000),
- (11,1,1,'2014-02-23 00:00:07','hi hi','<p>ha ha</p>',1,'2014-02-23 11:20:25','2014-02-24 11:41:38',1,1,0),
- (12,1,1,'2014-02-24 00:00:07','De xuat jhen thuong','<p>dsfsdfdsf</p>',0,'2014-02-24 11:19:53','2014-02-24 11:44:44',1,0,0),
- (13,0,13,'2014-05-05 00:00:07','1212123123123','<p>3213123</p>',0,'2014-05-05 11:15:18','2014-05-05 11:15:18',22,0,0),
- (14,0,13,'2014-05-05 00:00:07','retretertert','<p>tá»ƒtr</p>',0,'2014-05-05 11:16:15','2014-05-05 11:16:15',22,0,0),
- (15,0,13,'2014-05-05 00:00:07','dfdfdfgdfgdfgfd','<p>qdqwewqe</p>',0,'2014-05-05 11:18:39','2014-05-05 11:18:39',22,0,12232323),
- (16,22,1,'2014-05-05 00:00:07','1131232','<p>312323</p>',1,'2014-05-05 11:26:29','2014-05-05 11:35:33',0,1,1222222);
+ (11,1,1,'2014-02-23 00:00:07','hi hi','<p>ha ha</p>',1,'2014-02-23 11:20:25','2014-02-23 23:05:52',1,1,0),
+ (12,1,1,'2014-02-24 00:00:00','Test khen thuong','<p>Lam tot lam</p>',1,'2014-02-23 22:09:13','2014-02-23 22:09:13',0,0,0),
+ (13,13,18,'2014-02-20 00:00:00','kopjkpoj','<p>jopij0j</p>',1,'2014-02-28 02:17:41','2014-02-28 02:17:41',0,1,200000),
+ (14,13,18,'2014-02-20 00:00:00','lp[klp[k[p','<p>mklmlkkk</p>',1,'2014-02-28 02:17:54','2014-02-28 02:17:54',0,1,200000),
+ (15,13,18,'2014-02-11 00:00:00','jhbjhbib','<p>mklm</p>',1,'2014-02-28 02:18:25','2014-02-28 02:18:25',0,1,500000),
+ (16,13,19,'2014-04-18 00:00:07','gdfhah','<p>fasdgg</p>',1,'2014-04-18 04:11:42','2014-04-18 04:12:01',13,1,1000000),
+ (17,73,67,'2014-04-15 00:00:07','Láº­p thÃ nh tÃ­ch trong cÃ´ng tÃ¡c Äáº£ng','<p>Láº­p th&agrave;nh t&iacute;ch trong c&ocirc;ng t&aacute;c Äáº£ng</p>',1,'2014-05-15 02:55:24','2014-05-15 02:55:24',0,1,230000);
 /*!40000 ALTER TABLE `khen_thuong` ENABLE KEYS */;
 
 
@@ -1587,7 +2423,7 @@ CREATE TABLE `ky_luat` (
   `kl_ptccb_viewed` int(10) unsigned NOT NULL DEFAULT '0',
   `kl_money` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`kl_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `ky_luat`
@@ -1595,12 +2431,10 @@ CREATE TABLE `ky_luat` (
 
 /*!40000 ALTER TABLE `ky_luat` DISABLE KEYS */;
 INSERT INTO `ky_luat` (`kl_id`,`kl_can_bo_to_chuc`,`kl_em_id`,`kl_date`,`kl_ly_do`,`kl_chi_tiet`,`kl_status`,`kl_date_added`,`kl_date_modified`,`kl_don_vi`,`kl_ptccb_viewed`,`kl_money`) VALUES 
- (1,1,1,'2014-02-11 00:00:07','Chua lam tot cong viec','<p>sadsad ]d</p>\n<p><strong>sadf</strong></p>\n<p>sd</p>\n<p>sdasd</p>',1,'2013-12-15 21:58:46','2014-02-24 11:57:15',0,1,200000),
+ (1,1,1,'2014-02-11 00:00:00','Chua lam tot cong viev','<p>sadsad ]d</p>\n<p><strong>sadf</strong></p>\n<p>sd</p>\n<p>sdasd</p>',1,'2013-12-15 21:58:46','2013-12-15 21:58:46',0,0,200000),
  (2,1,1,'0000-00-00 00:00:00','Làm chØH÷','<p>Anh phÝÚ	XXÝ]NÈŒÜ',1,'2014-02-18 17:25:43','2014-02-18 17:25:43',0,0,20000),
  (3,0,1,'0000-00-00 00:00:00','lam chØH÷','<p>ANh phÝÚ	XXÝ]NÏÜ',1,'2014-02-18 17:36:58','2014-02-18 17:36:58',1,0,200000),
- (4,1,1,'2014-02-24 00:00:07','Hu lam','<p>fasdfasdfs</p>',0,'2014-02-24 11:57:37','2014-02-24 11:58:20',1,1,0),
- (5,22,13,'2014-05-05 00:00:07','123232','<p>123123123</p>',1,'2014-05-05 11:20:06','2014-05-05 11:35:18',22,1,222222),
- (6,22,1,'0000-00-00 00:00:00','dff','<p>dsfsdf</p>',1,'2014-05-05 11:26:38','2014-05-05 11:26:38',0,1,333333);
+ (4,1,1,'0000-00-00 00:00:00','Lam chua tot','<p>Phat</p>',1,'2014-02-23 22:09:32','2014-02-23 22:09:32',0,0,0);
 /*!40000 ALTER TABLE `ky_luat` ENABLE KEYS */;
 
 
@@ -1618,20 +2452,23 @@ CREATE TABLE `lam_them_gio` (
   `ltg_phut_bat_dau` int(10) unsigned NOT NULL,
   `ltg_gio_ket_thuc` int(10) unsigned NOT NULL,
   `ltg_phut_ket_thuc` int(10) unsigned NOT NULL,
+  `ltg_gio_bat_dau_chieu` int(10) unsigned NOT NULL DEFAULT '0',
+  `ltg_phut_bat_dau_chieu` int(10) unsigned NOT NULL DEFAULT '0',
+  `ltg_gio_ket_thuc_chieu` int(10) unsigned NOT NULL DEFAULT '0',
+  `ltg_phut_ket_thuc_chieu` int(10) unsigned NOT NULL DEFAULT '0',
   `ltg_date_added` datetime NOT NULL,
   `ltg_don_vi_status` float NOT NULL DEFAULT '-1',
   `ltg_tccb_status` float NOT NULL DEFAULT '-1',
   PRIMARY KEY (`ltg_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `lam_them_gio`
 --
 
 /*!40000 ALTER TABLE `lam_them_gio` DISABLE KEYS */;
-INSERT INTO `lam_them_gio` (`ltg_id`,`ltg_em_id`,`ltg_ngay`,`ltg_chi_tiet`,`ltg_gio_bat_dau`,`ltg_phut_bat_dau`,`ltg_gio_ket_thuc`,`ltg_phut_ket_thuc`,`ltg_date_added`,`ltg_don_vi_status`,`ltg_tccb_status`) VALUES 
- (6,1,'2014-02-12 15:39:07','<p>h&acirc;hahaha</p>',1,10,18,19,'2013-12-27 11:53:32',1,-1),
- (7,22,'2014-04-03 00:00:00','<p>werwer ert áº»t</p>',0,0,0,0,'2014-04-03 23:38:56',1,-1);
+INSERT INTO `lam_them_gio` (`ltg_id`,`ltg_em_id`,`ltg_ngay`,`ltg_chi_tiet`,`ltg_gio_bat_dau`,`ltg_phut_bat_dau`,`ltg_gio_ket_thuc`,`ltg_phut_ket_thuc`,`ltg_gio_bat_dau_chieu`,`ltg_phut_bat_dau_chieu`,`ltg_gio_ket_thuc_chieu`,`ltg_phut_ket_thuc_chieu`,`ltg_date_added`,`ltg_don_vi_status`,`ltg_tccb_status`) VALUES 
+ (21,69,'2014-05-03 00:00:00','<p>Hi hi hi</p>',7,30,11,15,14,20,15,55,'2014-05-28 22:24:00',1,1);
 /*!40000 ALTER TABLE `lam_them_gio` ENABLE KEYS */;
 
 
@@ -1648,7 +2485,7 @@ CREATE TABLE `ly_luan_chinh_tri` (
   `llct_date_added` datetime DEFAULT NULL,
   `llct_date_modified` datetime DEFAULT NULL,
   PRIMARY KEY (`llct_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `ly_luan_chinh_tri`
@@ -1656,8 +2493,10 @@ CREATE TABLE `ly_luan_chinh_tri` (
 
 /*!40000 ALTER TABLE `ly_luan_chinh_tri` DISABLE KEYS */;
 INSERT INTO `ly_luan_chinh_tri` (`llct_id`,`llct_name`,`llct_order`,`llct_status`,`llct_date_added`,`llct_date_modified`) VALUES 
- (1,'Ly luan 1',1,1,'2014-03-28 15:23:20','2014-03-28 15:23:20'),
- (2,'Ly luan 2',1,1,'2014-03-28 15:23:25','2014-03-28 15:23:25');
+ (3,'Cao cáº¥p',1,1,'2014-04-15 00:36:12','2014-04-16 03:10:50'),
+ (4,'Cá»­ nhÃ¢n',2,1,'2014-04-16 03:11:08','2014-04-16 03:11:08'),
+ (5,'Trung cáº¥p',3,1,'2014-04-16 03:11:23','2014-04-16 03:11:58'),
+ (6,'SÆ¡ cáº¥p',4,1,'2014-04-16 03:11:32','2014-04-16 03:11:32');
 /*!40000 ALTER TABLE `ly_luan_chinh_tri` ENABLE KEYS */;
 
 
@@ -1676,7 +2515,7 @@ CREATE TABLE `ngach_cong_chuc` (
   `ncc_ma_ngach` varchar(45) NOT NULL,
   `ncc_nam_nang_bac` int(10) unsigned NOT NULL DEFAULT '2',
   PRIMARY KEY (`ncc_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `ngach_cong_chuc`
@@ -1684,9 +2523,15 @@ CREATE TABLE `ngach_cong_chuc` (
 
 /*!40000 ALTER TABLE `ngach_cong_chuc` DISABLE KEYS */;
 INSERT INTO `ngach_cong_chuc` (`ncc_id`,`ncc_name`,`ncc_order`,`ncc_status`,`ncc_date_added`,`ncc_date_modified`,`ncc_ma_ngach`,`ncc_nam_nang_bac`) VALUES 
- (4,'Ngáº¡ch chuyÃªn viÃªn',1,1,'2013-11-26 15:07:50','2014-05-07 11:06:59','123345',4),
- (5,'Ngáº¡ch káº¿ toÃ¡n viÃªn',2,1,'2013-11-26 15:07:58','2014-05-07 11:07:13','0123123',3),
- (6,'dfsdfsdf',1,1,'2014-05-07 11:10:05','2014-05-07 11:10:05','3423434',4);
+ (4,'Kiá»ƒm tra viÃªn Háº£i quan',2,1,'2013-11-26 15:07:50','2014-05-14 18:49:22','08.051',3),
+ (5,'Kiá»ƒm tra viÃªn chÃ­nh Háº£i quan',3,1,'2013-11-26 15:07:58','2014-05-14 18:49:57','08.050',3),
+ (6,'Kiá»ƒm tra viÃªn trung cáº¥p Háº£i quan',1,1,'2014-02-25 02:25:20','2014-05-14 18:48:05','08.052',2),
+ (7,'NhÃ¢n viÃªn Háº£i quan',0,1,'2014-02-25 02:25:34','2014-05-14 18:47:27','08.053',2),
+ (8,'Kiá»ƒm tra viÃªn cao Ä‘áº³ng háº£i quan',2,1,'2014-04-17 04:48:38','2014-05-14 18:51:22','08a.051',3),
+ (9,'NhÃ¢n viÃªn vÄƒn thÆ°',5,1,'2014-04-17 04:49:37','2014-05-14 18:52:07','01.008',2),
+ (10,'NhÃ¢n viÃªn báº£o vá»‡',6,1,'2014-04-17 04:49:51','2014-05-14 18:52:25','01.011',2),
+ (11,'LÃ¡i xe cÆ¡ quan',7,1,'2014-04-17 04:50:07','2014-05-14 18:52:41','01.010',2),
+ (12,'NhÃ¢n viÃªn phá»¥c vá»¥',8,1,'2014-05-14 18:54:10','2014-05-14 18:54:10','01.009',2);
 /*!40000 ALTER TABLE `ngach_cong_chuc` ENABLE KEYS */;
 
 
@@ -1704,7 +2549,7 @@ CREATE TABLE `phong_ban` (
   `pb_date_added` datetime DEFAULT NULL,
   `pb_date_modified` datetime DEFAULT NULL,
   PRIMARY KEY (`pb_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `phong_ban`
@@ -1712,8 +2557,22 @@ CREATE TABLE `phong_ban` (
 
 /*!40000 ALTER TABLE `phong_ban` DISABLE KEYS */;
 INSERT INTO `phong_ban` (`pb_id`,`pb_name`,`pb_parent`,`pb_order`,`pb_status`,`pb_date_added`,`pb_date_modified`) VALUES 
- (9,'Chi cá»¥c cáº£ng XuÃ¢n Háº£i',0,0,1,NULL,'2014-02-23 16:54:50'),
- (11,'Chi cá»¥c Há»“ng LÄ©nh',0,0,1,NULL,'2014-02-23 16:55:14');
+ (9,'Chi cá»¥c Háº£i quan cá»­a kháº©u cáº£ng XuÃ¢n Háº£i',0,11,1,NULL,'2014-05-14 22:48:48'),
+ (11,'Chi cá»¥c Háº£i quan Há»“ng LÄ©nh',0,10,1,NULL,'2014-04-16 22:33:44'),
+ (12,'Chi cá»¥c Háº£i quan cá»­a kháº©u cáº£ng VÅ©ng Ãng',0,12,1,'2014-02-25 02:21:28','2014-05-15 04:34:03'),
+ (13,'Chi cá»¥c Háº£i quan Khu kinh táº¿ cá»­a kháº©u Cáº§u Treo',0,14,1,'2014-02-25 02:22:11','2014-05-14 22:49:49'),
+ (14,'Chi cá»¥c Háº£i quan cá»­a kháº©u quá»‘c táº¿ Cáº§u Treo',0,13,1,'2014-02-25 02:22:18','2014-05-14 22:49:30'),
+ (15,'Chi cá»¥c Kiá»ƒm tra sau thÃ´ng quan',0,9,1,'2014-02-25 02:22:28','2014-04-16 22:33:28'),
+ (16,'PhÃ²ng Chá»‘ng buÃ´n láº­u vÃ  xá»­ lÃ½ vi pháº¡m',0,6,1,'2014-02-25 02:22:49','2014-04-16 22:32:26'),
+ (17,'PhÃ²ng Nghiá»‡p vá»¥',0,5,1,'2014-02-25 02:22:57','2014-04-16 22:32:11'),
+ (18,'PhÃ²ng Thanh tra',0,4,1,'2014-02-25 02:23:04','2014-04-16 22:30:27'),
+ (19,'PhÃ²ng Tá»• chá»©c cÃ¡n bá»™',0,3,1,'2014-02-25 02:23:11','2014-04-16 22:30:15'),
+ (20,'VÄƒn phÃ²ng',0,2,1,'2014-02-25 02:23:25','2014-04-16 22:29:43'),
+ (21,'Äá»™i Kiá»ƒm soÃ¡t Háº£i quan',0,8,1,'2014-02-25 02:23:45','2014-05-15 04:37:13'),
+ (22,'Äá»™i Kiá»ƒm soÃ¡t phÃ²ng chá»‘ng ma tÃºy',0,7,1,'2014-02-25 02:23:52','2014-05-15 04:36:52'),
+ (23,'LÃ£nh Ä‘áº¡o Cá»¥c',0,1,1,'2014-04-16 22:29:22','2014-04-16 22:29:22'),
+ (24,'Äá»™i Tá»•ng há»£p',15,1,1,'2014-04-16 22:35:19','2014-04-16 22:35:19'),
+ (25,'Äá»™i Nghiá»‡p vá»¥',15,2,1,'2014-04-16 22:36:00','2014-04-16 22:36:00');
 /*!40000 ALTER TABLE `phong_ban` ENABLE KEYS */;
 
 
@@ -1730,7 +2589,7 @@ CREATE TABLE `quan_ly_nha_nuoc` (
   `qlnn_date_added` datetime DEFAULT NULL,
   `qlnn_date_modified` datetime DEFAULT NULL,
   PRIMARY KEY (`qlnn_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `quan_ly_nha_nuoc`
@@ -1738,8 +2597,9 @@ CREATE TABLE `quan_ly_nha_nuoc` (
 
 /*!40000 ALTER TABLE `quan_ly_nha_nuoc` DISABLE KEYS */;
 INSERT INTO `quan_ly_nha_nuoc` (`qlnn_id`,`qlnn_name`,`qlnn_order`,`qlnn_status`,`qlnn_date_added`,`qlnn_date_modified`) VALUES 
- (1,'Quan ly 1',1,1,'2014-03-28 15:23:05','2014-03-28 15:23:05'),
- (2,'Quan ly 2',2,1,'2014-03-28 15:23:11','2014-03-28 15:23:11');
+ (3,'ChuyÃªn viÃªn cao cáº¥p',1,1,'2014-04-15 00:35:51','2014-04-16 03:09:33'),
+ (4,'ChuyÃªn viÃªn chÃ­nh',2,1,'2014-04-15 00:35:58','2014-04-16 03:09:58'),
+ (5,'ChuyÃªn viÃªn',3,1,'2014-04-16 03:10:22','2014-04-16 03:10:22');
 /*!40000 ALTER TABLE `quan_ly_nha_nuoc` ENABLE KEYS */;
 
 
@@ -1758,7 +2618,7 @@ CREATE TABLE `thong_bao` (
   `tb_date_added` datetime DEFAULT NULL,
   `tb_date_modified` datetime DEFAULT NULL,
   PRIMARY KEY (`tb_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=263 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `thong_bao`
@@ -1766,48 +2626,205 @@ CREATE TABLE `thong_bao` (
 
 /*!40000 ALTER TABLE `thong_bao` DISABLE KEYS */;
 INSERT INTO `thong_bao` (`tb_id`,`tb_from`,`tb_to`,`tb_tieu_de`,`tb_noi_dung`,`tb_status`,`tb_date_added`,`tb_date_modified`) VALUES 
- (6,1,13,'Hung gui','<p>Nhandc chua</p>',0,'2014-02-14 22:40:44','2014-02-14 22:40:44'),
- (7,1,0,'Hung gui','<p>Nhandc chua</p>',0,'2014-02-14 22:40:44','2014-02-14 22:40:44'),
- (9,1,0,'','',0,'2014-02-14 22:44:16','2014-02-14 22:44:16'),
- (11,1,0,'sdf','<p>fd</p>',0,'2014-02-14 22:46:09','2014-02-14 22:46:09'),
- (12,0,22,'[ThÃ´ng bÃ¡o] CÃ³ yÃªu cáº§u cáº­p nháº­t thÃ´ng tin.','CÃ¡n bá»™ Nguyá»…n Máº¡nh HÃ¹ng Ä‘Ã£ khai bÃ¡o thÃ´ng tin cÃ¡ nhÃ¢n má»›i<br/> Báº¡n hÃ£y vÃ o <strong>Tá»• chá»©c cÃ¡n bá»™ => QL yÃªu cáº§u cáº­p nháº­t thÃ´ng tin</strong> Ä‘á»ƒ xÃ©t duyá»‡t.',1,'2014-04-03 23:07:08','2014-04-03 23:07:08'),
- (13,0,22,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','CÃ³ khai bÃ¡o Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i má»›i<br/> Báº¡n hÃ£y vÃ o <strong>ÄÆ¡n vá»‹ => Duyá»‡t phÃ¢n loáº¡i cÃ¡n bá»™</strong> Ä‘á»ƒ xÃ©t duyá»‡t.',1,'2014-04-03 23:13:57','2014-04-03 23:13:57'),
- (14,0,22,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','CÃ³ khai bÃ¡o Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i má»›i<br/> Báº¡n hÃ£y vÃ o <strong>ÄÆ¡n vá»‹ => Duyá»‡t phÃ¢n loáº¡i cÃ¡n bá»™</strong> Ä‘á»ƒ xÃ©t duyá»‡t.',1,'2014-04-03 23:14:32','2014-04-03 23:14:32'),
- (15,0,22,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','CÃ³ khai bÃ¡o Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i má»›i<br/> Báº¡n hÃ£y vÃ o <strong>ÄÆ¡n vá»‹ => Duyá»‡t phÃ¢n loáº¡i cÃ¡n bá»™</strong> Ä‘á»ƒ xÃ©t duyá»‡t.',1,'2014-04-03 23:15:25','2014-04-03 23:15:25'),
- (16,0,22,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','CÃ³ Ä‘Æ¡n Ä‘Ã¡nh giÃ¡ phÃ¢n phÃ¢n loáº¡i theo thÃ¡ng má»›i<br/> Báº¡n hÃ£y vÃ o <strong>Tá»• chá»©c cÃ¡n bá»™ => Duyá»‡t phÃ¢n loáº¡i cÃ¡n bá»™</strong> Ä‘á»ƒ xÃ©t duyá»‡t.',1,'2014-04-03 23:25:11','2014-04-03 23:25:11'),
- (17,0,22,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Æ¡n xin nghá»‰ phÃ©p.','CÃ³ Ä‘Æ¡n xin nghá»‰ phÃ©p má»›i<br/> Báº¡n hÃ£y vÃ o <strong>ÄÆ¡n vá»‹ => Duyá»‡t nghá»‰ phÃ©p</strong> Ä‘á»ƒ xÃ©t duyá»‡t.',1,'2014-04-03 23:29:24','2014-04-03 23:29:24'),
- (18,0,22,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Æ¡n xin nghá»‰ phÃ©p.','CÃ³ Ä‘Æ¡n Ä‘Æ¡n xin nghá»‰ phÃ©p má»›i<br/> Báº¡n hÃ£y vÃ o <strong>Tá»• chá»©c cÃ¡n bá»™ => Duyá»‡t nghá»‰ phÃ©p</strong> Ä‘á»ƒ xÃ©t duyá»‡t.',1,'2014-04-03 23:33:11','2014-04-03 23:33:11'),
- (19,0,22,'[ThÃ´ng bÃ¡o] Duyá»‡t khai bÃ¡o lÃ m thÃªm giá».','CÃ³ khai bÃ¡o lÃ m thÃªm giá» má»›i<br/> Báº¡n hÃ£y vÃ o <strong>ÄÆ¡n vá»‹ => Duyá»‡t thÃªm giá»</strong> Ä‘á»ƒ xÃ©t duyá»‡t.',1,'2014-04-03 23:38:56','2014-04-03 23:38:56'),
- (20,0,22,'[ThÃ´ng bÃ¡o] Duyá»‡t khai bÃ¡o lÃ m thÃªm giá».','CÃ³ khai bÃ¡o lÃ m thÃªm giá» má»›i<br/> Báº¡n hÃ£y vÃ o <strong>Tá»• chá»©c cÃ¡n bá»™ => Duyá»‡t thÃªm giá»</strong> Ä‘á»ƒ xÃ©t duyá»‡t.',1,'2014-04-03 23:39:35','2014-04-03 23:39:35'),
- (21,0,22,'[ThÃ´ng bÃ¡o] Duyá»‡t cháº¥m cÃ´ng thÃ¡ng.','CÃ³ Ä‘Æ¡n xin duyá»‡t cháº¥m cÃ´ng má»›i<br/> Báº¡n hÃ£y vÃ o <strong>Tá»• chá»©c cÃ¡n bá»™ => Duyá»‡t cháº¥m cÃ´ng</strong> Ä‘á»ƒ xÃ©t duyá»‡t.',1,'2014-04-03 23:43:54','2014-04-03 23:43:54'),
- (22,0,22,'[ThÃ´ng bÃ¡o] CÃ³ yÃªu cáº§u cáº­p nháº­t thÃ´ng tin.','CÃ¡n bá»™ <strong>Ã‚u BÃ­ch</strong> Ä‘Ã£ khai bÃ¡o thÃ´ng tin cÃ¡ nhÃ¢n má»›i<br/> Báº¡n hÃ£y vÃ o <strong>Tá»• chá»©c cÃ¡n bá»™ => QL yÃªu cáº§u cáº­p nháº­t thÃ´ng tin</strong> Ä‘á»ƒ xÃ©t duyá»‡t.',1,'2014-04-06 21:57:12','2014-04-06 21:57:12'),
- (23,22,1,'Gui cho chu thong ba','<p>hahaha</p>',0,'2014-04-06 22:22:33','2014-04-06 22:22:33'),
- (24,0,1,'[LuÃ¢n chuyá»ƒn] Báº¡n Ä‘Ã£ Ä‘Æ°á»£c luÃ¢n chuyá»ƒn sang Ä‘Æ¡n vá»‹/cÃ´ng viá»‡c má»›i','Báº¡n vá»«a Ä‘Æ°á»£c luÃ¢n chuyá»ƒn sang Ä‘Æ¡n vá»‹/cÃ´ng viá»‡c má»›i.</br>\n                Chi tiáº¿t nhÆ° sau:</br>\n                Chá»©c vá»¥: TrÆ°á»Ÿng Ä‘Æ¡n vá»‹</br>\n                PhÃ²ng ban: Chi cá»¥c cáº£ng XuÃ¢n Háº£i</br>\n                Ngáº¡ch cÃ´ng chá»©c: Ngáº¡ch káº¿ toÃ¡n viÃªn</br>\n                CÃ´ng viá»‡c: Ha ah ha</br>\n                ChuyÃªn mÃ´n: he he he</br>',0,'2014-04-06 23:07:54','2014-04-06 23:07:54'),
- (25,0,1,'[LuÃ¢n chuyá»ƒn] Báº¡n Ä‘Ã£ Ä‘Æ°á»£c luÃ¢n chuyá»ƒn sang Ä‘Æ¡n vá»‹/cÃ´ng viá»‡c má»›i','Báº¡n vá»«a Ä‘Æ°á»£c luÃ¢n chuyá»ƒn sang Ä‘Æ¡n vá»‹/cÃ´ng viá»‡c má»›i.</br>\n                Chi tiáº¿t nhÆ° sau:</br>\n                Chá»©c vá»¥: GiÃ¡m Ä‘á»‘c</br>\n                PhÃ²ng ban: Chi cá»¥c cáº£ng XuÃ¢n Háº£i</br>\n                Ngáº¡ch cÃ´ng chá»©c: Ngáº¡ch káº¿ toÃ¡n viÃªn</br>\n                CÃ´ng viá»‡c: Ha ah ha</br>\n                ChuyÃªn mÃ´n: he he he</br>',0,'2014-04-06 23:08:05','2014-04-06 23:08:05'),
- (26,0,1,'[LuÃ¢n chuyá»ƒn] Báº¡n Ä‘Ã£ Ä‘Æ°á»£c luÃ¢n chuyá»ƒn sang Ä‘Æ¡n vá»‹/cÃ´ng viá»‡c má»›i','Báº¡n vá»«a Ä‘Æ°á»£c luÃ¢n chuyá»ƒn sang Ä‘Æ¡n vá»‹/cÃ´ng viá»‡c má»›i.</br>\n                Chi tiáº¿t nhÆ° sau:</br>\n                Chá»©c vá»¥: GiÃ¡m Ä‘á»‘c</br>\n                PhÃ²ng ban: Chi cá»¥c Há»“ng LÄ©nh</br>\n                Ngáº¡ch cÃ´ng chá»©c: Ngáº¡ch káº¿ toÃ¡n viÃªn</br>\n                CÃ´ng viá»‡c: Ha ah ha</br>\n                ChuyÃªn mÃ´n: he he he</br>',0,'2014-04-06 23:08:16','2014-04-06 23:08:16'),
- (27,0,1,'[LuÃ¢n chuyá»ƒn] Báº¡n Ä‘Ã£ Ä‘Æ°á»£c luÃ¢n chuyá»ƒn sang Ä‘Æ¡n vá»‹/cÃ´ng viá»‡c má»›i','Báº¡n vá»«a Ä‘Æ°á»£c luÃ¢n chuyá»ƒn sang Ä‘Æ¡n vá»‹/cÃ´ng viá»‡c má»›i.</br>\n                Chi tiáº¿t nhÆ° sau:</br>\n                Chá»©c vá»¥: GiÃ¡m Ä‘á»‘c</br>\n                PhÃ²ng ban: Chi cá»¥c Há»“ng LÄ©nh</br>\n                Ngáº¡ch cÃ´ng chá»©c: Ngáº¡ch káº¿ toÃ¡n viÃªn</br>\n                CÃ´ng viá»‡c: Ha ah ha</br>\n                ChuyÃªn mÃ´n: he he he</br>',0,'2014-04-06 23:08:34','2014-04-06 23:08:34'),
- (28,0,13,'[LuÃ¢n chuyá»ƒn] Báº¡n Ä‘Ã£ Ä‘Æ°á»£c luÃ¢n chuyá»ƒn sang Ä‘Æ¡n vá»‹/cÃ´ng viá»‡c má»›i','Báº¡n vá»«a Ä‘Æ°á»£c luÃ¢n chuyá»ƒn sang Ä‘Æ¡n vá»‹/cÃ´ng viá»‡c má»›i.</br>\n                Chi tiáº¿t nhÆ° sau:</br>\n                Chá»©c vá»¥: GiÃ¡m Ä‘á»‘c</br>\n                PhÃ²ng ban: Chi cá»¥c cáº£ng XuÃ¢n Háº£i</br>\n                Ngáº¡ch cÃ´ng chá»©c: Ngáº¡ch káº¿ toÃ¡n viÃªn</br>\n                CÃ´ng viá»‡c: 5345345</br>\n                ChuyÃªn mÃ´n: 5345345</br>',0,'2014-04-06 23:08:50','2014-04-06 23:08:50'),
- (29,0,22,'[LuÃ¢n chuyá»ƒn] Báº¡n Ä‘Ã£ Ä‘Æ°á»£c luÃ¢n chuyá»ƒn sang Ä‘Æ¡n vá»‹/cÃ´ng viá»‡c má»›i','Báº¡n vá»«a Ä‘Æ°á»£c luÃ¢n chuyá»ƒn sang Ä‘Æ¡n vá»‹/cÃ´ng viá»‡c má»›i.</br>\n                Chi tiáº¿t nhÆ° sau:</br>\n                Chá»©c vá»¥: GiÃ¡m Ä‘á»‘c</br>\n                PhÃ²ng ban: Chi cá»¥c cáº£ng XuÃ¢n Háº£i</br>\n                Ngáº¡ch cÃ´ng chá»©c: Ngáº¡ch chuyÃªn viÃªn</br>\n                CÃ´ng viá»‡c: Lap Trinh</br>\n                ChuyÃªn mÃ´n: Lap Trinh</br>',1,'2014-04-06 23:09:04','2014-04-06 23:09:04'),
- (30,0,1,'[LuÃ¢n chuyá»ƒn] Báº¡n Ä‘Ã£ Ä‘Æ°á»£c luÃ¢n chuyá»ƒn sang Ä‘Æ¡n vá»‹/cÃ´ng viá»‡c má»›i','Báº¡n vá»«a Ä‘Æ°á»£c luÃ¢n chuyá»ƒn sang Ä‘Æ¡n vá»‹/cÃ´ng viá»‡c má»›i.</br>\n                Chi tiáº¿t nhÆ° sau:</br>\n                Chá»©c vá»¥: GiÃ¡m Ä‘á»‘c</br>\n                PhÃ²ng ban: Chi cá»¥c Há»“ng LÄ©nh</br>\n                Ngáº¡ch cÃ´ng chá»©c: Ngáº¡ch káº¿ toÃ¡n viÃªn</br>\n                CÃ´ng viá»‡c: Ha ah ha</br>\n                ChuyÃªn mÃ´n: he he he</br>',0,'2014-04-06 23:17:37','2014-04-06 23:17:37'),
- (31,0,1,'[LuÃ¢n chuyá»ƒn] Báº¡n Ä‘Ã£ Ä‘Æ°á»£c luÃ¢n chuyá»ƒn sang Ä‘Æ¡n vá»‹/cÃ´ng viá»‡c má»›i','Báº¡n vá»«a Ä‘Æ°á»£c luÃ¢n chuyá»ƒn sang Ä‘Æ¡n vá»‹/cÃ´ng viá»‡c má»›i.</br>\n                Chi tiáº¿t nhÆ° sau:</br>\n                Chá»©c vá»¥: TrÆ°á»Ÿng Ä‘Æ¡n vá»‹</br>\n                PhÃ²ng ban: Chi cá»¥c Há»“ng LÄ©nh</br>\n                Ngáº¡ch cÃ´ng chá»©c: Ngáº¡ch chuyÃªn viÃªn</br>\n                CÃ´ng viá»‡c: Ha ah ha</br>\n                ChuyÃªn mÃ´n: he he he</br>',0,'2014-04-06 23:17:49','2014-04-06 23:17:49'),
- (32,0,1,'[LuÃ¢n chuyá»ƒn] Báº¡n Ä‘Ã£ Ä‘Æ°á»£c luÃ¢n chuyá»ƒn sang Ä‘Æ¡n vá»‹/cÃ´ng viá»‡c má»›i','Báº¡n vá»«a Ä‘Æ°á»£c luÃ¢n chuyá»ƒn sang Ä‘Æ¡n vá»‹/cÃ´ng viá»‡c má»›i.</br>\n                Chi tiáº¿t nhÆ° sau:</br>\n                Chá»©c vá»¥: TrÆ°á»Ÿng Ä‘Æ¡n vá»‹</br>\n                PhÃ²ng ban: Chi cá»¥c Há»“ng LÄ©nh</br>\n                Ngáº¡ch cÃ´ng chá»©c: Ngáº¡ch chuyÃªn viÃªn</br>\n                CÃ´ng viá»‡c: Ha ah ha</br>\n                ChuyÃªn mÃ´n: he he he</br>',0,'2014-04-06 23:18:05','2014-04-06 23:18:05'),
- (33,0,1,'[Nghá»‰ hÆ°u] Báº¡n vá»«a Ä‘Æ°á»£c duyá»‡t nghá»‰ hÆ°u','PhÃ²ng tá»• chá»©c vá»«a chuyá»ƒn tráº¡ng thÃ¡i cá»§a báº¡n sang nghá»‰ hÆ°u.',0,'2014-04-09 12:35:51','2014-04-09 12:35:51'),
- (34,0,22,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','CÃ³ khai bÃ¡o Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i má»›i<br/> Báº¡n hÃ£y vÃ o <strong>ÄÆ¡n vá»‹ => Duyá»‡t phÃ¢n loáº¡i cÃ¡n bá»™</strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-04-13 12:08:03','2014-04-13 12:08:03'),
- (35,0,22,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','CÃ³ khai bÃ¡o Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i má»›i<br/> Báº¡n hÃ£y vÃ o <strong>ÄÆ¡n vá»‹ => Duyá»‡t phÃ¢n loáº¡i cÃ¡n bá»™</strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-04-13 12:08:13','2014-04-13 12:08:13'),
- (36,0,22,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','CÃ³ Ä‘Æ¡n Ä‘Ã¡nh giÃ¡ phÃ¢n phÃ¢n loáº¡i theo thÃ¡ng má»›i<br/> Báº¡n hÃ£y vÃ o <strong>Tá»• chá»©c cÃ¡n bá»™ => Duyá»‡t phÃ¢n loáº¡i cÃ¡n bá»™</strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-04-13 12:09:06','2014-04-13 12:09:06'),
- (37,0,22,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','CÃ³ khai bÃ¡o Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i má»›i<br/> Báº¡n hÃ£y vÃ o <strong>ÄÆ¡n vá»‹ => Duyá»‡t phÃ¢n loáº¡i cÃ¡n bá»™</strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-04-13 12:10:52','2014-04-13 12:10:52'),
- (38,0,22,'[ThÃ´ng bÃ¡o] CÃ³ yÃªu cáº§u cáº­p nháº­t thÃ´ng tin.','CÃ¡n bá»™ <strong>Nguyá»…n Máº¡nh HÃ¹ng</strong> Ä‘Ã£ khai bÃ¡o thÃ´ng tin cÃ¡ nhÃ¢n má»›i<br/> Báº¡n hÃ£y vÃ o <strong>Tá»• chá»©c cÃ¡n bá»™ => QL yÃªu cáº§u cáº­p nháº­t thÃ´ng tin</strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-04-15 15:18:28','2014-04-15 15:18:28'),
- (39,0,22,'[ThÃ´ng bÃ¡o] CÃ³ yÃªu cáº§u cáº­p nháº­t thÃ´ng tin.','CÃ¡n bá»™ <strong>Nguyá»…n Máº¡nh HÃ¹ng</strong> Ä‘Ã£ khai bÃ¡o thÃ´ng tin cÃ¡ nhÃ¢n má»›i<br/> Báº¡n hÃ£y vÃ o <strong>Tá»• chá»©c cÃ¡n bá»™ => QL yÃªu cáº§u cáº­p nháº­t thÃ´ng tin</strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-04-15 15:43:25','2014-04-15 15:43:25'),
- (40,0,1,'[Khen ThÆ°á»Ÿng] 1131232','<p>312323</p>',0,'2014-05-05 11:26:29','2014-05-05 11:26:29'),
- (41,0,1,'[Ká»· luáº­t/khiá»ƒn trÃ¡ch] dff','<p>dsfsdf</p>',0,'2014-05-05 11:26:38','2014-05-05 11:26:38'),
- (42,0,1,'[Khen ThÆ°á»Ÿng] 1131232','<p>312323</p>',0,'2014-05-05 11:29:51','2014-05-05 11:29:51'),
- (43,0,1,'[Ky luáº­t/Khiá»ƒn trÃ¡ch] 123232','<p>123123123</p>',0,'2014-05-05 11:31:34','2014-05-05 11:31:34'),
- (44,0,1,'[Ky luáº­t/Khiá»ƒn trÃ¡ch] 123232','<p>123123123</p>',0,'2014-05-05 11:32:12','2014-05-05 11:32:12'),
- (45,0,1,'[Ky luáº­t/Khiá»ƒn trÃ¡ch] 123232','<p>123123123</p>',0,'2014-05-05 11:34:59','2014-05-05 11:34:59'),
- (46,0,1,'[Ky luáº­t/Khiá»ƒn trÃ¡ch] 123232','<p>123123123</p>',0,'2014-05-05 11:35:18','2014-05-05 11:35:18'),
- (47,0,1,'[Khen ThÆ°á»Ÿng] 1131232','<p>312323</p>',0,'2014-05-05 11:35:33','2014-05-05 11:35:33'),
- (48,0,22,'[ThÃ´ng bÃ¡o] CÃ³ yÃªu cáº§u cáº­p nháº­t thÃ´ng tin.','CÃ¡n bá»™ <strong>Nguyá»…n Máº¡nh HÃ¹ng</strong> Ä‘Ã£ khai bÃ¡o thÃ´ng tin cÃ¡ nhÃ¢n má»›i<br/> Báº¡n hÃ£y vÃ o <strong><a href=\"/phanloaicanbo/web/tochuccanbo/capnhatthongtin\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',1,'2014-05-05 14:24:14','2014-05-05 14:24:14'),
- (49,0,22,'[ThÃ´ng bÃ¡o] CÃ³ yÃªu cáº§u cáº­p nháº­t thÃ´ng tin.','CÃ¡n bá»™ <strong>Nguyá»…n Máº¡nh HÃ¹ng</strong> Ä‘Ã£ khai bÃ¡o thÃ´ng tin cÃ¡ nhÃ¢n má»›i.<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/tochuccanbo/capnhatthongtin\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-13 12:03:32','2014-05-13 12:03:32');
+ (1,0,73,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Æ¡n xin nghá»‰ phÃ©p.','CÃ³ Ä‘Æ¡n xin nghá»‰ phÃ©p má»›i.<br/> Báº¡n hÃ£y <strong><a href=\"/donvi/duyetnghiphep\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-15 02:43:21','2014-05-15 02:43:21'),
+ (3,0,67,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Æ¡n xin nghá»‰ phÃ©p.','CÃ³ Ä‘Æ¡n xin nghá»‰ phÃ©p má»›i.<br/> Báº¡n hÃ£y <strong><a href=\"/donvi/duyetnghiphep\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-15 02:43:21','2014-05-15 02:43:21'),
+ (4,0,68,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Æ¡n xin nghá»‰ phÃ©p.','CÃ³ Ä‘Æ¡n xin nghá»‰ phÃ©p má»›i.<br/> Báº¡n hÃ£y <strong><a href=\"/donvi/duyetnghiphep\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-15 02:43:21','2014-05-15 02:43:21'),
+ (5,0,73,'[ThÃ´ng bÃ¡o] Duyá»‡t khai bÃ¡o lÃ m thÃªm giá».','CÃ³ khai bÃ¡o lÃ m thÃªm giá» má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/donvi/duyetthemgio\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-15 02:49:34','2014-05-15 02:49:34'),
+ (7,0,67,'[ThÃ´ng bÃ¡o] Duyá»‡t khai bÃ¡o lÃ m thÃªm giá».','CÃ³ khai bÃ¡o lÃ m thÃªm giá» má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/donvi/duyetthemgio\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-15 02:49:34','2014-05-15 02:49:34'),
+ (8,0,68,'[ThÃ´ng bÃ¡o] Duyá»‡t khai bÃ¡o lÃ m thÃªm giá».','CÃ³ khai bÃ¡o lÃ m thÃªm giá» má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/donvi/duyetthemgio\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-15 02:49:34','2014-05-15 02:49:34'),
+ (9,0,73,'[ThÃ´ng bÃ¡o] Duyá»‡t khai bÃ¡o lÃ m thÃªm giá».','CÃ³ khai bÃ¡o lÃ m thÃªm giá» má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/donvi/duyetthemgio\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-15 02:50:13','2014-05-15 02:50:13'),
+ (11,0,67,'[ThÃ´ng bÃ¡o] Duyá»‡t khai bÃ¡o lÃ m thÃªm giá».','CÃ³ khai bÃ¡o lÃ m thÃªm giá» má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/donvi/duyetthemgio\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-15 02:50:13','2014-05-15 02:50:13'),
+ (12,0,68,'[ThÃ´ng bÃ¡o] Duyá»‡t khai bÃ¡o lÃ m thÃªm giá».','CÃ³ khai bÃ¡o lÃ m thÃªm giá» má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/donvi/duyetthemgio\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-15 02:50:13','2014-05-15 02:50:13'),
+ (13,0,73,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','CÃ³ khai bÃ¡o Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i má»›i.<br/> Báº¡n hÃ£y <strong><a href=\"/donvi/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-15 02:51:37','2014-05-15 02:51:37'),
+ (15,0,67,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','CÃ³ khai bÃ¡o Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i má»›i.<br/> Báº¡n hÃ£y <strong><a href=\"/donvi/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-15 02:51:37','2014-05-15 02:51:37'),
+ (16,0,68,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','CÃ³ khai bÃ¡o Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i má»›i.<br/> Báº¡n hÃ£y <strong><a href=\"/donvi/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',1,'2014-05-15 02:51:37','2014-05-15 02:51:37'),
+ (17,0,67,'[LuÃ¢n chuyá»ƒn] Báº¡n Ä‘Ã£ Ä‘Æ°á»£c luÃ¢n chuyá»ƒn sang Ä‘Æ¡n vá»‹/cÃ´ng viá»‡c má»›i','Báº¡n vá»«a Ä‘Æ°á»£c luÃ¢n chuyá»ƒn sang Ä‘Æ¡n vá»‹/cÃ´ng viá»‡c má»›i.</br>\n                Chi tiáº¿t nhÆ° sau:</br>\n                Chá»©c vá»¥: TrÆ°á»Ÿng phÃ²ng</br>\n                PhÃ²ng ban: PhÃ²ng Tá»• chá»©c cÃ¡n bá»™</br>\n                Ngáº¡ch cÃ´ng chá»©c: Kiá»ƒm tra viÃªn Háº£i quan</br>\n                CÃ´ng viá»‡c: </br>\n                ChuyÃªn mÃ´n: </br>',0,'2014-05-15 02:54:12','2014-05-15 02:54:12'),
+ (18,0,67,'[Khen ThÆ°á»Ÿng] Láº­p thÃ nh tÃ­ch trong cÃ´ng tÃ¡c Äáº£ng','<p>Láº­p th&agrave;nh t&iacute;ch trong c&ocirc;ng t&aacute;c Äáº£ng</p>',0,'2014-05-15 02:55:24','2014-05-15 02:55:24'),
+ (22,0,70,'[LuÃ¢n chuyá»ƒn] Báº¡n Ä‘Ã£ Ä‘Æ°á»£c luÃ¢n chuyá»ƒn sang Ä‘Æ¡n vá»‹/cÃ´ng viá»‡c má»›i','Báº¡n vá»«a Ä‘Æ°á»£c luÃ¢n chuyá»ƒn sang Ä‘Æ¡n vá»‹/cÃ´ng viá»‡c má»›i.</br>\n                Chi tiáº¿t nhÆ° sau:</br>\n                Chá»©c vá»¥: CÃ´ng chá»©c</br>\n                PhÃ²ng ban: PhÃ²ng Tá»• chá»©c cÃ¡n bá»™</br>\n                Ngáº¡ch cÃ´ng chá»©c: Kiá»ƒm tra viÃªn Háº£i quan</br>\n                CÃ´ng viá»‡c: </br>\n                ChuyÃªn mÃ´n: </br>',0,'2014-05-15 03:06:11','2014-05-15 03:06:11'),
+ (23,0,71,'[LuÃ¢n chuyá»ƒn] Báº¡n Ä‘Ã£ Ä‘Æ°á»£c luÃ¢n chuyá»ƒn sang Ä‘Æ¡n vá»‹/cÃ´ng viá»‡c má»›i','Báº¡n vá»«a Ä‘Æ°á»£c luÃ¢n chuyá»ƒn sang Ä‘Æ¡n vá»‹/cÃ´ng viá»‡c má»›i.</br>\n                Chi tiáº¿t nhÆ° sau:</br>\n                Chá»©c vá»¥: CÃ´ng chá»©c</br>\n                PhÃ²ng ban: PhÃ²ng Tá»• chá»©c cÃ¡n bá»™</br>\n                Ngáº¡ch cÃ´ng chá»©c: Kiá»ƒm tra viÃªn Háº£i quan</br>\n                CÃ´ng viá»‡c: </br>\n                ChuyÃªn mÃ´n: </br>',0,'2014-05-15 03:06:27','2014-05-15 03:06:27'),
+ (24,0,72,'[LuÃ¢n chuyá»ƒn] Báº¡n Ä‘Ã£ Ä‘Æ°á»£c luÃ¢n chuyá»ƒn sang Ä‘Æ¡n vá»‹/cÃ´ng viá»‡c má»›i','Báº¡n vá»«a Ä‘Æ°á»£c luÃ¢n chuyá»ƒn sang Ä‘Æ¡n vá»‹/cÃ´ng viá»‡c má»›i.</br>\n                Chi tiáº¿t nhÆ° sau:</br>\n                Chá»©c vá»¥: CÃ´ng chá»©c</br>\n                PhÃ²ng ban: PhÃ²ng Tá»• chá»©c cÃ¡n bá»™</br>\n                Ngáº¡ch cÃ´ng chá»©c: Kiá»ƒm tra viÃªn Háº£i quan</br>\n                CÃ´ng viá»‡c: </br>\n                ChuyÃªn mÃ´n: </br>',0,'2014-05-15 03:06:38','2014-05-15 03:06:38'),
+ (25,0,73,'[LuÃ¢n chuyá»ƒn] Báº¡n Ä‘Ã£ Ä‘Æ°á»£c luÃ¢n chuyá»ƒn sang Ä‘Æ¡n vá»‹/cÃ´ng viá»‡c má»›i','Báº¡n vá»«a Ä‘Æ°á»£c luÃ¢n chuyá»ƒn sang Ä‘Æ¡n vá»‹/cÃ´ng viá»‡c má»›i.</br>\n                Chi tiáº¿t nhÆ° sau:</br>\n                Chá»©c vá»¥: CÃ´ng chá»©c</br>\n                PhÃ²ng ban: PhÃ²ng Tá»• chá»©c cÃ¡n bá»™</br>\n                Ngáº¡ch cÃ´ng chá»©c: Kiá»ƒm tra viÃªn Háº£i quan</br>\n                CÃ´ng viá»‡c: </br>\n                ChuyÃªn mÃ´n: </br>',0,'2014-05-15 03:06:49','2014-05-15 03:06:49'),
+ (26,0,73,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','CÃ³ khai bÃ¡o Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i má»›i.<br/> Báº¡n hÃ£y <strong><a href=\"/donvi/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-15 03:10:38','2014-05-15 03:10:38'),
+ (28,0,67,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','CÃ³ khai bÃ¡o Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i má»›i.<br/> Báº¡n hÃ£y <strong><a href=\"/donvi/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-15 03:10:38','2014-05-15 03:10:38'),
+ (29,0,68,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','CÃ³ khai bÃ¡o Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i má»›i.<br/> Báº¡n hÃ£y <strong><a href=\"/donvi/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-15 03:10:38','2014-05-15 03:10:38'),
+ (30,0,73,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','CÃ³ khai bÃ¡o Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i má»›i.<br/> Báº¡n hÃ£y <strong><a href=\"/donvi/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',1,'2014-05-15 03:11:20','2014-05-15 03:11:20'),
+ (32,0,67,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','CÃ³ khai bÃ¡o Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i má»›i.<br/> Báº¡n hÃ£y <strong><a href=\"/donvi/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-15 03:11:20','2014-05-15 03:11:20'),
+ (33,0,68,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','CÃ³ khai bÃ¡o Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i má»›i.<br/> Báº¡n hÃ£y <strong><a href=\"/donvi/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-15 03:11:20','2014-05-15 03:11:20'),
+ (34,0,73,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','CÃ³ khai bÃ¡o Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i má»›i.<br/> Báº¡n hÃ£y <strong><a href=\"/donvi/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-15 03:29:52','2014-05-15 03:29:52'),
+ (36,0,67,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','CÃ³ khai bÃ¡o Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i má»›i.<br/> Báº¡n hÃ£y <strong><a href=\"/donvi/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-15 03:29:52','2014-05-15 03:29:52'),
+ (37,0,68,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','CÃ³ khai bÃ¡o Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i má»›i.<br/> Báº¡n hÃ£y <strong><a href=\"/donvi/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-15 03:29:52','2014-05-15 03:29:52'),
+ (38,0,73,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','CÃ³ khai bÃ¡o Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i má»›i.<br/> Báº¡n hÃ£y <strong><a href=\"/donvi/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-15 03:32:15','2014-05-15 03:32:15'),
+ (40,0,67,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','CÃ³ khai bÃ¡o Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i má»›i.<br/> Báº¡n hÃ£y <strong><a href=\"/donvi/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-15 03:32:15','2014-05-15 03:32:15'),
+ (41,0,68,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','CÃ³ khai bÃ¡o Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i má»›i.<br/> Báº¡n hÃ£y <strong><a href=\"/donvi/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-15 03:32:15','2014-05-15 03:32:15'),
+ (42,0,73,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','CÃ³ khai bÃ¡o Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i má»›i.<br/> Báº¡n hÃ£y <strong><a href=\"/donvi/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-15 03:33:53','2014-05-15 03:33:53'),
+ (44,0,67,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','CÃ³ khai bÃ¡o Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i má»›i.<br/> Báº¡n hÃ£y <strong><a href=\"/donvi/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-15 03:33:53','2014-05-15 03:33:53'),
+ (45,0,68,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','CÃ³ khai bÃ¡o Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i má»›i.<br/> Báº¡n hÃ£y <strong><a href=\"/donvi/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-15 03:33:53','2014-05-15 03:33:53'),
+ (46,0,73,'[ThÃ´ng bÃ¡o] Duyá»‡t cháº¥m cÃ´ng thÃ¡ng.','CÃ³ Ä‘Æ¡n xin duyá»‡t cháº¥m cÃ´ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/tochuccanbo/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-15 03:36:54','2014-05-15 03:36:54'),
+ (48,0,73,'[ThÃ´ng bÃ¡o] Duyá»‡t cháº¥m cÃ´ng thÃ¡ng.','CÃ³ Ä‘Æ¡n xin duyá»‡t cháº¥m cÃ´ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/tochuccanbo/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-15 03:37:12','2014-05-15 03:37:12'),
+ (50,0,73,'[ThÃ´ng bÃ¡o] Duyá»‡t cháº¥m cÃ´ng thÃ¡ng.','CÃ³ Ä‘Æ¡n xin duyá»‡t cháº¥m cÃ´ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/tochuccanbo/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-15 03:37:24','2014-05-15 03:37:24'),
+ (52,0,73,'[ThÃ´ng bÃ¡o] Duyá»‡t cháº¥m cÃ´ng thÃ¡ng.','CÃ³ Ä‘Æ¡n xin duyá»‡t cháº¥m cÃ´ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/tochuccanbo/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-15 03:37:44','2014-05-15 03:37:44'),
+ (54,0,73,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','CÃ³ khai bÃ¡o Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i má»›i.<br/> Báº¡n hÃ£y <strong><a href=\"/donvi/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-15 03:39:21','2014-05-15 03:39:21'),
+ (56,0,67,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','CÃ³ khai bÃ¡o Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i má»›i.<br/> Báº¡n hÃ£y <strong><a href=\"/donvi/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-15 03:39:21','2014-05-15 03:39:21'),
+ (57,0,68,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','CÃ³ khai bÃ¡o Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i má»›i.<br/> Báº¡n hÃ£y <strong><a href=\"/donvi/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-15 03:39:21','2014-05-15 03:39:21'),
+ (58,0,73,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','CÃ³ khai bÃ¡o Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i má»›i.<br/> Báº¡n hÃ£y <strong><a href=\"/donvi/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-15 03:40:53','2014-05-15 03:40:53'),
+ (60,0,67,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','CÃ³ khai bÃ¡o Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i má»›i.<br/> Báº¡n hÃ£y <strong><a href=\"/donvi/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-15 03:40:53','2014-05-15 03:40:53'),
+ (61,0,68,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','CÃ³ khai bÃ¡o Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i má»›i.<br/> Báº¡n hÃ£y <strong><a href=\"/donvi/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-15 03:40:53','2014-05-15 03:40:53'),
+ (62,0,73,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','CÃ³ khai bÃ¡o Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i má»›i.<br/> Báº¡n hÃ£y <strong><a href=\"/donvi/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-15 03:42:41','2014-05-15 03:42:41'),
+ (64,0,67,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','CÃ³ khai bÃ¡o Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i má»›i.<br/> Báº¡n hÃ£y <strong><a href=\"/donvi/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-15 03:42:41','2014-05-15 03:42:41'),
+ (65,0,68,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','CÃ³ khai bÃ¡o Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i má»›i.<br/> Báº¡n hÃ£y <strong><a href=\"/donvi/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',1,'2014-05-15 03:42:41','2014-05-15 03:42:41'),
+ (66,0,73,'[ThÃ´ng bÃ¡o] Duyá»‡t cháº¥m cÃ´ng thÃ¡ng.','CÃ³ Ä‘Æ¡n xin duyá»‡t cháº¥m cÃ´ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/tochuccanbo/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-15 03:43:57','2014-05-15 03:43:57'),
+ (68,0,73,'[ThÃ´ng bÃ¡o] Duyá»‡t cháº¥m cÃ´ng thÃ¡ng.','CÃ³ Ä‘Æ¡n xin duyá»‡t cháº¥m cÃ´ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/tochuccanbo/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-15 03:44:17','2014-05-15 03:44:17'),
+ (70,0,73,'[ThÃ´ng bÃ¡o] Duyá»‡t cháº¥m cÃ´ng thÃ¡ng.','CÃ³ Ä‘Æ¡n xin duyá»‡t cháº¥m cÃ´ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/tochuccanbo/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-15 03:44:53','2014-05-15 03:44:53'),
+ (72,0,73,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','CÃ³ Ä‘Æ¡n Ä‘Ã¡nh giÃ¡ phÃ¢n phÃ¢n loáº¡i theo thÃ¡ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/tochuccanbo/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-15 03:45:12','2014-05-15 03:45:12'),
+ (74,0,73,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','CÃ³ Ä‘Æ¡n Ä‘Ã¡nh giÃ¡ phÃ¢n phÃ¢n loáº¡i theo thÃ¡ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/tochuccanbo/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-15 03:45:16','2014-05-15 03:45:16'),
+ (76,0,73,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','CÃ³ Ä‘Æ¡n Ä‘Ã¡nh giÃ¡ phÃ¢n phÃ¢n loáº¡i theo thÃ¡ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/tochuccanbo/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-15 03:45:21','2014-05-15 03:45:21'),
+ (78,0,73,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','CÃ³ Ä‘Æ¡n Ä‘Ã¡nh giÃ¡ phÃ¢n phÃ¢n loáº¡i theo thÃ¡ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/tochuccanbo/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-15 03:45:25','2014-05-15 03:45:25'),
+ (80,0,73,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','CÃ³ Ä‘Æ¡n Ä‘Ã¡nh giÃ¡ phÃ¢n phÃ¢n loáº¡i theo thÃ¡ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/tochuccanbo/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-15 03:45:31','2014-05-15 03:45:31'),
+ (82,0,73,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','CÃ³ Ä‘Æ¡n Ä‘Ã¡nh giÃ¡ phÃ¢n phÃ¢n loáº¡i theo thÃ¡ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/tochuccanbo/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-15 03:45:38','2014-05-15 03:45:38'),
+ (84,0,73,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','CÃ³ Ä‘Æ¡n Ä‘Ã¡nh giÃ¡ phÃ¢n phÃ¢n loáº¡i theo thÃ¡ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/tochuccanbo/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',1,'2014-05-15 03:45:46','2014-05-15 03:45:46'),
+ (86,0,73,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Æ¡n xin nghá»‰ phÃ©p.','CÃ³ Ä‘Æ¡n Ä‘Æ¡n xin nghá»‰ phÃ©p má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/tochuccanbo/duyetnghiphep\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',1,'2014-05-15 03:50:14','2014-05-15 03:50:14'),
+ (88,0,1,'[LÃ m thÃªm giá»] Khai bÃ¡o lÃ m thÃªm giá» Ä‘Ã£ Ä‘Æ°á»£c duyá»‡t.','Khai bÃ¡o lÃ m thÃªm giá» cá»§a báº¡n Ä‘Ã£ Ä‘Æ°á»£c duyá»‡t.<br> NgÃ y: 12-02-2014<br> Giá» báº¯t Ä‘áº§u: 1:10 <br> Giá» káº¿t thÃºc: 18:19',0,'2014-05-15 23:00:31','2014-05-15 23:00:31'),
+ (89,0,1,'[LÃ m thÃªm giá»] Khai bÃ¡o lÃ m thÃªm giá» Ä‘Ã£ Ä‘Æ°á»£c duyá»‡t.','Khai bÃ¡o lÃ m thÃªm giá» cá»§a báº¡n Ä‘Ã£ Ä‘Æ°á»£c duyá»‡t.<br> NgÃ y: 12-02-2014<br> Giá» báº¯t Ä‘áº§u: 1:10 <br> Giá» káº¿t thÃºc: 18:19',0,'2014-05-15 23:00:31','2014-05-15 23:00:31'),
+ (90,0,329,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Æ¡n xin nghá»‰ phÃ©p.','CÃ³ Ä‘Æ¡n xin nghá»‰ phÃ©p má»›i.<br/> Báº¡n hÃ£y <strong><a href=\"/donvi/duyetnghiphep\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-16 03:39:22','2014-05-16 03:39:22'),
+ (91,0,329,'[ThÃ´ng bÃ¡o] Duyá»‡t khai bÃ¡o lÃ m thÃªm giá».','CÃ³ khai bÃ¡o lÃ m thÃªm giá» má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/donvi/duyetthemgio\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-16 03:41:17','2014-05-16 03:41:17'),
+ (92,0,329,'[ThÃ´ng bÃ¡o] Duyá»‡t khai bÃ¡o lÃ m thÃªm giá».','CÃ³ khai bÃ¡o lÃ m thÃªm giá» má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/donvi/duyetthemgio\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-16 03:42:24','2014-05-16 03:42:24'),
+ (93,0,329,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','CÃ³ khai bÃ¡o Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i má»›i.<br/> Báº¡n hÃ£y <strong><a href=\"/donvi/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-16 03:45:11','2014-05-16 03:45:11'),
+ (94,0,1,'[Xin nghá»‰ phÃ©p] ÄÆ¡n xin nghá»‰ phÃ©p Ä‘Ã£ Ä‘Æ°á»£c duyá»‡t.','ÄÆ¡n nghá»‰ phÃ©p cá»§a báº¡n Ä‘Ã£ Ä‘Æ°á»£c duyá»‡t.<br> Lá»‹ch nghá»‰ cá»§a báº¡n báº¯t Ä‘áº§u tá»« 02-02-2014 Ä‘áº¿n ngÃ y 07-02-2014',0,'2014-05-16 03:50:43','2014-05-16 03:50:43'),
+ (95,0,1,'[LÃ m thÃªm giá»] Khai bÃ¡o lÃ m thÃªm giá» Ä‘Ã£ khÃ´ng Ä‘Æ°á»£c cháº¥p nháº­n.','Khai bÃ¡o lÃ m thÃªm giá» cá»§a báº¡n Ä‘Ã£ khÃ´ng Ä‘Æ°á»£c duyá»‡t.<br> NgÃ y: 12-02-2014<br> Giá» báº¯t Ä‘áº§u: 1:10 <br> Giá» káº¿t thÃºc: 18:19',0,'2014-05-16 03:53:52','2014-05-16 03:53:52'),
+ (96,0,1,'[LÃ m thÃªm giá»] Khai bÃ¡o lÃ m thÃªm giá» Ä‘Ã£ khÃ´ng Ä‘Æ°á»£c cháº¥p nháº­n.','Khai bÃ¡o lÃ m thÃªm giá» cá»§a báº¡n Ä‘Ã£ khÃ´ng Ä‘Æ°á»£c duyá»‡t.<br> NgÃ y: 12-02-2014<br> Giá» báº¯t Ä‘áº§u: 1:10 <br> Giá» káº¿t thÃºc: 18:19',0,'2014-05-16 03:53:56','2014-05-16 03:53:56'),
+ (97,0,73,'[ThÃ´ng bÃ¡o] Duyá»‡t cháº¥m cÃ´ng thÃ¡ng.','CÃ³ Ä‘Æ¡n xin duyá»‡t cháº¥m cÃ´ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/tochuccanbo/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-18 11:01:31','2014-05-18 11:01:31'),
+ (99,0,309,'[ThÃ´ng bÃ¡o] Duyá»‡t cháº¥m cÃ´ng thÃ¡ng.','CÃ³ Ä‘Æ¡n xin duyá»‡t cháº¥m cÃ´ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/tochuccanbo/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-18 11:01:31','2014-05-18 11:01:31'),
+ (100,0,302,'[ThÃ´ng bÃ¡o] Duyá»‡t cháº¥m cÃ´ng thÃ¡ng.','CÃ³ Ä‘Æ¡n xin duyá»‡t cháº¥m cÃ´ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/tochuccanbo/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-18 11:01:31','2014-05-18 11:01:31'),
+ (101,0,73,'[ThÃ´ng bÃ¡o] Duyá»‡t cháº¥m cÃ´ng thÃ¡ng.','CÃ³ Ä‘Æ¡n xin duyá»‡t cháº¥m cÃ´ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/tochuccanbo/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-18 11:01:35','2014-05-18 11:01:35'),
+ (103,0,309,'[ThÃ´ng bÃ¡o] Duyá»‡t cháº¥m cÃ´ng thÃ¡ng.','CÃ³ Ä‘Æ¡n xin duyá»‡t cháº¥m cÃ´ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/tochuccanbo/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-18 11:01:35','2014-05-18 11:01:35'),
+ (104,0,302,'[ThÃ´ng bÃ¡o] Duyá»‡t cháº¥m cÃ´ng thÃ¡ng.','CÃ³ Ä‘Æ¡n xin duyá»‡t cháº¥m cÃ´ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/tochuccanbo/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-18 11:01:35','2014-05-18 11:01:35'),
+ (105,0,73,'[ThÃ´ng bÃ¡o] Duyá»‡t cháº¥m cÃ´ng thÃ¡ng.','CÃ³ Ä‘Æ¡n xin duyá»‡t cháº¥m cÃ´ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/tochuccanbo/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-18 11:07:06','2014-05-18 11:07:06'),
+ (107,0,309,'[ThÃ´ng bÃ¡o] Duyá»‡t cháº¥m cÃ´ng thÃ¡ng.','CÃ³ Ä‘Æ¡n xin duyá»‡t cháº¥m cÃ´ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/tochuccanbo/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-18 11:07:06','2014-05-18 11:07:06'),
+ (108,0,302,'[ThÃ´ng bÃ¡o] Duyá»‡t cháº¥m cÃ´ng thÃ¡ng.','CÃ³ Ä‘Æ¡n xin duyá»‡t cháº¥m cÃ´ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/tochuccanbo/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-18 11:07:06','2014-05-18 11:07:06'),
+ (109,0,73,'[ThÃ´ng bÃ¡o] Duyá»‡t cháº¥m cÃ´ng thÃ¡ng.','CÃ³ Ä‘Æ¡n xin duyá»‡t cháº¥m cÃ´ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/tochuccanbo/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-18 11:07:12','2014-05-18 11:07:12'),
+ (111,0,309,'[ThÃ´ng bÃ¡o] Duyá»‡t cháº¥m cÃ´ng thÃ¡ng.','CÃ³ Ä‘Æ¡n xin duyá»‡t cháº¥m cÃ´ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/tochuccanbo/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-18 11:07:12','2014-05-18 11:07:12'),
+ (112,0,302,'[ThÃ´ng bÃ¡o] Duyá»‡t cháº¥m cÃ´ng thÃ¡ng.','CÃ³ Ä‘Æ¡n xin duyá»‡t cháº¥m cÃ´ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/tochuccanbo/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-18 11:07:12','2014-05-18 11:07:12'),
+ (113,0,73,'[ThÃ´ng bÃ¡o] Duyá»‡t cháº¥m cÃ´ng thÃ¡ng.','CÃ³ Ä‘Æ¡n xin duyá»‡t cháº¥m cÃ´ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/tochuccanbo/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-18 11:09:00','2014-05-18 11:09:00'),
+ (115,0,309,'[ThÃ´ng bÃ¡o] Duyá»‡t cháº¥m cÃ´ng thÃ¡ng.','CÃ³ Ä‘Æ¡n xin duyá»‡t cháº¥m cÃ´ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/tochuccanbo/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-18 11:09:00','2014-05-18 11:09:00'),
+ (116,0,302,'[ThÃ´ng bÃ¡o] Duyá»‡t cháº¥m cÃ´ng thÃ¡ng.','CÃ³ Ä‘Æ¡n xin duyá»‡t cháº¥m cÃ´ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/tochuccanbo/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-18 11:09:00','2014-05-18 11:09:00'),
+ (117,0,73,'[ThÃ´ng bÃ¡o] Duyá»‡t cháº¥m cÃ´ng thÃ¡ng.','CÃ³ Ä‘Æ¡n xin duyá»‡t cháº¥m cÃ´ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/tochuccanbo/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-18 11:09:06','2014-05-18 11:09:06'),
+ (119,0,309,'[ThÃ´ng bÃ¡o] Duyá»‡t cháº¥m cÃ´ng thÃ¡ng.','CÃ³ Ä‘Æ¡n xin duyá»‡t cháº¥m cÃ´ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/tochuccanbo/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-18 11:09:06','2014-05-18 11:09:06'),
+ (120,0,302,'[ThÃ´ng bÃ¡o] Duyá»‡t cháº¥m cÃ´ng thÃ¡ng.','CÃ³ Ä‘Æ¡n xin duyá»‡t cháº¥m cÃ´ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/tochuccanbo/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-18 11:09:06','2014-05-18 11:09:06'),
+ (121,0,67,'[Cháº¥m cÃ´ng thÃ¡ng 5-2014] Cháº¥m cÃ´ng khÃ´ng Ä‘Æ°á»£c duyá»‡t.','ChÃ o báº¡n!<br/>Cháº¥m cÃ´ng 5-2014 Ä‘Ã£ khÃ´ng Ä‘Æ°á»£c duyá»‡t.<br/>YÃªu cáº§u báº¡n chá»‰nh sá»­a láº¡i báº£ng cháº¥m cÃ´ng thÃ¡ng 5-2014',0,'2014-05-18 11:10:20','2014-05-18 11:10:20'),
+ (122,0,67,'[Cháº¥m cÃ´ng thÃ¡ng 5-2014] Cháº¥m cÃ´ng khÃ´ng Ä‘Æ°á»£c duyá»‡t.','ChÃ o báº¡n!<br/>Cháº¥m cÃ´ng 5-2014 Ä‘Ã£ khÃ´ng Ä‘Æ°á»£c duyá»‡t.<br/>YÃªu cáº§u báº¡n chá»‰nh sá»­a láº¡i báº£ng cháº¥m cÃ´ng thÃ¡ng 5-2014',0,'2014-05-18 11:10:54','2014-05-18 11:10:54'),
+ (123,0,73,'[ThÃ´ng bÃ¡o] Duyá»‡t cháº¥m cÃ´ng thÃ¡ng.','CÃ³ Ä‘Æ¡n xin duyá»‡t cháº¥m cÃ´ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/tochuccanbo/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-18 11:11:17','2014-05-18 11:11:17'),
+ (125,0,309,'[ThÃ´ng bÃ¡o] Duyá»‡t cháº¥m cÃ´ng thÃ¡ng.','CÃ³ Ä‘Æ¡n xin duyá»‡t cháº¥m cÃ´ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/tochuccanbo/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-18 11:11:17','2014-05-18 11:11:17'),
+ (126,0,302,'[ThÃ´ng bÃ¡o] Duyá»‡t cháº¥m cÃ´ng thÃ¡ng.','CÃ³ Ä‘Æ¡n xin duyá»‡t cháº¥m cÃ´ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/tochuccanbo/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-18 11:11:17','2014-05-18 11:11:17'),
+ (127,0,67,'[Cháº¥m cÃ´ng thÃ¡ng 5-2014] Cháº¥m cÃ´ng khÃ´ng Ä‘Æ°á»£c duyá»‡t.','ChÃ o báº¡n!<br/>Cháº¥m cÃ´ng 5-2014 Ä‘Ã£ khÃ´ng Ä‘Æ°á»£c duyá»‡t.<br/>YÃªu cáº§u báº¡n chá»‰nh sá»­a láº¡i báº£ng cháº¥m cÃ´ng thÃ¡ng 5-2014',0,'2014-05-18 11:11:17','2014-05-18 11:11:17'),
+ (128,0,73,'[ThÃ´ng bÃ¡o] Duyá»‡t cháº¥m cÃ´ng thÃ¡ng.','CÃ³ Ä‘Æ¡n xin duyá»‡t cháº¥m cÃ´ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/tochuccanbo/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-18 11:11:22','2014-05-18 11:11:22'),
+ (130,0,309,'[ThÃ´ng bÃ¡o] Duyá»‡t cháº¥m cÃ´ng thÃ¡ng.','CÃ³ Ä‘Æ¡n xin duyá»‡t cháº¥m cÃ´ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/tochuccanbo/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-18 11:11:22','2014-05-18 11:11:22'),
+ (131,0,302,'[ThÃ´ng bÃ¡o] Duyá»‡t cháº¥m cÃ´ng thÃ¡ng.','CÃ³ Ä‘Æ¡n xin duyá»‡t cháº¥m cÃ´ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/tochuccanbo/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-18 11:11:22','2014-05-18 11:11:22'),
+ (132,0,73,'[ThÃ´ng bÃ¡o] Duyá»‡t cháº¥m cÃ´ng thÃ¡ng.','CÃ³ Ä‘Æ¡n xin duyá»‡t cháº¥m cÃ´ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/tochuccanbo/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-18 11:11:28','2014-05-18 11:11:28'),
+ (134,0,309,'[ThÃ´ng bÃ¡o] Duyá»‡t cháº¥m cÃ´ng thÃ¡ng.','CÃ³ Ä‘Æ¡n xin duyá»‡t cháº¥m cÃ´ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/tochuccanbo/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-18 11:11:28','2014-05-18 11:11:28'),
+ (135,0,302,'[ThÃ´ng bÃ¡o] Duyá»‡t cháº¥m cÃ´ng thÃ¡ng.','CÃ³ Ä‘Æ¡n xin duyá»‡t cháº¥m cÃ´ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/tochuccanbo/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-18 11:11:28','2014-05-18 11:11:28'),
+ (136,0,67,'[Cháº¥m cÃ´ng thÃ¡ng 5-2014] Cháº¥m cÃ´ng khÃ´ng Ä‘Æ°á»£c duyá»‡t.','ChÃ o báº¡n!<br/>Cháº¥m cÃ´ng 5-2014 Ä‘Ã£ khÃ´ng Ä‘Æ°á»£c duyá»‡t.<br/>YÃªu cáº§u báº¡n chá»‰nh sá»­a láº¡i báº£ng cháº¥m cÃ´ng thÃ¡ng 5-2014',0,'2014-05-18 11:11:28','2014-05-18 11:11:28'),
+ (137,0,67,'[Cháº¥m cÃ´ng thÃ¡ng 05-2014] Cháº¥m cÃ´ng khÃ´ng Ä‘Æ°á»£c duyá»‡t.','ChÃ o báº¡n!<br/>Cháº¥m cÃ´ng 05-2014 Ä‘Ã£ khÃ´ng Ä‘Æ°á»£c duyá»‡t.<br/>YÃªu cáº§u báº¡n chá»‰nh sá»­a láº¡i báº£ng cháº¥m cÃ´ng thÃ¡ng 05-2014',0,'2014-05-18 11:12:38','2014-05-18 11:12:38'),
+ (138,0,67,'[Cháº¥m cÃ´ng thÃ¡ng 5-2014] Cháº¥m cÃ´ng khÃ´ng Ä‘Æ°á»£c duyá»‡t.','ChÃ o báº¡n!<br/>Cháº¥m cÃ´ng 5-2014 Ä‘Ã£ khÃ´ng Ä‘Æ°á»£c duyá»‡t.<br/>YÃªu cáº§u báº¡n chá»‰nh sá»­a láº¡i báº£ng cháº¥m cÃ´ng thÃ¡ng 5-2014',0,'2014-05-18 11:13:04','2014-05-18 11:13:04'),
+ (139,0,73,'[ThÃ´ng bÃ¡o] Duyá»‡t cháº¥m cÃ´ng thÃ¡ng.','CÃ³ Ä‘Æ¡n xin duyá»‡t cháº¥m cÃ´ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/tochuccanbo/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-18 11:14:33','2014-05-18 11:14:33'),
+ (141,0,309,'[ThÃ´ng bÃ¡o] Duyá»‡t cháº¥m cÃ´ng thÃ¡ng.','CÃ³ Ä‘Æ¡n xin duyá»‡t cháº¥m cÃ´ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/tochuccanbo/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-18 11:14:33','2014-05-18 11:14:33'),
+ (142,0,302,'[ThÃ´ng bÃ¡o] Duyá»‡t cháº¥m cÃ´ng thÃ¡ng.','CÃ³ Ä‘Æ¡n xin duyá»‡t cháº¥m cÃ´ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/tochuccanbo/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-18 11:14:33','2014-05-18 11:14:33'),
+ (143,0,67,'[Cháº¥m cÃ´ng thÃ¡ng 05-2014] Cháº¥m cÃ´ng khÃ´ng Ä‘Æ°á»£c duyá»‡t.','ChÃ o báº¡n!<br/>Cháº¥m cÃ´ng 05-2014 Ä‘Ã£ khÃ´ng Ä‘Æ°á»£c duyá»‡t.<br/>YÃªu cáº§u báº¡n chá»‰nh sá»­a láº¡i báº£ng cháº¥m cÃ´ng thÃ¡ng 05-2014',1,'2014-05-18 11:14:50','2014-05-18 11:14:50'),
+ (144,0,73,'[ThÃ´ng bÃ¡o] Duyá»‡t cháº¥m cÃ´ng thÃ¡ng.','CÃ³ Ä‘Æ¡n xin duyá»‡t cháº¥m cÃ´ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/tochuccanbo/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-18 11:15:46','2014-05-18 11:15:46'),
+ (146,0,309,'[ThÃ´ng bÃ¡o] Duyá»‡t cháº¥m cÃ´ng thÃ¡ng.','CÃ³ Ä‘Æ¡n xin duyá»‡t cháº¥m cÃ´ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/tochuccanbo/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-18 11:15:46','2014-05-18 11:15:46'),
+ (147,0,302,'[ThÃ´ng bÃ¡o] Duyá»‡t cháº¥m cÃ´ng thÃ¡ng.','CÃ³ Ä‘Æ¡n xin duyá»‡t cháº¥m cÃ´ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/tochuccanbo/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-18 11:15:47','2014-05-18 11:15:47'),
+ (148,0,67,'[Cháº¥m cÃ´ng thÃ¡ng 05-2014] Cháº¥m cÃ´ng khÃ´ng Ä‘Æ°á»£c duyá»‡t.','ChÃ o báº¡n!<br/>Cháº¥m cÃ´ng 05-2014 Ä‘Ã£ khÃ´ng Ä‘Æ°á»£c duyá»‡t.<br/>YÃªu cáº§u báº¡n chá»‰nh sá»­a láº¡i báº£ng cháº¥m cÃ´ng thÃ¡ng 05-2014',0,'2014-05-18 11:15:56','2014-05-18 11:15:56'),
+ (149,0,73,'[ThÃ´ng bÃ¡o] Duyá»‡t cháº¥m cÃ´ng thÃ¡ng.','CÃ³ Ä‘Æ¡n xin duyá»‡t cháº¥m cÃ´ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/tochuccanbo/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-18 11:17:47','2014-05-18 11:17:47'),
+ (151,0,309,'[ThÃ´ng bÃ¡o] Duyá»‡t cháº¥m cÃ´ng thÃ¡ng.','CÃ³ Ä‘Æ¡n xin duyá»‡t cháº¥m cÃ´ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/tochuccanbo/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-18 11:17:47','2014-05-18 11:17:47'),
+ (152,0,302,'[ThÃ´ng bÃ¡o] Duyá»‡t cháº¥m cÃ´ng thÃ¡ng.','CÃ³ Ä‘Æ¡n xin duyá»‡t cháº¥m cÃ´ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/tochuccanbo/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-18 11:17:47','2014-05-18 11:17:47'),
+ (153,0,73,'[ThÃ´ng bÃ¡o] Duyá»‡t khai bÃ¡o lÃ m thÃªm giá».','CÃ³ khai bÃ¡o lÃ m thÃªm giá» má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetthemgio\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-18 11:40:29','2014-05-18 11:40:29'),
+ (155,0,67,'[ThÃ´ng bÃ¡o] Duyá»‡t khai bÃ¡o lÃ m thÃªm giá».','CÃ³ khai bÃ¡o lÃ m thÃªm giá» má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetthemgio\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-18 11:40:29','2014-05-18 11:40:29'),
+ (156,0,68,'[ThÃ´ng bÃ¡o] Duyá»‡t khai bÃ¡o lÃ m thÃªm giá».','CÃ³ khai bÃ¡o lÃ m thÃªm giá» má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetthemgio\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-18 11:40:29','2014-05-18 11:40:29'),
+ (157,0,1,'[LÃ m thÃªm giá»] Khai bÃ¡o lÃ m thÃªm giá» Ä‘Ã£ Ä‘Æ°á»£c duyá»‡t.','Khai bÃ¡o lÃ m thÃªm giá» cá»§a báº¡n Ä‘Ã£ Ä‘Æ°á»£c duyá»‡t.<br> NgÃ y: 12-02-2014<br> Giá» báº¯t Ä‘áº§u: 1:10 <br> Giá» káº¿t thÃºc: 18:19',0,'2014-05-18 11:49:29','2014-05-18 11:49:29'),
+ (158,0,1,'[LÃ m thÃªm giá»] Khai bÃ¡o lÃ m thÃªm giá» Ä‘Ã£ Ä‘Æ°á»£c duyá»‡t.','Khai bÃ¡o lÃ m thÃªm giá» cá»§a báº¡n Ä‘Ã£ Ä‘Æ°á»£c duyá»‡t.<br> NgÃ y: 12-02-2014<br> Giá» báº¯t Ä‘áº§u: 1:10 <br> Giá» káº¿t thÃºc: 18:19',0,'2014-05-18 11:51:31','2014-05-18 11:51:31'),
+ (159,0,73,'[ThÃ´ng bÃ¡o] Duyá»‡t khai bÃ¡o lÃ m thÃªm giá».','CÃ³ khai bÃ¡o lÃ m thÃªm giá» má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/tochuccanbo/duyetthemgio\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-18 11:58:41','2014-05-18 11:58:41'),
+ (161,0,309,'[ThÃ´ng bÃ¡o] Duyá»‡t khai bÃ¡o lÃ m thÃªm giá».','CÃ³ khai bÃ¡o lÃ m thÃªm giá» má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/tochuccanbo/duyetthemgio\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-18 11:58:41','2014-05-18 11:58:41'),
+ (162,0,302,'[ThÃ´ng bÃ¡o] Duyá»‡t khai bÃ¡o lÃ m thÃªm giá».','CÃ³ khai bÃ¡o lÃ m thÃªm giá» má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/tochuccanbo/duyetthemgio\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-18 11:58:41','2014-05-18 11:58:41'),
+ (164,0,73,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Æ¡n xin nghá»‰ phÃ©p.','CÃ³ Ä‘Æ¡n xin nghá»‰ phÃ©p má»›i.<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetnghiphep\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-18 12:18:29','2014-05-18 12:18:29'),
+ (166,0,67,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Æ¡n xin nghá»‰ phÃ©p.','CÃ³ Ä‘Æ¡n xin nghá»‰ phÃ©p má»›i.<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetnghiphep\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-18 12:18:29','2014-05-18 12:18:29'),
+ (167,0,68,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Æ¡n xin nghá»‰ phÃ©p.','CÃ³ Ä‘Æ¡n xin nghá»‰ phÃ©p má»›i.<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetnghiphep\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-18 12:18:29','2014-05-18 12:18:29'),
+ (168,0,73,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','CÃ³ khai bÃ¡o Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i má»›i.<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-26 22:28:29','2014-05-26 22:28:29'),
+ (170,0,67,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','CÃ³ khai bÃ¡o Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i má»›i.<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-26 22:28:29','2014-05-26 22:28:29'),
+ (171,0,68,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','CÃ³ khai bÃ¡o Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i má»›i.<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-26 22:28:29','2014-05-26 22:28:29'),
+ (173,0,73,'[ThÃ´ng bÃ¡o] Duyá»‡t cháº¥m cÃ´ng thÃ¡ng.','CÃ³ Ä‘Æ¡n xin duyá»‡t cháº¥m cÃ´ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/tochuccanbo/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-26 22:53:21','2014-05-26 22:53:21'),
+ (175,0,309,'[ThÃ´ng bÃ¡o] Duyá»‡t cháº¥m cÃ´ng thÃ¡ng.','CÃ³ Ä‘Æ¡n xin duyá»‡t cháº¥m cÃ´ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/tochuccanbo/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-26 22:53:21','2014-05-26 22:53:21'),
+ (176,0,302,'[ThÃ´ng bÃ¡o] Duyá»‡t cháº¥m cÃ´ng thÃ¡ng.','CÃ³ Ä‘Æ¡n xin duyá»‡t cháº¥m cÃ´ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/tochuccanbo/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-26 22:53:21','2014-05-26 22:53:21'),
+ (177,0,73,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','CÃ³ khai bÃ¡o Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i má»›i.<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-26 23:11:46','2014-05-26 23:11:46'),
+ (179,0,67,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','CÃ³ khai bÃ¡o Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i má»›i.<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-26 23:11:46','2014-05-26 23:11:46'),
+ (180,0,68,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','CÃ³ khai bÃ¡o Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i má»›i.<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-26 23:11:46','2014-05-26 23:11:46'),
+ (181,0,73,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','CÃ³ Ä‘Æ¡n Ä‘Ã¡nh giÃ¡ phÃ¢n phÃ¢n loáº¡i theo thÃ¡ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/tochuccanbo/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-26 23:20:13','2014-05-26 23:20:13'),
+ (183,0,73,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','CÃ³ Ä‘Æ¡n Ä‘Ã¡nh giÃ¡ phÃ¢n phÃ¢n loáº¡i theo thÃ¡ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/tochuccanbo/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-26 23:34:52','2014-05-26 23:34:52'),
+ (185,0,68,'[ThÃ´ng bÃ¡o] PhÃ²ng tá»• chá»©c khÃ´ng duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','ÄÃ¡nh giÃ¡ phÃ¢n phÃ¢n loáº¡i theo thÃ¡ng cá»§a báº¡n thÃ¡ng 4-2014 khÃ´ng Ä‘Æ°á»£c duyá»‡t.<br/> YÃªu cáº§u báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/canhan/danhgiaphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t chá»‰nh sá»­a.',0,'2014-05-26 23:37:37','2014-05-26 23:37:37'),
+ (186,0,73,'[ThÃ´ng bÃ¡o] PhÃ²ng tá»• chá»©c khÃ´ng duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','ÄÃ¡nh giÃ¡ phÃ¢n loáº¡i cá»§a Nguyá»…n ÄÃ¬nh BÃ¬nh thÃ¡ng 4-2014 phÃ²ng tá»• chá»©c khÃ´ng duyá»‡t.<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t láº¡i.',0,'2014-05-26 23:37:37','2014-05-26 23:37:37'),
+ (188,0,67,'[ThÃ´ng bÃ¡o] PhÃ²ng tá»• chá»©c khÃ´ng duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','ÄÃ¡nh giÃ¡ phÃ¢n loáº¡i cá»§a Nguyá»…n ÄÃ¬nh BÃ¬nh thÃ¡ng 4-2014 phÃ²ng tá»• chá»©c khÃ´ng duyá»‡t.<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t láº¡i.',0,'2014-05-26 23:37:37','2014-05-26 23:37:37'),
+ (189,0,68,'[ThÃ´ng bÃ¡o] PhÃ²ng tá»• chá»©c khÃ´ng duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','ÄÃ¡nh giÃ¡ phÃ¢n loáº¡i cá»§a Nguyá»…n ÄÃ¬nh BÃ¬nh thÃ¡ng 4-2014 phÃ²ng tá»• chá»©c khÃ´ng duyá»‡t.<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t láº¡i.',0,'2014-05-26 23:37:37','2014-05-26 23:37:37'),
+ (190,0,73,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','CÃ³ Ä‘Æ¡n Ä‘Ã¡nh giÃ¡ phÃ¢n phÃ¢n loáº¡i theo thÃ¡ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/tochuccanbo/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-26 23:38:05','2014-05-26 23:38:05'),
+ (193,0,73,'[ThÃ´ng bÃ¡o] PhÃ²ng tá»• chá»©c khÃ´ng duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','ÄÃ¡nh giÃ¡ phÃ¢n loáº¡i cá»§a ÄÃ o NghÄ©a Äá»“ng thÃ¡ng 4-2014 phÃ²ng tá»• chá»©c khÃ´ng duyá»‡t.<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t láº¡i.',0,'2014-05-26 23:38:35','2014-05-26 23:38:35'),
+ (195,0,67,'[ThÃ´ng bÃ¡o] PhÃ²ng tá»• chá»©c khÃ´ng duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','ÄÃ¡nh giÃ¡ phÃ¢n loáº¡i cá»§a ÄÃ o NghÄ©a Äá»“ng thÃ¡ng 4-2014 phÃ²ng tá»• chá»©c khÃ´ng duyá»‡t.<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t láº¡i.',0,'2014-05-26 23:38:35','2014-05-26 23:38:35'),
+ (196,0,68,'[ThÃ´ng bÃ¡o] PhÃ²ng tá»• chá»©c khÃ´ng duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','ÄÃ¡nh giÃ¡ phÃ¢n loáº¡i cá»§a ÄÃ o NghÄ©a Äá»“ng thÃ¡ng 4-2014 phÃ²ng tá»• chá»©c khÃ´ng duyá»‡t.<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t láº¡i.',0,'2014-05-26 23:38:35','2014-05-26 23:38:35'),
+ (197,0,73,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','CÃ³ Ä‘Æ¡n Ä‘Ã¡nh giÃ¡ phÃ¢n phÃ¢n loáº¡i theo thÃ¡ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/tochuccanbo/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-26 23:45:44','2014-05-26 23:45:44'),
+ (199,0,67,'[ThÃ´ng bÃ¡o] PhÃ²ng tá»• chá»©c khÃ´ng duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','ÄÃ¡nh giÃ¡ phÃ¢n phÃ¢n loáº¡i theo thÃ¡ng cá»§a báº¡n thÃ¡ng 4-2014 khÃ´ng Ä‘Æ°á»£c duyá»‡t.<br/> YÃªu cáº§u báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/canhan/danhgiaphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t chá»‰nh sá»­a.',0,'2014-05-26 23:45:59','2014-05-26 23:45:59'),
+ (201,0,73,'[ThÃ´ng bÃ¡o] PhÃ²ng tá»• chá»©c khÃ´ng duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','ÄÃ¡nh giÃ¡ phÃ¢n loáº¡i cá»§a ÄÃ o NghÄ©a Äá»“ng thÃ¡ng 4-2014 phÃ²ng tá»• chá»©c khÃ´ng duyá»‡t.<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t láº¡i.',0,'2014-05-26 23:49:11','2014-05-26 23:49:11'),
+ (203,0,67,'[ThÃ´ng bÃ¡o] PhÃ²ng tá»• chá»©c khÃ´ng duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','ÄÃ¡nh giÃ¡ phÃ¢n loáº¡i cá»§a ÄÃ o NghÄ©a Äá»“ng thÃ¡ng 4-2014 phÃ²ng tá»• chá»©c khÃ´ng duyá»‡t.<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t láº¡i.',0,'2014-05-26 23:49:11','2014-05-26 23:49:11'),
+ (204,0,68,'[ThÃ´ng bÃ¡o] PhÃ²ng tá»• chá»©c khÃ´ng duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','ÄÃ¡nh giÃ¡ phÃ¢n loáº¡i cá»§a ÄÃ o NghÄ©a Äá»“ng thÃ¡ng 4-2014 phÃ²ng tá»• chá»©c khÃ´ng duyá»‡t.<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t láº¡i.',0,'2014-05-26 23:49:11','2014-05-26 23:49:11'),
+ (205,0,73,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','CÃ³ Ä‘Æ¡n Ä‘Ã¡nh giÃ¡ phÃ¢n phÃ¢n loáº¡i theo thÃ¡ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/tochuccanbo/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-26 23:50:06','2014-05-26 23:50:06'),
+ (207,0,73,'[ThÃ´ng bÃ¡o] Duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','CÃ³ Ä‘Æ¡n Ä‘Ã¡nh giÃ¡ phÃ¢n phÃ¢n loáº¡i theo thÃ¡ng má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/tochuccanbo/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-26 23:50:09','2014-05-26 23:50:09'),
+ (209,0,67,'[ThÃ´ng bÃ¡o] PhÃ²ng tá»• chá»©c khÃ´ng duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','ÄÃ¡nh giÃ¡ phÃ¢n phÃ¢n loáº¡i theo thÃ¡ng cá»§a báº¡n thÃ¡ng 4-2014 khÃ´ng Ä‘Æ°á»£c duyá»‡t.<br/> YÃªu cáº§u báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/canhan/danhgiaphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t chá»‰nh sá»­a.',0,'2014-05-26 23:50:37','2014-05-26 23:50:37'),
+ (210,0,73,'[ThÃ´ng bÃ¡o] PhÃ²ng tá»• chá»©c khÃ´ng duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','ÄÃ¡nh giÃ¡ phÃ¢n loáº¡i cá»§a Nguyá»…n Thá»‹ Kim Oanh thÃ¡ng 4-2014 phÃ²ng tá»• chá»©c khÃ´ng duyá»‡t.<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t láº¡i.',0,'2014-05-26 23:50:37','2014-05-26 23:50:37'),
+ (212,0,67,'[ThÃ´ng bÃ¡o] PhÃ²ng tá»• chá»©c khÃ´ng duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','ÄÃ¡nh giÃ¡ phÃ¢n loáº¡i cá»§a Nguyá»…n Thá»‹ Kim Oanh thÃ¡ng 4-2014 phÃ²ng tá»• chá»©c khÃ´ng duyá»‡t.<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t láº¡i.',0,'2014-05-26 23:50:37','2014-05-26 23:50:37'),
+ (213,0,68,'[ThÃ´ng bÃ¡o] PhÃ²ng tá»• chá»©c khÃ´ng duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','ÄÃ¡nh giÃ¡ phÃ¢n loáº¡i cá»§a Nguyá»…n Thá»‹ Kim Oanh thÃ¡ng 4-2014 phÃ²ng tá»• chá»©c khÃ´ng duyá»‡t.<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t láº¡i.',0,'2014-05-26 23:50:37','2014-05-26 23:50:37'),
+ (215,0,73,'[ThÃ´ng bÃ¡o] PhÃ²ng tá»• chá»©c khÃ´ng duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','ÄÃ¡nh giÃ¡ phÃ¢n loáº¡i cá»§a ÄÃ o NghÄ©a Äá»“ng thÃ¡ng 4-2014 phÃ²ng tá»• chá»©c khÃ´ng duyá»‡t.<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t láº¡i.',0,'2014-05-26 23:50:37','2014-05-26 23:50:37'),
+ (217,0,67,'[ThÃ´ng bÃ¡o] PhÃ²ng tá»• chá»©c khÃ´ng duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','ÄÃ¡nh giÃ¡ phÃ¢n loáº¡i cá»§a ÄÃ o NghÄ©a Äá»“ng thÃ¡ng 4-2014 phÃ²ng tá»• chá»©c khÃ´ng duyá»‡t.<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t láº¡i.',0,'2014-05-26 23:50:37','2014-05-26 23:50:37'),
+ (218,0,68,'[ThÃ´ng bÃ¡o] PhÃ²ng tá»• chá»©c khÃ´ng duyá»‡t Ä‘Ã¡nh giÃ¡ phÃ¢n loáº¡i.','ÄÃ¡nh giÃ¡ phÃ¢n loáº¡i cá»§a ÄÃ o NghÄ©a Äá»“ng thÃ¡ng 4-2014 phÃ²ng tá»• chá»©c khÃ´ng duyá»‡t.<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetphanloai\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t láº¡i.',0,'2014-05-26 23:50:37','2014-05-26 23:50:37'),
+ (219,0,69,'[Cháº¥m cÃ´ng thÃ¡ng 4-2014] Cháº¥m cÃ´ng khÃ´ng Ä‘Æ°á»£c duyá»‡t.','ChÃ o báº¡n!<br/>Cháº¥m cÃ´ng 4-2014 Ä‘Ã£ khÃ´ng Ä‘Æ°á»£c duyá»‡t.<br/>YÃªu cáº§u báº¡n chá»‰nh sá»­a láº¡i báº£ng cháº¥m cÃ´ng thÃ¡ng 4-2014',1,'2014-05-26 23:57:42','2014-05-26 23:57:42'),
+ (220,0,73,'[Cháº¥m cÃ´ng thÃ¡ng 4-2014] Cháº¥m cÃ´ng khÃ´ng Ä‘Æ°á»£c duyá»‡t.','Cháº¥m cÃ´ng cá»§a <strong>ÄÃ o NghÄ©a Äá»“ng</strong> thÃ¡ng 4-2014 phÃ²ng tá»• chá»©c khÃ´ng duyá»‡t.<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t láº¡i.',0,'2014-05-26 23:57:42','2014-05-26 23:57:42'),
+ (221,0,69,'[Cháº¥m cÃ´ng thÃ¡ng 4-2014] Cháº¥m cÃ´ng khÃ´ng Ä‘Æ°á»£c duyá»‡t.','Cháº¥m cÃ´ng cá»§a <strong>ÄÃ o NghÄ©a Äá»“ng</strong> thÃ¡ng 4-2014 phÃ²ng tá»• chá»©c khÃ´ng duyá»‡t.<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t láº¡i.',1,'2014-05-26 23:57:42','2014-05-26 23:57:42'),
+ (222,0,67,'[Cháº¥m cÃ´ng thÃ¡ng 4-2014] Cháº¥m cÃ´ng khÃ´ng Ä‘Æ°á»£c duyá»‡t.','Cháº¥m cÃ´ng cá»§a <strong>ÄÃ o NghÄ©a Äá»“ng</strong> thÃ¡ng 4-2014 phÃ²ng tá»• chá»©c khÃ´ng duyá»‡t.<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t láº¡i.',0,'2014-05-26 23:57:42','2014-05-26 23:57:42'),
+ (223,0,68,'[Cháº¥m cÃ´ng thÃ¡ng 4-2014] Cháº¥m cÃ´ng khÃ´ng Ä‘Æ°á»£c duyá»‡t.','Cháº¥m cÃ´ng cá»§a <strong>ÄÃ o NghÄ©a Äá»“ng</strong> thÃ¡ng 4-2014 phÃ²ng tá»• chá»©c khÃ´ng duyá»‡t.<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t láº¡i.',0,'2014-05-26 23:57:42','2014-05-26 23:57:42'),
+ (224,0,71,'[Cháº¥m cÃ´ng thÃ¡ng 4-2014] Cháº¥m cÃ´ng khÃ´ng Ä‘Æ°á»£c duyá»‡t.','ChÃ o báº¡n!<br/>Cháº¥m cÃ´ng 4-2014 Ä‘Ã£ khÃ´ng Ä‘Æ°á»£c duyá»‡t.<br/>YÃªu cáº§u báº¡n chá»‰nh sá»­a láº¡i báº£ng cháº¥m cÃ´ng thÃ¡ng 4-2014',0,'2014-05-26 23:57:42','2014-05-26 23:57:42'),
+ (225,0,73,'[Cháº¥m cÃ´ng thÃ¡ng 4-2014] Cháº¥m cÃ´ng khÃ´ng Ä‘Æ°á»£c duyá»‡t.','Cháº¥m cÃ´ng cá»§a <strong>BÃ¹i Minh  TÃº</strong> thÃ¡ng 4-2014 phÃ²ng tá»• chá»©c khÃ´ng duyá»‡t.<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t láº¡i.',0,'2014-05-26 23:57:42','2014-05-26 23:57:42'),
+ (226,0,69,'[Cháº¥m cÃ´ng thÃ¡ng 4-2014] Cháº¥m cÃ´ng khÃ´ng Ä‘Æ°á»£c duyá»‡t.','Cháº¥m cÃ´ng cá»§a <strong>BÃ¹i Minh  TÃº</strong> thÃ¡ng 4-2014 phÃ²ng tá»• chá»©c khÃ´ng duyá»‡t.<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t láº¡i.',1,'2014-05-26 23:57:42','2014-05-26 23:57:42'),
+ (227,0,67,'[Cháº¥m cÃ´ng thÃ¡ng 4-2014] Cháº¥m cÃ´ng khÃ´ng Ä‘Æ°á»£c duyá»‡t.','Cháº¥m cÃ´ng cá»§a <strong>BÃ¹i Minh  TÃº</strong> thÃ¡ng 4-2014 phÃ²ng tá»• chá»©c khÃ´ng duyá»‡t.<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t láº¡i.',0,'2014-05-26 23:57:42','2014-05-26 23:57:42'),
+ (228,0,68,'[Cháº¥m cÃ´ng thÃ¡ng 4-2014] Cháº¥m cÃ´ng khÃ´ng Ä‘Æ°á»£c duyá»‡t.','Cháº¥m cÃ´ng cá»§a <strong>BÃ¹i Minh  TÃº</strong> thÃ¡ng 4-2014 phÃ²ng tá»• chá»©c khÃ´ng duyá»‡t.<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t láº¡i.',0,'2014-05-26 23:57:42','2014-05-26 23:57:42'),
+ (229,0,73,'[Cháº¥m cÃ´ng thÃ¡ng 4-2014] Cháº¥m cÃ´ng khÃ´ng Ä‘Æ°á»£c duyá»‡t.','ChÃ o báº¡n!<br/>Cháº¥m cÃ´ng 4-2014 Ä‘Ã£ khÃ´ng Ä‘Æ°á»£c duyá»‡t.<br/>YÃªu cáº§u báº¡n chá»‰nh sá»­a láº¡i báº£ng cháº¥m cÃ´ng thÃ¡ng 4-2014',0,'2014-05-28 22:04:52','2014-05-28 22:04:52'),
+ (230,0,73,'[Cháº¥m cÃ´ng thÃ¡ng 4-2014] Cháº¥m cÃ´ng khÃ´ng Ä‘Æ°á»£c duyá»‡t.','Cháº¥m cÃ´ng cá»§a <strong>NgÃ´ Thá»‹ Ngá»c Vinh</strong> thÃ¡ng 4-2014 phÃ²ng tá»• chá»©c khÃ´ng duyá»‡t.<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t láº¡i.',0,'2014-05-28 22:04:52','2014-05-28 22:04:52'),
+ (231,0,69,'[Cháº¥m cÃ´ng thÃ¡ng 4-2014] Cháº¥m cÃ´ng khÃ´ng Ä‘Æ°á»£c duyá»‡t.','Cháº¥m cÃ´ng cá»§a <strong>NgÃ´ Thá»‹ Ngá»c Vinh</strong> thÃ¡ng 4-2014 phÃ²ng tá»• chá»©c khÃ´ng duyá»‡t.<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t láº¡i.',0,'2014-05-28 22:04:52','2014-05-28 22:04:52'),
+ (232,0,67,'[Cháº¥m cÃ´ng thÃ¡ng 4-2014] Cháº¥m cÃ´ng khÃ´ng Ä‘Æ°á»£c duyá»‡t.','Cháº¥m cÃ´ng cá»§a <strong>NgÃ´ Thá»‹ Ngá»c Vinh</strong> thÃ¡ng 4-2014 phÃ²ng tá»• chá»©c khÃ´ng duyá»‡t.<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t láº¡i.',0,'2014-05-28 22:04:52','2014-05-28 22:04:52'),
+ (233,0,68,'[Cháº¥m cÃ´ng thÃ¡ng 4-2014] Cháº¥m cÃ´ng khÃ´ng Ä‘Æ°á»£c duyá»‡t.','Cháº¥m cÃ´ng cá»§a <strong>NgÃ´ Thá»‹ Ngá»c Vinh</strong> thÃ¡ng 4-2014 phÃ²ng tá»• chá»©c khÃ´ng duyá»‡t.<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t láº¡i.',0,'2014-05-28 22:04:52','2014-05-28 22:04:52'),
+ (234,0,73,'[ThÃ´ng bÃ¡o] Duyá»‡t khai bÃ¡o lÃ m thÃªm giá».','CÃ³ khai bÃ¡o lÃ m thÃªm giá» má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetthemgio\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-28 22:24:00','2014-05-28 22:24:00'),
+ (235,0,69,'[ThÃ´ng bÃ¡o] Duyá»‡t khai bÃ¡o lÃ m thÃªm giá».','CÃ³ khai bÃ¡o lÃ m thÃªm giá» má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetthemgio\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-28 22:24:00','2014-05-28 22:24:00'),
+ (236,0,67,'[ThÃ´ng bÃ¡o] Duyá»‡t khai bÃ¡o lÃ m thÃªm giá».','CÃ³ khai bÃ¡o lÃ m thÃªm giá» má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetthemgio\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-28 22:24:00','2014-05-28 22:24:00'),
+ (237,0,68,'[ThÃ´ng bÃ¡o] Duyá»‡t khai bÃ¡o lÃ m thÃªm giá».','CÃ³ khai bÃ¡o lÃ m thÃªm giá» má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetthemgio\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-28 22:24:00','2014-05-28 22:24:00'),
+ (238,0,73,'[ThÃ´ng bÃ¡o] Duyá»‡t khai bÃ¡o lÃ m thÃªm giá».','CÃ³ khai bÃ¡o lÃ m thÃªm giá» má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/tochuccanbo/duyetthemgio\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-28 22:24:08','2014-05-28 22:24:08'),
+ (239,0,69,'[ThÃ´ng bÃ¡o] Duyá»‡t khai bÃ¡o lÃ m thÃªm giá».','CÃ³ khai bÃ¡o lÃ m thÃªm giá» má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/tochuccanbo/duyetthemgio\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-28 22:24:08','2014-05-28 22:24:08');
+INSERT INTO `thong_bao` (`tb_id`,`tb_from`,`tb_to`,`tb_tieu_de`,`tb_noi_dung`,`tb_status`,`tb_date_added`,`tb_date_modified`) VALUES 
+ (240,0,309,'[ThÃ´ng bÃ¡o] Duyá»‡t khai bÃ¡o lÃ m thÃªm giá».','CÃ³ khai bÃ¡o lÃ m thÃªm giá» má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/tochuccanbo/duyetthemgio\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-28 22:24:08','2014-05-28 22:24:08'),
+ (241,0,302,'[ThÃ´ng bÃ¡o] Duyá»‡t khai bÃ¡o lÃ m thÃªm giá».','CÃ³ khai bÃ¡o lÃ m thÃªm giá» má»›i<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/tochuccanbo/duyetthemgio\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t.',0,'2014-05-28 22:24:08','2014-05-28 22:24:08'),
+ (242,0,69,'[LÃ m thÃªm giá»] Khai bÃ¡o lÃ m thÃªm giá» Ä‘Ã£ Ä‘Æ°á»£c duyá»‡t.','Khai bÃ¡o lÃ m thÃªm giá» cá»§a báº¡n Ä‘Ã£ Ä‘Æ°á»£c duyá»‡t.<br> NgÃ y: 03-05-2014<br> Giá» báº¯t Ä‘áº§u: 7:30 <br> Giá» káº¿t thÃºc: 11:15',0,'2014-05-28 22:24:18','2014-05-28 22:24:18'),
+ (243,0,72,'[Cháº¥m cÃ´ng thÃ¡ng 5-2014] Cháº¥m cÃ´ng khÃ´ng Ä‘Æ°á»£c duyá»‡t.','ChÃ o báº¡n!<br/>Cháº¥m cÃ´ng 5-2014 Ä‘Ã£ khÃ´ng Ä‘Æ°á»£c duyá»‡t.<br/>YÃªu cáº§u báº¡n chá»‰nh sá»­a láº¡i báº£ng cháº¥m cÃ´ng thÃ¡ng 5-2014',0,'2014-05-28 22:39:54','2014-05-28 22:39:54'),
+ (244,0,73,'[Cháº¥m cÃ´ng thÃ¡ng 5-2014] Cháº¥m cÃ´ng khÃ´ng Ä‘Æ°á»£c duyá»‡t.','Cháº¥m cÃ´ng cá»§a <strong>Äáº­u Minh PhÆ°Æ¡ng</strong> thÃ¡ng 5-2014 phÃ²ng tá»• chá»©c khÃ´ng duyá»‡t.<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t láº¡i.',0,'2014-05-28 22:39:55','2014-05-28 22:39:55'),
+ (245,0,69,'[Cháº¥m cÃ´ng thÃ¡ng 5-2014] Cháº¥m cÃ´ng khÃ´ng Ä‘Æ°á»£c duyá»‡t.','Cháº¥m cÃ´ng cá»§a <strong>Äáº­u Minh PhÆ°Æ¡ng</strong> thÃ¡ng 5-2014 phÃ²ng tá»• chá»©c khÃ´ng duyá»‡t.<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t láº¡i.',0,'2014-05-28 22:39:55','2014-05-28 22:39:55'),
+ (246,0,67,'[Cháº¥m cÃ´ng thÃ¡ng 5-2014] Cháº¥m cÃ´ng khÃ´ng Ä‘Æ°á»£c duyá»‡t.','Cháº¥m cÃ´ng cá»§a <strong>Äáº­u Minh PhÆ°Æ¡ng</strong> thÃ¡ng 5-2014 phÃ²ng tá»• chá»©c khÃ´ng duyá»‡t.<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t láº¡i.',0,'2014-05-28 22:39:55','2014-05-28 22:39:55'),
+ (247,0,68,'[Cháº¥m cÃ´ng thÃ¡ng 5-2014] Cháº¥m cÃ´ng khÃ´ng Ä‘Æ°á»£c duyá»‡t.','Cháº¥m cÃ´ng cá»§a <strong>Äáº­u Minh PhÆ°Æ¡ng</strong> thÃ¡ng 5-2014 phÃ²ng tá»• chá»©c khÃ´ng duyá»‡t.<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t láº¡i.',0,'2014-05-28 22:39:55','2014-05-28 22:39:55'),
+ (248,0,67,'[Cháº¥m cÃ´ng thÃ¡ng 5-2014] Cháº¥m cÃ´ng khÃ´ng Ä‘Æ°á»£c duyá»‡t.','ChÃ o báº¡n!<br/>Cháº¥m cÃ´ng 5-2014 Ä‘Ã£ khÃ´ng Ä‘Æ°á»£c duyá»‡t.<br/>YÃªu cáº§u báº¡n chá»‰nh sá»­a láº¡i báº£ng cháº¥m cÃ´ng thÃ¡ng 5-2014',0,'2014-05-28 22:41:32','2014-05-28 22:41:32'),
+ (249,0,73,'[Cháº¥m cÃ´ng thÃ¡ng 5-2014] Cháº¥m cÃ´ng khÃ´ng Ä‘Æ°á»£c duyá»‡t.','Cháº¥m cÃ´ng cá»§a <strong>Nguyá»…n Thá»‹ Kim Oanh</strong> thÃ¡ng 5-2014 phÃ²ng tá»• chá»©c khÃ´ng duyá»‡t.<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t láº¡i.',0,'2014-05-28 22:41:32','2014-05-28 22:41:32'),
+ (250,0,69,'[Cháº¥m cÃ´ng thÃ¡ng 5-2014] Cháº¥m cÃ´ng khÃ´ng Ä‘Æ°á»£c duyá»‡t.','Cháº¥m cÃ´ng cá»§a <strong>Nguyá»…n Thá»‹ Kim Oanh</strong> thÃ¡ng 5-2014 phÃ²ng tá»• chá»©c khÃ´ng duyá»‡t.<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t láº¡i.',0,'2014-05-28 22:41:32','2014-05-28 22:41:32'),
+ (251,0,67,'[Cháº¥m cÃ´ng thÃ¡ng 5-2014] Cháº¥m cÃ´ng khÃ´ng Ä‘Æ°á»£c duyá»‡t.','Cháº¥m cÃ´ng cá»§a <strong>Nguyá»…n Thá»‹ Kim Oanh</strong> thÃ¡ng 5-2014 phÃ²ng tá»• chá»©c khÃ´ng duyá»‡t.<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t láº¡i.',0,'2014-05-28 22:41:32','2014-05-28 22:41:32'),
+ (252,0,68,'[Cháº¥m cÃ´ng thÃ¡ng 5-2014] Cháº¥m cÃ´ng khÃ´ng Ä‘Æ°á»£c duyá»‡t.','Cháº¥m cÃ´ng cá»§a <strong>Nguyá»…n Thá»‹ Kim Oanh</strong> thÃ¡ng 5-2014 phÃ²ng tá»• chá»©c khÃ´ng duyá»‡t.<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t láº¡i.',0,'2014-05-28 22:41:32','2014-05-28 22:41:32'),
+ (253,0,72,'[Cháº¥m cÃ´ng thÃ¡ng 5-2014] Cháº¥m cÃ´ng khÃ´ng Ä‘Æ°á»£c duyá»‡t.','ChÃ o báº¡n!<br/>Cháº¥m cÃ´ng 5-2014 Ä‘Ã£ khÃ´ng Ä‘Æ°á»£c duyá»‡t.<br/>YÃªu cáº§u báº¡n chá»‰nh sá»­a láº¡i báº£ng cháº¥m cÃ´ng thÃ¡ng 5-2014',0,'2014-05-28 22:43:32','2014-05-28 22:43:32'),
+ (254,0,73,'[Cháº¥m cÃ´ng thÃ¡ng 5-2014] Cháº¥m cÃ´ng khÃ´ng Ä‘Æ°á»£c duyá»‡t.','Cháº¥m cÃ´ng cá»§a <strong>Äáº­u Minh PhÆ°Æ¡ng</strong> thÃ¡ng 5-2014 phÃ²ng tá»• chá»©c khÃ´ng duyá»‡t.<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t láº¡i.',0,'2014-05-28 22:43:32','2014-05-28 22:43:32'),
+ (255,0,69,'[Cháº¥m cÃ´ng thÃ¡ng 5-2014] Cháº¥m cÃ´ng khÃ´ng Ä‘Æ°á»£c duyá»‡t.','Cháº¥m cÃ´ng cá»§a <strong>Äáº­u Minh PhÆ°Æ¡ng</strong> thÃ¡ng 5-2014 phÃ²ng tá»• chá»©c khÃ´ng duyá»‡t.<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t láº¡i.',0,'2014-05-28 22:43:32','2014-05-28 22:43:32'),
+ (256,0,67,'[Cháº¥m cÃ´ng thÃ¡ng 5-2014] Cháº¥m cÃ´ng khÃ´ng Ä‘Æ°á»£c duyá»‡t.','Cháº¥m cÃ´ng cá»§a <strong>Äáº­u Minh PhÆ°Æ¡ng</strong> thÃ¡ng 5-2014 phÃ²ng tá»• chá»©c khÃ´ng duyá»‡t.<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t láº¡i.',0,'2014-05-28 22:43:32','2014-05-28 22:43:32'),
+ (257,0,68,'[Cháº¥m cÃ´ng thÃ¡ng 5-2014] Cháº¥m cÃ´ng khÃ´ng Ä‘Æ°á»£c duyá»‡t.','Cháº¥m cÃ´ng cá»§a <strong>Äáº­u Minh PhÆ°Æ¡ng</strong> thÃ¡ng 5-2014 phÃ²ng tá»• chá»©c khÃ´ng duyá»‡t.<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t láº¡i.',0,'2014-05-28 22:43:32','2014-05-28 22:43:32'),
+ (258,0,71,'[Cháº¥m cÃ´ng thÃ¡ng 5-2014] Cháº¥m cÃ´ng khÃ´ng Ä‘Æ°á»£c duyá»‡t.','ChÃ o báº¡n!<br/>Cháº¥m cÃ´ng 5-2014 Ä‘Ã£ khÃ´ng Ä‘Æ°á»£c duyá»‡t.<br/>YÃªu cáº§u báº¡n chá»‰nh sá»­a láº¡i báº£ng cháº¥m cÃ´ng thÃ¡ng 5-2014',0,'2014-05-28 22:43:55','2014-05-28 22:43:55'),
+ (259,0,73,'[Cháº¥m cÃ´ng thÃ¡ng 5-2014] Cháº¥m cÃ´ng khÃ´ng Ä‘Æ°á»£c duyá»‡t.','Cháº¥m cÃ´ng cá»§a <strong>BÃ¹i Minh  TÃº</strong> thÃ¡ng 5-2014 phÃ²ng tá»• chá»©c khÃ´ng duyá»‡t.<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t láº¡i.',0,'2014-05-28 22:43:55','2014-05-28 22:43:55'),
+ (260,0,69,'[Cháº¥m cÃ´ng thÃ¡ng 5-2014] Cháº¥m cÃ´ng khÃ´ng Ä‘Æ°á»£c duyá»‡t.','Cháº¥m cÃ´ng cá»§a <strong>BÃ¹i Minh  TÃº</strong> thÃ¡ng 5-2014 phÃ²ng tá»• chá»©c khÃ´ng duyá»‡t.<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t láº¡i.',0,'2014-05-28 22:43:55','2014-05-28 22:43:55'),
+ (261,0,67,'[Cháº¥m cÃ´ng thÃ¡ng 5-2014] Cháº¥m cÃ´ng khÃ´ng Ä‘Æ°á»£c duyá»‡t.','Cháº¥m cÃ´ng cá»§a <strong>BÃ¹i Minh  TÃº</strong> thÃ¡ng 5-2014 phÃ²ng tá»• chá»©c khÃ´ng duyá»‡t.<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t láº¡i.',0,'2014-05-28 22:43:55','2014-05-28 22:43:55'),
+ (262,0,68,'[Cháº¥m cÃ´ng thÃ¡ng 5-2014] Cháº¥m cÃ´ng khÃ´ng Ä‘Æ°á»£c duyá»‡t.','Cháº¥m cÃ´ng cá»§a <strong>BÃ¹i Minh  TÃº</strong> thÃ¡ng 5-2014 phÃ²ng tá»• chá»©c khÃ´ng duyá»‡t.<br/> Báº¡n hÃ£y <strong><a href=\"/phanloaicanbo/web/donvi/duyetchamcong\">click vÃ o Ä‘Ã¢y</a></strong> Ä‘á»ƒ xÃ©t duyá»‡t láº¡i.',0,'2014-05-28 22:43:55','2014-05-28 22:43:55');
 /*!40000 ALTER TABLE `thong_bao` ENABLE KEYS */;
 
 
@@ -1939,7 +2956,7 @@ CREATE TABLE `users` (
   `date_added` datetime DEFAULT NULL,
   `date_modified` datetime DEFAULT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
@@ -1947,8 +2964,19 @@ CREATE TABLE `users` (
 
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`user_id`,`em_id`,`group_id`,`username`,`password`,`status`,`date_added`,`date_modified`) VALUES 
- (1,22,1,'hungnm','37a9b57da9afc663e11b5da3e01c3da5','1','2013-11-07 22:58:52','2014-03-28 15:25:25'),
- (3,2,6,'bichatn','37a9b57da9afc663e11b5da3e01c3da5','1','2013-11-30 14:51:44','2014-02-23 16:53:48');
+ (19,73,1,'vinhntn','e10adc3949ba59abbe56e057f20f883e','1','2014-05-15 02:08:26','2014-05-15 02:08:26'),
+ (20,69,1,'dongdn','e10adc3949ba59abbe56e057f20f883e','1','2014-05-15 02:32:18','2014-05-15 02:32:18'),
+ (21,67,7,'oanhntk','e10adc3949ba59abbe56e057f20f883e','1','2014-05-15 02:33:00','2014-05-15 02:33:00'),
+ (22,68,7,'binhnd','e10adc3949ba59abbe56e057f20f883e','1','2014-05-15 02:33:18','2014-05-15 02:33:18'),
+ (23,70,6,'phuongltk','e10adc3949ba59abbe56e057f20f883e','1','2014-05-15 02:33:33','2014-05-15 02:41:27'),
+ (24,72,6,'phuongdm','e10adc3949ba59abbe56e057f20f883e','1','2014-05-15 02:34:00','2014-05-15 02:34:00'),
+ (25,71,6,'tubm','e10adc3949ba59abbe56e057f20f883e','1','2014-05-15 02:34:17','2014-05-15 02:34:17'),
+ (26,309,8,'thaodtd','e10adc3949ba59abbe56e057f20f883e','1','2014-05-15 23:12:37','2014-05-15 23:12:37'),
+ (27,302,8,'hanhptm','e10adc3949ba59abbe56e057f20f883e','1','2014-05-15 23:12:58','2014-05-15 23:12:58'),
+ (28,329,7,'andx','e10adc3949ba59abbe56e057f20f883e','1','2014-05-15 23:13:33','2014-05-15 23:13:33'),
+ (29,330,6,'thanhnc','e10adc3949ba59abbe56e057f20f883e','1','2014-05-15 23:13:59','2014-05-15 23:13:59'),
+ (30,332,6,'binhvtd','e10adc3949ba59abbe56e057f20f883e','1','2014-05-15 23:14:25','2014-05-15 23:14:25'),
+ (31,331,6,'hienntb','e10adc3949ba59abbe56e057f20f883e','1','2014-05-15 23:14:43','2014-05-15 23:14:43');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 
@@ -1963,7 +2991,7 @@ CREATE TABLE `users_log` (
   `login_date` int(10) unsigned NOT NULL,
   `login_ip` varchar(45) NOT NULL,
   PRIMARY KEY (`log_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=120 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=195 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users_log`
@@ -2060,35 +3088,110 @@ INSERT INTO `users_log` (`log_id`,`user_id`,`login_date`,`login_ip`) VALUES
  (88,1,1393041972,'::1'),
  (89,1,1393077298,'::1'),
  (90,1,1393125709,'::1'),
- (91,1,1393211848,'127.0.0.1'),
- (92,1,1395043724,'127.0.0.1'),
- (93,1,1395741955,'127.0.0.1'),
- (94,1,1395889028,'127.0.0.1'),
- (95,1,1395977291,'127.0.0.1'),
- (96,1,1395995134,'127.0.0.1'),
- (97,3,1396000255,'127.0.0.1'),
- (98,1,1396000277,'127.0.0.1'),
- (99,3,1396000304,'127.0.0.1'),
- (100,1,1396000345,'127.0.0.1'),
- (101,3,1396000577,'127.0.0.1'),
- (102,1,1396000941,'127.0.0.1'),
- (103,1,1396363766,'::1'),
- (104,1,1396365404,'::1'),
- (105,1,1396452938,'::1'),
- (106,1,1396539632,'::1'),
- (107,3,1396796215,'::1'),
- (108,1,1396796245,'::1'),
- (109,1,1397017835,'::1'),
- (110,1,1397023672,'192.168.0.102'),
- (111,1,1397039795,'192.168.0.103'),
- (112,1,1397056458,'192.168.0.103'),
- (113,1,1397360478,'::1'),
- (114,1,1397382197,'::1'),
- (115,3,1399262226,'127.0.0.1'),
- (116,1,1399263162,'127.0.0.1'),
- (117,1,1399953615,'127.0.0.1'),
- (118,1,1399962392,'127.0.0.1'),
- (119,1,1399962442,'127.0.0.1');
+ (91,1,1393210964,'117.6.79.96'),
+ (92,1,1393211497,'117.6.79.96'),
+ (93,1,1393257535,'42.112.142.72'),
+ (94,1,1393315379,'117.6.79.96'),
+ (95,4,1393315451,'113.160.178.133'),
+ (96,1,1393318072,'117.6.79.96'),
+ (97,4,1393383162,'113.160.178.133'),
+ (98,5,1393388589,'113.160.178.133'),
+ (99,5,1393388709,'113.160.178.133'),
+ (100,4,1393396601,'113.160.178.133'),
+ (101,6,1393396700,'113.160.178.133'),
+ (102,1,1393515085,'42.112.142.72'),
+ (103,4,1393573599,'113.160.178.133'),
+ (104,6,1393579703,'113.160.178.133'),
+ (105,4,1393580080,'113.160.178.133'),
+ (106,1,1393954659,'42.112.142.72'),
+ (107,4,1394011180,'113.160.178.133'),
+ (108,4,1394075000,'113.160.178.133'),
+ (109,4,1394434551,'113.160.178.133'),
+ (110,1,1394968583,'42.113.163.61'),
+ (111,1,1395566816,'113.23.54.120'),
+ (112,4,1395800959,'113.160.178.133'),
+ (113,1,1395998992,'117.6.79.96'),
+ (114,1,1396543817,'42.113.92.47'),
+ (115,4,1397094263,'113.160.178.133'),
+ (116,4,1397112898,'113.160.178.133'),
+ (117,4,1397182938,'113.160.178.133'),
+ (118,1,1397200165,'117.6.79.96'),
+ (119,1,1397202170,'42.113.186.164'),
+ (120,1,1397204718,'42.113.186.164'),
+ (121,4,1397459099,'113.160.178.133'),
+ (122,1,1397539812,'117.6.79.96'),
+ (123,4,1397550690,'113.160.178.133'),
+ (124,4,1397612000,'113.160.178.133'),
+ (125,4,1397633391,'113.160.178.133'),
+ (126,4,1397634850,'113.160.178.133'),
+ (127,4,1397700827,'113.160.178.133'),
+ (128,1,1397702041,'117.6.79.96'),
+ (129,4,1397703681,'113.160.178.133'),
+ (130,4,1397785432,'113.160.178.133'),
+ (131,7,1397790646,'113.160.178.133'),
+ (132,4,1397792806,'113.160.178.133'),
+ (133,8,1397792907,'113.160.178.133'),
+ (134,4,1397793161,'113.160.178.133'),
+ (135,11,1397794090,'113.160.178.133'),
+ (136,7,1397805749,'113.160.178.133'),
+ (137,1,1397807069,'117.6.79.96'),
+ (138,4,1397808307,'113.160.178.133'),
+ (139,4,1397984528,'123.17.59.91'),
+ (140,4,1397984529,'123.17.59.91'),
+ (141,4,1398480119,'113.160.178.133'),
+ (142,13,1398480220,'113.160.178.133'),
+ (143,8,1398480291,'113.160.178.133'),
+ (144,4,1398480370,'113.160.178.133'),
+ (145,4,1398482823,'113.160.178.133'),
+ (146,4,1398742698,'113.160.178.133'),
+ (147,1,1399272974,'117.6.79.96'),
+ (148,4,1399363733,'113.160.178.133'),
+ (149,4,1399423600,'113.160.178.133'),
+ (150,1,1399738756,'42.113.130.214'),
+ (151,1,1399917102,'42.114.72.253'),
+ (152,4,1399945054,'113.160.178.133'),
+ (153,4,1399974647,'113.160.178.133'),
+ (154,1,1400000528,'1.55.162.44'),
+ (155,4,1400050850,'113.160.178.133'),
+ (156,1,1400110250,'42.113.155.53'),
+ (157,4,1400113177,'42.113.155.53'),
+ (158,4,1400113188,'42.113.155.53'),
+ (159,4,1400124261,'113.160.178.133'),
+ (160,4,1400124947,'113.160.178.133'),
+ (161,4,1400125594,'117.6.79.96'),
+ (162,4,1400128142,'113.160.178.133'),
+ (163,4,1400137743,'113.160.178.133'),
+ (164,19,1400137823,'113.160.178.133'),
+ (165,19,1400138971,'113.160.178.133'),
+ (166,22,1400141280,'113.160.178.133'),
+ (167,19,1400141504,'113.160.178.133'),
+ (168,23,1400142401,'113.160.178.133'),
+ (169,25,1400142642,'113.160.178.133'),
+ (170,24,1400142758,'113.160.178.133'),
+ (171,20,1400142844,'113.160.178.133'),
+ (172,21,1400142929,'113.160.178.133'),
+ (173,24,1400143093,'113.160.178.133'),
+ (174,21,1400143180,'113.160.178.133'),
+ (175,20,1400143263,'113.160.178.133'),
+ (176,21,1400143396,'113.160.178.133'),
+ (177,20,1400143503,'117.6.79.96'),
+ (178,20,1400143639,'113.160.178.133'),
+ (179,20,1400143645,'113.160.178.133'),
+ (180,19,1400143670,'113.160.178.133'),
+ (181,20,1400212190,'113.160.178.133'),
+ (182,29,1400213703,'113.160.178.133'),
+ (183,19,1400229921,'113.160.178.133'),
+ (184,22,1400231219,'113.160.178.133'),
+ (185,28,1400231446,'113.160.178.133'),
+ (186,20,1400231587,'117.6.79.96'),
+ (187,19,1400232670,'113.160.178.133'),
+ (188,20,1400339201,'::1'),
+ (189,20,1400385058,'::1'),
+ (190,21,1400386599,'::1'),
+ (191,20,1400386628,'::1'),
+ (192,20,1400424188,'::1'),
+ (193,20,1401116934,'::1'),
+ (194,20,1401289226,'::1');
 /*!40000 ALTER TABLE `users_log` ENABLE KEYS */;
 
 
@@ -2108,7 +3211,7 @@ CREATE TABLE `xin_nghi_phep` (
   `xnp_ly_do` text NOT NULL,
   `xnp_chi_tiet` text,
   PRIMARY KEY (`xnp_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `xin_nghi_phep`
@@ -2116,8 +3219,14 @@ CREATE TABLE `xin_nghi_phep` (
 
 /*!40000 ALTER TABLE `xin_nghi_phep` DISABLE KEYS */;
 INSERT INTO `xin_nghi_phep` (`xnp_id`,`xnp_em_id`,`xnp_from_date`,`xnp_to_date`,`xnp_date_created`,`xnp_don_vi_status`,`xnp_ptccb_status`,`xnp_ly_do`,`xnp_chi_tiet`) VALUES 
- (3,1,'2014-02-02 21:42:07','2014-02-07 21:42:07','2013-12-27 21:42:29',1,-1,'Nghi om','<p>ah ang nay naoRet qua nen muon xin nghi</p>'),
- (4,22,'2014-04-10 00:00:00','2014-04-24 00:00:00','2014-04-03 23:29:24',1,-1,'dfdsfdsf ftg rft','<p>fdsfdsfsdf ert&nbsp;</p>');
+ (3,1,'2014-02-02 21:42:07','2014-02-07 21:42:07','2013-12-27 21:42:29',1,1,'Nghi om','<p>ah ang nay naoRet qua nen muon xin nghi</p>'),
+ (4,1,'2014-03-03 00:00:00','2014-03-05 00:00:00','2014-02-23 22:03:38',-1,-1,'Test lai he thong nghi phep','<p>Test lai thoi</p>'),
+ (5,13,'2014-04-01 00:00:00','2014-04-23 00:00:00','2014-04-14 02:20:42',-1,1,'ThÄƒm gia Ä‘Ã¬nh','<p>táº¡i TP Há»“ Ch&iacute; Minh</p>\r\n<p>&nbsp;</p>'),
+ (6,13,'2014-04-23 00:00:00','2014-04-25 00:00:00','2014-04-16 03:24:07',-1,1,'Du lá»‹ch gia Ä‘Ã¬nh',''),
+ (7,19,'2014-04-22 00:00:00','2014-04-24 00:00:00','2014-04-17 22:37:29',1,1,'Äi khÃ¡m bá»‡nh',''),
+ (8,73,'2014-06-03 00:00:00','2014-06-05 00:00:00','2014-05-15 02:43:21',1,-1,'Äi khÃ¡m bá»‡nh','<p>Kh&aacute;m dáº¡ d&agrave;y</p>'),
+ (9,330,'2014-05-26 00:00:00','2014-05-26 00:00:00','2014-05-16 03:39:22',-1,1,'Äi khÃ¡m bá»‡nh','<p>Thá»‹ lá»±c giáº£m s&uacute;t. Xin ph&eacute;p Ä‘i kh&aacute;m máº¯t</p>'),
+ (10,69,'2014-05-01 00:00:00','2014-05-01 00:00:00','2014-05-18 12:18:29',-1,-1,'114324234234','<p>11</p>');
 /*!40000 ALTER TABLE `xin_nghi_phep` ENABLE KEYS */;
 
 
