@@ -29,7 +29,7 @@
                         <span class="help-inline">(*)</span>
                     </div>
                 </div>
-                
+
                 <div class="control-group">
                     <label class="control-label" for="hld_code">Mã ngày công</label>
                     <div class="controls">
@@ -47,6 +47,16 @@
                 </div>
 
                 <div class="control-group">
+                    <label class="control-label" for="hld_ngay_cong">Giờ làm việc</label>
+                    <div class="controls">
+                        <?php
+                        $ngay_cong_options = array(0 => 'Không tính giờ làm', 1 => 'Một ngày làm', 2 => 'Nửa ngày làm');
+                        echo $this->formSelect('hld_ngay_cong', $this->hld_info->hld_ngay_cong, null, $ngay_cong_options);
+                        ?>                     
+                    </div>
+                </div>
+                
+                <div class="control-group">
                     <label class="control-label" for="hld_status">Trạng thái</label>
                     <div class="controls">
                         <?php
@@ -55,6 +65,7 @@
                         ?>                     
                     </div>
                 </div>
+                
                 <div class="control-group">
                     <div class="controls">
                         <p>

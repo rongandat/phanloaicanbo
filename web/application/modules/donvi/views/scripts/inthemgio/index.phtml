@@ -1,0 +1,92 @@
+<div class="body_content float_right">
+    <h5>In khai báo làm thêm giờ</h5>               
+
+    <div class="main-content-box">  
+        <form name="appForm" class="form-horizontal" method="post" action="">
+
+            <div class="control-group">
+                <label class="control-label" for="ltg_date">Ngày</label>
+                <div class="controls">
+                    <?php echo $this->formText('ltg_date', $this->ltg_date, array('class' => 'input-large', 'placeholder' => '')); ?>                  
+                    <span class="help-block">Chọn ngày làm thêm giờ</span>
+                </div>            
+            </div>
+            <div class="clearfix">
+            </div>
+            <div class="btn-toolbar float_left">
+                <div class="btn-group">
+                    <button class="btn" onclick="OnSubmitForm('<?php echo $this->baseUrl('donvi/inthemgio/index/ngay/'.$this->ngay.'/thang/'.$this->thang.'/nam/'.$this->nam); ?>')"><i class="icon-print"></i> Tạo bản in</button>
+                </div>
+            </div>
+            <div class="clearfix">
+            </div>
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>  
+                        <th class="checkall_style"><input type="checkbox" name="check_all" id="checkbox" onclick="checkedAll()"></th>
+                        <th>Họ tên</th>
+                        <th style="width: 50px;">Ngày</th>
+                        <th style="width: 100px;">Sáng</th>
+                        <th style="width: 100px;">Chiều</th>
+                        <th style="width: 140px;">Đơn vị</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    foreach ($this->lam_them_gio as $item) {
+                        $trang_thai_icon = 'Chờ duyệt';
+                        $don_vi_icon = 'Chờ duyệt';
+                        $flag_add_edit = true;
+                        if ($item->ltg_tccb_status == 0) {
+                            $trang_thai_icon = 'Không duyệt';
+                            $flag_add_edit = false;
+                        }
+                        if ($item->ltg_don_vi_status == 0) {
+                            $don_vi_icon = 'Không duyệt';
+                        }
+                        if ($item->ltg_tccb_status == 1) {
+                            $trang_thai_icon = 'Đã duyệt';
+                            $flag_add_edit = false;
+                        }
+                        if ($item->ltg_don_vi_status == 1) {
+                            $don_vi_icon = 'Đã duyệt';
+                        }
+                        ?>
+                        <tr>
+                            <td class="checkall_style"><input type="checkbox" name="cid[]" id="cid" value="<?php echo $item->ltg_id; ?>"></td>
+                            <td id="name_<?php echo $item->ltg_em_id; ?>"><?php echo $item->em_ho . ' ' . $item->em_ten; ?></td>
+                            <td><?php echo date('d-m', strtotime($item->ltg_ngay)); ?></td>
+                            <td><?php echo ($item->ltg_gio_bat_dau ? $item->ltg_gio_bat_dau . ':' . $item->ltg_phut_bat_dau . '-' . $item->ltg_gio_ket_thuc . ':' . $item->ltg_phut_ket_thuc : ''); ?></td>
+                            <td><?php echo ($item->ltg_gio_bat_dau_chieu ? $item->ltg_gio_bat_dau_chieu . ':' . $item->ltg_phut_bat_dau_chieu . '-' . $item->ltg_gio_ket_thuc_chieu . ':' . $item->ltg_phut_ket_thuc_chieu : ''); ?></td>
+                            <td><span id="sp_xnp_<?php echo $item->ltg_id; ?>"><?php echo $don_vi_icon; ?></span> <?php echo ($flag_add_edit ? '<i class="icon-ok-sign"></i> <i class="icon-remove-sign"></i>' : ''); ?></td>
+                        </tr>
+                        <?php
+                    }
+                    ?>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>
+
+
+
+<script>
+    
+    $( "#ltg_date" ).datepicker({
+        yearRange: '1900:2050',
+        changeMonth: true,
+        changeYear: true,
+        defaultDate: "+1w",
+        numberOfMonths: 1,
+        dateFormat: 'd/m/yy',
+        showOn: "both",
+        buttonImage: site_url+"/date-picker-icon.png",
+        onClose: function( selectedDate ) {
+            console.log(selectedDate);
+            var date_array = selectedDate.split('/');
+            window.location = site_url+'/donvi/inthemgio/index/ngay/'+date_array[0]+'/thang/'+date_array[1]+'/nam/'+date_array[2];
+        }
+    });
+       
+</script>

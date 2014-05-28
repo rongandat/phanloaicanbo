@@ -92,6 +92,7 @@ class Hethong_HolidaysController extends Zend_Controller_Action {
             $hld_code = trim($this->_arrParam['hld_code']);
             $hld_order = trim($this->_arrParam['hld_order']);
             $hld_status = $this->_arrParam['hld_status'];
+            $hld_ngay_cong = $this->_arrParam['hld_ngay_cong'];
 
             $validator_length = new Zend_Validate_StringLength(array('min' => 1, 'max' => 100));
             if (!is_numeric($hld_order)) {
@@ -114,6 +115,7 @@ class Hethong_HolidaysController extends Zend_Controller_Action {
                     'hld_name' => $hld_name,
                     'hld_code' => $hld_code,
                     'hld_status' => $hld_status,
+                    'hld_ngay_cong' => $hld_ngay_cong,
                     'hld_order' => $hld_order,
                     'hld_date_added' => $current_time,
                     'hld_date_modified' => $current_time
@@ -153,6 +155,7 @@ class Hethong_HolidaysController extends Zend_Controller_Action {
             $hld_code = trim($this->_arrParam['hld_code']);
             $hld_order = trim($this->_arrParam['hld_order']);
             $hld_status = $this->_arrParam['hld_status'];
+            $hld_ngay_cong = $this->_arrParam['hld_ngay_cong'];
 
             if (!is_numeric($hld_order)) {
                 $hld_order = 0;
@@ -176,6 +179,7 @@ class Hethong_HolidaysController extends Zend_Controller_Action {
                     'hld_name' => $hld_name,
                     'hld_code' => $hld_code,
                     'hld_status' => $hld_status,
+                    'hld_ngay_cong' => $hld_ngay_cong,
                     'hld_order' => $hld_order,
                     'hld_date_modified' => $current_time
                         ), 'hld_id=' . $id
@@ -184,6 +188,7 @@ class Hethong_HolidaysController extends Zend_Controller_Action {
                 $hld_info->hld_name = $hld_name;
                 $hld_info->hld_code = $hld_code;
                 $hld_info->hld_status = $hld_status;
+                $hld_info->hld_ngay_cong = $hld_ngay_cong;
                 $hld_info->hld_order = $hld_order;
 
                 $success_message = 'Đã cập nhật thông tin thành công.';
