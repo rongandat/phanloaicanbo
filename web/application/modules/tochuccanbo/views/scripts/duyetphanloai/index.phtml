@@ -47,6 +47,12 @@ foreach ($this->list_phong_ban_option as $phong_ban) {
                 <button class="btn" onclick="OnSubmitForm('<?php echo $this->baseUrl('tochuccanbo/duyetphanloai/updatestatus/status/0/thang/' . $this->thang . '/nam/' . $this->nam . '/phongban/' . $this->pb_id); ?>')" title="Yêu cầu làm lại"><i class="icon-remove-sign"></i> Yêu cầu làm lại</button>
             </div>
         </div>
+        <div class="btn-toolbar form-search float_right text-right">
+            <div class="btn-group">
+                <a class="btn" type="button" href="<?php echo $this->baseUrl('tochuccanbo/phanloaithang/'); ?>"><i class="icon-list-alt"></i> Thống kê tháng</a>
+                <a class="btn" type="button" href="<?php echo $this->baseUrl('tochuccanbo/phanloainam/'); ?>"><i class="icon-list-alt"></i> Thống kê năm</a>
+            </div>
+        </div>
         <div class="clearfix">
         </div>
         <table class="table table-bordered table-hover">
