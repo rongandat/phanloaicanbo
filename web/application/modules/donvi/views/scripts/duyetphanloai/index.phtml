@@ -37,19 +37,43 @@ foreach ($this->ket_qua as $ket_qua) {
                         //$phan_loai = $this->viewGetPhanLoai($nhan_vien->em_id, (int) $this->thang, (int) $this->nam);
                         $phan_loai = $this->viewGetPhanLoai($nhan_vien->em_id, (int) $this->thang, (int) $this->nam);
                         $rd_id = rand(1000000, 9999999);
+                        $pl_nhan_vien = '';
+                        if ($phan_loai) {
+                            if ($phan_loai->dg_phan_loai != 'O')
+                                $pl_nhan_vien = $phan_loai->dg_phan_loai;
+                            else
+                                $pl_nhan_vien = '-';
+                        }
+                        $pl_don_vi = '';
+                        if ($phan_loai) {
+                            if ($phan_loai->dg_don_vi_status != 'O')
+                                $pl_don_vi = $phan_loai->dg_don_vi_status;
+                            else
+                                $pl_don_vi = '-';
+                        }
+                        $pl_ptccb = '';
+                        if ($phan_loai) {
+                            if ($phan_loai->dg_ptccb_status != 'O')
+                                $pl_ptccb = $phan_loai->dg_ptccb_status;
+                            else
+                                $pl_ptccb = '-';
+                        }
                         ?>
                         <tr>
                             <td class="checkall_style"><input type="checkbox" name="cid[]" id="cid" value="<?php echo $nhan_vien->em_id; ?>"></td>
                             <td id="name_<?php echo $nhan_vien->em_id; ?>"><?php echo $nhan_vien->em_ho . ' ' . $nhan_vien->em_ten; ?></td>
-                            <td><?php echo ($phan_loai ? $phan_loai->dg_phan_loai : '-'); ?></td>
+                            <td><?php echo $pl_nhan_vien; ?></td>
                             <td>
                                 <?php
-                                echo ($phan_loai ? '<span id="sp_dg_' . $phan_loai->dg_id . '">' . $phan_loai->dg_don_vi_status . '</span>' : '-');
+                                echo ($phan_loai ? '<span id="sp_dg_' . $phan_loai->dg_id . '">' . $pl_don_vi . '</span>' : '');
                                 if ($phan_loai && $phan_loai->dg_ptccb_status == ''):
                                     ?>
                                     <div class="dropdown float_right" style="padding-right: 6px;">
                                         <a class="btn btn-mini" id="drop_pl_<?php echo $phan_loai->dg_id; ?>" role="button" data-toggle="dropdown" href="#"><i class="icon-refresh"></i> <b class="caret"></b></a>                                    
                                         <ul class="dropdown-menu" role="menu" aria-labelledby="drop_pl_<?php echo $phan_loai->dg_id; ?>">
+                                            <li role="presentation">
+                                                <a role="menuitem" tabindex="-1" onclick="on_update_status(<?php echo $phan_loai->dg_id; ?>,'O')">-</a>
+                                            </li>
                                             <li role="presentation">
                                                 <a role="menuitem" tabindex="-1" onclick="on_update_status(<?php echo $phan_loai->dg_id; ?>,'A')">A</a>
                                             </li>
@@ -59,11 +83,17 @@ foreach ($this->ket_qua as $ket_qua) {
                                             <li role="presentation">
                                                 <a role="menuitem" tabindex="-1" onclick="on_update_status(<?php echo $phan_loai->dg_id; ?>,'C')">C</a>
                                             </li>
+                                            <li role="presentation">
+                                                <a role="menuitem" tabindex="-1" onclick="on_update_status(<?php echo $phan_loai->dg_id; ?>,'D')">D</a>
+                                            </li>
+                                            <li role="presentation">
+                                                <a role="menuitem" tabindex="-1" onclick="on_update_status(<?php echo $phan_loai->dg_id; ?>,'')">Yêu cầu làm lại</a>
+                                            </li>
                                         </ul>
                                     </div>
                                 <?php endif; ?>                                
                             </td>
-                            <td><?php echo ($phan_loai ? $phan_loai->dg_ptccb_status : '-'); ?></td>
+                            <td><?php echo $pl_ptccb; ?></td>
                             <td>
                                 <div class="dropdown float_left" style="padding-right: 6px;">
                                     <a class="btn btn-mini" id="drop_<?php echo $nhan_vien->em_id; ?>" role="button" data-toggle="dropdown" href="#"><i class="icon-th-list"></i> Chức năng <b class="caret"></b></a>                                    

@@ -43,8 +43,8 @@ foreach ($this->list_phong_ban_option as $phong_ban) {
         </div>   
         <div class="btn-toolbar float_left">
             <div class="btn-group">
-                <button class="btn" onclick="OnSubmitForm('<?php echo $this->baseUrl('tochuccanbo/duyetphanloai/updatestatus/status/1/thang/' . $this->thang . '/nam/' . $this->nam.'/phongban/'.$this->pb_id); ?>')" title="Phân loại lấy theo đơn vị đã duyệt"><i class="icon-ok-sign"></i> Duyệt như đơn vị</button>
-                <button class="btn" onclick="OnSubmitForm('<?php echo $this->baseUrl('tochuccanbo/duyetphanloai/updatestatus/status/0/thang/' . $this->thang . '/nam/' . $this->nam.'/phongban/'.$this->pb_id); ?>')" title="Yêu cầu làm lại"><i class="icon-remove-sign"></i> Không duyệt</button>
+                <button class="btn" onclick="OnSubmitForm('<?php echo $this->baseUrl('tochuccanbo/duyetphanloai/updatestatus/status/1/thang/' . $this->thang . '/nam/' . $this->nam . '/phongban/' . $this->pb_id); ?>')" title="Phân loại lấy theo đơn vị đã duyệt"><i class="icon-ok-sign"></i> Duyệt như đơn vị</button>
+                <button class="btn" onclick="OnSubmitForm('<?php echo $this->baseUrl('tochuccanbo/duyetphanloai/updatestatus/status/0/thang/' . $this->thang . '/nam/' . $this->nam . '/phongban/' . $this->pb_id); ?>')" title="Yêu cầu làm lại"><i class="icon-remove-sign"></i> Yêu cầu làm lại</button>
             </div>
         </div>
         <div class="clearfix">
@@ -66,25 +66,42 @@ foreach ($this->list_phong_ban_option as $phong_ban) {
                 foreach ($this->list_nhan_vien as $nhan_vien) {
                     $phan_loai = $this->viewGetPhanLoai($nhan_vien->em_id, (int) $this->thang, (int) $this->nam);
                     $rd_id = rand(1000000, 9999999);
+                    $pl_nhan_vien = '';
+                    if ($phan_loai) {
+                        if ($phan_loai->dg_phan_loai != 'O')
+                            $pl_nhan_vien = $phan_loai->dg_phan_loai;
+                        else
+                            $pl_nhan_vien = '-';
+                    }
+                    $pl_don_vi = '';
+                    if ($phan_loai) {
+                        if ($phan_loai->dg_don_vi_status != 'O')
+                            $pl_don_vi = $phan_loai->dg_don_vi_status;
+                        else
+                            $pl_don_vi = '-';
+                    }
+                    $pl_ptccb = '';
+                    if ($phan_loai) {
+                        if ($phan_loai->dg_ptccb_status != 'O')
+                            $pl_ptccb = $phan_loai->dg_ptccb_status;
+                        else
+                            $pl_ptccb = '-';
+                    }
                     ?>
                     <tr>
                         <td class="checkall_style"><input type="checkbox" name="cid[]" id="cid" value="<?php echo $nhan_vien->em_id; ?>"></td>
                         <td id="name_<?php echo $nhan_vien->em_id; ?>"><?php echo $nhan_vien->em_ho . ' ' . $nhan_vien->em_ten; ?></td>
                         <td><?php echo $list_phong_ban[$nhan_vien->em_phong_ban]; ?></td>
-                        <td><?php echo ($phan_loai ? $phan_loai->dg_phan_loai : '-'); ?></td>
+                        <td><?php echo $pl_nhan_vien; ?></td>
+                        <td><?php echo $pl_don_vi; ?></td>
                         <td>
-                            <?php
-                            echo ($phan_loai ? $phan_loai->dg_don_vi_status : '-');
-                            ?>                                
-                        </td>
-                        <td>
-                            <?php echo ($phan_loai ? '<span id="sp_dg_' . $nhan_vien->em_id . '">' . $phan_loai->dg_ptccb_status . '</span>' : '<span id="sp_dg_' . $nhan_vien->em_id . '"></span>'); ?>
+                            <?php echo '<span id="sp_dg_' . $nhan_vien->em_id . '">' . $pl_ptccb . '</span>'; ?>
 
                             <div class="dropdown float_right" style="padding-right: 6px;">
                                 <a class="btn btn-mini" id="drop_pl_<?php echo $nhan_vien->em_id; ?>" role="button" data-toggle="dropdown" href="#"><i class="icon-refresh"></i> <b class="caret"></b></a>                                    
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="drop_pl_<?php echo $nhan_vien->em_id; ?>">
                                     <li role="presentation">
-                                        <a role="menuitem" tabindex="-1" onclick="on_update_status(<?php echo $nhan_vien->em_id; ?>, <?php echo $this->thang; ?>, <?php echo $this->nam; ?>,'O')">Không duyệt</a>
+                                        <a role="menuitem" tabindex="-1" onclick="on_update_status(<?php echo $nhan_vien->em_id; ?>, <?php echo $this->thang; ?>, <?php echo $this->nam; ?>,'O')">-</a>
                                     </li>
                                     <li role="presentation">
                                         <a role="menuitem" tabindex="-1" onclick="on_update_status(<?php echo $nhan_vien->em_id; ?>, <?php echo $this->thang; ?>, <?php echo $this->nam; ?>,'A')">A</a>
@@ -94,6 +111,12 @@ foreach ($this->list_phong_ban_option as $phong_ban) {
                                     </li>
                                     <li role="presentation">
                                         <a role="menuitem" tabindex="-1" onclick="on_update_status(<?php echo $nhan_vien->em_id; ?>, <?php echo $this->thang; ?>, <?php echo $this->nam; ?>,'C')">C</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a role="menuitem" tabindex="-1" onclick="on_update_status(<?php echo $nhan_vien->em_id; ?>, <?php echo $this->thang; ?>, <?php echo $this->nam; ?>,'D')">D</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a role="menuitem" tabindex="-1" onclick="on_update_status(<?php echo $nhan_vien->em_id; ?>, <?php echo $this->thang; ?>, <?php echo $this->nam; ?>,'')">Yêu cầu làm lại</a>
                                     </li>
                                 </ul>
                             </div>

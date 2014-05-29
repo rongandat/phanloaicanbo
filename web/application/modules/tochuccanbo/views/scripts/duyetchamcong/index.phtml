@@ -88,10 +88,12 @@ foreach ($this->list_phong_ban_option as $phong_ban) {
                         <td style="width: 100px;">
                             <span class="cc_<?php echo $item->em_id; ?>"><?php echo $phong_to_chuc_status; ?></span>
                             <?php
-                            if($cham_cong && $cham_cong->c_don_vi_status>0):
-                            ?>
-                            <i class="icon-ok-sign" onclick="update_status(<?php echo $cham_cong->c_id; ?>,1)"></i> <i class="icon-remove-sign" onclick="update_status(<?php echo $cham_cong->c_id; ?>,0)"></i>
-                            <?php endif;?>
+                            if ($cham_cong && $cham_cong->c_don_vi_status > 0):
+                                ?>
+                                <span id="icc_<?php echo $item->em_id; ?>">
+                                    <i class="icon-ok-sign" onclick="update_status(<?php echo $cham_cong->c_id; ?>,1)"></i> <i class="icon-remove-sign" onclick="update_status(<?php echo $cham_cong->c_id; ?>,0)"></i>
+                                </span>
+                            <?php endif; ?>
                         </td>
                         <td style="width: 130px;">
                             <div class="dropdown float_left" style="padding-right: 6px;">
@@ -276,6 +278,7 @@ foreach ($this->list_phong_ban_option as $phong_ban) {
                     $('#tr_id_'+data.em_id).addClass('success');
                 }else{
                     $('#tr_id_'+data.em_id).removeClass('success');
+                    $('span#icc_'+data.em_id).hide();
                 }
             }else{
                 $.error_ui('Thông báo', 'Không thể thực hiện được!', 4000); 

@@ -274,9 +274,9 @@ class Donvi_ThongkethangController extends Zend_Controller_Action {
             if ($k) {
                 $objPHPExcel->getActiveSheet()->setTitle('Bảng lương');
                 if ($pb_selected && $phong_ban_selected_info) {
-                    $file_name = 'Thong_ke_luong_' . str_replace(' ', '_', $this->loc_tieng_viet($phong_ban_selected_info->pb_name)) . '_' . $thang . '-' . $nam . '.xls';
+                    $file_name = 'Thong_ke_thang_' . str_replace(' ', '_', $this->loc_tieng_viet($phong_ban_selected_info->pb_name)) . '_' . $thang . '-' . $nam . '.xls';
                 } else {
-                    $file_name = 'Thong_ke_luong_' . $thang . '-' . $nam . '.xls';
+                    $file_name = 'Thong_ke_thang_' . $thang . '-' . $nam . '.xls';
                 }
 
                 header('Content-Type: application/vnd.ms-excel');

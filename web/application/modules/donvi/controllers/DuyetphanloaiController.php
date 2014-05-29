@@ -87,8 +87,7 @@ class Donvi_DuyetphanloaiController extends Zend_Controller_Action {
             $danhgiaModel = new Front_Model_DanhGia();
             $process_status = $danhgiaModel->update(array('dg_don_vi_status' => $c_status), "dg_id=$c_id and (dg_ptccb_status='' or dg_ptccb_status IS NULL)");
             if($process_status){
-                $new_status = $c_status;
-                
+                $new_status = $c_status;                
                 $users = $this->_helper->GlobalHelpers->checkToChucUsers(4003);
                 $current_time = new Zend_Db_Expr('NOW()');
                 
@@ -106,6 +105,9 @@ class Donvi_DuyetphanloaiController extends Zend_Controller_Action {
                     $thongbao_model->insert($data);
                 }
             }
+        }
+        if($new_status =='O'){
+            $new_status = '-';
         }
         $this->view->new_status = $new_status;
         $this->view->process_status = $process_status;
