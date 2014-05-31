@@ -189,6 +189,7 @@
             <input type="hidden" name="bl_em_id" value="<?php echo $this->nv_id; ?>">
             <input type="hidden" name="bl_thang" value="<?php echo $this->thang; ?>">
             <input type="hidden" name="bl_nam" value="<?php echo $this->nam; ?>">
+            <input type="hidden" name="bl_phan_loai_he_so" value="<?php echo $phan_loai_he_so; ?>">
             <div class="control-group">
                 <label class="control-label">Tháng</label>
                 <div class="controls">
@@ -272,92 +273,106 @@
                 <table class="table table-bordered table-hover">
                     <tr>
                         <th style=" width: 300px;">Tên</th>
-                        <th colspan="3">Hệ số</th>
+                        <th colspan="2">Hệ số</th>
                         <th style="width: 220px;">Thành tiền</th>
                     </tr>
-                    <tbody>                        
+                    <tbody>
+                        <tr>
+                            <td>Kết quả phân loại tháng</td>
+                            <td style="width: 150px;">
+                                <select name="sl_phan_loai" id="sl_phan_loai" class="input-medium" onchange="re_calculator()">
+                                    <?php
+                                    foreach ($he_so_phan_loai as $phan_loai_type => $phan_loai_value) {
+                                        echo "<option value='$phan_loai_type' " . ($phan_loai_type == $phan_loai ? 'selected' : '') . ">$phan_loai_type</option>";
+                                    }
+                                    ?>
+                                </select>
+                            </td>
+                            <td><span id="lbl_phan_loai_he_so"><?php echo $phan_loai_he_so; ?></span></td>
+                            <td>Áp dụng cho hệ số 0.3</td>
+                        </tr>
                         <tr>
                             <td>Hệ số lương</td>
-                            <td colspan="3"><input type="text" onchange="re_calculator()" class="input-mini" name="bl_hs_luong" value="<?php echo $he_so_luong; ?>"/></td>
+                            <td colspan="2"><input type="text" onchange="re_calculator()" class="input-mini" name="bl_hs_luong" value="<?php echo $he_so_luong; ?>"/></td>
                             <td><span id="lbl_thanh_tien_hsl"><?php echo number_format($thanh_tien_hsl, 0, '.', ','); ?></span></td>
                         </tr>
                         <tr>
                             <td>Phụ cấp chức vụ</td>
-                            <td colspan="3"><input type="text" onchange="re_calculator()" class="input-mini" name="bl_hs_pc_cong_viec" value="<?php echo $hs_pc_chuc_vu; ?>"/></td>
+                            <td colspan="2"><input type="text" onchange="re_calculator()" class="input-mini" name="bl_hs_pc_cong_viec" value="<?php echo $hs_pc_chuc_vu; ?>"/></td>
                             <td><span id="lbl_thanh_tien_pc_cong_viec"><?php echo number_format($thanh_tien_pc_chuc_vu, 0, '.', ','); ?></span></td>
                         </tr>
                         <tr>
                             <td>Phụ cấp trách nhiệm</td>
-                            <td colspan="3"><input type="text" onchange="re_calculator()" class="input-mini" name="bl_hs_pc_trach_nhiem" value="<?php echo $hs_pc_trach_nhiem; ?>"/></td>
+                            <td colspan="2"><input type="text" onchange="re_calculator()" class="input-mini" name="bl_hs_pc_trach_nhiem" value="<?php echo $hs_pc_trach_nhiem; ?>"/></td>
                             <td><span id="lbl_thanh_tien_pc_trach_nhiem"><?php echo number_format($thanh_tien_pc_trach_nhiem, 0, '.', ','); ?></span></td>
                         </tr>
                         <tr>
                             <td>Phụ cấp khu vực</td>
-                            <td colspan="3"><input type="text" onchange="re_calculator()" class="input-mini" name="bl_hs_pc_khu_vuc" value="<?php echo $hs_pc_khu_vuc; ?>"/></td>
+                            <td colspan="2"><input type="text" onchange="re_calculator()" class="input-mini" name="bl_hs_pc_khu_vuc" value="<?php echo $hs_pc_khu_vuc; ?>"/></td>
                             <td><span id="lbl_thanh_tien_pc_khu_vuc"><?php echo number_format($thanh_tien_pc_khu_vuc, 0, '.', ','); ?></span></td>
-                        </tr>                        
-
+                        </tr>
+                        <tr>
+                            <td>Phụ cấp thu hút</td>
+                            <td><input type="text" onchange="re_calculator()" class="input-mini" name="bl_hs_pc_thu_hut" value="<?php echo $hs_pc_thu_hut_phan_tram; ?>"/>%</td>
+                            <td><span id="lbl_hs_pc_thu_hut"><?php echo $hs_pc_thu_hut; ?></span></td>
+                            <td>Áp dụng cho hệ số 0.3</td>
+                        </tr>
+                        <tr>
+                            <td>Phụ cấp độc hại</td>
+                            <td colspan="2">
+                                <input type="text" class="input-mini" name="bl_hs_pc_doc_hai" value="<?php echo $hs_pc_doc_hai; ?>"/>
+                                <?php
+                                $doc_hai_options = array(0 => 'Hệ số', 1 => 'Tiền cố định');
+                                echo $this->formSelect('bl_hs_pc_doc_hai_type', $hs_pc_doc_hai_type, array('class' => 'input-medium'), $doc_hai_options);
+                                ?> 
+                            </td>
+                            <td>Áp dụng cho hệ số 0.3</td>
+                        </tr>
                         <tr>
                             <td>Phụ cấp thâm niên vượt khung</td>
-                            <td style="width: 150px;" colspan="2"><input type="text" onchange="re_calculator()" class="input-mini" name="bl_hs_pc_tnvk" value="<?php echo $hs_pc_tnvk_phan_tram; ?>"/>%</td>
+                            <td style="width: 150px;"><input type="text" onchange="re_calculator()" class="input-mini" name="bl_hs_pc_tnvk" value="<?php echo $hs_pc_tnvk_phan_tram; ?>"/>%</td>
                             <td><span id="lbl_hs_pc_tnvk"><?php echo $hs_pc_tnvk; ?></span></td>
                             <td><span id="lbl_thanh_tien_pc_tnvk"><?php echo number_format($thanh_tien_pc_tham_nien_vuot_khung, 0, '.', ','); ?></span></td>
                         </tr>
                         <tr>
                             <td>Phụ cấp thâm niên</td>
-                            <td>
-                                <?php
-                                $thang_options = array();
-                                for ($i = 1; $i <= 12; $i++) {
-                                    $thang_options[$i] = $i;
-                                }
-
-                                $nam_options = array();
-                                for ($i = 1900; $i <= 2050; $i++) {
-                                    $nam_options[$i] = $i;
-                                }
-                                echo $this->formSelect('bl_tham_nien_thang', $hs_pc_doc_hai_type, array('class' => 'input-mini'), $thang_options);
-                                echo ' / ';
-                                echo $this->formSelect('bl_tham_nien_nam', $hs_pc_doc_hai_type, array('class' => 'input-small'), $nam_options);
-                                ?> 
-                            </td>
-                            <td style="width: 110px;"><input type="text" onchange="re_calculator()" class="input-mini" name="bl_tham_nien" value="<?php echo $tham_nien; ?>"/> %</td>
+                            <td style="width: 150px;"><input type="text" onchange="re_calculator()" class="input-mini" name="bl_tham_nien" value="<?php echo $tham_nien; ?>"/> Năm</td>
                             <td><span id="lbl_hs_pc_tham_nien"><?php echo $hs_pc_tham_nien; ?></span></td>
                             <td><span id="lbl_thanh_tien_pc_tham_nien"><?php echo number_format($thanh_tien_pc_tham_nien, 0, '.', ','); ?></span></td>
                         </tr>
                         <tr>
                             <td>Phụ cấp ưu đãi nghề</td>
-                            <td style="width: 150px;" colspan="2"><input type="text" onchange="re_calculator()" class="input-mini" name="bl_hs_pc_udn" value="<?php echo $uu_dai_nghe; ?>"/>%</td>
+                            <td style="width: 150px;"><input type="text" onchange="re_calculator()" class="input-mini" name="bl_hs_pc_udn" value="<?php echo $uu_dai_nghe; ?>"/>%</td>
                             <td><span id="lbl_hs_pc_udn"><?php echo $hs_pc_uu_dai_nghe; ?></span></td>
                             <td><span id="lbl_thanh_tien_pc_udn"><?php echo number_format($thanh_tien_pc_uu_dai_nghe, 0, '.', ','); ?></span></td>
                         </tr>
                         <tr>
                             <td>Phụ cấp công vụ</td>
-                            <td style="width: 150px;" colspan="2"><input type="text" onchange="re_calculator()" class="input-mini" name="bl_hs_pc_cong_vu" value="<?php echo $cong_vu; ?>"/>%</td>
+                            <td style="width: 150px;"><input type="text" onchange="re_calculator()" class="input-mini" name="bl_hs_pc_cong_vu" value="<?php echo $cong_vu; ?>"/>%</td>
                             <td><span id="lbl_hs_pc_cong_vu"><?php echo $hs_pc_cong_vu; ?></span></td>
                             <td><span id="lbl_thanh_tien_pc_cong_vu"><?php echo number_format($thanh_tien_pc_cong_vu, 0, '.', ','); ?></span></td>
                         </tr>
                         <tr>
                             <td>Phụ cấp kiêm nhiệm</td>
-                            <td colspan="3"><span id="lbl_hs_pc_kiem_nhiem"><?php echo $hs_pc_kiem_nhiem; ?></span></td>
+                            <td colspan="2"><span id="lbl_hs_pc_kiem_nhiem"><?php echo $hs_pc_kiem_nhiem; ?></span></td>
                             <td><span id="lbl_thanh_tien_pc_kiem_nhiem"><?php echo number_format($thanh_tien_pc_kiem_nhiem, 0, '.', ','); ?></span></td>
                         </tr>
                         <tr>
                             <td>Phụ cấp khác</td>
-                            <td colspan="3"><input type="text" onchange="re_calculator()" class="input-mini" name="bl_hs_pc_khac" value="<?php echo $hs_pc_khac; ?>"/><?php echo $hs_pc_khac_type ? '%' : ''; ?></td>
+                            <td colspan="2"><input type="text" onchange="re_calculator()" class="input-mini" name="bl_hs_pc_khac" value="<?php echo $hs_pc_khac; ?>"/><?php echo $hs_pc_khac_type ? '%' : ''; ?></td>
                             <td><span id="lbl_thanh_tien_pc_khac"><?php echo number_format($thanh_tien_pc_khac, 0, '.', ','); ?></span></td>
                         </tr>
                         <tr>
-                            <td colspan="4">Tổng cộng (I)</td>
+                            <td colspan="3">Tổng cộng (I)</td>
                             <td><span id="lbl_thanh_tien_tong_1"><?php echo number_format($tong_1, 0, '.', ','); ?></span></td>
                         </tr>
                         <tr>
                             <td>Tỷ lệ tăng thêm (H/S 0.5)</td>
-                            <td colspan="3"><span id="lbl_hs_tang_them"><?php echo $hs_tang_them; ?></span></td>
+                            <td colspan="2"><span id="lbl_hs_tang_them"><?php echo $hs_tang_them; ?></span></td>
                             <td><span id="lbl_thanh_tien_tang_them"><?php echo number_format($ti_le_tang_them, 0, '.', ','); ?></span></td>
                         </tr>
                         <tr>
-                            <td colspan="4"><strong>Tổng cộng (II)</strong></td>
+                            <td colspan="3"><strong>Tổng cộng (II)</strong></td>
                             <td><strong><span id="lbl_thanh_tien_tong_2"><?php echo number_format($tong_2, 0, '.', ','); ?></span></strong></td>
                         </tr>
                     </tbody>
@@ -372,7 +387,7 @@
                             <th style="width: 20px;">#</th>
                             <th style="width: 90px;">Ngày</th>
                             <th>Lý do</th>
-                            <th style="width: 220px;">Mức thưởng</th>
+                            <th style="width: 250px;">Mức thưởng</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -410,7 +425,7 @@
                             <th style="width: 20px;">#</th>
                             <th style="width: 90px;">Ngày</th>
                             <th>Lý do</th>
-                            <th style="width: 220px;">Mức phạt</th>
+                            <th style="width: 250px;">Mức phạt</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -442,7 +457,7 @@
                     <tr>
 
                         <th>Tổng Cộng = II + III - IV</th>
-                        <th style="width: 220px;"><span id="lbl_thanh_tien_tong_cong"><?php echo number_format($tong_cong, 0, '.', ','); ?></span></th>
+                        <th style="width: 250px;"><span id="lbl_thanh_tien_tong_cong"><?php echo number_format($tong_cong, 0, '.', ','); ?></span></th>
                     </tr>
                 </thead>                
             </table>
@@ -515,11 +530,14 @@
         $('#bl_thang_nam').monthpicker('show');
     });
     
-    function re_calculator(){        
+    function re_calculator(){
+        var phan_loai = $('select[name=sl_phan_loai]').val();
+        var hs_phan_loai = he_so_phan_loai[phan_loai];
         var bl_hs_luong = $('input[name=bl_hs_luong]').val();
         var bl_hs_pc_chuc_vu = $('input[name=bl_hs_pc_cong_viec]').val();
         var bl_hs_pc_trach_nhiem = $('input[name=bl_hs_pc_trach_nhiem]').val();
-        var bl_hs_pc_khu_vuc = $('input[name=bl_hs_pc_khu_vuc]').val();        
+        var bl_hs_pc_khu_vuc = $('input[name=bl_hs_pc_khu_vuc]').val();
+        var bl_hs_pc_thu_hut = $('input[name=bl_hs_pc_thu_hut]').val();
         var bl_hs_pc_tnvk = $('input[name=bl_hs_pc_tnvk]').val();
         var bl_tham_nien = $('input[name=bl_tham_nien]').val();
         var bl_hs_pc_udn = $('input[name=bl_hs_pc_udn]').val();
@@ -531,6 +549,7 @@
         if(bl_hs_pc_chuc_vu == '') bl_hs_pc_chuc_vu = 0;
         if(bl_hs_pc_trach_nhiem == '') bl_hs_pc_trach_nhiem = 0;
         if(bl_hs_pc_khu_vuc == '') bl_hs_pc_khu_vuc = 0;
+        if(bl_hs_pc_thu_hut == '') bl_hs_pc_thu_hut = 0;
         if(bl_hs_pc_tnvk == '') bl_hs_pc_tnvk = 0;
         if(bl_tham_nien == '') bl_tham_nien = 0;
         if(bl_hs_pc_udn == '') bl_hs_pc_udn = 0;
@@ -540,6 +559,7 @@
         bl_hs_pc_chuc_vu = parseFloat(Math.floor(bl_hs_pc_chuc_vu * 100) / 100);
         bl_hs_pc_trach_nhiem = parseFloat(Math.floor(bl_hs_pc_trach_nhiem * 100) / 100);
         bl_hs_pc_khu_vuc = parseFloat(Math.floor(bl_hs_pc_khu_vuc * 100) / 100);
+        bl_hs_pc_thu_hut = parseFloat(Math.floor(bl_hs_pc_thu_hut * 100) / 100);
         bl_hs_pc_tnvk = parseFloat(Math.floor(bl_hs_pc_tnvk * 100) / 100);
         bl_tham_nien = parseFloat(Math.floor(bl_tham_nien * 100) / 100);
         bl_hs_pc_udn = parseFloat(Math.floor(bl_hs_pc_udn * 100) / 100);
@@ -572,7 +592,6 @@
                 var hs_pc_tham_nien = 0;
             }
         }
-        
         hs_pc_tham_nien = parseFloat(Math.floor(hs_pc_tham_nien * 100) / 100);
         var thanh_tien_pc_tham_nien = hs_pc_tham_nien * pc_tham_nien;
         
@@ -580,8 +599,13 @@
         hs_pc_uu_dai_nghe = parseFloat((Math.floor(hs_pc_uu_dai_nghe * 100) / 100)+'');       
         var thanh_tien_pc_uu_dai_nghe = hs_pc_uu_dai_nghe * pc_uu_dai_nghe;               
         
+        if (!giai_doan && !loai_luong){
+            var he_so_pc_thu_hut = (bl_hs_luong + bl_hs_pc_chuc_vu + hs_pc_tnvk) * bl_hs_pc_thu_hut / 100;
+        }else{
+            var he_so_pc_thu_hut = (bl_hs_pc_chuc_vu + hs_pc_tnvk) * bl_hs_pc_thu_hut / 100;            
+        }
         
-        
+        he_so_pc_thu_hut = parseFloat((Math.floor(he_so_pc_thu_hut * 100) / 100)+'');  
                         
         var hs_pc_cong_vu = (bl_hs_luong + bl_hs_pc_chuc_vu + hs_pc_tnvk) * bl_hs_pc_cong_vu / 100;
         hs_pc_cong_vu = parseFloat(Math.floor(hs_pc_cong_vu * 100) / 100);
@@ -610,11 +634,13 @@
         var tong_2 = tong_1 + ti_le_tang_them;
         var tong_cong = tong_2 + tong_khen_thuong - tong_khien_trach;
         
-        
+        $('input[name=bl_phan_loai_he_so]').val(hs_phan_loai);
+        $('#lbl_phan_loai_he_so').html(hs_phan_loai);
         $('#lbl_thanh_tien_hsl').html(number_format(thanh_tien_hsl, 0, '.', ','));
         $('#lbl_thanh_tien_pc_cong_viec').html(number_format(thanh_tien_pc_cong_viec, 0, '.', ','));
         $('#lbl_thanh_tien_pc_trach_nhiem').html(number_format(thanh_tien_pc_trach_nhiem, 0, '.', ','));
         $('#lbl_thanh_tien_pc_khu_vuc').html(number_format(thanh_tien_pc_khu_vuc, 0, '.', ',')); 
+        $('#lbl_hs_pc_thu_hut').html(he_so_pc_thu_hut); 
         
         $('#lbl_hs_pc_tnvk').html(hs_pc_tnvk);
         $('#lbl_thanh_tien_pc_tnvk').html(number_format(thanh_tien_pc_tham_nien_vuot_khung, 0, '.', ','));

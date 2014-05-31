@@ -1244,6 +1244,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
 
             $eh_tham_nien_thang = $this->_request->getParam('eh_tham_nien_thang', 0);
             $eh_tham_nien_nam = $this->_request->getParam('eh_tham_nien_nam', 0);
+            $eh_pc_tham_nien = $this->_request->getParam('eh_pc_tham_nien', 0);
 
             $eh_thang_ap_dung = $this->_request->getParam('eh_thang_ap_dung', 0);
             $eh_nam_ap_dung = $this->_request->getParam('eh_nam_ap_dung', 0);
@@ -1296,6 +1297,9 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
             if (!is_numeric($eh_pc_khac)) {
                 $error_message = array('Phụ cấp khác phải có dạng số.');
             }
+            if (!is_numeric($eh_pc_tham_nien)) {
+                $error_message = array('Phụ cấp thâm niên phải có dạng số.');
+            }
 
             if (!sizeof($error_message)) {
                 if ($em_id != $update_em_id) {
@@ -1316,6 +1320,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
                         'eh_pc_trach_nhiem' => $eh_pc_trach_nhiem,
                         'eh_pc_tnvk_phan_tram' => $eh_pc_tnvk_phan_tram,
                         'eh_tham_niem' => date_format($date_tham_nien, "Y-m-d H:iP"),
+                        'eh_pc_tham_nien' => $eh_pc_tham_nien,
                         'eh_pc_udn_phan_tram' => $eh_pc_udn_phan_tram,
                         'eh_pc_cong_vu_phan_tram' => $eh_pc_cong_vu_phan_tram,
                         'eh_pc_kiem_nhiem' => $eh_pc_kiem_nhiem,

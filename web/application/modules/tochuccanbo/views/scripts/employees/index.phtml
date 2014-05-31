@@ -354,8 +354,8 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
 
 <script type="text/javascript">
     jQuery(function($) {
-      $('#kt_money').autoNumeric('init');    
-      $('#kl_money').autoNumeric('init');    
+        $('#kt_money').autoNumeric('init');    
+        $('#kl_money').autoNumeric('init');    
     });
     
     function on_choose_phong_ban(){
@@ -374,6 +374,25 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
         $.post( site_url+'/tochuccanbo/employees/heso/id/'+em_id, $('#frm_update_heso').serialize(), function(data) {
             $('#mdHeSoBody').html(data);
         });       
+    }
+    
+    function change_tham_niem(){
+        var tn_thang = $('#eh_tham_nien_thang').val();
+        var tn_nam = $('#eh_tham_nien_nam').val();        
+        
+        var currentYear = (new Date).getFullYear();
+        var currentMonth = (new Date).getMonth()+1;
+        
+        var tham_nien = currentYear - tn_nam;
+        if(currentMonth<tn_thang){
+            tham_nien--;
+        }
+        
+            if (tham_nien < 5)
+                tham_nien = 0;        
+        
+        $('#eh_pc_tham_nien').val(tham_nien);
+        
     }
     
     function change_bac_luong(element, id_ngach_cong_chuc){
