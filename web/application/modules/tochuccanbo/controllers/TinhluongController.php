@@ -82,8 +82,6 @@ class Tochuccanbo_TinhluongController extends Zend_Controller_Action {
         $process_status = 0;
         if ($this->_request->isPost()) {
             $bl_em_id = $this->_request->getParam('bl_em_id', 0);
-            $phan_loai_thang = $this->_request->getParam('sl_phan_loai', 'A');
-            $phan_loai_thang_he_so = $this->_request->getParam('bl_phan_loai_he_so', 1.2);
             $bl_luong_toi_thieu = $this->_request->getParam('bl_luong_toi_thieu', 0);
             $bl_luong_thu_viec = $this->_request->getParam('bl_luong_thu_viec', 0);
             $bl_giai_doan = $this->_request->getParam('bl_giai_doan', 0);
@@ -98,22 +96,19 @@ class Tochuccanbo_TinhluongController extends Zend_Controller_Action {
             $bl_hs_pc_cong_viec = $this->_request->getParam('bl_hs_pc_cong_viec', 0);
             $bl_hs_pc_trach_nhiem = $this->_request->getParam('bl_hs_pc_trach_nhiem', 0);
             $bl_hs_pc_khu_vuc = $this->_request->getParam('bl_hs_pc_khu_vuc', 0);
-            $bl_hs_pc_thu_hut = $this->_request->getParam('bl_hs_pc_thu_hut', 0);
             $bl_hs_pc_tnvk = $this->_request->getParam('bl_hs_pc_tnvk', 0);
             $bl_tham_nien = $this->_request->getParam('bl_tham_nien', 0);
             $bl_hs_pc_udn = $this->_request->getParam('bl_hs_pc_udn', 0);
             $bl_hs_pc_cong_vu = $this->_request->getParam('bl_hs_pc_cong_vu', 0);
             $bl_hs_pc_khac = $this->_request->getParam('bl_hs_pc_khac', 0);
             $bl_hs_pc_khac_type = $this->_request->getParam('bl_pc_khac_type', 0);
-            $bl_hs_pc_doc_hai = $this->_request->getParam('bl_hs_pc_doc_hai', 0);
-            $bl_hs_pc_doc_hai_type = $this->_request->getParam('bl_hs_pc_doc_hai_type', 0);
+            $bl_tham_nien_thang = $this->_request->getParam('bl_tham_nien_thang', 0);
+            $bl_tham_nien_nam = $this->_request->getParam('bl_tham_nien_nam', 0);
 
             if ($bl_em_id == '')
                 $bl_em_id = 0;
             if ($bl_luong_toi_thieu == '')
                 $bl_luong_toi_thieu = 0;
-            if ($bl_hs_pc_doc_hai == '')
-                $bl_hs_pc_doc_hai = 0;
             if ($bl_luong_thu_viec == '')
                 $bl_luong_thu_viec = 0;
             if ($bl_giai_doan == '')
@@ -140,8 +135,6 @@ class Tochuccanbo_TinhluongController extends Zend_Controller_Action {
                 $bl_hs_pc_trach_nhiem = 0;
             if ($bl_hs_pc_khu_vuc == '')
                 $bl_hs_pc_khu_vuc = 0;
-            if ($bl_hs_pc_thu_hut == '')
-                $bl_hs_pc_thu_hut = 0;
             if ($bl_hs_pc_tnvk == '')
                 $bl_hs_pc_tnvk = 0;
             if ($bl_tham_nien == '')
@@ -183,8 +176,6 @@ class Tochuccanbo_TinhluongController extends Zend_Controller_Action {
                 $error_message = array('PC trách nhiệm phải là dạng số');
             if (!is_numeric($bl_hs_pc_khu_vuc))
                 $error_message = array('PC khu vực phải là dạng số');
-            if (!is_numeric($bl_hs_pc_thu_hut))
-                $error_message = array('PC thu hút phải là dạng số');
             if (!is_numeric($bl_hs_pc_tnvk))
                 $error_message = array('PC TNVK phải là dạng số');
             if (!is_numeric($bl_tham_nien))
@@ -195,19 +186,16 @@ class Tochuccanbo_TinhluongController extends Zend_Controller_Action {
                 $error_message = array('PC công vụ phải là dạng số');
             if (!is_numeric($bl_hs_pc_khac))
                 $error_message = array('PC khác phải là dạng số');
-            if (!is_numeric($bl_hs_pc_doc_hai))
-                $error_message = array('PC độc hại phải là dạng số');
 
             if (!sizeof($error_message)) {
                 $bangluongModel = new Front_Model_BangLuong();
                 $check_isset = $bangluongModel->fetchByDate($bl_em_id, "$bl_nam-$bl_thang-01 00:00:00", "$bl_nam-$bl_thang-31 23:59:59");
                 $current_time = new Zend_Db_Expr('NOW()');
                 $date_dieu_chinh = date_create($bl_nam . '-' . $bl_thang . '-1');
+                $date_tham_nien = date_create($bl_tham_nien_nam . '-' . $bl_tham_nien_thang . '-1');
                 $data = array(
                     'bl_em_id' => $bl_em_id,
                     'bl_ptccb_id' => $my_id,
-                    'bl_phan_loai' => $phan_loai_thang,
-                    'bl_phan_loai_he_so' => $phan_loai_thang_he_so,
                     'bl_luong_toi_thieu' => $bl_luong_toi_thieu,
                     'bl_luong_thu_viec' => $bl_luong_thu_viec,
                     'bl_giai_doan' => $bl_giai_doan,
@@ -220,15 +208,13 @@ class Tochuccanbo_TinhluongController extends Zend_Controller_Action {
                     'bl_hs_pc_cong_viec' => $bl_hs_pc_cong_viec,
                     'bl_hs_pc_trach_nhiem' => $bl_hs_pc_trach_nhiem,
                     'bl_hs_pc_khu_vuc' => $bl_hs_pc_khu_vuc,
-                    'bl_pc_thu_hut' => $bl_hs_pc_thu_hut,
                     'bl_hs_pc_tnvk' => $bl_hs_pc_tnvk,
                     'bl_tham_nien' => $bl_tham_nien,
+                    'bl_time_tham_nien' => date_format($date_tham_nien, "Y-m-d H:iP"),
                     'bl_hs_pc_udn' => $bl_hs_pc_udn,
                     'bl_hs_pc_cong_vu' => $bl_hs_pc_cong_vu,
                     'bl_hs_pc_khac' => $bl_hs_pc_khac,
                     'bl_pc_khac_type' => $bl_hs_pc_khac_type,
-                    'bl_pc_doc_hai' => $bl_hs_pc_doc_hai,
-                    'bl_pc_doc_hai_type' => $bl_hs_pc_doc_hai_type,
                     'bl_date_modified' => $current_time
                 );
 
@@ -239,19 +225,7 @@ class Tochuccanbo_TinhluongController extends Zend_Controller_Action {
                 } else {
                     $bl_id = $check_isset->bl_id;
                     $process_status = $bangluongModel->update($data, "bl_id=$bl_id");
-                }
-                
-                if ($process_status) {
-                    $danhgiaModel = new Front_Model_DanhGia();
-                    $find_row = $danhgiaModel->fetchRow("dg_em_id=$bl_em_id and dg_thang=$bl_thang and dg_nam=$bl_nam");
-                    if ($find_row) {
-                        $dg_id = $find_row->dg_id;
-                        $danhgiaModel->update(array('dg_ptccb_status' => $phan_loai_thang), "dg_id=$dg_id");
-                    } else {
-                        $current_time = new Zend_Db_Expr('NOW()');
-                        $danhgiaModel->insert(array('dg_em_id' => $bl_em_id, 'dg_thang' => $bl_thang, 'dg_nam' => $bl_nam, 'dg_cong_viec' => '', 'dg_ket_qua_cong_viec' => 0, 'dg_ptccb_status' => $phan_loai_thang, 'dg_date_created' => $current_time, 'dg_date_modifyed' => $current_time));
-                    }
-                }
+                }                
             }
         }
         $this->view->process_status = $process_status;

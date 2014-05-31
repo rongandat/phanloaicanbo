@@ -10,3 +10,7 @@ ALTER TABLE `holidays` ADD COLUMN `hld_ngay_cong` INTEGER UNSIGNED NOT NULL DEFA
 /*31-5*/
 ALTER TABLE `employees_heso` ADD COLUMN `eh_pc_tham_nien` DOUBLE NOT NULL DEFAULT 0 AFTER `eh_tham_niem`;
 ALTER TABLE `bang_luong` MODIFY COLUMN `bl_tham_nien` FLOAT NOT NULL DEFAULT 0 COMMENT 'phu cap tham nien (%)';
+
+ALTER TABLE `bang_luong` MODIFY COLUMN `bl_phan_loai` VARCHAR(45) CHARACTER SET latin1 COLLATE latin1_swedish_ci
+, CHARACTER SET utf8 COLLATE utf8_general_ci;
+

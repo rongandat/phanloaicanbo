@@ -179,17 +179,21 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
                             $hs_pc_trach_nhiem = $bang_luong->bl_hs_pc_trach_nhiem;
                             $hs_pc_khu_vuc = $bang_luong->bl_hs_pc_khu_vuc;
                             $hs_pc_tnvk_phan_tram = $bang_luong->bl_hs_pc_tnvk;
-                            $tham_nien = $bang_luong->bl_tham_nien;
+                            $hs_pc_tham_nien_phan_tram = $bang_luong->bl_tham_nien;
+                            $time_tham_niem = strtotime($bang_luong->bl_time_tham_nien);
                             $uu_dai_nghe = $bang_luong->bl_hs_pc_udn;
                             $cong_vu = $bang_luong->bl_hs_pc_cong_vu;
                             $kiem_nhiem = $bang_luong->bl_pc_kiem_nhiem;
                             $hs_pc_khac = $bang_luong->bl_hs_pc_khac;
                             $he_so_tang_them = $bang_luong->bl_pc_tang_them;
                             $hs_pc_khac_type = $bang_luong->bl_pc_khac_type;
-                            $hs_pc_thu_hut_phan_tram = $bang_luong->bl_pc_thu_hut;
-                            $phan_loai = strtoupper($bang_luong->bl_phan_loai);
-                            $phan_loai_he_so = $bang_luong->bl_phan_loai_he_so;
 
+                            $nam_tham_niem = date('Y', $time_tham_niem);
+                            $thang_tham_niem = date('m', $time_tham_niem);
+                            $tham_nien = $nam - $nam_tham_niem;
+                            if ($thang < $thang_tham_niem) {
+                                $tham_nien--;
+                            }
 
                             $luong_toi_thieu_sau_bh = (int) ($luong_toi_thieu * (100 - ($bhxh + $bhyt)) / 100);
                             $luong_toi_thieu_bhyt = (int) ($luong_toi_thieu * (100 - $bhyt) / 100);
@@ -223,21 +227,16 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
                             $thanh_tien_pc_tham_nien_vuot_khung = $hs_pc_tnvk * $pc_tnvk;
 
 
-                            if (!$giai_doan && !$loai_luong)
-                                $hs_pc_thu_hut = floor((($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $hs_pc_thu_hut_phan_tram / 100) * 100) / 100;
-                            else
-                                $hs_pc_thu_hut = floor((($hs_pc_chuc_vu + $hs_pc_tnvk) * $hs_pc_thu_hut_phan_tram / 100) * 100) / 100;
+                            /* if (!$giai_doan && !$loai_luong)
+                              $hs_pc_thu_hut = floor((($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $hs_pc_thu_hut_phan_tram / 100) * 100) / 100;
+                              else
+                              $hs_pc_thu_hut = floor((($hs_pc_chuc_vu + $hs_pc_tnvk) * $hs_pc_thu_hut_phan_tram / 100) * 100) / 100;
+                             */
 
                             if (!$giai_doan) {
-                                if ($tham_nien >= 5)
-                                    $hs_pc_tham_nien = floor((($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $tham_nien / 100) * 100) / 100;
-                                else
-                                    $hs_pc_tham_nien = 0;
-                            }else {
-                                if ($tham_nien >= 5)
-                                    $hs_pc_tham_nien = floor((($hs_pc_chuc_vu + $hs_pc_tnvk) * $tham_nien / 100) * 100) / 100;
-                                else
-                                    $hs_pc_tham_nien = 0;
+                                $hs_pc_tham_nien = floor((($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $hs_pc_tham_nien_phan_tram / 100) * 100) / 100;
+                            } else {
+                                $hs_pc_tham_nien = floor((($hs_pc_chuc_vu + $hs_pc_tnvk) * $hs_pc_tham_nien_phan_tram / 100) * 100) / 100;
                             }
                             $thanh_tien_pc_tham_nien = $hs_pc_tham_nien * $pc_tham_nien;
 
@@ -281,8 +280,8 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
                             $tong_1 = (int) ($thanh_tien_pc_khac + $thanh_tien_hsl + $thanh_tien_pc_chuc_vu + $thanh_tien_pc_trach_nhiem + $thanh_tien_pc_khu_vuc + $thanh_tien_pc_tham_nien_vuot_khung + $thanh_tien_pc_tham_nien + $thanh_tien_pc_uu_dai_nghe + $thanh_tien_pc_cong_vu + $thanh_tien_pc_kiem_nhiem + $tong_khen_thuong - $tong_khien_trach);
 
 
-                            $hs_tang_them = $hs_pc_thu_hut + $he_so_luong + $hs_pc_chuc_vu + $hs_pc_trach_nhiem + $hs_pc_khu_vuc + $hs_pc_tnvk + $hs_pc_tham_nien + $hs_pc_uu_dai_nghe + $hs_pc_cong_vu + $hs_pc_kiem_nhiem + $hs_pc_khac_he_so;
-                            $ti_le_tang_them = ($hs_tang_them - $hs_pc_kiem_nhiem) * $luong_toi_thieu * $he_so_tang_them * $phan_loai_he_so;
+                            $hs_tang_them = $he_so_luong + $hs_pc_chuc_vu + $hs_pc_trach_nhiem + $hs_pc_khu_vuc + $hs_pc_tnvk + $hs_pc_tham_nien + $hs_pc_uu_dai_nghe + $hs_pc_cong_vu + $hs_pc_kiem_nhiem + $hs_pc_khac_he_so;
+                            $ti_le_tang_them = ($hs_tang_them - $hs_pc_kiem_nhiem) * $luong_toi_thieu * $he_so_tang_them;
                             $tong_2 = (int) $tong_1 + $ti_le_tang_them;
 
 
