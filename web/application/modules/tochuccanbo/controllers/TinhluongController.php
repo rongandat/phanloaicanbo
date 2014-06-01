@@ -35,9 +35,9 @@ class Tochuccanbo_TinhluongController extends Zend_Controller_Action {
             'layoutPath' => $layoutPath);
         Zend_Layout::startMvc($option);
 
-        $date = time();
-        $thang = $this->_getParam('thang', date('m', $date));
-        $nam = $this->_getParam('nam', date('Y', $date));
+        $date = new Zend_Date();
+        $thang = $this->_getParam('thang', $date->toString("M"));
+        $nam = $this->_getParam('nam', $date->toString("Y"));
         $em_id = $this->_getParam('id', 0);
         $emModel = new Front_Model_Employees();
         $hesocbModel = new Front_Model_HeSo();
@@ -67,7 +67,48 @@ class Tochuccanbo_TinhluongController extends Zend_Controller_Action {
         $this->view->nv_id = $em_id;
         $this->view->bang_luong = $bang_luong;
         $this->view->phan_loai = $phan_loai;
-        if ($nam > date('Y', $date) || ($nam == date('Y', $date) && $thang > date('m', $date))) {
+        if ($nam > $date->toString("Y") || ($nam == $date->toString("Y") && $thang > $date->toString("M"))) {
+            $this->_helper->viewRenderer->setRender('thoigian');
+        }
+    }
+
+    public function heso03Action() {
+        $translate = Zend_Registry::get('Zend_Translate');
+        $this->view->title = 'Tính lương - ' . $translate->_('TEXT_DEFAULT_TITLE');
+        $this->view->headTitle($this->view->title);
+
+        $layoutPath = APPLICATION_PATH . '/templates/' . TEMPLATE_USED;
+        $option = array('layout' => '1_column/layout',
+            'layoutPath' => $layoutPath);
+        Zend_Layout::startMvc($option);
+
+        $date = new Zend_Date();
+        $date->subMonth(1);
+
+        $thang = $this->_getParam('thang', $date->toString("M"));
+        $nam = $this->_getParam('nam', $date->toString("Y"));
+        $em_id = $this->_getParam('id', 0);
+        $emModel = new Front_Model_Employees();
+        $hesocbModel = new Front_Model_HeSo();
+        $hesoModel = new Front_Model_EmployeesHeso();
+        $em_info = $emModel->fetchRow("em_id=$em_id");
+        $em_he_so = $hesoModel->getCurrentHeSo($thang, $nam, $em_id);
+        $lastHeSoLuong = $hesocbModel->fetchOneData(array('hs_ngay_bat_dau' => date("$nam-$thang-1")), 'hs_ngay_bat_dau DESC');
+
+        $bangluongModel = new Front_Model_BangLuong();
+        $bang_luong = $bangluongModel->fetchByDate($em_id, "$nam-$thang-01 00:00:00", "$nam-$thang-31 23:59:59");
+
+        $ketquaModel = new Front_Model_DanhGia();
+        $phan_loai = $ketquaModel->getPhanLoai($em_id, $thang, $nam);
+        $this->view->em_info = $em_info;
+        $this->view->he_so = $em_he_so;
+        $this->view->he_so_cb = $lastHeSoLuong;
+        $this->view->thang = $thang;
+        $this->view->nam = $nam;
+        $this->view->nv_id = $em_id;
+        $this->view->bang_luong = $bang_luong;
+        $this->view->phan_loai = $phan_loai;
+        if ($nam > $date->toString("Y") || ($nam == $date->toString("Y") && $thang > $date->toString("M"))) {
             $this->_helper->viewRenderer->setRender('thoigian');
         }
     }
@@ -225,7 +266,61 @@ class Tochuccanbo_TinhluongController extends Zend_Controller_Action {
                 } else {
                     $bl_id = $check_isset->bl_id;
                     $process_status = $bangluongModel->update($data, "bl_id=$bl_id");
-                }                
+                }
+            }
+        }
+        $this->view->process_status = $process_status;
+    }
+
+    public function luuheso03Action() {
+        $this->_helper->layout()->disableLayout();
+        $auth = Zend_Auth::getInstance();
+        $identity = $auth->getIdentity();
+        $my_id = $identity->em_id;
+        $error_message = array();
+        $success_message = '';
+        $process_status = 0;
+        if ($this->_request->isPost()) {
+            $bl_em_id = $this->_request->getParam('bl_em_id', 0);
+            $bl_thang = $this->_request->getParam('bl_thang', 0);
+            $bl_nam = $this->_request->getParam('bl_nam', 0);
+            $bl_phan_loai_he_so = $this->_request->getParam('bl_phan_loai_he_so', 0);
+            $bl_tong_he_so = $this->_request->getParam('bl_tong_he_so', 0);
+            $bl_tong_he_so_ca_nhan = $this->_request->getParam('bl_tong_he_so_ca_nhan', 0);
+            $bl_tong_he_so_plld = $this->_request->getParam('bl_tong_he_so_plld', 0);
+            $bl_tam_chi_dau_vao = $this->_request->getParam('bl_tam_chi_dau_vao', 0);
+            $bl_hs_pc_thu_hut = $this->_request->getParam('bl_hs_pc_thu_hut', 0);
+            $sl_phan_loai = $this->_request->getParam('sl_phan_loai', 'O');
+
+            if ($bl_hs_pc_thu_hut == '')
+                $bl_hs_pc_thu_hut = 0;
+
+
+            if (!is_numeric($bl_em_id) || !$bl_em_id)
+                $error_message = array('Thông tin nhân viên không chính xác');
+
+            if (!is_numeric($bl_hs_pc_thu_hut))
+                $error_message = array('PC thu hút phải là dạng số');
+
+            if (!sizeof($error_message)) {
+                $bangluongModel = new Front_Model_BangLuong();
+                $check_isset = $bangluongModel->fetchByDate($bl_em_id, "$bl_nam-$bl_thang-01 00:00:00", "$bl_nam-$bl_thang-31 23:59:59");
+                $current_time = new Zend_Db_Expr('NOW()');
+                $date_dieu_chinh = date_create($bl_nam . '-' . $bl_thang . '-1');
+                $data = array(
+                    'bl_ptccb_id' => $my_id,
+                    'bl_phan_loai' => $sl_phan_loai,
+                    'bl_phan_loai_he_so' => $bl_phan_loai_he_so,
+                    'bl_pc_thu_hut' => $bl_hs_pc_thu_hut,
+                    'bl_tong_he_so' => $bl_tong_he_so,
+                    'bl_tong_he_so_ca_nhan' => $bl_tong_he_so_ca_nhan,
+                    'bl_tong_he_so_plld' => $bl_tong_he_so_plld,
+                    'bl_tam_chi_dau_vao' => $bl_tam_chi_dau_vao,
+                    'bl_date_modified' => $current_time
+                );
+
+                $bl_id = $check_isset->bl_id;
+                $process_status = $bangluongModel->update($data, "bl_id=$bl_id");
             }
         }
         $this->view->process_status = $process_status;

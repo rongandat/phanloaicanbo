@@ -13,4 +13,10 @@ ALTER TABLE `bang_luong` MODIFY COLUMN `bl_tham_nien` FLOAT NOT NULL DEFAULT 0 C
 
 ALTER TABLE `bang_luong` MODIFY COLUMN `bl_phan_loai` VARCHAR(45) CHARACTER SET latin1 COLLATE latin1_swedish_ci
 , CHARACTER SET utf8 COLLATE utf8_general_ci;
+ALTER TABLE `bang_luong` MODIFY COLUMN `bl_phan_loai_he_so` FLOAT NOT NULL DEFAULT 0;
+
+ALTER TABLE `bang_luong` ADD COLUMN `bl_tong_he_so` FLOAT NOT NULL DEFAULT 0 AFTER `bl_pc_doc_hai_type`,
+ ADD COLUMN `bl_tong_he_so_ca_nhan` FLOAT NOT NULL DEFAULT 0 AFTER `bl_tong_he_so`,
+ ADD COLUMN `bl_tong_he_so_plld` FLOAT NOT NULL DEFAULT 0 AFTER `bl_tong_he_so_ca_nhan`,
+ ADD COLUMN `bl_tam_chi_dau_vao` DOUBLE NOT NULL DEFAULT 0 AFTER `bl_tong_he_so_plld`;
 

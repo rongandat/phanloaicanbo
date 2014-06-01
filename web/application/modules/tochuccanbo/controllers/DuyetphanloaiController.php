@@ -113,11 +113,11 @@ class Tochuccanbo_DuyetphanloaiController extends Zend_Controller_Action {
                     }
                     $bangluongModel = new Front_Model_BangLuong();
                     $bang_luong = $bangluongModel->fetchByDate($em_id, "$dg_nam-$dg_thang-01 00:00:00", "$dg_nam-$dg_thang-31 23:59:59");
-                    if ($bang_luong && $c_status != '') {
+                    /*if ($bang_luong && $c_status != '') {
                         $he_so_phan_loai = array('A' => 1.2, 'B' => 1, 'C' => 0.8, 'D' => 0, 'O' => 0);
                         $bl_id = $bang_luong->bl_id;
                         $bangluongModel->update(array('bl_phan_loai' => $c_status, 'bl_phan_loai_he_so' => $he_so_phan_loai[$c_status]), "bl_id=$bl_id");
-                    }
+                    }*/
 
                     $thongbao_model = new Front_Model_ThongBao();
                     $current_time = new Zend_Db_Expr('NOW()');
@@ -167,13 +167,13 @@ class Tochuccanbo_DuyetphanloaiController extends Zend_Controller_Action {
                         $process_status = $danhgiaModel->update(array('dg_ptccb_status' => '', 'dg_don_vi_status' => ''), "dg_id=$find_row->dg_id");
                     }
                     if ($process_status) {
-                        $bangluongModel = new Front_Model_BangLuong();
+                        /*$bangluongModel = new Front_Model_BangLuong();
                         $bang_luong = $bangluongModel->fetchByDate($find_row->dg_em_id, "$nam-$thang-01 00:00:00", "$nam-$thang-31 23:59:59");
                         if ($bang_luong) {
                             $he_so_phan_loai = array('A' => 1.2, 'B' => 1, 'C' => 0.8);
                             $bl_id = $bang_luong->bl_id;
                             $bangluongModel->update(array('bl_phan_loai' => $find_row->dg_don_vi_status, 'bl_phan_loai_he_so' => $he_so_phan_loai[$find_row->dg_don_vi_status]), "bl_id=$bl_id");
-                        }
+                        }*/
 
 
                         $thongbao_model = new Front_Model_ThongBao();
