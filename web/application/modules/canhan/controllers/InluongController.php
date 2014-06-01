@@ -65,6 +65,39 @@ class Canhan_InluongController extends Zend_Controller_Action {
         $this->view->bang_luong = $bang_luong;
     }
 
+    public function heso03Action() {
+        $translate = Zend_Registry::get('Zend_Translate');
+        $this->view->title = 'In lương - ' . $translate->_('TEXT_DEFAULT_TITLE');
+        $this->view->headTitle($this->view->title);
+
+        $layoutPath = APPLICATION_PATH . '/templates/' . TEMPLATE_USED;
+        $option = array('layout' => '1_column/layout',
+            'layoutPath' => $layoutPath);
+        Zend_Layout::startMvc($option);
+
+        $date = new Zend_Date();
+        $date->subMonth(1);
+        
+        $thang = $this->_getParam('thang', $date->toString("M"));
+        $nam = $this->_getParam('nam', $date->toString("Y"));
+
+        $auth = Zend_Auth::getInstance();
+        $identity = $auth->getIdentity();
+        $em_id = $identity->em_id;
+
+        $emModel = new Front_Model_Employees();
+        $em_info = $emModel->fetchRow("em_id=$em_id");
+
+        $bangluongModel = new Front_Model_BangLuong();
+        $bang_luong = $bangluongModel->fetchByDate($em_id, "$nam-$thang-01 00:00:00", "$nam-$thang-31 23:59:59");
+
+        $this->view->em_info = $em_info;
+        $this->view->thang = $thang;
+        $this->view->nam = $nam;
+        $this->view->nv_id = $em_id;
+        $this->view->bang_luong = $bang_luong;
+    }
+
     public function intheophongAction() {
         $translate = Zend_Registry::get('Zend_Translate');
         $this->view->title = 'In lương - ' . $translate->_('TEXT_DEFAULT_TITLE');

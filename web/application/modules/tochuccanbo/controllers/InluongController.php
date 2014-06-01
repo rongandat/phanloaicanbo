@@ -102,6 +102,50 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
         $this->view->list_phong_ban_option = $list_phong_ban_option;
         $this->view->list_chuc_vu = $list_chuc_vu;
     }
+    
+    public function heso03Action() {
+        $translate = Zend_Registry::get('Zend_Translate');
+        $this->view->title = 'In lương - ' . $translate->_('TEXT_DEFAULT_TITLE');
+        $this->view->headTitle($this->view->title);
+
+        $layoutPath = APPLICATION_PATH . '/templates/' . TEMPLATE_USED;
+        $option = array('layout' => '1_column/layout',
+            'layoutPath' => $layoutPath);
+        Zend_Layout::startMvc($option);
+
+        $date = new Zend_Date();
+        $date->subMonth(1);
+        
+        $thang = $this->_getParam('thang', $date->toString("M"));
+        $nam = $this->_getParam('nam', $date->toString("Y"));
+
+        $emModel = new Front_Model_Employees();
+        $phongbanModel = new Front_Model_Phongban();
+        $chucvuModel = new Front_Model_Chucvu();
+        $pb_selected = $this->_getParam('phongban', 0);
+        $phong_ban_id = $list_phongban_selected = $phong_ban = Array();
+
+        $phong_ban_id[] = $pb_selected;
+        $list_phongban_selected = $phongbanModel->fetchDataStatus($pb_selected, $phong_ban);
+        $list_chuc_vu = $chucvuModel->fetchAll();
+
+        $phong_ban_options = Array();
+        $list_phong_ban_option = $phongbanModel->fetchData(0, $phong_ban_options);
+
+        if (sizeof($list_phongban_selected)) {
+            foreach ($list_phongban_selected as $phong_ban_info) {
+                $phong_ban_id[] = $phong_ban_info->pb_id;
+            }
+        }
+        $phong_ban_id = implode(',', $phong_ban_id);
+        $list_nhan_vien = $emModel->fetchAll("em_phong_ban in ($phong_ban_id) and em_status=1");
+        $this->view->list_nhan_vien = $list_nhan_vien;
+        $this->view->thang = $thang;
+        $this->view->nam = $nam;
+        $this->view->pb_id = $pb_selected;
+        $this->view->list_phong_ban_option = $list_phong_ban_option;
+        $this->view->list_chuc_vu = $list_chuc_vu;
+    }
 
     public function exeltheophongAction() {
         $inputFileName = APPLICATION_PATH . "/../tmp/Mau_Exel_Moi.xlsx";

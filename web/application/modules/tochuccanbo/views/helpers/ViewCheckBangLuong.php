@@ -12,7 +12,7 @@ class Zend_View_Helper_ViewCheckBangLuong extends Zend_Controller_Action_Helper_
             $bangluongModel = new Front_Model_BangLuong();
             $bang_luong = $bangluongModel->fetchByDate($em_id, "$nam-$thang-01 00:00:00", "$nam-$thang-31 23:59:59");
             if ($bang_luong) {
-                return true;
+                return $bang_luong;
             }
             return false;
         }
