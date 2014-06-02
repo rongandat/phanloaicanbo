@@ -641,6 +641,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
             $em_tin_hoc = $this->_arrParam['em_tin_hoc'];
             $em_chung_chi_khac = $this->_arrParam['em_chung_chi_khac'];
             $em_bang_scan_upload = $this->_arrParam['anh_bang_cap'];
+            $em_tai_lieu_khac = $this->_arrParam['anh_tai_lieu_khac'];
             $em_status = $this->_arrParam['em_status'];
             /* Moi them */
             $em_ton_giao = trim($this->_arrParam['em_ton_giao']);
@@ -774,6 +775,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
                 $data['em_tin_hoc'] = $em_tin_hoc;
                 $data['em_chung_chi_khac'] = $em_chung_chi_khac;
                 $data['em_anh_bang_cap'] = serialize($em_bang_scan_upload);
+                $data['em_tai_lieu_khac'] = serialize($em_tai_lieu_khac);
                 $data['em_status'] = $em_status;
 
                 /* Moi them */
@@ -977,6 +979,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
             $em_tin_hoc = $this->_arrParam['em_tin_hoc'];
             $em_chung_chi_khac = $this->_arrParam['em_chung_chi_khac'];
             $em_bang_scan_upload = $this->_arrParam['anh_bang_cap'];
+            $em_tai_lieu_khac = $this->_arrParam['anh_tai_lieu_khac'];
             $em_status = $this->_arrParam['em_status'];
 
             /* Moi them */
@@ -1110,6 +1113,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
                 $data['em_tin_hoc'] = $em_tin_hoc;
                 $data['em_chung_chi_khac'] = $em_chung_chi_khac;
                 $data['em_anh_bang_cap'] = serialize($em_bang_scan_upload);
+                $data['em_tai_lieu_khac'] = serialize($em_tai_lieu_khac);
                 $data['em_status'] = $em_status;
 
                 /* Moi them */

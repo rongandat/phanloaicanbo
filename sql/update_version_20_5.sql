@@ -20,3 +20,6 @@ ALTER TABLE `bang_luong` ADD COLUMN `bl_tong_he_so` FLOAT NOT NULL DEFAULT 0 AFT
  ADD COLUMN `bl_tong_he_so_plld` FLOAT NOT NULL DEFAULT 0 AFTER `bl_tong_he_so_ca_nhan`,
  ADD COLUMN `bl_tam_chi_dau_vao` DOUBLE NOT NULL DEFAULT 0 AFTER `bl_tong_he_so_plld`;
 
+/*2-6*/
+ALTER TABLE `employees` ADD COLUMN `em_tai_lieu_khac` TEXT AFTER `em_date_modified`;
+ALTER TABLE `employees_edit` ADD COLUMN `eme_tai_lieu_khac` TEXT AFTER `eme_date_modified`;

@@ -58,20 +58,20 @@ foreach ($this->list_huyen as $huyen) {
                             <?php echo $this->formText('em_so_chung_minh_thu', $this->employee_info->em_so_chung_minh_thu, array('class' => 'input-medium', 'placeholder' => 'Số chứng minh thư')); ?> 
                         </div>
                     </div>   
-                    
+
                     <div class="control-group">
                         <label class="control-label" for="em_cmt_ngay_cap">Ngày cấp</label>
                         <div class="controls">
-                            <?php 
+                            <?php
                             if ($this->employee_info->em_cmt_ngay_cap && $this->employee_info->em_cmt_ngay_cap != '' && $this->employee_info->em_cmt_ngay_cap != '0000-00-00 00:00:00') {
-                                echo $this->formText('em_cmt_ngay_cap', date('d/m/Y', strtotime($this->employee_info->em_cmt_ngay_cap)), array('class' => 'input-medium', 'placeholder' => 'Ngày cấp')); 
-                            }else{
-                                echo $this->formText('em_cmt_ngay_cap', null, array('class' => 'input-medium', 'placeholder' => 'Ngày cấp')); 
-                            }                            
+                                echo $this->formText('em_cmt_ngay_cap', date('d/m/Y', strtotime($this->employee_info->em_cmt_ngay_cap)), array('class' => 'input-medium', 'placeholder' => 'Ngày cấp'));
+                            } else {
+                                echo $this->formText('em_cmt_ngay_cap', null, array('class' => 'input-medium', 'placeholder' => 'Ngày cấp'));
+                            }
                             ?> 
                         </div>
                     </div>    
-                    
+
                     <div class="control-group">
                         <label class="control-label" for="em_anh_the">Ảnh thẻ</label>
                         <div class="controls">
@@ -101,12 +101,12 @@ foreach ($this->list_huyen as $huyen) {
                     <div class="control-group">
                         <label class="control-label" for="ngay_sinh">Ngày sinh</label>
                         <div class="controls">                          
-                            <?php 
+                            <?php
                             if ($this->employee_info->em_ngay_sinh && $this->employee_info->em_ngay_sinh != '' && $this->employee_info->em_ngay_sinh != '0000-00-00 00:00:00') {
                                 echo $this->formText('ngay_sinh', date('d/m/Y', strtotime($this->employee_info->em_ngay_sinh)), array('class' => 'input-medium', 'placeholder' => 'Ngày sinh'));
-                            }else{
+                            } else {
                                 echo $this->formText('ngay_sinh', null, array('class' => 'input-medium', 'placeholder' => 'Ngày sinh'));
-                            }                            
+                            }
                             ?> 
                         </div>
                     </div> 
@@ -260,12 +260,12 @@ foreach ($this->list_huyen as $huyen) {
                     <div class="control-group">
                         <label class="control-label" for="ngay_dang">Ngày vào đảng</label>
                         <div class="controls">                             
-                            <?php 
+                            <?php
                             if ($this->employee_info->em_ngay_vao_dang && $this->employee_info->em_ngay_vao_dang != '' && $this->employee_info->em_ngay_vao_dang != '0000-00-00 00:00:00') {
                                 echo $this->formText('ngay_dang', date('d/m/Y', strtotime($this->employee_info->em_ngay_vao_dang)), array('class' => 'input-medium', 'placeholder' => 'Ngày vào đảng'));
-                            }else{
+                            } else {
                                 echo $this->formText('ngay_dang', null, array('class' => 'input-medium', 'placeholder' => 'Ngày vào đảng'));
-                            }                            
+                            }
                             ?> 
                         </div>
                     </div> 
@@ -285,12 +285,12 @@ foreach ($this->list_huyen as $huyen) {
                     <div class="control-group">
                         <label class="control-label" for="ngay_doan">Ngày vào đoàn</label>
                         <div class="controls">                          
-                            <?php 
+                            <?php
                             if ($this->employee_info->em_ngay_vao_doan && $this->employee_info->em_ngay_vao_doan != '' && $this->employee_info->em_ngay_vao_doan != '0000-00-00 00:00:00') {
                                 echo $this->formText('ngay_doan', date('d/m/Y', strtotime($this->employee_info->em_ngay_vao_doan)), array('class' => 'input-medium', 'placeholder' => 'Ngày vào đoàn'));
-                            }else{
+                            } else {
                                 echo $this->formText('ngay_doan', null, array('class' => 'input-medium', 'placeholder' => 'Ngày vào đoàn'));
-                            }                            
+                            }
                             ?> 
                         </div>
                     </div> 
@@ -310,12 +310,12 @@ foreach ($this->list_huyen as $huyen) {
                     <div class="control-group">
                         <label class="control-label" for="em_ngay_nhap_ngu">Ngày nhập ngũ</label>
                         <div class="controls">                    
-                            <?php 
+                            <?php
                             if ($this->employee_info->em_ngay_nhap_ngu && $this->employee_info->em_ngay_nhap_ngu != '' && $this->employee_info->em_ngay_nhap_ngu != '0000-00-00 00:00:00') {
                                 echo $this->formText('em_ngay_nhap_ngu', date('d/m/Y', strtotime($this->employee_info->em_ngay_nhap_ngu)), array('class' => 'input-medium'));
-                            }else{
+                            } else {
                                 echo $this->formText('em_ngay_nhap_ngu', null, array('class' => 'input-medium'));
-                            }                            
+                            }
                             ?>                    
                         </div>
                     </div> 
@@ -323,12 +323,12 @@ foreach ($this->list_huyen as $huyen) {
                     <div class="control-group">
                         <label class="control-label" for="em_ngay_xuat_ngu">Ngày xuất ngũ</label>
                         <div class="controls">                    
-                            <?php 
+                            <?php
                             if ($this->employee_info->em_ngay_xuat_ngu && $this->employee_info->em_ngay_xuat_ngu != '' && $this->employee_info->em_ngay_xuat_ngu != '0000-00-00 00:00:00') {
                                 echo $this->formText('em_ngay_xuat_ngu', date('d/m/Y', strtotime($this->employee_info->em_ngay_xuat_ngu)), array('class' => 'input-medium'));
-                            }else{
+                            } else {
                                 echo $this->formText('em_ngay_xuat_ngu', null, array('class' => 'input-medium'));
-                            }                            
+                            }
                             ?>                    
                         </div>
                     </div> 
@@ -749,6 +749,33 @@ foreach ($this->list_huyen as $huyen) {
                         </div>
                     </div>
 
+                    <div class="control-group">
+                        <label class="control-label" for="em_tai_lieu_khac">Ảnh/Scan tài liệu khác</label>
+                        <div class="controls">
+                            <div id="queue"></div>
+                            <input id="tai_lieu_khac_upload" name="em_tai_lieu_khac" type="file" multiple="true"/>
+                            <table class="table" id="tbl_tai_lieu_khac">
+                                <tbody>
+                                    <tr>
+                                        <td id="tbd_tai_lieu_khac">      
+                                            <?php
+                                            foreach (unserialize($this->employee_info->em_tai_lieu_khac) as $anh_tai_lieu_khac) {
+                                                $random_id = mt_rand();
+                                                echo '<div id="' . $random_id . '" class="tai_lieu_khac float_left">
+                                                <input type="hidden" name="anh_tai_lieu_khac[]" value="' . $anh_tai_lieu_khac . '"/>
+                                                <img src="' . $this->baseUrl('public/uploads/') . $anh_tai_lieu_khac . '">
+                                                <a class="btn btn-download-icon btn-mini" target="_blank" href="'.$this->baseUrl('front/download/img/file/'.$anh_tai_lieu_khac).'" type="button"><i class="icon-download-alt"></i></a>
+                                                <button class="btn btn-delete-icon btn-mini btn-danger" type="button" onclick="deleteAnhScan(\'' . $random_id . '\')"><i class="icon-trash"></i></button>
+                                                </div>';
+                                            }
+                                            ?>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>                    
+                        </div>
+                    </div>
+
                 </fieldset>
 
                 <div class="control-group">
@@ -798,6 +825,29 @@ foreach ($this->list_huyen as $huyen) {
                 }else{   
                     var unix = Math.round(+new Date()/1000);
                     $('#tbd_anh_bang_cap').append("<tr id=\""+unix+"\"><td><input type=\"text\" name=\"anh_bang_cap["+unix+"][name]\" placeholder=\"Tên\" class=\"input-xlarge\"></td><td><input type=\"hidden\" name=\"anh_bang_cap["+unix+"][anh]\" value=\""+data.file_name+"\"/><img src=\"<?php echo $this->baseUrl('public/uploads/'); ?>" + data.file_name + "\" class=\"img-polaroid cap_nhat_anh_bang_cap\"></td> <td> <button class=\"btn btn-small btn btn-danger\" type=\"button\" onclick=\"deleteAnhScan('"+unix+"')\">Xóa</button></td></tr>");
+                }
+            }
+        });
+        $('#tai_lieu_khac_upload').uploadify({
+            'formData'     : {
+                'timestamp' : '<?php echo $timestamp; ?>',
+                'token'     : '<?php echo md5('unique_salt' . $timestamp); ?>'
+            },
+            'checkExisting' : '<?php echo $this->baseUrl('public/uploads/check-exists.php'); ?>',
+            'swf'      : '<?php echo $this->baseUrl('public/js/uploadify/uploadify.swf'); ?>',
+            'uploader' : '<?php echo $this->baseUrl('public/uploads/uploadify.php'); ?>',
+            'fileTypeDesc' : 'Image Files',
+            'fileTypeExts' : '*.gif; *.jpg; *.png; *.jpeg; *.tiff; *.tif',
+            'onUploadError' : function(file, errorCode, errorMsg, errorString) {
+                alert('Tải ảnh/scan bằng cấp thất bại. Xin hãy thử lại.');
+            },            
+            'onUploadSuccess' : function(file, data, response) {
+                data = $.parseJSON(data);
+                if(!data.success){
+                    alert('Upload không thành công.\n Xin hãy thử lại.');
+                }else{   
+                    var unix = Math.round(+new Date()/1000);
+                    $('#tbd_tai_lieu_khac').append("<div id=\""+unix+"\" class=\"tai_lieu_khac float_left\"><input type=\"hidden\" name=\"anh_tai_lieu_khac[]\" value=\""+data.file_name+"\"/><img src=\"<?php echo $this->baseUrl('public/uploads/'); ?>" + data.file_name + "\"><a class=\"btn btn-download-icon btn-mini\" target=\"_blank\" href=\"<?php echo $this->baseUrl('front/download/img/file/'); ?>" + data.file_name + "\" type=\"button\"><i class=\"icon-download-alt\"></i></a><button class=\"btn btn-delete-icon btn-mini btn-danger\" type=\"button\" onclick=\"deleteAnhScan('"+unix+"')\"><i class=\"icon-trash\"></i></button></div>");
                 }
             }
         });
