@@ -102,7 +102,7 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
         $this->view->list_phong_ban_option = $list_phong_ban_option;
         $this->view->list_chuc_vu = $list_chuc_vu;
     }
-    
+
     public function heso03Action() {
         $translate = Zend_Registry::get('Zend_Translate');
         $this->view->title = 'In lương - ' . $translate->_('TEXT_DEFAULT_TITLE');
@@ -115,7 +115,7 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
 
         $date = new Zend_Date();
         $date->subMonth(1);
-        
+
         $thang = $this->_getParam('thang', $date->toString("M"));
         $nam = $this->_getParam('nam', $date->toString("Y"));
 
@@ -405,6 +405,236 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
                   header('Cache-Control: max-age=0');
                   $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
                   $objWriter->save('php://output'); */
+            } else {
+                $this->_helper->viewRenderer->setRender('loi');
+            }
+        } else {
+            $this->_helper->viewRenderer->setRender('loi');
+        }
+    }
+
+    public function exelheso03Action() {
+        $inputFileName = APPLICATION_PATH . "/../tmp/MAU_TIEN_LUONG_HE_SO_03.xlsx";
+
+        $objPHPExcel = PHPExcel_IOFactory::load($inputFileName);
+
+        $objPHPExcel->getProperties()->setCreator("Cục Hải Quan Hà Tĩnh");
+        $objPHPExcel->getProperties()->setLastModifiedBy("Cục Hải Quan Hà Tĩnh");
+        $objPHPExcel->getProperties()->setTitle("Bảng lương");
+        $objPHPExcel->getProperties()->setSubject("Bảng lương");
+        $objPHPExcel->getProperties()->setDescription("Bảng lương Cục Hải Quan Hà Tĩnh");
+
+        $objPHPExcel->setActiveSheetIndex(0);
+
+        $translate = Zend_Registry::get('Zend_Translate');
+        $this->view->title = 'In lương - ' . $translate->_('TEXT_DEFAULT_TITLE');
+        $this->view->headTitle($this->view->title);
+
+        $layoutPath = APPLICATION_PATH . '/templates/' . TEMPLATE_USED;
+        $option = array('layout' => '1_column/layout',
+            'layoutPath' => $layoutPath);
+        Zend_Layout::startMvc($option);
+
+        $date = time();
+        $thang = $this->_getParam('thang', date('m', $date));
+        $nam = $this->_getParam('nam', date('Y', $date));
+
+        $emModel = new Front_Model_Employees();
+        $phongbanModel = new Front_Model_Phongban();
+        $bangluongModel = new Front_Model_BangLuong();
+        $hesocbModel = new Front_Model_HeSo();
+        $lastHeSoLuong = $hesocbModel->fetchOneData(array('hs_ngay_bat_dau' => date("$nam-$thang-1")), 'hs_ngay_bat_dau DESC');
+
+        $pb_selected = $this->_getParam('phongban', 0);
+        $phong_ban_id = $list_phongban_selected = $phong_ban = Array();
+        $phong_ban_selected_info = $phongbanModel->fetchRow("pb_id=$pb_selected");
+        $phong_ban_id[] = $pb_selected;
+        $list_phongban_selected = $phongbanModel->fetchDataStatus($pb_selected, $phong_ban);
+
+        if (sizeof($list_phongban_selected)) {
+            foreach ($list_phongban_selected as $phong_ban_info) {
+                $phong_ban_id[] = $phong_ban_info->pb_id;
+            }
+        }
+        $phong_ban_id = implode(',', $phong_ban_id);
+        $list_nhan_vien = $emModel->fetchAll("em_phong_ban in ($phong_ban_id) and em_status=1");
+        $objPHPExcel->getActiveSheet()->SetCellValue('A3', "BẢNG THANH TOÁN TIỀN LƯƠNG TĂNG THÊM (HỆ SỐ 0,3) THÁNG $thang/$nam");
+
+        if ($list_nhan_vien) {
+            $k = 0;
+            $stt = 0;
+
+            $tong_he_so = $bangluongModel->getSumHeSo("$nam-$thang-01 00:00:00", "$nam-$thang-31 23:59:59");
+            $tong_he_so_luong = $tong_he_so_plld = $tong_tam_chi = 0;
+            if ($tong_he_so->tong_he_so_luong)
+                $tong_he_so_luong = $tong_he_so->tong_he_so_luong;
+            if ($tong_he_so->tong_tam_chi)
+                $tong_tam_chi = $tong_he_so->tong_tam_chi;
+            if ($tong_he_so->tong_he_so_plld)
+                $tong_he_so_plld = $tong_he_so->tong_he_so_plld;
+
+
+            $luong_co_ban = $lastHeSoLuong->hs_luong_co_ban; //luong co ban
+            $tien_quy_tang_them = $tong_he_so_luong * $luong_co_ban * 0.8;
+            $tien_quy_con_lai = $tien_quy_tang_them - $tong_tam_chi;
+            if ($tien_quy_con_lai < 0)
+                $tien_quy_con_lai = 0;
+            
+            $he_so_quy_doi = $tien_quy_con_lai/$tong_he_so_plld;
+            
+            foreach ($list_phongban_selected as $phong_ban_info) {
+                $k++;
+                $objPHPExcel->setActiveSheetIndex(0)->mergeCells("A" . ($k + 7) . ":AI" . ($k + 7));
+                $objPHPExcel->getActiveSheet()->getStyle("A" . ($k + 7))->getFill()
+                        ->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID,
+                            'startcolor' => array('rgb' => 'F28A8C')
+                        ));
+                $objPHPExcel->getActiveSheet()->SetCellValue('A' . ($k + 7), $phong_ban_info->pb_name);
+                foreach ($list_nhan_vien as $nhan_vien) {
+                    if ($phong_ban_info->pb_id == $nhan_vien->em_phong_ban) {
+                        $bang_luong = $bangluongModel->fetchByDate($nhan_vien->em_id, "$nam-$thang-01 00:00:00", "$nam-$thang-31 23:59:59");
+
+                        if ($bang_luong && $bang_luong->bl_tong_he_so > 0) {
+                            $k++;
+                            $stt++;
+                            $he_so_phan_loai = array('O' => 0, 'A' => 1.2, 'B' => 1, 'C' => 0.8, 'D' => 0);
+                            $luong_toi_thieu = $bang_luong->bl_luong_toi_thieu; //luong co ban
+                            $giai_doan = $bang_luong->bl_giai_doan; //0: chinh thuc, 1: thu viec
+                            $loai_luong = $bang_luong->bl_loai_luong; //0: bien che, 1: hop dong
+                            $luong_thu_viec = $bang_luong->bl_luong_thu_viec; //so phan tram so voi luong chinh
+                            $he_so_luong = $bang_luong->bl_hs_luong;
+                            $bhxh = $bang_luong->bl_bhxh;
+                            $bhyt = $bang_luong->bl_bhyt;
+                            $hs_pc_chuc_vu = $bang_luong->bl_hs_pc_cong_viec;
+                            $hs_pc_trach_nhiem = $bang_luong->bl_hs_pc_trach_nhiem;
+                            $hs_pc_khu_vuc = $bang_luong->bl_hs_pc_khu_vuc;
+                            $hs_pc_tnvk_phan_tram = $bang_luong->bl_hs_pc_tnvk;
+                            $hs_pc_doc_hai = $bang_luong->bl_pc_doc_hai;
+                            $hs_pc_doc_hai_type = $bang_luong->bl_pc_doc_hai_type;
+                            $time_tham_niem = strtotime($bang_luong->bl_time_tham_nien); //tinh tham nien tu ngay
+                            $hs_pc_tham_nien_phan_tram = $bang_luong->bl_tham_nien;
+                            $uu_dai_nghe = $bang_luong->bl_hs_pc_udn;
+                            $cong_vu = $bang_luong->bl_hs_pc_cong_vu;
+                            $kiem_nhiem = $bang_luong->bl_pc_kiem_nhiem;
+                            $hs_pc_khac = $bang_luong->bl_hs_pc_khac;
+                            $he_so_tang_them = $bang_luong->bl_pc_tang_them;
+                            $hs_pc_khac_type = $bang_luong->bl_pc_khac_type;
+                            $hs_pc_thu_hut_phan_tram = $bang_luong->bl_pc_thu_hut;
+                            $phan_loai = strtoupper($bang_luong->bl_phan_loai);
+                            $phan_loai_he_so = $bang_luong->bl_phan_loai_he_so;
+                            $tong_hs_luong_pc = $bang_luong->bl_tong_he_so;
+                            $tong_hs_luong_pc_ca_nhan = $bang_luong->bl_tong_he_so_ca_nhan;
+                            $tong_hs_luong_pc_plld = $bang_luong->bl_tong_he_so_plld;
+                            $tam_chi_dau_vao = $bang_luong->bl_tam_chi_dau_vao;
+
+
+                            $nam_tham_niem = date('Y', $time_tham_niem);
+                            $thang_tham_niem = date('m', $time_tham_niem);
+                            $tham_nien = $nam - $nam_tham_niem;
+                            if ($thang < $thang_tham_niem) {
+                                $tham_nien--;
+                            }
+
+                            $luong_toi_thieu_sau_bh = (int) ($luong_toi_thieu * (100 - ($bhxh + $bhyt)) / 100);
+                            $luong_toi_thieu_bhyt = (int) ($luong_toi_thieu * (100 - $bhyt) / 100);
+                            $pc_trach_nhiem = $pc_cong_vu = $pc_khac = $pc_kiem_nhiem = $pc_uu_dai_nghe = $luong_toi_thieu;
+                            $pc_chuc_vu = $pc_tnvk = $pc_thu_hut = $pc_tham_nien = $luong_toi_thieu_sau_bh;
+                            $pc_khu_vuc = $luong_toi_thieu_bhyt;
+
+                            if (!$giai_doan && !$loai_luong) {
+                                $hs_pc_tnvk = ($he_so_luong + $hs_pc_chuc_vu) * $hs_pc_tnvk_phan_tram / 100;
+                            } else {
+                                $hs_pc_tnvk = $hs_pc_chuc_vu * $hs_pc_tnvk_phan_tram / 100;
+                            }
+
+                            if (!$giai_doan && !$loai_luong)
+                                $hs_pc_thu_hut = floor((($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $hs_pc_thu_hut_phan_tram / 100) * 100) / 100;
+                            else
+                                $hs_pc_thu_hut = floor((($hs_pc_chuc_vu + $hs_pc_tnvk) * $hs_pc_thu_hut_phan_tram / 100) * 100) / 100;
+
+                            if (!$giai_doan) {
+                                $hs_pc_tham_nien = floor((($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $hs_pc_tham_nien_phan_tram / 100) * 100) / 100;
+                            } else {
+                                $hs_pc_tham_nien = floor((($hs_pc_chuc_vu + $hs_pc_tnvk) * $hs_pc_tham_nien_phan_tram / 100) * 100) / 100;
+                            }
+
+                            $hs_pc_uu_dai_nghe = floor((($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $uu_dai_nghe / 100) * 100) / 100;
+
+
+                            $hs_pc_cong_vu = floor((($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $cong_vu / 100) * 100) / 100;
+
+
+                            $thanh_tien_pc_khac = $hs_pc_khac * $pc_khac;
+
+                            $hs_pc_khac_he_so = $hs_pc_khac;
+                            if ($hs_pc_khac_type) {
+                                $thanh_tien_pc_khac = $thanh_tien_pc_khac / 100;
+                                $hs_pc_khac_he_so = $hs_pc_khac / 100;
+                            }
+
+                            if (!$tong_hs_luong_pc) {
+                                $tong_hs_luong_pc = floor(($he_so_luong + $hs_pc_chuc_vu + $hs_pc_trach_nhiem + $hs_pc_khu_vuc + $hs_pc_tnvk + $hs_pc_tham_nien + $hs_pc_uu_dai_nghe + $hs_pc_cong_vu + $hs_pc_khac_he_so + $hs_pc_thu_hut) * 100) / 100;
+                                $tong_hs_luong_pc_ca_nhan = floor(($he_so_luong + $hs_pc_chuc_vu + $hs_pc_khu_vuc + $hs_pc_tnvk + $hs_pc_uu_dai_nghe) * 100 / 100);
+                                $tong_hs_luong_pc_plld = floor(($tong_hs_luong_pc_ca_nhan * $phan_loai_he_so) * 100) / 100;
+                                $tam_chi_dau_vao = $tong_hs_luong_pc * $luong_toi_thieu * 0.5;
+                            }
+
+                            $he_so_luong_chinh_thuc = $he_so_luong_thuc_tap = $he_so_luong_hop_dong = '';
+                            if (!$loai_luong && !$giai_doan) {
+                                $he_so_luong_chinh_thuc = $he_so_luong;
+                            } else if ($giai_doan) {
+                                $he_so_luong_thuc_tap = $he_so_luong;
+                            } else {
+                                $he_so_luong_hop_dong = $he_so_luong;
+                            }
+
+                            $thang_tien_he_so_03 = $he_so_quy_doi*$tong_hs_luong_pc_plld;
+                            
+                            $objPHPExcel->getActiveSheet()->SetCellValue('A' . ($k + 7), $stt);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('B' . ($k + 7), $nhan_vien->em_ho . ' ' . $nhan_vien->em_ten);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('C' . ($k + 7), $he_so_luong_chinh_thuc);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('D' . ($k + 7), $he_so_luong_thuc_tap);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('E' . ($k + 7), $he_so_luong_hop_dong);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('F' . ($k + 7), $hs_pc_chuc_vu);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('G' . ($k + 7), $hs_pc_trach_nhiem);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('H' . ($k + 7), $hs_pc_khu_vuc);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('I' . ($k + 7), $hs_pc_tnvk_phan_tram);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('J' . ($k + 7), $hs_pc_tnvk);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('K' . ($k + 7), $tham_nien);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('L' . ($k + 7), $hs_pc_tham_nien);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('M' . ($k + 7), $uu_dai_nghe);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('N' . ($k + 7), $hs_pc_uu_dai_nghe);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('O' . ($k + 7), $cong_vu);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('P' . ($k + 7), $hs_pc_cong_vu);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('Q' . ($k + 7), $hs_pc_thu_hut_phan_tram);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('R' . ($k + 7), $hs_pc_thu_hut);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('S' . ($k + 7), $hs_pc_khac . ($hs_pc_khac_type ? '%' : ''));
+                            $objPHPExcel->getActiveSheet()->SetCellValue('T' . ($k + 7), $tong_hs_luong_pc);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('U' . ($k + 7), number_format($tam_chi_dau_vao, 0, '.', ','));
+                            $objPHPExcel->getActiveSheet()->SetCellValue('V' . ($k + 7), $phan_loai);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('W' . ($k + 7), $phan_loai_he_so);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('X' . ($k + 7), $tong_hs_luong_pc_ca_nhan);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('Y' . ($k + 7), $tong_hs_luong_pc_plld);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('Z' . ($k + 7), number_format($he_so_quy_doi, 0, '.', ','));
+                            $objPHPExcel->getActiveSheet()->SetCellValue('AA' . ($k + 7), number_format($thang_tien_he_so_03, 0, '.', ','));
+                        }
+                    }
+                }
+            }
+
+            if ($k) {
+                $objPHPExcel->getActiveSheet()->setTitle('Bảng lương');
+                if ($pb_selected && $phong_ban_selected_info) {
+                    $file_name = 'Bang_luong_he_so_03_' . str_replace(' ', '_', $this->loc_tieng_viet($phong_ban_selected_info->pb_name)) . '_' . $thang . '-' . $nam . '.xls';
+                } else {
+                    $file_name = 'Bang_luong_he_so_03_' . $thang . '-' . $nam . '.xls';
+                }
+                header('Content-Type: application/vnd.ms-excel');
+                header('Content-Disposition: attachment;filename="' . $file_name . '"');
+                header('Cache-Control: max-age=0');
+                $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+                $objWriter->save('php://output');
+                die();
             } else {
                 $this->_helper->viewRenderer->setRender('loi');
             }

@@ -80,12 +80,7 @@
 
             $hs_pc_cong_vu = floor((($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $cong_vu / 100) * 100) / 100;
 
-            if (!$giai_doan && !$loai_luong) {
-                $hs_pc_kiem_nhiem = floor((($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $kiem_nhiem / 100) * 100) / 100;
-            } else {
-                $hs_pc_kiem_nhiem = floor((($hs_pc_chuc_vu + $hs_pc_tnvk) * $kiem_nhiem / 100) * 100) / 100;
-            }
-
+            
             $thanh_tien_pc_khac = $hs_pc_khac * $pc_khac;
 
             $hs_pc_khac_he_so = $hs_pc_khac;
@@ -95,7 +90,7 @@
             }
 
             if (!$tong_hs_luong_pc) {
-                $tong_hs_luong_pc = floor(($he_so_luong + $hs_pc_chuc_vu + $hs_pc_trach_nhiem + $hs_pc_khu_vuc + $hs_pc_tnvk + $hs_pc_tham_nien + $hs_pc_uu_dai_nghe + $hs_pc_cong_vu + $hs_pc_kiem_nhiem + $hs_pc_khac_he_so + $hs_pc_thu_hut) * 100) / 100;
+                $tong_hs_luong_pc = floor(($he_so_luong + $hs_pc_chuc_vu + $hs_pc_trach_nhiem + $hs_pc_khu_vuc + $hs_pc_tnvk + $hs_pc_tham_nien + $hs_pc_uu_dai_nghe + $hs_pc_cong_vu + $hs_pc_khac_he_so + $hs_pc_thu_hut) * 100) / 100;
                 $tong_hs_luong_pc_ca_nhan = floor(($he_so_luong + $hs_pc_chuc_vu + $hs_pc_khu_vuc + $hs_pc_tnvk + $hs_pc_uu_dai_nghe) * 100 / 100);
                 $tong_hs_luong_pc_plld = floor(($tong_hs_luong_pc_ca_nhan * $phan_loai_he_so) * 100) / 100;
                 $tam_chi_dau_vao = $tong_hs_luong_pc * $luong_toi_thieu * 0.5;
@@ -251,12 +246,7 @@
                             <td>Phụ cấp công vụ</td>
                             <td><input type="text" readonly="true" class="input-mini" name="bl_hs_pc_cong_vu_pt" value="<?php echo $cong_vu; ?>"/>%</td>
                             <td><span id="bl_hs_pc_cong_vu"><?php echo $hs_pc_cong_vu; ?></span></td>                            
-                        </tr>
-                        <tr>
-                            <td>Phụ cấp kiêm nhiệm</td>
-                            <td colspan="2"><span id="lbl_hs_pc_kiem_nhiem"><?php echo $hs_pc_kiem_nhiem; ?></span></td>
-
-                        </tr>
+                        </tr>                        
                         <tr>
                             <td>Phụ cấp khác</td>
                             <td colspan="2"><input type="text" readonly="true" class="input-mini" name="bl_hs_pc_khac" value="<?php echo $hs_pc_khac; ?>"/><?php echo $hs_pc_khac_type ? '%' : ''; ?></td>
@@ -371,7 +361,6 @@ if ($this->bang_luong && $this->em_info && $this->he_so && $this->he_so_cb && $t
             var bl_tham_nien = $('span#lbl_hs_pc_tham_nien').html();
             var bl_hs_pc_udn = $('span#bl_hs_pc_udn').html();
             var bl_hs_pc_cong_vu = $('span#bl_hs_pc_cong_vu').html();
-            var bl_hs_pc_kiem_nhiem = $('span#lbl_hs_pc_kiem_nhiem').val();
             var bl_hs_pc_khac = $('input[name=bl_hs_pc_khac]').val();
         
         
@@ -384,7 +373,6 @@ if ($this->bang_luong && $this->em_info && $this->he_so && $this->he_so_cb && $t
             if(bl_tham_nien == '') bl_tham_nien = 0;
             if(bl_hs_pc_udn == '') bl_hs_pc_udn = 0;
             if(bl_hs_pc_cong_vu == '') bl_hs_pc_cong_vu = 0;
-            if(bl_hs_pc_kiem_nhiem == '') bl_hs_pc_kiem_nhiem = 0;
             if(bl_hs_pc_khac == '') bl_hs_pc_khac = 0;
         
             bl_hs_luong = parseFloat(Math.floor(bl_hs_luong * 100) / 100);
@@ -397,7 +385,6 @@ if ($this->bang_luong && $this->em_info && $this->he_so && $this->he_so_cb && $t
             bl_hs_pc_udn = parseFloat(Math.floor(bl_hs_pc_udn * 100) / 100);
             bl_hs_pc_cong_vu = parseFloat(Math.floor(bl_hs_pc_cong_vu * 100) / 100);
             bl_hs_pc_khac = parseFloat(Math.floor(bl_hs_pc_khac * 100) / 100);
-            bl_hs_pc_kiem_nhiem = parseFloat(Math.floor(bl_hs_pc_kiem_nhiem * 100) / 100);
         
         
         
@@ -409,7 +396,7 @@ if ($this->bang_luong && $this->em_info && $this->he_so && $this->he_so_cb && $t
         
             he_so_pc_thu_hut = parseFloat((Math.floor(he_so_pc_thu_hut * 100) / 100)+''); 
         
-            var tong_hs_luong_pc = parseFloat(bl_hs_luong) + parseFloat(bl_hs_pc_chuc_vu) + parseFloat(bl_hs_pc_trach_nhiem) + parseFloat(bl_hs_pc_khu_vuc) + parseFloat(bl_hs_pc_tnvk) + parseFloat(bl_tham_nien) + parseFloat(bl_hs_pc_udn) + parseFloat(bl_hs_pc_cong_vu) + parseFloat(bl_hs_pc_kiem_nhiem) + parseFloat(bl_hs_pc_khac) + parseFloat(he_so_pc_thu_hut);
+            var tong_hs_luong_pc = parseFloat(bl_hs_luong) + parseFloat(bl_hs_pc_chuc_vu) + parseFloat(bl_hs_pc_trach_nhiem) + parseFloat(bl_hs_pc_khu_vuc) + parseFloat(bl_hs_pc_tnvk) + parseFloat(bl_tham_nien) + parseFloat(bl_hs_pc_udn) + parseFloat(bl_hs_pc_cong_vu) + parseFloat(bl_hs_pc_khac) + parseFloat(he_so_pc_thu_hut);
             tong_hs_luong_pc = Number(tong_hs_luong_pc).toFixed(2);        
         
             var tong_hs_luong_pc_ca_nhan = parseFloat(bl_hs_luong) + parseFloat(bl_hs_pc_chuc_vu) + parseFloat(bl_hs_pc_khu_vuc) + parseFloat(bl_hs_pc_tnvk) + parseFloat(bl_hs_pc_udn);
