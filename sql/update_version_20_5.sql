@@ -23,3 +23,15 @@ ALTER TABLE `bang_luong` ADD COLUMN `bl_tong_he_so` FLOAT NOT NULL DEFAULT 0 AFT
 /*2-6*/
 ALTER TABLE `employees` ADD COLUMN `em_tai_lieu_khac` TEXT AFTER `em_date_modified`;
 ALTER TABLE `employees_edit` ADD COLUMN `eme_tai_lieu_khac` TEXT AFTER `eme_date_modified`;
+
+/*4-6*/
+CREATE TABLE `ngay_le_tet` (
+  `nn_id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  `nn_name` VARCHAR(100) NOT NULL,
+  `nn_tu_ngay` DATETIME NOT NULL,
+  `nn_den_ngay` DATETIME NOT NULL,
+  `nn_status` INTEGER UNSIGNED NOT NULL DEFAULT 1,
+  PRIMARY KEY (`nn_id`)
+)
+ENGINE = InnoDB;
+

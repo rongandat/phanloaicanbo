@@ -497,8 +497,11 @@ div.success_ui h2, div.error_ui h2{
 
 .tai_lieu_khac{
     margin: 0px 5px 5px 0px;
-    position: relative;
-    
+    position: relative;    
+    overflow: hidden;
+    width: 80px;
+    height: 100px;
+    background: url(../img/not_img_icon.png) no-repeat;
 }
 
 .tai_lieu_khac img{
@@ -516,4 +519,11 @@ div.success_ui h2, div.error_ui h2{
     position: absolute;
     top: 5px;
     right: 5px;
+}
+
+.tai_lieu_khac span{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    font-size: 10px;
 }
