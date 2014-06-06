@@ -181,21 +181,43 @@ class Donvi_ThongkethangController extends Zend_Controller_Action {
         if ($list_nhan_vien) {
             $k = 1;
             foreach ($list_nhan_vien as $nhan_vien) {
-                $ngay_lam_thu_7_cn = 0;
+                //$ngay_lam_thu_7_cn = 0;
+                $so_gio_lam_le_tet = $so_phut_lam_le_tet = 0;
+                $so_gio_lam_thu_7_cn = $so_phut_lam_thu_7_cn = 0;
+
                 $days_in_month = cal_days_in_month(0, (int) $thang, (int) $nam);
                 $k++;
                 $cham_cong = $chamcongModel->fetchOneData(array('c_em_id' => $nhan_vien->em_id, 'c_thang' => (int) $thang, 'c_nam' => (int) $nam));
                 for ($d = 1; $d <= $days_in_month; $d++) {
                     $ngay_chamcong = 'c_ngay_' . $d;
                     $trangthai_ngaycong = $cham_cong->$ngay_chamcong;
-                    if ($this->view->viewCheckChuNhatThuBay($d, (int) $thang, (int) $nam)) {
-                        if (!empty($listHoliday[$trangthai_ngaycong]) && $listHoliday[$trangthai_ngaycong]['ngay_cong'] == 1)
-                            $ngay_lam_thu_7_cn++;
-                        if (!empty($listHoliday[$trangthai_ngaycong]) && $listHoliday[$trangthai_ngaycong]['ngay_cong'] == 2)
-                            $ngay_lam_thu_7_cn+=0.5;
+                    $check_gio_lam_them = $this->view->viewGetGioLamThem($nhan_vien->em_id, $d, $thang, $nam);
+
+                    if ($check_gio_lam_them) {
+                        if ($this->view->viewCheckLeTet($d, $thang, $nam)) {
+                            $so_gio_lam_le_tet+=$check_gio_lam_them['gio'];
+                            $so_phut_lam_le_tet+=$check_gio_lam_them['phut'];
+                        } elseif ($this->view->viewCheckChuNhatThuBay($d, (int) $thang, (int) $nam)) {
+                            $so_gio_lam_thu_7_cn+=$check_gio_lam_them['gio'];
+                            $so_phut_lam_thu_7_cn+=$check_gio_lam_them['phut'];
+                        }
                     }
+
+                    /* if ($this->view->viewCheckChuNhatThuBay($d, (int) $thang, (int) $nam)) {
+                      if (!empty($listHoliday[$trangthai_ngaycong]) && $listHoliday[$trangthai_ngaycong]['ngay_cong'] == 1)
+                      $ngay_lam_thu_7_cn++;
+                      if (!empty($listHoliday[$trangthai_ngaycong]) && $listHoliday[$trangthai_ngaycong]['ngay_cong'] == 2)
+                      $ngay_lam_thu_7_cn+=0.5;
+                      } */
                 }
 
+                $doi_gio_thu_7 = floor($so_phut_lam_thu_7_cn / 60);
+                $so_phut_lam_thu_7_cn = $so_phut_lam_thu_7_cn % 60;
+                $so_gio_lam_thu_7_cn += $doi_gio_thu_7;
+
+                $doi_gio_le_tet = floor($so_phut_lam_le_tet / 60);
+                $so_phut_lam_le_tet = $so_phut_lam_le_tet % 60;
+                $so_gio_lam_le_tet += $doi_gio_le_tet;
 
                 $objPHPExcel->getActiveSheet()->SetCellValue('A' . ($k + 6), $k);
                 $objPHPExcel->getActiveSheet()->SetCellValue('B' . ($k + 6), $nhan_vien->em_ho . ' ' . $nhan_vien->em_ten);
@@ -230,7 +252,8 @@ class Donvi_ThongkethangController extends Zend_Controller_Action {
                 $objPHPExcel->getActiveSheet()->SetCellValue('AE' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_29]) ? $listHoliday[$cham_cong->c_ngay_29]['code'] : '');
                 $objPHPExcel->getActiveSheet()->SetCellValue('AF' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_30]) ? $listHoliday[$cham_cong->c_ngay_30]['code'] : '');
                 $objPHPExcel->getActiveSheet()->SetCellValue('AG' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_31]) ? $listHoliday[$cham_cong->c_ngay_31]['code'] : '');
-                $objPHPExcel->getActiveSheet()->SetCellValue('AI' . ($k + 6), $ngay_lam_thu_7_cn * 8);
+                $objPHPExcel->getActiveSheet()->SetCellValue('AI' . ($k + 6), $so_gio_lam_thu_7_cn.':'.$so_phut_lam_thu_7_cn);
+                $objPHPExcel->getActiveSheet()->SetCellValue('AJ' . ($k + 6), $so_gio_lam_le_tet.':'.$so_phut_lam_le_tet);
 
 
                 for ($l = 1; $l <= 31; $l++) {

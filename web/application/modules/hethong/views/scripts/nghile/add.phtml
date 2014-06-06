@@ -1,0 +1,102 @@
+<div class="body_content float_right">
+    <h5>Thêm ngày nghỉ lễ mới</h5>               
+
+    <div class="main-content-box"> 
+        <?php if ($this->error_message) : ?>
+            <div class="alert alert-error">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <h5>Thông báo!</h5>
+                Thêm mới không thành công vì:
+                <ol>
+                    <?php foreach ($this->error_message as $message): ?>
+                        <li><?php echo $message; ?></li>
+                    <?php endforeach; ?>
+                </ol>
+            </div> 
+        <?php endif; ?>  
+        <?php if ($this->success_message) : ?>
+            <div class="alert alert-success">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <h5>Thông báo!</h5>
+                <?php echo $this->success_message; ?>
+            </div>
+        <?php endif; ?>  
+        <form class="form-horizontal" method="post" action="">
+            <div class="control-group">
+                <label class="control-label" for="nn_name">Tên ngày nghỉ lễ</label>
+                <div class="controls">
+                    <?php echo $this->formText('nn_name', NULL, array('required' => '')); ?>
+                    <span class="help-inline">(*)</span>
+                </div>
+            </div> 
+
+            <div class="control-group">
+                <label class="control-label" for="nn_tu_ngay">Ngày bắt đầu</label>
+                <div class="controls">
+                    <?php echo $this->formText('nn_tu_ngay', NULL, array('required' => '')); ?>
+                    <span class="help-inline">(*)</span>
+                </div>
+            </div> 
+
+            <div class="control-group">
+                <label class="control-label" for="nn_den_ngay">Ngày kết thúc</label>
+                <div class="controls">
+                    <?php echo $this->formText('nn_den_ngay', NULL, array('required' => '')); ?>
+                    <span class="help-inline">(*)</span>
+                </div>
+            </div> 
+
+            <div class="control-group">
+                <label class="control-label" for="nn_status">Trạng thái</label>
+                <div class="controls">
+                    <?php
+                    $status_options = array(1 => 'Sử dụng', 0 => 'Khóa');
+                    echo $this->formSelect('nn_status', null, null, $status_options);
+                    ?>                     
+                </div>
+            </div> 
+
+            <div class="control-group">
+                <div class="controls">
+                    <p>
+                        <button class="btn btn-small btn-primary" type="submit">Thêm mới</button>
+                        <a class="btn btn-small" type="button" href="<?php echo $this->baseUrl('hethong/nghile/index/page/' . $this->arrParam['page']); ?>">Quay lại</a>
+                    </p>
+                </div>
+            </div>
+        </form>
+    </div> 
+</div>
+
+<script type="text/javascript">    
+        
+    $( "#nn_tu_ngay" ).datepicker({
+        yearRange: '1900:2050',
+        changeMonth: true,
+        changeYear: true,
+        defaultDate: "+1w",
+        numberOfMonths: 1,
+        onClose: function( selectedDate ) {
+            $( "#nn_den_ngay" ).datepicker( "option", "minDate", selectedDate );
+        },
+        dateFormat: 'd/m/yy',
+        showOn: "button",
+        buttonImage: site_url+"/date-picker-icon.png",
+        buttonImageOnly: true
+    });        
+    $( "#nn_den_ngay" ).datepicker({
+        yearRange: '1900:2050',
+        changeMonth: true,
+        changeYear: true,
+        defaultDate: "+1w",
+        numberOfMonths: 1,
+        onClose: function( selectedDate ) {
+            $( "#nn_tu_ngay" ).datepicker( "option", "maxDate", selectedDate );
+        },
+        dateFormat: 'd/m/yy',
+        showOn: "button",
+        buttonImage: site_url+"/date-picker-icon.png",
+        buttonImageOnly: true
+    });
+        
+</script>

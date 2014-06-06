@@ -29,7 +29,7 @@ class Hethong_HolidaysController extends Zend_Controller_Action {
 
     public function indexAction() {
         $translate = Zend_Registry::get('Zend_Translate');
-        $this->view->title = 'Quản lý ngày nghỉ lễ - ' . $translate->_('TEXT_DEFAULT_TITLE');
+        $this->view->title = 'Quản lý ngày công - ' . $translate->_('TEXT_DEFAULT_TITLE');
         $this->view->headTitle($this->view->title);
 
         $layoutPath = APPLICATION_PATH . '/templates/' . TEMPLATE_USED;
@@ -50,7 +50,7 @@ class Hethong_HolidaysController extends Zend_Controller_Action {
 
     public function searchAction() {
         $translate = Zend_Registry::get('Zend_Translate');
-        $this->view->title = 'Quản lý ngày nghỉ lễ - ' . $translate->_('TEXT_DEFAULT_TITLE');
+        $this->view->title = 'Quản lý ngày công - ' . $translate->_('TEXT_DEFAULT_TITLE');
         $this->view->headTitle($this->view->title);
 
         $layoutPath = APPLICATION_PATH . '/templates/' . TEMPLATE_USED;
@@ -81,7 +81,7 @@ class Hethong_HolidaysController extends Zend_Controller_Action {
 
         Zend_Layout::startMvc($option);
         $translate = Zend_Registry::get('Zend_Translate');
-        $this->view->title = 'Quản lý ngày nghỉ lễ - ' . $translate->_('TEXT_DEFAULT_TITLE');
+        $this->view->title = 'Quản lý ngày công - ' . $translate->_('TEXT_DEFAULT_TITLE');
         $this->view->headTitle($this->view->title);
 
         $holidaysModel = new Front_Model_Holidays();
@@ -136,7 +136,7 @@ class Hethong_HolidaysController extends Zend_Controller_Action {
 
         Zend_Layout::startMvc($option);
         $translate = Zend_Registry::get('Zend_Translate');
-        $this->view->title = 'Quản lý ngày nghỉ lễ - ' . $translate->_('TEXT_DEFAULT_TITLE');
+        $this->view->title = 'Quản lý ngày công - ' . $translate->_('TEXT_DEFAULT_TITLE');
         $this->view->headTitle($this->view->title);
 
         $id = $this->_getParam('id', 0);
@@ -209,7 +209,7 @@ class Hethong_HolidaysController extends Zend_Controller_Action {
 
         Zend_Layout::startMvc($option);
         $translate = Zend_Registry::get('Zend_Translate');
-        $this->view->title = 'Quản lý ngày nghỉ lễ - ' . $translate->_('TEXT_DEFAULT_TITLE');
+        $this->view->title = 'Quản lý ngày công - ' . $translate->_('TEXT_DEFAULT_TITLE');
         $this->view->headTitle($this->view->title);
 
         $id = $this->_getParam('id', 0);

@@ -39,7 +39,9 @@
         <tbody>
             <?php
             foreach ($this->list_nhan_vien as $key => $nv) {
-                $ngay_lam_thu_7_cn = 0;
+                //$ngay_lam_thu_7_cn = 0;
+                $so_gio_lam_le_tet = $so_phut_lam_le_tet = 0;
+                $so_gio_lam_thu_7_cn = $so_phut_lam_thu_7_cn = 0;
                 $view_get_chamcong = $this->viewGetChamCong($nv['em_id'], $this->thang, $this->nam);
                 ?>
                 <tr>                    
@@ -48,19 +50,40 @@
                         <?php
                         $ngay_chamcong = 'c_ngay_' . $i;
                         $trangthai_ngaycong = $view_get_chamcong->$ngay_chamcong;
-
-                        if ($this->viewCheckChuNhatThuBay($i, (int) $this->thang, (int) $this->nam)) {
-                            if (!empty($this->listHoliday[$trangthai_ngaycong]) && $this->listHoliday[$trangthai_ngaycong]['ngay_cong'] == 1)
-                                $ngay_lam_thu_7_cn++;
-                            if (!empty($this->listHoliday[$trangthai_ngaycong]) && $this->listHoliday[$trangthai_ngaycong]['ngay_cong'] == 2)
-                                $ngay_lam_thu_7_cn+=0.5;
+                        $check_gio_lam_them = $this->viewGetGioLamThem($nv['em_id'], $i, $this->thang, $this->nam);
+                        if ($check_gio_lam_them) {
+                            if ($this->viewCheckLeTet($i, $this->thang, $this->nam)) {                                
+                                $so_gio_lam_le_tet+=$check_gio_lam_them['gio'];
+                                $so_phut_lam_le_tet+=$check_gio_lam_them['phut'];
+                            } elseif ($this->viewCheckChuNhatThuBay($i, (int) $this->thang, (int) $this->nam)) {
+                                $so_gio_lam_thu_7_cn+=$check_gio_lam_them['gio'];
+                                $so_phut_lam_thu_7_cn+=$check_gio_lam_them['phut'];
+                            }
                         }
+
+                        /* if ($this->viewCheckChuNhatThuBay($i, (int) $this->thang, (int) $this->nam)) {
+                          if (!empty($this->listHoliday[$trangthai_ngaycong]) && $this->listHoliday[$trangthai_ngaycong]['ngay_cong'] == 1)
+                          $ngay_lam_thu_7_cn++;
+                          if (!empty($this->listHoliday[$trangthai_ngaycong]) && $this->listHoliday[$trangthai_ngaycong]['ngay_cong'] == 2)
+                          $ngay_lam_thu_7_cn+=0.5;
+                          } */
                         ?>
                         <td style="width: 10px;" <?php echo $this->viewCheckChuNhatThuBay($i, (int) $this->thang, (int) $this->nam); ?>><?php echo!empty($this->listHoliday[$trangthai_ngaycong]) ? $this->listHoliday[$trangthai_ngaycong]['code'] : '' ?></td>
-                    <?php } ?>
+                        <?php
+                    }
+                    
+                    $doi_gio_thu_7 = floor($so_phut_lam_thu_7_cn/60);
+                    $so_phut_lam_thu_7_cn = $so_phut_lam_thu_7_cn%60;
+                    $so_gio_lam_thu_7_cn += $doi_gio_thu_7;
+                    
+                    $doi_gio_le_tet = floor($so_phut_lam_le_tet/60);
+                    $so_phut_lam_le_tet = $so_phut_lam_le_tet%60;
+                    $so_gio_lam_le_tet += $doi_gio_le_tet;
+                    
+                    ?>
                     <td></td>
-                    <td><?php echo $ngay_lam_thu_7_cn * 8; ?></td>
-                    <td></td>
+                    <td><?php echo $so_gio_lam_thu_7_cn.':'.$so_phut_lam_thu_7_cn;?></td>
+                    <td><?php echo $so_gio_lam_le_tet.':'.$so_phut_lam_le_tet;?></td>
                     <td></td>
                     <td></td>
                 </tr>

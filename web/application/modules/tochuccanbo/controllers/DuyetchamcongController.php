@@ -54,7 +54,7 @@ class Tochuccanbo_DuyetchamcongController extends Zend_Controller_Action {
 
         $pb_selected = $this->_getParam('phongban', 0);
         $nv_selected = $this->_getParam('nhanvien', 0);
-        $phong_ban_id = $list_phongban = $phong_ban = Array();
+        $list_nhan_vien = $phong_ban_id = $list_phongban = $phong_ban = Array();
 
         $phong_ban_id[] = $pb_selected;
         $list_phongban = $phongbanModel->fetchDataStatus($pb_selected, $phong_ban);
@@ -69,7 +69,19 @@ class Tochuccanbo_DuyetchamcongController extends Zend_Controller_Action {
         }
 
         $phong_ban_id = implode(',', $phong_ban_id);
-        $list_nhan_vien = $emModel->fetchAll("em_phong_ban in ($phong_ban_id) and em_status=1");
+        if ($pb_selected)
+            $list_nhan_vien = $emModel->fetchAll("em_phong_ban in ($phong_ban_id) and em_status=1");
+
+        $holidaysModel = new Front_Model_Holidays();
+        $holidays = $holidaysModel->fetchData();
+        $listHoliday = array();
+
+        foreach ($holidays as $holiday) {
+            $listHoliday[$holiday['hld_id']] = array('code' => $holiday['hld_code'], 'ngay_cong' => $holiday['hld_ngay_cong']);
+        }
+
+        $this->view->listHoliday = $listHoliday;
+
         $this->view->list_nhan_vien = $list_nhan_vien;
         $this->view->thang = $thang;
         $this->view->nam = $nam;
@@ -116,7 +128,7 @@ class Tochuccanbo_DuyetchamcongController extends Zend_Controller_Action {
         $new_status = 'Đã duyệt';
         $em_id = 0;
         $process_status = 0;
-        if ($this->_request->isPost()) {            
+        if ($this->_request->isPost()) {
             $item_id = $this->_arrParam['item_id'];
             $item_status = $this->_arrParam['item_status'];
             if ($item_status > 1) {
@@ -130,7 +142,7 @@ class Tochuccanbo_DuyetchamcongController extends Zend_Controller_Action {
             $cham_cong = $chamcongModel->fetchRow('c_id=' . $item_id);
             //Zend_Debug::dump($cham_cong);
             if ($cham_cong && $cham_cong->c_don_vi_status > 0) {
-                $em_id =$cham_cong->c_em_id;
+                $em_id = $cham_cong->c_em_id;
                 $thang = $cham_cong->c_thang;
                 $nam = $cham_cong->c_nam;
                 $process_status = $chamcongModel->update(array('c_ptccb_status' => $item_status, 'c_don_vi_status' => $item_status), 'c_id=' . $item_id);

@@ -1,5 +1,5 @@
 <div class="body_content float_right">
-    <h5>Cập nhật thông tin ngày công</h5>               
+    <h5>Cập nhật thông tin ngày nghỉ lễ</h5>               
 
     <div class="main-content-box"> 
         <?php if ($this->error_message) : ?>
@@ -20,57 +20,47 @@
                 <?php echo $this->success_message; ?>
             </div>
         <?php endif; ?>  
-        <?php if ($this->hld_info) : ?>        
+        <?php if ($this->nn_info) : ?>        
             <form class="form-horizontal" method="post" action="">
                 <div class="control-group">
-                    <label class="control-label" for="hld_name">Tên ngày công</label>
+                    <label class="control-label" for="nn_name">Tên ngày nghỉ lễ</label>
                     <div class="controls">
-                        <?php echo $this->formText('hld_name', $this->hld_info->hld_name, array('required' => '')); ?>
-                        <span class="help-inline">(*)</span>
-                    </div>
-                </div>
-
-                <div class="control-group">
-                    <label class="control-label" for="hld_code">Mã ngày công</label>
-                    <div class="controls">
-                        <?php echo $this->formText('hld_code', $this->hld_info->hld_code, array('required' => '')); ?>
+                        <?php echo $this->formText('nn_name', $this->nn_info->nn_name, array('required' => '')); ?>
                         <span class="help-inline">(*)</span>
                     </div>
                 </div> 
 
                 <div class="control-group">
-                    <label class="control-label" for="hld_order">Vị trí</label>
+                    <label class="control-label" for="nn_tu_ngay">Ngày bắt đầu</label>
                     <div class="controls">
-                        <?php echo $this->formText('hld_order', $this->hld_info->hld_order, array()); ?>
-                        <span class="help-block">Dùng để sắp xếp vị trí hiển thị khi dùng.</span>
-                    </div>                
-                </div>
+                        <?php echo $this->formText('nn_tu_ngay', date('d/m/Y', strtotime($this->nn_info->nn_tu_ngay)), array('required' => '')); ?>
+                        <span class="help-inline">(*)</span>
+                    </div>
+                </div> 
 
                 <div class="control-group">
-                    <label class="control-label" for="hld_ngay_cong">Giờ làm việc</label>
+                    <label class="control-label" for="nn_den_ngay">Ngày kết thúc</label>
                     <div class="controls">
-                        <?php
-                        $ngay_cong_options = array(0 => 'Không tính giờ làm', 1 => 'Một ngày làm', 2 => 'Nửa ngày làm');
-                        echo $this->formSelect('hld_ngay_cong', $this->hld_info->hld_ngay_cong, null, $ngay_cong_options);
-                        ?>                     
+                        <?php echo $this->formText('nn_den_ngay', date('d/m/Y', strtotime($this->nn_info->nn_den_ngay)), array('required' => '')); ?>
+                        <span class="help-inline">(*)</span>
                     </div>
-                </div>
-                
+                </div> 
+
                 <div class="control-group">
-                    <label class="control-label" for="hld_status">Trạng thái</label>
+                    <label class="control-label" for="nn_status">Trạng thái</label>
                     <div class="controls">
                         <?php
                         $status_options = array(1 => 'Sử dụng', 0 => 'Khóa');
-                        echo $this->formSelect('hld_status', $this->hld_info->hld_status, null, $status_options);
+                        echo $this->formSelect('nn_status', $this->nn_info->nn_status, null, $status_options);
                         ?>                     
                     </div>
                 </div>
-                
+
                 <div class="control-group">
                     <div class="controls">
                         <p>
                             <button class="btn btn-small btn-primary" type="submit">Cập nhật</button>
-                            <a class="btn btn-small" type="button" href="<?php echo $this->baseUrl('hethong/holidays/index/page/' . $this->arrParam['page']); ?>">Quay lại</a>
+                            <a class="btn btn-small" type="button" href="<?php echo $this->baseUrl('hethong/nghile/index/page/' . $this->arrParam['page']); ?>">Quay lại</a>
                         </p>
                     </div>
                 </div>
@@ -80,7 +70,7 @@
                 <div class="control-group">
                     <div class="controls">
                         <p>
-                            <a class="btn btn-small" type="button" href="<?php echo $this->baseUrl('hethong/holidays/index/page/' . $this->arrParam['page']); ?>">Quay lại</a>
+                            <a class="btn btn-small" type="button" href="<?php echo $this->baseUrl('hethong/nghile/index/page/' . $this->arrParam['page']); ?>">Quay lại</a>
                         </p>
                     </div>
                 </div>

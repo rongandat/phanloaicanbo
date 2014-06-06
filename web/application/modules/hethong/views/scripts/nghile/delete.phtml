@@ -1,5 +1,5 @@
 <div class="body_content float_right">
-    <h5>Xóa ngày công</h5>               
+    <h5>Xóa ngày nghỉ lễ</h5>               
 
     <div class="main-content-box"> 
         <?php if ($this->error_message) : ?>
@@ -13,13 +13,13 @@
                 </ol>
             </div> 
         <?php endif; ?>          
-        <?php if ($this->hld_info) : ?>        
+        <?php if ($this->nn_info) : ?>        
             <form class="form-horizontal" method="post" action="">
-                <?php echo $this->formHidden('id', $this->hld_info->hld_id);?>
+                <?php echo $this->formHidden('id', $this->nn_info->nn_id);?>
                 <div class="control-group">
                     <div class="controls">
                         <p>
-                            Bạn có chắc chắn muốn xóa ngày công <strong><?php echo $this->hld_info->hld_name;?></strong>
+                            Bạn có chắc chắn muốn xóa ngày công <strong><?php echo $this->nn_info->nn_name;?></strong>
                         </p>
                     </div>
                 </div>
@@ -27,7 +27,7 @@
                     <div class="controls">
                         <p>
                             <button name="del" value="Yes" class="btn btn-small btn-primary" type="submit">Đồng ý xóa</button>
-                            <a class="btn btn-small" type="button" href="<?php echo $this->baseUrl('hethong/holidays/index/page/' . $this->arrParam['page']); ?>">Quay lại</a>
+                            <a class="btn btn-small" type="button" href="<?php echo $this->baseUrl('hethong/nghile/index/page/' . $this->arrParam['page']); ?>">Quay lại</a>
                         </p>
                     </div>
                 </div>
@@ -37,7 +37,7 @@
                 <div class="control-group">
                     <div class="controls">
                         <p>
-                            <a class="btn btn-small" type="button" href="<?php echo $this->baseUrl('hethong/holidays/index/page/' . $this->arrParam['page']); ?>">Quay lại</a>
+                            <a class="btn btn-small" type="button" href="<?php echo $this->baseUrl('hethong/nghile/index/page/' . $this->arrParam['page']); ?>">Quay lại</a>
                         </p>
                     </div>
                 </div>
