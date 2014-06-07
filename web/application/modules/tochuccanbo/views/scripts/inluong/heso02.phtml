@@ -9,7 +9,7 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
     $list_chuc_vu[$chuc_vu->cv_id] = $chuc_vu->cv_name;
 }
 ?>
-<h5>Tính lương hệ số 0.5</h5>               
+<h5>In lương hệ số 0.2</h5>               
 
 <div class="main-content-box">  
     <form name="appForm" class="form-horizontal" method="post" action="">
@@ -36,7 +36,6 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
         <table class="table table-bordered table-hover">
             <thead>
                 <tr>  
-                    <th class="checkall_style"><input type="checkbox" name="check_all" id="checkbox" onclick="checkedAll()"></th>
                     <th>Họ tên</th>
                     <th style="width: 120px;">Ngày sinh</th>
                     <th style="width: 90px;">Giới tính</th>
@@ -48,14 +47,16 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
                 <?php
                 foreach ($this->list_nhan_vien as $nhanvien) {
                     $check_bang_luong = $this->viewCheckBangLuong($nhanvien->em_id, $this->thang, $this->nam);
+                    $bang_luong_03 = false;
+                    if ($check_bang_luong->bl_tong_he_so > 0 && $check_bang_luong->bl_02)
+                        $bang_luong_03 = true;
                     ?>
-                    <tr class="<?php echo ($check_bang_luong ? 'success' : 'error') ?>">
-                        <td class="checkall_style"><input type="checkbox" name="cid[]" id="cid" value="<?php echo $nhanvien->em_id;?>"></td>
+                    <tr class="<?php echo ($bang_luong_03 ? 'success' : 'error') ?>">
                         <td><?php echo $nhanvien->em_ho . ' ' . $nhanvien->em_ten; ?></td>
                         <td><?php echo date('d-m-Y', strtotime($nhanvien->em_ngay_sinh)); ?></td>                        
                         <td><?php echo ($nhanvien->em_gioi_tinh ? 'Nam' : 'Nữ'); ?></td>                        
                         <td><?php echo $list_chuc_vu[$nhanvien->em_chuc_vu]; ?></td>                        
-                        <td><?php echo ($check_bang_luong ? 'Sẵn sàng' : 'Chưa tính lương'); ?></td>                         
+                        <td><?php echo ($bang_luong_03 ? 'Sẵn sàng' : 'Chưa tính lương'); ?></td>                         
                     </tr>
                     <?php
                 }
@@ -66,7 +67,8 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
         <div class="control-group">
             <div class="controls">
                 <p>
-                    <button class="btn btn-small btn-primary" type="submit"><i class="icon-folder-close"></i> Tính lương</button>
+                    <!--<a class="btn btn-small btn-primary" target="_blank" href="<?php echo$this->baseUrl('tochuccanbo/inluong/downtheophong/phongban/' . $this->pb_id . '/thang/' . $this->thang . '/nam/' . $this->nam); ?>"><i class="icon-download-alt"></i> Xuất ra file PDF</a>-->
+                    <a class="btn btn-small btn-primary" target="_blank" href="<?php echo$this->baseUrl('tochuccanbo/inluong/exelheso02/phongban/' . $this->pb_id . '/thang/' . $this->thang . '/nam/' . $this->nam); ?>"><i class="icon-download-alt"></i> Xuất ra file Exel</a>
                     <a class="btn btn-small" type="button" href="<?php echo $this->baseUrl('tochuccanbo/employees'); ?>">Quay lại</a>
                 </p>
             </div>
@@ -89,7 +91,7 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
     $('#txt_thang_nam').monthpicker(options);
     var phong_ban = $('#sl_phong_ban').val();
     $('#txt_thang_nam').monthpicker().bind('monthpicker-click-month', function (e, month, year) { 
-        window.location = site_url+'/tochuccanbo/tinhluong/auto05/phongban/'+phong_ban+'/thang/'+month+'/nam/'+year
+        window.location = site_url+'/tochuccanbo/inluong/heso02/phongban/'+phong_ban+'/thang/'+month+'/nam/'+year
     });
 
     $('#btn_chon_thang').bind('click', function () {
@@ -108,6 +110,6 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
             c_m = date_array[0];
             c_y = date_array[1];
         }        
-        window.location = site_url+'/tochuccanbo/tinhluong/auto05/phongban/'+phong_ban+'/thang/'+c_m+'/nam/'+c_y;
+        window.location = site_url+'/tochuccanbo/inluong/heso02/phongban/'+phong_ban+'/thang/'+c_m+'/nam/'+c_y;
     }
 </script>

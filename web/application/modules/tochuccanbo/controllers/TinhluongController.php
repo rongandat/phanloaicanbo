@@ -328,7 +328,7 @@ class Tochuccanbo_TinhluongController extends Zend_Controller_Action {
 
     public function auto05Action() {
         $translate = Zend_Registry::get('Zend_Translate');
-        $this->view->title = 'In lương - ' . $translate->_('TEXT_DEFAULT_TITLE');
+        $this->view->title = 'Tinh lương hệ số 0.5 - ' . $translate->_('TEXT_DEFAULT_TITLE');
         $this->view->headTitle($this->view->title);
 
         $layoutPath = APPLICATION_PATH . '/templates/' . TEMPLATE_USED;
@@ -472,7 +472,7 @@ class Tochuccanbo_TinhluongController extends Zend_Controller_Action {
 
     public function auto03Action() {
         $translate = Zend_Registry::get('Zend_Translate');
-        $this->view->title = 'In lương - ' . $translate->_('TEXT_DEFAULT_TITLE');
+        $this->view->title = 'Tính lương hệ số 0.2 - ' . $translate->_('TEXT_DEFAULT_TITLE');
         $this->view->headTitle($this->view->title);
 
         $layoutPath = APPLICATION_PATH . '/templates/' . TEMPLATE_USED;
@@ -607,6 +607,83 @@ class Tochuccanbo_TinhluongController extends Zend_Controller_Action {
                         'bl_tong_he_so_ca_nhan' => $tong_hs_luong_pc_ca_nhan,
                         'bl_tong_he_so_plld' => $tong_hs_luong_pc_plld,
                         'bl_tam_chi_dau_vao' => $tam_chi_dau_vao
+                    );
+
+                    $bl_id = $bang_luong->bl_id;
+                    $bangluongModel->update($data, "bl_id=$bl_id");
+                }
+            }
+        }
+
+        $this->view->list_nhan_vien = $list_nhan_vien;
+        $this->view->thang = $thang;
+        $this->view->nam = $nam;
+        $this->view->pb_id = $pb_selected;
+        $this->view->list_phong_ban_option = $list_phong_ban_option;
+        $this->view->list_chuc_vu = $list_chuc_vu;
+    }
+    
+    public function auto02Action() {
+        $translate = Zend_Registry::get('Zend_Translate');
+        $this->view->title = 'Tính lương hệ số 0.2 - ' . $translate->_('TEXT_DEFAULT_TITLE');
+        $this->view->headTitle($this->view->title);
+
+        $layoutPath = APPLICATION_PATH . '/templates/' . TEMPLATE_USED;
+        $option = array('layout' => '1_column/layout',
+            'layoutPath' => $layoutPath);
+        Zend_Layout::startMvc($option);
+
+        $auth = Zend_Auth::getInstance();
+        $identity = $auth->getIdentity();
+        $my_id = $identity->em_id;
+
+        $date = new Zend_Date();
+        $date->subMonth(1);
+        $thang = $this->_getParam('thang', $date->toString('M'));
+        $nam = $this->_getParam('nam', $date->toString('Y'));
+        $emModel = new Front_Model_Employees();
+        $phongbanModel = new Front_Model_Phongban();
+        $chucvuModel = new Front_Model_Chucvu();
+        $hesocbModel = new Front_Model_HeSo();
+        $hesoModel = new Front_Model_EmployeesHeso();
+        $bangluongModel = new Front_Model_BangLuong();
+        $danhgiaModel = new Front_Model_DanhGia();
+
+        $lastHeSoLuong = $hesocbModel->fetchOneData(array('hs_ngay_bat_dau' => date("$nam-$thang-1")), 'hs_ngay_bat_dau DESC');
+        $he_so_tang_them = 0.5;
+        $he_so_phan_loai = array('O' => 0, 'A' => 1.2, 'B' => 1, 'C' => 0.8, 'D' => 0);
+
+        $pb_selected = $this->_getParam('phongban', 0);
+        $phong_ban_id = $list_phongban_selected = $phong_ban = Array();
+
+        $phong_ban_id[] = $pb_selected;
+        $list_phongban_selected = $phongbanModel->fetchDataStatus($pb_selected, $phong_ban);
+        $list_chuc_vu = $chucvuModel->fetchAll();
+
+        $list_nhan_vien = $phong_ban_options = Array();
+        $list_phong_ban_option = $phongbanModel->fetchData(0, $phong_ban_options);
+
+        if (sizeof($list_phongban_selected)) {
+            foreach ($list_phongban_selected as $phong_ban_info) {
+                $phong_ban_id[] = $phong_ban_info->pb_id;
+            }
+        }
+        $phong_ban_id = implode(',', $phong_ban_id);
+        if ($pb_selected)
+            $list_nhan_vien = $emModel->fetchAll("em_phong_ban in ($phong_ban_id) and em_status=1");
+
+        if ($this->_request->isPost()) {
+            $item = $this->getRequest()->getPost('cid');
+            foreach ($item as $k => $v) {
+                $bang_luong = $bangluongModel->fetchByDate($v, "$nam-$thang-01 00:00:00", "$nam-$thang-31 23:59:59");
+                if ($bang_luong && $bang_luong->bl_tong_he_so >0) {    
+                    $luong_toi_thieu = $bang_luong->bl_luong_toi_thieu; //luong co ban
+                    $tong_hs_luong_pc = $bang_luong->bl_tong_he_so;
+                    $tam_chi_dau_vao = $tong_hs_luong_pc * $luong_toi_thieu * 0.5;
+                    $data = array(
+                        'bl_ptccb_id' => $my_id,                        
+                        'bl_tam_chi_dau_vao_02' => $tam_chi_dau_vao,
+                        'bl_02' => 1
                     );
 
                     $bl_id = $bang_luong->bl_id;

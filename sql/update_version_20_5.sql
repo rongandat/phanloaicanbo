@@ -35,3 +35,7 @@ CREATE TABLE `ngay_le_tet` (
 )
 ENGINE = InnoDB;
 
+/*7-6*/
+ALTER TABLE `bang_luong` ADD COLUMN `bl_tam_chi_dau_vao_02` DOUBLE NOT NULL DEFAULT 0 AFTER `bl_tam_chi_dau_vao`,
+ ADD COLUMN `bl_02` INTEGER UNSIGNED NOT NULL DEFAULT 0 AFTER `bl_tam_chi_dau_vao_02`;
+

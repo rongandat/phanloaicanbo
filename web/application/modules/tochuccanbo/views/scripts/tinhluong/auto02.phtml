@@ -9,7 +9,7 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
     $list_chuc_vu[$chuc_vu->cv_id] = $chuc_vu->cv_name;
 }
 ?>
-<h5>Tính lương hệ số 0.5</h5>               
+<h5>Tính lương hệ số 0.2</h5>               
 
 <div class="main-content-box">  
     <form name="appForm" class="form-horizontal" method="post" action="">
@@ -48,14 +48,29 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
                 <?php
                 foreach ($this->list_nhan_vien as $nhanvien) {
                     $check_bang_luong = $this->viewCheckBangLuong($nhanvien->em_id, $this->thang, $this->nam);
+                    $check_phan_loai = $this->viewGetPhanLoai($nhanvien->em_id, $this->thang, $this->nam);
+                    $status = 'Chưa tính lương';
+                    $class = 'error';
+                    if ($check_bang_luong && $check_bang_luong->bl_02 > 0) {
+                        $status = 'Đã tính lương';
+                        $class = 'success';
+                    } elseif ($check_bang_luong && $check_bang_luong->bl_tong_he_so <= 0) {
+                        $status = 'Chưa tính lương 0.3';
+                    } else {
+                        if (!$check_bang_luong) {
+                            $status = 'Chưa tính lương 0.5';
+                        } else if (!$check_phan_loai || ($check_phan_loai && !$check_phan_loai->dg_ptccb_status)) {
+                            $status = 'Chưa duyệt phân loại';
+                        }
+                    }
                     ?>
-                    <tr class="<?php echo ($check_bang_luong ? 'success' : 'error') ?>">
-                        <td class="checkall_style"><input type="checkbox" name="cid[]" id="cid" value="<?php echo $nhanvien->em_id;?>"></td>
+                    <tr class="<?php echo $class; ?>">
+                        <td class="checkall_style"><input type="checkbox" name="cid[]" id="cid" value="<?php echo $nhanvien->em_id; ?>"></td>
                         <td><?php echo $nhanvien->em_ho . ' ' . $nhanvien->em_ten; ?></td>
                         <td><?php echo date('d-m-Y', strtotime($nhanvien->em_ngay_sinh)); ?></td>                        
                         <td><?php echo ($nhanvien->em_gioi_tinh ? 'Nam' : 'Nữ'); ?></td>                        
                         <td><?php echo $list_chuc_vu[$nhanvien->em_chuc_vu]; ?></td>                        
-                        <td><?php echo ($check_bang_luong ? 'Sẵn sàng' : 'Chưa tính lương'); ?></td>                         
+                        <td><?php echo $status; ?></td>                         
                     </tr>
                     <?php
                 }
@@ -89,7 +104,7 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
     $('#txt_thang_nam').monthpicker(options);
     var phong_ban = $('#sl_phong_ban').val();
     $('#txt_thang_nam').monthpicker().bind('monthpicker-click-month', function (e, month, year) { 
-        window.location = site_url+'/tochuccanbo/tinhluong/auto05/phongban/'+phong_ban+'/thang/'+month+'/nam/'+year
+        window.location = site_url+'/tochuccanbo/tinhluong/auto02/phongban/'+phong_ban+'/thang/'+month+'/nam/'+year
     });
 
     $('#btn_chon_thang').bind('click', function () {
@@ -108,6 +123,6 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
             c_m = date_array[0];
             c_y = date_array[1];
         }        
-        window.location = site_url+'/tochuccanbo/tinhluong/auto05/phongban/'+phong_ban+'/thang/'+c_m+'/nam/'+c_y;
+        window.location = site_url+'/tochuccanbo/tinhluong/auto02/phongban/'+phong_ban+'/thang/'+c_m+'/nam/'+c_y;
     }
 </script>
