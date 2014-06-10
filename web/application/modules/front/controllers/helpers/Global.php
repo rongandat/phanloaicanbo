@@ -31,8 +31,8 @@ class Zend_Controller_Action_Helper_Global extends Zend_Controller_Action_Helper
 
         $list_employees = array();
         foreach ($list_nghach as $nghach) {
-            $nam = $nam - $nghach->ncc_nam_nang_bac;
-            $list_employees = array_merge($list_employees, $employeesModel->getNangLuong($nghach->ncc_id, $thang, $nam, $phong_ban));
+            $nam_tim_kiem = $nam - $nghach->ncc_nam_nang_bac;            
+            $list_employees = array_merge($list_employees, $employeesModel->getNangLuong($nghach->ncc_id, $thang, $nam_tim_kiem, $phong_ban));
         }
         
         if (sizeof($list_employees)) {
