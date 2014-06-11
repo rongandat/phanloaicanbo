@@ -524,7 +524,7 @@ class Tochuccanbo_TinhluongController extends Zend_Controller_Action {
             foreach ($item as $k => $v) {
                 $bang_luong = $bangluongModel->fetchByDate($v, "$nam-$thang-01 00:00:00", "$nam-$thang-31 23:59:59");
                 $danh_gia = $danhgiaModel->fetchRow("dg_em_id= $v and dg_thang=$thang and dg_nam=$nam");
-                if ($bang_luong && $bang_luong->bl_tong_he_so <= 0 && $danh_gia && $danh_gia->dg_ptccb_status != '') {
+                if ($bang_luong && $danh_gia && $danh_gia->dg_ptccb_status != '') {
                     $luong_thu_viec = 0;
                     $luong_toi_thieu = $bang_luong->bl_luong_toi_thieu; //luong co ban
                     $giai_doan = $bang_luong->bl_giai_doan; //0: chinh thuc, 1: thu viec
@@ -591,12 +591,10 @@ class Tochuccanbo_TinhluongController extends Zend_Controller_Action {
                         $hs_pc_khac_he_so = $hs_pc_khac / 100;
                     }
 
-                    if (!$tong_hs_luong_pc) {
-                        $tong_hs_luong_pc = $he_so_luong + $hs_pc_chuc_vu + $hs_pc_trach_nhiem + $hs_pc_khu_vuc + $hs_pc_tnvk + $hs_pc_tham_nien + $hs_pc_uu_dai_nghe + $hs_pc_cong_vu + $hs_pc_khac_he_so + $hs_pc_thu_hut;
-                        $tong_hs_luong_pc_ca_nhan = $he_so_luong + $hs_pc_chuc_vu + $hs_pc_khu_vuc + $hs_pc_tnvk + $hs_pc_uu_dai_nghe;
-                        $tong_hs_luong_pc_plld = $tong_hs_luong_pc_ca_nhan * $phan_loai_he_so;
-                        $tam_chi_dau_vao = $tong_hs_luong_pc * $luong_toi_thieu * 0.5;
-                    }
+                    $tong_hs_luong_pc = $he_so_luong + $hs_pc_chuc_vu + $hs_pc_trach_nhiem + $hs_pc_khu_vuc + $hs_pc_tnvk + $hs_pc_tham_nien + $hs_pc_uu_dai_nghe + $hs_pc_cong_vu + $hs_pc_khac_he_so + $hs_pc_thu_hut;
+                    $tong_hs_luong_pc_ca_nhan = $he_so_luong + $hs_pc_chuc_vu + $hs_pc_khu_vuc + $hs_pc_tnvk + $hs_pc_uu_dai_nghe;
+                    $tong_hs_luong_pc_plld = $tong_hs_luong_pc_ca_nhan * $phan_loai_he_so;
+                    $tam_chi_dau_vao = $tong_hs_luong_pc * $luong_toi_thieu * 0.5;
 
                     $data = array(
                         'bl_ptccb_id' => $my_id,
@@ -622,7 +620,7 @@ class Tochuccanbo_TinhluongController extends Zend_Controller_Action {
         $this->view->list_phong_ban_option = $list_phong_ban_option;
         $this->view->list_chuc_vu = $list_chuc_vu;
     }
-    
+
     public function auto02Action() {
         $translate = Zend_Registry::get('Zend_Translate');
         $this->view->title = 'Tính lương hệ số 0.2 - ' . $translate->_('TEXT_DEFAULT_TITLE');
@@ -676,12 +674,12 @@ class Tochuccanbo_TinhluongController extends Zend_Controller_Action {
             $item = $this->getRequest()->getPost('cid');
             foreach ($item as $k => $v) {
                 $bang_luong = $bangluongModel->fetchByDate($v, "$nam-$thang-01 00:00:00", "$nam-$thang-31 23:59:59");
-                if ($bang_luong && $bang_luong->bl_tong_he_so >0) {    
+                if ($bang_luong && $bang_luong->bl_tong_he_so > 0) {
                     $luong_toi_thieu = $bang_luong->bl_luong_toi_thieu; //luong co ban
                     $tong_hs_luong_pc = $bang_luong->bl_tong_he_so;
                     $tam_chi_dau_vao = $tong_hs_luong_pc * $luong_toi_thieu * 0.5;
                     $data = array(
-                        'bl_ptccb_id' => $my_id,                        
+                        'bl_ptccb_id' => $my_id,
                         'bl_tam_chi_dau_vao_02' => $tam_chi_dau_vao,
                         'bl_02' => 1
                     );
