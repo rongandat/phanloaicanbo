@@ -60,23 +60,23 @@
 
 
             if (!$giai_doan) {
-                $hs_pc_tham_nien = floor((($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $hs_pc_tham_nien_phan_tram / 100) * 100) / 100;
+                $hs_pc_tham_nien = ($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $hs_pc_tham_nien_phan_tram / 100;
             } else {
-                $hs_pc_tham_nien = floor((($hs_pc_chuc_vu + $hs_pc_tnvk) * $hs_pc_tham_nien_phan_tram / 100) * 100) / 100;
+                $hs_pc_tham_nien = ($hs_pc_chuc_vu + $hs_pc_tnvk) * $hs_pc_tham_nien_phan_tram / 100;
             }
             $thanh_tien_pc_tham_nien = $hs_pc_tham_nien * $pc_tham_nien;
 
-            $hs_pc_uu_dai_nghe = floor((($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $uu_dai_nghe / 100) * 100) / 100;
+            $hs_pc_uu_dai_nghe = ($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $uu_dai_nghe / 100;
             $thanh_tien_pc_uu_dai_nghe = $hs_pc_uu_dai_nghe * $pc_uu_dai_nghe;
 
 
-            $hs_pc_cong_vu = floor((($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $cong_vu / 100) * 100) / 100;
+            $hs_pc_cong_vu = ($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $cong_vu / 100;
             $thanh_tien_pc_cong_vu = $hs_pc_cong_vu * $pc_cong_vu;
 
             if (!$giai_doan && !$loai_luong) {
-                $hs_pc_kiem_nhiem = floor((($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $kiem_nhiem / 100) * 100) / 100;
+                $hs_pc_kiem_nhiem = ($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $kiem_nhiem / 100;
             } else {
-                $hs_pc_kiem_nhiem = floor((($hs_pc_chuc_vu + $hs_pc_tnvk) * $kiem_nhiem / 100) * 100) / 100;
+                $hs_pc_kiem_nhiem = ($hs_pc_chuc_vu + $hs_pc_tnvk) * $kiem_nhiem / 100;
             }
             $thanh_tien_pc_kiem_nhiem = $hs_pc_kiem_nhiem * $pc_kiem_nhiem;
 
@@ -222,11 +222,11 @@
                                 <td colspan="2"><?php echo $hs_pc_khu_vuc; ?></td>
                                 <td><span id="lbl_thanh_tien_pc_khu_vuc"><?php echo number_format($thanh_tien_pc_khu_vuc, 0, '.', ','); ?></span></td>
                             </tr>
-                            
+
                             <tr>
                                 <td>Phụ cấp thâm niên vượt khung</td>
                                 <td style="width: 150px;"><?php echo $hs_pc_tnvk_phan_tram; ?>%</td>
-                                <td><span id="lbl_hs_pc_tnvk"><?php echo $hs_pc_tnvk; ?></span></td>
+                                <td><span id="lbl_hs_pc_tnvk"><?php echo number_format($hs_pc_tnvk, 2, '.', ','); ?></span></td>
                                 <td><span id="lbl_thanh_tien_pc_tnvk"><?php echo number_format($thanh_tien_pc_tham_nien_vuot_khung, 0, '.', ','); ?></span></td>
                             </tr>
                             <tr>
@@ -238,18 +238,18 @@
                             <tr>
                                 <td>Phụ cấp ưu đãi nghề</td>
                                 <td style="width: 150px;"><?php echo $uu_dai_nghe; ?>%</td>
-                                <td><span id="lbl_hs_pc_udn"><?php echo $hs_pc_uu_dai_nghe; ?></span></td>
+                                <td><span id="lbl_hs_pc_udn"><?php echo number_format($hs_pc_uu_dai_nghe, 2, '.', ','); ?></span></td>
                                 <td><span id="lbl_thanh_tien_pc_udn"><?php echo number_format($thanh_tien_pc_uu_dai_nghe, 0, '.', ','); ?></span></td>
                             </tr>
                             <tr>
                                 <td>Phụ cấp công vụ</td>
                                 <td style="width: 150px;"><?php echo $cong_vu; ?>%</td>
-                                <td><span id="lbl_hs_pc_cong_vu"><?php echo $hs_pc_cong_vu; ?></span></td>
+                                <td><span id="lbl_hs_pc_cong_vu"><?php echo number_format($hs_pc_cong_vu, 2, '.', ','); ?></td>
                                 <td><span id="lbl_thanh_tien_pc_cong_vu"><?php echo number_format($thanh_tien_pc_cong_vu, 0, '.', ','); ?></span></td>
                             </tr>
                             <tr>
                                 <td>Phụ cấp kiêm nhiệm</td>
-                                <td colspan="2"><span id="lbl_hs_pc_kiem_nhiem"><?php echo $hs_pc_kiem_nhiem; ?></span></td>
+                                <td colspan="2"><span id="lbl_hs_pc_kiem_nhiem"><?php echo number_format($hs_pc_kiem_nhiem, 0, '.', ','); ?></span></td>
                                 <td><span id="lbl_thanh_tien_pc_kiem_nhiem"><?php echo number_format($thanh_tien_pc_kiem_nhiem, 0, '.', ','); ?></span></td>
                             </tr>
                             <tr>
@@ -263,7 +263,7 @@
                             </tr>
                             <tr>
                                 <td>Tỷ lệ tăng thêm (H/S 0.5)</td>
-                                <td colspan="2"><span id="lbl_hs_tang_them"><?php echo $hs_tang_them; ?></span></td>
+                                <td colspan="2"><span id="lbl_hs_tang_them"><?php echo number_format($hs_tang_them, 2, '.', ','); ?></span></td>
                                 <td><span id="lbl_thanh_tien_tang_them"><?php echo number_format($ti_le_tang_them, 0, '.', ','); ?></span></td>
                             </tr>
                             <tr>
