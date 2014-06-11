@@ -91,6 +91,219 @@ class Tochuccanbo_DuyetchamcongController extends Zend_Controller_Action {
         $this->view->list_phong_ban_option = $list_phong_ban_option;
     }
 
+    public function exelthongkeAction() {
+
+        $inputFileName = APPLICATION_PATH . "/../tmp/Mau_Thong_Ke_Thang.xlsx";
+
+        $objPHPExcel = PHPExcel_IOFactory::load($inputFileName);
+
+        $objPHPExcel->getProperties()->setCreator("Cục Hải Quan Hà Tĩnh");
+        $objPHPExcel->getProperties()->setLastModifiedBy("Cục Hải Quan Hà Tĩnh");
+        $objPHPExcel->getProperties()->setTitle("Thống kê tháng");
+        $objPHPExcel->getProperties()->setSubject("Bảng chấm công");
+        $objPHPExcel->getProperties()->setDescription("Bảng chấm công Cục Hải Quan Hà Tĩnh");
+
+        $objPHPExcel->setActiveSheetIndex(0);
+
+        $translate = Zend_Registry::get('Zend_Translate');
+        $this->view->title = 'Thống kê - ' . $translate->_('TEXT_DEFAULT_TITLE');
+        $this->view->headTitle($this->view->title);
+
+        $layoutPath = APPLICATION_PATH . '/templates/' . TEMPLATE_USED;
+        $option = array('layout' => '1_column/layout',
+            'layoutPath' => $layoutPath);
+        Zend_Layout::startMvc($option);
+
+        $date = new Zend_Date();
+        $date->subMonth(1);
+
+        $thang = $this->_getParam('thang', $date->toString("M"));
+        $nam = $this->_getParam('nam', $date->toString("Y"));
+        $pb_selected = $this->_getParam('phongban', 0);
+
+
+        $emModel = new Front_Model_Employees();
+        $phongbanModel = new Front_Model_Phongban();
+
+        $phong_ban_id = $list_phongban = $phong_ban = Array();
+
+        $phong_ban_id[] = $pb_selected;
+        $list_phongban = $phongbanModel->fetchDataStatus($pb_selected, $phong_ban);
+        $ten_phong = '';
+        if (sizeof($list_phongban)) {
+            foreach ($list_phongban as $phong_ban_info) {
+                $phong_ban_id[] = $phong_ban_info->pb_parent;
+            }
+        }
+
+        $phong_ban_id = implode(',', $phong_ban_id);
+        if ($pb_selected) {
+            $list_nhan_vien = $emModel->fetchAll("em_phong_ban in ($phong_ban_id) and em_status=1");
+            $pb_selected_info = $phongbanModel->fetchRow('pb_id=' . $pb_selected);
+            if ($pb_selected_info)
+                $ten_phong = $pb_selected_info->pb_name;
+        }
+
+        $holidaysModel = new Front_Model_Holidays();
+        $holidays = $holidaysModel->fetchData();
+        $listHoliday = array();
+        foreach ($holidays as $holiday) {
+            $listHoliday[$holiday['hld_id']] = array('code' => $holiday['hld_code'], 'ngay_cong' => $holiday['hld_ngay_cong']);
+        }
+
+
+        $objPHPExcel->getActiveSheet()->SetCellValue('A4', 'BẢNG CHẤM CÔNG LÀM THÊM GIỜ THÁNG ' . $thang . ' NĂM ' . $nam);
+        $day_key[1] = 'C';
+        $day_key[2] = 'D';
+        $day_key[3] = 'E';
+        $day_key[4] = 'F';
+        $day_key[5] = 'G';
+        $day_key[6] = 'H';
+        $day_key[7] = 'I';
+        $day_key[8] = 'J';
+        $day_key[9] = 'K';
+        $day_key[10] = 'L';
+        $day_key[11] = 'M';
+        $day_key[12] = 'N';
+        $day_key[13] = 'O';
+        $day_key[14] = 'P';
+        $day_key[15] = 'Q';
+        $day_key[16] = 'R';
+        $day_key[17] = 'S';
+        $day_key[18] = 'T';
+        $day_key[19] = 'U';
+        $day_key[20] = 'V';
+        $day_key[21] = 'W';
+        $day_key[22] = 'X';
+        $day_key[23] = 'Y';
+        $day_key[24] = 'Z';
+        $day_key[25] = 'AA';
+        $day_key[26] = 'AB';
+        $day_key[27] = 'AC';
+        $day_key[28] = 'AD';
+        $day_key[29] = 'AE';
+        $day_key[30] = 'AF';
+        $day_key[31] = 'AG';
+        $chamcongModel = new Front_Model_ChamCong();
+        if ($list_nhan_vien) {
+            $k = 1;
+            foreach ($list_nhan_vien as $nhan_vien) {
+                //$ngay_lam_thu_7_cn = 0;
+                $so_gio_lam_le_tet = $so_phut_lam_le_tet = 0;
+                $so_gio_lam_thu_7_cn = $so_phut_lam_thu_7_cn = 0;
+
+                $days_in_month = cal_days_in_month(0, (int) $thang, (int) $nam);
+                $k++;
+                $cham_cong = $chamcongModel->fetchOneData(array('c_em_id' => $nhan_vien->em_id, 'c_thang' => (int) $thang, 'c_nam' => (int) $nam));
+                for ($d = 1; $d <= $days_in_month; $d++) {
+                    $ngay_chamcong = 'c_ngay_' . $d;
+                    $trangthai_ngaycong = $cham_cong->$ngay_chamcong;
+                    $check_gio_lam_them = $this->view->viewGetGioLamThem($nhan_vien->em_id, $d, $thang, $nam);
+
+                    if ($check_gio_lam_them) {
+                        if ($this->view->viewCheckLeTet($d, $thang, $nam)) {
+                            $so_gio_lam_le_tet+=$check_gio_lam_them['gio'];
+                            $so_phut_lam_le_tet+=$check_gio_lam_them['phut'];
+                        } elseif ($this->view->viewCheckChuNhatThuBay($d, (int) $thang, (int) $nam)) {
+                            $so_gio_lam_thu_7_cn+=$check_gio_lam_them['gio'];
+                            $so_phut_lam_thu_7_cn+=$check_gio_lam_them['phut'];
+                        }
+                    }
+                }
+
+                $doi_gio_thu_7 = floor($so_phut_lam_thu_7_cn / 60);
+                $so_phut_lam_thu_7_cn = $so_phut_lam_thu_7_cn % 60;
+                $so_gio_lam_thu_7_cn += $doi_gio_thu_7;
+
+                $doi_gio_le_tet = floor($so_phut_lam_le_tet / 60);
+                $so_phut_lam_le_tet = $so_phut_lam_le_tet % 60;
+                $so_gio_lam_le_tet += $doi_gio_le_tet;
+
+                $objPHPExcel->getActiveSheet()->SetCellValue('A' . ($k + 6), $k);
+                $objPHPExcel->getActiveSheet()->SetCellValue('B' . ($k + 6), $nhan_vien->em_ho . ' ' . $nhan_vien->em_ten);
+                $objPHPExcel->getActiveSheet()->SetCellValue('C' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_1]) ? $listHoliday[$cham_cong->c_ngay_1]['code'] : '');
+                $objPHPExcel->getActiveSheet()->SetCellValue('D' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_2]) ? $listHoliday[$cham_cong->c_ngay_2]['code'] : '');
+                $objPHPExcel->getActiveSheet()->SetCellValue('E' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_3]) ? $listHoliday[$cham_cong->c_ngay_3]['code'] : '');
+                $objPHPExcel->getActiveSheet()->SetCellValue('F' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_4]) ? $listHoliday[$cham_cong->c_ngay_4]['code'] : '');
+                $objPHPExcel->getActiveSheet()->SetCellValue('G' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_5]) ? $listHoliday[$cham_cong->c_ngay_5]['code'] : '');
+                $objPHPExcel->getActiveSheet()->SetCellValue('H' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_6]) ? $listHoliday[$cham_cong->c_ngay_6]['code'] : '');
+                $objPHPExcel->getActiveSheet()->SetCellValue('I' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_7]) ? $listHoliday[$cham_cong->c_ngay_7]['code'] : '');
+                $objPHPExcel->getActiveSheet()->SetCellValue('J' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_8]) ? $listHoliday[$cham_cong->c_ngay_8]['code'] : '');
+                $objPHPExcel->getActiveSheet()->SetCellValue('K' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_9]) ? $listHoliday[$cham_cong->c_ngay_9]['code'] : '');
+                $objPHPExcel->getActiveSheet()->SetCellValue('L' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_10]) ? $listHoliday[$cham_cong->c_ngay_10]['code'] : '');
+                $objPHPExcel->getActiveSheet()->SetCellValue('M' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_11]) ? $listHoliday[$cham_cong->c_ngay_11]['code'] : '');
+                $objPHPExcel->getActiveSheet()->SetCellValue('N' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_12]) ? $listHoliday[$cham_cong->c_ngay_12]['code'] : '');
+                $objPHPExcel->getActiveSheet()->SetCellValue('O' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_13]) ? $listHoliday[$cham_cong->c_ngay_13]['code'] : '');
+                $objPHPExcel->getActiveSheet()->SetCellValue('P' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_14]) ? $listHoliday[$cham_cong->c_ngay_14]['code'] : '');
+                $objPHPExcel->getActiveSheet()->SetCellValue('Q' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_15]) ? $listHoliday[$cham_cong->c_ngay_15]['code'] : '');
+                $objPHPExcel->getActiveSheet()->SetCellValue('R' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_16]) ? $listHoliday[$cham_cong->c_ngay_16]['code'] : '');
+                $objPHPExcel->getActiveSheet()->SetCellValue('S' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_17]) ? $listHoliday[$cham_cong->c_ngay_17]['code'] : '');
+                $objPHPExcel->getActiveSheet()->SetCellValue('T' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_18]) ? $listHoliday[$cham_cong->c_ngay_18]['code'] : '');
+                $objPHPExcel->getActiveSheet()->SetCellValue('U' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_19]) ? $listHoliday[$cham_cong->c_ngay_19]['code'] : '');
+                $objPHPExcel->getActiveSheet()->SetCellValue('V' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_20]) ? $listHoliday[$cham_cong->c_ngay_20]['code'] : '');
+                $objPHPExcel->getActiveSheet()->SetCellValue('W' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_21]) ? $listHoliday[$cham_cong->c_ngay_21]['code'] : '');
+                $objPHPExcel->getActiveSheet()->SetCellValue('X' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_22]) ? $listHoliday[$cham_cong->c_ngay_22]['code'] : '');
+                $objPHPExcel->getActiveSheet()->SetCellValue('Y' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_23]) ? $listHoliday[$cham_cong->c_ngay_23]['code'] : '');
+                $objPHPExcel->getActiveSheet()->SetCellValue('Z' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_24]) ? $listHoliday[$cham_cong->c_ngay_24]['code'] : '');
+                $objPHPExcel->getActiveSheet()->SetCellValue('AA' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_25]) ? $listHoliday[$cham_cong->c_ngay_25]['code'] : '');
+                $objPHPExcel->getActiveSheet()->SetCellValue('AB' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_26]) ? $listHoliday[$cham_cong->c_ngay_26]['code'] : '');
+                $objPHPExcel->getActiveSheet()->SetCellValue('AC' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_27]) ? $listHoliday[$cham_cong->c_ngay_27]['code'] : '');
+                $objPHPExcel->getActiveSheet()->SetCellValue('AD' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_28]) ? $listHoliday[$cham_cong->c_ngay_28]['code'] : '');
+                $objPHPExcel->getActiveSheet()->SetCellValue('AE' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_29]) ? $listHoliday[$cham_cong->c_ngay_29]['code'] : '');
+                $objPHPExcel->getActiveSheet()->SetCellValue('AF' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_30]) ? $listHoliday[$cham_cong->c_ngay_30]['code'] : '');
+                $objPHPExcel->getActiveSheet()->SetCellValue('AG' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_31]) ? $listHoliday[$cham_cong->c_ngay_31]['code'] : '');
+                $objPHPExcel->getActiveSheet()->SetCellValue('AI' . ($k + 6), $so_gio_lam_thu_7_cn . ':' . $so_phut_lam_thu_7_cn);
+                $objPHPExcel->getActiveSheet()->SetCellValue('AJ' . ($k + 6), $so_gio_lam_le_tet . ':' . $so_phut_lam_le_tet);
+
+
+                for ($l = 1; $l <= 31; $l++) {
+                    if ($this->view->viewCheckChuNhatThuBay($l, $thang, $nam)) {
+                        $objPHPExcel->getActiveSheet()->getStyle($day_key[$l] . ($k + 6))->getFill()
+                                ->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID,
+                                    'startcolor' => array('rgb' => 'DDDDDD')
+                                ));
+                    }
+                }
+            }
+
+            $loop_day = 31 - $days_in_month;
+            for ($a = 1; $a <= $loop_day; $a++) {
+                $col_num = 33 - $a;
+                $objPHPExcel->getActiveSheet()->removeColumnByIndex($col_num);
+            }
+
+
+            $k += 5;
+            foreach ($holidays as $holiday) {
+                $k++;
+                $objPHPExcel->getActiveSheet()->SetCellValue('B' . ($k + 7), $holiday['hld_name']);
+                $objPHPExcel->getActiveSheet()->SetCellValue('C' . ($k + 7), $holiday['hld_code']);
+            }
+
+
+
+            if ($k) {
+                $objPHPExcel->getActiveSheet()->setTitle('Phòng ' . $ten_phong);
+                if ($pb_selected && $phong_ban_selected_info) {
+                    $file_name = 'Thong_ke_thang_' . str_replace(' ', '_', $this->loc_tieng_viet($phong_ban_selected_info->pb_name)) . '_' . $thang . '-' . $nam . '.xls';
+                } else {
+                    $file_name = 'Thong_ke_thang_' . $thang . '-' . $nam . '.xls';
+                }
+
+                header('Content-Type: application/vnd.ms-excel');
+                header('Content-Disposition: attachment;filename="' . $file_name . '"');
+                header('Cache-Control: max-age=0');
+                $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+                $objWriter->save('php://output');
+                die();
+            } else {
+                $this->_helper->viewRenderer->setRender('loi');
+            }
+        } else {
+            $this->_helper->viewRenderer->setRender('loi');
+        }
+    }
+
     public function detailAction() {
         $translate = Zend_Registry::get('Zend_Translate');
         $this->view->title = 'Duyệt chấm công - ' . $translate->_('TEXT_DEFAULT_TITLE');

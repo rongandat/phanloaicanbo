@@ -37,6 +37,7 @@ foreach ($this->list_phong_ban_option as $phong_ban) {
             <div class="btn-group">
                 <button class="btn" onclick="OnSubmitForm('<?php echo $this->baseUrl('tochuccanbo/duyetchamcong/updatestatus/status/1/thang/' . $this->thang . '/nam/' . $this->nam . '/phongban/' . $this->pb_id); ?>')"><i class="icon-ok-sign"></i> Duyệt</button>
                 <button class="btn" onclick="OnSubmitForm('<?php echo $this->baseUrl('tochuccanbo/duyetchamcong/updatestatus/status/0/thang/' . $this->thang . '/nam/' . $this->nam . '/phongban/' . $this->pb_id); ?>')"><i class="icon-remove-sign"></i> Không duyệt</button>
+                <a class="btn btn-primary" target="_blank" href="<?php echo$this->baseUrl('tochuccanbo/duyetchamcong/exelthongke/thang/' . $this->thang . '/nam/' . $this->nam . '/phongban/' . $this->pb_id); ?>"><i class="icon-download-alt"></i> Xuất ra file Exel</a>
             </div>
         </div>
 
