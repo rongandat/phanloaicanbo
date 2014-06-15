@@ -13,7 +13,7 @@
             </div>
         </div> 
         <?php
-        if ($this->bang_luong && $this->em_info && $this->he_so && $this->he_so_cb && $this->phan_loai && $this->phan_loai->dg_ptccb_status != ''):
+        if ($this->bang_luong && $this->em_info && $this->he_so && $this->phu_cap && $this->he_so_cb && $this->phan_loai && $this->phan_loai->dg_ptccb_status != ''):
             $he_so_phan_loai = array('O' => 0, 'A' => 1.2, 'B' => 1, 'C' => 0.8, 'D' => 0);
             $luong_thu_viec = 0;
             $luong_toi_thieu = $this->bang_luong->bl_luong_toi_thieu; //luong co ban
@@ -32,7 +32,6 @@
             $time_tham_niem = strtotime($this->bang_luong->bl_time_tham_nien); //tinh tham nien tu ngay
             $hs_pc_tham_nien_phan_tram = $this->bang_luong->bl_tham_nien;
             $uu_dai_nghe = $this->bang_luong->bl_hs_pc_udn;
-            $cong_vu = $this->bang_luong->bl_hs_pc_cong_vu;
             $kiem_nhiem = $this->bang_luong->bl_pc_kiem_nhiem;
             $hs_pc_khac = $this->bang_luong->bl_hs_pc_khac;
             $he_so_tang_them = $this->bang_luong->bl_pc_tang_them;
@@ -62,8 +61,6 @@
                 $hs_pc_tnvk = $hs_pc_chuc_vu * $hs_pc_tnvk_phan_tram / 100;
             }
 
-
-
             if (!$giai_doan && !$loai_luong)
                 $hs_pc_thu_hut = ($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $hs_pc_thu_hut_phan_tram / 100;
             else
@@ -78,8 +75,6 @@
             $hs_pc_uu_dai_nghe = ($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $uu_dai_nghe / 100;
 
 
-            $hs_pc_cong_vu = ($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $cong_vu / 100;
-
             $thanh_tien_pc_khac = $hs_pc_khac * $pc_khac;
 
             $hs_pc_khac_he_so = $hs_pc_khac;
@@ -88,7 +83,7 @@
                 $hs_pc_khac_he_so = $hs_pc_khac / 100;
             }
 
-            $tong_hs_luong_pc = $he_so_luong + $hs_pc_chuc_vu + $hs_pc_trach_nhiem + $hs_pc_khu_vuc + $hs_pc_tnvk + $hs_pc_tham_nien + $hs_pc_uu_dai_nghe + $hs_pc_cong_vu + $hs_pc_khac_he_so + $hs_pc_thu_hut;
+            $tong_hs_luong_pc = $he_so_luong + $hs_pc_chuc_vu + $hs_pc_trach_nhiem + $hs_pc_khu_vuc + $hs_pc_tnvk + $hs_pc_tham_nien + $hs_pc_uu_dai_nghe + $hs_pc_khac_he_so + $hs_pc_thu_hut;
             $tong_hs_luong_pc_ca_nhan = $he_so_luong + $hs_pc_chuc_vu + $hs_pc_khu_vuc + $hs_pc_tnvk + $hs_pc_uu_dai_nghe;
             $tong_hs_luong_pc_plld = $tong_hs_luong_pc_ca_nhan * $phan_loai_he_so;
             $tam_chi_dau_vao = $tong_hs_luong_pc * $luong_toi_thieu * 0.5;
@@ -209,7 +204,7 @@
                         </tr>
                         <tr>
                             <td>Phụ cấp thu hút</td>
-                            <td><input type="text" onchange="re_calculator()" class="input-mini" name="bl_hs_pc_thu_hut" value="<?php echo $hs_pc_thu_hut_phan_tram; ?>"/>%</td>
+                            <td><input type="text" readonly="true" class="input-mini" name="bl_hs_pc_thu_hut" value="<?php echo $hs_pc_thu_hut_phan_tram; ?>"/>%</td>
                             <td><span id="lbl_hs_pc_thu_hut"><?php echo number_format($hs_pc_thu_hut, 2, '.', ','); ?></span></td>
                         </tr>
                         <!--<tr>
@@ -238,12 +233,7 @@
                             <td>Phụ cấp ưu đãi nghề</td>
                             <td><input type="text" readonly="true" class="input-mini" name="bl_hs_pc_udn_pt" value="<?php echo $uu_dai_nghe; ?>"/>%</td>
                             <td><span id="bl_hs_pc_udn"><?php echo number_format($hs_pc_uu_dai_nghe, 2, '.', ','); ?></span></td>                            
-                        </tr>
-                        <tr>
-                            <td>Phụ cấp công vụ</td>
-                            <td><input type="text" readonly="true" class="input-mini" name="bl_hs_pc_cong_vu_pt" value="<?php echo $cong_vu; ?>"/>%</td>
-                            <td><span id="bl_hs_pc_cong_vu"><?php echo number_format($hs_pc_cong_vu, 2, '.', ','); ?></span></td>                            
-                        </tr>                        
+                        </tr>                                          
                         <tr>
                             <td>Phụ cấp khác</td>
                             <td colspan="2"><input type="text" readonly="true" class="input-mini" name="bl_hs_pc_khac" value="<?php echo $hs_pc_khac; ?>"/><?php echo $hs_pc_khac_type ? '%' : ''; ?></td>
@@ -284,7 +274,9 @@
         <?php elseif (!$this->bang_luong): ?>
             Yêu cầu phải tính lương hệ số 0.5 trước.
         <?php elseif (!$this->he_so): ?>
-            Xin hãy cập nhật thông tin hệ số lương và phụ cấp của nhân viên này!
+            Xin hãy cập nhật thông tin hệ số lương của nhân viên này!
+        <?php elseif (!$this->phu_cap): ?>
+            Xin hãy cập nhật thông tin hệ số phụ cấp của nhân viên này!
         <?php elseif (!$this->he_so_cb): ?>
             Xin hãy nhập thông tin lương cơ bản của hệ thống.
         <?php else: ?>
@@ -311,29 +303,7 @@ if ($this->bang_luong && $this->em_info && $this->he_so && $this->he_so_cb && $t
             var bhxh = <?php echo $bhxh; ?>;
             var bhyt = <?php echo $bhyt; ?>;
             var luong_toi_thieu_sau_bh = <?php echo $luong_toi_thieu_sau_bh; ?>;
-            var pc_cong_viec = <?php echo $pc_chuc_vu; ?>;
-            var pc_trach_nhiem = <?php echo $pc_trach_nhiem; ?>;
-            var pc_khu_vuc = <?php echo $pc_khu_vuc; ?>;
-            var pc_thu_hut = <?php echo $pc_thu_hut; ?>;
-            var pc_tnvk = <?php echo $pc_tnvk; ?>;
-            var pc_cong_vu = <?php echo $pc_cong_vu; ?>;
-            var pc_khac = <?php echo $pc_khac; ?>;
-            var pc_khac_type = <?php echo $hs_pc_khac_type; ?>;
-            var pc_tham_nien = <?php echo $pc_tham_nien; ?>;
-            var pc_kiem_nhiem = <?php echo $pc_kiem_nhiem; ?>;
-            var pc_uu_dai_nghe = <?php echo $pc_uu_dai_nghe; ?>;
-            var kiem_nhiem = <?php echo $kiem_nhiem; ?>;
-            var giai_doan = <?php echo $giai_doan; ?>;
-            var loai_luong = <?php echo $loai_luong; ?>;
-            var bl_hs_luong = <?php echo $he_so_luong; ?>;
-            var bl_hs_pc_chuc_vu = <?php echo $hs_pc_chuc_vu; ?>;
-            var bl_hs_pc_trach_nhiem = <?php echo $hs_pc_trach_nhiem; ?>;
-            var bl_hs_pc_khu_vuc = <?php echo $hs_pc_khu_vuc; ?>;
-            var bl_hs_pc_tnvk = <?php echo $hs_pc_tnvk; ?>;
-            var bl_tham_nien = <?php echo $hs_pc_tham_nien; ?>;
-            var bl_hs_pc_udn = <?php echo $hs_pc_uu_dai_nghe; ?>;
-            var bl_hs_pc_cong_vu = <?php echo $hs_pc_cong_vu; ?>;
-            var bl_hs_pc_khac = <?php echo $hs_pc_khac_he_so; ?>;
+                
 <?php endif; ?>
     var currentYear = <?php echo $this->nam; ?>;    
     var currentEm = <?php echo $this->nv_id; ?>;    
@@ -358,38 +328,15 @@ if ($this->bang_luong && $this->em_info && $this->he_so && $this->he_so_cb && $t
     function re_calculator(){
         var phan_loai = $('select[name=sl_phan_loai]').val();
         var hs_phan_loai = he_so_phan_loai[phan_loai];            
-        var bl_hs_pc_thu_hut = $('input[name=bl_hs_pc_thu_hut]').val();  
-        
-        if(bl_hs_pc_thu_hut == '') bl_hs_pc_thu_hut = 0; 
-        bl_hs_pc_thu_hut = parseFloat(bl_hs_pc_thu_hut);        
-        
-        if (!giai_doan && !loai_luong){
-            var he_so_pc_thu_hut = (bl_hs_luong + bl_hs_pc_chuc_vu + bl_hs_pc_tnvk) * bl_hs_pc_thu_hut / 100;
-        }else{
-            var he_so_pc_thu_hut = (bl_hs_pc_chuc_vu + bl_hs_pc_tnvk) * bl_hs_pc_thu_hut / 100;            
-        }
-        
-        he_so_pc_thu_hut = parseFloat(he_so_pc_thu_hut); 
-        
-        var tong_hs_luong_pc = parseFloat(bl_hs_luong) + parseFloat(bl_hs_pc_chuc_vu) + parseFloat(bl_hs_pc_trach_nhiem) + parseFloat(bl_hs_pc_khu_vuc) + parseFloat(bl_hs_pc_tnvk) + parseFloat(bl_tham_nien) + parseFloat(bl_hs_pc_udn) + parseFloat(bl_hs_pc_cong_vu) + parseFloat(bl_hs_pc_khac) + parseFloat(he_so_pc_thu_hut);
-            
-        var tong_hs_luong_pc_ca_nhan = parseFloat(bl_hs_luong) + parseFloat(bl_hs_pc_chuc_vu) + parseFloat(bl_hs_pc_khu_vuc) + parseFloat(bl_hs_pc_tnvk) + parseFloat(bl_hs_pc_udn);
-            
+        var tong_hs_luong_pc = $('input[name=bl_tong_he_so]').val();  
+        var tong_hs_luong_pc_ca_nhan = $('input[name=bl_tong_he_so_ca_nhan]').val();         
         var tong_hs_luong_pc_plld = tong_hs_luong_pc_ca_nhan*hs_phan_loai;
-        tong_hs_luong_pc_plld = parseFloat(tong_hs_luong_pc_plld)
-        var tam_chi_dau_vao = tong_hs_luong_pc * luong_toi_thieu *0.5;        
+        tong_hs_luong_pc_plld = parseFloat(tong_hs_luong_pc_plld);     
         
         $('input[name=bl_phan_loai_he_so]').val(hs_phan_loai);
-        $('#lbl_phan_loai_he_so').html(hs_phan_loai);
-        $('#lbl_hs_pc_thu_hut').html(number_format(he_so_pc_thu_hut, 2, '.', ','));
-        $('#lbl_tong_he_so_pc').html(number_format(tong_hs_luong_pc, 2, '.', ','));
-        $('#lbl_hs_luong_pc_ca_nhan').html(number_format(tong_hs_luong_pc_ca_nhan, 2, '.', ','));
-        $('#lbl_hs_luong_pc_plld').html(number_format(tong_hs_luong_pc_plld, 2, '.', ','));
-        $('#lbl_tam_chi_dau_vao').html(number_format(tam_chi_dau_vao, 0, '.', ','));
-        $('input[name=bl_tong_he_so]').val(tong_hs_luong_pc);
-        $('input[name=bl_tong_he_so_ca_nhan]').val(tong_hs_luong_pc_ca_nhan);
-        $('input[name=bl_tong_he_so_plld]').val(tong_hs_luong_pc_plld);
-        $('input[name=bl_tam_chi_dau_vao]').val(tam_chi_dau_vao);        
+        $('#lbl_phan_loai_he_so').html(hs_phan_loai);        
+        $('#lbl_hs_luong_pc_plld').html(number_format(tong_hs_luong_pc_plld, 2, '.', ','));       
+        $('input[name=bl_tong_he_so_plld]').val(tong_hs_luong_pc_plld);       
         
     }
     

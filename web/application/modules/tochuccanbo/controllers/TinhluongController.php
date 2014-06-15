@@ -42,8 +42,10 @@ class Tochuccanbo_TinhluongController extends Zend_Controller_Action {
         $emModel = new Front_Model_Employees();
         $hesocbModel = new Front_Model_HeSo();
         $hesoModel = new Front_Model_EmployeesHeso();
+        $phucapModel = new Front_Model_EmployeesPhuCap();
         $em_info = $emModel->fetchRow("em_id=$em_id");
         $em_he_so = $hesoModel->getCurrentHeSo($thang, $nam, $em_id);
+        $em_phu_cap = $phucapModel->getCurrentHeSo($thang, $nam, $em_id);
         $lastHeSoLuong = $hesocbModel->fetchOneData(array('hs_ngay_bat_dau' => date("$nam-$thang-1")), 'hs_ngay_bat_dau DESC');
 
         $khenthuongModel = new Front_Model_KhenThuong();
@@ -61,6 +63,7 @@ class Tochuccanbo_TinhluongController extends Zend_Controller_Action {
         $this->view->ky_luat = $ky_luat;
         $this->view->em_info = $em_info;
         $this->view->he_so = $em_he_so;
+        $this->view->phu_cap = $em_phu_cap;
         $this->view->he_so_cb = $lastHeSoLuong;
         $this->view->thang = $thang;
         $this->view->nam = $nam;
@@ -91,8 +94,10 @@ class Tochuccanbo_TinhluongController extends Zend_Controller_Action {
         $emModel = new Front_Model_Employees();
         $hesocbModel = new Front_Model_HeSo();
         $hesoModel = new Front_Model_EmployeesHeso();
+        $phucapModel = new Front_Model_EmployeesPhuCap();
         $em_info = $emModel->fetchRow("em_id=$em_id");
         $em_he_so = $hesoModel->getCurrentHeSo($thang, $nam, $em_id);
+        $em_phu_cap = $phucapModel->getCurrentHeSo($thang, $nam, $em_id);
         $lastHeSoLuong = $hesocbModel->fetchOneData(array('hs_ngay_bat_dau' => date("$nam-$thang-1")), 'hs_ngay_bat_dau DESC');
 
         $bangluongModel = new Front_Model_BangLuong();
@@ -102,6 +107,7 @@ class Tochuccanbo_TinhluongController extends Zend_Controller_Action {
         $phan_loai = $ketquaModel->getPhanLoai($em_id, $thang, $nam);
         $this->view->em_info = $em_info;
         $this->view->he_so = $em_he_so;
+        $this->view->phu_cap = $em_phu_cap;
         $this->view->he_so_cb = $lastHeSoLuong;
         $this->view->thang = $thang;
         $this->view->nam = $nam;
@@ -141,6 +147,7 @@ class Tochuccanbo_TinhluongController extends Zend_Controller_Action {
             $bl_tham_nien = $this->_request->getParam('bl_tham_nien', 0);
             $bl_hs_pc_udn = $this->_request->getParam('bl_hs_pc_udn', 0);
             $bl_hs_pc_cong_vu = $this->_request->getParam('bl_hs_pc_cong_vu', 0);
+            $bl_hs_pc_thu_hut = $this->_request->getParam('bl_hs_pc_thu_hut', 0);
             $bl_hs_pc_khac = $this->_request->getParam('bl_hs_pc_khac', 0);
             $bl_hs_pc_khac_type = $this->_request->getParam('bl_pc_khac_type', 0);
             $bl_tham_nien_thang = $this->_request->getParam('bl_tham_nien_thang', 0);
@@ -184,6 +191,8 @@ class Tochuccanbo_TinhluongController extends Zend_Controller_Action {
                 $bl_hs_pc_udn = 0;
             if ($bl_hs_pc_cong_vu == '')
                 $bl_hs_pc_cong_vu = 0;
+            if ($bl_hs_pc_thu_hut == '')
+                $bl_hs_pc_thu_hut = 0;
             if ($bl_hs_pc_khac == '')
                 $bl_hs_pc_khac = 0;
 
@@ -225,6 +234,8 @@ class Tochuccanbo_TinhluongController extends Zend_Controller_Action {
                 $error_message = array('PC ưu đãi nghề phải là dạng số');
             if (!is_numeric($bl_hs_pc_cong_vu))
                 $error_message = array('PC công vụ phải là dạng số');
+            if (!is_numeric($bl_hs_pc_thu_hut))
+                $error_message = array('PC thu hút phải là dạng số');
             if (!is_numeric($bl_hs_pc_khac))
                 $error_message = array('PC khác phải là dạng số');
 
@@ -254,6 +265,7 @@ class Tochuccanbo_TinhluongController extends Zend_Controller_Action {
                     'bl_time_tham_nien' => date_format($date_tham_nien, "Y-m-d H:iP"),
                     'bl_hs_pc_udn' => $bl_hs_pc_udn,
                     'bl_hs_pc_cong_vu' => $bl_hs_pc_cong_vu,
+                    'bl_pc_thu_hut' => $bl_hs_pc_thu_hut,
                     'bl_hs_pc_khac' => $bl_hs_pc_khac,
                     'bl_pc_khac_type' => $bl_hs_pc_khac_type,
                     'bl_date_modified' => $current_time
@@ -289,7 +301,6 @@ class Tochuccanbo_TinhluongController extends Zend_Controller_Action {
             $bl_tong_he_so_ca_nhan = $this->_request->getParam('bl_tong_he_so_ca_nhan', 0);
             $bl_tong_he_so_plld = $this->_request->getParam('bl_tong_he_so_plld', 0);
             $bl_tam_chi_dau_vao = $this->_request->getParam('bl_tam_chi_dau_vao', 0);
-            $bl_hs_pc_thu_hut = $this->_request->getParam('bl_hs_pc_thu_hut', 0);
             $sl_phan_loai = $this->_request->getParam('sl_phan_loai', 'O');
 
             if ($bl_hs_pc_thu_hut == '')
@@ -299,19 +310,16 @@ class Tochuccanbo_TinhluongController extends Zend_Controller_Action {
             if (!is_numeric($bl_em_id) || !$bl_em_id)
                 $error_message = array('Thông tin nhân viên không chính xác');
 
-            if (!is_numeric($bl_hs_pc_thu_hut))
-                $error_message = array('PC thu hút phải là dạng số');
+
 
             if (!sizeof($error_message)) {
                 $bangluongModel = new Front_Model_BangLuong();
                 $check_isset = $bangluongModel->fetchByDate($bl_em_id, "$bl_nam-$bl_thang-01 00:00:00", "$bl_nam-$bl_thang-31 23:59:59");
                 $current_time = new Zend_Db_Expr('NOW()');
-                $date_dieu_chinh = date_create($bl_nam . '-' . $bl_thang . '-1');
                 $data = array(
                     'bl_ptccb_id' => $my_id,
                     'bl_phan_loai' => $sl_phan_loai,
                     'bl_phan_loai_he_so' => $bl_phan_loai_he_so,
-                    'bl_pc_thu_hut' => $bl_hs_pc_thu_hut,
                     'bl_tong_he_so' => $bl_tong_he_so,
                     'bl_tong_he_so_ca_nhan' => $bl_tong_he_so_ca_nhan,
                     'bl_tong_he_so_plld' => $bl_tong_he_so_plld,
@@ -348,6 +356,7 @@ class Tochuccanbo_TinhluongController extends Zend_Controller_Action {
         $chucvuModel = new Front_Model_Chucvu();
         $hesocbModel = new Front_Model_HeSo();
         $hesoModel = new Front_Model_EmployeesHeso();
+        $phucapModel = new Front_Model_EmployeesPhuCap();
         $bangluongModel = new Front_Model_BangLuong();
 
         $lastHeSoLuong = $hesocbModel->fetchOneData(array('hs_ngay_bat_dau' => date("$nam-$thang-1")), 'hs_ngay_bat_dau DESC');
@@ -378,6 +387,8 @@ class Tochuccanbo_TinhluongController extends Zend_Controller_Action {
                 $bang_luong = $bangluongModel->fetchByDate($v, "$nam-$thang-01 00:00:00", "$nam-$thang-31 23:59:59");
                 if (!$bang_luong) {
                     $em_he_so = $hesoModel->getCurrentHeSo($thang, $nam, $v);
+                    $em_phu_cap = $phucapModel->getCurrentHeSo($thang, $nam, $v);
+
                     $luong_toi_thieu = $lastHeSoLuong->hs_luong_co_ban; //luong co ban
                     $giai_doan = $em_he_so->eh_giai_doan; //0: chinh thuc, 1: thu viec
                     $loai_luong = $em_he_so->eh_loai_luong; //0: bien che, 1: hop dong
@@ -392,17 +403,18 @@ class Tochuccanbo_TinhluongController extends Zend_Controller_Action {
                     $bhxh = ($lastHeSoLuong->hs_bhxh > 0 ? $lastHeSoLuong->hs_bhxh : 0); //bao hiem xa hoi
                     $bhyt = ($lastHeSoLuong->hs_bhyt > 0 ? $lastHeSoLuong->hs_bhyt : 0); //bao hiem y te
 
-                    $hs_pc_chuc_vu = $em_he_so->eh_pc_cong_viec; //he so pc chuc vu            
-                    $hs_pc_trach_nhiem = $em_he_so->eh_pc_trach_nhiem; //he so pc trach nhiem            
-                    $hs_pc_khu_vuc = $em_he_so->eh_pc_kv; //he so pc khu vuc            
-                    $hs_pc_tnvk_phan_tram = $em_he_so->eh_pc_tnvk_phan_tram; //he so pc tnvk
-                    $time_tham_niem = strtotime($em_he_so->eh_tham_niem); //tinh tham nien tu ngay
-                    $hs_pc_tham_nien_phan_tram = $em_he_so->eh_pc_tham_nien;
-                    $uu_dai_nghe = $em_he_so->eh_pc_udn_phan_tram; //he so pc uu dai nghe
-                    $cong_vu = $em_he_so->eh_pc_cong_vu_phan_tram; //he so pc cong vu
-                    $kiem_nhiem = $em_he_so->eh_pc_kiem_nhiem; //he so pc kiem nhiem
-                    $hs_pc_khac = $em_he_so->eh_pc_khac; //he so pc khac
-                    $hs_pc_khac_type = $em_he_so->eh_pc_khac_type; //0: he so, 1: phan tram
+                    $hs_pc_chuc_vu = $em_phu_cap->eh_pc_cong_viec; //he so pc chuc vu            
+                    $hs_pc_trach_nhiem = $em_phu_cap->eh_pc_trach_nhiem; //he so pc trach nhiem            
+                    $hs_pc_khu_vuc = $em_phu_cap->eh_pc_kv; //he so pc khu vuc            
+                    $hs_pc_tnvk_phan_tram = $em_phu_cap->eh_pc_tnvk_phan_tram; //he so pc tnvk
+                    $time_tham_niem = strtotime($em_phu_cap->eh_tham_niem); //tinh tham nien tu ngay
+                    $hs_pc_tham_nien_phan_tram = $em_phu_cap->eh_pc_tham_nien;
+                    $uu_dai_nghe = $em_phu_cap->eh_pc_udn_phan_tram; //he so pc uu dai nghe
+                    $cong_vu = $em_phu_cap->eh_pc_cong_vu_phan_tram; //he so pc cong vu
+                    $thu_hut = $em_phu_cap->eh_pc_thu_hut; //he so pc thu hut
+                    $kiem_nhiem = $em_phu_cap->eh_pc_kiem_nhiem; //he so pc kiem nhiem
+                    $hs_pc_khac = $em_phu_cap->eh_pc_khac; //he so pc khac
+                    $hs_pc_khac_type = $em_phu_cap->eh_pc_khac_type; //0: he so, 1: phan tram
 
                     if (!$giai_doan && !$loai_luong) {
                         $hs_pc_tnvk = ($he_so_luong + $hs_pc_chuc_vu) * $hs_pc_tnvk_phan_tram / 100;
@@ -418,6 +430,7 @@ class Tochuccanbo_TinhluongController extends Zend_Controller_Action {
 
                     $hs_pc_uu_dai_nghe = ($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $uu_dai_nghe / 100;
                     $hs_pc_cong_vu = ($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $cong_vu / 100;
+                    $hs_pc_thu_hut = ($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $thu_hut / 100;
 
                     if (!$giai_doan && !$loai_luong) {
                         $hs_pc_kiem_nhiem = ($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $kiem_nhiem / 100;
@@ -451,6 +464,7 @@ class Tochuccanbo_TinhluongController extends Zend_Controller_Action {
                         'bl_hs_pc_tnvk' => $hs_pc_tnvk_phan_tram,
                         'bl_hs_pc_udn' => $uu_dai_nghe,
                         'bl_hs_pc_cong_vu' => $cong_vu,
+                        'bl_pc_thu_hut' => $thu_hut,
                         'bl_hs_pc_khac' => $hs_pc_khac,
                         'bl_pc_khac_type' => $hs_pc_khac_type,
                         'bl_date_modified' => $current_time,
@@ -552,6 +566,7 @@ class Tochuccanbo_TinhluongController extends Zend_Controller_Action {
                     $phan_loai = $danh_gia->dg_ptccb_status;
                     $phan_loai_he_so = $he_so_phan_loai[$phan_loai];
 
+
                     $luong_toi_thieu_sau_bh = (int) ($luong_toi_thieu * (100 - ($bhxh + $bhyt)) / 100);
                     $luong_toi_thieu_bhyt = (int) ($luong_toi_thieu * (100 - $bhyt) / 100);
                     $pc_trach_nhiem = $pc_cong_vu = $pc_khac = $pc_kiem_nhiem = $pc_uu_dai_nghe = $luong_toi_thieu;
@@ -564,8 +579,6 @@ class Tochuccanbo_TinhluongController extends Zend_Controller_Action {
                         $hs_pc_tnvk = $hs_pc_chuc_vu * $hs_pc_tnvk_phan_tram / 100;
                     }
 
-
-                    $hs_pc_thu_hut = 0;
                     if (!$giai_doan && !$loai_luong)
                         $hs_pc_thu_hut = ($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $hs_pc_thu_hut_phan_tram / 100;
                     else
@@ -580,9 +593,6 @@ class Tochuccanbo_TinhluongController extends Zend_Controller_Action {
                     $hs_pc_uu_dai_nghe = ($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $uu_dai_nghe / 100;
 
 
-                    $hs_pc_cong_vu = ($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $cong_vu / 100;
-
-
                     $thanh_tien_pc_khac = $hs_pc_khac * $pc_khac;
 
                     $hs_pc_khac_he_so = $hs_pc_khac;
@@ -591,7 +601,7 @@ class Tochuccanbo_TinhluongController extends Zend_Controller_Action {
                         $hs_pc_khac_he_so = $hs_pc_khac / 100;
                     }
 
-                    $tong_hs_luong_pc = $he_so_luong + $hs_pc_chuc_vu + $hs_pc_trach_nhiem + $hs_pc_khu_vuc + $hs_pc_tnvk + $hs_pc_tham_nien + $hs_pc_uu_dai_nghe + $hs_pc_cong_vu + $hs_pc_khac_he_so + $hs_pc_thu_hut;
+                    $tong_hs_luong_pc = $he_so_luong + $hs_pc_chuc_vu + $hs_pc_trach_nhiem + $hs_pc_khu_vuc + $hs_pc_tnvk + $hs_pc_tham_nien + $hs_pc_uu_dai_nghe + $hs_pc_khac_he_so + $hs_pc_thu_hut;
                     $tong_hs_luong_pc_ca_nhan = $he_so_luong + $hs_pc_chuc_vu + $hs_pc_khu_vuc + $hs_pc_tnvk + $hs_pc_uu_dai_nghe;
                     $tong_hs_luong_pc_plld = $tong_hs_luong_pc_ca_nhan * $phan_loai_he_so;
                     $tam_chi_dau_vao = $tong_hs_luong_pc * $luong_toi_thieu * 0.5;
@@ -600,7 +610,6 @@ class Tochuccanbo_TinhluongController extends Zend_Controller_Action {
                         'bl_ptccb_id' => $my_id,
                         'bl_phan_loai' => $phan_loai,
                         'bl_phan_loai_he_so' => $phan_loai_he_so,
-                        'bl_pc_thu_hut' => $hs_pc_thu_hut,
                         'bl_tong_he_so' => $tong_hs_luong_pc,
                         'bl_tong_he_so_ca_nhan' => $tong_hs_luong_pc_ca_nhan,
                         'bl_tong_he_so_plld' => $tong_hs_luong_pc_plld,

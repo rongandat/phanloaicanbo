@@ -180,8 +180,8 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
                         $date_dieu_chinh = new Zend_Date(trim($row['Y']), 'd/m/Y');
                         $data_heso['eh_han_dieu_chinh'] = $date_dieu_chinh->get('Y-m-1');
                         $data_heso['eh_han_ap_dung'] = $date_dieu_chinh->get('Y-m-1');
-                        if (trim($row['G']) != '') {  
-                            $date_time_tham_nien = new Zend_Date(trim($row['G']), 'd/m/Y');                            
+                        if (trim($row['G']) != '') {
+                            $date_time_tham_nien = new Zend_Date(trim($row['G']), 'd/m/Y');
                             $data_heso['eh_tham_niem'] = $date_time_tham_nien->get('Y-m-1');
                         }
                         $data_heso['eh_em_id'] = $last_id;
@@ -1228,27 +1228,9 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
             $eh_loai_luong = $this->_request->getParam('eh_loai_luong', 0);
             $eh_giai_doan = $this->_request->getParam('eh_giai_doan', 0);
             $eh_he_so = $this->_request->getParam('eh_he_so', 0);
-            $eh_pc_cong_viec = $this->_request->getParam('eh_pc_cong_viec', 0);
-            $eh_pc_trach_nhiem = $this->_request->getParam('eh_pc_trach_nhiem', 0);
-            $eh_pc_kv = $this->_request->getParam('eh_pc_kv', 0);
-            $eh_pc_tnvk_phan_tram = $this->_request->getParam('eh_pc_tnvk_phan_tram', 0);
-            $eh_pc_udn_phan_tram = $this->_request->getParam('eh_pc_udn_phan_tram', 0);
-            $eh_pc_cong_vu_phan_tram = $this->_request->getParam('eh_pc_cong_vu_phan_tram', 0);
-            $eh_pc_kiem_nhiem = $this->_request->getParam('eh_pc_kiem_nhiem', 0);
-            $eh_pc_khac = $this->_request->getParam('eh_pc_khac', 0);
             $eh_thang_dieu_chinh = $this->_request->getParam('eh_thang_dieu_chinh', 0);
             $eh_nam_dieu_chinh = $this->_request->getParam('eh_nam_dieu_chinh', 0);
-
-            $eh_pc_thu_hut = $this->_request->getParam('eh_pc_thu_hut', 0);
             $eh_bac_luong = $this->_request->getParam('eh_bac_luong', 0);
-            $eh_pc_khac_type = $this->_request->getParam('eh_pc_khac_type', 0);
-
-            $eh_pc_doc_hai = $this->_request->getParam('eh_pc_doc_hai', 0);
-            $eh_pc_doc_hai_type = $this->_request->getParam('eh_pc_doc_hai_type', 0);
-
-            $eh_tham_nien_thang = $this->_request->getParam('eh_tham_nien_thang', 0);
-            $eh_tham_nien_nam = $this->_request->getParam('eh_tham_nien_nam', 0);
-            $eh_pc_tham_nien = $this->_request->getParam('eh_pc_tham_nien', 0);
 
             $eh_thang_ap_dung = $this->_request->getParam('eh_thang_ap_dung', 0);
             $eh_nam_ap_dung = $this->_request->getParam('eh_nam_ap_dung', 0);
@@ -1261,12 +1243,83 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
                 $error_message = array('Hệ số phải có dạng số.');
             }
 
+            if (!sizeof($error_message)) {
+                if ($em_id != $update_em_id) {
+                    $error_message = array('Có lỗi xảy ra, xin hãy tắt form này và mở lại.');
+                } else {
+                    $current_time = new Zend_Db_Expr('NOW()');
+                    $date_dieu_chinh = date_create($eh_nam_dieu_chinh . '-' . $eh_thang_dieu_chinh . '-1');
+                    $date_ap_dung = date_create($eh_nam_ap_dung . '-' . $eh_thang_ap_dung . '-1');
+                    $data = array(
+                        'eh_loai_luong' => $eh_loai_luong,
+                        'eh_giai_doan' => $eh_giai_doan,
+                        'eh_bac_luong' => $eh_bac_luong,
+                        'eh_he_so' => $eh_he_so,                        
+                        'eh_date_modified' => $current_time,
+                        'eh_han_dieu_chinh' => date_format($date_dieu_chinh, "Y-m-d H:iP")
+                    );
+                    $he_so = $hesoModel->checkHeSo($eh_thang_ap_dung, $eh_nam_ap_dung, $em_id);
+                    if (!$he_so) {
+                        $data['eh_em_id'] = $update_em_id;
+                        $data['eh_date_added'] = $current_time;
+                        $data['eh_han_ap_dung'] = date_format($date_ap_dung, "Y-m-d H:iP");
+                        $hesoModel->insert($data);
+                        $he_so_id = $hesoModel->getAdapter()->lastInsertId();
+                    } else {
+                        $he_so_id = $he_so->eh_id;
+                        $hesoModel->update($data, "eh_id=$he_so_id");
+                    }
+                    $he_so = $hesoModel->fetchRow("eh_id=$he_so_id");
+                    $success_message = 'Đã cập nhật thông tin thành công.';
+                }
+            }
+        }
+        $this->view->error_message = $error_message;
+        $this->view->success_message = $success_message;
+        $this->view->he_so = $he_so;
+        $this->view->bac_luong = $bac_luong;
+        $this->view->em_id = $em_id;
+        $this->view->em_info = $em_info;
+    }
+
+    public function phucapAction() {
+        $this->_helper->layout()->disableLayout();
+        $date = time();
+        $thang = $this->_getParam('thang', date('m', $date));
+        $nam = $this->_getParam('nam', date('Y', $date));
+        $em_id = $this->_getParam('id', 0);
+        $emModel = new Front_Model_Employees();
+        $em_info = $emModel->fetchRow("em_id=$em_id");
+        $phucapModel = new Front_Model_EmployeesPhuCap();
+        $he_so = $phucapModel->getCurrentHeSo($thang, $nam, $em_id);
+        $error_message = array();
+        $success_message = '';
+        if ($this->_request->isPost()) {
+            $update_em_id = $this->_request->getParam('pc_cap_nhat_pc_em_id', 0);            
+            $eh_pc_cong_viec = $this->_request->getParam('eh_pc_cong_viec', 0);
+            $eh_pc_trach_nhiem = $this->_request->getParam('eh_pc_trach_nhiem', 0);
+            $eh_pc_kv = $this->_request->getParam('eh_pc_kv', 0);
+            $eh_pc_tnvk_phan_tram = $this->_request->getParam('eh_pc_tnvk_phan_tram', 0);
+            $eh_pc_udn_phan_tram = $this->_request->getParam('eh_pc_udn_phan_tram', 0);
+            $eh_pc_cong_vu_phan_tram = $this->_request->getParam('eh_pc_cong_vu_phan_tram', 0);
+            $eh_pc_kiem_nhiem = $this->_request->getParam('eh_pc_kiem_nhiem', 0);
+            $eh_pc_khac = $this->_request->getParam('eh_pc_khac', 0);
+            $eh_pc_thu_hut = $this->_request->getParam('eh_pc_thu_hut', 0);
+            $eh_pc_khac_type = $this->_request->getParam('eh_pc_khac_type', 0);
+
+            $eh_pc_doc_hai = $this->_request->getParam('eh_pc_doc_hai', 0);
+            $eh_pc_doc_hai_type = $this->_request->getParam('eh_pc_doc_hai_type', 0);
+
+            $eh_tham_nien_thang = $this->_request->getParam('eh_tham_nien_thang', 0);
+            $eh_tham_nien_nam = $this->_request->getParam('eh_tham_nien_nam', 0);
+            $eh_pc_tham_nien = $this->_request->getParam('eh_pc_tham_nien', 0);
+
+            $eh_thang_ap_dung = $this->_request->getParam('eh_thang_ap_dung', 0);
+            $eh_nam_ap_dung = $this->_request->getParam('eh_nam_ap_dung', 0);
+
+
             if (!is_numeric($eh_pc_thu_hut)) {
                 $error_message = array('Phụ cấp thu hút phải có dạng số.');
-            }
-
-            if (!is_numeric($eh_he_so)) {
-                $error_message = array('Hệ số phải có dạng số.');
             }
 
             if (!is_numeric($eh_pc_cong_viec)) {
@@ -1309,15 +1362,10 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
                 if ($em_id != $update_em_id) {
                     $error_message = array('Có lỗi xảy ra, xin hãy tắt form này và mở lại.');
                 } else {
-                    $current_time = new Zend_Db_Expr('NOW()');
-                    $date_dieu_chinh = date_create($eh_nam_dieu_chinh . '-' . $eh_thang_dieu_chinh . '-1');
+                    $current_time = new Zend_Db_Expr('NOW()');                    
                     $date_tham_nien = date_create($eh_tham_nien_nam . '-' . $eh_tham_nien_thang . '-1');
                     $date_ap_dung = date_create($eh_nam_ap_dung . '-' . $eh_thang_ap_dung . '-1');
-                    $data = array(
-                        'eh_loai_luong' => $eh_loai_luong,
-                        'eh_giai_doan' => $eh_giai_doan,
-                        'eh_bac_luong' => $eh_bac_luong,
-                        'eh_he_so' => $eh_he_so,
+                    $data = array(                        
                         'eh_pc_kv' => $eh_pc_kv,
                         'eh_pc_thu_hut' => $eh_pc_thu_hut,
                         'eh_pc_cong_viec' => $eh_pc_cong_viec,
@@ -1332,21 +1380,20 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
                         'eh_pc_khac_type' => $eh_pc_khac_type,
                         'eh_pc_doc_hai' => $eh_pc_doc_hai,
                         'eh_pc_doc_hai_type' => $eh_pc_doc_hai_type,
-                        'eh_date_modified' => $current_time,
-                        'eh_han_dieu_chinh' => date_format($date_dieu_chinh, "Y-m-d H:iP")
+                        'eh_date_modified' => $current_time
                     );
-                    $he_so = $hesoModel->checkHeSo($eh_thang_ap_dung, $eh_nam_ap_dung, $em_id);
+                    $he_so = $phucapModel->checkHeSo($eh_thang_ap_dung, $eh_nam_ap_dung, $em_id);
                     if (!$he_so) {
-                        $data['eh_em_id'] = $update_em_id;
+                        $data['epc_em_id'] = $update_em_id;
                         $data['eh_date_added'] = $current_time;
                         $data['eh_han_ap_dung'] = date_format($date_ap_dung, "Y-m-d H:iP");
-                        $hesoModel->insert($data);
-                        $he_so_id = $hesoModel->getAdapter()->lastInsertId();
+                        $phucapModel->insert($data);
+                        $he_so_id = $phucapModel->getAdapter()->lastInsertId();
                     } else {
-                        $he_so_id = $he_so->eh_id;
-                        $hesoModel->update($data, "eh_id=$he_so_id");
+                        $he_so_id = $he_so->epc_id;
+                        $phucapModel->update($data, "epc_id=$he_so_id");
                     }
-                    $he_so = $hesoModel->fetchRow("eh_id=$he_so_id");
+                    $he_so = $phucapModel->fetchRow("epc_id=$he_so_id");
                     $success_message = 'Đã cập nhật thông tin thành công.';
                 }
             }
@@ -1354,7 +1401,6 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
         $this->view->error_message = $error_message;
         $this->view->success_message = $success_message;
         $this->view->he_so = $he_so;
-        $this->view->bac_luong = $bac_luong;
         $this->view->em_id = $em_id;
         $this->view->em_info = $em_info;
     }
