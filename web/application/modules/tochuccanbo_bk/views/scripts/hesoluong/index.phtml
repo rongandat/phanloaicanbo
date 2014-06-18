@@ -1,0 +1,129 @@
+<h5>Quản lý hệ số lương cơ bản</h5>               
+<div class="main-content-box"> 
+    <?php if ($this->error_message) : ?>
+        <div class="alert alert-error">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h5>Thông báo!</h5>
+            Thêm mới không thành công vì:
+            <ol>
+                <?php foreach ($this->error_message as $message): ?>
+                    <li><?php echo $message; ?></li>
+                <?php endforeach; ?>
+            </ol>
+        </div> 
+    <?php endif; ?>  
+    <?php if ($this->success_message) : ?>
+        <div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h5>Thông báo!</h5>
+            <?php echo $this->success_message; ?>
+        </div>
+    <?php endif; ?>  
+    <form class="form-horizontal" method="post" action="" enctype="multipart/form-data">
+
+        <div class="control-group">
+            <label class="control-label" for="hs_luong_co_ban">Lương biên chế</label>
+            <div class="controls">
+                <div class="input-prepend input-append">    
+                    <?php echo $this->formText('hs_luong_co_ban', ($this->he_so_luong ? $this->he_so_luong->hs_luong_co_ban : null), array('class' => 'input-medium', 'placeholder' => '0')); ?> 
+                    <span class="add-on">VND</span>
+                </div>
+                <span class="help-block">Mức lương cơ bản dành cho nhân viên biên chế.</span>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="hs_he_so_luong_thuc_tap">Lương thử việc</label>
+            <div class="controls">
+                <div class="input-prepend input-append">    
+                    <?php echo $this->formText('hs_he_so_luong_thuc_tap', ($this->he_so_luong ? $this->he_so_luong->hs_he_so_luong_thuc_tap : null), array('class' => 'input-medium', 'placeholder' => '0')); ?> 
+                    <span class="add-on">%</span>                    
+                </div>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="hs_bhxh">Bảo hiểm xã hội</label>
+            <div class="controls">
+                <div class="input-prepend input-append">    
+                    <?php echo $this->formText('hs_bhxh', ($this->he_so_luong ? $this->he_so_luong->hs_bhxh : null), array('class' => 'input-medium', 'placeholder' => '0')); ?> 
+                    <span class="add-on">%</span>                    
+                </div>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="hs_bhyt">Bảo hiểm y tế</label>
+            <div class="controls">
+                <div class="input-prepend input-append">    
+                    <?php echo $this->formText('hs_bhyt', ($this->he_so_luong ? $this->he_so_luong->hs_bhyt : null), array('class' => 'input-medium', 'placeholder' => '0')); ?> 
+                    <span class="add-on">%</span>                    
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="thang_ap_dung">Áp dụng</label>
+            <div class="controls">
+                <?php
+                $thang_options = array();
+                for ($i = 1; $i <= 12; $i++) {
+                    $thang_options[$i] = $i;
+                }
+                $nam_options = array();
+                for ($i = 2000; $i <= 2100; $i++) {
+                    $nam_options[$i] = $i;
+                }
+                echo $this->formSelect('thang_ap_dung', ($this->he_so_luong ? date('m', strtotime($this->he_so_luong->hs_ngay_bat_dau)) : null), array('class' => 'input-small'), $thang_options);
+                echo '<span class="help-inline"> / </span>';
+                echo $this->formSelect('nam_ap_dung', ($this->he_so_luong ? date('Y', strtotime($this->he_so_luong->hs_ngay_bat_dau)) : null), array('class' => 'input-small'), $nam_options);
+                ?>    
+                <span class="help-block">Thời điểm bắt đầu áp dụng hệ số lương này.</span>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <p>                    
+                    <button class="btn btn-small btn-primary" type="submit">Cập nhật</button>
+                    <a class="btn btn-small btn-info" href="#mdLichSuHeSoLuong" role="button" type="button" data-toggle="modal">Lịch sử</a>
+                    <a class="btn btn-small" type="button" href="<?php echo $this->baseUrl('tochuccanbo/employees/'); ?>">Quay lại</a>
+                </p>
+            </div>
+        </div>
+    </form>
+</div> 
+
+<!-- Modal -->
+<div id="mdLichSuHeSoLuong" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Lịch sử hệ số lương</h3>
+    </div>
+    <div class="modal-body">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Ngày áp dụng</th>
+                    <th>Biên chế</th>
+                    <th>Thử việc</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                foreach ($this->lich_su_he_so_luong as $lich_su) {
+                    echo '<tr>
+                        <td>' . date('m/Y', strtotime($lich_su->hs_ngay_bat_dau)) . '</td>
+                        <td>' . $lich_su->hs_luong_co_ban . ' VND</td>
+                        <td>' . $lich_su->hs_he_so_luong_thuc_tap . ' %</td>                        
+                    </tr>';
+                }
+                ?>
+                <tr>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Đóng lại</button>
+    </div>
+</div>

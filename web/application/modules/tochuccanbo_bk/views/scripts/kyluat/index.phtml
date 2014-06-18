@@ -1,0 +1,329 @@
+<h5>Quản lý kỷ luật/khiển trách</h5>               
+
+<div class="main-content-box">  
+    <form name="appForm" class="form-horizontal" method="post" action="">
+        <div class="control-group">
+            <label class="control-label">Tháng</label>
+            <div class="controls">
+                <div class="input-append">
+                    <input class="span2" value="<?php echo $this->thang . '/' . $this->nam; ?>" id="txt_thang_nam" type="text" readonly="true"/>
+                    <button class="btn" type="button" id="btn_chon_thang">Chọn tháng!</button>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="clearfix">
+        </div>
+        <div class="btn-toolbar float_left">
+            <div class="btn-group">
+                <button class="btn" onclick="OnSubmitForm('<?php echo $this->baseUrl('tochuccanbo/kyluat/updatestatus/status/1/thang/' . $this->thang . '/nam/' . $this->nam); ?>')"><i class="icon-ok-sign"></i> Đồng ý</button>
+                <button class="btn" onclick="OnSubmitForm('<?php echo $this->baseUrl('tochuccanbo/kyluat/updatestatus/status/0/thang/' . $this->thang . '/nam/' . $this->nam); ?>')"><i class="icon-ban-circle"></i> Không đồng ý</button>
+            </div>
+        </div>
+        <div class="clearfix">
+        </div>
+
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>  
+                    <th class="checkall_style"><input type="checkbox" name="check_all" id="checkbox" onclick="checkedAll()"></th>
+                    <th>Họ tên</th>
+                    <th style="width: 120px;">Đơn vị</th>
+                    <th style="width: 250px;">Lý do</th>
+                    <th style="width: 100px;">Ngày</th>
+                    <th style="width: 110px;">Trạng thái</th>
+                    <th style="width: 120px;">Chức năng</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                foreach ($this->list_ky_luat as $item) {
+                    $trang_thai_icon = 'Không đồng ý';
+                    if ($item->kl_don_vi && !$item->kl_don_vi->kl_ptccb_viewed) {
+                        $trang_thai_icon = 'Chờ duyệt';
+                    }
+
+                    if ($item->kl_status) {
+                        $trang_thai_icon = 'Đồng ý';
+                    } else {
+                        if ($item->kl_ptccb_viewed)
+                            $trang_thai_icon = 'Không đồng ý';
+                    }
+
+
+                    $phong_ban_name = $this->viewGetPhongBanName($item->em_phong_ban);
+                    ?>
+                    <tr id="name_<?php echo $item->kl_id; ?>">
+                        <td class="checkall_style"><input type="checkbox" name="cid[]" id="cid" value="<?php echo $item->kl_id; ?>"></td>
+                        <td><?php echo $item->em_ho . ' ' . $item->em_ten; ?></td>
+                        <td><?php echo $phong_ban_name; ?></td>
+                        <td><?php echo $item->kl_ly_do; ?><span id="hd_kl_chi_tiet_<?php echo $item->kl_id; ?>" class="hide"><?php echo $item->kl_chi_tiet; ?></span></td>
+                        <td><?php echo date('d-m-Y', strtotime($item->kl_date)); ?></td>
+                        <td><span id="trang_thai_<?php echo $item->kl_id; ?>"><?php echo $trang_thai_icon; ?></span></td>
+                        <td>
+                            <div class="dropdown float_left" style="padding-right: 6px;">
+                                <a class="btn btn-mini" id="drop_<?php echo $item->kl_id; ?>" role="button" data-toggle="dropdown" href="#"><i class="icon-th-list"></i> Chức năng <b class="caret"></b></a>                                    
+                                <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop_<?php echo $item->kl_id; ?>">
+                                    <li role="presentation">
+                                        <a role="menuitem" tabindex="-1" data-toggle="modal" href="#mdChiTiet<?php echo $item->kl_id; ?>" title="Xem chi tiết"><i class="icon-align-justify"></i> Xem chi tiết</a>
+                                    </li>                                    
+                                    <li role="presentation">
+                                        <a role="menuitem" tabindex="-1" data-toggle="modal" href="#mdKhenThuong" title="Sửa nội dung" onclick="loadFormKhenThuong(<?php echo $item->kl_id; ?>,<?php echo date('d', strtotime($item->kl_date)); ?>, <?php echo date('m', strtotime($item->kl_date)); ?>, <?php echo date('Y', strtotime($item->kl_date)); ?>, '<?php echo $item->em_ho . ' ' . $item->em_ten; ?>', '<?php echo $item->kl_ly_do; ?>', <?php echo $item->kl_money; ?>)"><i class="icon-edit"></i> Sửa nội dung</a>
+                                    </li>                                    
+                                    <li role="presentation">
+                                        <a role="menuitem" tabindex="-1" onclick="update_status(<?php echo $item->kl_id; ?>, 1)" title="Đồng ý"><i class="icon-ok-circle"></i> Đồng ý</a>
+                                    </li>                                    
+                                    <li role="presentation">
+                                        <a role="menuitem" tabindex="-1" onclick="update_status(<?php echo $item->kl_id; ?>, 0)" title="Không đồng ý"><i class="icon-ban-circle"></i> Không đồng ý</a>
+                                    </li>                                    
+                                </ul>
+                            </div>
+                            <div id="mdChiTiet<?php echo $item->kl_id; ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                    <h3 id="myModalLabel">Chi tiết</h3>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="span4 float_left"><strong>Nhân viên: </strong> <?php echo $item->em_ho . ' ' . $item->em_ten; ?></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="span4 float_left"><strong>Phòng ban: </strong> <?php echo $phong_ban_name; ?></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="span4 float_left"><strong>Lý do: </strong> <?php echo $item->kl_ly_do; ?></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="span4 float_left"><strong>Nội dung: </strong> <?php echo $item->kl_chi_tiet; ?></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="span4 float_left"><strong>Ngày kỷ luật/khiển trách: </strong> <?php echo date('d-m-Y', strtotime($item->kl_date)); ?></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="span4 float_left"><strong>Mức phạt: </strong> <?php echo number_format($item->kl_money, 0, '.', ','); ?>VND</div>
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-primary" data-toggle="modal" href="#mdKhenThuong" title="Sửa nội dung" onclick="loadFormKhenThuong(<?php echo $item->kl_id; ?>,<?php echo date('d', strtotime($item->kl_date)); ?>, <?php echo date('m', strtotime($item->kl_date)); ?>, <?php echo date('Y', strtotime($item->kl_date)); ?>, '<?php echo $item->em_ho . ' ' . $item->em_ten; ?>', '<?php echo $item->kl_ly_do; ?>', <?php echo $item->kl_money; ?>)">Sửa nội dung</button>
+                                    <button class="btn btn-success" type="button" onclick="update_status(<?php echo $item->kl_id; ?>, 1)">Đồng ý</button>
+                                    <button class="btn btn-danger" type="button" onclick="update_status(<?php echo $item->kl_id; ?>, 0)">Không đồng ý</button>
+                                    <button class="btn" data-dismiss="modal" aria-hidden="true">Đóng</button>
+                                </div>
+                            </div>
+
+                        </td>
+                    </tr>
+                    <?php
+                }
+                ?>
+            </tbody>
+        </table>
+    </form>
+</div>
+
+<div id="mdKhenThuong" class="modal_xlager hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Kỷ luật/Khiển trách</h3>
+    </div>
+    <div class="modal-body" id="mdKhenThuongBody">
+        <div class="alert alert-error" id="dv_ky_luat_error" style="display: none;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h5>Thông báo!</h5>
+            Cập nhật không thành công!
+        </div>
+
+        <div class="alert alert-success" id="dv_ky_luat_success" style="display: none;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h5>Thông báo!</h5>
+            Cập nhật thành công!
+        </div>
+
+        <form class="form-horizontal">
+            <input type="hidden" id="kl_cap_nhat_id" value=""/>
+
+            <div class="control-group">
+                <label class="control-label" for="kl_ngay_ky_luat">Ngày kỷ luật</label>
+                <div class="controls">
+                    <?php
+                    $ngay_options = array();
+                    for ($i = 1; $i <= 31; $i++) {
+                        $ngay_options[$i] = $i;
+                    }
+
+                    $thang_options = array();
+                    for ($i = 1; $i <= 12; $i++) {
+                        $thang_options[$i] = $i;
+                    }
+                    $nam_options = array();
+                    for ($i = 2000; $i <= 2100; $i++) {
+                        $nam_options[$i] = $i;
+                    }
+                    echo $this->formSelect('kl_ngay_ky_luat', date('d'), array('class' => 'input-small'), $ngay_options);
+                    echo '<span class="help-inline"> / </span>';
+                    echo $this->formSelect('kl_thang_ky_luat', date('m'), array('class' => 'input-small'), $thang_options);
+                    echo '<span class="help-inline"> / </span>';
+                    echo $this->formSelect('kl_nam_ky_luat', date('Y'), array('class' => 'input-small'), $nam_options);
+                    ?>                    
+                </div>
+            </div>
+
+
+            <div class="control-group">
+                <label class="control-label" for="kl_can_bo">Cán bộ</label>
+                <div class="controls" id="kl_can_bo">
+
+                </div>            
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="kl_ly_do">Lý do</label>
+                <div class="controls">
+                    <?php echo $this->formText('kl_ly_do', null, array('class' => 'input-xxlarge', 'placeholder' => '')); ?>                   
+                </div>            
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="kl_chi_tiet">Chi tiết</label>
+                <div class="controls">
+                    <?php echo $this->formTextarea('kl_chi_tiet', null, array('class' => 'input-xlarge', 'rows' => 5)); ?>                   
+                </div>            
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="kl_money">Tiền phạt</label>
+                <div class="controls">
+                    <div class="input-prepend input-append">    
+                        <?php echo $this->formText('kl_money', 0, array('class' => 'input-medium', 'placeholder' => '')); ?>                    
+                        <span class="add-on">VND</span>
+                    </div>
+
+                </div>            
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Đóng</button>
+        <button class="btn btn-primary" onclick="postFormKhenThuong();">Chấp nhận</button>
+    </div>
+</div>
+
+<script>
+    var currentYear = <?php echo $this->nam; ?>;    
+    var options = {
+        pattern: 'mm/yyyy', // Default is 'mm/yyyy' and separator char is not mandatory 
+        startYear: 2013,
+        selectedYear: currentYear,
+        monthNames: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12']
+    };
+
+    $('#txt_thang_nam').monthpicker(options);
+
+    $('#txt_thang_nam').monthpicker().bind('monthpicker-click-month', function (e, month, year) { 
+        window.location = site_url+'/tochuccanbo/kyluat/index/thang/'+month+'/nam/'+year;
+    });
+
+    $('#btn_chon_thang').bind('click', function () {
+        $('#txt_thang_nam').monthpicker('show');
+    });
+    
+    jQuery(function($) {
+      $('#mdKhenThuongBody #kl_money').autoNumeric('init');   
+    });
+    
+    function loadFormKhenThuong(kl_id, ngay, thang, nam, em_name, ly_do, money){ 
+        var chi_tiet = $('#hd_kl_chi_tiet_'+kl_id).html();
+        $('#mdChiTiet'+kl_id).modal('hide');
+        $('#mdKhenThuongBody #kl_cap_nhat_id').val(kl_id);
+        $('#mdKhenThuongBody #kl_ngay_ky_luat').val(ngay);
+        $('#mdKhenThuongBody #kl_thang_ky_luat').val(thang);
+        $('#mdKhenThuongBody #kl_nam_ky_luat').val(nam);
+        $('#mdKhenThuongBody #kl_can_bo').html('<strong>'+em_name+'</strong>');
+        tinyMCE.get('kl_chi_tiet').setContent(chi_tiet);
+        $('#mdKhenThuongBody #kl_ly_do').val(ly_do);
+        $('#mdKhenThuongBody #kl_money').autoNumeric('set',money);
+        $('#dv_ky_luat_success').hide();
+        $('#dv_ky_luat_error').hide();
+    }
+    
+    function postFormKhenThuong(){   
+        $.blockUI({
+            message: '<h3>Đang thực hiện</h3>',
+            css: {                         
+                border: 'none', 
+                padding: '15px', 
+                backgroundColor: '#000', 
+                '-webkit-border-radius': '10px', 
+                '-moz-border-radius': '10px', 
+                opacity: .5, 
+                color: '#fff' 
+            }
+        }); 
+        $('#mdKhenThuong').modal('hide');
+        $('#dv_ky_luat_success').hide();
+        $('#dv_ky_luat_error').hide();
+        var kl_id = $('#mdKhenThuongBody #kl_cap_nhat_id').val();
+        var kl_title = $('#mdKhenThuongBody #kl_ly_do').val();
+        var kl_content = tinyMCE.get('kl_chi_tiet').getContent();
+        var kl_day = $('#mdKhenThuongBody #kl_ngay_ky_luat').val();
+        var kl_month = $('#mdKhenThuongBody #kl_thang_ky_luat').val();
+        var kl_year = $('#mdKhenThuongBody #kl_nam_ky_luat').val(); 
+        //var kl_money = $('#mdKhenThuongBody #kl_money').val(); 
+        var kl_money = $('#mdKhenThuongBody #kl_money').autoNumeric('get'); 
+        
+        if(kl_title !='' && kl_content!=''){
+            $.post( site_url+'/tochuccanbo/kyluat/jqkyluat', { 
+                kl_id: kl_id, 
+                kl_date_day: kl_day, 
+                kl_date_month: kl_month,
+                kl_date_year: kl_year,
+                kl_money: kl_money,
+                kl_ly_do: kl_title,
+                kl_chi_tiet: kl_content
+            }, function( data ) {
+                if(data.status){
+                    $('#trang_thai_'+kl_id).html('Đã duyệt');
+                    $('#mdChiTiet'+kl_id).modal('hide');
+                    $.success_ui('Thông báo!', 'Duyệt đơn thành công!', 4000);
+                    $('#dv_ky_luat_success').show();
+                    tinyMCE.get('kl_chi_tiet').setContent('');
+                    $('#mdKhenThuongBody #kl_ly_do').val('');
+                    window.location.reload(true);
+                }else{
+                    $.error_ui('Thông báo', 'Không thể thực hiện được!', 4000); 
+                    $('#dv_ky_luat_error').show();
+                }
+            }, 'json');
+        }else{
+            alert('Bạn phải nhập đầy đủ lý do và nội dung khiển trách!');
+        }
+    }
+    
+    function update_status(id_kt, new_status){
+        $('#mdChiTiet'+id_kt).modal('hide');
+        $.blockUI({
+            message: '<h3>Đang thực hiện</h3>',
+            css: {                         
+                border: 'none', 
+                padding: '15px', 
+                backgroundColor: '#000', 
+                '-webkit-border-radius': '10px', 
+                '-moz-border-radius': '10px', 
+                opacity: .5, 
+                color: '#fff' 
+            }
+        }); 
+        
+        $.post( site_url+'/tochuccanbo/kyluat/jqupdatestatus', {
+            kl_id: id_kt, 
+            kl_status: new_status
+        }, function(data) {    
+            if(data.status){      
+                $('#trang_thai_'+id_kt).html(data.new_status);
+                $.success_ui('Thông báo!', 'Thực hiện thành công!', 4000);
+            }else{
+                $.error_ui('Thông báo', 'Không thể thực hiện được!', 4000); 
+            }
+        }, 'json');
+            
+    }
+</script>

@@ -1,0 +1,594 @@
+<h5>Quản lý cán bộ</h5>               
+
+<?php
+$list_phong_ban = array();
+foreach ($this->list_phong_ban as $phong_ban) {
+    $list_phong_ban[$phong_ban->pb_id] = $phong_ban->pb_name;
+}
+$list_phong_ban_options = array('0' => 'Tất cả');
+foreach ($this->list_phong_ban_option as $phong_ban) {
+    $list_phong_ban_options[$phong_ban->pb_id] = $phong_ban->pb_name;
+}
+
+$list_chuc_vu = array();
+foreach ($this->list_chuc_vu as $chuc_vu) {
+    $list_chuc_vu[$chuc_vu->cv_id] = $chuc_vu->cv_name;
+}
+?>
+<div class="main-content-box">  
+    <form name="appForm" method="post" action="">
+        <div class="btn-toolbar float_left">
+            <div class="btn-group">
+                <button class="btn" onclick="OnSubmitForm('<?php echo $this->baseUrl('tochuccanbo/employees/deleteitems/page/' . $this->arrParam['page']); ?>')"><i class="icon-trash"></i> Xóa</button>
+                <?php if ($this->check_nang_luong): ?>
+                    <a class="btn btn-warning" href="<?php echo $this->baseUrl('tochuccanbo/employees/nangluong/page/' . $this->arrParam['page']); ?>"><i class="icon-arrow-up"></i> Nâng bậc lương</a>
+                <?php endif; ?>
+                <?php if ($this->check_luan_chuyen): ?>
+                    <a class="btn btn-warning" href="<?php echo $this->baseUrl('tochuccanbo/employees/luanchuyen/page/' . $this->arrParam['page']); ?>"><i class="icon-retweet"></i> Luân chuyển</a>
+                <?php endif; ?>               
+                <?php if ($this->check_ve_huu): ?>
+                    <a class="btn btn-warning" href="<?php echo $this->baseUrl('tochuccanbo/employees/nghihuu/page/' . $this->arrParam['page']); ?>"><i class="icon-home"></i> Về hưu</a>
+                <?php endif; ?>
+                <a class="btn" href="<?php echo $this->baseUrl('tochuccanbo/employees/add/page/' . $this->arrParam['page']); ?>"><i class="icon-plus-sign"></i> Thêm mới</a>
+                <a class="btn" href="<?php echo $this->baseUrl('tochuccanbo/employees/import/page/' . $this->arrParam['page']); ?>"><i class="icon-plus-sign"></i> Nhập từ Excel</a>
+            </div>
+        </div>
+        <div class="btn-toolbar form-search float_right text-right">
+            <?php
+            echo $this->formSelect('sl_phong_ban', $this->pb_id, array('onchange' => 'on_choose_phong_ban()'), $list_phong_ban_options);
+            ?> 
+        </div>
+        <div class="clearfix">
+        </div>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th class="checkall_style"><input type="checkbox" name="check_all" id="checkbox" onclick="checkedAll()"></th>
+                    <th style="width: 120px;">Họ & Tên đệm</th>
+                    <th style="width: 90px;">Tên</th>                    
+                    <th style="width: 115px;">Chức vụ</th>
+                    <th style="width: 115px;">Đơn vị</th>
+                    <th class="status_style">Trạng thái</th>
+                    <th>Chức năng</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                foreach ($this->paginator as $item) {
+                    echo '<tr>
+                            <td class="checkall_style"><input type="checkbox" name="cid[]" id="cid" value="' . $item->em_id . '"></td>
+                            <td>' . $item->em_ho . '</a></td>                            
+                            <td>' . $item->em_ten . '</a></td>                            
+                            <td>' . $list_chuc_vu[$item->em_chuc_vu] . '</a></td>                            
+                            <td>' . $list_phong_ban[$item->em_phong_ban] . '</a></td>  
+                            <td class="status_style"><a href="' . ($item->em_status ? $this->baseUrl('tochuccanbo/employees/changestatus/id/' . $item->em_id . '/status/0/page/' . $this->arrParam['page']) : $this->baseUrl('tochuccanbo/employees/changestatus/id/' . $item->em_id . '/status/1/page/' . $this->arrParam['page'])) . '"><div class="' . ($item->em_status ? 'icon_status_active' : 'icon_status_inactive') . '"></div></a></td>
+                            <td class="function_style">
+                                <a class="btn btn-mini" href="' . $this->baseUrl('tochuccanbo/employees/edit/id/' . $item->em_id . '/page/' . $this->arrParam['page']) . '" title="Sửa"><i class="icon-edit"></i> Sửa</a>
+                                <a class="btn btn-mini" href="' . $this->baseUrl('tochuccanbo/employees/delete/id/' . $item->em_id . '/page/' . $this->arrParam['page']) . '" title="Xóa"><i class="icon-trash"></i> Xóa</a>                                
+                                <div class="dropdown float_left" style="padding-right: 6px;">
+                                    <a class="btn btn-mini" id="drop' . $item->em_id . '" role="button" data-toggle="dropdown" href="#"><i class="icon-th-list"></i> Chức năng <b class="caret"></b></a>                                    
+                                    <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop' . $item->em_id . '">
+                                        <li role="presentation">
+                                            <a role="menuitem" tabindex="-1" data-toggle="modal" href="#mdHeSoLuong" title="Hệ số lương" onclick="loadFormHeSo(' . $item->em_id . ')"><i class="icon-list-alt"></i> Hệ số lương</a>
+                                        </li>
+                                        <li role="presentation">
+                                            <a role="menuitem" tabindex="-1" data-toggle="modal" href="#mdHeSoPhuCap" title="Hệ số phụ cấp" onclick="loadFormPhuCap(' . $item->em_id . ')"><i class="icon-list-alt"></i> Hệ số phụ cấp</a>
+                                        </li>
+                                        <li role="presentation">
+                                            <a role="menuitem" tabindex="-1" data-toggle="modal" href="#mdLuanChuyen" title="Luân chuyển" onclick="loadFormLuanChuyen(' . $item->em_id . ')"><i class="icon-retweet"></i> Luân chuyển</a>
+                                        </li>                                        
+                                        <li role="presentation">
+                                            <a role="menuitem" tabindex="-1" data-toggle="modal" href="#mdKhenThuong" title="Khen thưởng" onclick="loadFormKhenThuong(' . $item->em_id . ', \'' . $item->em_ho . ' ' . $item->em_ten . '\')"><i class="icon-star"></i> Khen thưởng</a>
+                                        </li>
+                                        <li role="presentation">
+                                            <a role="menuitem" tabindex="-1" data-toggle="modal" href="#mdKyLuat" title="Kỷ luật" onclick="loadFormKyLuat(' . $item->em_id . ', \'' . $item->em_ho . ' ' . $item->em_ten . '\')"><i class="icon-exclamation-sign"></i> Kỷ luật</a>
+                                        </li>
+                                        <li role="presentation">
+                                            <a role="menuitem" tabindex="-1" href="' . $this->baseUrl('tochuccanbo/employees/thongke/id/' . $item->em_id . '/page/' . $this->arrParam['page']) . '" title="Thống kê"><i class="icon-tasks"></i> Thống kê</a>
+                                        </li>
+                                        <li role="presentation">
+                                            <a role="menuitem" tabindex="-1" data-toggle="modal" href="#mdThongBao" title="Gửi thông báo" onclick="loadFormThongBao(' . $item->em_id . ', \'' . $item->em_ho . ' ' . $item->em_ten . '\')"><i class="icon-envelope"></i> Gửi thông báo</a>
+                                        </li>
+                                        <li role="presentation">
+                                            <a role="menuitem" tabindex="-1" href="' . $this->baseUrl('tochuccanbo/tinhluong/index/id/' . $item->em_id) . '" title="Tính lương"><i class="icon-folder-close"></i> Tính lương</a>
+                                        </li>
+                                        <li role="presentation">
+                                            <a role="menuitem" tabindex="-1" href="' . $this->baseUrl('tochuccanbo/tinhluong/heso03/id/' . $item->em_id) . '" title="Tính lương"><i class="icon-folder-close"></i> Tính lương hế số 0.3</a>
+                                        </li>
+                                        <!--<li role="presentation">
+                                            <a role="menuitem" tabindex="-1" href="' . $this->baseUrl('tochuccanbo/inluong/index/id/' . $item->em_id) . '" title="In Lương"><i class="icon-calendar"></i> In Lương</a>
+                                        </li>-->
+                                        <li role="presentation">
+                                            <a role="menuitem" tabindex="-1" href="' . $this->baseUrl('tochuccanbo/employees/printer/id/' . $item->em_id) . '" title="In thông tin" target="_blank"><i class="icon-calendar"></i> In Thông Tin</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>';
+                }
+                ?>
+            </tbody>
+        </table>
+        <?php echo $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml'); ?>
+    </form>
+</div> 
+
+<!-- Modal -->
+<div id="mdThongBao" class="modal_xlager hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Thông Báo</h3>
+    </div>
+    <div class="modal-body" id="mdThongBaoBody">
+        <div class="alert alert-error" id="dv_thong_bao_error" style="display: none;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h5>Thông báo!</h5>
+            Cập nhật không thành công!
+        </div>
+
+        <div class="alert alert-success" id="dv_thong_bao_success" style="display: none;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h5>Thông báo!</h5>
+            Cập nhật thành công!
+        </div>
+
+        <form class="form-horizontal">
+            <input type="hidden" id="tb_cap_nhat_id" value=""/>
+
+            <div class="control-group">
+                <label class="control-label" for="tb_can_bo">Người nhận</label>
+                <div class="controls" id="tb_can_bo">
+
+                </div>            
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="tb_tieu_de">Tiêu đề</label>
+                <div class="controls">
+                    <?php echo $this->formText('tb_tieu_de', null, array('class' => 'input-xxlarge', 'placeholder' => '')); ?>                   
+                </div>            
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="tb_noi_dung">Nội dung</label>
+                <div class="controls">
+                    <?php echo $this->formTextarea('tb_noi_dung', null, array('class' => 'input-xlarge', 'rows' => 5)); ?>                   
+                </div>            
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Đóng</button>
+        <button class="btn btn-primary" onclick="postFormThongBao();" id="btn_gui_thong_bao">Gửi thông báo</button>
+    </div>
+</div>
+
+<div id="mdKhenThuong" class="modal_xlager hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Khen thưởng</h3>
+    </div>
+    <div class="modal-body" id="mdKhenThuongBody">
+        <div class="alert alert-error" id="dv_khen_thuong_error" style="display: none;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h5>Thông báo!</h5>
+            Cập nhật không thành công!
+        </div>
+
+        <div class="alert alert-success" id="dv_khen_thuong_success" style="display: none;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h5>Thông báo!</h5>
+            Cập nhật thành công!
+        </div>
+
+        <form class="form-horizontal">
+            <input type="hidden" id="kt_cap_nhat_id" value=""/>
+
+            <div class="control-group">
+                <label class="control-label" for="kt_ngay_khen_thuong">Ngày khen thưởng</label>
+                <div class="controls">
+                    <?php
+                    $ngay_options = array();
+                    for ($i = 1; $i <= 31; $i++) {
+                        $ngay_options[$i] = $i;
+                    }
+
+                    $thang_options = array();
+                    for ($i = 1; $i <= 12; $i++) {
+                        $thang_options[$i] = $i;
+                    }
+                    $nam_options = array();
+                    for ($i = 2000; $i <= 2100; $i++) {
+                        $nam_options[$i] = $i;
+                    }
+                    echo $this->formSelect('kt_ngay_khen_thuong', date('d'), array('class' => 'input-small'), $ngay_options);
+                    echo '<span class="help-inline"> / </span>';
+                    echo $this->formSelect('kt_thang_khen_thuong', date('m'), array('class' => 'input-small'), $thang_options);
+                    echo '<span class="help-inline"> / </span>';
+                    echo $this->formSelect('kt_nam_khen_thuong', date('Y'), array('class' => 'input-small'), $nam_options);
+                    ?>                    
+                </div>
+            </div>
+
+
+            <div class="control-group">
+                <label class="control-label" for="kt_can_bo">Cán bộ</label>
+                <div class="controls" id="kt_can_bo">
+
+                </div>            
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="kt_ly_do">Lý do</label>
+                <div class="controls">
+                    <?php echo $this->formText('kt_ly_do', null, array('class' => 'input-xxlarge', 'placeholder' => '')); ?>                   
+                </div>            
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="kt_chi_tiet">Chi tiết</label>
+                <div class="controls">
+                    <?php echo $this->formTextarea('kt_chi_tiet', null, array('class' => 'input-xlarge', 'rows' => 5)); ?>                   
+                </div>            
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="kt_money">Tiền thưởng</label>
+                <div class="controls">
+                    <div class="input-prepend input-append">    
+                        <?php echo $this->formText('kt_money', 0, array('class' => 'input-medium', 'placeholder' => '')); ?>                    
+                        <span class="add-on">VND</span>
+                    </div>
+
+                </div>            
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Đóng</button>
+        <button class="btn btn-primary" onclick="postFormKhenThuong();">Cập nhật</button>
+    </div>
+</div>
+
+<div id="mdKyLuat" class="modal_xlager hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Kỷ luật/khiển trách</h3>
+    </div>
+    <div class="modal-body" id="mdKyLuatBody">
+        <div class="alert alert-error" id="dv_ky_luat_error" style="display: none;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h5>Thông báo!</h5>
+            Cập nhật không thành công!
+        </div>
+
+        <div class="alert alert-success" id="dv_ky_luat_success" style="display: none;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h5>Thông báo!</h5>
+            Cập nhật thành công!
+        </div>
+
+        <form class="form-horizontal">
+            <input type="hidden" id="kl_cap_nhat_id" value=""/>
+
+            <div class="control-group">
+                <label class="control-label" for="kl_ngay_ky_luat">Ngày kỷ luật</label>
+                <div class="controls">
+                    <?php
+                    $ngay_options = array();
+                    for ($i = 1; $i <= 31; $i++) {
+                        $ngay_options[$i] = $i;
+                    }
+
+                    $thang_options = array();
+                    for ($i = 1; $i <= 12; $i++) {
+                        $thang_options[$i] = $i;
+                    }
+                    $nam_options = array();
+                    for ($i = 2000; $i <= 2100; $i++) {
+                        $nam_options[$i] = $i;
+                    }
+                    echo $this->formSelect('kl_ngay_ky_luat', date('d'), array('class' => 'input-small'), $ngay_options);
+                    echo '<span class="help-inline"> / </span>';
+                    echo $this->formSelect('kl_thang_ky_luat', date('m'), array('class' => 'input-small'), $thang_options);
+                    echo '<span class="help-inline"> / </span>';
+                    echo $this->formSelect('kl_nam_ky_luat', date('Y'), array('class' => 'input-small'), $nam_options);
+                    ?>                    
+                </div>
+            </div>
+
+
+            <div class="control-group">
+                <label class="control-label" for="kl_can_bo">Cán bộ</label>
+                <div class="controls" id="kl_can_bo">
+                </div>            
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="kl_ly_do">Lý do</label>
+                <div class="controls">
+                    <?php echo $this->formText('kl_ly_do', null, array('class' => 'input-xxlarge', 'placeholder' => '')); ?>                   
+                </div>            
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="kl_chi_tiet">Chi tiết</label>
+                <div class="controls">
+                    <?php echo $this->formTextarea('kl_chi_tiet', null, array('class' => 'input-xlarge', 'rows' => 5)); ?>                   
+                </div>            
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="kl_money">Tiền phạt</label>
+                <div class="controls">
+                    <div class="input-prepend input-append">    
+                        <?php echo $this->formText('kl_money', 0, array('class' => 'input-medium', 'placeholder' => '')); ?>                    
+                        <span class="add-on">VND</span>
+                    </div>
+
+                </div>            
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Đóng</button>
+        <button class="btn btn-primary" onclick="postFormKyLuat();">Cập nhật</button>
+    </div>
+</div>
+
+<div id="mdHeSoLuong" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Hệ số lương</h3>
+    </div>
+    <div class="modal-body" id="mdHeSoBody">
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Đóng</button>
+        <button class="btn btn-primary" onclick="update_he_so_nhan_vien()">Cập nhật</button>
+    </div>
+</div>
+
+<div id="mdHeSoPhuCap" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Hệ số phụ cấp</h3>
+    </div>
+    <div class="modal-body" id="mdPhuCapBody">
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Đóng</button>
+        <button class="btn btn-primary" onclick="update_phu_cap_nhan_vien()">Cập nhật</button>
+    </div>
+</div>
+
+<div id="mdLuanChuyen" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Luân chuyển</h3>
+    </div>
+    <div class="modal-body" id="mdLuanChuyenBody">
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Đóng</button>
+        <button class="btn btn-primary" id="btn_luan_chuyen" style="display: none;" onclick="postFormLuanChuyen()">Cập nhật</button>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+    jQuery(function($) {
+        $('#kt_money').autoNumeric('init');    
+        $('#kl_money').autoNumeric('init');    
+    });
+    
+    function on_choose_phong_ban(){
+        var phong_ban = $('#sl_phong_ban').val();
+        window.location = site_url+'/tochuccanbo/employees/index/phongban/'+phong_ban;
+    }
+    
+    function loadFormHeSo(em_id){
+        $('#mdHeSoBody').html('Đang lấy dữ liệu, vui lòng chờ trong giây lát....');
+        $('#mdHeSoBody').load(site_url+'/tochuccanbo/employees/heso/id/'+em_id, function(){            
+        });
+    }
+    
+    function loadFormPhuCap(em_id){
+        $('#mdPhuCapBody').html('Đang lấy dữ liệu, vui lòng chờ trong giây lát....');
+        $('#mdPhuCapBody').load(site_url+'/tochuccanbo/employees/phucap/id/'+em_id, function(){            
+        });
+    }
+    
+    function update_he_so_nhan_vien(){  
+        var em_id = $('#pc_cap_nhat_em_id').val();
+        $.post( site_url+'/tochuccanbo/employees/heso/id/'+em_id, $('#frm_update_heso').serialize(), function(data) {
+            $('#mdHeSoBody').html(data);
+        });       
+    }
+    
+    function update_phu_cap_nhan_vien(){  
+        var em_id = $('#pc_cap_nhat_pc_em_id').val();
+        $.post( site_url+'/tochuccanbo/employees/phucap/id/'+em_id, $('#frm_update_phucap').serialize(), function(data) {
+            $('#mdPhuCapBody').html(data);
+        });       
+    }
+    
+    function change_tham_niem(){
+        var tn_thang = $('#eh_tham_nien_thang').val();
+        var tn_nam = $('#eh_tham_nien_nam').val();        
+        
+        var currentYear = (new Date).getFullYear();
+        var currentMonth = (new Date).getMonth()+1;
+        
+        var tham_nien = currentYear - tn_nam;
+        if(currentMonth<tn_thang){
+            tham_nien--;
+        }
+        
+            if (tham_nien < 5)
+                tham_nien = 0;        
+        
+        $('#eh_pc_tham_nien').val(tham_nien);
+        
+    }
+    
+    function change_bac_luong(element, id_ngach_cong_chuc){
+        $.blockUI({
+            message: '<h3>Đang thực hiện</h3>',
+            css: {                         
+                border: 'none', 
+                padding: '15px', 
+                backgroundColor: '#000', 
+                '-webkit-border-radius': '10px', 
+                '-moz-border-radius': '10px', 
+                opacity: .5, 
+                color: '#fff'
+            },
+            baseZ: 2000
+        });
+        var bl_id = $(element).val();
+        $.getJSON( site_url+'/tochuccanbo/employees/jqbacluong/id/'+bl_id+'/ncc/'+id_ngach_cong_chuc, function( data ) {  
+            if(data.status){
+                $('#eh_he_so').val(data.data);
+            }  
+            $.unblockUI();            
+        });
+    }
+    
+    function loadFormLuanChuyen(em_id){
+        $('#mdLuanChuyenBody').html('Đang tải dữ liệu...');
+        $('#mdLuanChuyenBody').load(site_url+'/tochuccanbo/employees/formluanchuyen/id/'+em_id, function(){            
+        });
+        $('#btn_luan_chuyen').show();
+    }
+    
+    
+    function postFormLuanChuyen(){   
+        var em_id = $('#lc_em_id').val();
+        $.post( site_url+'/tochuccanbo/employees/formluanchuyen/id/'+em_id, $('#fr_luan_chuyen').serialize(), function(data) {
+            $('#mdLuanChuyenBody').html(data);
+        });   
+    }
+    
+    
+    function loadFormKyLuat(em_id, em_name){        
+        $('#mdKyLuatBody #kl_cap_nhat_id').val(em_id);
+        $('#mdKyLuatBody #kl_can_bo').html('<strong>'+em_name+'</strong>');
+        tinyMCE.get('kl_chi_tiet').setContent('');
+        $('#mdKyLuatBody #kl_ly_do').val('');
+        $('#mdKyLuatBody #kl_money').val('0');
+        $('#dv_ky_luat_success').hide();
+        $('#dv_ky_luat_error').hide();
+    }
+    
+    function postFormKyLuat(){   
+        $('#dv_ky_luat_success').hide();
+        $('#dv_ky_luat_error').hide();
+        var em_id = $('#mdKyLuatBody #kl_cap_nhat_id').val();
+        var kl_title = $('#mdKyLuatBody #kl_ly_do').val();
+        var kl_content = tinyMCE.get('kl_chi_tiet').getContent();
+        var kl_day = $('#mdKyLuatBody #kl_ngay_khen_thuong').val();
+        var kl_month = $('#mdKyLuatBody #kl_thang_khen_thuong').val();
+        var kl_year = $('#mdKyLuatBody #kl_nam_khen_thuong').val();   
+        //var kl_money = $('#mdKyLuatBody #kl_money').val();   
+        var kl_money = $('#mdKyLuatBody #kl_money').autoNumeric('get');   
+        if(kl_title !='' && kl_content!=''){
+            $.post( site_url+'/tochuccanbo/employees/jqkyluat', {
+                em_id: em_id, 
+                kl_date_day: kl_day, 
+                kl_date_month: kl_month,
+                kl_date_year: kl_year,
+                kl_money: kl_money,
+                kl_ly_do: kl_title,
+                kl_chi_tiet: kl_content
+            }, function(data) {
+                if(data.status){
+                    $('#dv_ky_luat_success').show();
+                    tinyMCE.get('kl_chi_tiet').setContent('');
+                    $('#mdKyLuatBody #kl_ly_do').val('');
+                }else{
+                    $('#dv_ky_luat_error').show();
+                }
+            }, 'json');
+        }else{
+            alert('Bạn phải nhập đầy đủ lý do và nội dung kỷ luật!');
+        }
+    }
+    
+    function loadFormKhenThuong(em_id, em_name){        
+        $('#mdKhenThuongBody #kt_cap_nhat_id').val(em_id);
+        $('#mdKhenThuongBody #kt_can_bo').html('<strong>'+em_name+'</strong>');
+        tinyMCE.get('kt_chi_tiet').setContent('');
+        $('#mdKhenThuongBody #kt_ly_do').val('');
+        $('#mdKhenThuongBody #kt_money').val('0');
+        $('#dv_khen_thuong_success').hide();
+        $('#dv_khen_thuong_error').hide();
+    }
+    
+    function postFormKhenThuong(){   
+        $('#dv_khen_thuong_success').hide();
+        $('#dv_khen_thuong_error').hide();
+        var em_id = $('#mdKhenThuongBody #kt_cap_nhat_id').val();
+        var kt_title = $('#mdKhenThuongBody #kt_ly_do').val();
+        var kt_content = tinyMCE.get('kt_chi_tiet').getContent();
+        var kt_day = $('#mdKhenThuongBody #kt_ngay_khen_thuong').val();
+        var kt_month = $('#mdKhenThuongBody #kt_thang_khen_thuong').val();
+        var kt_year = $('#mdKhenThuongBody #kt_nam_khen_thuong').val(); 
+        //var kt_money = $('#mdKhenThuongBody #kt_money').val(); 
+        var kt_money = $('#mdKhenThuongBody #kt_money').autoNumeric('get'); 
+        
+        if(kt_title !='' && kt_content!=''){
+            $.post( site_url+'/tochuccanbo/employees/jqkhenthuong', { 
+                em_id: em_id, 
+                kt_date_day: kt_day, 
+                kt_date_month: kt_month,
+                kt_date_year: kt_year,
+                kt_money: kt_money,
+                kt_ly_do: kt_title,
+                kt_chi_tiet: kt_content
+            }, function( data ) {
+                if(data.status){
+                    $('#dv_khen_thuong_success').show();
+                    tinyMCE.get('kt_chi_tiet').setContent('');
+                    $('#mdKhenThuongBody #kt_ly_do').val('');
+                }else{
+                    $('#dv_khen_thuong_error').show();
+                }
+            }, 'json');
+        }else{
+            alert('Bạn phải nhập đầy đủ lý do và nội dung khen thưởng!');
+        }
+    }
+    
+    function loadFormThongBao(em_id, em_name){        
+        $('#mdThongBaoBody #tb_cap_nhat_id').val(em_id);
+        $('#mdThongBaoBody #tb_can_bo').html('<strong>'+em_name+'</strong>');
+        tinyMCE.get('tb_noi_dung').setContent('');
+        $('#mdThongBaoBody #tb_tieu_de').val('');
+        $('#dv_thong_bao_success').hide();
+        $('#dv_thong_bao_error').hide();
+    }
+    
+    function postFormThongBao(){   
+        $('#dv_thong_bao_success').hide();
+        $('#dv_thong_bao_error').hide();
+        var em_id = $('#mdThongBaoBody #tb_cap_nhat_id').val();
+        var tb_title = $('#mdThongBaoBody #tb_tieu_de').val();
+        var tb_content = tinyMCE.get('tb_noi_dung').getContent();
+        if(tb_title !='' && tb_content!=''){
+            $("#btn_gui_thong_bao").attr("disabled", "disabled");
+            $.post( site_url+'/canhan/thongbao/jqnewtb', {
+                em_id: em_id, 
+                tb_title: tb_title, 
+                tb_content: tb_content
+            }, function(data) {   
+                $("#btn_gui_thong_bao").removeAttr("disabled");
+                if(data.status){
+                    $('#dv_thong_bao_success').show();
+                    tinyMCE.get('tb_noi_dung').setContent('');
+                    $('#mdThongBaoBody #tb_tieu_de').val('');
+                }else{
+                    $('#dv_thong_bao_error').show();
+                }
+            }, 'json');
+        }else{
+            alert('Bạn phải nhập đầy đủ tiêu đề và nội dung!');
+        }         
+    }
+</script>

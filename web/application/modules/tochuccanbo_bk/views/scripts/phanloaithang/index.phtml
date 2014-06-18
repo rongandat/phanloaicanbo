@@ -1,0 +1,131 @@
+<?php
+$kq_options = array();
+foreach ($this->ket_qua as $ket_qua) {
+    $kq_options[$ket_qua->dgkqcv_id] = $ket_qua->dgkqcv_name;
+}
+
+$list_phong_ban = array();
+foreach ($this->list_phong_ban as $phong_ban) {
+    $list_phong_ban[$phong_ban->pb_id] = $phong_ban->pb_name;
+}
+
+$list_phong_ban_options = array('0' => 'Tất cả');
+foreach ($this->list_phong_ban_option as $phong_ban) {
+    $list_phong_ban_options[$phong_ban->pb_id] = $phong_ban->pb_name;
+}
+?>
+
+<h5>Thống kê phân loại theo tháng</h5>               
+
+<div class="main-content-box">  
+    <form name="appForm" class="form-horizontal" method="post" action="">
+        <div class="control-group">
+            <label class="control-label">Phòng ban</label>
+            <div class="controls">
+                <?php
+                echo $this->formSelect('sl_phong_ban', $this->pb_id, array('onchange' => 'on_choose_phong_ban()'), $list_phong_ban_options);
+                ?>
+            </div>
+        </div>
+        <div class="clearfix">
+        </div>        
+        <div class="control-group">
+            <label class="control-label">Tháng</label>
+            <div class="controls">
+                <div class="input-append">
+                    <input class="span2" value="<?php echo $this->thang . '/' . $this->nam; ?>" id="txt_thang_nam" type="text" readonly="true"/>
+                    <button class="btn" type="button" id="btn_chon_thang">Chọn tháng!</button>
+                </div>
+
+            </div>
+        </div>
+        <div class="clearfix">
+        </div>   
+        <div class="btn-toolbar float_left">
+            <div class="btn-group">
+                <button class="btn btn-primary" onclick="OnSubmitForm('<?php echo $this->baseUrl('tochuccanbo/phanloaithang/index/thang/' . $this->thang . '/nam/' . $this->nam . '/phongban/' . $this->pb_id); ?>')" title="Xuất ra file excel"><i class="icon-download-alt"></i> Xuất ra file excel</button>
+            </div>
+        </div>        
+        <div class="clearfix">
+        </div>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>    
+                    <th rowspan="2">Họ tên</th>
+                    <th style="width: 200px;" rowspan="2">Chức vụ</th>
+                    <th colspan="4">Phân loại</th>
+                    <th style="width: 150px;" rowspan="2">Không phân loại</th>
+                </tr>
+                <tr>    
+                    <th style="width: 50px;">A</th>
+                    <th style="width: 50px;">B</th>
+                    <th style="width: 50px;">C</th>
+                    <th style="width: 50px;">D</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                foreach ($this->list_nhan_vien as $nhan_vien) {
+                    $phan_loai = $this->viewGetPhanLoai($nhan_vien->em_id, (int) $this->thang, (int) $this->nam);
+                    $rd_id = rand(1000000, 9999999);
+                    $pl_ptccb = '';
+                    if ($phan_loai) {
+                        if ($phan_loai->dg_ptccb_status != 'O')
+                            $pl_ptccb = $phan_loai->dg_ptccb_status;
+                        else
+                            $pl_ptccb = '-';
+                    }
+                    ?>
+                    <tr>
+                        <td id="name_<?php echo $nhan_vien->em_id; ?>"><?php echo $nhan_vien->em_ho . ' ' . $nhan_vien->em_ten; ?></td>
+                        <td><?php echo $this->list_chuc_vu[$nhan_vien->em_chuc_vu]; ?></td>
+                        <td><?php echo $pl_ptccb == 'A' ? 'X' : ''; ?></td>
+                        <td><?php echo $pl_ptccb == 'B' ? 'X' : ''; ?></td>
+                        <td><?php echo $pl_ptccb == 'C' ? 'X' : ''; ?></td>                        
+                        <td><?php echo $pl_ptccb == 'D' ? 'X' : ''; ?></td>                        
+                        <td><?php echo $pl_ptccb == '-' ? 'X' : ''; ?></td>                        
+                    </tr>
+                    <?php
+                }
+                ?>
+            </tbody>
+        </table>
+    </form>
+</div>
+
+
+<script>
+    var currentYear = <?php echo $this->nam; ?>;    
+    var options = {
+        pattern: 'mm/yyyy', // Default is 'mm/yyyy' and separator char is not mandatory 
+        startYear: 2013,
+        selectedYear: currentYear,
+        monthNames: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12']
+    };
+
+    var phong_ban = $('#sl_phong_ban').val();
+
+    $('#txt_thang_nam').monthpicker(options);
+
+    $('#txt_thang_nam').monthpicker().bind('monthpicker-click-month', function (e, month, year) { 
+        window.location = site_url+'/tochuccanbo/phanloaithang/index/thang/'+month+'/nam/'+year+'/phongban/'+phong_ban;
+    });
+
+    $('#btn_chon_thang').bind('click', function () {
+        $('#txt_thang_nam').monthpicker('show');
+    });
+    
+    function on_choose_phong_ban(){
+        var phong_ban = $('#sl_phong_ban').val();
+        var c_date = $('#txt_thang_nam').val();
+        var date_array = c_date.split("/");
+        var d = new Date(),
+        c_m = d.getMonth(),
+        c_y = d.getFullYear();
+        if(date_array.length==2 && $.isNumeric(date_array[0]) && $.isNumeric(date_array[1])){
+            c_m = date_array[0];
+            c_y = date_array[1];
+        }        
+        window.location = site_url+'/tochuccanbo/phanloaithang/index/thang/'+c_m+'/nam/'+c_y+'/phongban/'+phong_ban;
+    }
+</script>
