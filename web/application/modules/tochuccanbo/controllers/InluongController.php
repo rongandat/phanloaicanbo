@@ -234,8 +234,10 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
         $phongbanModel = new Front_Model_Phongban();
         $pb_selected = $this->_getParam('phongban', 0);
         $phong_ban_id = $list_phongban_selected = $phong_ban = Array();
-        $phong_ban_selected_info = $phongbanModel->fetchRow("pb_id=$pb_selected");
         $phong_ban_id[] = $pb_selected;
+        $phong_ban_selected_info = $phongbanModel->fetchRow("pb_id=$pb_selected");
+        if ($phong_ban_selected_info)
+            $phong_ban[] = $phong_ban_selected_info;
         $list_phongban_selected = $phongbanModel->fetchDataStatus($pb_selected, $phong_ban);
 
         if (sizeof($list_phongban_selected)) {
@@ -258,7 +260,7 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
                 $objPHPExcel->getActiveSheet()->getStyle("A" . ($k + 7))->getFill()
                         ->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID,
                             'startcolor' => array('rgb' => 'F28A8C')
-                        ));
+                ));
                 $objPHPExcel->getActiveSheet()->SetCellValue('A' . ($k + 7), $phong_ban_info->pb_name);
                 foreach ($list_nhan_vien as $nhan_vien) {
                     if ($phong_ban_info->pb_id == $nhan_vien->em_phong_ban) {
@@ -512,16 +514,6 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
                 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
                 $objWriter->save('php://output');
                 die();
-
-                /*
-                  $file_name = 'Bang_luong_.xls';
-                  $objPHPExcel->getActiveSheet()->setTitle('Bảng lương');
-
-                  header('Content-Type: application/vnd.ms-excel');
-                  header('Content-Disposition: attachment;filename="hungnm.xls"');
-                  header('Cache-Control: max-age=0');
-                  $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-                  $objWriter->save('php://output'); */
             } else {
                 $this->_helper->viewRenderer->setRender('loi');
             }
@@ -578,8 +570,10 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
 
         $pb_selected = $this->_getParam('phongban', 0);
         $phong_ban_id = $list_phongban_selected = $phong_ban = Array();
-        $phong_ban_selected_info = $phongbanModel->fetchRow("pb_id=$pb_selected");
         $phong_ban_id[] = $pb_selected;
+        $phong_ban_selected_info = $phongbanModel->fetchRow("pb_id=$pb_selected");
+        if ($phong_ban_selected_info)
+            $phong_ban[] = $phong_ban_selected_info;
         $list_phongban_selected = $phongbanModel->fetchDataStatus($pb_selected, $phong_ban);
 
         if (sizeof($list_phongban_selected)) {
@@ -619,7 +613,7 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
                 $objPHPExcel->getActiveSheet()->getStyle("A" . ($k + 7))->getFill()
                         ->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID,
                             'startcolor' => array('rgb' => 'F28A8C')
-                        ));
+                ));
                 $objPHPExcel->getActiveSheet()->SetCellValue('A' . ($k + 7), $phong_ban_info->pb_name);
                 foreach ($list_nhan_vien as $nhan_vien) {
                     if ($phong_ban_info->pb_id == $nhan_vien->em_phong_ban) {
@@ -850,8 +844,10 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
 
         $pb_selected = $this->_getParam('phongban', 0);
         $phong_ban_id = $list_phongban_selected = $phong_ban = Array();
-        $phong_ban_selected_info = $phongbanModel->fetchRow("pb_id=$pb_selected");
         $phong_ban_id[] = $pb_selected;
+        $phong_ban_selected_info = $phongbanModel->fetchRow("pb_id=$pb_selected");
+        if ($phong_ban_selected_info)
+            $phong_ban[] = $phong_ban_selected_info;
         $list_phongban_selected = $phongbanModel->fetchDataStatus($pb_selected, $phong_ban);
 
         if (sizeof($list_phongban_selected)) {
@@ -891,7 +887,7 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
                 $objPHPExcel->getActiveSheet()->getStyle("A" . ($k + 7))->getFill()
                         ->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID,
                             'startcolor' => array('rgb' => 'F28A8C')
-                        ));
+                ));
                 $objPHPExcel->getActiveSheet()->SetCellValue('A' . ($k + 7), $phong_ban_info->pb_name);
                 foreach ($list_nhan_vien as $nhan_vien) {
                     if ($phong_ban_info->pb_id == $nhan_vien->em_phong_ban) {

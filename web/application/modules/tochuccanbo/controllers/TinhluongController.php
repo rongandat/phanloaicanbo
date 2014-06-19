@@ -406,19 +406,7 @@ class Tochuccanbo_TinhluongController extends Zend_Controller_Action {
                     $hs_pc_chuc_vu = $em_phu_cap->eh_pc_cong_viec; //he so pc chuc vu            
                     $hs_pc_trach_nhiem = $em_phu_cap->eh_pc_trach_nhiem; //he so pc trach nhiem            
                     $hs_pc_khu_vuc = $em_phu_cap->eh_pc_kv; //he so pc khu vuc            
-                    $hs_pc_tnvk_phan_tram = $em_phu_cap->eh_pc_tnvk_phan_tram; //he so pc tnvk
-                    if ($em_phu_cap->eh_pc_tnvk_time != null && $em_phu_cap->eh_pc_tnvk_time != '' && $em_phu_cap->eh_pc_tnvk_time != '0000-00-00 00:00:00') {
-                        $tnvk_nam = date('Y', strtotime($em_phu_cap->eh_pc_tnvk_time));
-                        $tnvk_thang = date('m', strtotime($em_phu_cap->eh_pc_tnvk_time));
-
-                        $tnvk_add = $nam - $tnvk_nam;
-                        if ($thang < $tnvk_thang) {
-                            $tnvk_add--;
-                        }
-
-                        if ($tnvk_add && $hs_pc_tnvk_phan_tram)
-                            $hs_pc_tnvk_phan_tram+=$tnvk_add;
-                    }
+                    $hs_pc_tnvk_phan_tram = $em_phu_cap->eh_pc_tnvk_phan_tram; //he so pc tnvk                    
 
                     $time_tham_niem = strtotime($em_phu_cap->eh_tham_niem); //tinh tham nien tu ngay
                     $hs_pc_tham_nien_phan_tram = $em_phu_cap->eh_pc_tham_nien;
