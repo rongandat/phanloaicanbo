@@ -236,8 +236,6 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
         $phong_ban_id = $list_phongban_selected = $phong_ban = Array();
         $phong_ban_selected_info = $phongbanModel->fetchRow("pb_id=$pb_selected");
         $phong_ban_id[] = $pb_selected;
-        if ($phong_ban_selected_info)
-            $phong_ban[] = $phong_ban_selected_info;
         $list_phongban_selected = $phongbanModel->fetchDataStatus($pb_selected, $phong_ban);
 
         if (sizeof($list_phongban_selected)) {
@@ -256,7 +254,7 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
             $stt = 0;
             foreach ($list_phongban_selected as $phong_ban_info) {
                 $k++;
-                $objPHPExcel->setActiveSheetIndex(0)->mergeCells("A" . ($k + 7) . ":AI" . ($k + 7));
+                $objPHPExcel->setActiveSheetIndex(0)->mergeCells("A" . ($k + 7) . ":AM" . ($k + 7));
                 $objPHPExcel->getActiveSheet()->getStyle("A" . ($k + 7))->getFill()
                         ->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID,
                             'startcolor' => array('rgb' => 'F28A8C')
@@ -286,6 +284,7 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
                             $time_tham_niem = strtotime($bang_luong->bl_time_tham_nien);
                             $uu_dai_nghe = $bang_luong->bl_hs_pc_udn;
                             $cong_vu = $bang_luong->bl_hs_pc_cong_vu;
+                            $thu_hut = $bang_luong->bl_pc_thu_hut;
                             $kiem_nhiem = $bang_luong->bl_pc_kiem_nhiem;
                             $hs_pc_khac = $bang_luong->bl_hs_pc_khac;
                             $he_so_tang_them = $bang_luong->bl_pc_tang_them;
@@ -300,26 +299,13 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
 
                             $luong_toi_thieu_sau_bh = (int) ($luong_toi_thieu * (100 - ($bhxh + $bhyt)) / 100);
                             $luong_toi_thieu_bhyt = (int) ($luong_toi_thieu * (100 - $bhyt) / 100);
-
-                            $pc_trach_nhiem = $pc_cong_vu = $pc_khac = $pc_kiem_nhiem = $pc_uu_dai_nghe = $luong_toi_thieu;
-                            $pc_chuc_vu = $pc_tnvk = $pc_thu_hut = $pc_tham_nien = $luong_toi_thieu_sau_bh;
+                            $pc_trach_nhiem = $pc_thu_hut = $pc_cong_vu = $pc_khac = $pc_kiem_nhiem = $pc_uu_dai_nghe = $luong_toi_thieu;
+                            $pc_chuc_vu = $pc_tnvk = $pc_tham_nien = $luong_toi_thieu_sau_bh;
                             $pc_khu_vuc = $luong_toi_thieu_bhyt;
 
                             $thanh_tien_hsl = $luong_toi_thieu_sau_bh * $he_so_luong;
-
-
-                            //if ($this->he_so->eh_giai_doan)
-                            //$hs_pc_chuc_vu = number_format ($this->he_so->eh_pc_cong_viec*(100-$luong_thu_viec)/100, 2);
                             $thanh_tien_pc_chuc_vu = $hs_pc_chuc_vu * $pc_chuc_vu;
-
-
-                            //if ($this->he_so->eh_giai_doan)
-                            //$hs_pc_trach_nhiem = number_format ($this->he_so->eh_pc_trach_nhiem*(100-$luong_thu_viec)/100, 2);
                             $thanh_tien_pc_trach_nhiem = $hs_pc_trach_nhiem * $pc_trach_nhiem;
-
-
-                            //if ($this->he_so->eh_giai_doan)
-                            //$hs_pc_khu_vuc = number_format ($this->he_so->eh_pc_kv*(100-$luong_thu_viec)/100, 2);
                             $thanh_tien_pc_khu_vuc = $hs_pc_khu_vuc * $pc_khu_vuc;
 
                             if (!$giai_doan && !$loai_luong) {
@@ -328,13 +314,6 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
                                 $hs_pc_tnvk = $hs_pc_chuc_vu * $hs_pc_tnvk_phan_tram / 100;
                             }
                             $thanh_tien_pc_tham_nien_vuot_khung = $hs_pc_tnvk * $pc_tnvk;
-
-
-                            /* if (!$giai_doan && !$loai_luong)
-                              $hs_pc_thu_hut = floor((($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $hs_pc_thu_hut_phan_tram / 100) * 100) / 100;
-                              else
-                              $hs_pc_thu_hut = floor((($hs_pc_chuc_vu + $hs_pc_tnvk) * $hs_pc_thu_hut_phan_tram / 100) * 100) / 100;
-                             */
 
                             if (!$giai_doan) {
                                 $hs_pc_tham_nien = ($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $hs_pc_tham_nien_phan_tram / 100;
@@ -346,9 +325,11 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
                             $hs_pc_uu_dai_nghe = ($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $uu_dai_nghe / 100;
                             $thanh_tien_pc_uu_dai_nghe = $hs_pc_uu_dai_nghe * $pc_uu_dai_nghe;
 
-
                             $hs_pc_cong_vu = ($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $cong_vu / 100;
                             $thanh_tien_pc_cong_vu = $hs_pc_cong_vu * $pc_cong_vu;
+
+                            $hs_pc_thu_hut = ($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $thu_hut / 100;
+                            $thanh_tien_pc_thu_hut = $hs_pc_thu_hut * $pc_thu_hut;
 
                             if (!$giai_doan && !$loai_luong) {
                                 $hs_pc_kiem_nhiem = ($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $kiem_nhiem / 100;
@@ -380,11 +361,12 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
                                 }
                             }
 
-                            $tong_1 = (int) ($thanh_tien_pc_khac + $thanh_tien_hsl + $thanh_tien_pc_chuc_vu + $thanh_tien_pc_trach_nhiem + $thanh_tien_pc_khu_vuc + $thanh_tien_pc_tham_nien_vuot_khung + $thanh_tien_pc_tham_nien + $thanh_tien_pc_uu_dai_nghe + $thanh_tien_pc_cong_vu + $thanh_tien_pc_kiem_nhiem + $tong_khen_thuong - $tong_khien_trach);
+                            $tong_1 = (int) ($thanh_tien_pc_khac + $thanh_tien_hsl + $thanh_tien_pc_chuc_vu + $thanh_tien_pc_trach_nhiem + $thanh_tien_pc_khu_vuc + $thanh_tien_pc_tham_nien_vuot_khung + $thanh_tien_pc_tham_nien + $thanh_tien_pc_uu_dai_nghe + $thanh_tien_pc_cong_vu + $thanh_tien_pc_kiem_nhiem + $thanh_tien_pc_thu_hut + $tong_khen_thuong - $tong_khien_trach);
 
 
-                            $hs_tang_them = $he_so_luong + $hs_pc_chuc_vu + $hs_pc_trach_nhiem + $hs_pc_khu_vuc + $hs_pc_tnvk + $hs_pc_tham_nien + $hs_pc_uu_dai_nghe + $hs_pc_cong_vu + $hs_pc_kiem_nhiem + $hs_pc_khac_he_so;
-                            $ti_le_tang_them = ($hs_tang_them - $hs_pc_kiem_nhiem) * $luong_toi_thieu * $he_so_tang_them;
+                            $hs_tang_them = $he_so_luong + $hs_pc_chuc_vu + $hs_pc_trach_nhiem + $hs_pc_khu_vuc + $hs_pc_tnvk + $hs_pc_tham_nien + $hs_pc_uu_dai_nghe + $hs_pc_cong_vu + $hs_pc_kiem_nhiem + $hs_pc_khac_he_so + $hs_pc_thu_hut;
+                            //$hs_tang_them = $he_so_luong + $hs_pc_chuc_vu + $hs_pc_trach_nhiem + $hs_pc_khu_vuc + $hs_pc_tnvk + $hs_pc_tham_nien + $hs_pc_uu_dai_nghe + $hs_pc_kiem_nhiem + $hs_pc_khac_he_so;
+                            $ti_le_tang_them = ($hs_tang_them - $hs_pc_kiem_nhiem - $hs_pc_cong_vu) * $luong_toi_thieu * $he_so_tang_them;
                             $tong_2 = (int) $tong_1 + $ti_le_tang_them;
 
 
@@ -410,68 +392,108 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
                             $objPHPExcel->getActiveSheet()->SetCellValue('G' . ($k + 7), $hs_pc_trach_nhiem);
                             $objPHPExcel->getActiveSheet()->SetCellValue('H' . ($k + 7), $hs_pc_khu_vuc);
                             $objPHPExcel->getActiveSheet()->SetCellValue('I' . ($k + 7), $hs_pc_tnvk_phan_tram);
-                            $objPHPExcel->getActiveSheet()->SetCellValue('J' . ($k + 7), number_format($hs_pc_tnvk, 2, '.', ','));
+                            $objPHPExcel->getActiveSheet()->SetCellValue('J' . ($k + 7), $hs_pc_tnvk);
                             $objPHPExcel->getActiveSheet()->SetCellValue('K' . ($k + 7), $tham_nien);
-                            $objPHPExcel->getActiveSheet()->SetCellValue('L' . ($k + 7), number_format($hs_pc_tham_nien, 2, '.', ','));
+                            $objPHPExcel->getActiveSheet()->SetCellValue('L' . ($k + 7), $hs_pc_tham_nien);
                             $objPHPExcel->getActiveSheet()->SetCellValue('M' . ($k + 7), $uu_dai_nghe);
-                            $objPHPExcel->getActiveSheet()->SetCellValue('N' . ($k + 7), number_format($hs_pc_uu_dai_nghe, 2, '.', ','));
+                            $objPHPExcel->getActiveSheet()->SetCellValue('N' . ($k + 7), $hs_pc_uu_dai_nghe);
                             $objPHPExcel->getActiveSheet()->SetCellValue('O' . ($k + 7), $cong_vu);
-                            $objPHPExcel->getActiveSheet()->SetCellValue('P' . ($k + 7), number_format($hs_pc_cong_vu, 2, '.', ','));
-                            $objPHPExcel->getActiveSheet()->SetCellValue('Q' . ($k + 7), $kiem_nhiem);
-                            $objPHPExcel->getActiveSheet()->SetCellValue('R' . ($k + 7), $hs_pc_khac . ($hs_pc_khac_type ? '%' : ''));
-                            $objPHPExcel->getActiveSheet()->SetCellValue('S' . ($k + 7), number_format($hs_tang_them, 2, '.', ','));
-                            $objPHPExcel->getActiveSheet()->SetCellValue('T' . ($k + 7), number_format($thanh_tien_he_so_luong, 0, '.', ','));
-                            $objPHPExcel->getActiveSheet()->SetCellValue('U' . ($k + 7), number_format($thanh_tien_thuc_tap, 0, '.', ','));
-                            $objPHPExcel->getActiveSheet()->SetCellValue('V' . ($k + 7), number_format($thanh_tien_hop_dong, 0, '.', ','));
-                            $objPHPExcel->getActiveSheet()->SetCellValue('W' . ($k + 7), number_format($thanh_tien_pc_chuc_vu, 0, '.', ','));
-                            $objPHPExcel->getActiveSheet()->SetCellValue('X' . ($k + 7), number_format($thanh_tien_pc_trach_nhiem, 0, '.', ','));
-                            $objPHPExcel->getActiveSheet()->SetCellValue('Y' . ($k + 7), number_format($thanh_tien_pc_khu_vuc, 0, '.', ','));
-                            $objPHPExcel->getActiveSheet()->SetCellValue('Z' . ($k + 7), number_format($thanh_tien_pc_tham_nien_vuot_khung, 0, '.', ','));
-                            $objPHPExcel->getActiveSheet()->SetCellValue('AA' . ($k + 7), number_format($thanh_tien_pc_tham_nien, 0, '.', ','));
-                            $objPHPExcel->getActiveSheet()->SetCellValue('AB' . ($k + 7), number_format($thanh_tien_pc_uu_dai_nghe, 0, '.', ','));
-                            $objPHPExcel->getActiveSheet()->SetCellValue('AC' . ($k + 7), number_format($thanh_tien_pc_kiem_nhiem, 0, '.', ','));
-                            $objPHPExcel->getActiveSheet()->SetCellValue('AD' . ($k + 7), number_format($thanh_tien_pc_khac, 0, '.', ','));
-                            $objPHPExcel->getActiveSheet()->SetCellValue('AE' . ($k + 7), number_format($tong_khen_thuong, 0, '.', ','));
-                            $objPHPExcel->getActiveSheet()->SetCellValue('AF' . ($k + 7), number_format($tong_khien_trach, 0, '.', ','));
-                            $objPHPExcel->getActiveSheet()->SetCellValue('AG' . ($k + 7), number_format($tong_1, 0, '.', ','));
-                            $objPHPExcel->getActiveSheet()->SetCellValue('AH' . ($k + 7), number_format($ti_le_tang_them, 0, '.', ','));
-                            $objPHPExcel->getActiveSheet()->SetCellValue('AI' . ($k + 7), number_format($tong_2, 0, '.', ','));
+                            $objPHPExcel->getActiveSheet()->SetCellValue('P' . ($k + 7), $hs_pc_cong_vu);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('Q' . ($k + 7), $thu_hut);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('R' . ($k + 7), $hs_pc_thu_hut);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('S' . ($k + 7), $kiem_nhiem);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('T' . ($k + 7), $hs_pc_khac . ($hs_pc_khac_type ? '%' : ''));
+                            $objPHPExcel->getActiveSheet()->SetCellValue('U' . ($k + 7), $hs_tang_them);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('V' . ($k + 7), $thanh_tien_he_so_luong);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('W' . ($k + 7), $thanh_tien_thuc_tap);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('X' . ($k + 7), $thanh_tien_hop_dong);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('Y' . ($k + 7), $thanh_tien_pc_chuc_vu);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('Z' . ($k + 7), $thanh_tien_pc_trach_nhiem);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('AA' . ($k + 7), $thanh_tien_pc_khu_vuc);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('AB' . ($k + 7), $thanh_tien_pc_tham_nien_vuot_khung);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('AC' . ($k + 7), $thanh_tien_pc_tham_nien);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('AD' . ($k + 7), $thanh_tien_pc_uu_dai_nghe);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('AE' . ($k + 7), $thanh_tien_pc_cong_vu);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('AF' . ($k + 7), $thanh_tien_pc_thu_hut);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('AG' . ($k + 7), $thanh_tien_pc_kiem_nhiem);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('AH' . ($k + 7), $thanh_tien_pc_khac);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('AI' . ($k + 7), $tong_khen_thuong);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('AJ' . ($k + 7), $tong_khien_trach);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('AK' . ($k + 7), $tong_1);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('AL' . ($k + 7), $ti_le_tang_them);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('AM' . ($k + 7), $tong_2);
 
                             $objPHPExcel->getActiveSheet()->getStyle('A' . ($k + 7))->applyFromArray($styleArray);
                             $objPHPExcel->getActiveSheet()->getStyle('B' . ($k + 7))->applyFromArray($styleArray);
-                            $objPHPExcel->getActiveSheet()->getStyle('C' . ($k + 7))->applyFromArray($styleArray);
-                            $objPHPExcel->getActiveSheet()->getStyle('D' . ($k + 7))->applyFromArray($styleArray);
-                            $objPHPExcel->getActiveSheet()->getStyle('E' . ($k + 7))->applyFromArray($styleArray);
-                            $objPHPExcel->getActiveSheet()->getStyle('F' . ($k + 7))->applyFromArray($styleArray);
-                            $objPHPExcel->getActiveSheet()->getStyle('G' . ($k + 7))->applyFromArray($styleArray);
-                            $objPHPExcel->getActiveSheet()->getStyle('H' . ($k + 7))->applyFromArray($styleArray);
+                            $objPHPExcel->getActiveSheet()->getStyle('C' . ($k + 7))->applyFromArray($styleArray)->getNumberFormat()
+                                    ->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+                            $objPHPExcel->getActiveSheet()->getStyle('D' . ($k + 7))->applyFromArray($styleArray)->getNumberFormat()
+                                    ->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+                            $objPHPExcel->getActiveSheet()->getStyle('E' . ($k + 7))->applyFromArray($styleArray)->getNumberFormat()
+                                    ->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+                            $objPHPExcel->getActiveSheet()->getStyle('F' . ($k + 7))->applyFromArray($styleArray)->getNumberFormat()
+                                    ->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+                            $objPHPExcel->getActiveSheet()->getStyle('G' . ($k + 7))->applyFromArray($styleArray)->getNumberFormat()
+                                    ->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+                            $objPHPExcel->getActiveSheet()->getStyle('H' . ($k + 7))->applyFromArray($styleArray)->getNumberFormat()
+                                    ->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
                             $objPHPExcel->getActiveSheet()->getStyle('I' . ($k + 7))->applyFromArray($styleArray);
-                            $objPHPExcel->getActiveSheet()->getStyle('J' . ($k + 7))->applyFromArray($styleArray);
+                            $objPHPExcel->getActiveSheet()->getStyle('J' . ($k + 7))->applyFromArray($styleArray)->getNumberFormat()
+                                    ->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
                             $objPHPExcel->getActiveSheet()->getStyle('K' . ($k + 7))->applyFromArray($styleArray);
-                            $objPHPExcel->getActiveSheet()->getStyle('L' . ($k + 7))->applyFromArray($styleArray);
+                            $objPHPExcel->getActiveSheet()->getStyle('L' . ($k + 7))->applyFromArray($styleArray)->getNumberFormat()
+                                    ->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
                             $objPHPExcel->getActiveSheet()->getStyle('M' . ($k + 7))->applyFromArray($styleArray);
-                            $objPHPExcel->getActiveSheet()->getStyle('N' . ($k + 7))->applyFromArray($styleArray);
+                            $objPHPExcel->getActiveSheet()->getStyle('N' . ($k + 7))->applyFromArray($styleArray)->getNumberFormat()
+                                    ->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
                             $objPHPExcel->getActiveSheet()->getStyle('O' . ($k + 7))->applyFromArray($styleArray);
-                            $objPHPExcel->getActiveSheet()->getStyle('P' . ($k + 7))->applyFromArray($styleArray);
+                            $objPHPExcel->getActiveSheet()->getStyle('P' . ($k + 7))->applyFromArray($styleArray)->getNumberFormat()
+                                    ->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
                             $objPHPExcel->getActiveSheet()->getStyle('Q' . ($k + 7))->applyFromArray($styleArray);
-                            $objPHPExcel->getActiveSheet()->getStyle('R' . ($k + 7))->applyFromArray($styleArray);
-                            $objPHPExcel->getActiveSheet()->getStyle('S' . ($k + 7))->applyFromArray($styleArray);
-                            $objPHPExcel->getActiveSheet()->getStyle('T' . ($k + 7))->applyFromArray($styleArray);
-                            $objPHPExcel->getActiveSheet()->getStyle('U' . ($k + 7))->applyFromArray($styleArray);
-                            $objPHPExcel->getActiveSheet()->getStyle('V' . ($k + 7))->applyFromArray($styleArray);
-                            $objPHPExcel->getActiveSheet()->getStyle('W' . ($k + 7))->applyFromArray($styleArray);
-                            $objPHPExcel->getActiveSheet()->getStyle('X' . ($k + 7))->applyFromArray($styleArray);
-                            $objPHPExcel->getActiveSheet()->getStyle('Y' . ($k + 7))->applyFromArray($styleArray);
-                            $objPHPExcel->getActiveSheet()->getStyle('Z' . ($k + 7))->applyFromArray($styleArray);
-                            $objPHPExcel->getActiveSheet()->getStyle('AA' . ($k + 7))->applyFromArray($styleArray);
-                            $objPHPExcel->getActiveSheet()->getStyle('AB' . ($k + 7))->applyFromArray($styleArray);
-                            $objPHPExcel->getActiveSheet()->getStyle('AC' . ($k + 7))->applyFromArray($styleArray);
-                            $objPHPExcel->getActiveSheet()->getStyle('AD' . ($k + 7))->applyFromArray($styleArray);
-                            $objPHPExcel->getActiveSheet()->getStyle('AE' . ($k + 7))->applyFromArray($styleArray);
-                            $objPHPExcel->getActiveSheet()->getStyle('AF' . ($k + 7))->applyFromArray($styleArray);
-                            $objPHPExcel->getActiveSheet()->getStyle('AG' . ($k + 7))->applyFromArray($styleArray);
-                            $objPHPExcel->getActiveSheet()->getStyle('AH' . ($k + 7))->applyFromArray($styleArray);
-                            $objPHPExcel->getActiveSheet()->getStyle('AI' . ($k + 7))->applyFromArray($styleArray);
+                            $objPHPExcel->getActiveSheet()->getStyle('R' . ($k + 7))->applyFromArray($styleArray)->getNumberFormat()
+                                    ->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+                            $objPHPExcel->getActiveSheet()->getStyle('S' . ($k + 7))->applyFromArray($styleArray)->getNumberFormat()
+                                    ->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+                            $objPHPExcel->getActiveSheet()->getStyle('T' . ($k + 7))->applyFromArray($styleArray)->getNumberFormat()
+                                    ->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+                            $objPHPExcel->getActiveSheet()->getStyle('U' . ($k + 7))->applyFromArray($styleArray)->getNumberFormat()
+                                    ->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+                            $objPHPExcel->getActiveSheet()->getStyle('V' . ($k + 7))->applyFromArray($styleArray)->getNumberFormat()
+                                    ->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED3);
+                            $objPHPExcel->getActiveSheet()->getStyle('W' . ($k + 7))->applyFromArray($styleArray)->getNumberFormat()
+                                    ->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED3);
+                            $objPHPExcel->getActiveSheet()->getStyle('X' . ($k + 7))->applyFromArray($styleArray)->getNumberFormat()
+                                    ->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED3);
+                            $objPHPExcel->getActiveSheet()->getStyle('Y' . ($k + 7))->applyFromArray($styleArray)->getNumberFormat()
+                                    ->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED3);
+                            $objPHPExcel->getActiveSheet()->getStyle('Z' . ($k + 7))->applyFromArray($styleArray)->getNumberFormat()
+                                    ->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED3);
+                            $objPHPExcel->getActiveSheet()->getStyle('AA' . ($k + 7))->applyFromArray($styleArray)->getNumberFormat()
+                                    ->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED3);
+                            $objPHPExcel->getActiveSheet()->getStyle('AB' . ($k + 7))->applyFromArray($styleArray)->getNumberFormat()
+                                    ->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED3);
+                            $objPHPExcel->getActiveSheet()->getStyle('AC' . ($k + 7))->applyFromArray($styleArray)->getNumberFormat()
+                                    ->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED3);
+                            $objPHPExcel->getActiveSheet()->getStyle('AD' . ($k + 7))->applyFromArray($styleArray)->getNumberFormat()
+                                    ->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED3);
+                            $objPHPExcel->getActiveSheet()->getStyle('AE' . ($k + 7))->applyFromArray($styleArray)->getNumberFormat()
+                                    ->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED3);
+                            $objPHPExcel->getActiveSheet()->getStyle('AF' . ($k + 7))->applyFromArray($styleArray)->getNumberFormat()
+                                    ->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED3);
+                            $objPHPExcel->getActiveSheet()->getStyle('AG' . ($k + 7))->applyFromArray($styleArray)->getNumberFormat()
+                                    ->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED3);
+                            $objPHPExcel->getActiveSheet()->getStyle('AH' . ($k + 7))->applyFromArray($styleArray)->getNumberFormat()
+                                    ->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED3);
+                            $objPHPExcel->getActiveSheet()->getStyle('AI' . ($k + 7))->applyFromArray($styleArray)->getNumberFormat()
+                                    ->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED3);
+                            $objPHPExcel->getActiveSheet()->getStyle('AJ' . ($k + 7))->applyFromArray($styleArray)->getNumberFormat()
+                                    ->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED3);
+                            $objPHPExcel->getActiveSheet()->getStyle('AK' . ($k + 7))->applyFromArray($styleArray)->getNumberFormat()
+                                    ->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED3);
+                            $objPHPExcel->getActiveSheet()->getStyle('AL' . ($k + 7))->applyFromArray($styleArray)->getNumberFormat()
+                                    ->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED3);
+                            $objPHPExcel->getActiveSheet()->getStyle('AM' . ($k + 7))->applyFromArray($styleArray)->getNumberFormat()
+                                    ->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED3);
                         }
                     }
                 }
@@ -490,6 +512,16 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
                 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
                 $objWriter->save('php://output');
                 die();
+
+                /*
+                  $file_name = 'Bang_luong_.xls';
+                  $objPHPExcel->getActiveSheet()->setTitle('Bảng lương');
+
+                  header('Content-Type: application/vnd.ms-excel');
+                  header('Content-Disposition: attachment;filename="hungnm.xls"');
+                  header('Cache-Control: max-age=0');
+                  $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+                  $objWriter->save('php://output'); */
             } else {
                 $this->_helper->viewRenderer->setRender('loi');
             }
@@ -548,8 +580,6 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
         $phong_ban_id = $list_phongban_selected = $phong_ban = Array();
         $phong_ban_selected_info = $phongbanModel->fetchRow("pb_id=$pb_selected");
         $phong_ban_id[] = $pb_selected;
-        if ($phong_ban_selected_info)
-            $phong_ban[] = $phong_ban_selected_info;
         $list_phongban_selected = $phongbanModel->fetchDataStatus($pb_selected, $phong_ban);
 
         if (sizeof($list_phongban_selected)) {
@@ -585,7 +615,7 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
 
             foreach ($list_phongban_selected as $phong_ban_info) {
                 $k++;
-                $objPHPExcel->setActiveSheetIndex(0)->mergeCells("A" . ($k + 7) . ":AI" . ($k + 7));
+                $objPHPExcel->setActiveSheetIndex(0)->mergeCells("A" . ($k + 7) . ":Z" . ($k + 7));
                 $objPHPExcel->getActiveSheet()->getStyle("A" . ($k + 7))->getFill()
                         ->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID,
                             'startcolor' => array('rgb' => 'F28A8C')
@@ -599,6 +629,7 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
                             $k++;
                             $stt++;
                             $he_so_phan_loai = array('O' => 0, 'A' => 1.2, 'B' => 1, 'C' => 0.8, 'D' => 0);
+                            $luong_thu_viec = 0;
                             $luong_toi_thieu = $bang_luong->bl_luong_toi_thieu; //luong co ban
                             $giai_doan = $bang_luong->bl_giai_doan; //0: chinh thuc, 1: thu viec
                             $loai_luong = $bang_luong->bl_loai_luong; //0: bien che, 1: hop dong
@@ -615,7 +646,6 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
                             $time_tham_niem = strtotime($bang_luong->bl_time_tham_nien); //tinh tham nien tu ngay
                             $hs_pc_tham_nien_phan_tram = $bang_luong->bl_tham_nien;
                             $uu_dai_nghe = $bang_luong->bl_hs_pc_udn;
-                            $cong_vu = $bang_luong->bl_hs_pc_cong_vu;
                             $kiem_nhiem = $bang_luong->bl_pc_kiem_nhiem;
                             $hs_pc_khac = $bang_luong->bl_hs_pc_khac;
                             $he_so_tang_them = $bang_luong->bl_pc_tang_them;
@@ -627,7 +657,6 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
                             $tong_hs_luong_pc_ca_nhan = $bang_luong->bl_tong_he_so_ca_nhan;
                             $tong_hs_luong_pc_plld = $bang_luong->bl_tong_he_so_plld;
                             $tam_chi_dau_vao = $bang_luong->bl_tam_chi_dau_vao;
-
 
                             $nam_tham_niem = date('Y', $time_tham_niem);
                             $thang_tham_niem = date('m', $time_tham_niem);
@@ -662,9 +691,6 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
                             $hs_pc_uu_dai_nghe = ($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $uu_dai_nghe / 100;
 
 
-                            $hs_pc_cong_vu = ($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $cong_vu / 100;
-
-
                             $thanh_tien_pc_khac = $hs_pc_khac * $pc_khac;
 
                             $hs_pc_khac_he_so = $hs_pc_khac;
@@ -673,12 +699,10 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
                                 $hs_pc_khac_he_so = $hs_pc_khac / 100;
                             }
 
-                            if (!$tong_hs_luong_pc) {
-                                $tong_hs_luong_pc = $he_so_luong + $hs_pc_chuc_vu + $hs_pc_trach_nhiem + $hs_pc_khu_vuc + $hs_pc_tnvk + $hs_pc_tham_nien + $hs_pc_uu_dai_nghe + $hs_pc_cong_vu + $hs_pc_khac_he_so + $hs_pc_thu_hut;
-                                $tong_hs_luong_pc_ca_nhan = $he_so_luong + $hs_pc_chuc_vu + $hs_pc_khu_vuc + $hs_pc_tnvk + $hs_pc_uu_dai_nghe;
-                                $tong_hs_luong_pc_plld = $tong_hs_luong_pc_ca_nhan * $phan_loai_he_so;
-                                $tam_chi_dau_vao = $tong_hs_luong_pc * $luong_toi_thieu * 0.5;
-                            }
+                            $tong_hs_luong_pc = $he_so_luong + $hs_pc_chuc_vu + $hs_pc_trach_nhiem + $hs_pc_khu_vuc + $hs_pc_tnvk + $hs_pc_tham_nien + $hs_pc_uu_dai_nghe + $hs_pc_khac_he_so + $hs_pc_thu_hut;
+                            $tong_hs_luong_pc_ca_nhan = $he_so_luong + $hs_pc_chuc_vu + $hs_pc_khu_vuc + $hs_pc_tnvk + $hs_pc_uu_dai_nghe;
+                            $tong_hs_luong_pc_plld = $tong_hs_luong_pc_ca_nhan * $phan_loai_he_so;
+                            $tam_chi_dau_vao = $tong_hs_luong_pc * $luong_toi_thieu * 0.5;
 
                             $he_so_luong_chinh_thuc = $he_so_luong_thuc_tap = $he_so_luong_hop_dong = '';
                             if (!$loai_luong && !$giai_doan) {
@@ -700,24 +724,22 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
                             $objPHPExcel->getActiveSheet()->SetCellValue('G' . ($k + 7), $hs_pc_trach_nhiem);
                             $objPHPExcel->getActiveSheet()->SetCellValue('H' . ($k + 7), $hs_pc_khu_vuc);
                             $objPHPExcel->getActiveSheet()->SetCellValue('I' . ($k + 7), $hs_pc_tnvk_phan_tram);
-                            $objPHPExcel->getActiveSheet()->SetCellValue('J' . ($k + 7), number_format($hs_pc_tnvk, 2, '.', ','));
+                            $objPHPExcel->getActiveSheet()->SetCellValue('J' . ($k + 7), $hs_pc_tnvk);
                             $objPHPExcel->getActiveSheet()->SetCellValue('K' . ($k + 7), $tham_nien);
-                            $objPHPExcel->getActiveSheet()->SetCellValue('L' . ($k + 7), number_format($hs_pc_tham_nien, 2, '.', ','));
+                            $objPHPExcel->getActiveSheet()->SetCellValue('L' . ($k + 7), $hs_pc_tham_nien);
                             $objPHPExcel->getActiveSheet()->SetCellValue('M' . ($k + 7), $uu_dai_nghe);
-                            $objPHPExcel->getActiveSheet()->SetCellValue('N' . ($k + 7), number_format($hs_pc_uu_dai_nghe, 2, '.', ','));
-                            $objPHPExcel->getActiveSheet()->SetCellValue('O' . ($k + 7), $cong_vu);
-                            $objPHPExcel->getActiveSheet()->SetCellValue('P' . ($k + 7), number_format($hs_pc_cong_vu, 2, '.', ','));
-                            $objPHPExcel->getActiveSheet()->SetCellValue('Q' . ($k + 7), $hs_pc_thu_hut_phan_tram);
-                            $objPHPExcel->getActiveSheet()->SetCellValue('R' . ($k + 7), number_format($hs_pc_thu_hut, 2, '.', ','));
-                            $objPHPExcel->getActiveSheet()->SetCellValue('S' . ($k + 7), $hs_pc_khac . ($hs_pc_khac_type ? '%' : ''));
-                            $objPHPExcel->getActiveSheet()->SetCellValue('T' . ($k + 7), number_format($tong_hs_luong_pc, 2, '.', ','));
-                            $objPHPExcel->getActiveSheet()->SetCellValue('U' . ($k + 7), number_format($tam_chi_dau_vao, 0, '.', ','));
-                            $objPHPExcel->getActiveSheet()->SetCellValue('V' . ($k + 7), $phan_loai);
-                            $objPHPExcel->getActiveSheet()->SetCellValue('W' . ($k + 7), $phan_loai_he_so);
-                            $objPHPExcel->getActiveSheet()->SetCellValue('X' . ($k + 7), number_format($tong_hs_luong_pc_ca_nhan, 2, '.', ','));
-                            $objPHPExcel->getActiveSheet()->SetCellValue('Y' . ($k + 7), number_format($tong_hs_luong_pc_plld, 2, '.', ','));
-                            $objPHPExcel->getActiveSheet()->SetCellValue('Z' . ($k + 7), number_format($he_so_quy_doi, 0, '.', ','));
-                            $objPHPExcel->getActiveSheet()->SetCellValue('AA' . ($k + 7), number_format($thang_tien_he_so_03, 0, '.', ','));
+                            $objPHPExcel->getActiveSheet()->SetCellValue('N' . ($k + 7), $hs_pc_uu_dai_nghe);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('O' . ($k + 7), $hs_pc_thu_hut_phan_tram);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('P' . ($k + 7), $hs_pc_thu_hut);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('Q' . ($k + 7), $hs_pc_khac . ($hs_pc_khac_type ? '%' : ''));
+                            $objPHPExcel->getActiveSheet()->SetCellValue('R' . ($k + 7), $tong_hs_luong_pc);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('S' . ($k + 7), $tam_chi_dau_vao);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('T' . ($k + 7), $phan_loai);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('U' . ($k + 7), $phan_loai_he_so);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('V' . ($k + 7), $tong_hs_luong_pc_ca_nhan);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('W' . ($k + 7), $tong_hs_luong_pc_plld);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('X' . ($k + 7), $he_so_quy_doi);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('Y' . ($k + 7), $thang_tien_he_so_03);
 
                             $objPHPExcel->getActiveSheet()->getStyle('A' . ($k + 7))->applyFromArray($styleArray);
                             $objPHPExcel->getActiveSheet()->getStyle('B' . ($k + 7))->applyFromArray($styleArray);
@@ -728,24 +750,32 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
                             $objPHPExcel->getActiveSheet()->getStyle('G' . ($k + 7))->applyFromArray($styleArray);
                             $objPHPExcel->getActiveSheet()->getStyle('H' . ($k + 7))->applyFromArray($styleArray);
                             $objPHPExcel->getActiveSheet()->getStyle('I' . ($k + 7))->applyFromArray($styleArray);
-                            $objPHPExcel->getActiveSheet()->getStyle('J' . ($k + 7))->applyFromArray($styleArray);
+                            $objPHPExcel->getActiveSheet()->getStyle('J' . ($k + 7))->applyFromArray($styleArray)->getNumberFormat()
+                                    ->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
                             $objPHPExcel->getActiveSheet()->getStyle('K' . ($k + 7))->applyFromArray($styleArray);
-                            $objPHPExcel->getActiveSheet()->getStyle('L' . ($k + 7))->applyFromArray($styleArray);
+                            $objPHPExcel->getActiveSheet()->getStyle('L' . ($k + 7))->applyFromArray($styleArray)->getNumberFormat()
+                                    ->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
                             $objPHPExcel->getActiveSheet()->getStyle('M' . ($k + 7))->applyFromArray($styleArray);
-                            $objPHPExcel->getActiveSheet()->getStyle('N' . ($k + 7))->applyFromArray($styleArray);
+                            $objPHPExcel->getActiveSheet()->getStyle('N' . ($k + 7))->applyFromArray($styleArray)->getNumberFormat()
+                                    ->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
                             $objPHPExcel->getActiveSheet()->getStyle('O' . ($k + 7))->applyFromArray($styleArray);
-                            $objPHPExcel->getActiveSheet()->getStyle('P' . ($k + 7))->applyFromArray($styleArray);
+                            $objPHPExcel->getActiveSheet()->getStyle('P' . ($k + 7))->applyFromArray($styleArray)->getNumberFormat()
+                                    ->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
                             $objPHPExcel->getActiveSheet()->getStyle('Q' . ($k + 7))->applyFromArray($styleArray);
-                            $objPHPExcel->getActiveSheet()->getStyle('R' . ($k + 7))->applyFromArray($styleArray);
-                            $objPHPExcel->getActiveSheet()->getStyle('S' . ($k + 7))->applyFromArray($styleArray);
+                            $objPHPExcel->getActiveSheet()->getStyle('R' . ($k + 7))->applyFromArray($styleArray)->getNumberFormat()
+                                    ->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+                            $objPHPExcel->getActiveSheet()->getStyle('S' . ($k + 7))->applyFromArray($styleArray)->getNumberFormat()
+                                    ->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED3);
                             $objPHPExcel->getActiveSheet()->getStyle('T' . ($k + 7))->applyFromArray($styleArray);
                             $objPHPExcel->getActiveSheet()->getStyle('U' . ($k + 7))->applyFromArray($styleArray);
-                            $objPHPExcel->getActiveSheet()->getStyle('V' . ($k + 7))->applyFromArray($styleArray);
-                            $objPHPExcel->getActiveSheet()->getStyle('W' . ($k + 7))->applyFromArray($styleArray);
-                            $objPHPExcel->getActiveSheet()->getStyle('X' . ($k + 7))->applyFromArray($styleArray);
-                            $objPHPExcel->getActiveSheet()->getStyle('Y' . ($k + 7))->applyFromArray($styleArray);
-                            $objPHPExcel->getActiveSheet()->getStyle('Z' . ($k + 7))->applyFromArray($styleArray);
-                            $objPHPExcel->getActiveSheet()->getStyle('AA' . ($k + 7))->applyFromArray($styleArray);
+                            $objPHPExcel->getActiveSheet()->getStyle('V' . ($k + 7))->applyFromArray($styleArray)->getNumberFormat()
+                                    ->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+                            $objPHPExcel->getActiveSheet()->getStyle('W' . ($k + 7))->applyFromArray($styleArray)->getNumberFormat()
+                                    ->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+                            $objPHPExcel->getActiveSheet()->getStyle('X' . ($k + 7))->applyFromArray($styleArray)->getNumberFormat()
+                                    ->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+                            $objPHPExcel->getActiveSheet()->getStyle('Y' . ($k + 7))->applyFromArray($styleArray)->getNumberFormat()
+                                    ->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED3);
                         }
                     }
                 }
@@ -822,8 +852,6 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
         $phong_ban_id = $list_phongban_selected = $phong_ban = Array();
         $phong_ban_selected_info = $phongbanModel->fetchRow("pb_id=$pb_selected");
         $phong_ban_id[] = $pb_selected;
-        if ($phong_ban_selected_info)
-            $phong_ban[] = $phong_ban_selected_info;
         $list_phongban_selected = $phongbanModel->fetchDataStatus($pb_selected, $phong_ban);
 
         if (sizeof($list_phongban_selected)) {
@@ -859,7 +887,7 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
 
             foreach ($list_phongban_selected as $phong_ban_info) {
                 $k++;
-                $objPHPExcel->setActiveSheetIndex(0)->mergeCells("A" . ($k + 7) . ":AI" . ($k + 7));
+                $objPHPExcel->setActiveSheetIndex(0)->mergeCells("A" . ($k + 7) . ":Z" . ($k + 7));
                 $objPHPExcel->getActiveSheet()->getStyle("A" . ($k + 7))->getFill()
                         ->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID,
                             'startcolor' => array('rgb' => 'F28A8C')
@@ -889,7 +917,6 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
                             $time_tham_niem = strtotime($bang_luong->bl_time_tham_nien); //tinh tham nien tu ngay
                             $hs_pc_tham_nien_phan_tram = $bang_luong->bl_tham_nien;
                             $uu_dai_nghe = $bang_luong->bl_hs_pc_udn;
-                            $cong_vu = $bang_luong->bl_hs_pc_cong_vu;
                             $kiem_nhiem = $bang_luong->bl_pc_kiem_nhiem;
                             $hs_pc_khac = $bang_luong->bl_hs_pc_khac;
                             $he_so_tang_them = $bang_luong->bl_pc_tang_them;
@@ -936,9 +963,6 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
                             $hs_pc_uu_dai_nghe = ($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $uu_dai_nghe / 100;
 
 
-                            $hs_pc_cong_vu = ($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $cong_vu / 100;
-
-
                             $thanh_tien_pc_khac = $hs_pc_khac * $pc_khac;
 
                             $hs_pc_khac_he_so = $hs_pc_khac;
@@ -947,12 +971,10 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
                                 $hs_pc_khac_he_so = $hs_pc_khac / 100;
                             }
 
-                            if (!$tong_hs_luong_pc) {
-                                $tong_hs_luong_pc = $he_so_luong + $hs_pc_chuc_vu + $hs_pc_trach_nhiem + $hs_pc_khu_vuc + $hs_pc_tnvk + $hs_pc_tham_nien + $hs_pc_uu_dai_nghe + $hs_pc_cong_vu + $hs_pc_khac_he_so + $hs_pc_thu_hut;
-                                $tong_hs_luong_pc_ca_nhan = $he_so_luong + $hs_pc_chuc_vu + $hs_pc_khu_vuc + $hs_pc_tnvk + $hs_pc_uu_dai_nghe;
-                                $tong_hs_luong_pc_plld = $tong_hs_luong_pc_ca_nhan * $phan_loai_he_so;
-                                $tam_chi_dau_vao = $tong_hs_luong_pc * $luong_toi_thieu * 0.5;
-                            }
+                            $tong_hs_luong_pc = $he_so_luong + $hs_pc_chuc_vu + $hs_pc_trach_nhiem + $hs_pc_khu_vuc + $hs_pc_tnvk + $hs_pc_tham_nien + $hs_pc_uu_dai_nghe + $hs_pc_khac_he_so + $hs_pc_thu_hut;
+                            $tong_hs_luong_pc_ca_nhan = $he_so_luong + $hs_pc_chuc_vu + $hs_pc_khu_vuc + $hs_pc_tnvk + $hs_pc_uu_dai_nghe;
+                            $tong_hs_luong_pc_plld = $tong_hs_luong_pc_ca_nhan * $phan_loai_he_so;
+                            $tam_chi_dau_vao = $tong_hs_luong_pc * $luong_toi_thieu * 0.5;
 
                             $he_so_luong_chinh_thuc = $he_so_luong_thuc_tap = $he_so_luong_hop_dong = '';
                             if (!$loai_luong && !$giai_doan) {
@@ -974,24 +996,23 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
                             $objPHPExcel->getActiveSheet()->SetCellValue('G' . ($k + 7), $hs_pc_trach_nhiem);
                             $objPHPExcel->getActiveSheet()->SetCellValue('H' . ($k + 7), $hs_pc_khu_vuc);
                             $objPHPExcel->getActiveSheet()->SetCellValue('I' . ($k + 7), $hs_pc_tnvk_phan_tram);
-                            $objPHPExcel->getActiveSheet()->SetCellValue('J' . ($k + 7), number_format($hs_pc_tnvk, 2, '.', ','));
+                            $objPHPExcel->getActiveSheet()->SetCellValue('J' . ($k + 7), $hs_pc_tnvk);
                             $objPHPExcel->getActiveSheet()->SetCellValue('K' . ($k + 7), $tham_nien);
-                            $objPHPExcel->getActiveSheet()->SetCellValue('L' . ($k + 7), number_format($hs_pc_tham_nien, 2, '.', ','));
+                            $objPHPExcel->getActiveSheet()->SetCellValue('L' . ($k + 7), $hs_pc_tham_nien);
                             $objPHPExcel->getActiveSheet()->SetCellValue('M' . ($k + 7), $uu_dai_nghe);
-                            $objPHPExcel->getActiveSheet()->SetCellValue('N' . ($k + 7), number_format($hs_pc_uu_dai_nghe, 2, '.', ','));
-                            $objPHPExcel->getActiveSheet()->SetCellValue('O' . ($k + 7), $cong_vu);
-                            $objPHPExcel->getActiveSheet()->SetCellValue('P' . ($k + 7), number_format($hs_pc_cong_vu, 2, '.', ','));
-                            $objPHPExcel->getActiveSheet()->SetCellValue('Q' . ($k + 7), $hs_pc_thu_hut_phan_tram);
-                            $objPHPExcel->getActiveSheet()->SetCellValue('R' . ($k + 7), number_format($hs_pc_thu_hut, 2, '.', ','));
-                            $objPHPExcel->getActiveSheet()->SetCellValue('S' . ($k + 7), $hs_pc_khac . ($hs_pc_khac_type ? '%' : ''));
-                            $objPHPExcel->getActiveSheet()->SetCellValue('T' . ($k + 7), number_format($tong_hs_luong_pc, 2, '.', ','));
-                            $objPHPExcel->getActiveSheet()->SetCellValue('U' . ($k + 7), number_format($tam_chi_dau_vao, 0, '.', ','));
-                            $objPHPExcel->getActiveSheet()->SetCellValue('V' . ($k + 7), $phan_loai);
-                            $objPHPExcel->getActiveSheet()->SetCellValue('W' . ($k + 7), $phan_loai_he_so);
-                            $objPHPExcel->getActiveSheet()->SetCellValue('X' . ($k + 7), number_format($tong_hs_luong_pc_ca_nhan, 2, '.', ','));
-                            $objPHPExcel->getActiveSheet()->SetCellValue('Y' . ($k + 7), number_format($tong_hs_luong_pc_plld, 2, '.', ','));
-                            $objPHPExcel->getActiveSheet()->SetCellValue('Z' . ($k + 7), number_format($he_so_quy_doi, 0, '.', ','));
-                            $objPHPExcel->getActiveSheet()->SetCellValue('AA' . ($k + 7), number_format($thang_tien_he_so_02, 0, '.', ','));
+                            $objPHPExcel->getActiveSheet()->SetCellValue('N' . ($k + 7), $hs_pc_uu_dai_nghe);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('O' . ($k + 7), $hs_pc_thu_hut_phan_tram);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('P' . ($k + 7), $hs_pc_thu_hut);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('Q' . ($k + 7), $hs_pc_khac . ($hs_pc_khac_type ? '%' : ''));
+                            $objPHPExcel->getActiveSheet()->SetCellValue('R' . ($k + 7), $tong_hs_luong_pc);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('S' . ($k + 7), $tam_chi_dau_vao);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('T' . ($k + 7), $phan_loai);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('U' . ($k + 7), $phan_loai_he_so);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('V' . ($k + 7), $tong_hs_luong_pc_ca_nhan);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('W' . ($k + 7), $tong_hs_luong_pc_plld);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('X' . ($k + 7), $he_so_quy_doi);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('Y' . ($k + 7), $thang_tien_he_so_02);
+
                             $objPHPExcel->getActiveSheet()->getStyle('A' . ($k + 7))->applyFromArray($styleArray);
                             $objPHPExcel->getActiveSheet()->getStyle('B' . ($k + 7))->applyFromArray($styleArray);
                             $objPHPExcel->getActiveSheet()->getStyle('C' . ($k + 7))->applyFromArray($styleArray);
@@ -1001,24 +1022,32 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
                             $objPHPExcel->getActiveSheet()->getStyle('G' . ($k + 7))->applyFromArray($styleArray);
                             $objPHPExcel->getActiveSheet()->getStyle('H' . ($k + 7))->applyFromArray($styleArray);
                             $objPHPExcel->getActiveSheet()->getStyle('I' . ($k + 7))->applyFromArray($styleArray);
-                            $objPHPExcel->getActiveSheet()->getStyle('J' . ($k + 7))->applyFromArray($styleArray);
+                            $objPHPExcel->getActiveSheet()->getStyle('J' . ($k + 7))->applyFromArray($styleArray)->getNumberFormat()
+                                    ->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
                             $objPHPExcel->getActiveSheet()->getStyle('K' . ($k + 7))->applyFromArray($styleArray);
-                            $objPHPExcel->getActiveSheet()->getStyle('L' . ($k + 7))->applyFromArray($styleArray);
+                            $objPHPExcel->getActiveSheet()->getStyle('L' . ($k + 7))->applyFromArray($styleArray)->getNumberFormat()
+                                    ->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
                             $objPHPExcel->getActiveSheet()->getStyle('M' . ($k + 7))->applyFromArray($styleArray);
-                            $objPHPExcel->getActiveSheet()->getStyle('N' . ($k + 7))->applyFromArray($styleArray);
+                            $objPHPExcel->getActiveSheet()->getStyle('N' . ($k + 7))->applyFromArray($styleArray)->getNumberFormat()
+                                    ->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
                             $objPHPExcel->getActiveSheet()->getStyle('O' . ($k + 7))->applyFromArray($styleArray);
-                            $objPHPExcel->getActiveSheet()->getStyle('P' . ($k + 7))->applyFromArray($styleArray);
+                            $objPHPExcel->getActiveSheet()->getStyle('P' . ($k + 7))->applyFromArray($styleArray)->getNumberFormat()
+                                    ->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
                             $objPHPExcel->getActiveSheet()->getStyle('Q' . ($k + 7))->applyFromArray($styleArray);
-                            $objPHPExcel->getActiveSheet()->getStyle('R' . ($k + 7))->applyFromArray($styleArray);
-                            $objPHPExcel->getActiveSheet()->getStyle('S' . ($k + 7))->applyFromArray($styleArray);
+                            $objPHPExcel->getActiveSheet()->getStyle('R' . ($k + 7))->applyFromArray($styleArray)->getNumberFormat()
+                                    ->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+                            $objPHPExcel->getActiveSheet()->getStyle('S' . ($k + 7))->applyFromArray($styleArray)->getNumberFormat()
+                                    ->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED3);
                             $objPHPExcel->getActiveSheet()->getStyle('T' . ($k + 7))->applyFromArray($styleArray);
                             $objPHPExcel->getActiveSheet()->getStyle('U' . ($k + 7))->applyFromArray($styleArray);
-                            $objPHPExcel->getActiveSheet()->getStyle('V' . ($k + 7))->applyFromArray($styleArray);
-                            $objPHPExcel->getActiveSheet()->getStyle('W' . ($k + 7))->applyFromArray($styleArray);
-                            $objPHPExcel->getActiveSheet()->getStyle('X' . ($k + 7))->applyFromArray($styleArray);
-                            $objPHPExcel->getActiveSheet()->getStyle('Y' . ($k + 7))->applyFromArray($styleArray);
-                            $objPHPExcel->getActiveSheet()->getStyle('Z' . ($k + 7))->applyFromArray($styleArray);
-                            $objPHPExcel->getActiveSheet()->getStyle('AA' . ($k + 7))->applyFromArray($styleArray);
+                            $objPHPExcel->getActiveSheet()->getStyle('V' . ($k + 7))->applyFromArray($styleArray)->getNumberFormat()
+                                    ->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+                            $objPHPExcel->getActiveSheet()->getStyle('W' . ($k + 7))->applyFromArray($styleArray)->getNumberFormat()
+                                    ->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+                            $objPHPExcel->getActiveSheet()->getStyle('X' . ($k + 7))->applyFromArray($styleArray)->getNumberFormat()
+                                    ->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+                            $objPHPExcel->getActiveSheet()->getStyle('Y' . ($k + 7))->applyFromArray($styleArray)->getNumberFormat()
+                                    ->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED3);
                         }
                     }
                 }
