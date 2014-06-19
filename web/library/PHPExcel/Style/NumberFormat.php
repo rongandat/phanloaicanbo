@@ -44,6 +44,7 @@ class PHPExcel_Style_NumberFormat extends PHPExcel_Style_Supervisor implements P
 	const FORMAT_NUMBER_00					= '0.00';
 	const FORMAT_NUMBER_COMMA_SEPARATED1	= '#,##0.00';
 	const FORMAT_NUMBER_COMMA_SEPARATED2	= '#,##0.00_-';
+	const FORMAT_NUMBER_COMMA_SEPARATED3	= '#,##0';
 
 	const FORMAT_PERCENTAGE					= '0%';
 	const FORMAT_PERCENTAGE_00				= '0.00%';
