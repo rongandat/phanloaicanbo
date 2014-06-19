@@ -48,7 +48,7 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
                 foreach ($this->list_nhan_vien as $nhanvien) {
                     $check_bang_luong = $this->viewCheckBangLuong($nhanvien->em_id, $this->thang, $this->nam);
                     $bang_luong_03 = false;
-                    if ($check_bang_luong->bl_tong_he_so > 0 && $check_bang_luong->bl_02)
+                    if ($check_bang_luong && $check_bang_luong->bl_tong_he_so > 0 && $check_bang_luong->bl_02)
                         $bang_luong_03 = true;
                     ?>
                     <tr class="<?php echo ($bang_luong_03 ? 'success' : 'error') ?>">

@@ -47,6 +47,20 @@
             $hs_pc_trach_nhiem = $this->phu_cap->eh_pc_trach_nhiem; //he so pc trach nhiem            
             $hs_pc_khu_vuc = $this->phu_cap->eh_pc_kv; //he so pc khu vuc            
             $hs_pc_tnvk_phan_tram = $this->phu_cap->eh_pc_tnvk_phan_tram; //he so pc tnvk
+
+            if ($this->phu_cap->eh_pc_tnvk_time != null && $this->phu_cap->eh_pc_tnvk_time != '' && $this->phu_cap->eh_pc_tnvk_time != '0000-00-00 00:00:00') {
+                $tnvk_nam = date('Y', strtotime($this->phu_cap->eh_pc_tnvk_time));
+                $tnvk_thang = date('m', strtotime($this->phu_cap->eh_pc_tnvk_time));
+
+                $tnvk_add = $this->nam - $tnvk_nam;                
+                if ($this->thang < $tnvk_thang) {
+                    $tnvk_add--;
+                }
+                
+                if ($tnvk_add && $hs_pc_tnvk_phan_tram)
+                    $hs_pc_tnvk_phan_tram+=$tnvk_add;
+            }
+
             $time_tham_niem = strtotime($this->phu_cap->eh_tham_niem); //tinh tham nien tu ngay
             $hs_pc_tham_nien_phan_tram = $this->phu_cap->eh_pc_tham_nien;
             $uu_dai_nghe = $this->phu_cap->eh_pc_udn_phan_tram; //he so pc uu dai nghe

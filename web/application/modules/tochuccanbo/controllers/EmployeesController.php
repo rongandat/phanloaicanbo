@@ -1299,6 +1299,8 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
             $eh_pc_cong_viec = $this->_request->getParam('eh_pc_cong_viec', 0);
             $eh_pc_trach_nhiem = $this->_request->getParam('eh_pc_trach_nhiem', 0);
             $eh_pc_kv = $this->_request->getParam('eh_pc_kv', 0);
+            $eh_tnvk_thang = $this->_request->getParam('eh_tnvk_thang', 0);
+            $eh_tnvk_nam = $this->_request->getParam('eh_tnvk_nam', 0);
             $eh_pc_tnvk_phan_tram = $this->_request->getParam('eh_pc_tnvk_phan_tram', 0);
             $eh_pc_udn_phan_tram = $this->_request->getParam('eh_pc_udn_phan_tram', 0);
             $eh_pc_cong_vu_phan_tram = $this->_request->getParam('eh_pc_cong_vu_phan_tram', 0);
@@ -1365,6 +1367,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
                     $current_time = new Zend_Db_Expr('NOW()');                    
                     $date_tham_nien = date_create($eh_tham_nien_nam . '-' . $eh_tham_nien_thang . '-1');
                     $date_ap_dung = date_create($eh_nam_ap_dung . '-' . $eh_thang_ap_dung . '-1');
+                    
                     $data = array(                        
                         'eh_pc_kv' => $eh_pc_kv,
                         'eh_pc_thu_hut' => $eh_pc_thu_hut,
@@ -1382,6 +1385,14 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
                         'eh_pc_doc_hai_type' => $eh_pc_doc_hai_type,
                         'eh_date_modified' => $current_time
                     );
+                    
+                    if($eh_tnvk_thang && $eh_tnvk_nam){
+                        $date_tnvk = date_create($eh_tnvk_nam . '-' . $eh_tnvk_thang . '-1');
+                        $data['eh_pc_tnvk_time'] = date_format($date_tnvk, "Y-m-d H:iP");
+                    }else{
+                        $data['eh_pc_tnvk_time'] = '';
+                    }
+                    
                     $he_so = $phucapModel->checkHeSo($eh_thang_ap_dung, $eh_nam_ap_dung, $em_id);
                     if (!$he_so) {
                         $data['epc_em_id'] = $update_em_id;

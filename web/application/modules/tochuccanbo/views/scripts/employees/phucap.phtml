@@ -1,12 +1,22 @@
 <?php
 $thang_options = array();
-for($i=1; $i<=12; $i++){
+for ($i = 1; $i <= 12; $i++) {
     $thang_options[$i] = $i;
 }
 
 $nam_options = array();
-for($i=1900; $i<=2050; $i++){
+for ($i = 1900; $i <= 2050; $i++) {
     $nam_options[$i] = $i;
+}
+
+$thang_tnvk_options = array('' => '');
+for ($i = 1; $i <= 12; $i++) {
+    $thang_tnvk_options[$i] = $i;
+}
+
+$nam_tnvk_options = array('' => '');
+for ($i = 1900; $i <= 2050; $i++) {
+    $nam_tnvk_options[$i] = $i;
 }
 ?>
 <div id="dv_form_he_so">
@@ -31,7 +41,7 @@ for($i=1900; $i<=2050; $i++){
     <?php endif; ?>
     <form class="form-horizontal" action="" method="post" id="frm_update_phucap">
         <input type="hidden" id="pc_cap_nhat_pc_em_id" name="pc_cap_nhat_pc_em_id" value="<?php echo $this->em_id; ?>"/>
- 
+
         <div class="control-group">
             <label class="control-label" for="eh_pc_thu_hut">Phụ cấp thu hút</label>
             <div class="controls">                
@@ -93,6 +103,23 @@ for($i=1900; $i<=2050; $i++){
         </div> 
 
         <div class="control-group">
+            <label class="control-label" for="eh_tham_nien_thang">Tính TNVK từ</label>
+            <div class="controls">
+                <?php
+                if ($this->he_so && $this->he_so->eh_pc_tnvk_time != '' && $this->he_so->eh_pc_tnvk_time != '0000-00-00 00:00:00') {
+                    echo $this->formSelect('eh_tnvk_thang', date('m', strtotime($this->he_so->eh_pc_tnvk_time)), array('class' => 'input-small', 'onchange' => 'change_tham_niem()'), $thang_tnvk_options);
+                    echo '<span class="help-inline"> / </span>';
+                    echo $this->formSelect('eh_tnvk_nam', date('Y', strtotime($this->he_so->eh_pc_tnvk_time)), array('class' => 'input-small', 'onchange' => 'change_tham_niem()'), $nam_tnvk_options);
+                } else {
+                    echo $this->formSelect('eh_tnvk_thang', null, array('class' => 'input-small', 'onchange' => 'change_tham_niem()'), $thang_tnvk_options);
+                    echo '<span class="help-inline"> / </span>';
+                    echo $this->formSelect('eh_tnvk_nam', null, array('class' => 'input-small', 'onchange' => 'change_tham_niem()'), $nam_tnvk_options);
+                }
+                ?>  
+            </div>            
+        </div>
+
+        <div class="control-group">
             <label class="control-label" for="eh_pc_tnvk_phan_tram">Phụ cấp TNVK</label>
             <div class="controls">
                 <div class="input-prepend input-append">    
@@ -112,13 +139,13 @@ for($i=1900; $i<=2050; $i++){
             <div class="controls">
                 <?php
                 if ($this->he_so) {
-                    echo $this->formSelect('eh_tham_nien_thang', date('m', strtotime($this->he_so->eh_tham_niem)), array('class' => 'input-small', 'onchange'=> 'change_tham_niem()'), $thang_options);
+                    echo $this->formSelect('eh_tham_nien_thang', date('m', strtotime($this->he_so->eh_tham_niem)), array('class' => 'input-small', 'onchange' => 'change_tham_niem()'), $thang_options);
                     echo '<span class="help-inline"> / </span>';
-                    echo $this->formSelect('eh_tham_nien_nam', date('Y', strtotime($this->he_so->eh_tham_niem)), array('class' => 'input-small', 'onchange'=> 'change_tham_niem()'), $nam_options);
+                    echo $this->formSelect('eh_tham_nien_nam', date('Y', strtotime($this->he_so->eh_tham_niem)), array('class' => 'input-small', 'onchange' => 'change_tham_niem()'), $nam_options);
                 } else {
-                    echo $this->formSelect('eh_tham_nien_thang', null, array('class' => 'input-small', 'onchange'=> 'change_tham_niem()'), $thang_options);
+                    echo $this->formSelect('eh_tham_nien_thang', null, array('class' => 'input-small', 'onchange' => 'change_tham_niem()'), $thang_options);
                     echo '<span class="help-inline"> / </span>';
-                    echo $this->formSelect('eh_tham_nien_nam', null, array('class' => 'input-small', 'onchange'=> 'change_tham_niem()'), $nam_options);
+                    echo $this->formSelect('eh_tham_nien_nam', null, array('class' => 'input-small', 'onchange' => 'change_tham_niem()'), $nam_options);
                 }
                 ?>  
             </div>            
@@ -138,7 +165,7 @@ for($i=1900; $i<=2050; $i++){
                 </div> 
             </div>            
         </div>
-        
+
         <div class="control-group">
             <label class="control-label" for="eh_pc_udn_phan_tram">Phụ cấp ƯĐN</label>
             <div class="controls">
@@ -205,7 +232,7 @@ for($i=1900; $i<=2050; $i++){
                 </div>
             </div>            
         </div>
-        
+
         <div class="control-group">
             <label class="control-label" for="eh_pc_khac">Phụ cấp khác</label>
             <div class="controls">

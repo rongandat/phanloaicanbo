@@ -124,25 +124,10 @@ class Tochuccanbo_DuyetchamcongController extends Zend_Controller_Action {
 
         $emModel = new Front_Model_Employees();
         $phongbanModel = new Front_Model_Phongban();
-        $lamthemgioModel = new Front_Model_LamThemGio();
-        $letetModel = new Front_Model_NghiLe();
-        $list_le_tet = $letetModel->fetchByMonth($nam, $thang);
-        $le_tet_array = array();
-        foreach ($list_le_tet as $le_tet) {
-            $ngay_bat_dau = date('d', strtotime($le_tet->nn_tu_ngay));
-            $ngay_ket_thuc = date('d', strtotime($le_tet->nn_den_ngay));
-            for ($ng = $ngay_bat_dau; $ng <= $ngay_ket_thuc; $ng++) {
-                $le_tet_array[$ng] = 1;
-            }
-        }
-
-        $list_them_gio = $lamthemgioModel->fetchAllByDate($nam, $thang, 1, 1);
 
         $phong_ban_id = $list_phongban = $phong_ban = Array();
-        $phong_ban_selected_info = $phongbanModel->fetchRow("pb_id=$pb_selected");
+
         $phong_ban_id[] = $pb_selected;
-        if ($phong_ban_selected_info)
-            $phong_ban[] = $phong_ban_selected_info;
         $list_phongban = $phongbanModel->fetchDataStatus($pb_selected, $phong_ban);
 
         if (sizeof($list_phongban)) {
@@ -202,7 +187,6 @@ class Tochuccanbo_DuyetchamcongController extends Zend_Controller_Action {
         $chamcongModel = new Front_Model_ChamCong();
         if ($list_nhan_vien) {
             $k = 1;
-            $stt = 0;
             foreach ($list_phongban as $phong_ban_info) {
                 $k++;
                 $objPHPExcel->setActiveSheetIndex(0)->mergeCells("A" . ($k + 6) . ":AL" . ($k + 6));
@@ -218,7 +202,6 @@ class Tochuccanbo_DuyetchamcongController extends Zend_Controller_Action {
 
                         $days_in_month = cal_days_in_month(0, (int) $thang, (int) $nam);
                         $k++;
-                        $stt++;
                         $cham_cong = $chamcongModel->fetchOneData(array('c_em_id' => $nhan_vien->em_id, 'c_thang' => (int) $thang, 'c_nam' => (int) $nam));
                         for ($d = 1; $d <= $days_in_month; $d++) {
                             $ngay_chamcong = 'c_ngay_' . $d;
@@ -226,7 +209,7 @@ class Tochuccanbo_DuyetchamcongController extends Zend_Controller_Action {
                             $check_gio_lam_them = $this->view->viewGetGioLamThem($nhan_vien->em_id, $d, $thang, $nam);
 
                             if ($check_gio_lam_them) {
-                                if ($le_tet_array[$d]) {
+                                if ($this->view->viewCheckLeTet($d, $thang, $nam)) {
                                     $so_gio_lam_le_tet+=$check_gio_lam_them['gio'];
                                     $so_phut_lam_le_tet+=$check_gio_lam_them['phut'];
                                 } elseif ($this->view->viewCheckChuNhatThuBay($d, (int) $thang, (int) $nam)) {
@@ -244,7 +227,7 @@ class Tochuccanbo_DuyetchamcongController extends Zend_Controller_Action {
                         $so_phut_lam_le_tet = $so_phut_lam_le_tet % 60;
                         $so_gio_lam_le_tet += $doi_gio_le_tet;
 
-                        $objPHPExcel->getActiveSheet()->SetCellValue('A' . ($k + 6), $stt);
+                        $objPHPExcel->getActiveSheet()->SetCellValue('A' . ($k + 6), $k);
                         $objPHPExcel->getActiveSheet()->SetCellValue('B' . ($k + 6), $nhan_vien->em_ho . ' ' . $nhan_vien->em_ten);
                         $objPHPExcel->getActiveSheet()->SetCellValue('C' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_1]) ? $listHoliday[$cham_cong->c_ngay_1]['code'] : '');
                         $objPHPExcel->getActiveSheet()->SetCellValue('D' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_2]) ? $listHoliday[$cham_cong->c_ngay_2]['code'] : '');
@@ -500,9 +483,4 @@ class Tochuccanbo_DuyetchamcongController extends Zend_Controller_Action {
         $this->_redirect('tochuccanbo/duyetchamcong/index/thang/' . $thang . '/nam/' . $nam . '/phongban/' . $phongban);
     }
 
-    function viewGetGioLamThem($em_id, $d, $list_lam_them_gio){
-        foreach ($list_lam_them_gio as $lam_them_gio) {
-            
-        }
-    }
 }

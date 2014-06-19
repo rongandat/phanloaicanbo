@@ -769,7 +769,7 @@ foreach ($this->list_huyen as $huyen) {
                                                 <input type="hidden" name="anh_tai_lieu_khac[' . $random_id . '][true_name]" value="' . $anh_tai_lieu_khac['true_name'] . '"/>
                                                 <img src="' . $this->baseUrl('public/uploads/') . $anh_tai_lieu_khac['anh'] . '">
                                                 <span>' . $anh_tai_lieu_khac['true_name'] . '</span>
-                                                <a class="btn btn-download-icon btn-mini" target="_blank" href="' . $this->baseUrl('front/download/img/file/' . $anh_tai_lieu_khac) . '" type="button"><i class="icon-download-alt"></i></a>
+                                                <a class="btn btn-download-icon btn-mini" target="_blank" href="' . $this->baseUrl('front/download/img/file/' . $anh_tai_lieu_khac['anh']) . '" type="button"><i class="icon-download-alt"></i></a>
                                                 <button class="btn btn-delete-icon btn-mini btn-danger" type="button" onclick="deleteAnhScan(\'' . $random_id . '\')"><i class="icon-trash"></i></button>
                                                 </div>';
                                                 } else {
@@ -777,7 +777,7 @@ foreach ($this->list_huyen as $huyen) {
                                                 <input type="hidden" name="anh_tai_lieu_khac[' . $random_id . '][anh]" value="' . $anh_tai_lieu_khac['anh'] . '"/>
                                                 <input type="hidden" name="anh_tai_lieu_khac[' . $random_id . '][true_name]" value="' . $anh_tai_lieu_khac['true_name'] . '"/>
                                                 <span>' . $anh_tai_lieu_khac['true_name'] . '</span>
-                                                <a class="btn btn-download-icon btn-mini" target="_blank" href="' . $this->baseUrl('front/download/img/file/' . $anh_tai_lieu_khac) . '" type="button"><i class="icon-download-alt"></i></a>
+                                                <a class="btn btn-download-icon btn-mini" target="_blank" href="' . $this->baseUrl('front/download/img/file/' . $anh_tai_lieu_khac['anh']) . '" type="button"><i class="icon-download-alt"></i></a>
                                                 <button class="btn btn-delete-icon btn-mini btn-danger" type="button" onclick="deleteAnhScan(\'' . $random_id . '\')"><i class="icon-trash"></i></button>
                                                 </div>';
                                                 }
@@ -800,6 +800,10 @@ foreach ($this->list_huyen as $huyen) {
                         </p>
                     </div>
                 </div>
+                <div class="control-group">
+                    <em>* Thông tin cập nhật sẽ hiển thị khi được Phòng TCCB duyệt</em>
+                </div>
+                
             </form>
         <?php else : ?>
             <form class="form-horizontal" method="post" action="">

@@ -43,13 +43,6 @@ class Front_Model_NghiLe extends Zend_Db_Table_Abstract {
         return $this->fetchAll($select);
     }
     
-    public function fetchByMonth($year, $month) {
-        $select = $this->select();
-        $select->where('nn_tu_ngay >=?', "$year-$month-01 00:00:00");
-        $select->where('nn_den_ngay <=?', "$year-$month-01 00:00:00");
-        return $this->fetchAll($select);
-    }
-    
     public function fetchRowByDate($date) {
         $select = $this->select();
         $select->where('nn_tu_ngay >=?', "$date 00:00:00");
