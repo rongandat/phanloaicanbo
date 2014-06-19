@@ -1,0 +1,114 @@
+<?php
+$kq_options = array();
+foreach ($this->ket_qua as $ket_qua) {
+    $kq_options[$ket_qua->dgkqcv_id] = $ket_qua->dgkqcv_name;
+}
+
+$list_phong_ban = array();
+foreach ($this->list_phong_ban as $phong_ban) {
+    $list_phong_ban[$phong_ban->pb_id] = $phong_ban->pb_name;
+}
+
+$list_phong_ban_options = array('0' => 'Tất cả');
+foreach ($this->list_phong_ban_option as $phong_ban) {
+    $list_phong_ban_options[$phong_ban->pb_id] = $phong_ban->pb_name;
+}
+
+$list_nam = array();
+for ($i = 2000; $i <= 2050; $i++) {
+    $list_nam[$i] = $i;
+}
+?>
+
+<h5>Thống kê phân loại theo năm</h5>               
+
+<div class="main-content-box">  
+    <form name="appForm" class="form-horizontal" method="post" action="">
+        <div class="control-group">
+            <label class="control-label">Phòng ban</label>
+            <div class="controls">
+                <?php
+                echo $this->formSelect('sl_phong_ban', $this->pb_id, array('onchange' => 'on_choose_phong_ban()'), $list_phong_ban_options);
+                ?>
+            </div>
+        </div>
+        <div class="clearfix">
+        </div>        
+        <div class="control-group">
+            <label class="control-label">Năm</label>
+            <div class="controls">
+                <?php
+                echo $this->formSelect('sl_nam', $this->nam, array('onchange' => 'on_choose_nam()'), $list_nam);
+                ?>
+            </div>
+        </div>
+        <div class="clearfix">
+        </div>   
+        <div class="btn-toolbar float_left">
+            <div class="btn-group">
+                <button class="btn btn-primary" onclick="OnSubmitForm('<?php echo $this->baseUrl('tochuccanbo/phanloainam/index/nam/' . $this->nam . '/phongban/' . $this->pb_id); ?>')" title="Xuất ra file excel"><i class="icon-download-alt"></i> Xuất ra file excel</button>
+            </div>
+        </div>        
+        <div class="clearfix">
+        </div>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>    
+                    <th>Họ tên</th>
+                    <th style="width: 150px;">Chức vụ</th>
+                    <th style="width: 30px;">T1</th>
+                    <th style="width: 30px;">T2</th>
+                    <th style="width: 30px;">T3</th>
+                    <th style="width: 30px;">T4</th>
+                    <th style="width: 30px;">T5</th>
+                    <th style="width: 30px;">T6</th>
+                    <th style="width: 30px;">T7</th>
+                    <th style="width: 30px;">T8</th>
+                    <th style="width: 30px;">T9</th>
+                    <th style="width: 30px;">T10</th>
+                    <th style="width: 30px;">T11</th>
+                    <th style="width: 30px;">T12</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                foreach ($this->list_nhan_vien as $nhan_vien) {
+                    echo '<tr>';
+                    echo '<td>' . $nhan_vien->em_ho . ' ' . $nhan_vien->em_ten . '</td>';
+                    echo '<td>' . $this->list_chuc_vu[$nhan_vien->em_chuc_vu] . '</td>';
+                    for ($i = 1; $i <= 12; $i++) {
+                        $phan_loai = $this->viewGetPhanLoai($nhan_vien->em_id, $i, (int) $this->nam);
+                        $rd_id = rand(1000000, 9999999);
+                        $pl_ptccb = '';
+                        if ($phan_loai) {
+                            if ($phan_loai->dg_ptccb_status != 'O')
+                                $pl_ptccb = $phan_loai->dg_ptccb_status;
+                            else
+                                $pl_ptccb = '-';
+                        }
+
+                        echo '<td>' . $pl_ptccb . '</td>';
+                    }
+                    echo '</tr>';
+                }
+                ?>
+            </tbody>
+        </table>
+    </form>
+</div>
+
+
+<script>    
+    function on_choose_phong_ban(){
+        var phong_ban = $('#sl_phong_ban').val();
+        var nam = $('#sl_nam').val();        
+        window.location = site_url+'/tochuccanbo/phanloainam/index/nam/'+nam+'/phongban/'+phong_ban;
+    }
+    
+    function on_choose_nam(){
+        var phong_ban = $('#sl_phong_ban').val();
+        var nam = $('#sl_nam').val();        
+             
+        window.location = site_url+'/tochuccanbo/phanloainam/index/nam/'+nam+'/phongban/'+phong_ban;
+    }
+</script>

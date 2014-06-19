@@ -1,0 +1,90 @@
+<?php
+$thang_options = range(1, 12);
+$nam_options = array();
+for ($i = 1900; $i <= 2050; $i++) {
+    $nam_options[$i] = $i;
+}
+?>
+
+<div id="dv_form_luan_chuyen">
+
+    <?php if (sizeof($this->error_message)): ?>
+        <div class="alert alert-error" id="dv_he_so_error">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h5>Thông báo!</h5>
+            Cập nhật không thành công vì:
+            <ol>
+                <?php foreach ($this->error_message as $message): ?>
+                    <li><?php echo $message; ?></li>
+                <?php endforeach; ?>
+            </ol>
+        </div>
+    <?php endif; ?>
+    <?php if ($this->success_message): ?>
+        <div class="alert alert-success" id="dv_he_so_success">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h5>Thông báo!</h5>
+            Cập nhật thành công!
+        </div>
+    <?php endif; ?>
+
+
+    <form class="form-horizontal" id="fr_luan_chuyen">
+        <input type="hidden" id="lc_em_id" value="<?php echo $this->em_id; ?>"/>
+        <div class="control-group">
+            <label class="control-label" for="em_chuc_vu">Chức vụ</label>
+            <div class="controls">
+                <?php
+                $chuc_vu_options = array(0 => '');
+                foreach ($this->list_chuc_vu as $chuc_vu) {
+                    $chuc_vu_options[$chuc_vu->cv_id] = $chuc_vu->cv_name;
+                }
+                echo $this->formSelect('em_chuc_vu', $this->employee_info->em_chuc_vu, array('class' => 'input-medium'), $chuc_vu_options);
+                ?> 
+            </div>
+        </div> 
+
+        <div class="control-group">
+            <label class="control-label" for="em_phong_ban">Đơn vị</label>
+            <div class="controls">
+                <?php
+                $phong_ban_options = array(0 => '');
+                foreach ($this->list_phong_ban as $phong_ban) {
+                    $phong_ban_options[$phong_ban->pb_id] = $phong_ban->pb_name;
+                }
+                echo $this->formSelect('em_phong_ban', $this->employee_info->em_phong_ban, array('class' => 'input-medium'), $phong_ban_options);
+                ?> 
+            </div>
+        </div> 
+
+        <div class="control-group">
+            <label class="control-label" for="em_ngach_cong_chuc">Ngạch công chức</label>
+            <div class="controls">
+                <?php
+                $ngach_cong_chuc_options = array(0 => '');
+                foreach ($this->list_ngach_cong_chuc as $ngach_cong_chuc) {
+                    $ngach_cong_chuc_options[$ngach_cong_chuc->ncc_id] = $ngach_cong_chuc->ncc_name;
+                }
+                echo $this->formSelect('em_ngach_cong_chuc', $this->employee_info->em_ngach_cong_chuc, array('class' => 'input-medium'), $ngach_cong_chuc_options);
+                ?> 
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="em_cong_viec">Công việc</label>
+            <div class="controls">
+
+                <?php echo $this->formText('em_cong_viec', $this->employee_info->em_cong_viec, array('class' => 'input-xlarge')); ?> 
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="em_chuyen_mon">Chuyên môn</label>
+            <div class="controls">
+
+                <?php echo $this->formText('em_chuyen_mon', $this->employee_info->em_chuyen_mon, array('class' => 'input-xlarge')); ?> 
+            </div>
+        </div>        
+
+    </form>
+</div>
