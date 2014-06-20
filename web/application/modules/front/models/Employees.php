@@ -64,17 +64,35 @@ class Front_Model_Employees extends Zend_Db_Table_Abstract {
             $list_phong_ban = implode(',', $phong_ban);
             $where = ' and e.em_phong_ban in (' . $list_phong_ban . ')';
         }
-        $phong_ban = implode(',', $phong_ban);
 
         $select = "select * from (select * from (SELECT eh_em_id, eh_han_dieu_chinh FROM " . TABLE_EMPLOYEESHESO . "
         order by eh_han_dieu_chinh DESC) as tmp
         group by tmp.eh_em_id) as tmp2 inner join " . $this->_name . " e on e.em_id=tmp2.eh_em_id
         inner join " . TABLE_NGACHCONGCHUC . " ncc on e.em_ngach_cong_chuc=ncc.ncc_id
         where tmp2.eh_han_dieu_chinh<='$ngay_gioi_han' and ncc.ncc_id=$ngach $where";
-
+        
         $db = Zend_Db_Table::getDefaultAdapter();
-        $stmt = $db->query($select);        
-        $rows = $stmt->fetchAll();        
+        $stmt = $db->query($select);
+        $rows = $stmt->fetchAll();
+        return $rows;
+    }
+
+    public function getNangPhuCap($thang = 0, $nam = 0, $phong_ban = array()) {
+        $ngay_gioi_han = "$nam-$thang-31 23:59:59";
+        $where = '';
+        if (sizeof($phong_ban)) {
+            $list_phong_ban = implode(',', $phong_ban);
+            $where = ' and e.em_phong_ban in (' . $list_phong_ban . ')';
+        }
+
+        $select = "select * from (select * from (SELECT epc_em_id, eh_pc_tnvk_time, eh_pc_tnvk_phan_tram FROM " . TABLE_EMPLOYEESPHUCAP . "
+        order by eh_pc_tnvk_time DESC) as tmp
+        group by tmp.epc_em_id) as tmp2 inner join " . $this->_name . " e on e.em_id=tmp2.epc_em_id        
+        where tmp2.eh_pc_tnvk_time<='$ngay_gioi_han' and eh_pc_tnvk_phan_tram>0 $where";          
+        
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $stmt = $db->query($select);
+        $rows = $stmt->fetchAll();
         return $rows;
     }
 
