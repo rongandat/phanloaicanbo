@@ -86,7 +86,7 @@ foreach ($this->list_phong_ban_option as $phong_ban) {
                             $trangthai_ngaycong = $view_get_chamcong->$ngay_chamcong;
                             $check_gio_lam_them = $this->viewGetGioLamThem($nv['em_id'], $i, $this->thang, $this->nam);
                             if ($check_gio_lam_them) {
-                                if ($this->viewCheckLeTet($i, $this->thang, $this->nam)) {
+                                if ($this->le_tet[$i]) {
                                     $so_gio_lam_le_tet+=$check_gio_lam_them['gio'];
                                     $so_phut_lam_le_tet+=$check_gio_lam_them['phut'];
                                 } elseif ($this->viewCheckChuNhatThuBay($i, (int) $this->thang, (int) $this->nam)) {

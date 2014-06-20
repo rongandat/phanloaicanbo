@@ -42,16 +42,31 @@ class Tochuccanbo_DuyetchamcongController extends Zend_Controller_Action {
 
         $thang = $this->_getParam('thang', $date->toString("M"));
         $nam = $this->_getParam('nam', $date->toString("Y"));
-
+        $days_in_month = cal_days_in_month(0, (int) $thang, (int) $nam);
+        
         $auth = Zend_Auth::getInstance();
         $identity = $auth->getIdentity();
         $em_id = $identity->em_id;
 
         $emModel = new Front_Model_Employees();
         $phongbanModel = new Front_Model_Phongban();
-
+        $letetModel = new Front_Model_NghiLe();
         $list_phong_ban = $phongbanModel->fetchAll();
 
+        $check_le_tet = $letetModel->fetchByMonth($nam, $thang);
+
+        $le_tet_array = array();
+        foreach ($check_le_tet as $le_tet) {
+            $ngay_ket_thuc = new Zend_Date($le_tet->nn_den_ngay);
+            $ngay_bat_dau = new Zend_Date($le_tet->nn_tu_ngay);
+            for ($n = 1; $n <= $days_in_month; $n++) {
+                $date_check = new Zend_Date("$nam-$thang-$n");
+                if ($date_check >= $ngay_bat_dau && $date_check <= $ngay_ket_thuc) {
+                    $le_tet_array[$n] = 1;
+                }
+            }
+        }
+        
         $pb_selected = $this->_getParam('phongban', 0);
         $nv_selected = $this->_getParam('nhanvien', 0);
         $list_nhan_vien = $phong_ban_id = $list_phongban = $phong_ban = Array();
@@ -89,6 +104,7 @@ class Tochuccanbo_DuyetchamcongController extends Zend_Controller_Action {
         $this->view->nv_id = $nv_selected;
         $this->view->list_phong_ban = $list_phong_ban;
         $this->view->list_phong_ban_option = $list_phong_ban_option;
+        $this->view->le_tet = $le_tet_array;
     }
 
     public function exelthongkeAction() {
@@ -127,6 +143,8 @@ class Tochuccanbo_DuyetchamcongController extends Zend_Controller_Action {
         $phongbanModel = new Front_Model_Phongban();
         $chamcongModel = new Front_Model_ChamCong();
         $letetModel = new Front_Model_NghiLe();
+        $lamthemgioModel = new Front_Model_LamThemGio();
+        $list_lam_them = $lamthemgioModel->fetchByMonth($nam, $thang);
         $check_le_tet = $letetModel->fetchByMonth($nam, $thang);
 
         $le_tet_array = array();
@@ -150,6 +168,9 @@ class Tochuccanbo_DuyetchamcongController extends Zend_Controller_Action {
         $phong_ban_id = $list_phongban = $phong_ban = Array();
 
         $phong_ban_id[] = $pb_selected;
+        $pb_selected_info = $phongbanModel->fetchRow('pb_id=' . $pb_selected);
+        if ($pb_selected_info)
+            $phong_ban[] = $pb_selected_info;
         $list_phongban = $phongbanModel->fetchDataStatus($pb_selected, $phong_ban);
 
         if (sizeof($list_phongban)) {
@@ -161,10 +182,7 @@ class Tochuccanbo_DuyetchamcongController extends Zend_Controller_Action {
         $phong_ban_id = implode(',', $phong_ban_id);
         //if ($pb_selected) {
         $list_nhan_vien = $emModel->fetchAll("em_phong_ban in ($phong_ban_id) and em_status=1");
-        //$pb_selected_info = $phongbanModel->fetchRow('pb_id=' . $pb_selected);
-        //if ($pb_selected_info)
-        //$ten_phong = $pb_selected_info->pb_name;
-        //}
+
 
         $holidaysModel = new Front_Model_Holidays();
         $holidays = $holidaysModel->fetchData();
@@ -224,8 +242,7 @@ class Tochuccanbo_DuyetchamcongController extends Zend_Controller_Action {
                         if ($cham_cong_array[$nhan_vien->em_id]) {
                             $cham_cong = $cham_cong_array[$nhan_vien->em_id];
                             for ($d = 1; $d <= $days_in_month; $d++) {
-                                //$check_gio_lam_them = $this->view->viewGetGioLamThem($nhan_vien->em_id, $d, $thang, $nam);
-                                $check_gio_lam_them = false;
+                                $check_gio_lam_them = $this->view->viewGetGioLamThem($nhan_vien->em_id, $d, $thang, $nam);
 
                                 if ($check_gio_lam_them) {
                                     if ($le_tet_array[$d]) {
@@ -505,6 +522,47 @@ class Tochuccanbo_DuyetchamcongController extends Zend_Controller_Action {
             }
         }
         $this->_redirect('tochuccanbo/duyetchamcong/index/thang/' . $thang . '/nam/' . $nam . '/phongban/' . $phongban);
+    }
+
+    function viewGetGioLamThem($em_id, $d, $list_them_gio) {
+        $tong_gio = 0;
+        $tong_phut = 0;
+        foreach ($list_them_gio as $lam_them) {
+            $ngay = new Zend_Date($lam_them->ltg_ngay);
+            if ((int) $ngay->toString('d') == $d && $lam_them->ltg_em_id == $em_id) {
+                $tong_gio = 0;
+                $tong_phut = 0;
+                if ($lam_them->ltg_gio_bat_dau) {
+                    $tong_gio += $lam_them->ltg_gio_ket_thuc - $lam_them->ltg_gio_bat_dau;
+                    if ($lam_them->ltg_phut_ket_thuc < $lam_them->ltg_phut_bat_dau) {
+                        $tong_gio--;
+                        $tong_phut += $lam_them->ltg_phut_bat_dau - $lam_them->ltg_phut_ket_thuc;
+                    } else {
+                        $tong_phut += $lam_them->ltg_phut_ket_thuc - $lam_them->ltg_phut_bat_dau;
+                    }
+                }
+
+                if ($lam_them->ltg_gio_bat_dau_chieu) {
+                    $tong_gio += $lam_them->ltg_gio_ket_thuc_chieu - $lam_them->ltg_gio_bat_dau_chieu;
+                    if ($lam_them->ltg_phut_ket_thuc_chieu < $lam_them->ltg_phut_bat_dau_chieu) {
+                        $tong_gio--;
+                        $tong_phut += $lam_them->ltg_phut_bat_dau_chieu - $lam_them->ltg_phut_ket_thuc_chieu;
+                    } else {
+                        $tong_phut += $lam_them->ltg_phut_ket_thuc_chieu - $lam_them->ltg_phut_bat_dau_chieu;
+                    }
+                }
+
+                if ($tong_phut >= 60) {
+                    $tong_gio++;
+                    $tong_phut = $tong_phut - 60;
+                }
+            }
+        }
+
+        if ($tong_gio && $tong_phut)
+            return array('gio' => $tong_gio, 'phut' => $tong_phut);
+        else
+            return false;
     }
 
 }

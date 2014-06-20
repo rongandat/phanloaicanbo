@@ -60,6 +60,14 @@ class Front_Model_LamThemGio extends Zend_Db_Table_Abstract {
         return $this->fetchRow($select);
     }
     
+    public function fetchByMonth($year, $month) {
+        $select = $this->select();
+        $select->where('ltg_ngay >=?', "$year-$month-01 00:00:00");
+        $select->where('ltg_ngay <=?', "$year-$month-31 23:59:59");
+        $select->where('ltg_don_vi_status =?', 1);
+        return $this->fetchAll($select);
+    }
+    
     public function fetchByPhongBan($list_phong_ban, $from_date, $to_date) {
         $select = $this->select(Zend_Db_Table::SELECT_WITH_FROM_PART);
         $select->setIntegrityCheck(false)
