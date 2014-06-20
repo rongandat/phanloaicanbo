@@ -120,10 +120,32 @@ class Tochuccanbo_DuyetchamcongController extends Zend_Controller_Action {
         $thang = $this->_getParam('thang', $date->toString("M"));
         $nam = $this->_getParam('nam', $date->toString("Y"));
         $pb_selected = $this->_getParam('phongban', 0);
+        $days_in_month = cal_days_in_month(0, (int) $thang, (int) $nam);
 
 
         $emModel = new Front_Model_Employees();
         $phongbanModel = new Front_Model_Phongban();
+        $chamcongModel = new Front_Model_ChamCong();
+        $letetModel = new Front_Model_NghiLe();
+        $check_le_tet = $letetModel->fetchByMonth($nam, $thang);
+
+        $le_tet_array = array();
+        foreach ($check_le_tet as $le_tet) {
+            $ngay_ket_thuc = new Zend_Date($le_tet->nn_den_ngay);
+            $ngay_bat_dau = new Zend_Date($le_tet->nn_tu_ngay);
+            for ($n = 1; $n <= $days_in_month; $n++) {
+                $date_check = new Zend_Date("$nam-$thang-$n");
+                if ($date_check >= $ngay_bat_dau && $date_check <= $ngay_ket_thuc) {
+                    $le_tet_array[$n] = 1;
+                }
+            }
+        }
+
+        $list_cham_cong = $chamcongModel->fetchByMonth($nam, $thang);
+        $cham_cong_array = array();
+        foreach ($list_cham_cong as $cham_cong_info) {
+            $cham_cong_array[$cham_cong_info->c_em_id] = $cham_cong_info;
+        }
 
         $phong_ban_id = $list_phongban = $phong_ban = Array();
 
@@ -150,7 +172,6 @@ class Tochuccanbo_DuyetchamcongController extends Zend_Controller_Action {
         foreach ($holidays as $holiday) {
             $listHoliday[$holiday['hld_id']] = array('code' => $holiday['hld_code'], 'ngay_cong' => $holiday['hld_ngay_cong']);
         }
-
 
         $objPHPExcel->getActiveSheet()->SetCellValue('A4', 'BẢNG CHẤM CÔNG LÀM THÊM GIỜ THÁNG ' . $thang . ' NĂM ' . $nam);
         $day_key[1] = 'C';
@@ -184,7 +205,6 @@ class Tochuccanbo_DuyetchamcongController extends Zend_Controller_Action {
         $day_key[29] = 'AE';
         $day_key[30] = 'AF';
         $day_key[31] = 'AG';
-        $chamcongModel = new Front_Model_ChamCong();
         if ($list_nhan_vien) {
             $k = 1;
             foreach ($list_phongban as $phong_ban_info) {
@@ -193,31 +213,32 @@ class Tochuccanbo_DuyetchamcongController extends Zend_Controller_Action {
                 $objPHPExcel->getActiveSheet()->getStyle("A" . ($k + 6))->getFill()
                         ->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID,
                             'startcolor' => array('rgb' => 'F28A8C')
-                        ));
+                ));
                 $objPHPExcel->getActiveSheet()->SetCellValue('A' . ($k + 6), $phong_ban_info->pb_name);
                 foreach ($list_nhan_vien as $nhan_vien) {
                     if ($phong_ban_info->pb_id == $nhan_vien->em_phong_ban) {
                         $so_gio_lam_le_tet = $so_phut_lam_le_tet = 0;
                         $so_gio_lam_thu_7_cn = $so_phut_lam_thu_7_cn = 0;
-
-                        $days_in_month = cal_days_in_month(0, (int) $thang, (int) $nam);
                         $k++;
-                        $cham_cong = $chamcongModel->fetchOneData(array('c_em_id' => $nhan_vien->em_id, 'c_thang' => (int) $thang, 'c_nam' => (int) $nam));
-                        for ($d = 1; $d <= $days_in_month; $d++) {
-                            $ngay_chamcong = 'c_ngay_' . $d;
-                            $trangthai_ngaycong = $cham_cong->$ngay_chamcong;
-                            $check_gio_lam_them = $this->view->viewGetGioLamThem($nhan_vien->em_id, $d, $thang, $nam);
+                        $cham_cong = null;
+                        if ($cham_cong_array[$nhan_vien->em_id]) {
+                            $cham_cong = $cham_cong_array[$nhan_vien->em_id];
+                            for ($d = 1; $d <= $days_in_month; $d++) {
+                                //$check_gio_lam_them = $this->view->viewGetGioLamThem($nhan_vien->em_id, $d, $thang, $nam);
+                                $check_gio_lam_them = false;
 
-                            if ($check_gio_lam_them) {
-                                if ($this->view->viewCheckLeTet($d, $thang, $nam)) {
-                                    $so_gio_lam_le_tet+=$check_gio_lam_them['gio'];
-                                    $so_phut_lam_le_tet+=$check_gio_lam_them['phut'];
-                                } elseif ($this->view->viewCheckChuNhatThuBay($d, (int) $thang, (int) $nam)) {
-                                    $so_gio_lam_thu_7_cn+=$check_gio_lam_them['gio'];
-                                    $so_phut_lam_thu_7_cn+=$check_gio_lam_them['phut'];
+                                if ($check_gio_lam_them) {
+                                    if ($le_tet_array[$d]) {
+                                        $so_gio_lam_le_tet+=$check_gio_lam_them['gio'];
+                                        $so_phut_lam_le_tet+=$check_gio_lam_them['phut'];
+                                    } elseif ($this->view->viewCheckChuNhatThuBay($d, (int) $thang, (int) $nam)) {
+                                        $so_gio_lam_thu_7_cn+=$check_gio_lam_them['gio'];
+                                        $so_phut_lam_thu_7_cn+=$check_gio_lam_them['phut'];
+                                    }
                                 }
                             }
                         }
+
 
                         $doi_gio_thu_7 = floor($so_phut_lam_thu_7_cn / 60);
                         $so_phut_lam_thu_7_cn = $so_phut_lam_thu_7_cn % 60;
@@ -229,37 +250,40 @@ class Tochuccanbo_DuyetchamcongController extends Zend_Controller_Action {
 
                         $objPHPExcel->getActiveSheet()->SetCellValue('A' . ($k + 6), $k);
                         $objPHPExcel->getActiveSheet()->SetCellValue('B' . ($k + 6), $nhan_vien->em_ho . ' ' . $nhan_vien->em_ten);
-                        $objPHPExcel->getActiveSheet()->SetCellValue('C' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_1]) ? $listHoliday[$cham_cong->c_ngay_1]['code'] : '');
-                        $objPHPExcel->getActiveSheet()->SetCellValue('D' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_2]) ? $listHoliday[$cham_cong->c_ngay_2]['code'] : '');
-                        $objPHPExcel->getActiveSheet()->SetCellValue('E' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_3]) ? $listHoliday[$cham_cong->c_ngay_3]['code'] : '');
-                        $objPHPExcel->getActiveSheet()->SetCellValue('F' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_4]) ? $listHoliday[$cham_cong->c_ngay_4]['code'] : '');
-                        $objPHPExcel->getActiveSheet()->SetCellValue('G' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_5]) ? $listHoliday[$cham_cong->c_ngay_5]['code'] : '');
-                        $objPHPExcel->getActiveSheet()->SetCellValue('H' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_6]) ? $listHoliday[$cham_cong->c_ngay_6]['code'] : '');
-                        $objPHPExcel->getActiveSheet()->SetCellValue('I' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_7]) ? $listHoliday[$cham_cong->c_ngay_7]['code'] : '');
-                        $objPHPExcel->getActiveSheet()->SetCellValue('J' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_8]) ? $listHoliday[$cham_cong->c_ngay_8]['code'] : '');
-                        $objPHPExcel->getActiveSheet()->SetCellValue('K' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_9]) ? $listHoliday[$cham_cong->c_ngay_9]['code'] : '');
-                        $objPHPExcel->getActiveSheet()->SetCellValue('L' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_10]) ? $listHoliday[$cham_cong->c_ngay_10]['code'] : '');
-                        $objPHPExcel->getActiveSheet()->SetCellValue('M' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_11]) ? $listHoliday[$cham_cong->c_ngay_11]['code'] : '');
-                        $objPHPExcel->getActiveSheet()->SetCellValue('N' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_12]) ? $listHoliday[$cham_cong->c_ngay_12]['code'] : '');
-                        $objPHPExcel->getActiveSheet()->SetCellValue('O' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_13]) ? $listHoliday[$cham_cong->c_ngay_13]['code'] : '');
-                        $objPHPExcel->getActiveSheet()->SetCellValue('P' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_14]) ? $listHoliday[$cham_cong->c_ngay_14]['code'] : '');
-                        $objPHPExcel->getActiveSheet()->SetCellValue('Q' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_15]) ? $listHoliday[$cham_cong->c_ngay_15]['code'] : '');
-                        $objPHPExcel->getActiveSheet()->SetCellValue('R' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_16]) ? $listHoliday[$cham_cong->c_ngay_16]['code'] : '');
-                        $objPHPExcel->getActiveSheet()->SetCellValue('S' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_17]) ? $listHoliday[$cham_cong->c_ngay_17]['code'] : '');
-                        $objPHPExcel->getActiveSheet()->SetCellValue('T' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_18]) ? $listHoliday[$cham_cong->c_ngay_18]['code'] : '');
-                        $objPHPExcel->getActiveSheet()->SetCellValue('U' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_19]) ? $listHoliday[$cham_cong->c_ngay_19]['code'] : '');
-                        $objPHPExcel->getActiveSheet()->SetCellValue('V' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_20]) ? $listHoliday[$cham_cong->c_ngay_20]['code'] : '');
-                        $objPHPExcel->getActiveSheet()->SetCellValue('W' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_21]) ? $listHoliday[$cham_cong->c_ngay_21]['code'] : '');
-                        $objPHPExcel->getActiveSheet()->SetCellValue('X' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_22]) ? $listHoliday[$cham_cong->c_ngay_22]['code'] : '');
-                        $objPHPExcel->getActiveSheet()->SetCellValue('Y' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_23]) ? $listHoliday[$cham_cong->c_ngay_23]['code'] : '');
-                        $objPHPExcel->getActiveSheet()->SetCellValue('Z' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_24]) ? $listHoliday[$cham_cong->c_ngay_24]['code'] : '');
-                        $objPHPExcel->getActiveSheet()->SetCellValue('AA' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_25]) ? $listHoliday[$cham_cong->c_ngay_25]['code'] : '');
-                        $objPHPExcel->getActiveSheet()->SetCellValue('AB' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_26]) ? $listHoliday[$cham_cong->c_ngay_26]['code'] : '');
-                        $objPHPExcel->getActiveSheet()->SetCellValue('AC' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_27]) ? $listHoliday[$cham_cong->c_ngay_27]['code'] : '');
-                        $objPHPExcel->getActiveSheet()->SetCellValue('AD' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_28]) ? $listHoliday[$cham_cong->c_ngay_28]['code'] : '');
-                        $objPHPExcel->getActiveSheet()->SetCellValue('AE' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_29]) ? $listHoliday[$cham_cong->c_ngay_29]['code'] : '');
-                        $objPHPExcel->getActiveSheet()->SetCellValue('AF' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_30]) ? $listHoliday[$cham_cong->c_ngay_30]['code'] : '');
-                        $objPHPExcel->getActiveSheet()->SetCellValue('AG' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_31]) ? $listHoliday[$cham_cong->c_ngay_31]['code'] : '');
+
+                        if ($cham_cong) {
+                            $objPHPExcel->getActiveSheet()->SetCellValue('C' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_1]) ? $listHoliday[$cham_cong->c_ngay_1]['code'] : '');
+                            $objPHPExcel->getActiveSheet()->SetCellValue('D' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_2]) ? $listHoliday[$cham_cong->c_ngay_2]['code'] : '');
+                            $objPHPExcel->getActiveSheet()->SetCellValue('E' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_3]) ? $listHoliday[$cham_cong->c_ngay_3]['code'] : '');
+                            $objPHPExcel->getActiveSheet()->SetCellValue('F' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_4]) ? $listHoliday[$cham_cong->c_ngay_4]['code'] : '');
+                            $objPHPExcel->getActiveSheet()->SetCellValue('G' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_5]) ? $listHoliday[$cham_cong->c_ngay_5]['code'] : '');
+                            $objPHPExcel->getActiveSheet()->SetCellValue('H' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_6]) ? $listHoliday[$cham_cong->c_ngay_6]['code'] : '');
+                            $objPHPExcel->getActiveSheet()->SetCellValue('I' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_7]) ? $listHoliday[$cham_cong->c_ngay_7]['code'] : '');
+                            $objPHPExcel->getActiveSheet()->SetCellValue('J' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_8]) ? $listHoliday[$cham_cong->c_ngay_8]['code'] : '');
+                            $objPHPExcel->getActiveSheet()->SetCellValue('K' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_9]) ? $listHoliday[$cham_cong->c_ngay_9]['code'] : '');
+                            $objPHPExcel->getActiveSheet()->SetCellValue('L' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_10]) ? $listHoliday[$cham_cong->c_ngay_10]['code'] : '');
+                            $objPHPExcel->getActiveSheet()->SetCellValue('M' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_11]) ? $listHoliday[$cham_cong->c_ngay_11]['code'] : '');
+                            $objPHPExcel->getActiveSheet()->SetCellValue('N' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_12]) ? $listHoliday[$cham_cong->c_ngay_12]['code'] : '');
+                            $objPHPExcel->getActiveSheet()->SetCellValue('O' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_13]) ? $listHoliday[$cham_cong->c_ngay_13]['code'] : '');
+                            $objPHPExcel->getActiveSheet()->SetCellValue('P' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_14]) ? $listHoliday[$cham_cong->c_ngay_14]['code'] : '');
+                            $objPHPExcel->getActiveSheet()->SetCellValue('Q' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_15]) ? $listHoliday[$cham_cong->c_ngay_15]['code'] : '');
+                            $objPHPExcel->getActiveSheet()->SetCellValue('R' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_16]) ? $listHoliday[$cham_cong->c_ngay_16]['code'] : '');
+                            $objPHPExcel->getActiveSheet()->SetCellValue('S' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_17]) ? $listHoliday[$cham_cong->c_ngay_17]['code'] : '');
+                            $objPHPExcel->getActiveSheet()->SetCellValue('T' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_18]) ? $listHoliday[$cham_cong->c_ngay_18]['code'] : '');
+                            $objPHPExcel->getActiveSheet()->SetCellValue('U' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_19]) ? $listHoliday[$cham_cong->c_ngay_19]['code'] : '');
+                            $objPHPExcel->getActiveSheet()->SetCellValue('V' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_20]) ? $listHoliday[$cham_cong->c_ngay_20]['code'] : '');
+                            $objPHPExcel->getActiveSheet()->SetCellValue('W' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_21]) ? $listHoliday[$cham_cong->c_ngay_21]['code'] : '');
+                            $objPHPExcel->getActiveSheet()->SetCellValue('X' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_22]) ? $listHoliday[$cham_cong->c_ngay_22]['code'] : '');
+                            $objPHPExcel->getActiveSheet()->SetCellValue('Y' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_23]) ? $listHoliday[$cham_cong->c_ngay_23]['code'] : '');
+                            $objPHPExcel->getActiveSheet()->SetCellValue('Z' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_24]) ? $listHoliday[$cham_cong->c_ngay_24]['code'] : '');
+                            $objPHPExcel->getActiveSheet()->SetCellValue('AA' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_25]) ? $listHoliday[$cham_cong->c_ngay_25]['code'] : '');
+                            $objPHPExcel->getActiveSheet()->SetCellValue('AB' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_26]) ? $listHoliday[$cham_cong->c_ngay_26]['code'] : '');
+                            $objPHPExcel->getActiveSheet()->SetCellValue('AC' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_27]) ? $listHoliday[$cham_cong->c_ngay_27]['code'] : '');
+                            $objPHPExcel->getActiveSheet()->SetCellValue('AD' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_28]) ? $listHoliday[$cham_cong->c_ngay_28]['code'] : '');
+                            $objPHPExcel->getActiveSheet()->SetCellValue('AE' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_29]) ? $listHoliday[$cham_cong->c_ngay_29]['code'] : '');
+                            $objPHPExcel->getActiveSheet()->SetCellValue('AF' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_30]) ? $listHoliday[$cham_cong->c_ngay_30]['code'] : '');
+                            $objPHPExcel->getActiveSheet()->SetCellValue('AG' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_31]) ? $listHoliday[$cham_cong->c_ngay_31]['code'] : '');
+                        }
                         $objPHPExcel->getActiveSheet()->SetCellValue('AI' . ($k + 6), $so_gio_lam_thu_7_cn . ':' . $so_phut_lam_thu_7_cn);
                         $objPHPExcel->getActiveSheet()->SetCellValue('AJ' . ($k + 6), $so_gio_lam_le_tet . ':' . $so_phut_lam_le_tet);
 
@@ -269,7 +293,7 @@ class Tochuccanbo_DuyetchamcongController extends Zend_Controller_Action {
                                 $objPHPExcel->getActiveSheet()->getStyle($day_key[$l] . ($k + 6))->getFill()
                                         ->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID,
                                             'startcolor' => array('rgb' => 'DDDDDD')
-                                        ));
+                                ));
                             }
                         }
                     }

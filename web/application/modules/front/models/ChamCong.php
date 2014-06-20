@@ -54,5 +54,12 @@ class Front_Model_ChamCong extends Zend_Db_Table_Abstract {
         }
         return $this->fetchRow($select);
     }
+    
+    public function fetchByMonth($year, $month) {
+        $select = $this->select();
+        $select->where('c_thang =?', $month);
+        $select->where('c_nam <=?', $year);
+        return $this->fetchAll($select);
+    }
 
 }
