@@ -1,0 +1,11 @@
+<?php
+$data['status'] = 0;
+if ($this->bac_luong) {       
+    $he_so_luong = unserialize($this->bac_luong['bl_he_so_luong']);
+    if($he_so_luong && $he_so_luong[$this->ncc_id]){
+        $data['status'] = 1;
+        $data['data'] = $he_so_luong[$this->ncc_id];
+    }
+}
+echo json_encode($data);
+?>

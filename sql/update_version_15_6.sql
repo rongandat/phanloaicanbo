@@ -39,3 +39,23 @@ ALTER TABLE `phanloaicanbo`.`employees_heso` DROP COLUMN `eh_pc_cong_viec`,
  DROP COLUMN `eh_pc_doc_hai`,
  DROP COLUMN `eh_pc_doc_hai_type`,
  DROP COLUMN `eh_pc_tham_nien`;
+
+
+CREATE TABLE `he_so_02` (
+  `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  `nam` INTEGER UNSIGNED NOT NULL,
+  `thang_1` FLOAT DEFAULT 0,
+  `thang_2` FLOAT DEFAULT 0,
+  `thang_3` FLOAT DEFAULT 0,
+  `thang_4` FLOAT DEFAULT 0,
+  `thang_5` FLOAT DEFAULT 0,
+  `thang_6` FLOAT DEFAULT 0,
+  `thang_7` FLOAT DEFAULT 0,
+  `thang_8` FLOAT DEFAULT 0,
+  `thang_9` FLOAT DEFAULT 0,
+  `thang_10` FLOAT DEFAULT 0,
+  `thang_11` FLOAT DEFAULT 0,
+  `thang_12` FLOAT DEFAULT 0,
+  PRIMARY KEY (`id`, `nam`)
+)
+ENGINE = InnoDB;
