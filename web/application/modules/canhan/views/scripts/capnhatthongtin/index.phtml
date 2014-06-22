@@ -25,7 +25,8 @@ foreach ($this->list_huyen as $huyen) {
             <?php echo $this->success_message; ?>
         </div>
     <?php else: ?>
-        <?php if ($this->employee_info) : ?>       
+        <?php if ($this->employee_info) : ?> 
+            <i>Thông tin cập nhật sẽ được hiển thị sau khi đươc duyệt</i>
             <form class="form-horizontal" method="post" action="" enctype="multipart/form-data">
                 <fieldset>
                     <legend>Thông tin cá nhân</legend>
@@ -803,7 +804,6 @@ foreach ($this->list_huyen as $huyen) {
                 <div class="control-group">
                     <em>* Thông tin cập nhật sẽ hiển thị khi được Phòng TCCB duyệt</em>
                 </div>
-                
             </form>
         <?php else : ?>
             <form class="form-horizontal" method="post" action="">
