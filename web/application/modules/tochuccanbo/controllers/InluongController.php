@@ -268,7 +268,7 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
                 $objPHPExcel->getActiveSheet()->getStyle("A" . ($k + 7))->getFill()
                         ->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID,
                             'startcolor' => array('rgb' => 'F28A8C')
-                        ));
+                ));
                 $objPHPExcel->getActiveSheet()->SetCellValue('A' . ($k + 7), $phong_ban_info->pb_name);
                 foreach ($list_nhan_vien as $nhan_vien) {
                     if ($phong_ban_info->pb_id == $nhan_vien->em_phong_ban) {
@@ -621,7 +621,7 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
                 $objPHPExcel->getActiveSheet()->getStyle("A" . ($k + 7))->getFill()
                         ->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID,
                             'startcolor' => array('rgb' => 'F28A8C')
-                        ));
+                ));
                 $objPHPExcel->getActiveSheet()->SetCellValue('A' . ($k + 7), $phong_ban_info->pb_name);
                 foreach ($list_nhan_vien as $nhan_vien) {
                     if ($phong_ban_info->pb_id == $nhan_vien->em_phong_ban) {
@@ -679,19 +679,14 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
                                 $hs_pc_tnvk = $hs_pc_chuc_vu * $hs_pc_tnvk_phan_tram / 100;
                             }
 
-                            if (!$giai_doan && !$loai_luong)
-                                $hs_pc_thu_hut = ($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $hs_pc_thu_hut_phan_tram / 100;
-                            else
-                                $hs_pc_thu_hut = ($hs_pc_chuc_vu + $hs_pc_tnvk) * $hs_pc_thu_hut_phan_tram / 100;
-
                             if (!$giai_doan) {
                                 $hs_pc_tham_nien = ($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $hs_pc_tham_nien_phan_tram / 100;
                             } else {
                                 $hs_pc_tham_nien = ($hs_pc_chuc_vu + $hs_pc_tnvk) * $hs_pc_tham_nien_phan_tram / 100;
                             }
 
+                            $hs_pc_thu_hut = ($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $hs_pc_thu_hut_phan_tram / 100;
                             $hs_pc_uu_dai_nghe = ($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $uu_dai_nghe / 100;
-
 
                             $thanh_tien_pc_khac = $hs_pc_khac * $pc_khac;
 
@@ -850,12 +845,12 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
         $hesocbModel = new Front_Model_HeSo();
         $heso02Model = new Front_Model_HeSo02();
         $he_so_02 = $heso02Model->fetchRow("nam=$nam");
-        if(!$he_so_02){
+        if (!$he_so_02) {
             $this->_helper->viewRenderer->setRender('loi');
             die();
         }
-        
-        
+
+
         $lastHeSoLuong = $hesocbModel->fetchOneData(array('hs_ngay_bat_dau' => date("$nam-$thang-1")), 'hs_ngay_bat_dau DESC');
 
         $pb_selected = $this->_getParam('phongban', 0);
@@ -890,7 +885,7 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
 
 
             $luong_co_ban = $lastHeSoLuong->hs_luong_co_ban; //luong co ban
-            $thang_choosed = 'thang_'.$thang;
+            $thang_choosed = 'thang_' . $thang;
             $tien_quy_tang_them = $tong_he_so_luong * $luong_co_ban * $he_so_02->$thang_choosed;
             $tien_quy_con_lai = $tien_quy_tang_them;
             if ($tien_quy_con_lai < 0)
@@ -904,7 +899,7 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
                 $objPHPExcel->getActiveSheet()->getStyle("A" . ($k + 7))->getFill()
                         ->applyFromArray(array('type' => PHPExcel_Style_Fill::FILL_SOLID,
                             'startcolor' => array('rgb' => 'F28A8C')
-                        ));
+                ));
                 $objPHPExcel->getActiveSheet()->SetCellValue('A' . ($k + 7), $phong_ban_info->pb_name);
                 foreach ($list_nhan_vien as $nhan_vien) {
                     if ($phong_ban_info->pb_id == $nhan_vien->em_phong_ban) {
@@ -962,17 +957,13 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
                                 $hs_pc_tnvk = $hs_pc_chuc_vu * $hs_pc_tnvk_phan_tram / 100;
                             }
 
-                            if (!$giai_doan && !$loai_luong)
-                                $hs_pc_thu_hut = ($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $hs_pc_thu_hut_phan_tram / 100;
-                            else
-                                $hs_pc_thu_hut = ($hs_pc_chuc_vu + $hs_pc_tnvk) * $hs_pc_thu_hut_phan_tram / 100;
-
                             if (!$giai_doan) {
                                 $hs_pc_tham_nien = ($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $hs_pc_tham_nien_phan_tram / 100;
                             } else {
                                 $hs_pc_tham_nien = ($hs_pc_chuc_vu + $hs_pc_tnvk) * $hs_pc_tham_nien_phan_tram / 100;
                             }
 
+                            $hs_pc_thu_hut = ($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $hs_pc_thu_hut_phan_tram / 100;
                             $hs_pc_uu_dai_nghe = ($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $uu_dai_nghe / 100;
 
 

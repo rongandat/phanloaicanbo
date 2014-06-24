@@ -487,7 +487,7 @@ class Tochuccanbo_TinhluongController extends Zend_Controller_Action {
 
     public function auto03Action() {
         $translate = Zend_Registry::get('Zend_Translate');
-        $this->view->title = 'Tính lương hệ số 0.2 - ' . $translate->_('TEXT_DEFAULT_TITLE');
+        $this->view->title = 'Tính lương hệ số 0.3 - ' . $translate->_('TEXT_DEFAULT_TITLE');
         $this->view->headTitle($this->view->title);
 
         $layoutPath = APPLICATION_PATH . '/templates/' . TEMPLATE_USED;
@@ -574,16 +574,12 @@ class Tochuccanbo_TinhluongController extends Zend_Controller_Action {
                     $pc_chuc_vu = $pc_tnvk = $pc_thu_hut = $pc_tham_nien = $luong_toi_thieu_sau_bh;
                     $pc_khu_vuc = $luong_toi_thieu_bhyt;
 
+
                     if (!$giai_doan && !$loai_luong) {
                         $hs_pc_tnvk = ($he_so_luong + $hs_pc_chuc_vu) * $hs_pc_tnvk_phan_tram / 100;
                     } else {
                         $hs_pc_tnvk = $hs_pc_chuc_vu * $hs_pc_tnvk_phan_tram / 100;
                     }
-
-                    if (!$giai_doan && !$loai_luong)
-                        $hs_pc_thu_hut = ($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $hs_pc_thu_hut_phan_tram / 100;
-                    else
-                        $hs_pc_thu_hut = ($hs_pc_chuc_vu + $hs_pc_tnvk) * $hs_pc_thu_hut_phan_tram / 100;
 
                     if (!$giai_doan) {
                         $hs_pc_tham_nien = ($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $hs_pc_tham_nien_phan_tram / 100;
@@ -591,8 +587,8 @@ class Tochuccanbo_TinhluongController extends Zend_Controller_Action {
                         $hs_pc_tham_nien = ($hs_pc_chuc_vu + $hs_pc_tnvk) * $hs_pc_tham_nien_phan_tram / 100;
                     }
 
+                    $hs_pc_thu_hut = ($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $hs_pc_thu_hut_phan_tram / 100;
                     $hs_pc_uu_dai_nghe = ($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $uu_dai_nghe / 100;
-
 
                     $thanh_tien_pc_khac = $hs_pc_khac * $pc_khac;
 

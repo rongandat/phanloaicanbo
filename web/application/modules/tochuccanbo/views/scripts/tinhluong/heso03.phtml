@@ -61,17 +61,13 @@
                 $hs_pc_tnvk = $hs_pc_chuc_vu * $hs_pc_tnvk_phan_tram / 100;
             }
 
-            if (!$giai_doan && !$loai_luong)
-                $hs_pc_thu_hut = ($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $hs_pc_thu_hut_phan_tram / 100;
-            else
-                $hs_pc_thu_hut = ($hs_pc_chuc_vu + $hs_pc_tnvk) * $hs_pc_thu_hut_phan_tram / 100;
-
             if (!$giai_doan) {
                 $hs_pc_tham_nien = ($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $hs_pc_tham_nien_phan_tram / 100;
             } else {
                 $hs_pc_tham_nien = ($hs_pc_chuc_vu + $hs_pc_tnvk) * $hs_pc_tham_nien_phan_tram / 100;
             }
 
+            $hs_pc_thu_hut = ($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $hs_pc_thu_hut_phan_tram / 100;
             $hs_pc_uu_dai_nghe = ($he_so_luong + $hs_pc_chuc_vu + $hs_pc_tnvk) * $uu_dai_nghe / 100;
 
 
@@ -292,22 +288,22 @@
     var he_so_phan_loai = new Array();
     he_so_phan_loai['A'] = 1.2;
     he_so_phan_loai['B'] = 1;
-    he_so_phan_loai['C'] = 0.8;    
-    he_so_phan_loai['D'] = 0;    
-    he_so_phan_loai['O'] = 0;    
+    he_so_phan_loai['C'] = 0.8;
+    he_so_phan_loai['D'] = 0;
+    he_so_phan_loai['O'] = 0;
 <?php
 if ($this->bang_luong && $this->em_info && $this->he_so && $this->he_so_cb && $this->phan_loai && $this->phan_loai->dg_ptccb_status != ''):
     ?>
-            var luong_toi_thieu = <?php echo $luong_toi_thieu; ?>;
-            var luong_thu_viec = <?php echo $luong_thu_viec; ?>;
-            var bhxh = <?php echo $bhxh; ?>;
-            var bhyt = <?php echo $bhyt; ?>;
-            var luong_toi_thieu_sau_bh = <?php echo $luong_toi_thieu_sau_bh; ?>;
-                
+        var luong_toi_thieu = <?php echo $luong_toi_thieu; ?>;
+        var luong_thu_viec = <?php echo $luong_thu_viec; ?>;
+        var bhxh = <?php echo $bhxh; ?>;
+        var bhyt = <?php echo $bhyt; ?>;
+        var luong_toi_thieu_sau_bh = <?php echo $luong_toi_thieu_sau_bh; ?>;
+
 <?php endif; ?>
-    var currentYear = <?php echo $this->nam; ?>;    
-    var currentEm = <?php echo $this->nv_id; ?>;    
-    
+    var currentYear = <?php echo $this->nam; ?>;
+    var currentEm = <?php echo $this->nv_id; ?>;
+
     var options = {
         pattern: 'mm/yyyy', // Default is 'mm/yyyy' and separator char is not mandatory 
         startYear: 2013,
@@ -317,49 +313,49 @@ if ($this->bang_luong && $this->em_info && $this->he_so && $this->he_so_cb && $t
 
     $('#bl_thang_nam').monthpicker(options);
 
-    $('#bl_thang_nam').monthpicker().bind('monthpicker-click-month', function (e, month, year) { 
-        window.location = site_url+'/tochuccanbo/tinhluong/heso03/thang/'+month+'/nam/'+year+'/id/'+currentEm;
+    $('#bl_thang_nam').monthpicker().bind('monthpicker-click-month', function(e, month, year) {
+        window.location = site_url + '/tochuccanbo/tinhluong/heso03/thang/' + month + '/nam/' + year + '/id/' + currentEm;
     });
 
-    $('#btn_chon_thang').bind('click', function () {
+    $('#btn_chon_thang').bind('click', function() {
         $('#bl_thang_nam').monthpicker('show');
     });
-    
-    function re_calculator(){
+
+    function re_calculator() {
         var phan_loai = $('select[name=sl_phan_loai]').val();
-        var hs_phan_loai = he_so_phan_loai[phan_loai];            
-        var tong_hs_luong_pc = $('input[name=bl_tong_he_so]').val();  
-        var tong_hs_luong_pc_ca_nhan = $('input[name=bl_tong_he_so_ca_nhan]').val();         
-        var tong_hs_luong_pc_plld = tong_hs_luong_pc_ca_nhan*hs_phan_loai;
-        tong_hs_luong_pc_plld = parseFloat(tong_hs_luong_pc_plld);     
-        
+        var hs_phan_loai = he_so_phan_loai[phan_loai];
+        var tong_hs_luong_pc = $('input[name=bl_tong_he_so]').val();
+        var tong_hs_luong_pc_ca_nhan = $('input[name=bl_tong_he_so_ca_nhan]').val();
+        var tong_hs_luong_pc_plld = tong_hs_luong_pc_ca_nhan * hs_phan_loai;
+        tong_hs_luong_pc_plld = parseFloat(tong_hs_luong_pc_plld);
+
         $('input[name=bl_phan_loai_he_so]').val(hs_phan_loai);
-        $('#lbl_phan_loai_he_so').html(hs_phan_loai);        
-        $('#lbl_hs_luong_pc_plld').html(number_format(tong_hs_luong_pc_plld, 2, '.', ','));       
-        $('input[name=bl_tong_he_so_plld]').val(tong_hs_luong_pc_plld);       
-        
+        $('#lbl_phan_loai_he_so').html(hs_phan_loai);
+        $('#lbl_hs_luong_pc_plld').html(number_format(tong_hs_luong_pc_plld, 2, '.', ','));
+        $('input[name=bl_tong_he_so_plld]').val(tong_hs_luong_pc_plld);
+
     }
-    
-    function on_luu_bang_luong(){
+
+    function on_luu_bang_luong() {
         $.blockUI({
             message: '<h3>Đang thực hiện</h3>',
-            css: {                         
-                border: 'none', 
-                padding: '15px', 
-                backgroundColor: '#000', 
-                '-webkit-border-radius': '10px', 
-                '-moz-border-radius': '10px', 
-                opacity: .5, 
-                color: '#fff' 
+            css: {
+                border: 'none',
+                padding: '15px',
+                backgroundColor: '#000',
+                '-webkit-border-radius': '10px',
+                '-moz-border-radius': '10px',
+                opacity: .5,
+                color: '#fff'
             }
-        }); 
-        $.post( site_url+'/tochuccanbo/tinhluong/luuheso03', $('#frm_tinh_luong').serialize(), function(data) {
-            if(data.status){                
-                $.success_ui('Thông báo!', 'Lưu bảng lương thành công!', 4000);   
+        });
+        $.post(site_url + '/tochuccanbo/tinhluong/luuheso03', $('#frm_tinh_luong').serialize(), function(data) {
+            if (data.status) {
+                $.success_ui('Thông báo!', 'Lưu bảng lương thành công!', 4000);
                 $('#sp_message_tinh_luong').show();
-            }else{
-                $.error_ui('Thông báo', 'Không thể thực hiện được!', 4000); 
+            } else {
+                $.error_ui('Thông báo', 'Không thể thực hiện được!', 4000);
             }
-        },'json'); 
+        }, 'json');
     }
 </script>
