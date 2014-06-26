@@ -12,7 +12,7 @@ class Tochuccanbo_Heso02Controller extends Zend_Controller_Action {
         $identity = $auth->getIdentity();
 
         //kiem tra permission
-        $check_permission = $this->_helper->global->checkPermission($identity->group_id, '1007');
+        $check_permission = $this->_helper->global->checkPermission($identity->group_id, '4015');
         if (!$check_permission) {
             $this->_redirect('index/permission/');
             exit();

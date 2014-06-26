@@ -276,7 +276,7 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
                         $ky_luat = $kyluatModel->fetchByDate($nhan_vien->em_id, "$nam-$thang-01 00:00:00", "$nam-$thang-31 23:59:59");
                         $bang_luong = $bangluongModel->fetchByDate($nhan_vien->em_id, "$nam-$thang-01 00:00:00", "$nam-$thang-31 23:59:59");
 
-                        if ($bang_luong) {
+                        if ($bang_luong) {  
                             $k++;
                             $stt++;
                             $luong_toi_thieu = $bang_luong->bl_luong_toi_thieu; //luong co ban
@@ -290,8 +290,8 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
                             $hs_pc_trach_nhiem = $bang_luong->bl_hs_pc_trach_nhiem;
                             $hs_pc_khu_vuc = $bang_luong->bl_hs_pc_khu_vuc;
                             $hs_pc_tnvk_phan_tram = $bang_luong->bl_hs_pc_tnvk;
-                            $hs_pc_tham_nien_phan_tram = $bang_luong->bl_tham_nien;
-                            $time_tham_niem = strtotime($bang_luong->bl_time_tham_nien);
+                            $hs_pc_tham_nien_phan_tram = $tham_nien = $bang_luong->bl_tham_nien;
+                            $time_tham_niem = strtotime($bang_luong->bl_time_tham_nien);                            
                             $uu_dai_nghe = $bang_luong->bl_hs_pc_udn;
                             $cong_vu = $bang_luong->bl_hs_pc_cong_vu;
                             $thu_hut = $bang_luong->bl_pc_thu_hut;
@@ -302,10 +302,10 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
 
                             $nam_tham_niem = date('Y', $time_tham_niem);
                             $thang_tham_niem = date('m', $time_tham_niem);
-                            $tham_nien = $nam - $nam_tham_niem;
-                            if ($thang < $thang_tham_niem) {
-                                $tham_nien--;
-                            }
+                            //$tham_nien = $nam - $nam_tham_niem;
+                            //if ($thang < $thang_tham_niem) {
+                                //$tham_nien--;
+                            //}
 
                             $luong_toi_thieu_sau_bh = (int) ($luong_toi_thieu * (100 - ($bhxh + $bhyt)) / 100);
                             $luong_toi_thieu_bhyt = (int) ($luong_toi_thieu * (100 - $bhyt) / 100);
@@ -646,7 +646,7 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
                             $hs_pc_doc_hai = $bang_luong->bl_pc_doc_hai;
                             $hs_pc_doc_hai_type = $bang_luong->bl_pc_doc_hai_type;
                             $time_tham_niem = strtotime($bang_luong->bl_time_tham_nien); //tinh tham nien tu ngay
-                            $hs_pc_tham_nien_phan_tram = $bang_luong->bl_tham_nien;
+                            $hs_pc_tham_nien_phan_tram = $tham_nien = $bang_luong->bl_tham_nien;
                             $uu_dai_nghe = $bang_luong->bl_hs_pc_udn;
                             $kiem_nhiem = $bang_luong->bl_pc_kiem_nhiem;
                             $hs_pc_khac = $bang_luong->bl_hs_pc_khac;
@@ -662,10 +662,10 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
 
                             $nam_tham_niem = date('Y', $time_tham_niem);
                             $thang_tham_niem = date('m', $time_tham_niem);
-                            $tham_nien = $nam - $nam_tham_niem;
-                            if ($thang < $thang_tham_niem) {
-                                $tham_nien--;
-                            }
+                            //$tham_nien = $nam - $nam_tham_niem;
+                            //if ($thang < $thang_tham_niem) {
+                                //$tham_nien--;
+                            //}
 
                             $luong_toi_thieu_sau_bh = (int) ($luong_toi_thieu * (100 - ($bhxh + $bhyt)) / 100);
                             $luong_toi_thieu_bhyt = (int) ($luong_toi_thieu * (100 - $bhyt) / 100);
@@ -923,7 +923,7 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
                             $hs_pc_doc_hai = $bang_luong->bl_pc_doc_hai;
                             $hs_pc_doc_hai_type = $bang_luong->bl_pc_doc_hai_type;
                             $time_tham_niem = strtotime($bang_luong->bl_time_tham_nien); //tinh tham nien tu ngay
-                            $hs_pc_tham_nien_phan_tram = $bang_luong->bl_tham_nien;
+                            $hs_pc_tham_nien_phan_tram = $tham_nien = $bang_luong->bl_tham_nien;
                             $uu_dai_nghe = $bang_luong->bl_hs_pc_udn;
                             $kiem_nhiem = $bang_luong->bl_pc_kiem_nhiem;
                             $hs_pc_khac = $bang_luong->bl_hs_pc_khac;
@@ -940,10 +940,10 @@ class Tochuccanbo_InluongController extends Zend_Controller_Action {
 
                             $nam_tham_niem = date('Y', $time_tham_niem);
                             $thang_tham_niem = date('m', $time_tham_niem);
-                            $tham_nien = $nam - $nam_tham_niem;
-                            if ($thang < $thang_tham_niem) {
-                                $tham_nien--;
-                            }
+                            //$tham_nien = $nam - $nam_tham_niem;
+                            //if ($thang < $thang_tham_niem) {
+                                //$tham_nien--;
+                            //}
 
                             $luong_toi_thieu_sau_bh = (int) ($luong_toi_thieu * (100 - ($bhxh + $bhyt)) / 100);
                             $luong_toi_thieu_bhyt = (int) ($luong_toi_thieu * (100 - $bhyt) / 100);
