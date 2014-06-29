@@ -37,7 +37,7 @@ class Tochuccanbo_PhanloaithangController extends Zend_Controller_Action {
             'layoutPath' => $layoutPath);
         Zend_Layout::startMvc($option);
 
-        $date = new Zend_Date();        
+        $date = new Zend_Date();
         $thang = $this->_getParam('thang', $date->toString("M"));
         $nam = $this->_getParam('nam', $date->toString("Y"));
 
@@ -90,6 +90,20 @@ class Tochuccanbo_PhanloaithangController extends Zend_Controller_Action {
 
             $objPHPExcel = PHPExcel_IOFactory::load($inputFileName);
 
+            $styleArray = array(
+                'borders' => array(
+                    'allborders' => array(
+                        'style' => PHPExcel_Style_Border::BORDER_THIN
+                    )
+                ),
+                'font' => array(
+                    'bold' => false,
+                    'color' => array('rgb' => '000000'),
+                    'size' => 11,
+                    'name' => 'Times New Roman'
+                )
+            );
+
             $objPHPExcel->getProperties()->setCreator("Cục Hải Quan Hà Tĩnh");
             $objPHPExcel->getProperties()->setLastModifiedBy("Cục Hải Quan Hà Tĩnh");
             $objPHPExcel->getProperties()->setTitle("Thống kê tháng");
@@ -131,7 +145,7 @@ class Tochuccanbo_PhanloaithangController extends Zend_Controller_Action {
                             $objPHPExcel->getActiveSheet()->SetCellValue('B' . ($k + 8), $stt_1);
                             $objPHPExcel->getActiveSheet()->SetCellValue('C' . ($k + 8), $nhan_vien->em_ho . ' ' . $nhan_vien->em_ten);
                             $objPHPExcel->getActiveSheet()->SetCellValue('D' . ($k + 8), $list_chuc_vu[$nhan_vien->em_chuc_vu]);
-                            
+
                             switch ($pl_ptccb) {
                                 case 'A':
                                     $objPHPExcel->getActiveSheet()->SetCellValue('E' . ($k + 8), 'X');
@@ -148,13 +162,14 @@ class Tochuccanbo_PhanloaithangController extends Zend_Controller_Action {
                                 case '-':
                                     $objPHPExcel->getActiveSheet()->SetCellValue('I' . ($k + 8), 'X');
                                     break;
-                            } 
+                            }
                         }
+                        $objPHPExcel->getActiveSheet()->getStyle('A' . ($k + 8) . ':J' . ($k + 8))->applyFromArray($styleArray);
                     }
                 }
-                
+
                 $objPHPExcel->getActiveSheet()->SetCellValue('A' . ($k + 13), 'Ghi chú: Để trống là chưa phân loại hoặc chưa xét duyệt');
-                
+
                 $objPHPExcel->getActiveSheet()->setTitle('Thống kê phân loại tháng' . $thang . '-' . $nam);
                 $file_name = 'Thong_Ke_Phan_Loai_Thang_' . $thang . '-' . $nam . '.xls';
 

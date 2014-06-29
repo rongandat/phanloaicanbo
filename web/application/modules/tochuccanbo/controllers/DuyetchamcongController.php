@@ -113,6 +113,20 @@ class Tochuccanbo_DuyetchamcongController extends Zend_Controller_Action {
 
         $objPHPExcel = PHPExcel_IOFactory::load($inputFileName);
 
+        $styleArray = array(
+            'borders' => array(
+                'allborders' => array(
+                    'style' => PHPExcel_Style_Border::BORDER_THIN
+                )
+            ),
+            'font' => array(
+                'bold' => false,
+                'color' => array('rgb' => '000000'),
+                'size' => 11,
+                'name' => 'Times New Roman'
+            )
+        );
+        
         $objPHPExcel->getProperties()->setCreator("Cục Hải Quan Hà Tĩnh");
         $objPHPExcel->getProperties()->setLastModifiedBy("Cục Hải Quan Hà Tĩnh");
         $objPHPExcel->getProperties()->setTitle("Thống kê tháng");
@@ -233,6 +247,7 @@ class Tochuccanbo_DuyetchamcongController extends Zend_Controller_Action {
                             'startcolor' => array('rgb' => 'F28A8C')
                 ));
                 $objPHPExcel->getActiveSheet()->SetCellValue('A' . ($k + 6), $phong_ban_info->pb_name);
+                $objPHPExcel->getActiveSheet()->getStyle('A' . ($k + 6))->applyFromArray($styleArray);
                 foreach ($list_nhan_vien as $nhan_vien) {
                     if ($phong_ban_info->pb_id == $nhan_vien->em_phong_ban) {
                         $so_gio_lam_le_tet = $so_phut_lam_le_tet = 0;
@@ -313,6 +328,7 @@ class Tochuccanbo_DuyetchamcongController extends Zend_Controller_Action {
                                 ));
                             }
                         }
+                        $objPHPExcel->getActiveSheet()->getStyle('A' . ($k + 6) . ':AL' . ($k + 6))->applyFromArray($styleArray);
                     }
                 }
             }
@@ -330,6 +346,7 @@ class Tochuccanbo_DuyetchamcongController extends Zend_Controller_Action {
                 $k++;
                 $objPHPExcel->getActiveSheet()->SetCellValue('B' . ($k + 7), $holiday['hld_name']);
                 $objPHPExcel->getActiveSheet()->SetCellValue('C' . ($k + 7), $holiday['hld_code']);
+                $objPHPExcel->getActiveSheet()->getStyle('B' . ($k + 7) . ':C' . ($k + 7))->applyFromArray($styleArray);
             }
 
             if ($k) {

@@ -91,6 +91,20 @@ class Donvi_ThongkethangController extends Zend_Controller_Action {
 
         $objPHPExcel = PHPExcel_IOFactory::load($inputFileName);
 
+        $styleArray = array(
+            'borders' => array(
+                'allborders' => array(
+                    'style' => PHPExcel_Style_Border::BORDER_THIN
+                )
+            ),
+            'font' => array(
+                'bold' => false,
+                'color' => array('rgb' => '000000'),
+                'size' => 11,
+                'name' => 'Times New Roman'
+            )
+        );
+
         $objPHPExcel->getProperties()->setCreator("Cục Hải Quan Hà Tĩnh");
         $objPHPExcel->getProperties()->setLastModifiedBy("Cục Hải Quan Hà Tĩnh");
         $objPHPExcel->getProperties()->setTitle("Thống kê tháng");
@@ -252,8 +266,8 @@ class Donvi_ThongkethangController extends Zend_Controller_Action {
                 $objPHPExcel->getActiveSheet()->SetCellValue('AE' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_29]) ? $listHoliday[$cham_cong->c_ngay_29]['code'] : '');
                 $objPHPExcel->getActiveSheet()->SetCellValue('AF' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_30]) ? $listHoliday[$cham_cong->c_ngay_30]['code'] : '');
                 $objPHPExcel->getActiveSheet()->SetCellValue('AG' . ($k + 6), !empty($listHoliday[$cham_cong->c_ngay_31]) ? $listHoliday[$cham_cong->c_ngay_31]['code'] : '');
-                $objPHPExcel->getActiveSheet()->SetCellValue('AI' . ($k + 6), $so_gio_lam_thu_7_cn.':'.$so_phut_lam_thu_7_cn);
-                $objPHPExcel->getActiveSheet()->SetCellValue('AJ' . ($k + 6), $so_gio_lam_le_tet.':'.$so_phut_lam_le_tet);
+                $objPHPExcel->getActiveSheet()->SetCellValue('AI' . ($k + 6), $so_gio_lam_thu_7_cn . ':' . $so_phut_lam_thu_7_cn);
+                $objPHPExcel->getActiveSheet()->SetCellValue('AJ' . ($k + 6), $so_gio_lam_le_tet . ':' . $so_phut_lam_le_tet);
 
 
                 for ($l = 1; $l <= 31; $l++) {
@@ -264,6 +278,9 @@ class Donvi_ThongkethangController extends Zend_Controller_Action {
                                 ));
                     }
                 }
+
+                $objPHPExcel->getActiveSheet()->getStyle('A' . ($k + 6) . ':AL' . ($k + 6))->applyFromArray($styleArray);
+                
             }
 
             $loop_day = 31 - $days_in_month;
@@ -271,25 +288,13 @@ class Donvi_ThongkethangController extends Zend_Controller_Action {
                 $col_num = 33 - $a;
                 $objPHPExcel->getActiveSheet()->removeColumnByIndex($col_num);
             }
-
-            /* switch ($loop_day) {
-              case 0:
-              $objPHPExcel->getActiveSheet()->mergeCells("C6:AG6");
-              break;
-              case 1:
-              $objPHPExcel->getActiveSheet()->mergeCells("C6:AF6");
-              break;
-              case 2:
-              $objPHPExcel->getActiveSheet()->mergeCells("C6:AE6");
-              break;
-              } */
-
-
+            
             $k += 5;
             foreach ($holidays as $holiday) {
                 $k++;
                 $objPHPExcel->getActiveSheet()->SetCellValue('B' . ($k + 7), $holiday['hld_name']);
                 $objPHPExcel->getActiveSheet()->SetCellValue('C' . ($k + 7), $holiday['hld_code']);
+                $objPHPExcel->getActiveSheet()->getStyle('B' . ($k + 7) . ':C' . ($k + 7))->applyFromArray($styleArray);
             }
 
 

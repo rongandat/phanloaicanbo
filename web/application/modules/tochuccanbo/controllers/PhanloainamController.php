@@ -89,6 +89,20 @@ class Tochuccanbo_PhanloainamController extends Zend_Controller_Action {
 
             $objPHPExcel = PHPExcel_IOFactory::load($inputFileName);
 
+            $styleArray = array(
+                'borders' => array(
+                    'allborders' => array(
+                        'style' => PHPExcel_Style_Border::BORDER_THIN
+                    )
+                ),
+                'font' => array(
+                    'bold' => false,
+                    'color' => array('rgb' => '000000'),
+                    'size' => 11,
+                    'name' => 'Times New Roman'
+                )
+            );
+
             $objPHPExcel->getProperties()->setCreator("Cục Hải Quan Hà Tĩnh");
             $objPHPExcel->getProperties()->setLastModifiedBy("Cục Hải Quan Hà Tĩnh");
             $objPHPExcel->getProperties()->setTitle("Thống kê tháng");
@@ -172,6 +186,7 @@ class Tochuccanbo_PhanloainamController extends Zend_Controller_Action {
                                 }
                             }
                         }
+                        $objPHPExcel->getActiveSheet()->getStyle('A' . ($k + 7) . ':Q' . ($k + 7))->applyFromArray($styleArray);
                     }
                 }
 
