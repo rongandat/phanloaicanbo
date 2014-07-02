@@ -1,6 +1,6 @@
 <?php
 
-class Taivu_DuyetthemgioController extends Zend_Controller_Action {
+class Tochuccanbo_DuyetthemgioController extends Zend_Controller_Action {
 
     protected $_arrParam;
     protected $_page = 1;
@@ -156,7 +156,7 @@ class Taivu_DuyetthemgioController extends Zend_Controller_Action {
                 }
             }
         }
-        $this->_redirect('taivu/duyetthemgio/index/thang/' . $thang . '/nam/' . $nam . '/phongban/' . $phongban);
+        $this->_redirect('tochuccanbo/duyetthemgio/index/thang/' . $thang . '/nam/' . $nam . '/phongban/' . $phongban);
     }
 
 }

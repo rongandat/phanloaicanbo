@@ -1,6 +1,6 @@
 <?php
 
-class Taivu_HesoluongController extends Zend_Controller_Action {
+class Tochuccanbo_HesoluongController extends Zend_Controller_Action {
 
     protected $_arrParam;
     protected $_actionMain;

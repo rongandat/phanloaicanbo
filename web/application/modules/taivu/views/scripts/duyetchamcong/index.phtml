@@ -35,9 +35,9 @@ foreach ($this->list_phong_ban_option as $phong_ban) {
         </div>
         <div class="btn-toolbar float_left">
             <div class="btn-group">
-                <button class="btn" onclick="OnSubmitForm('<?php echo $this->baseUrl('taivu/duyetchamcong/updatestatus/status/1/thang/' . $this->thang . '/nam/' . $this->nam . '/phongban/' . $this->pb_id); ?>')"><i class="icon-ok-sign"></i> Duyệt</button>
-                <button class="btn" onclick="OnSubmitForm('<?php echo $this->baseUrl('taivu/duyetchamcong/updatestatus/status/0/thang/' . $this->thang . '/nam/' . $this->nam . '/phongban/' . $this->pb_id); ?>')"><i class="icon-remove-sign"></i> Không duyệt</button>
-                <a class="btn btn-primary" target="_blank" href="<?php echo$this->baseUrl('taivu/duyetchamcong/exelthongke/thang/' . $this->thang . '/nam/' . $this->nam . '/phongban/' . $this->pb_id); ?>"><i class="icon-download-alt"></i> Xuất ra file Exel</a>
+                <button class="btn" onclick="OnSubmitForm('<?php echo $this->baseUrl('tochuccanbo/duyetchamcong/updatestatus/status/1/thang/' . $this->thang . '/nam/' . $this->nam . '/phongban/' . $this->pb_id); ?>')"><i class="icon-ok-sign"></i> Duyệt</button>
+                <button class="btn" onclick="OnSubmitForm('<?php echo $this->baseUrl('tochuccanbo/duyetchamcong/updatestatus/status/0/thang/' . $this->thang . '/nam/' . $this->nam . '/phongban/' . $this->pb_id); ?>')"><i class="icon-remove-sign"></i> Không duyệt</button>
+                <a class="btn btn-primary" target="_blank" href="<?php echo$this->baseUrl('tochuccanbo/duyetchamcong/exelthongke/thang/' . $this->thang . '/nam/' . $this->nam . '/phongban/' . $this->pb_id); ?>"><i class="icon-download-alt"></i> Xuất ra file Exel</a>
             </div>
         </div>
 
@@ -145,7 +145,7 @@ foreach ($this->list_phong_ban_option as $phong_ban) {
     $('#txt_thang_nam').monthpicker(options);
 
     $('#txt_thang_nam').monthpicker().bind('monthpicker-click-month', function (e, month, year) { 
-        window.location = site_url+'/taivu/duyetchamcong/index/thang/'+month+'/nam/'+year+'/phongban/'+phong_ban;
+        window.location = site_url+'/tochuccanbo/duyetchamcong/index/thang/'+month+'/nam/'+year+'/phongban/'+phong_ban;
     });
 
     $('#btn_chon_thang').bind('click', function () {
@@ -163,12 +163,12 @@ foreach ($this->list_phong_ban_option as $phong_ban) {
             c_m = date_array[0];
             c_y = date_array[1];
         }        
-        window.location = site_url+'/taivu/duyetchamcong/index/thang/'+c_m+'/nam/'+c_y+'/phongban/'+phong_ban;
+        window.location = site_url+'/tochuccanbo/duyetchamcong/index/thang/'+c_m+'/nam/'+c_y+'/phongban/'+phong_ban;
     }
     function loadFormChiTiet(em_id, thang, nam, em_name){
         $('#myDetailLabel').html(em_name);       
         $('#mdDetailBody').html('Đang tải dữ liệu');
-        $('#mdDetailBody').load(site_url+'/taivu/duyetchamcong/detail/thang/'+thang+'/nam/'+nam+'/em/'+em_id+' #dv_cham_cong_chi_tiet', function(){
+        $('#mdDetailBody').load(site_url+'/tochuccanbo/duyetchamcong/detail/thang/'+thang+'/nam/'+nam+'/em/'+em_id+' #dv_cham_cong_chi_tiet', function(){
          
         });
     }
@@ -223,7 +223,7 @@ foreach ($this->list_phong_ban_option as $phong_ban) {
             }
         }); 
         
-        $.post( site_url+'/taivu/duyetchamcong/jqupdatestatus', {
+        $.post( site_url+'/tochuccanbo/duyetchamcong/jqupdatestatus', {
             item_id: id_item, 
             item_status: new_status
         }, function(data) {    

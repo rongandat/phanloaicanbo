@@ -52,6 +52,9 @@ class Block_BlkTopMenu extends Zend_View_Helper_Abstract {
                     'duyetphanloai' => 'Duyệt phân loại cán bộ',
                     'thongkethang' => 'Thống kê tháng',
             )),
+            'taivu' => array('name' => 'Tài vụ', 'sub' => array(
+                    'employees' => 'QL hệ số lương & phụ cấp'
+            )),
             'tochuccanbo' => array('name' => 'Tổ chức cán bộ', 'sub' => array(
                     'employees' => 'QL Cán bộ',
                     'capnhatthongtin' => 'QL Yêu cầu cập nhật thông tin',

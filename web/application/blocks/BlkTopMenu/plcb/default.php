@@ -8,11 +8,14 @@
                 foreach ($menu_data['sub'] as $sub_key => $sub_name) {
                     echo '<li><a href="' . $view->baseUrl($menu_key . '/' . $sub_key) . '">' . $sub_name . '</a></li>';
                 }
-                if ($menu_key == 'tochuccanbo') {
+
+                if ($menu_key == 'taivu') {
                     echo '<li><a href="' . $view->baseUrl('tochuccanbo/tinhluong/auto05/') . '">Tính lương 0.5</a></li>';
                     echo '<li><a href="' . $view->baseUrl('tochuccanbo/tinhluong/auto03/') . '">Tính lương 0.3</a></li>';
                     echo '<li><a href="' . $view->baseUrl('tochuccanbo/tinhluong/auto02/') . '">Tính lương 0.2</a></li>';
-                    echo '<li><a href="' . $view->baseUrl('tochuccanbo/inluong/intheophong/') . '">In bảng lương</a></li>';
+                }
+                if ($menu_key == 'tochuccanbo') {
+                    echo '<li><a href="' . $view->baseUrl('tochuccanbo/inluong/intheophong/') . '">In bảng lương 0.5</a></li>';
                     echo '<li><a href="' . $view->baseUrl('tochuccanbo/inluong/heso03/') . '">In bảng lương hệ số 0.3</a></li>';
                     echo '<li><a href="' . $view->baseUrl('tochuccanbo/inluong/heso02/') . '">In bảng lương hệ số 0.2</a></li>';
                 }

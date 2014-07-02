@@ -1,0 +1,200 @@
+<h5>Quản lý cán bộ đến hạn luân chuyển</h5>               
+
+<?php
+$list_phong_ban = array();
+foreach ($this->list_phong_ban as $phong_ban) {
+    $list_phong_ban[$phong_ban->pb_id] = $phong_ban->pb_name;
+}
+$list_phong_ban_options = array('0' => 'Tất cả');
+foreach ($this->list_phong_ban_option as $phong_ban) {
+    $list_phong_ban_options[$phong_ban->pb_id] = $phong_ban->pb_name;
+}
+
+$list_chuc_vu = array();
+foreach ($this->list_chuc_vu as $chuc_vu) {
+    $list_chuc_vu[$chuc_vu->cv_id] = $chuc_vu->cv_name;
+}
+?>
+<div class="main-content-box">  
+    <form name="appForm" method="post" action="">
+        <div class="btn-toolbar float_left">
+            <div class="btn-group">
+                <a class="btn" href="<?php echo $this->baseUrl('tochuccanbo/employees'); ?>"><i class="icon-arrow-left"></i> QL cán bộ</a>
+                <button class="btn" onclick="location.reload()"><i class="icon-refresh"></i> Làm mới</button>
+            </div>
+        </div>
+        <div class="btn-toolbar form-search float_right text-right">
+            <?php
+            echo $this->formSelect('sl_phong_ban', $this->pb_id, array('onchange' => 'on_choose_phong_ban()'), $list_phong_ban_options);
+            ?> 
+        </div>
+        <div class="clearfix">
+        </div>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th class="checkall_style"><input type="checkbox" name="check_all" id="checkbox" onclick="checkedAll()"></th>
+                    <th style="width: 120px;">Họ & Tên đệm</th>
+                    <th style="width: 90px;">Tên</th>                    
+                    <th style="width: 115px;">Chức vụ</th>
+                    <th style="width: 115px;">Đơn vị</th>
+                    <th class="status_style">Trạng thái</th>
+                    <th>Chức năng</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                foreach ($this->paginator as $item) {
+                    $class='';
+                    if($item->em_time_cong_tac && $item->em_time_cong_tac != '' && $item->em_time_cong_tac != '0000-00-00 00:00:00'){
+                        $month_join = date('m', strtotime($item->em_time_cong_tac));
+                        $year_join = date('Y', strtotime($item->em_time_cong_tac));
+                        $sub_year = $this->nam - $year_join;
+                        if($this->thang<$month_join){
+                            $sub_year--;
+                        }
+                        if($sub_year>=2){
+                            $class = 'error';
+                        }
+                    }
+                    echo '<tr class="'.$class.'">
+                            <td class="checkall_style"><input type="checkbox" name="cid[]" id="cid" value="' . $item->em_id . '"></td>
+                            <td>' . $item->em_ho . '</a></td>                            
+                            <td>' . $item->em_ten . '</a></td>                            
+                            <td>' . $list_chuc_vu[$item->em_chuc_vu] . '</a></td>                            
+                            <td>' . $list_phong_ban[$item->em_phong_ban] . '</a></td>  
+                            <td class="status_style"><div class="' . ($item->em_status ? 'icon_status_active' : 'icon_status_inactive') . '"></div></td>
+                            <td class="function_style">
+                                <a class="btn btn-mini" data-toggle="modal" href="#mdLuanChuyen" title="Luân chuyển" onclick="loadFormLuanChuyen(' . $item->em_id . ')"><i class="icon-retweet"></i> Luân chuyển</a>
+                                <a class="btn btn-mini" data-toggle="modal" href="#mdThongBao" title="Gửi thông báo" onclick="loadFormThongBao(' . $item->em_id . ', \'' . $item->em_ho . ' ' . $item->em_ten . '\')"><i class="icon-envelope"></i> Gửi thông báo</a>
+                            </td>
+                        </tr>';
+                }
+                ?>
+            </tbody>
+        </table>
+        <?php echo $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml'); ?>
+    </form>
+</div> 
+
+<!-- Modal -->
+<div id="mdThongBao" class="modal_xlager hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Thông Báo</h3>
+    </div>
+    <div class="modal-body" id="mdThongBaoBody">
+        <div class="alert alert-error" id="dv_thong_bao_error" style="display: none;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h5>Thông báo!</h5>
+            Cập nhật không thành công!
+        </div>
+
+        <div class="alert alert-success" id="dv_thong_bao_success" style="display: none;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h5>Thông báo!</h5>
+            Cập nhật thành công!
+        </div>
+
+        <form class="form-horizontal">
+            <input type="hidden" id="tb_cap_nhat_id" value=""/>
+
+            <div class="control-group">
+                <label class="control-label" for="tb_can_bo">Người nhận</label>
+                <div class="controls" id="tb_can_bo">
+
+                </div>            
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="tb_tieu_de">Tiêu đề</label>
+                <div class="controls">
+                    <?php echo $this->formText('tb_tieu_de', null, array('class' => 'input-xxlarge', 'placeholder' => '')); ?>                   
+                </div>            
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="tb_noi_dung">Nội dung</label>
+                <div class="controls">
+                    <?php echo $this->formTextarea('tb_noi_dung', null, array('class' => 'input-xlarge', 'rows' => 5)); ?>                   
+                </div>            
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Đóng</button>
+        <button class="btn btn-primary" onclick="postFormThongBao();" id="btn_gui_thong_bao">Gửi thông báo</button>
+    </div>
+</div>
+
+
+<div id="mdLuanChuyen" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Luân chuyển</h3>
+    </div>
+    <div class="modal-body" id="mdLuanChuyenBody">
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Đóng</button>
+        <button class="btn btn-primary" id="btn_luan_chuyen" style="display: none;" onclick="postFormLuanChuyen()">Cập nhật</button>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function on_choose_phong_ban(){
+        var phong_ban = $('#sl_phong_ban').val();
+        window.location = site_url+'/tochuccanbo/employees/luanchuyen/phongban/'+phong_ban;
+    }
+    
+    function loadFormLuanChuyen(em_id){
+        $('#mdLuanChuyenBody').html('Đang tải dữ liệu...');
+        $('#mdLuanChuyenBody').load(site_url+'/tochuccanbo/employees/formluanchuyen/id/'+em_id, function(){            
+        });
+        $('#btn_luan_chuyen').show();
+    }
+    
+    
+    function postFormLuanChuyen(){   
+        var em_id = $('#lc_em_id').val();
+        $.post( site_url+'/tochuccanbo/employees/formluanchuyen/id/'+em_id, $('#fr_luan_chuyen').serialize(), function(data) {
+            $('#mdLuanChuyenBody').html(data);
+        });   
+    }
+    
+    
+    function loadFormThongBao(em_id, em_name){        
+        $('#mdThongBaoBody #tb_cap_nhat_id').val(em_id);
+        $('#mdThongBaoBody #tb_can_bo').html('<strong>'+em_name+'</strong>');
+        tinyMCE.get('tb_noi_dung').setContent('');
+        $('#mdThongBaoBody #tb_tieu_de').val('');
+        $('#dv_thong_bao_success').hide();
+        $('#dv_thong_bao_error').hide();
+    }
+    
+    function postFormThongBao(){   
+        $('#dv_thong_bao_success').hide();
+        $('#dv_thong_bao_error').hide();
+        var em_id = $('#mdThongBaoBody #tb_cap_nhat_id').val();
+        var tb_title = $('#mdThongBaoBody #tb_tieu_de').val();
+        var tb_content = tinyMCE.get('tb_noi_dung').getContent();
+        if(tb_title !='' && tb_content!=''){
+            $("#btn_gui_thong_bao").attr("disabled", "disabled");
+            $.post( site_url+'/canhan/thongbao/jqnewtb', {
+                em_id: em_id, 
+                tb_title: tb_title, 
+                tb_content: tb_content
+            }, function(data) {   
+                $("#btn_gui_thong_bao").removeAttr("disabled");
+                if(data.status){
+                    $('#dv_thong_bao_success').show();
+                    tinyMCE.get('tb_noi_dung').setContent('');
+                    $('#mdThongBaoBody #tb_tieu_de').val('');
+                }else{
+                    $('#dv_thong_bao_error').show();
+                }
+            }, 'json');
+        }else{
+            alert('Bạn phải nhập đầy đủ tiêu đề và nội dung!');
+        }         
+    }
+</script>

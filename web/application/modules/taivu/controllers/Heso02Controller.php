@@ -1,6 +1,6 @@
 <?php
 
-class Taivu_Heso02Controller extends Zend_Controller_Action {
+class Tochuccanbo_Heso02Controller extends Zend_Controller_Action {
 
     protected $_arrParam;
     protected $_page = 1;
@@ -12,7 +12,7 @@ class Taivu_Heso02Controller extends Zend_Controller_Action {
         $identity = $auth->getIdentity();
 
         //kiem tra permission
-        $check_permission = $this->_helper->global->checkPermission($identity->group_id, '1007');
+        $check_permission = $this->_helper->global->checkPermission($identity->group_id, '4015');
         if (!$check_permission) {
             $this->_redirect('index/permission/');
             exit();
@@ -280,7 +280,7 @@ class Taivu_Heso02Controller extends Zend_Controller_Action {
                 $id = $this->getRequest()->getPost('id');
                 $hesoModel->delete('id=' . $id);
             }
-            $this->_redirect('taivu/heso02/index/page/' . $this->_page);
+            $this->_redirect('tochuccanbo/heso02/index/page/' . $this->_page);
         }
 
 
@@ -297,7 +297,7 @@ class Taivu_Heso02Controller extends Zend_Controller_Action {
                 $hesoModel->delete('id=' . $v);
             }
         }
-        $this->_redirect('taivu/heso02/index/page/' . $this->_page);
+        $this->_redirect('tochuccanbo/heso02/index/page/' . $this->_page);
     }
 
 }

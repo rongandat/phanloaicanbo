@@ -1,8 +1,0 @@
-<?php
-$data['status'] = 0;
-if ($this->process_status) {
-    $data['status'] = 1;
-    $data['new_status'] = $this->new_status;
-}
-echo json_encode($data);
-?>

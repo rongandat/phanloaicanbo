@@ -1,6 +1,6 @@
 <?php
 
-class Taivu_EmployeesController extends Zend_Controller_Action {
+class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
 
     protected $_arrParam;
     protected $_page = 1;
@@ -817,7 +817,7 @@ class Taivu_EmployeesController extends Zend_Controller_Action {
                 $data['em_date_modified'] = $current_time;
                 $employeesModel->insert($data);
                 $last_id = $employeesModel->getAdapter()->lastInsertId();
-                $this->_redirect('taivu/employees/edit/id/' . $last_id . '/mess/success');
+                $this->_redirect('tochuccanbo/employees/edit/id/' . $last_id . '/mess/success');
                 $success_message = 'Đã thêm mới thành công.';
             }
         }
@@ -1201,7 +1201,7 @@ class Taivu_EmployeesController extends Zend_Controller_Action {
                 $id = $this->getRequest()->getPost('id');
                 $employeeModel->delete('em_id=' . $id);
             }
-            $this->_redirect('taivu/employees/index/page/' . $this->_page);
+            $this->_redirect('tochuccanbo/employees/index/page/' . $this->_page);
         }
 
         $this->view->employee_info = $employee_info;
@@ -1428,7 +1428,7 @@ class Taivu_EmployeesController extends Zend_Controller_Action {
         $current_time = new Zend_Db_Expr('NOW()');
         $employeeModel = new Front_Model_Employees();
         $employeeModel->update(array('em_status' => $type, 'em_date_modified' => $current_time), 'em_id=' . $id);
-        $this->_redirect('taivu/employees/index/page/' . $this->_page);
+        $this->_redirect('tochuccanbo/employees/index/page/' . $this->_page);
     }
 
     public function deleteitemsAction() {
@@ -1440,7 +1440,7 @@ class Taivu_EmployeesController extends Zend_Controller_Action {
                 $employeeModel->delete('em_id=' . $v);
             }
         }
-        $this->_redirect('taivu/employees/index/page/' . $this->_page);
+        $this->_redirect('tochuccanbo/employees/index/page/' . $this->_page);
     }
 
     public function gethuyenAction() {

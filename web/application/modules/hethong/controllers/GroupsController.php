@@ -79,6 +79,13 @@ class Hethong_GroupsController extends Zend_Controller_Action {
                 )
             ),
             array(
+                'group' => 'Tài vụ',
+                'permissions' => array(
+                    array('id' => 6001, 'name' => 'QL hệ số lương & phụ cấp'),
+                    array('id' => 6002, 'name' => 'Tính lương'),
+                )
+            ),
+            array(
                 'group' => 'Quản lý cán bộ',
                 'permissions' => array(
                     array('id' => 4001, 'name' => 'Quản lý cán bộ'),
