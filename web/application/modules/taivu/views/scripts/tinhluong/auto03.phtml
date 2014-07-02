@@ -80,7 +80,7 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
             <div class="controls">
                 <p>
                     <button class="btn btn-small btn-primary" type="submit"><i class="icon-folder-close"></i> Tính lương</button>
-                    <a class="btn btn-small" type="button" href="<?php echo $this->baseUrl('tochuccanbo/employees'); ?>">Quay lại</a>
+                    <a class="btn btn-small" type="button" href="<?php echo $this->baseUrl('taivu/employees'); ?>">Quay lại</a>
                 </p>
             </div>
         </div>
@@ -102,7 +102,7 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
     $('#txt_thang_nam').monthpicker(options);
     var phong_ban = $('#sl_phong_ban').val();
     $('#txt_thang_nam').monthpicker().bind('monthpicker-click-month', function (e, month, year) { 
-        window.location = site_url+'/tochuccanbo/tinhluong/auto03/phongban/'+phong_ban+'/thang/'+month+'/nam/'+year
+        window.location = site_url+'/taivu/tinhluong/auto03/phongban/'+phong_ban+'/thang/'+month+'/nam/'+year
     });
 
     $('#btn_chon_thang').bind('click', function () {
@@ -121,6 +121,6 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
             c_m = date_array[0];
             c_y = date_array[1];
         }        
-        window.location = site_url+'/tochuccanbo/tinhluong/auto03/phongban/'+phong_ban+'/thang/'+c_m+'/nam/'+c_y;
+        window.location = site_url+'/taivu/tinhluong/auto03/phongban/'+phong_ban+'/thang/'+c_m+'/nam/'+c_y;
     }
 </script>

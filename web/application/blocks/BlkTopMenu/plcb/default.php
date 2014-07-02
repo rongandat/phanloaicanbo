@@ -10,9 +10,9 @@
                 }
 
                 if ($menu_key == 'taivu') {
-                    echo '<li><a href="' . $view->baseUrl('tochuccanbo/tinhluong/auto05/') . '">Tính lương 0.5</a></li>';
-                    echo '<li><a href="' . $view->baseUrl('tochuccanbo/tinhluong/auto03/') . '">Tính lương 0.3</a></li>';
-                    echo '<li><a href="' . $view->baseUrl('tochuccanbo/tinhluong/auto02/') . '">Tính lương 0.2</a></li>';
+                    echo '<li><a href="' . $view->baseUrl('taivu/tinhluong/auto05/') . '">Tính lương 0.5</a></li>';
+                    echo '<li><a href="' . $view->baseUrl('taivu/tinhluong/auto03/') . '">Tính lương 0.3</a></li>';
+                    echo '<li><a href="' . $view->baseUrl('taivu/tinhluong/auto02/') . '">Tính lương 0.2</a></li>';
                 }
                 if ($menu_key == 'tochuccanbo') {
                     echo '<li><a href="' . $view->baseUrl('tochuccanbo/inluong/intheophong/') . '">In bảng lương 0.5</a></li>';

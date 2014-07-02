@@ -259,7 +259,7 @@
                 <div class="controls">
                     <p>
                         <button class="btn btn-small btn-primary" type="button" onclick="on_luu_bang_luong()">Lưu bảng lương</button>
-                        <a class="btn btn-small" type="button" href="<?php echo $this->baseUrl('tochuccanbo/employees'); ?>">Quay lại</a>
+                        <a class="btn btn-small" type="button" href="<?php echo $this->baseUrl('taivu/employees'); ?>">Quay lại</a>
                     </p>
                 </div>
             </div>
@@ -314,7 +314,7 @@ if ($this->bang_luong && $this->em_info && $this->he_so && $this->he_so_cb && $t
     $('#bl_thang_nam').monthpicker(options);
 
     $('#bl_thang_nam').monthpicker().bind('monthpicker-click-month', function(e, month, year) {
-        window.location = site_url + '/tochuccanbo/tinhluong/heso03/thang/' + month + '/nam/' + year + '/id/' + currentEm;
+        window.location = site_url + '/taivu/tinhluong/heso03/thang/' + month + '/nam/' + year + '/id/' + currentEm;
     });
 
     $('#btn_chon_thang').bind('click', function() {
@@ -349,7 +349,7 @@ if ($this->bang_luong && $this->em_info && $this->he_so && $this->he_so_cb && $t
                 color: '#fff'
             }
         });
-        $.post(site_url + '/tochuccanbo/tinhluong/luuheso03', $('#frm_tinh_luong').serialize(), function(data) {
+        $.post(site_url + '/taivu/tinhluong/luuheso03', $('#frm_tinh_luong').serialize(), function(data) {
             if (data.status) {
                 $.success_ui('Thông báo!', 'Lưu bảng lương thành công!', 4000);
                 $('#sp_message_tinh_luong').show();

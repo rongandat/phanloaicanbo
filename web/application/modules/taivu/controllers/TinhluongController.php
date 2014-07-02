@@ -1,6 +1,6 @@
 <?php
 
-class Tochuccanbo_TinhluongController extends Zend_Controller_Action {
+class Taivu_TinhluongController extends Zend_Controller_Action {
 
     protected $_arrParam;
     protected $_page = 1;
