@@ -1,10 +1,10 @@
-<h5>Xem bảng lương hệ số 0.3</h5>               
+<h5>Xem bảng lương hệ số 0.2</h5>               
 
 <div class="main-content-box">
     <?php
     if ($this->em_info):
         $luong_thu_viec = 0;
-        if ($this->bang_luong && $this->bang_luong->bl_tong_he_so > 0):
+        if ($this->bang_luong && $this->bang_luong->bl_tong_he_so > 0 && $this->bang_luong->bl_02):
             $he_so_phan_loai = array('O' => 0, 'A' => 1.2, 'B' => 1, 'C' => 0.8, 'D' => 0);
             $luong_thu_viec = 0;
             $luong_toi_thieu = $this->bang_luong->bl_luong_toi_thieu; //luong co ban
@@ -33,7 +33,7 @@
             $tong_hs_luong_pc = $this->bang_luong->bl_tong_he_so;
             $tong_hs_luong_pc_ca_nhan = $this->bang_luong->bl_tong_he_so_ca_nhan;
             $tong_hs_luong_pc_plld = $this->bang_luong->bl_tong_he_so_plld;
-            $tam_chi_dau_vao = $this->bang_luong->bl_tam_chi_dau_vao;
+            $tam_chi_dau_vao = $this->bang_luong->bl_tam_chi_dau_vao_02;
 
             if ($phan_loai == '') {
                 $phan_loai = $this->phan_loai->dg_ptccb_status;
@@ -154,7 +154,7 @@
                     </table>
                 </fieldset>
                 <fieldset>
-                    <legend>Bảng tính lương theo hệ số 0.3</legend>
+                    <legend>Bảng tính lương theo hệ số 0.2</legend>
                     <table class="table table-bordered table-hover">
                         <tr>
                             <th style=" width: 480px;">Tên</th>
@@ -282,7 +282,7 @@
     $('#bl_thang_nam').monthpicker(options);
 
     $('#bl_thang_nam').monthpicker().bind('monthpicker-click-month', function (e, month, year) { 
-        window.location = site_url+'/canhan/inluong/heso03/thang/'+month+'/nam/'+year;
+        window.location = site_url+'/canhan/inluong/heso02/thang/'+month+'/nam/'+year;
     });
 
     $('#btn_chon_thang').bind('click', function () {

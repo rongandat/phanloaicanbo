@@ -60,10 +60,13 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
                                             <a role="menuitem" tabindex="-1" data-toggle="modal" href="#mdThongBao" title="Gửi thông báo" onclick="loadFormThongBao(' . $item->em_id . ', \'' . $item->em_ho . ' ' . $item->em_ten . '\')"><i class="icon-envelope"></i> Gửi thông báo</a>
                                         </li>
                                         <li role="presentation">
-                                            <a role="menuitem" tabindex="-1" href="' . $this->baseUrl('taivu/tinhluong/index/id/' . $item->em_id) . '" title="Tính lương"><i class="icon-folder-close"></i> Tính lương</a>
+                                            <a role="menuitem" tabindex="-1" href="' . $this->baseUrl('taivu/tinhluong/index/id/' . $item->em_id) . '" title="Tính lương"><i class="icon-folder-close"></i> Tính lương hệ số 0.5</a>
                                         </li>
                                         <li role="presentation">
-                                            <a role="menuitem" tabindex="-1" href="' . $this->baseUrl('taivu/tinhluong/heso03/id/' . $item->em_id) . '" title="Tính lương"><i class="icon-folder-close"></i> Tính lương hế số 0.3</a>
+                                            <a role="menuitem" tabindex="-1" href="' . $this->baseUrl('taivu/tinhluong/heso03/id/' . $item->em_id) . '" title="Tính lương"><i class="icon-folder-close"></i> Tính lương hệ số 0.3</a>
+                                        </li>
+                                        <li role="presentation">
+                                            <a role="menuitem" tabindex="-1" href="' . $this->baseUrl('taivu/tinhluong/heso02/id/' . $item->em_id) . '" title="Tính lương"><i class="icon-folder-close"></i> Tính lương hệ số 0.2</a>
                                         </li>
                                     </ul>
                                 </div>
