@@ -42,7 +42,7 @@ class Block_BlkTopMenu extends Zend_View_Helper_Abstract {
                     'thongkethang' => 'Thống kê tháng',
                     'danhgiaphanloai' => 'Đánh giá phân loại',
                     'doimatkhau' => 'Đổi mật khẩu',
-                    'inluong' => 'Xem bảng lương'
+                    'inluong' => 'Xem bảng lương 0.5'
             )),
             'donvi' => array('name' => 'Đơn vị', 'sub' => array(
                     'thanhvien' => 'Thành viên',

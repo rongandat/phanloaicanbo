@@ -20,7 +20,8 @@
                     echo '<li><a href="' . $view->baseUrl('tochuccanbo/inluong/heso02/') . '">In bảng lương hệ số 0.2</a></li>';
                 }
                 if ($menu_key == 'canhan') {
-                    echo '<li><a href="' . $view->baseUrl('canhan/inluong/heso03/') . '">In bảng lương hệ số 03</a></li>';
+                    echo '<li><a href="' . $view->baseUrl('canhan/inluong/heso03/') . '">Xem bảng lương 0.3</a></li>';
+                    echo '<li><a href="' . $view->baseUrl('canhan/inluong/heso02/') . '">Xem bảng lương 0.2</a></li>';
                 }
                 echo '</ul>                    
             </li>';
