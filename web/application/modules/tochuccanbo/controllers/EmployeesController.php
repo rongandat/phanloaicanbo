@@ -1254,7 +1254,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
                         'eh_loai_luong' => $eh_loai_luong,
                         'eh_giai_doan' => $eh_giai_doan,
                         'eh_bac_luong' => $eh_bac_luong,
-                        'eh_he_so' => $eh_he_so,                        
+                        'eh_he_so' => $eh_he_so,
                         'eh_date_modified' => $current_time,
                         'eh_han_dieu_chinh' => date_format($date_dieu_chinh, "Y-m-d H:iP")
                     );
@@ -1295,7 +1295,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
         $error_message = array();
         $success_message = '';
         if ($this->_request->isPost()) {
-            $update_em_id = $this->_request->getParam('pc_cap_nhat_pc_em_id', 0);            
+            $update_em_id = $this->_request->getParam('pc_cap_nhat_pc_em_id', 0);
             $eh_pc_cong_viec = $this->_request->getParam('eh_pc_cong_viec', 0);
             $eh_pc_trach_nhiem = $this->_request->getParam('eh_pc_trach_nhiem', 0);
             $eh_pc_kv = $this->_request->getParam('eh_pc_kv', 0);
@@ -1364,11 +1364,11 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
                 if ($em_id != $update_em_id) {
                     $error_message = array('Có lỗi xảy ra, xin hãy tắt form này và mở lại.');
                 } else {
-                    $current_time = new Zend_Db_Expr('NOW()');                    
+                    $current_time = new Zend_Db_Expr('NOW()');
                     $date_tham_nien = date_create($eh_tham_nien_nam . '-' . $eh_tham_nien_thang . '-1');
                     $date_ap_dung = date_create($eh_nam_ap_dung . '-' . $eh_thang_ap_dung . '-1');
-                    
-                    $data = array(                        
+
+                    $data = array(
                         'eh_pc_kv' => $eh_pc_kv,
                         'eh_pc_thu_hut' => $eh_pc_thu_hut,
                         'eh_pc_cong_viec' => $eh_pc_cong_viec,
@@ -1385,14 +1385,14 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
                         'eh_pc_doc_hai_type' => $eh_pc_doc_hai_type,
                         'eh_date_modified' => $current_time
                     );
-                    
-                    if($eh_tnvk_thang && $eh_tnvk_nam){
+
+                    if ($eh_tnvk_thang && $eh_tnvk_nam) {
                         $date_tnvk = date_create($eh_tnvk_nam . '-' . $eh_tnvk_thang . '-1');
                         $data['eh_pc_tnvk_time'] = date_format($date_tnvk, "Y-m-d H:iP");
-                    }else{
+                    } else {
                         $data['eh_pc_tnvk_time'] = '';
                     }
-                    
+
                     $he_so = $phucapModel->checkHeSo($eh_thang_ap_dung, $eh_nam_ap_dung, $em_id);
                     if (!$he_so) {
                         $data['epc_em_id'] = $update_em_id;
@@ -1455,6 +1455,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
         $this->_helper->layout()->disableLayout();
         $emID = $this->_getParam('id', 0);
         $emModel = new Front_Model_Employees();
+        $luan_chuyen_history = new Front_Model_EmployeesLichSuLuanChuyen();
         $em_info = $emModel->fetchRow('em_id =' . $emID);
         $chucvuModel = new Front_Model_Chucvu();
         $list_chuc_vu = $chucvuModel->fetchData(array('cv_status' => 1));
@@ -1467,11 +1468,15 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
         $error_message = array();
         $success_message = '';
         if ($this->_request->isPost()) {
+            $current_info = $emModel->fetchRow("em_id=$emID");
             $em_chuc_vu = $this->_arrParam['em_chuc_vu'];
             $em_phong_ban = $this->_arrParam['em_phong_ban'];
             $em_ngach_cong_chuc = $this->_arrParam['em_ngach_cong_chuc'];
+            $em_thang_ap_dung = $this->_arrParam['eh_thang_ap_dung'];
+            $em_nam_ap_dung = $this->_arrParam['eh_nam_ap_dung'];
             $em_cong_viec = trim($this->_arrParam['em_cong_viec']);
             $em_chuyen_mon = trim($this->_arrParam['em_chuyen_mon']);
+            $date_ap_dung = date_create($em_nam_ap_dung . '-' . $em_thang_ap_dung . '-1');
             $current_time = new Zend_Db_Expr('NOW()');
             $data['em_chuc_vu'] = $em_chuc_vu;
             $data['em_phong_ban'] = $em_phong_ban;
@@ -1479,10 +1484,23 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
             $data['em_cong_viec'] = $em_cong_viec;
             $data['em_chuyen_mon'] = $em_chuyen_mon;
             $data['em_date_modified'] = $current_time;
-            $data['em_time_cong_tac'] = date('Y-m-1', time());
+            $data['em_time_cong_tac'] = date_format($date_ap_dung, "Y-m-d H:iP");
             $success_message = $emModel->update($data, 'em_id=' . $emID);
 
             if ($success_message) {
+                if ($current_info) {
+                    $history_data = array(
+                        'em_id' => $emID,
+                        'from_date' => $current_info->em_time_cong_tac,
+                        'to_date' => date_format($date_ap_dung, "Y-m-d H:iP"),
+                        'chuc_vu' => $current_info->em_chuc_vu,
+                        'don_vi' => $current_info->em_phong_ban,
+                        'ngach_cong_chuc' => $current_info->em_ngach_cong_chuc,
+                        'cong_viec' => $current_info->em_cong_viec,
+                        'chuyen_mon' => $current_info->em_chuyen_mon
+                    );
+                    $luan_chuyen_history->insert($history_data);
+                }
                 $thongbao_model = new Front_Model_ThongBao();
                 $data = array();
                 $data['tb_from'] = 0;

@@ -1,5 +1,8 @@
 <?php
-$thang_options = range(1, 12);
+$thang_options = array();
+for ($i = 1; $i <= 12; $i++) {
+    $thang_options[$i] = $i;
+}
 $nam_options = array();
 for ($i = 1900; $i <= 2050; $i++) {
     $nam_options[$i] = $i;
@@ -31,6 +34,15 @@ for ($i = 1900; $i <= 2050; $i++) {
 
     <form class="form-horizontal" id="fr_luan_chuyen">
         <input type="hidden" id="lc_em_id" value="<?php echo $this->em_id; ?>"/>
+        <div class="control-group">
+            <label class="control-label">Ngày vào đơn vị</label>
+            <div class="controls">
+                <?php
+                if($this->employee_info->em_time_cong_tac)
+                    echo date('d-m-Y', strtotime($this->employee_info->em_time_cong_tac));
+                ?> 
+            </div>
+        </div> 
         <div class="control-group">
             <label class="control-label" for="em_chuc_vu">Chức vụ</label>
             <div class="controls">
@@ -85,6 +97,15 @@ for ($i = 1900; $i <= 2050; $i++) {
                 <?php echo $this->formText('em_chuyen_mon', $this->employee_info->em_chuyen_mon, array('class' => 'input-xlarge')); ?> 
             </div>
         </div>        
-
+        <div class="control-group">
+            <label class="control-label" for="eh_thang_ap_dung">Tháng áp dụng</label>
+            <div class="controls">
+                <?php                
+                    echo $this->formSelect('eh_thang_ap_dung', date('m'), array('class' => 'input-small'), $thang_options);
+                    echo '<span class="help-inline"> / </span>';
+                    echo $this->formSelect('eh_nam_ap_dung', date('Y'), array('class' => 'input-small'), $nam_options);
+                ?>    
+            </div>
+        </div> 
     </form>
 </div>

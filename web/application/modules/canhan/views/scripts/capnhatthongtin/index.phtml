@@ -757,35 +757,26 @@ foreach ($this->list_huyen as $huyen) {
                             <input id="tai_lieu_khac_upload" name="em_tai_lieu_khac" type="file" multiple="true"/>
                             <table class="table" id="tbl_tai_lieu_khac">
                                 <tbody>
-                                    <tr>
-                                        <td id="tbd_tai_lieu_khac">      
-                                            <?php
-                                            foreach (unserialize($this->employee_info->em_tai_lieu_khac) as $anh_tai_lieu_khac) {
-                                                $random_id = mt_rand();
-                                                $img_ex = end(explode('.', $anh_tai_lieu_khac['anh']));
-                                                $fileTypes = array('jpg', 'jpeg', 'gif', 'png'); // File extensions
-                                                if (in_array($img_ex, $fileTypes)) {
-                                                    echo '<div id="' . $random_id . '" class="tai_lieu_khac float_left">
-                                                <input type="hidden" name="anh_tai_lieu_khac[' . $random_id . '][anh]" value="' . $anh_tai_lieu_khac['anh'] . '"/>
-                                                <input type="hidden" name="anh_tai_lieu_khac[' . $random_id . '][true_name]" value="' . $anh_tai_lieu_khac['true_name'] . '"/>
-                                                <img src="' . $this->baseUrl('public/uploads/') . $anh_tai_lieu_khac['anh'] . '">
-                                                <span>' . $anh_tai_lieu_khac['true_name'] . '</span>
-                                                <a class="btn btn-download-icon btn-mini" target="_blank" href="' . $this->baseUrl('front/download/img/file/' . $anh_tai_lieu_khac['anh']) . '" type="button"><i class="icon-download-alt"></i></a>
-                                                <button class="btn btn-delete-icon btn-mini btn-danger" type="button" onclick="deleteAnhScan(\'' . $random_id . '\')"><i class="icon-trash"></i></button>
-                                                </div>';
-                                                } else {
-                                                    echo '<div id="' . $random_id . '" class="tai_lieu_khac float_left">
-                                                <input type="hidden" name="anh_tai_lieu_khac[' . $random_id . '][anh]" value="' . $anh_tai_lieu_khac['anh'] . '"/>
-                                                <input type="hidden" name="anh_tai_lieu_khac[' . $random_id . '][true_name]" value="' . $anh_tai_lieu_khac['true_name'] . '"/>
-                                                <span>' . $anh_tai_lieu_khac['true_name'] . '</span>
-                                                <a class="btn btn-download-icon btn-mini" target="_blank" href="' . $this->baseUrl('front/download/img/file/' . $anh_tai_lieu_khac['anh']) . '" type="button"><i class="icon-download-alt"></i></a>
-                                                <button class="btn btn-delete-icon btn-mini btn-danger" type="button" onclick="deleteAnhScan(\'' . $random_id . '\')"><i class="icon-trash"></i></button>
-                                                </div>';
-                                                }
-                                            }
-                                            ?>
-                                        </td>
-                                    </tr>
+                                    <?php
+                                    foreach (unserialize($this->employee_info->em_tai_lieu_khac) as $anh_tai_lieu_khac) {
+                                        $random_id = mt_rand();
+                                        $img_ex = end(explode('.', $anh_tai_lieu_khac['anh']));
+                                        $fileTypes = array('jpg', 'jpeg', 'gif', 'png'); // File extensions                                        
+                                        echo '<tr id="' . $random_id . '">'
+                                                . '<td>'
+                                                . '<input type="text" name="anh_tai_lieu_khac[' . $random_id . '][true_name]" placeholder="Tên" value="' . $anh_tai_lieu_khac['true_name'] . '" class="input-xlarge">'
+                                                . '</td>'
+                                                . '<td>'
+                                                . '<input type="hidden" name="anh_tai_lieu_khac[' . $random_id . '][anh]" value="' . $anh_tai_lieu_khac['anh'] . '"/>'
+                                                . (in_array($img_ex, $fileTypes)?'<img src="' . $this->baseUrl('public/uploads/') . $anh_tai_lieu_khac['anh'] . '" class="img-polaroid anh_bang_cap">':'<img src="' . $this->baseUrl('public/uploads/picture_icon.png'). '" class="img-polaroid anh_bang_cap">')
+                                                . '</td> '
+                                                . '<td> <div class="btn-toolbar"><div class="btn-group">'
+                                                . '<a class="btn btn-download-icon btn-small" target="_blank" href="' . $this->baseUrl('front/download/img/file/' . $anh_tai_lieu_khac['anh']) . '" type="button">Tải xuống</a>'
+                                                . '<button class="btn btn-small btn btn-danger" type="button" onclick="deleteAnhScan(\'' . $random_id . '\')">Xóa</button>'
+                                                . '</div></div></td>'
+                                                . '</tr>';
+                                    }
+                                    ?>                                    
                                 </tbody>
                             </table>                    
                         </div>
@@ -866,10 +857,10 @@ foreach ($this->list_huyen as $huyen) {
                 }else{   
                     var unix = Math.round(+new Date()/1000);
                     if(data.file_parts =='gif' || data.file_parts =='jpg' || data.file_parts =='png' || data.file_parts =='jpeg' ){
-                        $('#tbd_tai_lieu_khac').append("<div id=\""+unix+"\" class=\"tai_lieu_khac float_left\"><input type=\"hidden\" name=\"anh_tai_lieu_khac["+unix+"][anh]\" value=\""+data.file_name+"\"/><input type=\"hidden\" name=\"anh_tai_lieu_khac["+unix+"][true_name]\" value=\""+data.true_name+"\"/><img src=\"<?php echo $this->baseUrl('public/uploads/'); ?>" + data.file_name + "\"><span>"+data.true_name+"</span><a class=\"btn btn-download-icon btn-mini\" target=\"_blank\" href=\"<?php echo $this->baseUrl('front/download/img/file/'); ?>" + data.file_name + "\" type=\"button\"><i class=\"icon-download-alt\"></i></a><button class=\"btn btn-delete-icon btn-mini btn-danger\" type=\"button\" onclick=\"deleteAnhScan('"+unix+"')\"><i class=\"icon-trash\"></i></button></div>");
+                        $('#tbl_tai_lieu_khac').append("<tr id=\""+unix+"\"><td><input type=\"text\" name=\"anh_tai_lieu_khac["+unix+"][true_name]\" value=\""+data.true_name+"\" placeholder=\"Tên\" class=\"input-xlarge\"></td><td><input type=\"hidden\" name=\"anh_tai_lieu_khac["+unix+"][anh]\" value=\""+data.file_name+"\"/><img src=\"<?php echo $this->baseUrl('public/uploads/'); ?>" + data.file_name + "\" class=\"img-polaroid cap_nhat_anh_bang_cap\"></td> <td><div class=\"btn-toolbar\"><div class=\"btn-group\"><a class=\"btn btn-download-icon btn-small\" target=\"_blank\" href=\"<?php echo $this->baseUrl('front/download/img/file/'); ?>" + data.file_name + "\" type=\"button\">Tải xuống</a> <button class=\"btn btn-small btn btn-danger\" type=\"button\" onclick=\"deleteAnhScan('"+unix+"')\">Xóa</button></div></div></td></tr>");
                     }else{
-                        $('#tbd_tai_lieu_khac').append("<div id=\""+unix+"\" class=\"tai_lieu_khac float_left\"><input type=\"hidden\" name=\"anh_tai_lieu_khac["+unix+"][anh]\" value=\""+data.file_name+"\"/><input type=\"hidden\" name=\"anh_tai_lieu_khac["+unix+"][true_name]\" value=\""+data.true_name+"\"/><span>"+data.true_name+"</span><a class=\"btn btn-download-icon btn-mini\" target=\"_blank\" href=\"<?php echo $this->baseUrl('front/download/img/file/'); ?>" + data.file_name + "\" type=\"button\"><i class=\"icon-download-alt\"></i></a><button class=\"btn btn-delete-icon btn-mini btn-danger\" type=\"button\" onclick=\"deleteAnhScan('"+unix+"')\"><i class=\"icon-trash\"></i></button></div>");
-                    }
+                        $('#tbl_tai_lieu_khac').append("<tr id=\""+unix+"\"><td><input type=\"text\" name=\"anh_tai_lieu_khac["+unix+"][true_name]\" value=\""+data.true_name+"\" placeholder=\"Tên\" class=\"input-xlarge\"></td><td><input type=\"hidden\" name=\"anh_tai_lieu_khac["+unix+"][anh]\" value=\""+data.file_name+"\"/><img src=\"<?php echo $this->baseUrl('public/uploads/picture_icon.png'); ?>\" class=\"img-polaroid cap_nhat_anh_bang_cap\"></td> <td><div class=\"btn-toolbar\"><div class=\"btn-group\"><a class=\"btn btn-download-icon btn-small\" target=\"_blank\" href=\"<?php echo $this->baseUrl('front/download/img/file/'); ?>" + data.file_name + "\" type=\"button\">Tải xuống</a> <button class=\"btn btn-small btn btn-danger\" type=\"button\" onclick=\"deleteAnhScan('"+unix+"')\">Xóa</button></div></div></td></tr>");
+                    }                    
                 }
             }
         });

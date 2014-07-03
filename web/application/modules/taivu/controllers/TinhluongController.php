@@ -11,7 +11,7 @@ class Taivu_TinhluongController extends Zend_Controller_Action {
         $identity = $auth->getIdentity();
 
         //kiem tra permission
-        $check_permission = $this->_helper->global->checkPermission($identity->group_id, '4010');
+        $check_permission = $this->_helper->global->checkPermission($identity->group_id, '6002');
         if (!$check_permission) {
             $this->_redirect('index/permission/');
             exit();
@@ -76,6 +76,50 @@ class Taivu_TinhluongController extends Zend_Controller_Action {
     }
 
     public function heso03Action() {
+        $translate = Zend_Registry::get('Zend_Translate');
+        $this->view->title = 'Tính lương - ' . $translate->_('TEXT_DEFAULT_TITLE');
+        $this->view->headTitle($this->view->title);
+
+        $layoutPath = APPLICATION_PATH . '/templates/' . TEMPLATE_USED;
+        $option = array('layout' => '1_column/layout',
+            'layoutPath' => $layoutPath);
+        Zend_Layout::startMvc($option);
+
+        $date = new Zend_Date();
+        $date->subMonth(1);
+
+        $thang = $this->_getParam('thang', $date->toString("M"));
+        $nam = $this->_getParam('nam', $date->toString("Y"));
+        $em_id = $this->_getParam('id', 0);
+        $emModel = new Front_Model_Employees();
+        $hesocbModel = new Front_Model_HeSo();
+        $hesoModel = new Front_Model_EmployeesHeso();
+        $phucapModel = new Front_Model_EmployeesPhuCap();
+        $em_info = $emModel->fetchRow("em_id=$em_id");
+        $em_he_so = $hesoModel->getCurrentHeSo($thang, $nam, $em_id);
+        $em_phu_cap = $phucapModel->getCurrentHeSo($thang, $nam, $em_id);
+        $lastHeSoLuong = $hesocbModel->fetchOneData(array('hs_ngay_bat_dau' => date("$nam-$thang-1")), 'hs_ngay_bat_dau DESC');
+
+        $bangluongModel = new Front_Model_BangLuong();
+        $bang_luong = $bangluongModel->fetchByDate($em_id, "$nam-$thang-01 00:00:00", "$nam-$thang-31 23:59:59");
+
+        $ketquaModel = new Front_Model_DanhGia();
+        $phan_loai = $ketquaModel->getPhanLoai($em_id, $thang, $nam);
+        $this->view->em_info = $em_info;
+        $this->view->he_so = $em_he_so;
+        $this->view->phu_cap = $em_phu_cap;
+        $this->view->he_so_cb = $lastHeSoLuong;
+        $this->view->thang = $thang;
+        $this->view->nam = $nam;
+        $this->view->nv_id = $em_id;
+        $this->view->bang_luong = $bang_luong;
+        $this->view->phan_loai = $phan_loai;
+        if ($nam > $date->toString("Y") || ($nam == $date->toString("Y") && $thang > $date->toString("M"))) {
+            $this->_helper->viewRenderer->setRender('thoigian');
+        }
+    }
+    
+    public function heso02Action() {
         $translate = Zend_Registry::get('Zend_Translate');
         $this->view->title = 'Tính lương - ' . $translate->_('TEXT_DEFAULT_TITLE');
         $this->view->headTitle($this->view->title);
@@ -324,6 +368,42 @@ class Taivu_TinhluongController extends Zend_Controller_Action {
                     'bl_tong_he_so_ca_nhan' => $bl_tong_he_so_ca_nhan,
                     'bl_tong_he_so_plld' => $bl_tong_he_so_plld,
                     'bl_tam_chi_dau_vao' => $bl_tam_chi_dau_vao,
+                    'bl_date_modified' => $current_time
+                );
+
+                $bl_id = $check_isset->bl_id;
+                $process_status = $bangluongModel->update($data, "bl_id=$bl_id");
+            }
+        }
+        $this->view->process_status = $process_status;
+    }
+    
+    public function luuheso02Action() {
+        $this->_helper->layout()->disableLayout();
+        $bangluongModel = new Front_Model_BangLuong();   
+        $auth = Zend_Auth::getInstance();
+        $identity = $auth->getIdentity();
+        $my_id = $identity->em_id;
+        $error_message = array();
+        $success_message = '';
+        $process_status = 0;        
+        if ($this->_request->isPost()) {
+            $bl_em_id = $this->_request->getParam('bl_em_id', 0);
+            $bl_thang = $this->_request->getParam('bl_thang', 0);
+            $bl_nam = $this->_request->getParam('bl_nam', 0);           
+
+            if (!is_numeric($bl_em_id) || !$bl_em_id)
+                $error_message = array('Thông tin nhân viên không chính xác');
+
+            $check_isset = $bangluongModel->fetchByDate($bl_em_id, "$bl_nam-$bl_thang-01 00:00:00", "$bl_nam-$bl_thang-31 23:59:59");
+            if(!$check_isset || !$check_isset->bl_tong_he_so){
+                 $error_message = array('Chưa tính bảng lương 0.3');
+            }
+            if (!sizeof($error_message)) {                             
+                $current_time = new Zend_Db_Expr('NOW()');
+                $data = array(
+                    'bl_tam_chi_dau_vao_02' => $check_isset->bl_tam_chi_dau_vao,
+                    'bl_02' => 1,
                     'bl_date_modified' => $current_time
                 );
 

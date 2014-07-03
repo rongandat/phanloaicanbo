@@ -291,5 +291,18 @@ class Taivu_EmployeesController extends Zend_Controller_Action {
         $list_huyen = $huyenModel->fetchData(array('huyen_parent' => $tinhID, 'huyen_status' > 1));
         $this->view->list_huyen = $list_huyen;
     }
+    
+    public function jqbacluongAction() {
+        $this->_helper->layout()->disableLayout();
+        $bl_id = $this->_request->getParam('id', 0);
+        $ncc_id = $this->_request->getParam('ncc', 0);
+        $bacluongModel = new Front_Model_BacLuong();
+        $bac_luong = $bacluongModel->fetchRow('bl_id=' . $bl_id);
+        if ($bac_luong) {
+            $bac_luong = $bac_luong->toArray();
+        }
+        $this->view->bac_luong = $bac_luong;
+        $this->view->ncc_id = $ncc_id;
+    }
 
 }
