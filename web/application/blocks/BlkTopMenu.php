@@ -31,7 +31,7 @@ class Block_BlkTopMenu extends Zend_View_Helper_Abstract {
                     'quanlynhanuoc' => 'QL Quản lý nhà nước',
                     'lyluanchinhtri' => 'QL Lý luận chính trị',
                     'nghile' => 'QL Ngày nghỉ lễ'
-            )),
+                )),
             'canhan' => array('name' => 'Cá nhân', 'sub' => array(
                     'thongbao' => 'Thông báo',
                     'thongtin' => 'Thông tin cá nhân',
@@ -43,7 +43,7 @@ class Block_BlkTopMenu extends Zend_View_Helper_Abstract {
                     'danhgiaphanloai' => 'Đánh giá phân loại',
                     'doimatkhau' => 'Đổi mật khẩu',
                     'inluong' => 'Xem bảng lương 0.5'
-            )),
+                )),
             'donvi' => array('name' => 'Đơn vị', 'sub' => array(
                     'thanhvien' => 'Thành viên',
                     'duyetnghiphep' => 'Duyệt nghỉ phép',
@@ -51,25 +51,25 @@ class Block_BlkTopMenu extends Zend_View_Helper_Abstract {
                     'duyetchamcong' => 'Duyệt chấm công',
                     'duyetphanloai' => 'Duyệt phân loại cán bộ',
                     'thongkethang' => 'Thống kê tháng',
-            )),
+                )),
             'taivu' => array('name' => 'Tài vụ', 'sub' => array(
-                    'employees' => 'QL hệ số lương & phụ cấp'
-            )),
+                    'employees' => 'QL hệ số lương & phụ cấp',
+                    'hesoluong' => 'QL Lương cơ bản',
+                    'heso02' => 'QL Hệ số 0.2',
+                    'duyetthemgio' => 'Duyệt thêm giờ',
+                    'duyetchamcong' => 'Duyệt chấm công',
+                )),
             'tochuccanbo' => array('name' => 'Tổ chức cán bộ', 'sub' => array(
                     'employees' => 'QL Cán bộ',
                     'capnhatthongtin' => 'QL Yêu cầu cập nhật thông tin',
                     'duyetphanloai' => 'Duyệt phân loại cán bộ',
                     'duyetnghiphep' => 'Duyệt nghỉ phép',
-                    'duyetthemgio' => 'Duyệt thêm giờ',
-                    'duyetchamcong' => 'Duyệt chấm công',
                     'yckhenthuong' => 'QL Yêu cầu khen thưởng',
                     'yckyluat' => 'QL Yêu cầu kỷ luật/khiển trách',
                     'khenthuong' => 'QL Khen thưởng',
-                    'kyluat' => 'QL kỷ luật/khiển trách',
-                    'hesoluong' => 'QL Lương cơ bản',
-                    'bacluong' => 'QL Bậc lương',
-                    'heso02' => 'QL Hệ số 0.2'
-            )),
+                    'kyluat' => 'QL kỷ luật/khiển trách',                    
+                    'bacluong' => 'QL Bậc lương'                    
+                )),
             'danhsach' => array('name' => 'Danh sách', 'sub' => array(
                     'phongban' => 'Lọc theo phòng ban',
                     'chucvu' => 'Lọc theo chức vụ',
@@ -79,7 +79,7 @@ class Block_BlkTopMenu extends Zend_View_Helper_Abstract {
                     'dantoc' => 'Lọc theo dân tộc',
                     'ngachcongchuc' => 'Lọc theo ngạch công chức',
                     'chungchi' => 'Lọc theo chứng chỉ'
-            ))
+                ))
         );
 
         require_once (BLOCK_PATH . '/BlkTopMenu/' . TEMPLATE_USED . '/default.php');

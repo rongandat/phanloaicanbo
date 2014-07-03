@@ -1,0 +1,74 @@
+<?php
+$list_phong_ban_options = array('0' => 'Tất cả');
+foreach ($this->list_phong_ban_option as $phong_ban) {
+    $list_phong_ban_options[$phong_ban->pb_id] = $phong_ban->pb_name;
+}
+?>
+<h5>Tính lương</h5>               
+
+<div class="main-content-box">
+    <form name="appForm" class="form-horizontal" method="post" action="">
+        <div class="control-group">
+            <label class="control-label">Phòng ban</label>
+            <div class="controls">
+                <?php
+                echo $this->formSelect('sl_phong_ban', $this->pb_id, array('onchange' => 'on_choose_phong_ban()'), $list_phong_ban_options);
+                ?>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Tháng</label>
+            <div class="controls">
+                <div class="input-append">
+                    <input class="span2" value="<?php echo $this->thang . '/' . $this->nam; ?>" id="txt_thang_nam" type="text" readonly="true"/>
+                    <button class="btn" type="button" id="btn_chon_thang">Chọn tháng!</button>
+                </div>
+
+            </div>
+        </div>
+        <table class="table table-bordered table-hover">
+            <tr>
+                <td>
+                    Không tìm thấy hệ số 0.2
+                </td>
+            </tr>
+        </table>
+    </form>
+
+</div>
+
+<script>
+    var currentYear = <?php echo $this->nam; ?>;    
+    var options = {
+        pattern: 'mm/yyyy', // Default is 'mm/yyyy' and separator char is not mandatory 
+        startYear: 2013,
+        selectedYear: currentYear,
+        monthNames: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12']
+    };
+
+    $('#txt_thang_nam').monthpicker(options);
+    var phong_ban = $('#sl_phong_ban').val();
+    $('#txt_thang_nam').monthpicker().bind('monthpicker-click-month', function (e, month, year) { 
+        window.location = site_url+'/taivu/inluong/heso02/phongban/'+phong_ban+'/thang/'+month+'/nam/'+year
+    });
+
+    $('#btn_chon_thang').bind('click', function () {
+        $('#txt_thang_nam').monthpicker('show');
+    });
+    
+    
+    function on_choose_phong_ban(){
+        var phong_ban = $('#sl_phong_ban').val();
+        var c_date = $('#txt_thang_nam').val();
+        var date_array = c_date.split("/");
+        var d = new Date(),
+        c_m = d.getMonth(),
+        c_y = d.getFullYear();
+        if(date_array.length==2 && $.isNumeric(date_array[0]) && $.isNumeric(date_array[1])){
+            c_m = date_array[0];
+            c_y = date_array[1];
+        }        
+        window.location = site_url+'/taivu/inluong/heso02/phongban/'+phong_ban+'/thang/'+c_m+'/nam/'+c_y;
+    }
+</script>

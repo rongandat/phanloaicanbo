@@ -82,7 +82,12 @@ class Hethong_GroupsController extends Zend_Controller_Action {
                 'group' => 'Tài vụ',
                 'permissions' => array(
                     array('id' => 6001, 'name' => 'QL hệ số lương & phụ cấp'),
-                    array('id' => 6002, 'name' => 'Tính lương'),
+                    array('id' => 4009, 'name' => 'Quản lý hệ số lương'),
+                    array('id' => 6002, 'name' => 'Tính lương'),                    
+                    array('id' => 4005, 'name' => 'Duyệt thêm giờ'),
+                    array('id' => 4006, 'name' => 'Duyệt chấm công'),                    
+                    array('id' => 4011, 'name' => 'In lương'),
+                    array('id' => 4015, 'name' => 'Quản lý hệ số 0.2')
                 )
             ),
             array(
@@ -92,17 +97,11 @@ class Hethong_GroupsController extends Zend_Controller_Action {
                     array('id' => 4002, 'name' => 'Quản lý yêu cầu cập nhật thông tin'),
                     array('id' => 4003, 'name' => 'Duyệt phân loại cán bộ'),
                     array('id' => 4004, 'name' => 'Duyệt nghỉ phép'),
-                    array('id' => 4005, 'name' => 'Duyệt thêm giờ'),
-                    array('id' => 4006, 'name' => 'Duyệt chấm công'),
                     array('id' => 4007, 'name' => 'Quản lý yêu cầu khen thưởng'),
-                    array('id' => 4008, 'name' => 'Quản lý yêu cầu kỷ luật/khiển trách'),
-                    array('id' => 4009, 'name' => 'Quản lý hệ số lương'),
-                    array('id' => 4010, 'name' => 'Tính lương'),
-                    array('id' => 4011, 'name' => 'In lương'),
+                    array('id' => 4008, 'name' => 'Quản lý yêu cầu kỷ luật/khiển trách'),                    
                     array('id' => 4012, 'name' => 'Quản lý khen thưởng'),
                     array('id' => 4013, 'name' => 'Quản lý kỷ luật/khiển trách'),
-                    array('id' => 4014, 'name' => 'Quản lý bậc lương'),
-                    array('id' => 4015, 'name' => 'Quản lý hệ số 0.2')
+                    array('id' => 4014, 'name' => 'Quản lý bậc lương'),                    
                 )
             ),
             array(

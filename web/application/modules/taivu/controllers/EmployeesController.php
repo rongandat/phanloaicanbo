@@ -57,6 +57,8 @@ class Taivu_EmployeesController extends Zend_Controller_Action {
             $pb_ids[] = $pb->pb_id;
         }
 
+        $check_nang_luong = $this->_helper->global->checkNangLuong();
+        
         $employeesModel = new Front_Model_Employees();
         if (!$pb_selected) {
             $list_employees = $employeesModel->fetchData();
@@ -74,6 +76,7 @@ class Taivu_EmployeesController extends Zend_Controller_Action {
         $this->view->list_phong_ban = $list_phong_ban;
         $this->view->list_phong_ban_option = $list_phong_ban_option;
         $this->view->list_ngach_cong_chuc = $list_ngach_cong_chuc;
+        $this->view->check_nang_luong = $check_nang_luong;
     }
 
     public function hesoAction() {
@@ -150,6 +153,48 @@ class Taivu_EmployeesController extends Zend_Controller_Action {
         $this->view->em_info = $em_info;
     }
 
+    public function nangluongAction() {
+        $translate = Zend_Registry::get('Zend_Translate');
+        $this->view->title = 'Quản lý cán bộ - ' . $translate->_('TEXT_DEFAULT_TITLE');
+        $this->view->headTitle($this->view->title);
+
+        $layoutPath = APPLICATION_PATH . '/templates/' . TEMPLATE_USED;
+        $option = array('layout' => '1_column/layout',
+            'layoutPath' => $layoutPath);
+
+        Zend_Layout::startMvc($option);
+
+        $pb_selected = $this->_getParam('phongban', 0);
+
+        $chucvuModel = new Front_Model_Chucvu();
+        $list_chuc_vu = $chucvuModel->fetchData(array('cv_status' => 1));
+        $ngachcongchucModel = new Front_Model_NgachCongChuc();
+        $list_ngach_cong_chuc = $ngachcongchucModel->fetchData(array('ncc_status' => 1));
+
+        $phongbanModel = new Front_Model_Phongban();
+        $list_phong_ban = $phongbanModel->fetchAll();
+
+        $phong_ban = Array();
+        $list_phong_ban_option = $phongbanModel->fetchData(0, $phong_ban);
+
+        $phong_ban_choosed = Array();
+        $phongbanModel->fetchData($pb_selected, $phong_ban_choosed);
+
+        $pb_ids = array($pb_selected);
+        foreach ($phong_ban_choosed as $pb) {
+            $pb_ids[] = $pb->pb_id;
+        }
+
+        $list_nang_luong = $this->_helper->global->checkNangLuong();
+
+        $this->view->pb_id = $pb_selected;
+        $this->view->list_nhan_vien = $list_nang_luong;
+        $this->view->list_chuc_vu = $list_chuc_vu;
+        $this->view->list_phong_ban = $list_phong_ban;
+        $this->view->list_phong_ban_option = $list_phong_ban_option;
+        $this->view->list_ngach_cong_chuc = $list_ngach_cong_chuc;
+    }
+    
     public function phucapAction() {
         $this->_helper->layout()->disableLayout();
         $date = time();

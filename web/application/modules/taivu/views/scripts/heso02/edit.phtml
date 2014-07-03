@@ -1,0 +1,144 @@
+<?php
+$nam_options = array();
+for ($i = 2000; $i <= 2050; $i++) {
+    $nam_options[$i] = $i;
+}
+?>
+<h5>Cập nhật thông tin hệ số 0.2</h5>               
+
+<div class="main-content-box"> 
+    <?php if ($this->error_message) : ?>
+        <div class="alert alert-error">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h5>Thông báo lỗi!</h5>                
+            <ol>
+                <?php foreach ($this->error_message as $message): ?>
+                    <li><?php echo $message; ?></li>
+                <?php endforeach; ?>
+            </ol>
+        </div> 
+    <?php endif; ?>  
+    <?php if ($this->success_message) : ?>
+        <div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h5>Thông báo!</h5>
+            <?php echo $this->success_message; ?>
+        </div>
+    <?php endif; ?>  
+    <?php if ($this->he_so) : ?>        
+        <form class="form-horizontal" method="post" action="">
+            <div class="control-group">
+                <label class="control-label" for="hs_nam">Năm</label>
+                <div class="controls">
+                    <?php echo $this->formSelect('hs_nam', $this->he_so->nam, null, $nam_options); ?>
+                    <span class="help-inline">(*)</span>
+                </div>
+            </div> 
+
+            <div class="control-group">
+                <label class="control-label" for="hs_thang_1">Tháng 1</label>
+                <div class="controls">
+                    <?php echo $this->formText('hs_thang_1', $this->he_so->thang_1, array()); ?>
+                    <span class="help-inline">(*)</span>
+                </div>                
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="hs_thang_2">Tháng 2</label>
+                <div class="controls">
+                    <?php echo $this->formText('hs_thang_2', $this->he_so->thang_2, array()); ?>
+                    <span class="help-inline">(*)</span>
+                </div>                
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="hs_thang_3">Tháng 3</label>
+                <div class="controls">
+                    <?php echo $this->formText('hs_thang_3', $this->he_so->thang_3, array()); ?>
+                    <span class="help-inline">(*)</span>
+                </div>                
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="hs_thang_4">Tháng 4</label>
+                <div class="controls">
+                    <?php echo $this->formText('hs_thang_4', $this->he_so->thang_4, array()); ?>
+                    <span class="help-inline">(*)</span>
+                </div>                
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="hs_thang_5">Tháng 5</label>
+                <div class="controls">
+                    <?php echo $this->formText('hs_thang_5', $this->he_so->thang_5, array()); ?>
+                    <span class="help-inline">(*)</span>
+                </div>                
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="hs_thang_6">Tháng 6</label>
+                <div class="controls">
+                    <?php echo $this->formText('hs_thang_6', $this->he_so->thang_6, array()); ?>
+                    <span class="help-inline">(*)</span>
+                </div>                
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="hs_thang_7">Tháng 7</label>
+                <div class="controls">
+                    <?php echo $this->formText('hs_thang_7', $this->he_so->thang_7, array()); ?>
+                    <span class="help-inline">(*)</span>
+                </div>                
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="hs_thang_8">Tháng 8</label>
+                <div class="controls">
+                    <?php echo $this->formText('hs_thang_8', $this->he_so->thang_8, array()); ?>
+                    <span class="help-inline">(*)</span>
+                </div>                
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="hs_thang_9">Tháng 9</label>
+                <div class="controls">
+                    <?php echo $this->formText('hs_thang_9', $this->he_so->thang_9, array()); ?>
+                    <span class="help-inline">(*)</span>
+                </div>                
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="hs_thang_10">Tháng 10</label>
+                <div class="controls">
+                    <?php echo $this->formText('hs_thang_10', $this->he_so->thang_10, array()); ?>
+                    <span class="help-inline">(*)</span>
+                </div>                
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="hs_thang_11">Tháng 11</label>
+                <div class="controls">
+                    <?php echo $this->formText('hs_thang_11', $this->he_so->thang_11, array()); ?>
+                    <span class="help-inline">(*)</span>
+                </div>                
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="hs_thang_12">Tháng 12</label>
+                <div class="controls">
+                    <?php echo $this->formText('hs_thang_12', $this->he_so->thang_12, array()); ?>
+                    <span class="help-inline">(*)</span>
+                </div>                
+            </div>        
+
+
+            <div class="control-group">
+                <div class="controls">
+                    <p>
+                        <button class="btn btn-small btn-primary" type="submit">Cập nhật</button>
+                        <a class="btn btn-small" type="button" href="<?php echo $this->baseUrl('taivu/heso02/index/page/' . $this->arrParam['page']); ?>">Quay lại</a>
+                    </p>
+                </div>
+            </div>
+        </form>
+    <?php else : ?>
+        <form class="form-horizontal" method="post" action="">
+            <div class="control-group">
+                <div class="controls">
+                    <p>
+                        <a class="btn btn-small" type="button" href="<?php echo $this->baseUrl('taivu/heso02/index/page/' . $this->arrParam['page']); ?>">Quay lại</a>
+                    </p>
+                </div>
+            </div>
+        </form>
+    <?php endif; ?>        
+</div> 

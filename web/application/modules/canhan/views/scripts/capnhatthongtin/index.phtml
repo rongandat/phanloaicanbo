@@ -742,7 +742,7 @@ foreach ($this->list_huyen as $huyen) {
                                     <?php
                                     foreach (unserialize($this->employee_info->em_anh_bang_cap) as $anh_scan) {
                                         $random_id = mt_rand();
-                                        echo '<tr id="' . $random_id . '"><td><input type="text" name="anh_bang_cap[' . $random_id . '][name]" placeholder="Tên" value="' . $anh_scan['name'] . '" class="input-xlarge"></td><td><input type="hidden" name="anh_bang_cap[' . $random_id . '][anh]" value="' . $anh_scan['anh'] . '"/><img src="' . $this->baseUrl('public/uploads/') . $anh_scan['anh'] . '" class="img-polaroid anh_bang_cap"></td> <td> <button class="btn btn-small btn btn-danger" type="button" onclick="deleteAnhScan(\'' . $random_id . '\')">Xóa</button></td></tr>';
+                                        echo '<tr id="' . $random_id . '"><td><input type="text" name="anh_bang_cap[' . $random_id . '][name]" placeholder="Tên" value="' . $anh_scan['name'] . '" class="input-xlarge"></td><td><input type="hidden" name="anh_bang_cap[' . $random_id . '][anh]" value="' . $anh_scan['anh'] . '"/><img src="' . $this->baseUrl('public/uploads/') . $anh_scan['anh'] . '" class="img-polaroid anh_bang_cap"></td> <td> </td></tr>';
                                     }
                                     ?>
                                 </tbody>
@@ -772,7 +772,6 @@ foreach ($this->list_huyen as $huyen) {
                                                 . '</td> '
                                                 . '<td> <div class="btn-toolbar"><div class="btn-group">'
                                                 . '<a class="btn btn-download-icon btn-small" target="_blank" href="' . $this->baseUrl('front/download/img/file/' . $anh_tai_lieu_khac['anh']) . '" type="button">Tải xuống</a>'
-                                                . '<button class="btn btn-small btn btn-danger" type="button" onclick="deleteAnhScan(\'' . $random_id . '\')">Xóa</button>'
                                                 . '</div></div></td>'
                                                 . '</tr>';
                                     }

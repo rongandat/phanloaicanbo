@@ -20,9 +20,6 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
         <div class="btn-toolbar float_left">
             <div class="btn-group">
                 <button class="btn" onclick="OnSubmitForm('<?php echo $this->baseUrl('tochuccanbo/employees/deleteitems/page/' . $this->arrParam['page']); ?>')"><i class="icon-trash"></i> Xóa</button>
-                <?php if ($this->check_nang_luong): ?>
-                    <a class="btn btn-warning" href="<?php echo $this->baseUrl('tochuccanbo/employees/nangluong/page/' . $this->arrParam['page']); ?>"><i class="icon-arrow-up"></i> Nâng bậc lương</a>
-                <?php endif; ?>
                 <?php if ($this->check_luan_chuyen): ?>
                     <a class="btn btn-warning" href="<?php echo $this->baseUrl('tochuccanbo/employees/luanchuyen/page/' . $this->arrParam['page']); ?>"><i class="icon-retweet"></i> Luân chuyển</a>
                 <?php endif; ?>               
@@ -68,12 +65,6 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
                                 <div class="dropdown float_left" style="padding-right: 6px;">
                                     <a class="btn btn-mini" id="drop' . $item->em_id . '" role="button" data-toggle="dropdown" href="#"><i class="icon-th-list"></i> Chức năng <b class="caret"></b></a>                                    
                                     <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop' . $item->em_id . '">
-                                        <li role="presentation">
-                                            <a role="menuitem" tabindex="-1" data-toggle="modal" href="#mdHeSoLuong" title="Hệ số lương" onclick="loadFormHeSo(' . $item->em_id . ')"><i class="icon-list-alt"></i> Hệ số lương</a>
-                                        </li>
-                                        <li role="presentation">
-                                            <a role="menuitem" tabindex="-1" data-toggle="modal" href="#mdHeSoPhuCap" title="Hệ số phụ cấp" onclick="loadFormPhuCap(' . $item->em_id . ')"><i class="icon-list-alt"></i> Hệ số phụ cấp</a>
-                                        </li>
                                         <li role="presentation">
                                             <a role="menuitem" tabindex="-1" data-toggle="modal" href="#mdLuanChuyen" title="Luân chuyển" onclick="loadFormLuanChuyen(' . $item->em_id . ')"><i class="icon-retweet"></i> Luân chuyển</a>
                                         </li>                                        

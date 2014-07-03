@@ -255,8 +255,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
 
         $phong_ban_choosed = Array();
         $phongbanModel->fetchData($pb_selected, $phong_ban_choosed);
-
-        $check_nang_luong = $this->_helper->global->checkNangLuong();
+        
         $check_luan_chuyen = $this->_helper->global->checkLuanChuyen();
         $check_ve_huu = $this->_helper->global->checkNghiHuu();
 
@@ -281,8 +280,7 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
         $this->view->list_chuc_vu = $list_chuc_vu;
         $this->view->list_phong_ban = $list_phong_ban;
         $this->view->list_phong_ban_option = $list_phong_ban_option;
-        $this->view->list_ngach_cong_chuc = $list_ngach_cong_chuc;
-        $this->view->check_nang_luong = $check_nang_luong;
+        $this->view->list_ngach_cong_chuc = $list_ngach_cong_chuc;        
         $this->view->check_luan_chuyen = $check_luan_chuyen;
         $this->view->check_ve_huu = $check_ve_huu;
     }
