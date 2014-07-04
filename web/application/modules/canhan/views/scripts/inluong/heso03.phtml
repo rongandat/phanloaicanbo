@@ -166,7 +166,7 @@
                                 <td>
                                     <?php echo $phan_loai == 'O' ? '-' : $phan_loai; ?>
                                 </td>
-                                <td><?php echo $phan_loai_he_so; ?></td>                            
+                                <td><?php echo $phan_loai_he_so; ?></td>
                             </tr>
                             <tr>
                                 <td>Hệ số lương</td>
@@ -193,27 +193,26 @@
                             <tr>
                                 <td>Phụ cấp thâm niên vượt khung</td>
                                 <td><?php echo $hs_pc_tnvk_phan_tram; ?>%</td>
-                                <td><?php echo number_format($hs_pc_tnvk, 2, '.', ','); ?></td>                            
+                                <td><?php echo number_format($hs_pc_tnvk, 2, '.', ','); ?></td>    
                             </tr>
                             <tr>
                                 <td>Phụ cấp thâm niên</td>
                                 <td><?php echo $hs_pc_tham_nien_phan_tram; ?>%</td>
-                                <td><?php echo number_format($hs_pc_tham_nien, 2, '.', ','); ?></td>                            
+                                <td><?php echo number_format($hs_pc_tham_nien, 2, '.', ','); ?></td>  
                             </tr>
                             <tr>
                                 <td>Phụ cấp ưu đãi nghề</td>
                                 <td><?php echo $uu_dai_nghe; ?>%</td>
-                                <td><?php echo number_format($hs_pc_uu_dai_nghe, 2, '.', ','); ?></td>                            
+                                <td><?php echo number_format($hs_pc_uu_dai_nghe, 2, '.', ','); ?></td>   
                             </tr>                           
                             <tr>
                                 <td>Phụ cấp thu hút</td>
                                 <td><?php echo $hs_pc_thu_hut_phan_tram; ?>%</td>
-                                <td><?php echo number_format($hs_pc_thu_hut, 2, '.', ','); ?></td>                            
+                                <td><?php echo number_format($hs_pc_thu_hut, 2, '.', ','); ?></td>  
                             </tr>                            
                             <tr>
                                 <td>Phụ cấp khác</td>
                                 <td colspan="2"><?php echo $hs_pc_khac; ?><?php echo $hs_pc_khac_type ? '%' : ''; ?></td>
-
                             </tr>                        
                             <tr>
                                 <td><strong>Tổng hệ số lương, phụ cấp</strong></td>
@@ -224,12 +223,20 @@
                                 <td colspan="2"><?php echo number_format($tam_chi_dau_vao, 0, '.', ','); ?></td>
                             </tr>                        
                             <tr>
-                                <td><strong>Hệ số lương và phụ cấp được điều chỉnh cho cá nhân</strong></td>
+                                <td><strong>H/S lương và phụ cấp được điều chỉnh cho cá nhân</strong></td>
                                 <td colspan="2"><?php echo number_format($tong_hs_luong_pc_ca_nhan, 2, '.', ','); ?></td>
                             </tr>                        
                             <tr>
-                                <td><strong>Hệ số lương và phụ cấp được điều chỉnh quy đổi theo PLLĐ</strong></td>
+                                <td><strong>H/S lương và phụ cấp được điều chỉnh quy đổi theo PLLĐ (I)</strong></td>
                                 <td colspan="2"><?php echo number_format($tong_hs_luong_pc_plld, 2, '.', ','); ?></td>
+                            </tr>                        
+                            <tr>
+                                <td><strong>Hệ số quy đổi (II)</strong></td>
+                                <td colspan="2"><?php echo number_format($this->he_so_quy_doi, 2, '.', ','); ?></td>
+                            </tr>                        
+                            <tr>
+                                <td><strong>Tiền lương 0.3 lần theo PLLĐ = I * II</strong></td>
+                                <td colspan="2"><strong><?php echo number_format($this->he_so_quy_doi*$tong_hs_luong_pc_plld, 2, '.', ','); ?></strong></td>
                             </tr>                        
                         </tbody>
                     </table>

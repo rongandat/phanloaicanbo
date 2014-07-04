@@ -77,7 +77,7 @@ class Canhan_InluongController extends Zend_Controller_Action {
 
         $date = new Zend_Date();
         $date->subMonth(1);
-        
+
         $thang = $this->_getParam('thang', $date->toString("M"));
         $nam = $this->_getParam('nam', $date->toString("Y"));
 
@@ -91,13 +91,35 @@ class Canhan_InluongController extends Zend_Controller_Action {
         $bangluongModel = new Front_Model_BangLuong();
         $bang_luong = $bangluongModel->fetchByDate($em_id, "$nam-$thang-01 00:00:00", "$nam-$thang-31 23:59:59");
 
+        $hesocbModel = new Front_Model_HeSo();
+        $lastHeSoLuong = $hesocbModel->fetchOneData(array('hs_ngay_bat_dau' => date("$nam-$thang-1")), 'hs_ngay_bat_dau DESC');
+
+        $tong_he_so = $bangluongModel->getSumHeSo("$nam-$thang-01 00:00:00", "$nam-$thang-31 23:59:59");
+        $tong_he_so_luong = $tong_he_so_plld = $tong_tam_chi = 0;
+        if ($tong_he_so && $tong_he_so->tong_he_so_luong)
+            $tong_he_so_luong = $tong_he_so->tong_he_so_luong;
+        if ($tong_he_so && $tong_he_so->tong_tam_chi)
+            $tong_tam_chi = $tong_he_so->tong_tam_chi;
+        if ($tong_he_so && $tong_he_so->tong_he_so_plld)
+            $tong_he_so_plld = $tong_he_so->tong_he_so_plld;
+
+        $luong_co_ban = $lastHeSoLuong->hs_luong_co_ban; //luong co ban
+        $tien_quy_tang_them = $tong_he_so_luong * $luong_co_ban * 0.8;
+        $tien_quy_con_lai = $tien_quy_tang_them - $tong_tam_chi;
+        if ($tien_quy_con_lai < 0)
+            $tien_quy_con_lai = 0;
+
+        $he_so_quy_doi = $tien_quy_con_lai / $tong_he_so_plld;
+
+
         $this->view->em_info = $em_info;
         $this->view->thang = $thang;
         $this->view->nam = $nam;
         $this->view->nv_id = $em_id;
         $this->view->bang_luong = $bang_luong;
+        $this->view->he_so_quy_doi = $he_so_quy_doi;
     }
-    
+
     public function heso02Action() {
         $translate = Zend_Registry::get('Zend_Translate');
         $this->view->title = 'Xem bảng lương hệ số 0.2 - ' . $translate->_('TEXT_DEFAULT_TITLE');
@@ -110,7 +132,7 @@ class Canhan_InluongController extends Zend_Controller_Action {
 
         $date = new Zend_Date();
         $date->subMonth(1);
-        
+
         $thang = $this->_getParam('thang', $date->toString("M"));
         $nam = $this->_getParam('nam', $date->toString("Y"));
 
@@ -124,11 +146,40 @@ class Canhan_InluongController extends Zend_Controller_Action {
         $bangluongModel = new Front_Model_BangLuong();
         $bang_luong = $bangluongModel->fetchByDate($em_id, "$nam-$thang-01 00:00:00", "$nam-$thang-31 23:59:59");
 
+        $hesocbModel = new Front_Model_HeSo();
+        $heso02Model = new Front_Model_HeSo02();
+        $he_so_02 = $heso02Model->fetchRow("nam=$nam");
+        if (!$he_so_02) {
+            $this->_helper->viewRenderer->setRender('loi');
+            die();
+        }
+
+        $lastHeSoLuong = $hesocbModel->fetchOneData(array('hs_ngay_bat_dau' => date("$nam-$thang-1")), 'hs_ngay_bat_dau DESC');
+
+        $tong_he_so = $bangluongModel->getSumHeSo("$nam-$thang-01 00:00:00", "$nam-$thang-31 23:59:59");
+        $tong_he_so_luong = $tong_he_so_plld = $tong_tam_chi = 0;
+        if ($tong_he_so->tong_he_so_luong)
+            $tong_he_so_luong = $tong_he_so->tong_he_so_luong;
+        if ($tong_he_so->tong_tam_chi)
+            $tong_tam_chi = $tong_he_so->tong_tam_chi;
+        if ($tong_he_so->tong_he_so_plld)
+            $tong_he_so_plld = $tong_he_so->tong_he_so_plld;
+
+        $luong_co_ban = $lastHeSoLuong->hs_luong_co_ban; //luong co ban
+        $thang_choosed = 'thang_' . $thang;
+        $tien_quy_tang_them = $tong_he_so_luong * $luong_co_ban * $he_so_02->$thang_choosed;
+        $tien_quy_con_lai = $tien_quy_tang_them;
+        if ($tien_quy_con_lai < 0)
+            $tien_quy_con_lai = 0;
+
+        $he_so_quy_doi = $tien_quy_con_lai / $tong_he_so_plld;
+
         $this->view->em_info = $em_info;
         $this->view->thang = $thang;
         $this->view->nam = $nam;
         $this->view->nv_id = $em_id;
         $this->view->bang_luong = $bang_luong;
+        $this->view->he_so_quy_doi = $he_so_quy_doi;
     }
 
     public function intheophongAction() {

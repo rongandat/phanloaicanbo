@@ -224,13 +224,21 @@
                                 <td colspan="2"><?php echo number_format($tam_chi_dau_vao, 0, '.', ','); ?></td>
                             </tr>                        
                             <tr>
-                                <td><strong>Hệ số lương và phụ cấp được điều chỉnh cho cá nhân</strong></td>
+                                <td><strong>H/S lương và phụ cấp được điều chỉnh cho cá nhân</strong></td>
                                 <td colspan="2"><?php echo number_format($tong_hs_luong_pc_ca_nhan, 2, '.', ','); ?></td>
                             </tr>                        
                             <tr>
-                                <td><strong>Hệ số lương và phụ cấp được điều chỉnh quy đổi theo PLLĐ</strong></td>
+                                <td><strong>H/S lương và phụ cấp được điều chỉnh quy đổi theo PLLĐ (I)</strong></td>
                                 <td colspan="2"><?php echo number_format($tong_hs_luong_pc_plld, 2, '.', ','); ?></td>
+                            </tr>  
+                            <tr>
+                                <td><strong>Hệ số quy đổi (II)</strong></td>
+                                <td colspan="2"><?php echo number_format($this->he_so_quy_doi, 2, '.', ','); ?></td>
                             </tr>                        
+                            <tr>
+                                <td><strong>Tiền lương 0.2 lần theo PLLĐ = I * II</strong></td>
+                                <td colspan="2"><strong><?php echo number_format($this->he_so_quy_doi*$tong_hs_luong_pc_plld, 2, '.', ','); ?></strong></td>
+                            </tr>
                         </tbody>
                     </table>
                 </fieldset>
