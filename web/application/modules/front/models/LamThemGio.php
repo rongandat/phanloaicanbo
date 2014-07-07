@@ -76,7 +76,7 @@ class Front_Model_LamThemGio extends Zend_Db_Table_Abstract {
             $select->where(TABLE_EMPLOYEES . '.em_phong_ban in (?)', $list_phong_ban);
         }
 
-        $select->where($this->_name . '.ltg_don_vi_status =?', 1);
+        //$select->where($this->_name . '.ltg_don_vi_status =?', 1);
         $select->where($this->_name . '.ltg_ngay >=?', $from_date);
         $select->where($this->_name . '.ltg_ngay <=?', $to_date);
         $select->order($this->_name . '.ltg_date_added DESC');

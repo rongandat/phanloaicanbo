@@ -43,7 +43,7 @@ class Taivu_DuyetchamcongController extends Zend_Controller_Action {
         $thang = $this->_getParam('thang', $date->toString("M"));
         $nam = $this->_getParam('nam', $date->toString("Y"));
         $days_in_month = cal_days_in_month(0, (int) $thang, (int) $nam);
-        
+
         $auth = Zend_Auth::getInstance();
         $identity = $auth->getIdentity();
         $em_id = $identity->em_id;
@@ -66,7 +66,7 @@ class Taivu_DuyetchamcongController extends Zend_Controller_Action {
                 }
             }
         }
-        
+
         $pb_selected = $this->_getParam('phongban', 0);
         $nv_selected = $this->_getParam('nhanvien', 0);
         $list_nhan_vien = $phong_ban_id = $list_phongban = $phong_ban = Array();
@@ -126,7 +126,7 @@ class Taivu_DuyetchamcongController extends Zend_Controller_Action {
                 'name' => 'Times New Roman'
             )
         );
-        
+
         $objPHPExcel->getProperties()->setCreator("Cục Hải Quan Hà Tĩnh");
         $objPHPExcel->getProperties()->setLastModifiedBy("Cục Hải Quan Hà Tĩnh");
         $objPHPExcel->getProperties()->setTitle("Thống kê tháng");
@@ -469,71 +469,69 @@ class Taivu_DuyetchamcongController extends Zend_Controller_Action {
             foreach ($item as $k => $v) {
                 $cham_cong = $chamcongModel->fetchOneData(array('c_em_id' => $v, 'c_thang' => $thang, 'c_nam' => $nam));
                 //Don vi phai duyet thi moi dc quyen cap nhat status
-                if ($cham_cong && $cham_cong->c_don_vi_status > 0) {
-                    /* $chamcongModel->insert(array(
-                      'c_em_id' => $v,
-                      'c_thang' => $thang,
-                      'c_nam' => $nam,
-                      'c_ngay_1' => '',
-                      'c_ngay_2' => '',
-                      'c_ngay_3' => '',
-                      'c_ngay_4' => '',
-                      'c_ngay_5' => '',
-                      'c_ngay_6' => '',
-                      'c_ngay_7' => '',
-                      'c_ngay_8' => '',
-                      'c_ngay_9' => '',
-                      'c_ngay_10' => '',
-                      'c_ngay_11' => '',
-                      'c_ngay_12' => '',
-                      'c_ngay_13' => '',
-                      'c_ngay_14' => '',
-                      'c_ngay_15' => '',
-                      'c_ngay_16' => '',
-                      'c_ngay_17' => '',
-                      'c_ngay_18' => '',
-                      'c_ngay_19' => '',
-                      'c_ngay_20' => '',
-                      'c_ngay_21' => '',
-                      'c_ngay_22' => '',
-                      'c_ngay_23' => '',
-                      'c_ngay_24' => '',
-                      'c_ngay_25' => '',
-                      'c_ngay_26' => '',
-                      'c_ngay_27' => '',
-                      'c_ngay_28' => '',
-                      'c_ngay_29' => '',
-                      'c_ngay_30' => '',
-                      'c_ngay_31' => '',
-                      'c_don_vi_status' => $c_status,
-                      'c_ptccb_status' => $c_status,
-                      'c_date_created' => $current_time,
-                      'c_date_modifyed' => $current_time
-                      )
-                      );
-
-                     */
-
+                if ($cham_cong) {
                     $chamcongModel->update(array('c_ptccb_status' => $c_status, 'c_don_vi_status' => $c_status), "c_em_id=$v and c_thang=$thang and c_nam=$nam");
-                    if ($c_status < 1) {
-                        $thongbao_model = new Front_Model_ThongBao();
-                        $data = array();
-                        $data['tb_from'] = 0;
-                        $data['tb_to'] = $v;
-                        $data['tb_tieu_de'] = "[Chấm công tháng $thang-$nam] Chấm công không được duyệt.";
-                        $data['tb_noi_dung'] = "Chào bạn!<br/>Chấm công $thang-$nam đã không được duyệt.<br/>Yêu cầu bạn chỉnh sửa lại bảng chấm công tháng $thang-$nam";
-                        $data['tb_status'] = 0;
-                        $data['tb_date_added'] = $current_time;
-                        $data['tb_date_modified'] = $current_time;
-                        $thongbao_model->insert($data);
+                } else {
+                    $chamcongModel->insert(array(
+                        'c_em_id' => $v,
+                        'c_thang' => $thang,
+                        'c_nam' => $nam,
+                        'c_ngay_1' => '',
+                        'c_ngay_2' => '',
+                        'c_ngay_3' => '',
+                        'c_ngay_4' => '',
+                        'c_ngay_5' => '',
+                        'c_ngay_6' => '',
+                        'c_ngay_7' => '',
+                        'c_ngay_8' => '',
+                        'c_ngay_9' => '',
+                        'c_ngay_10' => '',
+                        'c_ngay_11' => '',
+                        'c_ngay_12' => '',
+                        'c_ngay_13' => '',
+                        'c_ngay_14' => '',
+                        'c_ngay_15' => '',
+                        'c_ngay_16' => '',
+                        'c_ngay_17' => '',
+                        'c_ngay_18' => '',
+                        'c_ngay_19' => '',
+                        'c_ngay_20' => '',
+                        'c_ngay_21' => '',
+                        'c_ngay_22' => '',
+                        'c_ngay_23' => '',
+                        'c_ngay_24' => '',
+                        'c_ngay_25' => '',
+                        'c_ngay_26' => '',
+                        'c_ngay_27' => '',
+                        'c_ngay_28' => '',
+                        'c_ngay_29' => '',
+                        'c_ngay_30' => '',
+                        'c_ngay_31' => '',
+                        'c_don_vi_status' => $c_status,
+                        'c_ptccb_status' => $c_status,
+                        'c_date_created' => $current_time,
+                        'c_date_modifyed' => $current_time
+                            )
+                    );
+                }
+                if ($c_status < 1) {
+                    $thongbao_model = new Front_Model_ThongBao();
+                    $data = array();
+                    $data['tb_from'] = 0;
+                    $data['tb_to'] = $v;
+                    $data['tb_tieu_de'] = "[Chấm công tháng $thang-$nam] Chấm công không được duyệt.";
+                    $data['tb_noi_dung'] = "Chào bạn!<br/>Chấm công $thang-$nam đã không được duyệt.<br/>Yêu cầu bạn chỉnh sửa lại bảng chấm công tháng $thang-$nam";
+                    $data['tb_status'] = 0;
+                    $data['tb_date_added'] = $current_time;
+                    $data['tb_date_modified'] = $current_time;
+                    $thongbao_model->insert($data);
 
-                        $em_info = $this->view->viewGetEmployeeInfo($v);
-                        $data['tb_noi_dung'] = 'Chấm công của <strong>' . $em_info->em_ho . ' ' . $em_info->em_ten . '</strong> tháng ' . $thang . '-' . $nam . ' phòng tổ chức không duyệt.<br/> Bạn hãy <strong><a href="' . $this->view->baseUrl('donvi/duyetchamcong') . '">click vào đây</a></strong> để xét duyệt lại.';
-                        $don_vi_user = $this->_helper->GlobalHelpers->checkDonViUsers($v, 3004);
-                        foreach ($don_vi_user as $user) {
-                            $data['tb_to'] = $user->em_id;
-                            $thongbao_model->insert($data);
-                        }
+                    $em_info = $this->view->viewGetEmployeeInfo($v);
+                    $data['tb_noi_dung'] = 'Chấm công của <strong>' . $em_info->em_ho . ' ' . $em_info->em_ten . '</strong> tháng ' . $thang . '-' . $nam . ' phòng tổ chức không duyệt.<br/> Bạn hãy <strong><a href="' . $this->view->baseUrl('donvi/duyetchamcong') . '">click vào đây</a></strong> để xét duyệt lại.';
+                    $don_vi_user = $this->_helper->GlobalHelpers->checkDonViUsers($v, 3004);
+                    foreach ($don_vi_user as $user) {
+                        $data['tb_to'] = $user->em_id;
+                        $thongbao_model->insert($data);
                     }
                 }
             }
