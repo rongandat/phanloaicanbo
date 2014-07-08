@@ -108,7 +108,7 @@ class Tochuccanbo_DuyetphanloaiController extends Zend_Controller_Action {
 
                 if ($process_status) {
                     $new_status = $c_status;
-                    if($new_status =='O'){
+                    if ($new_status == 'O') {
                         $new_status = '-';
                     }
                     $bangluongModel = new Front_Model_BangLuong();
@@ -135,8 +135,42 @@ class Tochuccanbo_DuyetphanloaiController extends Zend_Controller_Action {
                         }
                     }
                 }
-            }else{
+            } else if($c_status !='') {
                 //tao moi
+                $process_status = $danhgiaModel->insert(array(
+                    'dg_em_id' => $em_id,
+                    'dg_thang' => $dg_thang,
+                    'dg_nam' => $dg_nam,
+                    'dg_cong_viec' => '',
+                    'dg_ket_qua_cong_viec' => 0,
+                    'dg_date_modifyed' => $current_time,
+                    'dg_date_created' => $current_time,
+                    'dg_ptccb_status' => $c_status
+                        )
+                );
+                $new_status = $c_status;
+                if ($new_status == 'O') {
+                    $new_status = '-';
+                }
+                if ($c_status == '') {
+                    $em_info = $this->view->viewGetEmployeeInfo($em_id);
+                    $data = array();
+                    $data['tb_from'] = 0;
+                    $data['tb_tieu_de'] = '[Thông báo] Phòng tổ chức không duyệt đánh giá phân loại.';
+                    $data['tb_noi_dung'] = 'Đánh giá phân phân loại theo tháng của bạn tháng ' . $dg_thang . '-' . $dg_nam . ' không được duyệt.<br/> Yêu cầu bạn hãy <strong><a href="' . $this->view->baseUrl('canhan/danhgiaphanloai') . '">click vào đây</a></strong> để xét chỉnh sửa.';
+                    $data['tb_status'] = 0;
+                    $data['tb_date_added'] = $current_time;
+                    $data['tb_date_modified'] = $current_time;
+                    $data['tb_to'] = $em_id;
+                    $thongbao_model->insert($data);
+
+                    $data['tb_noi_dung'] = 'Đánh giá phân loại của <strong>' . $em_info->em_ho . ' ' . $em_info->em_ten . '</strong> tháng ' . $dg_thang . '-' . $dg_nam . ' phòng tổ chức không duyệt.<br/> Bạn hãy <strong><a href="' . $this->view->baseUrl('donvi/duyetphanloai') . '">click vào đây</a></strong> để xét duyệt lại.';
+                    $don_vi_user = $this->_helper->GlobalHelpers->checkDonViUsers($em_id, 3005);
+                    foreach ($don_vi_user as $user) {
+                        $data['tb_to'] = $user->em_id;
+                        $thongbao_model->insert($data);
+                    }
+                }
             }
         }
         $this->view->new_status = $new_status;
@@ -162,7 +196,7 @@ class Tochuccanbo_DuyetphanloaiController extends Zend_Controller_Action {
                     } else {
                         $process_status = $danhgiaModel->update(array('dg_ptccb_status' => '', 'dg_don_vi_status' => ''), "dg_id=$find_row->dg_id");
                     }
-                    if ($process_status) {                       
+                    if ($process_status) {
 
                         $thongbao_model = new Front_Model_ThongBao();
                         $current_time = new Zend_Db_Expr('NOW()');
