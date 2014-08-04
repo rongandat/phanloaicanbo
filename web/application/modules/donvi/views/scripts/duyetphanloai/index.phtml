@@ -64,30 +64,57 @@ foreach ($this->ket_qua as $ket_qua) {
                             <td id="name_<?php echo $nhan_vien->em_id; ?>"><?php echo $nhan_vien->em_ho . ' ' . $nhan_vien->em_ten; ?></td>
                             <td><?php echo $pl_nhan_vien; ?></td>
                             <td>
-                                <?php
-                                echo ($phan_loai ? '<span id="sp_dg_' . $phan_loai->dg_id . '">' . $pl_don_vi . '</span>' : '');
+                                <?php                                
                                 if ($phan_loai && $phan_loai->dg_ptccb_status == ''):
+                                    echo '<span id="sp_dg_' . $phan_loai->dg_id . '">' . $pl_don_vi . '</span>';
                                     ?>
                                     <div class="dropdown float_right" style="padding-right: 6px;">
                                         <a class="btn btn-mini" id="drop_pl_<?php echo $phan_loai->dg_id; ?>" role="button" data-toggle="dropdown" href="#"><i class="icon-refresh"></i> <b class="caret"></b></a>                                    
                                         <ul class="dropdown-menu" role="menu" aria-labelledby="drop_pl_<?php echo $phan_loai->dg_id; ?>">
                                             <li role="presentation">
-                                                <a role="menuitem" tabindex="-1" onclick="on_update_status(<?php echo $phan_loai->dg_id; ?>,'O')">-</a>
+                                                <a role="menuitem" tabindex="-1" onclick="on_update_status(<?php echo $phan_loai->dg_id; ?>, 'O')">-</a>
                                             </li>
                                             <li role="presentation">
-                                                <a role="menuitem" tabindex="-1" onclick="on_update_status(<?php echo $phan_loai->dg_id; ?>,'A')">A</a>
+                                                <a role="menuitem" tabindex="-1" onclick="on_update_status(<?php echo $phan_loai->dg_id; ?>, 'A')">A</a>
                                             </li>
                                             <li role="presentation">
-                                                <a role="menuitem" tabindex="-1" onclick="on_update_status(<?php echo $phan_loai->dg_id; ?>,'B')">B</a>
+                                                <a role="menuitem" tabindex="-1" onclick="on_update_status(<?php echo $phan_loai->dg_id; ?>, 'B')">B</a>
                                             </li>
                                             <li role="presentation">
-                                                <a role="menuitem" tabindex="-1" onclick="on_update_status(<?php echo $phan_loai->dg_id; ?>,'C')">C</a>
+                                                <a role="menuitem" tabindex="-1" onclick="on_update_status(<?php echo $phan_loai->dg_id; ?>, 'C')">C</a>
                                             </li>
                                             <li role="presentation">
-                                                <a role="menuitem" tabindex="-1" onclick="on_update_status(<?php echo $phan_loai->dg_id; ?>,'D')">D</a>
+                                                <a role="menuitem" tabindex="-1" onclick="on_update_status(<?php echo $phan_loai->dg_id; ?>, 'D')">D</a>
                                             </li>
                                             <li role="presentation">
-                                                <a role="menuitem" tabindex="-1" onclick="on_update_status(<?php echo $phan_loai->dg_id; ?>,'')">Yêu cầu làm lại</a>
+                                                <a role="menuitem" tabindex="-1" onclick="on_update_status(<?php echo $phan_loai->dg_id; ?>, '')">Yêu cầu làm lại</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                <?php elseif (!$phan_loai): 
+                                    $rd_id_pl = rand(1111111, 9999999);
+                                     echo '<span id="sp_dg_' . $rd_id_pl . '"></span>';
+                                 ?>
+                                    <div class="dropdown float_right" style="padding-right: 6px;">
+                                        <a class="btn btn-mini" id="drop_pl_<?php echo $rd_id_pl; ?>" role="button" data-toggle="dropdown" href="#"><i class="icon-refresh"></i> <b class="caret"></b></a>                                    
+                                        <ul class="dropdown-menu" role="menu" aria-labelledby="drop_pl_<?php echo $rd_id_pl; ?>">
+                                            <li role="presentation">
+                                                <a role="menuitem" tabindex="-1" onclick="on_add_status(<?php echo $rd_id_pl.','.$nhan_vien->em_id.','.$this->thang.','.$this->nam; ?>, 'O')">-</a>
+                                            </li>
+                                            <li role="presentation">
+                                                <a role="menuitem" tabindex="-1" onclick="on_add_status(<?php echo $rd_id_pl.','.$nhan_vien->em_id.','.$this->thang.','.$this->nam; ?>, 'A')">A</a>
+                                            </li>
+                                            <li role="presentation">
+                                                <a role="menuitem" tabindex="-1" onclick="on_add_status(<?php echo $rd_id_pl.','.$nhan_vien->em_id.','.$this->thang.','.$this->nam; ?>, 'B')">B</a>
+                                            </li>
+                                            <li role="presentation">
+                                                <a role="menuitem" tabindex="-1" onclick="on_add_status(<?php echo $rd_id_pl.','.$nhan_vien->em_id.','.$this->thang.','.$this->nam; ?>, 'C')">C</a>
+                                            </li>
+                                            <li role="presentation">
+                                                <a role="menuitem" tabindex="-1" onclick="on_add_status(<?php echo $rd_id_pl.','.$nhan_vien->em_id.','.$this->thang.','.$this->nam; ?>, 'D')">D</a>
+                                            </li>
+                                            <li role="presentation">
+                                                <a role="menuitem" tabindex="-1" onclick="on_add_status(<?php echo $rd_id_pl.','.$nhan_vien->em_id.','.$this->thang.','.$this->nam; ?>, '')">Yêu cầu làm lại</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -222,7 +249,7 @@ foreach ($this->ket_qua as $ket_qua) {
 </div>
 
 <script>
-    var currentYear = <?php echo $this->nam; ?>;    
+    var currentYear = <?php echo $this->nam; ?>;
     var options = {
         pattern: 'mm/yyyy', // Default is 'mm/yyyy' and separator char is not mandatory 
         startYear: 2013,
@@ -232,72 +259,100 @@ foreach ($this->ket_qua as $ket_qua) {
 
     $('#txt_thang_nam').monthpicker(options);
 
-    $('#txt_thang_nam').monthpicker().bind('monthpicker-click-month', function (e, month, year) { 
-        window.location = site_url+'/donvi/duyetphanloai/index/thang/'+month+'/nam/'+year;
+    $('#txt_thang_nam').monthpicker().bind('monthpicker-click-month', function(e, month, year) {
+        window.location = site_url + '/donvi/duyetphanloai/index/thang/' + month + '/nam/' + year;
     });
 
-    $('#btn_chon_thang').bind('click', function () {
+    $('#btn_chon_thang').bind('click', function() {
         $('#txt_thang_nam').monthpicker('show');
     });
-    
-    function loadFormThongBao(em_id, em_name){ 
+
+    function loadFormThongBao(em_id, em_name) {
         $('#mdThongBaoBody #tb_cap_nhat_id').val(em_id);
-        $('#mdThongBaoBody #tb_can_bo').html('<strong>'+em_name+'</strong>');
+        $('#mdThongBaoBody #tb_can_bo').html('<strong>' + em_name + '</strong>');
         tinyMCE.get('tb_noi_dung').setContent('');
         $('#mdThongBaoBody #tb_tieu_de').val('');
         $('#dv_thong_bao_success').hide();
         $('#dv_thong_bao_error').hide();
     }
-    
-    function postFormThongBao(){                
+
+    function postFormThongBao() {
         $('#dv_thong_bao_success').hide();
         $('#dv_thong_bao_error').hide();
         var em_id = $('#mdThongBaoBody #tb_cap_nhat_id').val();
         var tb_title = $('#mdThongBaoBody #tb_tieu_de').val();
         var tb_content = tinyMCE.get('tb_noi_dung').getContent();
-        if(tb_title !='' && tb_content!=''){
+        if (tb_title != '' && tb_content != '') {
             $("#btn_gui_thong_bao").attr("disabled", "disabled");
-            $.post( site_url+'/canhan/thongbao/jqnewtb', {
-                em_id: em_id, 
-                tb_title: tb_title, 
+            $.post(site_url + '/canhan/thongbao/jqnewtb', {
+                em_id: em_id,
+                tb_title: tb_title,
                 tb_content: tb_content
-            }, function(data) {    
+            }, function(data) {
                 $("#btn_gui_thong_bao").removeAttr("disabled");
-                if(data.status){
+                if (data.status) {
                     $('#dv_thong_bao_success').show();
                     tinyMCE.get('tb_noi_dung').setContent('');
                     $('#mdThongBaoBody #tb_tieu_de').val('');
-                }else{
+                } else {
                     $('#dv_thong_bao_error').show();
                 }
             }, 'json');
-        }else{
+        } else {
             alert('Bạn phải nhập đầy đủ tiêu đề và nội dung!');
-        }        
+        }
     }
-    
-    function on_update_status(dg_id, new_status){
+
+    function on_update_status(dg_id, new_status) {
         $.blockUI({
             message: '<h3>Đang thực hiện</h3>',
-            css: {                         
-                border: 'none', 
-                padding: '15px', 
-                backgroundColor: '#000', 
-                '-webkit-border-radius': '10px', 
-                '-moz-border-radius': '10px', 
-                opacity: .5, 
-                color: '#fff' 
+            css: {
+                border: 'none',
+                padding: '15px',
+                backgroundColor: '#000',
+                '-webkit-border-radius': '10px',
+                '-moz-border-radius': '10px',
+                opacity: .5,
+                color: '#fff'
             }
         });
-        $.post( site_url+'/donvi/duyetphanloai/jqupdatestatus', {
-            dg_id: dg_id, 
+        $.post(site_url + '/donvi/duyetphanloai/jqupdatestatus', {
+            dg_id: dg_id,
             dg_status: new_status
-        }, function(data) {    
-            if(data.status){      
-                $('#sp_dg_'+dg_id).html(data.new_status);
-                $.success_ui('Thông báo!', 'Thực hiện thành công!', 4000);                
-            }else{
-                $.error_ui('Thông báo', 'Không thể thực hiện được!', 4000); 
+        }, function(data) {
+            if (data.status) {
+                $('#sp_dg_' + dg_id).html(data.new_status);
+                $.success_ui('Thông báo!', 'Thực hiện thành công!', 4000);
+            } else {
+                $.error_ui('Thông báo', 'Không thể thực hiện được!', 4000);
+            }
+        }, 'json');
+    }
+    
+    function on_add_status(rd_id, em_id, thang, nam, new_status) {
+        $.blockUI({
+            message: '<h3>Đang thực hiện</h3>',
+            css: {
+                border: 'none',
+                padding: '15px',
+                backgroundColor: '#000',
+                '-webkit-border-radius': '10px',
+                '-moz-border-radius': '10px',
+                opacity: .5,
+                color: '#fff'
+            }
+        });
+        $.post(site_url + '/donvi/duyetphanloai/jqaddstatus', {
+            em_id: em_id,
+            dg_thang: thang,
+            dg_nam: nam,
+            dg_status: new_status
+        }, function(data) {
+            if (data.status) {
+                $('#sp_dg_' + rd_id).html(data.new_status);
+                $.success_ui('Thông báo!', 'Thực hiện thành công!', 4000);
+            } else {
+                $.error_ui('Thông báo', 'Không thể thực hiện được!', 4000);
             }
         }, 'json');
     }

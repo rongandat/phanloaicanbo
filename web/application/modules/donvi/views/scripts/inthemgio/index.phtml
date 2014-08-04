@@ -83,7 +83,6 @@
         showOn: "both",
         buttonImage: site_url+"/date-picker-icon.png",
         onClose: function( selectedDate ) {
-            console.log(selectedDate);
             var date_array = selectedDate.split('/');
             window.location = site_url+'/donvi/inthemgio/index/ngay/'+date_array[0]+'/thang/'+date_array[1]+'/nam/'+date_array[2];
         }

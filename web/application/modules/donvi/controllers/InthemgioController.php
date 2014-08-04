@@ -56,6 +56,20 @@ class Donvi_InthemgioController extends Zend_Controller_Action {
 
             $objPHPExcel = PHPExcel_IOFactory::load($inputFileName);
 
+            $styleArray = array(
+                'borders' => array(
+                    'allborders' => array(
+                        'style' => PHPExcel_Style_Border::BORDER_THIN
+                    )
+                ),
+                'font' => array(
+                    'bold' => false,
+                    'color' => array('rgb' => '000000'),
+                    'size' => 11,
+                    'name' => 'Times New Roman'
+                )
+            );
+
             $objPHPExcel->getProperties()->setCreator("Cục Hải Quan Hà Tĩnh");
             $objPHPExcel->getProperties()->setLastModifiedBy("Cục Hải Quan Hà Tĩnh");
             $objPHPExcel->getProperties()->setTitle("Thống kê tháng");
@@ -124,6 +138,8 @@ class Donvi_InthemgioController extends Zend_Controller_Action {
                     $objPHPExcel->getActiveSheet()->getCell('E' . $k)->setValue($str_gio_key_thuc);
                     $objPHPExcel->getActiveSheet()->getStyle('E' . $k)->getAlignment()->setWrapText(true);
                     $objPHPExcel->getActiveSheet()->getCell('F' . $k)->setValue($tong_gio . ':' . $tong_phut);
+
+                    $objPHPExcel->getActiveSheet()->getStyle('A' . $k . ':G' . $k)->applyFromArray($styleArray);
                 }
             }
             $objPHPExcel->getActiveSheet()->setTitle('Làm thêm giờ');

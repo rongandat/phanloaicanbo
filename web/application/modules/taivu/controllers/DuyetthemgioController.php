@@ -89,7 +89,7 @@ class Taivu_DuyetthemgioController extends Zend_Controller_Action {
             $current_time = new Zend_Db_Expr('NOW()');
             $ltgModel = new Front_Model_LamThemGio();
             $row_content = $ltgModel->fetchRow("ltg_id =$item_id");
-            if ($row_content) {
+            if ($row_content && $row_content->ltg_don_vi_status > 0) {
                 $process_status = $ltgModel->update(array('ltg_tccb_status' => $item_status), "ltg_id=$item_id");
                 if ($process_status) {
                     $thongbao_model = new Front_Model_ThongBao();
@@ -133,7 +133,7 @@ class Taivu_DuyetthemgioController extends Zend_Controller_Action {
             $item = $this->getRequest()->getPost('cid');
             foreach ($item as $k => $v) {
                 $row_content = $ltgModel->fetchRow("ltg_id =$v");
-                if ($row_content) {
+                if ($row_content && $row_content->ltg_don_vi_status > 0) {
                     $process_status = $ltgModel->update(array('ltg_tccb_status' => $xnp_status), "ltg_id=$v");
                     if ($process_status) {
                         $thongbao_model = new Front_Model_ThongBao();
