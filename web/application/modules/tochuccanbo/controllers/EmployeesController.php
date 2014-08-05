@@ -266,10 +266,10 @@ class Tochuccanbo_EmployeesController extends Zend_Controller_Action {
 
         $employeesModel = new Front_Model_Employees();
         if (!$pb_selected) {
-            $list_employees = $employeesModel->fetchData();
+            $list_employees = $employeesModel->getListNhanVienDanhSachTheoChucVu();
         } else {
-            $select = $employeesModel->select()->where('em_phong_ban in (?)', $pb_ids);
-            $list_employees = $employeesModel->fetchAll($select);
+            //$select = $employeesModel->select()->where('em_phong_ban in (?)', $pb_ids);
+            $list_employees = $employeesModel->getListNhanVienTheoChucVu($pb_ids);
         }
         $paginator = Zend_Paginator::factory($list_employees);
         $paginator->setItemCountPerPage(NUM_PER_PAGE);

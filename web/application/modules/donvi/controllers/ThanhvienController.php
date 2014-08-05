@@ -56,9 +56,8 @@ class Donvi_ThanhvienController extends Zend_Controller_Action {
                 $phong_ban_id[] = $phong_ban_info->pb_parent;
             }
         }
-
-        $phong_ban_id = implode(',', $phong_ban_id);
-        $list_nhan_vien = $emModel->fetchAll("em_phong_ban in ($phong_ban_id) and em_status=1");
+        //$phong_ban_id = implode(',', $phong_ban_id);
+        $list_nhan_vien = $emModel->getListNhanVienTheoChucVu($phong_ban_id);
         $this->view->list_nhan_vien = $list_nhan_vien;
     }
 

@@ -61,6 +61,7 @@ foreach ($this->list_phong_ban_option as $phong_ban) {
                     <th class="checkall_style"><input type="checkbox" name="check_all" id="checkbox" onclick="checkedAll()"></th>
                     <th>Họ tên</th>
                     <th style="width: 120px;">Phòng ban</th>
+                    <th style="width: 100px;">Chức vụ</th>
                     <th style="width: 80px;">Cá nhân</th>
                     <th style="width: 80px;">Đơn vị</th>
                     <th style="width: 120px;">Phòng tổ chức</th>
@@ -98,6 +99,7 @@ foreach ($this->list_phong_ban_option as $phong_ban) {
                         <td class="checkall_style"><input type="checkbox" name="cid[]" id="cid" value="<?php echo $nhan_vien->em_id; ?>"></td>
                         <td id="name_<?php echo $nhan_vien->em_id; ?>"><?php echo $nhan_vien->em_ho . ' ' . $nhan_vien->em_ten; ?></td>
                         <td><?php echo $list_phong_ban[$nhan_vien->em_phong_ban]; ?></td>
+                        <td><?php echo $nhan_vien->cv_name; ?></td>
                         <td><?php echo $pl_nhan_vien; ?></td>
                         <td><?php echo $pl_don_vi; ?></td>
                         <td>

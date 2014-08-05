@@ -37,7 +37,7 @@ foreach ($this->filter as $filter) {
                             <td>' . ($item->em_gioi_tinh ? 'Nam' : 'Nữ') . '</td>                           
                             <td>' . date('d-m-Y',  strtotime($item->em_ngay_sinh)) . '</td>                           
                             <td>' . $this->viewGetPhongBanName($item->em_phong_ban) . '</td>                           
-                            <td>' . $this->viewGetChucVuName($item->em_chuc_vu) . '</td>                           
+                            <td>' . $item->cv_name . '</td>                           
                             
                         </tr>';
                     }

@@ -60,7 +60,8 @@ class Tochuccanbo_PhanloainamController extends Zend_Controller_Action {
 
         $phong_ban = Array();
         $list_phong_ban_option = $phongbanModel->fetchData(0, $phong_ban);
-
+        
+        $phong_ban_choosed_info = $phongbanModel->fetchRow("pb_id=$pb_selected and pb_status=1");
         $phong_ban_choosed = Array();
         $phongbanModel->fetchData($pb_selected, $phong_ban_choosed);
 
@@ -71,10 +72,10 @@ class Tochuccanbo_PhanloainamController extends Zend_Controller_Action {
 
         if (!$pb_selected) {
             //$list_employees = $emModel->fetchData(array('em_delete' => 0));
-            $list_employees = $emModel->fetchAll();
+            $list_employees = $emModel->getListNhanVienDanhSachTheoChucVu();
         } else {
-            $select = $emModel->select()->where('em_phong_ban in (?)', $pb_ids);
-            $list_employees = $emModel->fetchAll($select);
+            //$select = $emModel->select()->where('em_phong_ban in (?)', $pb_ids);
+            $list_employees = $emModel->getListNhanVienTheoChucVu($pb_ids);
         }
 
         $tieuchiModel = new Front_Model_TieuChiDanhGiaCB();
@@ -112,7 +113,7 @@ class Tochuccanbo_PhanloainamController extends Zend_Controller_Action {
 
             $objPHPExcel->getActiveSheet()->SetCellValue('A5', "(Năm $nam)");
 
-            $phong_ban_st = Array();
+            $phong_ban_st = Array($phong_ban_choosed_info);
             $list_phongban_selected = $phongbanModel->fetchDataStatus($pb_selected, $phong_ban_st);
             if ($list_employees) {
                 $k = 0;

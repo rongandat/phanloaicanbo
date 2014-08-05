@@ -50,18 +50,14 @@ class Tochuccanbo_PhanloaithangController extends Zend_Controller_Action {
         $chucvuModel = new Front_Model_Chucvu();
 
         $chuc_vu = $chucvuModel->fetchAll();
-        $list_chuc_vu = array();
-        foreach ($chuc_vu as $cv) {
-            $list_chuc_vu[$cv->cv_id] = $cv->cv_name;
-        }
-
+        
         $list_phong_ban = $phongbanModel->fetchAll();
 
         $pb_selected = $this->_getParam('phongban', 0);
 
         $phong_ban = Array();
         $list_phong_ban_option = $phongbanModel->fetchData(0, $phong_ban);
-
+        $phong_ban_choosed_info = $phongbanModel->fetchRow("pb_id=$pb_selected and pb_status=1");
         $phong_ban_choosed = Array();
         $phongbanModel->fetchData($pb_selected, $phong_ban_choosed);
 
@@ -72,10 +68,10 @@ class Tochuccanbo_PhanloaithangController extends Zend_Controller_Action {
 
         if (!$pb_selected) {
             //$list_employees = $emModel->fetchData(array('em_delete' => 0));
-            $list_employees = $emModel->fetchAll();
+            $list_employees = $emModel->getListNhanVienDanhSachTheoChucVu();
         } else {
-            $select = $emModel->select()->where('em_phong_ban in (?)', $pb_ids);
-            $list_employees = $emModel->fetchAll($select);
+            //$select = $emModel->select()->where('em_phong_ban in (?)', $pb_ids);
+            $list_employees = $emModel->getListNhanVienTheoChucVu($pb_ids);
         }
 
         $tieuchiModel = new Front_Model_TieuChiDanhGiaCB();
@@ -113,13 +109,14 @@ class Tochuccanbo_PhanloaithangController extends Zend_Controller_Action {
 
             $objPHPExcel->getActiveSheet()->SetCellValue('A5', "(Tháng $thang Năm $nam)");
 
-            $phong_ban_st = Array();
+            $phong_ban_st = Array($phong_ban_choosed_info);
             $list_phongban_selected = $phongbanModel->fetchDataStatus($pb_selected, $phong_ban_st);
+            
             if ($list_employees) {
                 $k = 0;
                 $stt = 0;
                 $stt_1 = 0;
-                foreach ($list_phongban_selected as $phong_ban_info) {
+                foreach ($list_phongban_selected as $phong_ban_info) {                    
                     $stt_1 = 0;
                     $k++;
                     $objPHPExcel->setActiveSheetIndex(0)->mergeCells("A" . ($k + 8) . ":J" . ($k + 8));
@@ -128,7 +125,7 @@ class Tochuccanbo_PhanloaithangController extends Zend_Controller_Action {
                                 'startcolor' => array('rgb' => 'F28A8C')
                             ));
                     $objPHPExcel->getActiveSheet()->SetCellValue('A' . ($k + 8), $phong_ban_info->pb_name);
-                    foreach ($list_employees as $nhan_vien) {
+                    foreach ($list_employees as $nhan_vien) {                        
                         if ($phong_ban_info->pb_id == $nhan_vien->em_phong_ban) {
                             $phan_loai = $this->view->viewGetPhanLoai($nhan_vien->em_id, (int) $thang, (int) $nam);
                             $pl_ptccb = '';
@@ -144,7 +141,7 @@ class Tochuccanbo_PhanloaithangController extends Zend_Controller_Action {
                             $objPHPExcel->getActiveSheet()->SetCellValue('A' . ($k + 8), $stt);
                             $objPHPExcel->getActiveSheet()->SetCellValue('B' . ($k + 8), $stt_1);
                             $objPHPExcel->getActiveSheet()->SetCellValue('C' . ($k + 8), $nhan_vien->em_ho . ' ' . $nhan_vien->em_ten);
-                            $objPHPExcel->getActiveSheet()->SetCellValue('D' . ($k + 8), $list_chuc_vu[$nhan_vien->em_chuc_vu]);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('D' . ($k + 8), $nhan_vien->cv_name);
 
                             switch ($pl_ptccb) {
                                 case 'A':
@@ -191,7 +188,6 @@ class Tochuccanbo_PhanloaithangController extends Zend_Controller_Action {
         $this->view->list_nhan_vien = $list_employees;
         $this->view->list_phong_ban = $list_phong_ban;
         $this->view->list_phong_ban_option = $list_phong_ban_option;
-        $this->view->list_chuc_vu = $list_chuc_vu;
         $this->view->pb_id = $pb_selected;
     }
 

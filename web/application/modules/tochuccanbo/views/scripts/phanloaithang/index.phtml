@@ -78,7 +78,7 @@ foreach ($this->list_phong_ban_option as $phong_ban) {
                     ?>
                     <tr>
                         <td id="name_<?php echo $nhan_vien->em_id; ?>"><?php echo $nhan_vien->em_ho . ' ' . $nhan_vien->em_ten; ?></td>
-                        <td><?php echo $this->list_chuc_vu[$nhan_vien->em_chuc_vu]; ?></td>
+                        <td><?php echo $nhan_vien->cv_name; ?></td>
                         <td><?php echo $pl_ptccb == 'A' ? 'X' : ''; ?></td>
                         <td><?php echo $pl_ptccb == 'B' ? 'X' : ''; ?></td>
                         <td><?php echo $pl_ptccb == 'C' ? 'X' : ''; ?></td>                        

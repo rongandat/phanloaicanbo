@@ -33,6 +33,33 @@ class Front_Model_Employees extends Zend_Db_Table_Abstract {
         return $this->fetchAll($select);
     }
 
+    public function getListNhanVienDanhSachTheoChucVu($filters = array()) {
+        $select = $this->select(Zend_Db_Table::SELECT_WITH_FROM_PART);
+        $select->setIntegrityCheck(false)
+                ->joinLeft(TABLE_CHUCVU, TABLE_CHUCVU . '.cv_id = ' . $this->_name . '.em_chuc_vu', array('cv_name'));
+        if (count($filters) > 0) {
+            foreach ($filters as $feild => $keyword) {
+                $select->where($this->_name . '.' . $feild . ' =?', $keyword);
+            }
+        }
+        $select->where($this->_name . '.em_nghi_huu =?', 0);
+        $select->where($this->_name . '.em_status =?', 1);
+        $select->order(TABLE_CHUCVU . '.cv_order asc');
+        return $this->fetchAll($select);
+    }
+
+    public function getListNhanVienTheoChucVu($list_phong_ban = array()) {
+
+        $select = $this->select(Zend_Db_Table::SELECT_WITH_FROM_PART);
+        $select->setIntegrityCheck(false)
+                ->joinLeft(TABLE_CHUCVU, TABLE_CHUCVU . '.cv_id = ' . $this->_name . '.em_chuc_vu', array('cv_name'));
+        $select->where($this->_name . '.em_phong_ban in (?)', $list_phong_ban);
+        $select->where($this->_name . '.em_nghi_huu =?', 0);
+        $select->where($this->_name . '.em_status =?', 1);
+        $select->order(TABLE_CHUCVU . '.cv_order asc');
+        return $this->fetchAll($select);
+    }
+
     public function getUsersByGroupsAndPhong($groups, $room) {
         $select = $this->select(Zend_Db_Table::SELECT_WITH_FROM_PART);
         $select->setIntegrityCheck(false)
@@ -70,7 +97,7 @@ class Front_Model_Employees extends Zend_Db_Table_Abstract {
         group by tmp.eh_em_id) as tmp2 inner join " . $this->_name . " e on e.em_id=tmp2.eh_em_id
         inner join " . TABLE_NGACHCONGCHUC . " ncc on e.em_ngach_cong_chuc=ncc.ncc_id
         where tmp2.eh_han_dieu_chinh<='$ngay_gioi_han' and ncc.ncc_id=$ngach $where";
-        
+
         $db = Zend_Db_Table::getDefaultAdapter();
         $stmt = $db->query($select);
         $rows = $stmt->fetchAll();
@@ -88,8 +115,8 @@ class Front_Model_Employees extends Zend_Db_Table_Abstract {
         $select = "select * from (select * from (SELECT epc_em_id, eh_pc_tnvk_time, eh_pc_tnvk_phan_tram FROM " . TABLE_EMPLOYEESPHUCAP . "
         order by eh_pc_tnvk_time DESC) as tmp
         group by tmp.epc_em_id) as tmp2 inner join " . $this->_name . " e on e.em_id=tmp2.epc_em_id        
-        where tmp2.eh_pc_tnvk_time<='$ngay_gioi_han' and eh_pc_tnvk_phan_tram>0 $where";          
-        
+        where tmp2.eh_pc_tnvk_time<='$ngay_gioi_han' and eh_pc_tnvk_phan_tram>0 $where";
+
         $db = Zend_Db_Table::getDefaultAdapter();
         $stmt = $db->query($select);
         $rows = $stmt->fetchAll();

@@ -457,9 +457,9 @@ class Taivu_TinhluongController extends Zend_Controller_Action {
                 $phong_ban_id[] = $phong_ban_info->pb_id;
             }
         }
-        $phong_ban_id = implode(',', $phong_ban_id);
+        //$phong_ban_id = implode(',', $phong_ban_id);
         if ($pb_selected)
-            $list_nhan_vien = $emModel->fetchAll("em_phong_ban in ($phong_ban_id) and em_status=1");
+            $list_nhan_vien = $emModel->getListNhanVienTheoChucVu($phong_ban_id);
 
         if ($this->_request->isPost()) {
             $item = $this->getRequest()->getPost('cid');
@@ -610,9 +610,9 @@ class Taivu_TinhluongController extends Zend_Controller_Action {
                 $phong_ban_id[] = $phong_ban_info->pb_id;
             }
         }
-        $phong_ban_id = implode(',', $phong_ban_id);
+        //$phong_ban_id = implode(',', $phong_ban_id);
         if ($pb_selected)
-            $list_nhan_vien = $emModel->fetchAll("em_phong_ban in ($phong_ban_id) and em_status=1");
+            $list_nhan_vien = $emModel->getListNhanVienTheoChucVu($phong_ban_id);
 
         if ($this->_request->isPost()) {
             $item = $this->getRequest()->getPost('cid');
@@ -752,9 +752,9 @@ class Taivu_TinhluongController extends Zend_Controller_Action {
                 $phong_ban_id[] = $phong_ban_info->pb_id;
             }
         }
-        $phong_ban_id = implode(',', $phong_ban_id);
+        //$phong_ban_id = implode(',', $phong_ban_id);
         if ($pb_selected)
-            $list_nhan_vien = $emModel->fetchAll("em_phong_ban in ($phong_ban_id) and em_status=1");
+            $list_nhan_vien = $emModel->getListNhanVienTheoChucVu($phong_ban_id);
 
         if ($this->_request->isPost()) {
             $item = $this->getRequest()->getPost('cid');

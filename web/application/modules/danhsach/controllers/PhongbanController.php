@@ -63,7 +63,7 @@ class Danhsach_PhongbanController extends Zend_Controller_Action {
         $filters = array();
         if ($filter_selected)
             $filters['em_phong_ban'] = $filter_selected;
-        $list_items = $emModel->fetchData($filters);
+        $list_items = $emModel->getListNhanVienDanhSachTheoChucVu($filters);
         $paginator = Zend_Paginator::factory($list_items);
         $paginator->setItemCountPerPage(NUM_PER_PAGE);
         $paginator->setCurrentPageNumber($this->_page);
@@ -99,15 +99,15 @@ class Danhsach_PhongbanController extends Zend_Controller_Action {
 
         $emModel = new Front_Model_Employees();
         $phongbanModel = new Front_Model_Phongban();
-        
         $hesoModel = new Front_Model_EmployeesHeso();
+        $phucapModel = new Front_Model_EmployeesPhuCap();
         $phong_ban = array();
         $list_phongban = $phongbanModel->fetchDataStatus(0, $phong_ban);
         $filters = array();
-        if ($filter_selected){
+        if ($filter_selected) {
             $filters['em_phong_ban'] = $filter_selected;
         }
-        $list_items = $emModel->fetchData($filters);
+        $list_items = $emModel->getListNhanVienDanhSachTheoChucVu($filters);
 
         $date = time();
         $thang = date('m', $date);
@@ -118,6 +118,7 @@ class Danhsach_PhongbanController extends Zend_Controller_Action {
             foreach ($list_items as $item) {
                 $time_tang_bac = 0;
                 $em_he_so = $hesoModel->getCurrentHeSo($thang, $nam, $item->em_id);
+                $em_phu_cap = $phucapModel->getCurrentHeSo($thang, $nam, $item->em_id);
 
                 $objPHPExcel->setActiveSheetIndex(0);
                 $ngach_cong_chuc = $this->view->viewGetNgachCongChuc($item->em_ngach_cong_chuc);
@@ -163,19 +164,19 @@ class Danhsach_PhongbanController extends Zend_Controller_Action {
                         $objPHPExcel->getActiveSheet()->SetCellValue('T' . $i, $bac_luong->bl_name);
                         $objPHPExcel->getActiveSheet()->SetCellValue('W' . $i, date('1/m', strtotime($em_he_so->eh_han_dieu_chinh)) . (date('Y', strtotime($em_he_so->eh_han_dieu_chinh)) + $time_tang_bac));
                     }
-
-                    $hs_pc_chuc_vu = $em_he_so->eh_pc_cong_viec;
-                    $hs_pc_tnvk_phan_tram = $em_he_so->eh_pc_tnvk_phan_tram;
-                    $he_so_luong = $em_he_so->eh_he_so;
-                    $hs_pc_tnvk = ($he_so_luong + $hs_pc_chuc_vu) * $hs_pc_tnvk_phan_tram / 100;
-
                     $objPHPExcel->getActiveSheet()->SetCellValue('U' . $i, $em_he_so->eh_he_so);
-                    if ($em_he_so->eh_tham_niem && $em_he_so->eh_tham_niem != '' && $em_he_so->eh_tham_niem != '0000-00-00 00:00:00')
-                        $objPHPExcel->getActiveSheet()->SetCellValue('K' . $i, date('1/m/Y', strtotime($em_he_so->eh_tham_niem)));
-                    if ($em_he_so->eh_han_dieu_chinh && $em_he_so->eh_han_dieu_chinh != '' && $em_he_so->eh_han_dieu_chinh != '0000-00-00 00:00:00')
-                        $objPHPExcel->getActiveSheet()->SetCellValue('V' . $i, date('1/m/Y', strtotime($em_he_so->eh_han_dieu_chinh)));
 
-                    $objPHPExcel->getActiveSheet()->SetCellValue('X' . $i, number_format($hs_pc_tnvk, 0, '.', ','));
+                    if ($em_phu_cap) {
+                        $hs_pc_chuc_vu = $em_phu_cap->eh_pc_cong_viec;
+                        $hs_pc_tnvk_phan_tram = $em_phu_cap->eh_pc_tnvk_phan_tram;
+                        $he_so_luong = $em_he_so->eh_he_so;
+                        $hs_pc_tnvk = ($he_so_luong + $hs_pc_chuc_vu) * $hs_pc_tnvk_phan_tram / 100;
+                        if ($em_phu_cap->eh_tham_niem && $em_phu_cap->eh_tham_niem != '' && $em_phu_cap->eh_tham_niem != '0000-00-00 00:00:00')
+                            $objPHPExcel->getActiveSheet()->SetCellValue('K' . $i, date('1/m/Y', strtotime($em_phu_cap->eh_tham_niem)));
+                        if ($em_he_so->eh_han_dieu_chinh && $em_he_so->eh_han_dieu_chinh != '' && $em_he_so->eh_han_dieu_chinh != '0000-00-00 00:00:00')
+                            $objPHPExcel->getActiveSheet()->SetCellValue('V' . $i, date('1/m/Y', strtotime($em_he_so->eh_han_dieu_chinh)));
+                        $objPHPExcel->getActiveSheet()->SetCellValue('X' . $i, number_format($hs_pc_tnvk, 0, '.', ','));
+                    }
                 }
 
                 $objPHPExcel->getActiveSheet()->SetCellValue('Y' . $i, $item->em_so_cong_chuc);

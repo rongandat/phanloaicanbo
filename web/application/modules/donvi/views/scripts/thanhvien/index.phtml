@@ -15,10 +15,11 @@
                     <tr>    
                         <th class="checkall_style"><input type="checkbox" name="check_all" id="checkbox" onclick="checkedAll()"></th>
                         <th>Họ tên</th>
-                        <th style="width: 100px;">Tên khác</th>
+                        <th style="width: 70px;">Tên khác</th>
+                        <th style="width: 100px;">Chức vụ</th>
                         <th style="width: 100px;">Ngày sinh</th>
                         <th style="width: 70px;">Giới tính</th>
-                        <th style="width: 150px;">Chức năng</th>
+                        <th style="width: 120px;">Chức năng</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -29,6 +30,7 @@
                             <td class="checkall_style"><input type="checkbox" name="cid[]" id="cid" value="<?php echo $nhan_vien->em_id; ?>"></td>
                             <td id="name_<?php echo $nhan_vien->em_id; ?>"><?php echo $nhan_vien->em_ho . ' ' . $nhan_vien->em_ten; ?></td>
                             <td><?php echo $nhan_vien->em_ten_khac; ?></td>
+                            <td><?php echo $nhan_vien->cv_name; ?></td>
                             <td><?php echo date('d-m-Y', strtotime($nhan_vien->em_ngay_sinh)); ?></td>
                             <td><?php echo ($nhan_vien->em_gioi_tinh ? 'Nam' : 'Nữ'); ?></td>
                             <td>

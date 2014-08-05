@@ -37,7 +37,7 @@ class Danhsach_HochamController extends Zend_Controller_Action {
         $objPHPExcel->getProperties()->setTitle("Bảng thông tin");
         $objPHPExcel->getProperties()->setSubject("Bảng thông tin");
         $objPHPExcel->getProperties()->setDescription("Bảng thông tin nhân viên - Cục Hải Quan Hà Tĩnh");
-        
+
         $translate = Zend_Registry::get('Zend_Translate');
         $this->view->title = 'Lọc danh sách theo học hàm - ' . $translate->_('TEXT_DEFAULT_TITLE');
         $this->view->headTitle($this->view->title);
@@ -52,10 +52,12 @@ class Danhsach_HochamController extends Zend_Controller_Action {
         $hesoModel = new Front_Model_EmployeesHeso();
         $emModel = new Front_Model_Employees();
         $filterModel = new Front_Model_Hocham();
-        $list_filters = $filterModel->fetchData(array('hh_status'=>1));
+        $phucapModel = new Front_Model_EmployeesPhuCap();
+        $list_filters = $filterModel->fetchData(array('hh_status' => 1));
         $filters = array();
-        if($filter_selected) $filters['em_hoc_ham'] = $filter_selected;
-        $list_items = $emModel->fetchData($filters);
+        if ($filter_selected)
+            $filters['em_hoc_ham'] = $filter_selected;
+        $list_items = $emModel->getListNhanVienDanhSachTheoChucVu($filters);
         $date = time();
         $thang = date('m', $date);
         $nam = date('Y', $date);
@@ -65,6 +67,7 @@ class Danhsach_HochamController extends Zend_Controller_Action {
             foreach ($list_items as $item) {
                 $time_tang_bac = 0;
                 $em_he_so = $hesoModel->getCurrentHeSo($thang, $nam, $item->em_id);
+                $em_phu_cap = $phucapModel->getCurrentHeSo($thang, $nam, $item->em_id);
 
                 $objPHPExcel->setActiveSheetIndex(0);
                 $ngach_cong_chuc = $this->view->viewGetNgachCongChuc($item->em_ngach_cong_chuc);
@@ -110,19 +113,19 @@ class Danhsach_HochamController extends Zend_Controller_Action {
                         $objPHPExcel->getActiveSheet()->SetCellValue('T' . $i, $bac_luong->bl_name);
                         $objPHPExcel->getActiveSheet()->SetCellValue('W' . $i, date('1/m', strtotime($em_he_so->eh_han_dieu_chinh)) . (date('Y', strtotime($em_he_so->eh_han_dieu_chinh)) + $time_tang_bac));
                     }
-
-                    $hs_pc_chuc_vu = $em_he_so->eh_pc_cong_viec;
-                    $hs_pc_tnvk_phan_tram = $em_he_so->eh_pc_tnvk_phan_tram;
-                    $he_so_luong = $em_he_so->eh_he_so;
-                    $hs_pc_tnvk = ($he_so_luong + $hs_pc_chuc_vu) * $hs_pc_tnvk_phan_tram / 100;
-
                     $objPHPExcel->getActiveSheet()->SetCellValue('U' . $i, $em_he_so->eh_he_so);
-                    if ($em_he_so->eh_tham_niem && $em_he_so->eh_tham_niem != '' && $em_he_so->eh_tham_niem != '0000-00-00 00:00:00')
-                        $objPHPExcel->getActiveSheet()->SetCellValue('K' . $i, date('1/m/Y', strtotime($em_he_so->eh_tham_niem)));
-                    if ($em_he_so->eh_han_dieu_chinh && $em_he_so->eh_han_dieu_chinh != '' && $em_he_so->eh_han_dieu_chinh != '0000-00-00 00:00:00')
-                        $objPHPExcel->getActiveSheet()->SetCellValue('V' . $i, date('1/m/Y', strtotime($em_he_so->eh_han_dieu_chinh)));
 
-                    $objPHPExcel->getActiveSheet()->SetCellValue('X' . $i, number_format($hs_pc_tnvk, 0, '.', ','));
+                    if ($em_phu_cap) {
+                        $hs_pc_chuc_vu = $em_phu_cap->eh_pc_cong_viec;
+                        $hs_pc_tnvk_phan_tram = $em_phu_cap->eh_pc_tnvk_phan_tram;
+                        $he_so_luong = $em_he_so->eh_he_so;
+                        $hs_pc_tnvk = ($he_so_luong + $hs_pc_chuc_vu) * $hs_pc_tnvk_phan_tram / 100;
+                        if ($em_phu_cap->eh_tham_niem && $em_phu_cap->eh_tham_niem != '' && $em_phu_cap->eh_tham_niem != '0000-00-00 00:00:00')
+                            $objPHPExcel->getActiveSheet()->SetCellValue('K' . $i, date('1/m/Y', strtotime($em_phu_cap->eh_tham_niem)));
+                        if ($em_he_so->eh_han_dieu_chinh && $em_he_so->eh_han_dieu_chinh != '' && $em_he_so->eh_han_dieu_chinh != '0000-00-00 00:00:00')
+                            $objPHPExcel->getActiveSheet()->SetCellValue('V' . $i, date('1/m/Y', strtotime($em_he_so->eh_han_dieu_chinh)));
+                        $objPHPExcel->getActiveSheet()->SetCellValue('X' . $i, number_format($hs_pc_tnvk, 0, '.', ','));
+                    }
                 }
 
                 $objPHPExcel->getActiveSheet()->SetCellValue('Y' . $i, $item->em_so_cong_chuc);
@@ -142,7 +145,7 @@ class Danhsach_HochamController extends Zend_Controller_Action {
             die('Không có dữ liệu nào');
         }
     }
-    
+
     public function indexAction() {
         $translate = Zend_Registry::get('Zend_Translate');
         $this->view->title = 'Lọc danh sách theo học hàm - ' . $translate->_('TEXT_DEFAULT_TITLE');
@@ -157,10 +160,11 @@ class Danhsach_HochamController extends Zend_Controller_Action {
 
         $emModel = new Front_Model_Employees();
         $filterModel = new Front_Model_Hocham();
-        $list_filters = $filterModel->fetchData(array('hh_status'=>1));
+        $list_filters = $filterModel->fetchData(array('hh_status' => 1));
         $filters = array();
-        if($filter_selected) $filters['em_hoc_ham'] = $filter_selected;
-        $list_items = $emModel->fetchData($filters);
+        if ($filter_selected)
+            $filters['em_hoc_ham'] = $filter_selected;
+        $list_items = $emModel->getListNhanVienDanhSachTheoChucVu($filters);
         $paginator = Zend_Paginator::factory($list_items);
         $paginator->setItemCountPerPage(NUM_PER_PAGE);
         $paginator->setCurrentPageNumber($this->_page);
@@ -169,4 +173,5 @@ class Danhsach_HochamController extends Zend_Controller_Action {
         $this->view->filter = $list_filters;
         $this->view->filter_selected = $filter_selected;
     }
+
 }
