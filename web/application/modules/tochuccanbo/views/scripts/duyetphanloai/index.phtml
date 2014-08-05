@@ -71,7 +71,7 @@ foreach ($this->list_phong_ban_option as $phong_ban) {
             <tbody>
                 <?php
                 foreach ($this->list_nhan_vien as $nhan_vien) {
-                    $phan_loai = $this->viewGetPhanLoai($nhan_vien->em_id, (int) $this->thang, (int) $this->nam);
+                    $phan_loai = $this->viewGetPhanLoai($nhan_vien['em_id'], (int) $this->thang, (int) $this->nam);
                     $rd_id = rand(1000000, 9999999);
                     $pl_nhan_vien = '';
                     if ($phan_loai) {
@@ -96,48 +96,48 @@ foreach ($this->list_phong_ban_option as $phong_ban) {
                     }
                     ?>
                     <tr>
-                        <td class="checkall_style"><input type="checkbox" name="cid[]" id="cid" value="<?php echo $nhan_vien->em_id; ?>"></td>
-                        <td id="name_<?php echo $nhan_vien->em_id; ?>"><?php echo $nhan_vien->em_ho . ' ' . $nhan_vien->em_ten; ?></td>
-                        <td><?php echo $list_phong_ban[$nhan_vien->em_phong_ban]; ?></td>
-                        <td><?php echo $nhan_vien->cv_name; ?></td>
+                        <td class="checkall_style"><input type="checkbox" name="cid[]" id="cid" value="<?php echo $nhan_vien['em_id']; ?>"></td>
+                        <td id="name_<?php echo $nhan_vien['em_id']; ?>"><?php echo $nhan_vien['em_ho'] . ' ' . $nhan_vien['em_ten']; ?></td>
+                        <td><?php echo $list_phong_ban[$nhan_vien['em_phong_ban']]; ?></td>
+                        <td><?php echo $nhan_vien['cv_name']; ?></td>
                         <td><?php echo $pl_nhan_vien; ?></td>
                         <td><?php echo $pl_don_vi; ?></td>
                         <td>
-                            <?php echo '<span id="sp_dg_' . $nhan_vien->em_id . '">' . $pl_ptccb . '</span>'; ?>
+                            <?php echo '<span id="sp_dg_' . $nhan_vien['em_id'] . '">' . $pl_ptccb . '</span>'; ?>
 
                             <div class="dropdown float_right" style="padding-right: 6px;">
-                                <a class="btn btn-mini" id="drop_pl_<?php echo $nhan_vien->em_id; ?>" role="button" data-toggle="dropdown" href="#"><i class="icon-refresh"></i> <b class="caret"></b></a>                                    
-                                <ul class="dropdown-menu" role="menu" aria-labelledby="drop_pl_<?php echo $nhan_vien->em_id; ?>">
+                                <a class="btn btn-mini" id="drop_pl_<?php echo $nhan_vien['em_id']; ?>" role="button" data-toggle="dropdown" href="#"><i class="icon-refresh"></i> <b class="caret"></b></a>                                    
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="drop_pl_<?php echo $nhan_vien['em_id']; ?>">
                                     <li role="presentation">
-                                        <a role="menuitem" tabindex="-1" onclick="on_update_status(<?php echo $nhan_vien->em_id; ?>, <?php echo $this->thang; ?>, <?php echo $this->nam; ?>,'O')">-</a>
+                                        <a role="menuitem" tabindex="-1" onclick="on_update_status(<?php echo $nhan_vien['em_id']; ?>, <?php echo $this->thang; ?>, <?php echo $this->nam; ?>,'O')">-</a>
                                     </li>
                                     <li role="presentation">
-                                        <a role="menuitem" tabindex="-1" onclick="on_update_status(<?php echo $nhan_vien->em_id; ?>, <?php echo $this->thang; ?>, <?php echo $this->nam; ?>,'A')">A</a>
+                                        <a role="menuitem" tabindex="-1" onclick="on_update_status(<?php echo $nhan_vien['em_id']; ?>, <?php echo $this->thang; ?>, <?php echo $this->nam; ?>,'A')">A</a>
                                     </li>
                                     <li role="presentation">
-                                        <a role="menuitem" tabindex="-1" onclick="on_update_status(<?php echo $nhan_vien->em_id; ?>, <?php echo $this->thang; ?>, <?php echo $this->nam; ?>,'B')">B</a>
+                                        <a role="menuitem" tabindex="-1" onclick="on_update_status(<?php echo $nhan_vien['em_id']; ?>, <?php echo $this->thang; ?>, <?php echo $this->nam; ?>,'B')">B</a>
                                     </li>
                                     <li role="presentation">
-                                        <a role="menuitem" tabindex="-1" onclick="on_update_status(<?php echo $nhan_vien->em_id; ?>, <?php echo $this->thang; ?>, <?php echo $this->nam; ?>,'C')">C</a>
+                                        <a role="menuitem" tabindex="-1" onclick="on_update_status(<?php echo $nhan_vien['em_id']; ?>, <?php echo $this->thang; ?>, <?php echo $this->nam; ?>,'C')">C</a>
                                     </li>
                                     <li role="presentation">
-                                        <a role="menuitem" tabindex="-1" onclick="on_update_status(<?php echo $nhan_vien->em_id; ?>, <?php echo $this->thang; ?>, <?php echo $this->nam; ?>,'D')">D</a>
+                                        <a role="menuitem" tabindex="-1" onclick="on_update_status(<?php echo $nhan_vien['em_id']; ?>, <?php echo $this->thang; ?>, <?php echo $this->nam; ?>,'D')">D</a>
                                     </li>
                                     <li role="presentation">
-                                        <a role="menuitem" tabindex="-1" onclick="on_update_status(<?php echo $nhan_vien->em_id; ?>, <?php echo $this->thang; ?>, <?php echo $this->nam; ?>,'')">Yêu cầu làm lại</a>
+                                        <a role="menuitem" tabindex="-1" onclick="on_update_status(<?php echo $nhan_vien['em_id']; ?>, <?php echo $this->thang; ?>, <?php echo $this->nam; ?>,'')">Yêu cầu làm lại</a>
                                     </li>
                                 </ul>
                             </div>
                         </td>
                         <td>
                             <div class="dropdown float_left" style="padding-right: 6px;">
-                                <a class="btn btn-mini" id="drop_<?php echo $nhan_vien->em_id; ?>" role="button" data-toggle="dropdown" href="#"><i class="icon-th-list"></i> Chức năng <b class="caret"></b></a>                                    
-                                <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop_<?php echo $nhan_vien->em_id; ?>">
+                                <a class="btn btn-mini" id="drop_<?php echo $nhan_vien['em_id']; ?>" role="button" data-toggle="dropdown" href="#"><i class="icon-th-list"></i> Chức năng <b class="caret"></b></a>                                    
+                                <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop_<?php echo $nhan_vien['em_id']; ?>">
                                     <li role="presentation">
                                         <a role="menuitem" tabindex="-1" data-toggle="modal" href="#mdPL_<?php echo ($phan_loai ? $phan_loai->dg_id : $rd_id); ?>" title="Xem chi tiết"><i class="icon-calendar"></i> Xem chi tiết</a>
                                     </li>
                                     <li role="presentation">
-                                        <a role="menuitem" tabindex="-1" data-toggle="modal" href="#mdThongBao" title="Gửi tin nhắn" onclick="loadFormThongBao('<?php echo $nhan_vien->em_id; ?>', '<?php echo $nhan_vien->em_ho . ' ' . $nhan_vien->em_ten; ?>')"><i class="icon-envelope"></i> Gửi thông báo</a>
+                                        <a role="menuitem" tabindex="-1" data-toggle="modal" href="#mdThongBao" title="Gửi tin nhắn" onclick="loadFormThongBao('<?php echo $nhan_vien['em_id']; ?>', '<?php echo $nhan_vien['em_ho'] . ' ' . $nhan_vien['em_ten']; ?>')"><i class="icon-envelope"></i> Gửi thông báo</a>
                                     </li>
                                 </ul>
                             </div>
@@ -149,7 +149,7 @@ foreach ($this->list_phong_ban_option as $phong_ban) {
                                 <div class="modal-body">
                                     <?php if ($phan_loai) { ?>
                                         <div class="row">
-                                            <div class="span4 float_left"><strong>Nhân viên: </strong> <?php echo $nhan_vien->em_ho . ' ' . $nhan_vien->em_ten; ?></div>
+                                            <div class="span4 float_left"><strong>Nhân viên: </strong> <?php echo $nhan_vien['em_ho'] . ' ' . $nhan_vien['em_ten']; ?></div>
                                         </div>
                                         <div class="row">
                                             <div class="span4 float_left"><strong>Công việc trong tháng: </strong> <?php echo $phan_loai->dg_cong_viec; ?></div>

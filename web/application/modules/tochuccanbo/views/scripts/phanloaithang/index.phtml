@@ -66,7 +66,7 @@ foreach ($this->list_phong_ban_option as $phong_ban) {
             <tbody>
                 <?php
                 foreach ($this->list_nhan_vien as $nhan_vien) {
-                    $phan_loai = $this->viewGetPhanLoai($nhan_vien->em_id, (int) $this->thang, (int) $this->nam);
+                    $phan_loai = $this->viewGetPhanLoai($nhan_vien['em_id'], (int) $this->thang, (int) $this->nam);
                     $rd_id = rand(1000000, 9999999);
                     $pl_ptccb = '';
                     if ($phan_loai) {
@@ -77,8 +77,8 @@ foreach ($this->list_phong_ban_option as $phong_ban) {
                     }
                     ?>
                     <tr>
-                        <td id="name_<?php echo $nhan_vien->em_id; ?>"><?php echo $nhan_vien->em_ho . ' ' . $nhan_vien->em_ten; ?></td>
-                        <td><?php echo $nhan_vien->cv_name; ?></td>
+                        <td id="name_<?php echo $nhan_vien['em_id']; ?>"><?php echo $nhan_vien['em_ho'] . ' ' . $nhan_vien['em_ten']; ?></td>
+                        <td><?php echo $nhan_vien['cv_name']; ?></td>
                         <td><?php echo $pl_ptccb == 'A' ? 'X' : ''; ?></td>
                         <td><?php echo $pl_ptccb == 'B' ? 'X' : ''; ?></td>
                         <td><?php echo $pl_ptccb == 'C' ? 'X' : ''; ?></td>                        

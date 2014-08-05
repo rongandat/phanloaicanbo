@@ -68,10 +68,10 @@ class Tochuccanbo_PhanloaithangController extends Zend_Controller_Action {
 
         if (!$pb_selected) {
             //$list_employees = $emModel->fetchData(array('em_delete' => 0));
-            $list_employees = $emModel->getListNhanVienDanhSachTheoChucVu();
+            $list_employees = $emModel->callGetListNhanVien();
         } else {
             //$select = $emModel->select()->where('em_phong_ban in (?)', $pb_ids);
-            $list_employees = $emModel->getListNhanVienTheoChucVu($pb_ids);
+            $list_employees = $emModel->callGetListNhanVien($pb_ids);
         }
 
         $tieuchiModel = new Front_Model_TieuChiDanhGiaCB();
@@ -126,8 +126,8 @@ class Tochuccanbo_PhanloaithangController extends Zend_Controller_Action {
                             ));
                     $objPHPExcel->getActiveSheet()->SetCellValue('A' . ($k + 8), $phong_ban_info->pb_name);
                     foreach ($list_employees as $nhan_vien) {                        
-                        if ($phong_ban_info->pb_id == $nhan_vien->em_phong_ban) {
-                            $phan_loai = $this->view->viewGetPhanLoai($nhan_vien->em_id, (int) $thang, (int) $nam);
+                        if ($phong_ban_info->pb_id == $nhan_vien['em_phong_ban']) {
+                            $phan_loai = $this->view->viewGetPhanLoai($nhan_vien['em_id'], (int) $thang, (int) $nam);
                             $pl_ptccb = '';
                             if ($phan_loai) {
                                 if ($phan_loai->dg_ptccb_status != 'O')
@@ -140,8 +140,8 @@ class Tochuccanbo_PhanloaithangController extends Zend_Controller_Action {
                             $stt++;
                             $objPHPExcel->getActiveSheet()->SetCellValue('A' . ($k + 8), $stt);
                             $objPHPExcel->getActiveSheet()->SetCellValue('B' . ($k + 8), $stt_1);
-                            $objPHPExcel->getActiveSheet()->SetCellValue('C' . ($k + 8), $nhan_vien->em_ho . ' ' . $nhan_vien->em_ten);
-                            $objPHPExcel->getActiveSheet()->SetCellValue('D' . ($k + 8), $nhan_vien->cv_name);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('C' . ($k + 8), $nhan_vien['em_ho'] . ' ' . $nhan_vien['em_ten']);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('D' . ($k + 8), $nhan_vien['cv_name']);
 
                             switch ($pl_ptccb) {
                                 case 'A':

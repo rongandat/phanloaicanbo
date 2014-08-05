@@ -53,38 +53,38 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
                 <?php
                 foreach ($this->paginator as $item) {
                     echo '<tr>
-                            <td class="checkall_style"><input type="checkbox" name="cid[]" id="cid" value="' . $item->em_id . '"></td>
-                            <td>' . $item->em_ho . '</a></td>                            
-                            <td>' . $item->em_ten . '</a></td>                            
-                            <td>' . $list_chuc_vu[$item->em_chuc_vu] . '</a></td>                            
-                            <td>' . $list_phong_ban[$item->em_phong_ban] . '</a></td>  
-                            <td class="status_style"><a href="' . ($item->em_status ? $this->baseUrl('tochuccanbo/employees/changestatus/id/' . $item->em_id . '/status/0/page/' . $this->arrParam['page']) : $this->baseUrl('tochuccanbo/employees/changestatus/id/' . $item->em_id . '/status/1/page/' . $this->arrParam['page'])) . '"><div class="' . ($item->em_status ? 'icon_status_active' : 'icon_status_inactive') . '"></div></a></td>
+                            <td class="checkall_style"><input type="checkbox" name="cid[]" id="cid" value="' . $item['em_id'] . '"></td>
+                            <td>' . $item['em_ho'] . '</a></td>                            
+                            <td>' . $item['em_ten'] . '</a></td>                            
+                            <td>' . $item['cv_name'] . '</a></td>                            
+                            <td>' . $list_phong_ban[$item['em_phong_ban']] . '</a></td>  
+                            <td class="status_style"><a href="' . ($item['em_status'] ? $this->baseUrl('tochuccanbo/employees/changestatus/id/' . $item['em_id'] . '/status/0/page/' . $this->arrParam['page']) : $this->baseUrl('tochuccanbo/employees/changestatus/id/' . $item['em_id'] . '/status/1/page/' . $this->arrParam['page'])) . '"><div class="' . ($item['em_status'] ? 'icon_status_active' : 'icon_status_inactive') . '"></div></a></td>
                             <td class="function_style">
-                                <a class="btn btn-mini" href="' . $this->baseUrl('tochuccanbo/employees/edit/id/' . $item->em_id . '/page/' . $this->arrParam['page']) . '" title="Sửa"><i class="icon-edit"></i> Sửa</a>
-                                <a class="btn btn-mini" href="' . $this->baseUrl('tochuccanbo/employees/delete/id/' . $item->em_id . '/page/' . $this->arrParam['page']) . '" title="Xóa"><i class="icon-trash"></i> Xóa</a>                                
+                                <a class="btn btn-mini" href="' . $this->baseUrl('tochuccanbo/employees/edit/id/' . $item['em_id'] . '/page/' . $this->arrParam['page']) . '" title="Sửa"><i class="icon-edit"></i> Sửa</a>
+                                <a class="btn btn-mini" href="' . $this->baseUrl('tochuccanbo/employees/delete/id/' . $item['em_id'] . '/page/' . $this->arrParam['page']) . '" title="Xóa"><i class="icon-trash"></i> Xóa</a>                                
                                 <div class="dropdown float_left" style="padding-right: 6px;">
-                                    <a class="btn btn-mini" id="drop' . $item->em_id . '" role="button" data-toggle="dropdown" href="#"><i class="icon-th-list"></i> Chức năng <b class="caret"></b></a>                                    
-                                    <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop' . $item->em_id . '">
+                                    <a class="btn btn-mini" id="drop' . $item['em_id'] . '" role="button" data-toggle="dropdown" href="#"><i class="icon-th-list"></i> Chức năng <b class="caret"></b></a>                                    
+                                    <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop' . $item['em_id'] . '">
                                         <li role="presentation">
-                                            <a role="menuitem" tabindex="-1" data-toggle="modal" href="#mdLuanChuyen" title="Luân chuyển" onclick="loadFormLuanChuyen(' . $item->em_id . ')"><i class="icon-retweet"></i> Luân chuyển</a>
+                                            <a role="menuitem" tabindex="-1" data-toggle="modal" href="#mdLuanChuyen" title="Luân chuyển" onclick="loadFormLuanChuyen(' . $item['em_id'] . ')"><i class="icon-retweet"></i> Luân chuyển</a>
                                         </li>                                        
                                         <li role="presentation">
-                                            <a role="menuitem" tabindex="-1" data-toggle="modal" href="#mdKhenThuong" title="Khen thưởng" onclick="loadFormKhenThuong(' . $item->em_id . ', \'' . $item->em_ho . ' ' . $item->em_ten . '\')"><i class="icon-star"></i> Khen thưởng</a>
+                                            <a role="menuitem" tabindex="-1" data-toggle="modal" href="#mdKhenThuong" title="Khen thưởng" onclick="loadFormKhenThuong(' . $item['em_id'] . ', \'' . $item['em_ho'] . ' ' . $item['em_ten'] . '\')"><i class="icon-star"></i> Khen thưởng</a>
                                         </li>
                                         <li role="presentation">
-                                            <a role="menuitem" tabindex="-1" data-toggle="modal" href="#mdKyLuat" title="Kỷ luật" onclick="loadFormKyLuat(' . $item->em_id . ', \'' . $item->em_ho . ' ' . $item->em_ten . '\')"><i class="icon-exclamation-sign"></i> Kỷ luật</a>
+                                            <a role="menuitem" tabindex="-1" data-toggle="modal" href="#mdKyLuat" title="Kỷ luật" onclick="loadFormKyLuat(' . $item['em_id'] . ', \'' . $item['em_ho'] . ' ' . $item['em_ten'] . '\')"><i class="icon-exclamation-sign"></i> Kỷ luật</a>
                                         </li>
                                         <li role="presentation">
-                                            <a role="menuitem" tabindex="-1" href="' . $this->baseUrl('tochuccanbo/employees/thongke/id/' . $item->em_id . '/page/' . $this->arrParam['page']) . '" title="Thống kê"><i class="icon-tasks"></i> Thống kê</a>
+                                            <a role="menuitem" tabindex="-1" href="' . $this->baseUrl('tochuccanbo/employees/thongke/id/' . $item['em_id'] . '/page/' . $this->arrParam['page']) . '" title="Thống kê"><i class="icon-tasks"></i> Thống kê</a>
                                         </li>
                                         <li role="presentation">
-                                            <a role="menuitem" tabindex="-1" data-toggle="modal" href="#mdThongBao" title="Gửi thông báo" onclick="loadFormThongBao(' . $item->em_id . ', \'' . $item->em_ho . ' ' . $item->em_ten . '\')"><i class="icon-envelope"></i> Gửi thông báo</a>
+                                            <a role="menuitem" tabindex="-1" data-toggle="modal" href="#mdThongBao" title="Gửi thông báo" onclick="loadFormThongBao(' . $item['em_id'] . ', \'' . $item['em_ho'] . ' ' . $item['em_ten'] . '\')"><i class="icon-envelope"></i> Gửi thông báo</a>
                                         </li>                                        
                                         <!--<li role="presentation">
-                                            <a role="menuitem" tabindex="-1" href="' . $this->baseUrl('tochuccanbo/inluong/index/id/' . $item->em_id) . '" title="In Lương"><i class="icon-calendar"></i> In Lương</a>
+                                            <a role="menuitem" tabindex="-1" href="' . $this->baseUrl('tochuccanbo/inluong/index/id/' . $item['em_id']) . '" title="In Lương"><i class="icon-calendar"></i> In Lương</a>
                                         </li>-->
                                         <li role="presentation">
-                                            <a role="menuitem" tabindex="-1" href="' . $this->baseUrl('tochuccanbo/employees/printer/id/' . $item->em_id) . '" title="In thông tin" target="_blank"><i class="icon-calendar"></i> In Thông Tin</a>
+                                            <a role="menuitem" tabindex="-1" href="' . $this->baseUrl('tochuccanbo/employees/printer/id/' . $item['em_id']) . '" title="In thông tin" target="_blank"><i class="icon-calendar"></i> In Thông Tin</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -359,110 +359,110 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
 
 <script type="text/javascript">
     jQuery(function($) {
-        $('#kt_money').autoNumeric('init');    
-        $('#kl_money').autoNumeric('init');    
+        $('#kt_money').autoNumeric('init');
+        $('#kl_money').autoNumeric('init');
     });
-    
-    function on_choose_phong_ban(){
+
+    function on_choose_phong_ban() {
         var phong_ban = $('#sl_phong_ban').val();
-        window.location = site_url+'/tochuccanbo/employees/index/phongban/'+phong_ban;
+        window.location = site_url + '/tochuccanbo/employees/index/phongban/' + phong_ban;
     }
-    
-    function loadFormHeSo(em_id){
+
+    function loadFormHeSo(em_id) {
         $('#mdHeSoBody').html('Đang lấy dữ liệu, vui lòng chờ trong giây lát....');
-        $('#mdHeSoBody').load(site_url+'/tochuccanbo/employees/heso/id/'+em_id, function(){            
+        $('#mdHeSoBody').load(site_url + '/tochuccanbo/employees/heso/id/' + em_id, function() {
         });
     }
-    
-    function loadFormPhuCap(em_id){
+
+    function loadFormPhuCap(em_id) {
         $('#mdPhuCapBody').html('Đang lấy dữ liệu, vui lòng chờ trong giây lát....');
-        $('#mdPhuCapBody').load(site_url+'/tochuccanbo/employees/phucap/id/'+em_id, function(){            
+        $('#mdPhuCapBody').load(site_url + '/tochuccanbo/employees/phucap/id/' + em_id, function() {
         });
     }
-    
-    function update_he_so_nhan_vien(){  
+
+    function update_he_so_nhan_vien() {
         var em_id = $('#pc_cap_nhat_em_id').val();
-        $.post( site_url+'/tochuccanbo/employees/heso/id/'+em_id, $('#frm_update_heso').serialize(), function(data) {
+        $.post(site_url + '/tochuccanbo/employees/heso/id/' + em_id, $('#frm_update_heso').serialize(), function(data) {
             $('#mdHeSoBody').html(data);
-        });       
+        });
     }
-    
-    function update_phu_cap_nhan_vien(){  
+
+    function update_phu_cap_nhan_vien() {
         var em_id = $('#pc_cap_nhat_pc_em_id').val();
-        $.post( site_url+'/tochuccanbo/employees/phucap/id/'+em_id, $('#frm_update_phucap').serialize(), function(data) {
+        $.post(site_url + '/tochuccanbo/employees/phucap/id/' + em_id, $('#frm_update_phucap').serialize(), function(data) {
             $('#mdPhuCapBody').html(data);
-        });       
+        });
     }
-    
-    function change_tham_niem(){
+
+    function change_tham_niem() {
         var tn_thang = $('#eh_tham_nien_thang').val();
-        var tn_nam = $('#eh_tham_nien_nam').val();        
-        
+        var tn_nam = $('#eh_tham_nien_nam').val();
+
         var currentYear = (new Date).getFullYear();
-        var currentMonth = (new Date).getMonth()+1;
-        
+        var currentMonth = (new Date).getMonth() + 1;
+
         var tham_nien = currentYear - tn_nam;
-        if(currentMonth<tn_thang){
+        if (currentMonth < tn_thang) {
             tham_nien--;
         }
-        
-            if (tham_nien < 5)
-                tham_nien = 0;        
-        
+
+        if (tham_nien < 5)
+            tham_nien = 0;
+
         $('#eh_pc_tham_nien').val(tham_nien);
-        
+
     }
-    
-    function change_bac_luong(element, id_ngach_cong_chuc){
+
+    function change_bac_luong(element, id_ngach_cong_chuc) {
         $.blockUI({
             message: '<h3>Đang thực hiện</h3>',
-            css: {                         
-                border: 'none', 
-                padding: '15px', 
-                backgroundColor: '#000', 
-                '-webkit-border-radius': '10px', 
-                '-moz-border-radius': '10px', 
-                opacity: .5, 
+            css: {
+                border: 'none',
+                padding: '15px',
+                backgroundColor: '#000',
+                '-webkit-border-radius': '10px',
+                '-moz-border-radius': '10px',
+                opacity: .5,
                 color: '#fff'
             },
             baseZ: 2000
         });
         var bl_id = $(element).val();
-        $.getJSON( site_url+'/tochuccanbo/employees/jqbacluong/id/'+bl_id+'/ncc/'+id_ngach_cong_chuc, function( data ) {  
-            if(data.status){
+        $.getJSON(site_url + '/tochuccanbo/employees/jqbacluong/id/' + bl_id + '/ncc/' + id_ngach_cong_chuc, function(data) {
+            if (data.status) {
                 $('#eh_he_so').val(data.data);
-            }  
-            $.unblockUI();            
+            }
+            $.unblockUI();
         });
     }
-    
-    function loadFormLuanChuyen(em_id){
+
+    function loadFormLuanChuyen(em_id) {
         $('#mdLuanChuyenBody').html('Đang tải dữ liệu...');
-        $('#mdLuanChuyenBody').load(site_url+'/tochuccanbo/employees/formluanchuyen/id/'+em_id, function(){            
+        $('#mdLuanChuyenBody').load(site_url + '/tochuccanbo/employees/formluanchuyen/id/' + em_id, function() {
         });
         $('#btn_luan_chuyen').show();
     }
-    
-    
-    function postFormLuanChuyen(){   
+
+
+    function postFormLuanChuyen() {
         var em_id = $('#lc_em_id').val();
-        $.post( site_url+'/tochuccanbo/employees/formluanchuyen/id/'+em_id, $('#fr_luan_chuyen').serialize(), function(data) {
+        $.post(site_url + '/tochuccanbo/employees/formluanchuyen/id/' + em_id, $('#fr_luan_chuyen').serialize(), function(data) {
             $('#mdLuanChuyenBody').html(data);
-        });   
+        });
     }
-    
-    
-    function loadFormKyLuat(em_id, em_name){        
+
+
+    function loadFormKyLuat(em_id, em_name) {
         $('#mdKyLuatBody #kl_cap_nhat_id').val(em_id);
-        $('#mdKyLuatBody #kl_can_bo').html('<strong>'+em_name+'</strong>');
+        $('#mdKyLuatBody #kl_can_bo').html('<strong>' + em_name + '</strong>');
         tinyMCE.get('kl_chi_tiet').setContent('');
         $('#mdKyLuatBody #kl_ly_do').val('');
         $('#mdKyLuatBody #kl_money').val('0');
         $('#dv_ky_luat_success').hide();
         $('#dv_ky_luat_error').hide();
     }
-    
-    function postFormKyLuat(){   
+
+    function postFormKyLuat() {
         $('#dv_ky_luat_success').hide();
         $('#dv_ky_luat_error').hide();
         var em_id = $('#mdKyLuatBody #kl_cap_nhat_id').val();
@@ -470,43 +470,43 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
         var kl_content = tinyMCE.get('kl_chi_tiet').getContent();
         var kl_day = $('#mdKyLuatBody #kl_ngay_khen_thuong').val();
         var kl_month = $('#mdKyLuatBody #kl_thang_khen_thuong').val();
-        var kl_year = $('#mdKyLuatBody #kl_nam_khen_thuong').val();   
+        var kl_year = $('#mdKyLuatBody #kl_nam_khen_thuong').val();
         //var kl_money = $('#mdKyLuatBody #kl_money').val();   
-        var kl_money = $('#mdKyLuatBody #kl_money').autoNumeric('get');   
-        if(kl_title !='' && kl_content!=''){
-            $.post( site_url+'/tochuccanbo/employees/jqkyluat', {
-                em_id: em_id, 
-                kl_date_day: kl_day, 
+        var kl_money = $('#mdKyLuatBody #kl_money').autoNumeric('get');
+        if (kl_title != '' && kl_content != '') {
+            $.post(site_url + '/tochuccanbo/employees/jqkyluat', {
+                em_id: em_id,
+                kl_date_day: kl_day,
                 kl_date_month: kl_month,
                 kl_date_year: kl_year,
                 kl_money: kl_money,
                 kl_ly_do: kl_title,
                 kl_chi_tiet: kl_content
             }, function(data) {
-                if(data.status){
+                if (data.status) {
                     $('#dv_ky_luat_success').show();
                     tinyMCE.get('kl_chi_tiet').setContent('');
                     $('#mdKyLuatBody #kl_ly_do').val('');
-                }else{
+                } else {
                     $('#dv_ky_luat_error').show();
                 }
             }, 'json');
-        }else{
+        } else {
             alert('Bạn phải nhập đầy đủ lý do và nội dung kỷ luật!');
         }
     }
-    
-    function loadFormKhenThuong(em_id, em_name){        
+
+    function loadFormKhenThuong(em_id, em_name) {
         $('#mdKhenThuongBody #kt_cap_nhat_id').val(em_id);
-        $('#mdKhenThuongBody #kt_can_bo').html('<strong>'+em_name+'</strong>');
+        $('#mdKhenThuongBody #kt_can_bo').html('<strong>' + em_name + '</strong>');
         tinyMCE.get('kt_chi_tiet').setContent('');
         $('#mdKhenThuongBody #kt_ly_do').val('');
         $('#mdKhenThuongBody #kt_money').val('0');
         $('#dv_khen_thuong_success').hide();
         $('#dv_khen_thuong_error').hide();
     }
-    
-    function postFormKhenThuong(){   
+
+    function postFormKhenThuong() {
         $('#dv_khen_thuong_success').hide();
         $('#dv_khen_thuong_error').hide();
         var em_id = $('#mdKhenThuongBody #kt_cap_nhat_id').val();
@@ -514,66 +514,66 @@ foreach ($this->list_chuc_vu as $chuc_vu) {
         var kt_content = tinyMCE.get('kt_chi_tiet').getContent();
         var kt_day = $('#mdKhenThuongBody #kt_ngay_khen_thuong').val();
         var kt_month = $('#mdKhenThuongBody #kt_thang_khen_thuong').val();
-        var kt_year = $('#mdKhenThuongBody #kt_nam_khen_thuong').val(); 
+        var kt_year = $('#mdKhenThuongBody #kt_nam_khen_thuong').val();
         //var kt_money = $('#mdKhenThuongBody #kt_money').val(); 
-        var kt_money = $('#mdKhenThuongBody #kt_money').autoNumeric('get'); 
-        
-        if(kt_title !='' && kt_content!=''){
-            $.post( site_url+'/tochuccanbo/employees/jqkhenthuong', { 
-                em_id: em_id, 
-                kt_date_day: kt_day, 
+        var kt_money = $('#mdKhenThuongBody #kt_money').autoNumeric('get');
+
+        if (kt_title != '' && kt_content != '') {
+            $.post(site_url + '/tochuccanbo/employees/jqkhenthuong', {
+                em_id: em_id,
+                kt_date_day: kt_day,
                 kt_date_month: kt_month,
                 kt_date_year: kt_year,
                 kt_money: kt_money,
                 kt_ly_do: kt_title,
                 kt_chi_tiet: kt_content
-            }, function( data ) {
-                if(data.status){
+            }, function(data) {
+                if (data.status) {
                     $('#dv_khen_thuong_success').show();
                     tinyMCE.get('kt_chi_tiet').setContent('');
                     $('#mdKhenThuongBody #kt_ly_do').val('');
-                }else{
+                } else {
                     $('#dv_khen_thuong_error').show();
                 }
             }, 'json');
-        }else{
+        } else {
             alert('Bạn phải nhập đầy đủ lý do và nội dung khen thưởng!');
         }
     }
-    
-    function loadFormThongBao(em_id, em_name){        
+
+    function loadFormThongBao(em_id, em_name) {
         $('#mdThongBaoBody #tb_cap_nhat_id').val(em_id);
-        $('#mdThongBaoBody #tb_can_bo').html('<strong>'+em_name+'</strong>');
+        $('#mdThongBaoBody #tb_can_bo').html('<strong>' + em_name + '</strong>');
         tinyMCE.get('tb_noi_dung').setContent('');
         $('#mdThongBaoBody #tb_tieu_de').val('');
         $('#dv_thong_bao_success').hide();
         $('#dv_thong_bao_error').hide();
     }
-    
-    function postFormThongBao(){   
+
+    function postFormThongBao() {
         $('#dv_thong_bao_success').hide();
         $('#dv_thong_bao_error').hide();
         var em_id = $('#mdThongBaoBody #tb_cap_nhat_id').val();
         var tb_title = $('#mdThongBaoBody #tb_tieu_de').val();
         var tb_content = tinyMCE.get('tb_noi_dung').getContent();
-        if(tb_title !='' && tb_content!=''){
+        if (tb_title != '' && tb_content != '') {
             $("#btn_gui_thong_bao").attr("disabled", "disabled");
-            $.post( site_url+'/canhan/thongbao/jqnewtb', {
-                em_id: em_id, 
-                tb_title: tb_title, 
+            $.post(site_url + '/canhan/thongbao/jqnewtb', {
+                em_id: em_id,
+                tb_title: tb_title,
                 tb_content: tb_content
-            }, function(data) {   
+            }, function(data) {
                 $("#btn_gui_thong_bao").removeAttr("disabled");
-                if(data.status){
+                if (data.status) {
                     $('#dv_thong_bao_success').show();
                     tinyMCE.get('tb_noi_dung').setContent('');
                     $('#mdThongBaoBody #tb_tieu_de').val('');
-                }else{
+                } else {
                     $('#dv_thong_bao_error').show();
                 }
             }, 'json');
-        }else{
+        } else {
             alert('Bạn phải nhập đầy đủ tiêu đề và nội dung!');
-        }         
+        }
     }
 </script>

@@ -72,10 +72,10 @@ class Tochuccanbo_PhanloainamController extends Zend_Controller_Action {
 
         if (!$pb_selected) {
             //$list_employees = $emModel->fetchData(array('em_delete' => 0));
-            $list_employees = $emModel->getListNhanVienDanhSachTheoChucVu();
+            $list_employees = $emModel->callGetListNhanVien();
         } else {
             //$select = $emModel->select()->where('em_phong_ban in (?)', $pb_ids);
-            $list_employees = $emModel->getListNhanVienTheoChucVu($pb_ids);
+            $list_employees = $emModel->callGetListNhanVien($pb_ids);
         }
 
         $tieuchiModel = new Front_Model_TieuChiDanhGiaCB();
@@ -129,17 +129,17 @@ class Tochuccanbo_PhanloainamController extends Zend_Controller_Action {
                             ));
                     $objPHPExcel->getActiveSheet()->SetCellValue('A' . ($k + 7), $phong_ban_info->pb_name);
                     foreach ($list_employees as $nhan_vien) {
-                        if ($phong_ban_info->pb_id == $nhan_vien->em_phong_ban) {
+                        if ($phong_ban_info->pb_id == $nhan_vien['em_phong_ban']) {
                             $stt_1++;
                             $k++;
                             $stt++;
                             $objPHPExcel->getActiveSheet()->SetCellValue('A' . ($k + 7), $stt);
                             $objPHPExcel->getActiveSheet()->SetCellValue('B' . ($k + 7), $stt_1);
-                            $objPHPExcel->getActiveSheet()->SetCellValue('C' . ($k + 7), $nhan_vien->em_ho . ' ' . $nhan_vien->em_ten);
-                            $objPHPExcel->getActiveSheet()->SetCellValue('D' . ($k + 7), $list_chuc_vu[$nhan_vien->em_chuc_vu]);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('C' . ($k + 7), $nhan_vien['em_ho'] . ' ' . $nhan_vien['em_ten']);
+                            $objPHPExcel->getActiveSheet()->SetCellValue('D' . ($k + 7), $list_chuc_vu[$nhan_vien['em_chuc_vu']]);
 
                             for ($n = 1; $n <= 12; $n++) {
-                                $phan_loai = $this->view->viewGetPhanLoai($nhan_vien->em_id, (int) $n, (int) $nam);
+                                $phan_loai = $this->view->viewGetPhanLoai($nhan_vien['em_id'], (int) $n, (int) $nam);
                                 $pl_ptccb = '';
                                 if ($phan_loai) {
                                     if ($phan_loai->dg_ptccb_status != 'O')

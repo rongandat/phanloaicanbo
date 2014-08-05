@@ -74,10 +74,10 @@ for ($i = 2000; $i <= 2050; $i++) {
                 <?php
                 foreach ($this->list_nhan_vien as $nhan_vien) {
                     echo '<tr>';
-                    echo '<td>' . $nhan_vien->em_ho . ' ' . $nhan_vien->em_ten . '</td>';
-                    echo '<td>' . $this->list_chuc_vu[$nhan_vien->em_chuc_vu] . '</td>';
+                    echo '<td>' . $nhan_vien['em_ho'] . ' ' . $nhan_vien['em_ten'] . '</td>';
+                    echo '<td>' . $this->list_chuc_vu[$nhan_vien['em_chuc_vu']] . '</td>';
                     for ($i = 1; $i <= 12; $i++) {
-                        $phan_loai = $this->viewGetPhanLoai($nhan_vien->em_id, $i, (int) $this->nam);
+                        $phan_loai = $this->viewGetPhanLoai($nhan_vien['em_id'], $i, (int) $this->nam);
                         $rd_id = rand(1000000, 9999999);
                         $pl_ptccb = '';
                         if ($phan_loai) {

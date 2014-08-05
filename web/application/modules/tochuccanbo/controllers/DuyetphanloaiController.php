@@ -66,10 +66,10 @@ class Tochuccanbo_DuyetphanloaiController extends Zend_Controller_Action {
 
         if (!$pb_selected) {
             //$list_employees = $emModel->fetchData(array('em_delete' => 0));
-            $list_employees = $emModel->getListNhanVienDanhSachTheoChucVu();
+            $list_employees = $emModel->callGetListNhanVien();
         } else {
             //$select = $emModel->select()->where('em_phong_ban in (?)', $pb_ids);
-            $list_employees = $emModel->getListNhanVienTheoChucVu($pb_ids);
+            $list_employees = $emModel->callGetListNhanVien($pb_ids);
         }
 
         $tieuchiModel = new Front_Model_TieuChiDanhGiaCB();

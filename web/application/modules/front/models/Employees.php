@@ -33,6 +33,19 @@ class Front_Model_Employees extends Zend_Db_Table_Abstract {
         return $this->fetchAll($select);
     }
 
+    public function callGetListNhanVien($phong_ban = array()){      
+        
+        $db = Zend_Db_Table::getDefaultAdapter();
+        if($phong_ban){
+            $list_selected_phong_ban = implode(',', $phong_ban);
+            $stmt = $db->query("call getListNhanVien($list_selected_phong_ban);");
+        }else{
+            $stmt = $db->query('call getListNhanVien("");');
+        }         
+        $rows = $stmt->fetchAll();
+        return $rows;
+    }
+    
     public function getListNhanVienDanhSachTheoChucVu($filters = array()) {
         $select = $this->select(Zend_Db_Table::SELECT_WITH_FROM_PART);
         $select->setIntegrityCheck(false)
@@ -47,7 +60,7 @@ class Front_Model_Employees extends Zend_Db_Table_Abstract {
         $select->order(TABLE_CHUCVU . '.cv_order asc');
         return $this->fetchAll($select);
     }
-
+    
     public function getListNhanVienTheoChucVu($list_phong_ban = array()) {
 
         $select = $this->select(Zend_Db_Table::SELECT_WITH_FROM_PART);
