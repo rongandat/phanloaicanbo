@@ -61,10 +61,10 @@ class Taivu_EmployeesController extends Zend_Controller_Action {
         
         $employeesModel = new Front_Model_Employees();
         if (!$pb_selected) {
-            $list_employees = $employeesModel->getListNhanVienDanhSachTheoChucVu();
+            $list_employees = $employeesModel->callGetListNhanVien();
         } else {
             //$select = $employeesModel->select()->where('em_phong_ban in (?)', $pb_ids);
-            $list_employees = $employeesModel->getListNhanVienTheoChucVu($pb_ids);
+            $list_employees = $employeesModel->callGetListNhanVien($pb_ids);
         }
         $paginator = Zend_Paginator::factory($list_employees);
         $paginator->setItemCountPerPage(NUM_PER_PAGE);
